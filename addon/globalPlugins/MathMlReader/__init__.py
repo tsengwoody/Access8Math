@@ -7,30 +7,27 @@ Base_Dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.insert(0, Base_Dir)
 import cgi
 import HTMLParser
-
-import globalCommands
-import globalPlugins
-import globalVars
-import scriptHandler
-import config
-import controlTypes
-import characterProcessing
-import appModuleHandler
-import globalPluginHandler
-import ui
-import tones
-import speech
-import api
-import textInfos
-import textInfos.offsets
-from logHandler import log
 import xml
-
 from xml.etree import ElementTree as ET
 
-from A8M_PM import *
-from mathPres.mathPlayer import MathPlayer
+import addonHandler
+addonHandler.initTranslation()
+import api
+import config
+import globalPlugins
+import globalPluginHandler
+import globalVars
+from keyboardHandler import KeyboardInputGesture
+from logHandler import log
 import mathPres
+from mathPres.mathPlayer import MathPlayer
+import speech
+import textInfos
+import textInfos.offsets
+import tones
+import ui
+
+from A8M_PM import *
 
 #globalVars.appArgs.configPath
 
@@ -92,15 +89,17 @@ class MathMlTextInfo(textInfos.offsets.OffsetsTextInfo):
 
 class MathMlReader(mathPres.MathPresentationProvider):
 
-	def __init__(self):
-		pass
-
 	def getSpeechForMathMl(self, mathMl):
-#		mathMl = HTMLParser.HTMLParser().unescape(mathMl)
+		gtlt_pattern = re.compile(ur"([\>])(.*?)([\<])")
+		mathMl = gtlt_pattern.sub(lambda m: m.group(1) +cgi.escape(HTMLParser.HTMLParser().unescape(m.group(2))) +m.group(3), mathMl)
 		quote_pattern = re.compile(ur"([\"\'])(.*?)\1")
-		mathMl = quote_pattern.sub(lambda m: cgi.escape(m.group(0)), mathMl)
+		mathMl = quote_pattern.sub(lambda m: m.group(1) +cgi.escape(m.group(2)) +m.group(1), mathMl)
 		parser = ET.XMLParser()
-		tree = ET.fromstring(mathMl.encode('utf-8'), parser=parser)
+		try:
+			tree = ET.fromstring(mathMl.encode('utf-8'), parser=parser)
+		except BaseException as e:
+			globalVars.raw_data = mathMl
+			raise SystemError(e)
 		node = create_node(tree)
 		globalVars.nodes = node
 		return translate_SpeechCommand(node.serialized())
@@ -108,19 +107,23 @@ class MathMlReader(mathPres.MathPresentationProvider):
 	def interactWithMathMl(self, mathMl):
 		MathMlReaderInteraction(provider=self, mathMl=mathMl).setFocus()
 
-from keyboardHandler import KeyboardInputGesture
 class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 
 	def __init__(self, provider=None, mathMl=None):
 		super(MathMlReaderInteraction, self).__init__(provider=provider, mathMl=mathMl)
-#		mathMl = HTMLParser.HTMLParser().unescape(mathMl)
+		gtlt_pattern = re.compile(ur"([\>])(.*?)([\<])")
+		mathMl = gtlt_pattern.sub(lambda m: m.group(1) +cgi.escape(HTMLParser.HTMLParser().unescape(m.group(2))) +m.group(3), mathMl)
 		quote_pattern = re.compile(ur"([\"\'])(.*?)\1")
-		mathMl = quote_pattern.sub(lambda m: cgi.escape(m.group(0)), mathMl)
+		mathMl = quote_pattern.sub(lambda m: m.group(1) +cgi.escape(m.group(2)) +m.group(1), mathMl)
 		parser = ET.XMLParser()
 		'''parser._parser.UseForeignDTD(True)
 		parser.entity['gt'] = u'>'
 		parser.entity['lt'] = u'<'''
-		tree = ET.fromstring(mathMl.encode('utf-8'), parser=parser)
+		try:
+			tree = ET.fromstring(mathMl.encode('utf-8'), parser=parser)
+		except BaseException as e:
+			globalVars.raw_data = mathMl
+			raise SystemError(e)
 		self.mathml_tree = self.pointer = create_node(tree)
 		self.raw_data = mathMl
 		api.setReviewPosition(MathMlTextInfo(self.pointer, textInfos.POSITION_FIRST), False)
@@ -159,16 +162,16 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 			globalVars.math_root = self.mathml_tree
 			globalVars.math_node = self.pointer
 			globalVars.math_ser = translate_Unicode(self.pointer.serialized())
-			speech.speak(['copy',])
+			speech.speak([_("copy"),])
 
 		if r is not None:
 			self.pointer = r
 			api.setReviewPosition(MathMlTextInfo(self.pointer, textInfos.POSITION_FIRST), False)
-			if gesture.mainKeyName == "leftArrow" or gesture.mainKeyName == "rightArrow":
-				speech.speak(self.pointer.des)
+#			if gesture.mainKeyName == "leftArrow" or gesture.mainKeyName == "rightArrow":
+			speech.speak(self.pointer.des)
 			speech.speak(translate_SpeechCommand(self.pointer.serialized()))
 		else:
-			speech.speak(['not move'])
+			speech.speak([_("not move")])
 
 provider_list = ['MathMlReader', 'MathPlayer']
 try:

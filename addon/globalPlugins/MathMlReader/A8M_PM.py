@@ -14,52 +14,19 @@ def create_node(et):
 	except:
 		mp_tag = et.tag
 
-	nonterminal_tag = [
-		'math',
-		'mfrac',
-		'mfenced',
-		'msqrt',
-		'mroot',
-		'msubsup',
-		'msub',
-		'msup',
-		'munderover',
-		'munder',
-		'mover',
-		'mtable',
-		'mtr',
-		'mtd',
-		'mmultiscripts',
-		'mprescripts',
-	]
-	terminal_tag = ['mi', 'mn', 'mo', 'mtext', 'mspace', 'ms',]
-	block_tag = [
-		'mrow',
-		'mstyle',
-	]
+	node_class = nodes[mp_tag.capitalize()] if mp_tag.capitalize() in nodes.keys() else object
 
-	#node_class = nodes[mp_tag.capitalize()]
-	if mp_tag in nonterminal_tag or (mp_tag in block_tag and len(et)>1):
-	#if issubclass(node_class, NonTerminalNode) or (issubclass(node_class, BlockNode) and len(et)>1):
-
+	if issubclass(node_class, NonTerminalNode) or (issubclass(node_class, BlockNode) and len(et)>1):
 		child = []
 		for c in et:
 			node = create_node(c)
 			child.append(node)
-		exec(
-			'node = {0}(child, et.attrib)'.format(mp_tag.capitalize())
-		)
-		#node = node_class(child, et.attrib)
+		node = node_class(child, et.attrib)
 
-	elif mp_tag in terminal_tag:
-	#elif issubclass(node_class, TerminalNode):
-		exec(
-			'node = {0}([], et.attrib, data=et.text)'.format(mp_tag.capitalize())
-		)
-		#node = node_class([], et.attrib, data=et.text)
+	elif issubclass(node_class, TerminalNode):
+		node = node_class([], et.attrib, data=et.text)
 
-	elif mp_tag in block_tag and len(et) == 1:
-	#elif issubclass(node_class, BlockNode) and len(et) == 1:
+	elif issubclass(node_class, BlockNode) and len(et) == 1:
 		node = create_node(et[0])
 	elif mp_tag == 'none':
 		node = Nones()
@@ -78,7 +45,7 @@ class Node(object):
 			if isinstance(c, Node):
 				c.parent = self
 		self.attrib = attrib
-		self.data = data
+		self.data = data if data else u''
 		self.type = None
 		for nodetype in nodetypes:
 			if nodetype.check(self) and nodetype.name in math_rule:
@@ -141,7 +108,7 @@ class Node(object):
 
 	@property
 	def des(self):
-		return self.parent.role[self.index_in_parent()]
+		return self.parent.role[self.index_in_parent()] if self.parent else u'數學'
 
 	@property
 	def name(self):
@@ -401,10 +368,7 @@ class NodeType(object):
 
 		#check attrib
 		for key, value in cls.attrib.items():
-			try:
-				if not value.search(obj.attrib[key]) is not None:
-					return False
-			except:
+			if not value.search(obj.attrib[key]) is not None:
 				return False
 
 		#check child
