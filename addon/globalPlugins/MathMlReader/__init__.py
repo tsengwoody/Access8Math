@@ -173,23 +173,31 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 		else:
 			speech.speak([_("not move")])
 
-provider_list = ['MathMlReader', 'MathPlayer']
-try:
-	provider = config.conf["MMR"]["provider"]
-except KeyError:
-	config.conf["MMR"] = {}
-	config.conf["MMR"]["version"] = "1.0"
-	config.conf["MMR"]["provider"] = "MathMlReader"
+provider_list = [
+	u"MathMlReader",
+	u"MathPlayer"
+]
 
-if config.conf["MMR"]["provider"] == provider_list[0]:
-	reader = MathMlReader()
-	config.conf["MMR"]["provider"] = provider_list[0]
-elif config.conf["MMR"]["provider"] == provider_list[1]:
-	reader = MathPlayer()
-	config.conf["MMR"]["provider"] = provider_list[1]
-else:
-	reader = MathMlReader()
-	config.conf["MMR"]["provider"] = provider_list[0]
+try:
+	provider = config.conf["Access8Math"]["provider"]
+	if not provider in provider_list:
+		raise ValueError()
+except ValueError:
+	config.conf["Access8Math"]["provider"] = provider = "MathMlReader"
+except KeyError:
+	config.conf["Access8Math"] = {}
+	config.conf["Access8Math"]["version"] = "0.1"
+	config.conf["Access8Math"]["provider"] = provider = "MathMlReader"
+
+try:
+	exec(
+		'reader = {}()'.format(provider)
+	)
+	config.conf["Access8Math"]["provider"] = reader.__class__.__name__
+except:
+	log.warning("{} not available".format(provider_list[index]))
+
+mathPres.registerProvider(reader, speech=True, braille=False, interaction=True)
 
 mathPres.registerProvider(reader, speech=True, braille=False, interaction=True)
 
@@ -201,14 +209,16 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		sys.modules['xml'] = globalPlugins.MathMlReader.xml
 
 	def script_change_provider(self, gesture):
-		if config.conf["MMR"]["provider"] == provider_list[1]:
-			reader = MathMlReader()
-			config.conf["MMR"]["provider"] = provider_list[0]
-		elif config.conf["MMR"]["provider"] == provider_list[0]:
-			reader = MathPlayer()
-			config.conf["MMR"]["provider"] = provider_list[1]
+		index = (provider_list.index(config.conf["Access8Math"]["provider"]) +1)% len(provider_list)
+		try:
+			exec(
+				'reader = {}()'.format(provider_list[index])
+			)
+			config.conf["Access8Math"]["provider"] = reader.__class__.__name__
+		except:
+			log.warning("{} not available".format(provider_list[index]))
 		mathPres.registerProvider(reader, speech=True, braille=False, interaction=True)
-		ui.message(_("mathml provider change to {0}".format(config.conf["MMR"]["provider"])))
+		ui.message(_("mathml provider change to {0}".format(config.conf["Access8Math"]["provider"])))
 
 	__gestures={
 		"kb:control+alt+m": "change_provider",

@@ -2,8 +2,144 @@
 *	乘	none
 -	減	none
 ±	加減	none
-Δ	delta	none
-β	beta	none
+
+#0370−03FF
+Ͱ	Heta	none
+ͱ	Heta	none
+Ͳ	Archaic Sampi	none
+ͳ	Archaic Sampi	none
+ʹ	Numeral Sign	none
+͵	Lower Numeral Sign	none
+Ͷ	Pamphylian Digamma	none
+ͷ	Pamphylian Digamma	none
+ͺ	Ypogegrammeni	none
+ͻ	Reversed Lunate Sigma 	none
+ͼ	Dotted Lunate Sigma 	none
+ͽ	Reversed Dotted Lunate Sigma 	none
+;	Question Mark	none
+Ϳ	Yot	none
+΄	Tonos	none
+΅	Dialytika Tonos	none
+Ά	Alpha with Tonos	none
+·	Ano Teleia	none
+Έ	Epsilon with Tonos	none
+Ή	Eta with Tonos	none
+Ί	Iota with Tonos	none
+Ό	Omicron with Tonos	none
+Ύ	Upsilon with Tonos	none
+Ώ	Omega with Tonos	none
+ΐ	Iota with Dialytika and Tonos	none
+Α	Alpha	none
+Β	Beta	none
+Γ	Gamma	none
+Δ	Delta	none
+Ε	Epsilon	none
+Ζ	Zeta	none
+Η	Eta	none
+Θ	Theta	none
+Ι	Lota	none
+Κ	Kappa	none
+Λ	Lamda	none
+Μ	Mu	none
+Ν	Nu	none
+Ξ	Xi	none
+Ο	Omicron	none
+Π	Pi	none
+Ρ	Rho	none
+Σ	Sigma	none
+Τ	Tau	none
+Υ	Upsilon	none
+Φ	Phi	none
+Χ	Chi	none
+Ψ	Psi	none
+Ω	Omega	none
+Ϊ	Iota with Dialytika	none
+Ϋ	Upsilon with Dialytika	none
+ά	Alpha with Tonos	none
+έ	Epsilon with Tonos	none
+ή	Eta with Tonos	none
+ί	Iota with Tonos	none
+ΰ	Upsilon with Dialytika and Tonos	none
+α	Alpha	none
+β	Beta	none
+γ	Gamma	none
+δ	Delta	none
+ε	Epsilon	none
+ζ	Zeta	none
+η	Eta	none
+θ	Theta	none
+ι	Lota	none
+κ	Kappa	none
+λ	Lamda	none
+μ	Mu	none
+ν	Nu	none
+ξ	Xi	none
+ο	Omicron	none
+π	Pi	none
+ρ	Rho	none
+ς	Final Sigma	none
+σ	Sigma	none
+τ	Tau	none
+υ	Upsilon	none
+φ	Phi	none
+χ	Chi	none
+ψ	Psi	none
+ω	Omega	none
+ϊ	Iota with Dialytika	none
+ϋ	Upsilon with Dialytika	none
+ό	Omicron with Tonos	none
+ύ	Upsilon with Tonos	none
+ώ	Omega with Tonos	none
+Ϗ	Kai 	none
+ϐ	Beta	none
+ϑ	Theta	none
+ϒ	Upsilon with Hook 	none
+ϓ	Upsilon with Acute and Hook 	none
+ϔ	Upsilon with Diaeresis and Hook 	none
+ϕ	Phi	none
+ϖ	Pi	none
+ϗ	Kai	none
+Ϙ	Koppa	none
+ϙ	Koppa	none
+Ϛ	Stigma	none
+ϛ	Stigma	none
+Ϝ	Diggmma	none
+ϝ	Diggmma	none
+Ϟ	Koppa	none
+ϟ	Koppa	none
+Ϡ	Sampi	none
+ϡ	Sampi	none
+Ϣ	Shei	none
+ϣ	Shei	none
+Ϥ	Fei	none
+ϥ	Fei	none
+Ϧ	Khei	none
+ϧ	Khei	none
+Ϩ	Hori	none
+ϩ	Hori	none
+Ϫ	Gangia	none
+ϫ	Gangia	none
+Ϭ	Shima	none
+ϭ	Shima	none
+Ϯ	Dei	none
+ϯ	Dei	none
+ϰ	Kappa	none
+ϱ	Rho	none
+ϲ	Lunate Sigma	none
+ϳ	Yot	none
+ϴ	Theta	none
+ϵ	Lunate Epsilon	none
+϶	Reversed Lunate Epsilon 	none
+Ϸ	Sho	none
+ϸ	Sho	none
+Ϲ	Lunate Sigma	none
+Ϻ	San	none
+ϻ	San	none
+ϼ	Rho with Stroke	none
+Ͻ	Reversed Lunate Sigma 	none
+Ͼ	Dotted Lunate Sigma 	none
+Ͽ	Reversed Dotted Lunate Sigma	none
+
 ∀	對任意的,所有的	none
 ∁	餘,補,補碼,補數,餘補	none
 ∂	偏微分	none
