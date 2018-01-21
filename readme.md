@@ -1,4 +1,4 @@
-﻿# Access8Math ReadMe
+# Access8Math ReadMe
 
 This NVDA addon provides the function of reading math content. Although the original NVDA already equipped this feature by applying MathPlayer, some functions still needed to be improved, especially reading math content in Chinese.
 
@@ -26,6 +26,10 @@ Math contents in Wiki are all written in MathML.
 
 *	Matrix multiplication: https://en.wikipedia.org/wiki/Matrix_multiplication
 *	Cubic function: https://en.wikipedia.org/wiki/Cubic_function
+
+Quadratic equation
+
+<math xmlns="http://www.w3.org/1998/Math/MathML"><mfrac><mrow><mo>-</mo><mi>b</mi><mo>&#xB1;</mo><msqrt><msup><mi>b</mi><mn>2</mn></msup><mo>-</mo><mn>4</mn><mi>a</mi><mi>c</mi></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></math>
 
 Source code: https://github.com/tsengwoody/Access8Math
 
@@ -59,6 +63,10 @@ Please report any bugs or comments, thank you!
 
 *	矩陣乘法：https://zh.wikipedia.org/zh-tw/%E7%9F%A9%E9%99%A3%E4%B9%98%E6%B3%95
 *	三次方程：https://zh.wikipedia.org/zh-tw/%E4%B8%89%E6%AC%A1%E6%96%B9%E7%A8%8B
+
+一元二次方程解
+
+<math xmlns="http://www.w3.org/1998/Math/MathML"><mfrac><mrow><mo>-</mo><mi>b</mi><mo>&#xB1;</mo><msqrt><msup><mi>b</mi><mn>2</mn></msup><mo>-</mo><mn>4</mn><mi>a</mi><mi>c</mi></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></math>
 
 原始碼：https://github.com/tsengwoody/Access8Math
 
