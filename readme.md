@@ -1,4 +1,4 @@
-﻿#Access8Math ReadMe
+﻿# Access8Math ReadMe
 
 This NVDA addon provides the function of reading math content. Although the original NVDA already equipped this feature by applying MathPlayer, some functions still needed to be improved, especially reading math content in Chinese.
 
