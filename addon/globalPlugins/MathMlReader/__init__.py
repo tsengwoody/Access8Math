@@ -26,8 +26,7 @@ import textInfos
 import textInfos.offsets
 import tones
 import ui
-
-from A8M_PM import *
+from languageHandler_custom import getAvailableLanguages
 
 #globalVars.appArgs.configPath
 
@@ -167,7 +166,6 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 		if r is not None:
 			self.pointer = r
 			api.setReviewPosition(MathMlTextInfo(self.pointer, textInfos.POSITION_FIRST), False)
-#			if gesture.mainKeyName == "leftArrow" or gesture.mainKeyName == "rightArrow":
 			speech.speak(self.pointer.des)
 			speech.speak(translate_SpeechCommand(self.pointer.serialized()))
 		else:
@@ -187,6 +185,7 @@ except ValueError:
 except KeyError:
 	config.conf["Access8Math"] = {}
 	config.conf["Access8Math"]["version"] = "0.1"
+	config.conf["Access8Math"]["language"] = language = "Windows"
 	config.conf["Access8Math"]["provider"] = provider = "MathMlReader"
 
 try:
@@ -196,10 +195,31 @@ try:
 	config.conf["Access8Math"]["provider"] = reader.__class__.__name__
 except:
 	log.warning("{} not available".format(provider_list[index]))
-
 mathPres.registerProvider(reader, speech=True, braille=False, interaction=True)
 
-mathPres.registerProvider(reader, speech=True, braille=False, interaction=True)
+try:
+	available_languages = getAvailableLanguages(path)
+	available_languages = available_languages[:-1]
+except:
+	available_languages = []
+
+available_languages.append(("Windows", _("build-in")))
+available_languages_short = [i[0] for i in available_languages]
+
+try:
+	language = config.conf["Access8Math"]["language"]
+	if not language in available_languages_short:
+		raise ValueError()
+except ValueError:
+	config.conf["Access8Math"]["language"] = language = "Windows"
+except KeyError:
+	config.conf["Access8Math"] = {}
+	config.conf["Access8Math"]["version"] = "0.1"
+	config.conf["Access8Math"]["language"] = language = "Windows"
+	config.conf["Access8Math"]["provider"] = provider = "MathMlReader"
+
+os.environ['LANGUAGE'] = language
+from A8M_PM import *
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
@@ -207,6 +227,25 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		super(GlobalPlugin, self).__init__(*args, **kwargs)
 		xml_NVDA = sys.modules['xml']
 		sys.modules['xml'] = globalPlugins.MathMlReader.xml
+
+	def script_change_next_language(self, gesture):
+		language = config.conf["Access8Math"]["language"]
+		index = (available_languages_short.index(language) +1)% len(available_languages_short)
+		config.conf["Access8Math"]["language"] = language = available_languages_short[index]
+		import A8M_PM
+		A8M_PM.symbol = A8M_PM.load_unicode_dic(language)
+		A8M_PM.math_role, A8M_PM.math_rule = A8M_PM.load_math_rule(language)
+		ui.message(_("Access8Math language change to %s")%available_languages[index][1])
+
+	def script_change_previous_language(self, gesture):
+		language = config.conf["Access8Math"]["language"]
+		index = (available_languages_short.index(language) -1)% len(available_languages_short)
+		config.conf["Access8Math"]["language"] = language = available_languages_short[index]
+		import A8M_PM
+		A8M_PM.symbol = A8M_PM.load_unicode_dic(language)
+		A8M_PM.math_role, A8M_PM.math_rule = A8M_PM.load_math_rule(language)
+		ui.message(_("Access8Math language change to %s")%available_languages[index][1])
+#		ui.message(_(u"Access8Math language change to {0}".format(available_languages[index][1])))
 
 	def script_change_provider(self, gesture):
 		index = (provider_list.index(config.conf["Access8Math"]["provider"]) +1)% len(provider_list)
@@ -218,8 +257,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		except:
 			log.warning("{} not available".format(provider_list[index]))
 		mathPres.registerProvider(reader, speech=True, braille=False, interaction=True)
-		ui.message(_("mathml provider change to {0}".format(config.conf["Access8Math"]["provider"])))
+		ui.message(_("mathml provider change to %s")%config.conf["Access8Math"]["provider"])
 
 	__gestures={
+		"kb:control+alt+l": "change_next_language",
+		"kb:control+alt+shift+l": "change_previous_language",
 		"kb:control+alt+m": "change_provider",
 	}
+
+
+'''for i,j in r:
+	log.info(i)
+	log.info(j)'''

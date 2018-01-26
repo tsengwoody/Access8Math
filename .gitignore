@@ -9,3 +9,6 @@ addon/doc/en/
 *.nvda-addon
 .sconsign.dblite
 *.pyo
+
+addon/globalPlugins/MathMlReader/*user*
+addon/globalPlugins/MathMlReader/locale/*/*user*

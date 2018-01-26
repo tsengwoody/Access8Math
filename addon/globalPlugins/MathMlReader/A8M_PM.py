@@ -16,24 +16,27 @@ def create_node(et):
 
 	node_class = nodes[mp_tag.capitalize()] if mp_tag.capitalize() in nodes.keys() else object
 
-	if issubclass(node_class, NonTerminalNode) or (issubclass(node_class, BlockNode) and len(et)>1):
+	if issubclass(node_class, NonTerminalNode) or (issubclass(node_class, BlockNode) and len(et)!=1):
 		child = []
 		for c in et:
 			node = create_node(c)
 			child.append(node)
 		node = node_class(child, et.attrib)
-
 	elif issubclass(node_class, TerminalNode):
 		node = node_class([], et.attrib, data=et.text)
-
 	elif issubclass(node_class, BlockNode) and len(et) == 1:
 		node = create_node(et[0])
 	elif mp_tag == 'none':
 		node = Nones()
-	elif mp_tag == 'semantics':
-		node = create_node(et[0])
+	#elif mp_tag == 'semantics':
+		#node = create_node(et[0])
 	else:
-		raise RuntimeError('unknown tag : {}'.format(mp_tag))
+		child = []
+		for c in et:
+			node = create_node(c)
+			child.append(node)
+		node = Node(child, et.attrib)
+		#raise RuntimeError('unknown tag : {}'.format(mp_tag))
 
 	return node
 
@@ -299,10 +302,7 @@ class Mtable(NonTerminalNode):
 		row_count = len(self.child)
 		column_count_list = [len(i.child) for i in self.child]
 		column_count = max(column_count_list)
-#		cell = rule[1:-1]
-#		head = [u'列{0}'.format(i+1) for i in rule[1:-1]]
 		table_head = [rule[0] +u'有{0}列{1}行'.format(row_count, column_count)]
-#		result = [item for sublist in zip(head, cell) for item in sublist]
 		cell = rule[1:-1]
 		table_tail = rule[-1:]
 		return table_head +cell +table_tail
@@ -504,6 +504,100 @@ class LimitType(NonTerminalNodeType):
 	child = [LimitOperatorType, ]
 	name = 'limit'
 
+def load_unicode_dic(language):
+	path = os.path.dirname(os.path.abspath(__file__))
+	if not language == 'Windows':
+		path = path +'/locale/{0}'.format(language)
+	symbol = {}
+
+	frp = os.path.join(path, 'unicode.dic')
+	frp_user = os.path.join(path, 'unicode_user.dic')
+	if not os.path.exists(frp_user):
+		with io.open(frp, 'r', encoding='utf-8') as fr, io.open(frp_user, 'w', encoding='utf-8') as fr_user:
+			fr_user.write(fr.read())
+
+	try:
+		with io.open(frp, 'r', encoding='utf-8') as fr:
+			for line in fr:
+				line = line.split('\t')
+				if len(line) >= 2:
+					symbol[line[0]] = line[1].split(',')[0].strip()
+	except:
+		pass
+	return symbol
+
+def load_math_rule(language):
+	path = os.path.dirname(os.path.abspath(__file__))
+	if not language == 'Windows':
+		path = path +'/locale/{0}'.format(language)
+	math_role = {}
+	math_rule = {}
+
+	frp = os.path.join(path, 'math.rule')
+	frp_user = os.path.join(path, 'math_user.rule')
+	if not os.path.exists(frp_user):
+		with io.open(frp, 'r', encoding='utf-8') as fr, io.open(frp_user, 'w', encoding='utf-8') as fr_user:
+			fr_user.write(fr.read())
+
+	try:
+		with io.open(frp_user, 'r', encoding='utf-8') as fr:
+			for line in fr:
+				line = line.split('\t')
+				if len(line) == 3:
+					rule = []
+					for i in line[1].split(','):
+						i = i.strip()
+						tuple_pattern = re.compile(ur'\((.*)\.(.*)\)')
+						s = tuple_pattern.search(i)
+						if s:
+							i= (s.group(1), s.group(2))
+
+						try:
+							rule.append(int(i))
+						except:
+							rule.append(i)
+					math_rule[line[0]] = rule
+
+					role = []
+					for i in line[2].split(','):
+						i = i.strip()
+						role.append(i)
+					math_role[line[0]] = role
+	except:
+		pass
+
+	return [math_role, math_rule]
+
+def save_unicode_dic(language, symbol):
+	path = os.path.dirname(os.path.abspath(__file__))
+	if not language == 'Windows':
+		path = path +'/locale/{0}'.format(language)
+
+def save_math_rule(language, math_role, math_rule):
+	path = os.path.dirname(os.path.abspath(__file__))
+	if not language == 'Windows':
+		path = path +'/locale/{0}'.format(language)
+
+	math_rule_unicode = {}
+	for k,v in math_rule.items():
+		line = [unicode(i) if not isinstance(i, tuple) else '(' +'.'.join(i) +')' for i in v]
+		line = ', '.join(line)
+		math_rule_unicode[k] = line
+
+	math_role_unicode = {}
+	for k,v in math_role.items():
+		line = ', '.join(v)
+		math_role_unicode[k] = line
+
+	fwp = os.path.join(path, 'math_user.rule')
+	with io.open(fwp, 'w', encoding='utf-8') as f:
+		key = math_rule.keys()
+		key.sort()
+		for k in key:
+			line = '\t'.join([k, math_rule_unicode[k], math_role_unicode[k]]) +'\r\n'
+			f.write(line)
+
+	return True
 import inspect
 # get class which is Node subclass
 nodes = { i.__name__: i for i in locals().values() if inspect.isclass(i) and issubclass(i, Node) }
@@ -511,54 +605,6 @@ nodes = { i.__name__: i for i in locals().values() if inspect.isclass(i) and iss
 # get class which is NodeType subclass
 nodetypes = [ i for i in locals().values() if inspect.isclass(i) and issubclass(i, NodeType) ]
 
-symbol = {}
-
-frp = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'unicode.dic')
-try:
-	with io.open(frp, 'r', encoding='utf-8') as fr:
-		for line in fr:
-			line = line.split('\t')
-			if len(line) >= 2:
-				symbol[line[0]] = line[1].split(',')[0].strip()
-except:
-	pass
-
-math_role = {}
-math_rule = {}
-
-frp = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'math.rule')
-try:
-	with io.open(frp, 'r', encoding='utf-8') as fr:
-		for line in fr:
-			line = line.split('\t')
-			if len(line) == 3:
-				rule = []
-				for i in line[1].split(','):
-					i = i.strip()
-					tuple_pattern = re.compile(ur'\((.*)\.(.*)\)')
-					s = tuple_pattern.search(i)
-					if s:
-						i= (s.group(1), s.group(2))
-
-					try:
-						rule.append(int(i))
-					except:
-						rule.append(i)
-				math_rule[line[0]] = rule
-
-				role = []
-				for i in line[2].split(','):
-					i = i.strip()
-					role.append(i)
-				math_role[line[0]] = role
-
-except:
-	pass
-
-for k in math_rule.keys():
-	if not len(math_rule[k]) == 2*len(math_role[k])+1:
-		print k
-
-#for k,v in math_rule.items():
-#	print k
-#	print v
+language = os.environ.get('LANGUAGE', 'Windows')
+symbol = load_unicode_dic(language)
+math_role, math_rule = load_math_rule(language)

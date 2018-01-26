@@ -1,4 +1,5 @@
 ﻿#
+node	, ( .*),	項
 mfrac	分數, 1, 分之, 0, 結束分數	分子,分母
 mfenced	開括號, ( .*), 閉括號	項
 msqrt	根號, ( .*), 結束根號	項
@@ -13,16 +14,15 @@ mover	, 0, 正上標, 1, 結束標記	主符號,正上標
 mtable	表格, (列.*), 結束表	列
 mtr	,(行.*),	行
 mtd	,( .*),	項
-mmultiscripts	,( .*),項
-mprescripts	
-none	
+mmultiscripts	,( .*),	項
+mprescripts		
+none		
 from_to	運算, 0, 從, 1, 到, 2, 對	運算符,從,到
 from	運算, 0, 從, 1, 對	運算符,從
 to	運算, 0, 到, 1, 對	運算符,到
-power	值, 0, 的, 1, 次方	底數,指數
+power	, 0, 的, 1, 次方	底數,指數
 set	集合, (元素.*), 結束集合	元素
 absolute_value	絕對值, ( .*), 結束絕對值	項
 determinant	行列式, ( .*), 結束行列式	項
 matrix	矩陣, ( .*), 結束矩陣	項
-limit_approache	趨近,1,到
 limit	運算,極限,,1,	運算符,趨近條件
