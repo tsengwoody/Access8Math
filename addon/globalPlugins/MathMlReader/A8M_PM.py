@@ -53,14 +53,13 @@ class Node(object):
 		for nodetype in nodetypes:
 			if nodetype.check(self) and nodetype.name in math_rule:
 				self.type = nodetype
-		self.role = math_role[self.name] if math_role.has_key(self.name) else [u'項']
+		self.role = math_role[self.name] if math_role.has_key(self.name) else [symbol['item']]
 		d = len(self.child) -len(self.role)
 		if d > 0:
 			append = self.role[-1]
 			self.role = self.role[:-1]
 			for i in range(d+1):
 				self.role.append(u'{0}{1}'.format(append, i+1))
-
 
 	def rule(self):
 		if self.type and self.type.rule:
@@ -111,7 +110,7 @@ class Node(object):
 
 	@property
 	def des(self):
-		return self.parent.role[self.index_in_parent()] if self.parent else u'數學'
+		return self.parent.role[self.index_in_parent()] if self.parent else symbol['math']
 
 	@property
 	def name(self):
@@ -302,7 +301,7 @@ class Mtable(NonTerminalNode):
 		row_count = len(self.child)
 		column_count_list = [len(i.child) for i in self.child]
 		column_count = max(column_count_list)
-		table_head = [rule[0] +u'有{0}列{1}行'.format(row_count, column_count)]
+		table_head = [rule[0] +u'{0}{1}{2}{3}{4}'.format(symbol['has'], row_count, symbol['row'], column_count, symbol['column'])]
 		cell = rule[1:-1]
 		table_tail = rule[-1:]
 		return table_head +cell +table_tail
@@ -598,6 +597,7 @@ def save_math_rule(language, math_role, math_rule):
 			f.write(line)
 
 	return True
+
 import inspect
 # get class which is Node subclass
 nodes = { i.__name__: i for i in locals().values() if inspect.isclass(i) and issubclass(i, Node) }
@@ -608,3 +608,7 @@ nodetypes = [ i for i in locals().values() if inspect.isclass(i) and issubclass(
 language = os.environ.get('LANGUAGE', 'Windows')
 symbol = load_unicode_dic(language)
 math_role, math_rule = load_math_rule(language)
+
+'''save_unicode_dic(language, symbol)
+symbol1 = load_unicode_dic(language)
+symbol == symbol1'''

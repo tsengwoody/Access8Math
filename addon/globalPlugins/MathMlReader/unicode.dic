@@ -396,3 +396,10 @@
 ⋽	包含有頂線	none
 ⋾	小型包含有頂線	none
 ⋿	Z 符號包成员	none
+
+# constant
+math	數學	none
+item	項	none
+has	有	none
+row	列	none
+column	行	none

@@ -28,8 +28,6 @@ import tones
 import ui
 from languageHandler_custom import getAvailableLanguages
 
-#globalVars.appArgs.configPath
-
 def translate_SpeechCommand(serializes):
 	pattern = re.compile(r'[@](?P<time>[\d]*)[@]')
 	speechSequence = []
@@ -51,8 +49,11 @@ def translate_Unicode(serializes):
 		time_search = pattern.search(r)
 		try:
 			time = time_search.group('time')
+			sequence = sequence +u' '
 		except:
 			sequence = sequence +unicode(r)
+	pattern = re.compile(ur'[ ]+')
+	sequence = pattern.sub(lambda m: u' ', sequence)
 
 	return sequence
 
@@ -115,15 +116,12 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 		quote_pattern = re.compile(ur"([\"\'])(.*?)\1")
 		mathMl = quote_pattern.sub(lambda m: m.group(1) +cgi.escape(m.group(2)) +m.group(1), mathMl)
 		parser = ET.XMLParser()
-		'''parser._parser.UseForeignDTD(True)
-		parser.entity['gt'] = u'>'
-		parser.entity['lt'] = u'<'''
 		try:
 			tree = ET.fromstring(mathMl.encode('utf-8'), parser=parser)
 		except BaseException as e:
 			globalVars.raw_data = mathMl
 			raise SystemError(e)
-		self.mathml_tree = self.pointer = create_node(tree)
+		globalVars.math_root = self.mathml_tree = self.pointer = create_node(tree)
 		self.raw_data = mathMl
 		api.setReviewPosition(MathMlTextInfo(self.pointer, textInfos.POSITION_FIRST), False)
 
@@ -160,13 +158,12 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 			globalVars.math_raw_data = self.raw_data
 			globalVars.math_root = self.mathml_tree
 			globalVars.math_node = self.pointer
-			globalVars.math_ser = translate_Unicode(self.pointer.serialized())
 			speech.speak([_("copy"),])
 
 		if r is not None:
 			self.pointer = r
 			api.setReviewPosition(MathMlTextInfo(self.pointer, textInfos.POSITION_FIRST), False)
-			speech.speak(self.pointer.des)
+			speech.speak([self.pointer.des])
 			speech.speak(translate_SpeechCommand(self.pointer.serialized()))
 		else:
 			speech.speak([_("not move")])
@@ -235,6 +232,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		import A8M_PM
 		A8M_PM.symbol = A8M_PM.load_unicode_dic(language)
 		A8M_PM.math_role, A8M_PM.math_rule = A8M_PM.load_math_rule(language)
+		try:
+			api.setReviewPosition(MathMlTextInfo(globalVars.math_root, textInfos.POSITION_FIRST), False)
+		except:
+			pass
 		ui.message(_("Access8Math language change to %s")%available_languages[index][1])
 
 	def script_change_previous_language(self, gesture):
@@ -244,8 +245,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		import A8M_PM
 		A8M_PM.symbol = A8M_PM.load_unicode_dic(language)
 		A8M_PM.math_role, A8M_PM.math_rule = A8M_PM.load_math_rule(language)
+		try:
+			api.setReviewPosition(MathMlTextInfo(globalVars.math_root, textInfos.POSITION_FIRST), False)
+		except:
+			pass
 		ui.message(_("Access8Math language change to %s")%available_languages[index][1])
-#		ui.message(_(u"Access8Math language change to {0}".format(available_languages[index][1])))
 
 	def script_change_provider(self, gesture):
 		index = (provider_list.index(config.conf["Access8Math"]["provider"]) +1)% len(provider_list)
@@ -264,8 +268,3 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:control+alt+shift+l": "change_previous_language",
 		"kb:control+alt+m": "change_provider",
 	}
-
-
-'''for i,j in r:
-	log.info(i)
-	log.info(j)'''
