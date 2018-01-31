@@ -1,0 +1,412 @@
+﻿symbols:
+*	乘	none
+-	减	none
+±	加减	none
+
+#0370−03FF
+Ͱ	Heta	none
+ͱ	Heta	none
+Ͳ	Archaic Sampi	none
+ͳ	Archaic Sampi	none
+ʹ	Numeral Sign	none
+͵	Lower Numeral Sign	none
+Ͷ	Pamphylian Digamma	none
+ͷ	Pamphylian Digamma	none
+ͺ	Ypogegrammeni	none
+ͻ	Reversed Lunate Sigma 	none
+ͼ	Dotted Lunate Sigma 	none
+ͽ	Reversed Dotted Lunate Sigma 	none
+;	Question Mark	none
+Ϳ	Yot	none
+΄	Tonos	none
+΅	Dialytika Tonos	none
+Ά	Alpha with Tonos	none
+·	Ano Teleia	none
+Έ	Epsilon with Tonos	none
+Ή	Eta with Tonos	none
+Ί	Iota with Tonos	none
+Ό	Omicron with Tonos	none
+Ύ	Upsilon with Tonos	none
+Ώ	Omega with Tonos	none
+ΐ	Iota with Dialytika and Tonos	none
+Α	Alpha	none
+Β	Beta	none
+Γ	Gamma	none
+Δ	Delta	none
+Ε	Epsilon	none
+Ζ	Zeta	none
+Η	Eta	none
+Θ	Theta	none
+Ι	Lota	none
+Κ	Kappa	none
+Λ	Lamda	none
+Μ	Mu	none
+Ν	Nu	none
+Ξ	Xi	none
+Ο	Omicron	none
+Π	Pi	none
+Ρ	Rho	none
+Σ	Sigma	none
+Τ	Tau	none
+Υ	Upsilon	none
+Φ	Phi	none
+Χ	Chi	none
+Ψ	Psi	none
+Ω	Omega	none
+Ϊ	Iota with Dialytika	none
+Ϋ	Upsilon with Dialytika	none
+ά	Alpha with Tonos	none
+έ	Epsilon with Tonos	none
+ή	Eta with Tonos	none
+ί	Iota with Tonos	none
+ΰ	Upsilon with Dialytika and Tonos	none
+α	Alpha	none
+β	Beta	none
+γ	Gamma	none
+δ	Delta	none
+ε	Epsilon	none
+ζ	Zeta	none
+η	Eta	none
+θ	Theta	none
+ι	Lota	none
+κ	Kappa	none
+λ	Lamda	none
+μ	Mu	none
+ν	Nu	none
+ξ	Xi	none
+ο	Omicron	none
+π	Pi	none
+ρ	Rho	none
+ς	Final Sigma	none
+σ	Sigma	none
+τ	Tau	none
+υ	Upsilon	none
+φ	Phi	none
+χ	Chi	none
+ψ	Psi	none
+ω	Omega	none
+ϊ	Iota with Dialytika	none
+ϋ	Upsilon with Dialytika	none
+ό	Omicron with Tonos	none
+ύ	Upsilon with Tonos	none
+ώ	Omega with Tonos	none
+Ϗ	Kai 	none
+ϐ	Beta	none
+ϑ	Theta	none
+ϒ	Upsilon with Hook 	none
+ϓ	Upsilon with Acute and Hook 	none
+ϔ	Upsilon with Diaeresis and Hook 	none
+ϕ	Phi	none
+ϖ	Pi	none
+ϗ	Kai	none
+Ϙ	Koppa	none
+ϙ	Koppa	none
+Ϛ	Stigma	none
+ϛ	Stigma	none
+Ϝ	Diggmma	none
+ϝ	Diggmma	none
+Ϟ	Koppa	none
+ϟ	Koppa	none
+Ϡ	Sampi	none
+ϡ	Sampi	none
+Ϣ	Shei	none
+ϣ	Shei	none
+Ϥ	Fei	none
+ϥ	Fei	none
+Ϧ	Khei	none
+ϧ	Khei	none
+Ϩ	Hori	none
+ϩ	Hori	none
+Ϫ	Gangia	none
+ϫ	Gangia	none
+Ϭ	Shima	none
+ϭ	Shima	none
+Ϯ	Dei	none
+ϯ	Dei	none
+ϰ	Kappa	none
+ϱ	Rho	none
+ϲ	Lunate Sigma	none
+ϳ	Yot	none
+ϴ	Theta	none
+ϵ	Lunate Epsilon	none
+϶	Reversed Lunate Epsilon 	none
+Ϸ	Sho	none
+ϸ	Sho	none
+Ϲ	Lunate Sigma	none
+Ϻ	San	none
+ϻ	San	none
+ϼ	Rho with Stroke	none
+Ͻ	Reversed Lunate Sigma 	none
+Ͼ	Dotted Lunate Sigma 	none
+Ͽ	Reversed Dotted Lunate Sigma	none
+
+∀	对任意的,所有的	none
+∁	余,补,补码,补码,余补	none
+∂	偏微分	none
+∃	存在	none
+∄	不存在	none
+∅	空集合	none
+∆	变化量	none
+∇	del,nebla,梯度	none
+∈	属于	none
+∉	不属于	none
+∊	属于	none
+∋	包含	none
+∌	不包含	none
+∍	小型包含	none
+∎	结束证明	none
+∏	N元乘积,从…到…的积,求积	none
+∐	N元余积	none
+∑	和,求和,sigma,从…到…的和	none
+−	减,负号	none
+∓	正负号	none
+∔	点正号	none
+∕	正斜线	none
+∖	反斜线	none
+∗		none
+∘	合成	none
+∙	点	none
+√	开根号	none
+∛	开立方根	none
+∜	开四次根	none
+∝	正比于	none
+∞	无限	none
+∟	直角	none
+∠	角度	none
+∡	测量角	none
+∢	球面角	none
+∣	除	none
+∤	不除	none
+∥	平行	none
+∦	不平行	none
+∧	逻辑与	none
+∨	逻辑或	none
+∩	交集	none
+∪	联集	none
+∫	积分	none
+∬	双重积分	none
+∭	三重积分	none
+∮	围道积分	none
+∯	曲面积分	none
+∰	体积积分	none
+∱	顺时针积分	none
+∲	顺时针围道积分	none
+∳	逆时针围道积分	none
+∴	所以	none
+∵	因为	none
+∶	比	none
+∷	比例	none
+∸	点负号	none
+∹	超出	none
+∺	几何比例	none
+∻	同位	none
+∼	波浪符	none
+∽	反波浪符	none
+∾	竖翻躺倒S	none
+∿	正弦波型	none
+≀	环积	none
+≁	不波浪符	none
+≂	负号波浪符	none
+≃	渐近等于	none
+≄	不渐近等于	none
+≅	近似等于	none
+≆	近似但不真实等于	none
+≇	不近似但不真实等于	none
+≈	约等于	none
+≉	不约等于	none
+≊	约等于或等于	none
+≋	三重波浪符	none
+≌	全等于	none
+≍	等于	none
+≎	几何等于	none
+≏	相差	none
+≐	接近极限	none
+≑	几何等于	none
+≒	近似于或像	none
+≓	像或近似于	none
+≔	冒号等号	none
+≕	等号冒号	none
+≖	圆圈在等于中	none
+≗	圆圈等于	none
+≘	对应	none
+≙	估计	none
+≚	等角于	none
+≛	星等号	none
+≜	delta等于	none
+≝	按定义等于	none
+≞	按测量	none
+≟	问号等于	none
+≠	不等于	none
+≡	恒等于	none
+≢	不恒等于	none
+≣	完全等于	none
+≤	小于或等于	none
+≥	大于或等于	none
+≦	小于等于	none
+≧	大于等于	none
+≨	小于但不等于	none
+≩	大于但不等于	none
+≪	远小于	none
+≫	远大于	none
+≬	介于	none
+≭	不等价于	none
+≮	不少于	none
+≯	不大于	none
+≰	不少于或等于	none
+≱	不大于或等于	none
+≲	小于或等价于	none
+≳	大于或等价于	none
+≴	不小于也不等价于	none
+≵	不大于也不等价于	none
+≶	小于或大于	none
+≷	大于或小于	none
+≸	不小于也不大于	none
+≹	不大于也不小于	none
+≺	先于	none
+≻	后于	none
+≼	先于或等于	none
+≽	后于或等于	none
+≾	先于或等价于	none
+≿	后于或等价于	none
+⊀	不先于	none
+⊁	不后于	none
+⊂	子集	none
+⊃	超集	none
+⊄	非子集	none
+⊅	非超集	none
+⊆	子集或等于	none
+⊇	超集或等于	none
+⊈	非子集也不等于	none
+⊉	非超集也不等于	none
+⊊	子集也不等于	none
+⊋	超集也不等于	none
+⊌	多重集	none
+⊍	多重集乘积	none
+⊎	多重集连集	none
+⊏	方形像	none
+⊐	方形原	none
+⊑	方形像或等于	none
+⊒	方形原或等于	none
+⊓	方形帽	none
+⊔	方形杯	none
+⊕	带圆圈正号	none
+⊖	带圆圈负号	none
+⊗	带圆圈乘号	none
+⊘	带圆圈除号斜线号	none
+⊙	带圆圈点运算符	none
+⊚	带圆圈圆圈运算符	none
+⊛	带圆圈星号运算符	none
+⊜	带圆圈点等号	none
+⊝	带圆圈点长划	none
+⊞	带圆圈点正号	none
+⊟	带圆圈点负号	none
+⊠	带圆圈点乘号	none
+⊡	带方框点运算符	none
+⊢	右丁字	none
+⊣	左丁字	none
+⊤	下丁字	none
+⊥	上丁字	none
+⊦	断定	none
+⊧	模型	none
+⊨	真	none
+⊩	强制	none
+⊪	三竖条右转门	none
+⊫	二竖条右转门	none
+⊬	不证明	none
+⊭	不真	none
+⊮	不强制	none
+⊯	不二竖条右转门	none
+⊰	先于下关系	none
+⊱	超于下关系	none
+⊲	正规子群	none
+⊳	属于正规子群	none
+⊴	正规子群或等于	none
+⊵	属于正规子群或等于	none
+⊶	原	none
+⊷	像	none
+⊸	多重映像	none
+⊹	厄密共轭矩阵	none
+⊺	插入	none
+⊻	异或	none
+⊼	与非	none
+⊽	或非	none
+⊾	带有弧的右角	none
+⊿	右三角形	none
+⋀	N元逻辑和	none
+⋁	N元逻辑或	none
+⋂	N元交集	none
+⋃	N元连集	none
+⋄	菱形运算符	none
+⋅	点运算符	none
+⋆	星号运算符	none
+⋇	乘除号	none
+⋈	蝴蝶结	none
+⋉	左正规因子半直积	none
+⋊	右正规因子半直积	none
+⋋	左半直积	none
+⋌	右半直积	none
+⋍	横翻颚化符等号	none
+⋎	波形逻辑或	none
+⋏	波形逻辑和	none
+⋐	双子集	none
+⋑	双超集	none
+⋒	双交集	none
+⋓	双连集	none
+⋔	草耙	none
+⋕	等于和平行	none
+⋖	带点小于	none
+⋗	带点大于	none
+⋘	极小于	none
+⋙	极大于	none
+⋚	小于等于或大于	none
+⋛	大于等于或小于	none
+⋜	等于或小于	none
+⋝	等于或大于	none
+⋞	等于或先于	none
+⋟	等于或超于	none
+⋠	不先于或等于	none
+⋡	不先于或超于	none
+⋢	不方形像或等于	none
+⋣	不方形原或等于	none
+⋤	方形像或不等于	none
+⋥	方形原或不等于	none
+⋦	小于但不等价于	none
+⋧	大于但不等价于	none
+⋨	先于但不等价于	none
+⋩	超于但不等价于	none
+⋪	不正规子群	none
+⋫	不属于正规子群	none
+⋬	不正规子群或等于	none
+⋭	不属于正规子群或等于	none
+⋮	竖省略号	none
+⋯	中线水平省略号	none
+⋰	上右省略号	none
+⋱	下右省略号	none
+⋲	有长划水平划的元素	none
+⋳	在水平划末尾有竖条的元素	none
+⋴	在水平划末尾有竖条的小型元素	none
+⋵	上面带点的元素	none
+⋶	有顶线的元素	none
+⋷	有顶线的小型元素	none
+⋸	有底线的元素	none
+⋹	有两个水平划的元素	none
+⋺	包含有长水平划	none
+⋻	在水平划末尾包含有竖条	none
+⋼	在水平划末尾小型包含有竖条	none
+⋽	包含有顶线	none
+⋾	小型包含有顶线	none
+⋿	Z 符号包成员	none
+
+# constant
+math	数学	none
+item	项	none
+has	有	none
+row	行	none
+column	列	none
+order	第	none
+rightdownmark	右下标	none
+rightupmark	右上标	none
+leftdownmark	左下标	none
+leftupmark	左上标	none
+main	主符号	none
+mprescripts_index	左定点	none
