@@ -1,6 +1,8 @@
 # Access8Math ReadMe
 
-This NVDA addon provides the function of reading math content. Although the original NVDA already equipped this feature by applying MathPlayer, some functions still needed to be improved, especially reading math content in Chinese.
+This NVDA addon provides the function of reading math content. Although the original NVDA already equipped this feature by applying MathPlayer, some functions still needed to be improved, especially in MathPlayer some language not provided navigation mode.
+
+navigation mode is important to read long math content. It help to understand long math content's structure easily.
 
 Access8Math allows:
 
@@ -16,7 +18,8 @@ Access8Math allows:
 	*	"End": Move to the last and least subpart.
 	*	"Numpad 1~9": Reading the math content into serialized text using NVDA Reviewing Text.
 	*	"ESC": Exit the navigation mode.
-*	"Ctrl+Alt+M": Switch the mode between Access8Math and MathPlayer.(MathPlayer installed only)
+*	"Ctrl+Alt+m": Switch the provider between Access8Math and MathPlayer.(MathPlayer installed only)
+*	"Ctrl+Alt+l": Switch the language between en, zh_CN, zh_TW.
 
 Math rules and definitions analyzed by math contents are continuing increasing.
 
@@ -37,7 +40,9 @@ Please report any bugs or comments, thank you!
 
 # Access8Math 說明
 
-此NVDA addon提供數學內容的閱讀，原先NVDA亦有此功能，但因是調用MathPlayer的功能，部份功能尚顯不足，尤其在中文方式的閱讀上
+此NVDA addon提供數學內容的閱讀，原先NVDA亦有此功能，但因是調用MathPlayer的功能，部份功能尚顯不足，尤其一些語言未提供導航瀏覽(互動式閱讀部份內容)。
+
+導航瀏覽對於閱讀理解長數學內容相當重要，可協助理解長數學內容的結構。
 
 功能有：
 
@@ -53,7 +58,8 @@ Please report any bugs or comments, thank you!
 	*	end鍵進入最後一項的最小部份
 	*	數字鍵盤1-9：使用NVDA Reviewing Text方式閱讀序列化的數學內容
 	*	esc鍵退出導航瀏覽模式
-*	ctrl+alt+M：可在Access8Math與MathPlayer間切換(有安裝MathPlayer才能切換)
+*	ctrl+alt+m：可在Access8Math與MathPlayer間切換閱讀器(有安裝MathPlayer才能切換)
+*	ctrl+alt+l：可在英文、中文(中國)、中文(台灣)間切換語言。
 
 數學內容解析數學規則意義持續增加中
 

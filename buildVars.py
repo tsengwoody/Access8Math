@@ -14,16 +14,16 @@ addon_info = {
 	"addon_name" : "Access8Math",
 	# Add-on summary, usually the user visible name of the addon.
 	# Translators: Summary for this add-on to be shown on installation and add-on information.
-	"addon_summary" : _("Access Math"),
+	"addon_summary" : _("Access8Math"),
 	# Add-on description
 	# Translators: Long description to be shown for this add-on on add-on information from add-ons manager
-	"addon_description" : _("""Allows access math written by MathML"""),
+	"addon_description" : _("""Allows access math content written by MathML"""),
 	# version
-	"addon_version" : "0.1",
+	"addon_version" : "1.0",
 	# Author(s)
 	"addon_author" : u"Tseng Woody <tsengwoody.tw@gmail.com>",
 	# URL for the add-on documentation support
-	"addon_url" : None,
+	"addon_url" : "https://github.com/tsengwoody/Access8Math",
 	# Documentation file name
 	"addon_docFileName" : "readme.html",
 }
