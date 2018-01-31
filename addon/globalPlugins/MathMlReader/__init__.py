@@ -49,13 +49,13 @@ def translate_Unicode(serializes):
 		time_search = pattern.search(r)
 		try:
 			time = time_search.group('time')
-			sequence = sequence +u' '
 		except:
 			sequence = sequence +unicode(r)
+		sequence = sequence +u' '
 	pattern = re.compile(ur'[ ]+')
 	sequence = pattern.sub(lambda m: u' ', sequence)
 
-	return sequence
+	return sequence.strip()
 
 class MathMlTextInfo(textInfos.offsets.OffsetsTextInfo):
 

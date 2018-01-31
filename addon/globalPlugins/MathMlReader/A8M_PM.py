@@ -48,12 +48,12 @@ class Node(object):
 			if isinstance(c, Node):
 				c.parent = self
 		self.attrib = attrib
-		self.data = data if data else u''
+		self.data = data.strip() if data else u''
 		self.type = None
 		for nodetype in nodetypes:
 			if nodetype.check(self) and nodetype.name in math_rule:
 				self.type = nodetype
-		self.role = math_role[self.name] if math_role.has_key(self.name) else [symbol['item']]
+		self.role = math_role[self.name] if math_role.has_key(self.name) else [symbol_translate('item')]
 		d = len(self.child) -len(self.role)
 		if d > 0:
 			append = self.role[-1]
@@ -110,7 +110,7 @@ class Node(object):
 
 	@property
 	def des(self):
-		return self.parent.role[self.index_in_parent()] if self.parent else symbol['math']
+		return self.parent.role[self.index_in_parent()] if self.parent else symbol_translate('math')
 
 	@property
 	def name(self):
@@ -204,10 +204,7 @@ class TerminalNode(Node):
 		try:
 			return super(TerminalNode, self).rule()
 		except:
-			if symbol.has_key(self.data):
-				return [unicode(symbol[self.data])]
-			else:
-				return [unicode(self.data)]
+			return [unicode(symbol_translate(self.data))]
 
 	def get_mathml(self):
 		mathml = ''
@@ -301,7 +298,7 @@ class Mtable(NonTerminalNode):
 		row_count = len(self.child)
 		column_count_list = [len(i.child) for i in self.child]
 		column_count = max(column_count_list)
-		table_head = [rule[0] +u'{0}{1}{2}{3}{4}'.format(symbol['has'], row_count, symbol['row'], column_count, symbol['column'])]
+		table_head = [rule[0] +u'{0}{1}{2}{3}{4}'.format(symbol_translate('has'), row_count, symbol['row'], column_count, symbol['column'])]
 		cell = rule[1:-1]
 		table_tail = rule[-1:]
 		return table_head +cell +table_tail
@@ -316,27 +313,61 @@ class Mtd(NonTerminalNode):
 	pass
 
 class Mmultiscripts(NonTerminalNode):
+	def __init__(self, *args, **kwargs):
+		super(Mmultiscripts, self).__init__(*args, **kwargs)
+
+		role = [symbol_translate('main')]
+
+		index = range(1, self.mprescripts_index_in_child())
+		for count in range(len(index)/2):
+			temp = [
+				u'{0}{1}{2}'.format(symbol_translate('order'), count, symbol_translate('rightdownmark')),
+				u'{0}{1}{2}'.format(symbol_translate('order'), count, symbol_translate('rightupmark')),
+			]
+			role = role +temp
+
+		role = role +[symbol_translate('mprescripts_index')]
+
+		index = range(self.mprescripts_index_in_child() +1, len(self.child))
+		for count in range(len(index)/2):
+			temp = [
+				u'{0}{1}{2}'.format(symbol_translate('order'), count, symbol_translate('leftdownmark')),
+				u'{0}{1}{2}'.format(symbol_translate('order'), count, symbol_translate('leftupmark')),
+			]
+			role = role +temp
+
+		self.role = role
+
 	def rule(self):
-		rule = []
+		rule = super(Mmultiscripts, self).rule()
 
 		index = range(1, self.mprescripts_index_in_child())
 		index_odd = index[0::2]
 		index_even = index[1::2]
 		index_mix = zip(index_odd, index_even)
 		for  count,item in enumerate(index_mix):
-			temp = [u'第{}右下標'.format(count), item[0], u'第{}右上標'.format(count), item[1]]
-			rule = rule +temp
+			temp = [
+				u'{0}{1}{2}'.format(symbol_translate('order'), count, symbol_translate('rightdownmark')),
+				item[0],
+				u'{0}{1}{2}'.format(symbol_translate('order'), count, symbol_translate('rightupmark')),
+				item[1],
+			]
+			rule = rule[:1] +temp +rule[-1:]
 
 		index = range(self.mprescripts_index_in_child() +1, len(self.child))
 		index_odd = index[0::2]
 		index_even = index[1::2]
 		index_mix = zip(index_odd, index_even)
 		for  count,item in enumerate(index_mix):
-			temp = [u'第{}左下標'.format(count), item[0], u'第{}左上標'.format(count), item[1]]
-			rule = rule +temp
+			temp = [
+				u'{0}{1}{2}'.format(symbol_translate('order'), count, symbol_translate('leftdownmark')),
+				item[0],
+				u'{0}{1}{2}'.format(symbol_translate('order'), count, symbol_translate('leftupmark')),
+				item[1],
+			]
+			rule = rule[:1] +temp +rule[-1:]
 
-		rule = [u'左標記', 0] +rule +[u'結束左標記']
-
+		rule.insert(1,0)
 		return rule
 
 	def mprescripts_index_in_child(self):
@@ -344,7 +375,7 @@ class Mmultiscripts(NonTerminalNode):
 			if isinstance(c, Mprescripts):
 				return self.child.index(c)
 
-class Mprescripts(NonTerminalNode):
+class Mprescripts(TerminalNode):
 	pass
 
 class Nones(Node):
@@ -598,6 +629,9 @@ def save_math_rule(language, math_role, math_rule):
 
 	return True
 
+def symbol_translate(u):
+	return symbol[u] if symbol.has_key(u) else u
+
 import inspect
 # get class which is Node subclass
 nodes = { i.__name__: i for i in locals().values() if inspect.isclass(i) and issubclass(i, Node) }
@@ -608,7 +642,3 @@ nodetypes = [ i for i in locals().values() if inspect.isclass(i) and issubclass(
 language = os.environ.get('LANGUAGE', 'Windows')
 symbol = load_unicode_dic(language)
 math_role, math_rule = load_math_rule(language)
-
-'''save_unicode_dic(language, symbol)
-symbol1 = load_unicode_dic(language)
-symbol == symbol1'''
