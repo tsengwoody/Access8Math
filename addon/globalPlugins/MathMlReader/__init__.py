@@ -123,7 +123,14 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 			raise SystemError(e)
 		globalVars.math_root = self.mathml_tree = self.pointer = create_node(tree)
 		self.raw_data = mathMl
+		api.setReviewPosition = interaction_setReviewPosition
 		api.setReviewPosition(MathMlTextInfo(self.pointer, textInfos.POSITION_FIRST), False)
+
+	def script_exit(self, gesture):
+		super(MathMlReaderInteraction, self).script_exit(gesture)
+		api.setReviewPosition = not_interaction_setReviewPosition
+	# Translators: Describes a command.
+	script_exit.__doc__ = _("Exit math interaction")
 
 	def reportFocus(self):
 		super(MathMlReaderInteraction, self).reportFocus()
@@ -268,3 +275,20 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:control+alt+shift+l": "change_previous_language",
 		"kb:control+alt+m": "change_provider",
 	}
+
+#=====custom=====
+
+def setReviewPosition(reviewPosition,clearNavigatorObject=True,isCaret=False):
+	"""Sets a TextInfo instance as the review position.
+	@param clearNavigatorObject: if  true, It sets the current navigator object to C{None}.
+		In that case, the next time the navigator object is asked for it fetches it from the review position.
+	@type clearNavigatorObject: bool
+	@param isCaret: Whether the review position is changed due to caret following.
+	@type isCaret: bool
+	"""
+	globalVars.reviewPosition=reviewPosition.copy()
+	globalVars.reviewPositionObj=reviewPosition.obj
+	if clearNavigatorObject: globalVars.navigatorObject=None
+
+interaction_setReviewPosition = setReviewPosition
+not_interaction_setReviewPosition = api.setReviewPosition
