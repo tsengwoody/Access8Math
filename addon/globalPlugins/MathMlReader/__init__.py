@@ -126,11 +126,12 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 		api.setReviewPosition = interaction_setReviewPosition
 		api.setReviewPosition(MathMlTextInfo(self.pointer, textInfos.POSITION_FIRST), False)
 
-	def script_exit(self, gesture):
-		super(MathMlReaderInteraction, self).script_exit(gesture)
+	def event_gainFocus(self):
+		super(MathMlReaderInteraction, self).event_gainFocus()
+		api.setReviewPosition = interaction_setReviewPosition
+
+	def event_loseFocus(self):
 		api.setReviewPosition = not_interaction_setReviewPosition
-	# Translators: Describes a command.
-	script_exit.__doc__ = _("Exit math interaction")
 
 	def reportFocus(self):
 		super(MathMlReaderInteraction, self).reportFocus()
@@ -139,7 +140,6 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 
 	def getScript(self, gesture):
 		# Pass most keys to MathPlayer. Pretty ugly.
-
 		if isinstance(gesture, KeyboardInputGesture) and "NVDA" not in gesture.modifierNames and (
 			gesture.mainKeyName in {
 				"leftArrow", "rightArrow", "upArrow", "downArrow",
@@ -149,6 +149,15 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 			or len(gesture.mainKeyName) == 1
 		):
 			return self.script_navigate
+		'''elif isinstance(gesture, KeyboardInputGesture) and "NVDA" not in gesture.modifierNames and (
+			gesture.mainKeyName in {
+				"numpad1", "numpad2", "numpad3",
+				"numpad4", "numpad5", "numpad6",
+				"numpad7", "numpad8", "numpad9",
+			}
+			or len(gesture.mainKeyName) == 1
+		):
+			return self.script_review'''
 		return super(MathMlReaderInteraction, self).getScript(gesture)
 
 	def script_navigate(self, gesture):
@@ -165,6 +174,8 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 			globalVars.math_raw_data = self.raw_data
 			globalVars.math_root = self.mathml_tree
 			globalVars.math_node = self.pointer
+			#log.info(api.setReviewPosition == not_interaction_setReviewPosition)
+			#log.info(		api.setReviewPosition == interaction_setReviewPosition)
 			speech.speak([_("copy"),])
 
 		if r is not None:
@@ -290,5 +301,5 @@ def setReviewPosition(reviewPosition,clearNavigatorObject=True,isCaret=False):
 	globalVars.reviewPositionObj=reviewPosition.obj
 	if clearNavigatorObject: globalVars.navigatorObject=None
 
-interaction_setReviewPosition = setReviewPosition
-not_interaction_setReviewPosition = api.setReviewPosition
+globalVars.interaction_setReviewPosition = interaction_setReviewPosition = setReviewPosition
+globalVars.not_interaction_setReviewPosition = not_interaction_setReviewPosition = api.setReviewPosition
