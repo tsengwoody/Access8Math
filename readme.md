@@ -10,8 +10,8 @@ Access8Math allows:
 *	Navigate the math content by pressing "Space" in math content. Also, you can partially explore the subparts in expression and move or zoom the content between the subpart.
 *	In navigation mode, indicate the meaning of subpart in the upper layer part.
 *	In navigation mode command：
-	*	"Down Arrow": Zoom out the current math content into smaller subpart.
-	*	"Up Arrow": Zoom in the current math content into larger subpart. 
+	*	"Down Arrow": Zoom in on a smaller subpart of the math content.
+	*	"Up Arrow": Zoom out to  a larger subpartthe of the math content .
 	*	"Left Arrow": Move to the previous math content.
 	*	"Right Arrow": Move to the next math content.
 	*	"Home": Move back to the top.(Entire math content)	
