@@ -13,10 +13,16 @@ from xml.etree import ElementTree as ET
 import addonHandler
 addonHandler.initTranslation()
 import api
+from brailleInput import BrailleInputGesture
 import config
 import globalPlugins
 import globalPluginHandler
 import globalVars
+import globalCommands
+from globalCommands import SCRCAT_CONFIG
+import gui
+from gui import guiHelper
+from gui.settingsDialogs import SettingsDialog
 from keyboardHandler import KeyboardInputGesture
 from logHandler import log
 import mathPres
@@ -26,6 +32,8 @@ import textInfos
 import textInfos.offsets
 import tones
 import ui
+import wx
+
 from languageHandler_custom import getAvailableLanguages
 
 def translate_SpeechCommand(serializes):
@@ -64,7 +72,7 @@ class MathMlTextInfo(textInfos.offsets.OffsetsTextInfo):
 		self.obj = obj
 
 	def _getStoryLength(self):
-		serializes = self.obj.serialized()
+		serializes = self.obj.pointer.serialized()
 		return len(translate_Unicode(serializes))
 
 	def _getStoryText(self):
@@ -72,7 +80,7 @@ class MathMlTextInfo(textInfos.offsets.OffsetsTextInfo):
 		@return: The entire text of the object.
 		@rtype: unicode
 		"""
-		serializes = self.obj.serialized()
+		serializes = self.obj.pointer.serialized()
 		return translate_Unicode(serializes)
 
 	def _getTextRange(self,start,end):
@@ -110,7 +118,23 @@ class MathMlReader(mathPres.MathPresentationProvider):
 class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 
 	def __init__(self, provider=None, mathMl=None):
+
+		for k,v in self.__gestures.items():
+			script_name = 'script_' +v
+			gs = getattr(globalCommands.commands, script_name)
+			setattr(self.__class__, script_name, gs)
+			#self.bindGesture(k, script_name)
+
 		super(MathMlReaderInteraction, self).__init__(provider=provider, mathMl=mathMl)
+
+		'''disable_script = globalCommands.commands._GlobalCommands__gestures.copy()
+		for k in disable_script.keys():
+			disable_script[k] = 'not_action'
+		self.bindGestures(disable_script)
+
+		enable_script = self.__gestures.copy()
+		self.bindGestures(enable_script)'''
+
 		gtlt_pattern = re.compile(ur"([\>])(.*?)([\<])")
 		mathMl = gtlt_pattern.sub(lambda m: m.group(1) +cgi.escape(HTMLParser.HTMLParser().unescape(m.group(2))) +m.group(3), mathMl)
 		quote_pattern = re.compile(ur"([\"\'])(.*?)\1")
@@ -123,23 +147,25 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 			raise SystemError(e)
 		globalVars.math_root = self.mathml_tree = self.pointer = create_node(tree)
 		self.raw_data = mathMl
-		api.setReviewPosition = interaction_setReviewPosition
-		api.setReviewPosition(MathMlTextInfo(self.pointer, textInfos.POSITION_FIRST), False)
+		#api.setReviewPosition = interaction_setReviewPosition
+		api.setReviewPosition(self.makeTextInfo(), False)
 
-	def event_gainFocus(self):
+	def makeTextInfo(self, position=textInfos.POSITION_FIRST):
+		return MathMlTextInfo(self, position)
+
+	'''def event_gainFocus(self):
 		super(MathMlReaderInteraction, self).event_gainFocus()
 		api.setReviewPosition = interaction_setReviewPosition
 
 	def event_loseFocus(self):
-		api.setReviewPosition = not_interaction_setReviewPosition
+		api.setReviewPosition = not_interaction_setReviewPosition'''
 
 	def reportFocus(self):
 		super(MathMlReaderInteraction, self).reportFocus()
 		speech.speak(translate_SpeechCommand(self.mathml_tree.serialized()))
-		api.setReviewPosition(MathMlTextInfo(self.pointer, textInfos.POSITION_FIRST), False)
+		api.setReviewPosition(self.makeTextInfo(), False)
 
 	def getScript(self, gesture):
-		# Pass most keys to MathPlayer. Pretty ugly.
 		if isinstance(gesture, KeyboardInputGesture) and "NVDA" not in gesture.modifierNames and (
 			gesture.mainKeyName in {
 				"leftArrow", "rightArrow", "upArrow", "downArrow",
@@ -149,15 +175,8 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 			or len(gesture.mainKeyName) == 1
 		):
 			return self.script_navigate
-		'''elif isinstance(gesture, KeyboardInputGesture) and "NVDA" not in gesture.modifierNames and (
-			gesture.mainKeyName in {
-				"numpad1", "numpad2", "numpad3",
-				"numpad4", "numpad5", "numpad6",
-				"numpad7", "numpad8", "numpad9",
-			}
-			or len(gesture.mainKeyName) == 1
-		):
-			return self.script_review'''
+		'''elif isinstance(gesture, BrailleInputGesture):
+			return self.script_not_action'''
 		return super(MathMlReaderInteraction, self).getScript(gesture)
 
 	def script_navigate(self, gesture):
@@ -171,6 +190,7 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 		elif gesture.mainKeyName == "rightArrow":
 			r = self.pointer.next_sibling
 		elif gesture.mainKeyName == "space":
+			globalVars.math_obj = self
 			globalVars.math_raw_data = self.raw_data
 			globalVars.math_root = self.mathml_tree
 			globalVars.math_node = self.pointer
@@ -180,11 +200,49 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 
 		if r is not None:
 			self.pointer = r
-			api.setReviewPosition(MathMlTextInfo(self.pointer, textInfos.POSITION_FIRST), False)
+			api.setReviewPosition(self.makeTextInfo(), False)
 			speech.speak([self.pointer.des])
 			speech.speak(translate_SpeechCommand(self.pointer.serialized()))
 		else:
 			speech.speak([_("not move")])
+
+	def script_not_action(self, gesture):
+		pass
+
+	__gestures = {
+		# Review cursor
+		"kb:numpad7": "review_previousLine",
+		"ts(text):flickUp":"review_previousLine",
+		"kb(laptop):NVDA+upArrow": "review_previousLine",
+		"kb:numpad8": "review_currentLine",
+		"kb(laptop):NVDA+shift+.": "review_currentLine",
+		"kb:numpad9": "review_nextLine",
+		"kb(laptop):NVDA+downArrow": "review_nextLine",
+		"ts(text):flickDown":"review_nextLine",
+		"kb:numpad4": "review_previousWord",
+		"kb(laptop):NVDA+control+leftArrow": "review_previousWord",
+		"ts(text):2finger_flickLeft":"review_previousWord",
+		"kb:numpad5": "review_currentWord",
+		"kb(laptop):NVDA+control+.": "review_currentWord",
+		"ts(text):hoverUp":"review_currentWord",
+		"kb:numpad6": "review_nextWord",
+		"kb(laptop):NVDA+control+rightArrow": "review_nextWord",
+		"ts(text):2finger_flickRight":"review_nextWord",
+		"kb:shift+numpad1": "review_startOfLine",
+		"kb(laptop):NVDA+home": "review_startOfLine",
+		"kb:numpad1": "review_previousCharacter",
+		"kb(laptop):NVDA+leftArrow": "review_previousCharacter",
+		"ts(text):flickLeft":"review_previousCharacter",
+		"kb:numpad2": "review_currentCharacter",
+		"kb(laptop):NVDA+.": "review_currentCharacter",
+		"kb:numpad3": "review_nextCharacter",
+		"kb(laptop):NVDA+rightArrow": "review_nextCharacter",
+		"ts(text):flickRight":"review_nextCharacter",
+		"kb:shift+numpad3": "review_endOfLine",
+		"kb(laptop):NVDA+end": "review_endOfLine",
+		"kb:NVDA+f9": "review_markStartForCopy",
+		"kb:NVDA+f10": "review_copy",
+	}
 
 provider_list = [
 	u"MathMlReader",
@@ -220,6 +278,7 @@ except:
 
 available_languages.append(("Windows", _("build-in")))
 available_languages_short = [i[0] for i in available_languages]
+available_languages_long = [i[1] for i in available_languages]
 
 try:
 	language = config.conf["Access8Math"]["language"]
@@ -243,6 +302,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		xml_NVDA = sys.modules['xml']
 		sys.modules['xml'] = globalPlugins.MathMlReader.xml
 
+		# Gui
+		self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
+		self.settingsItem = self.prefsMenu.Append(
+			wx.ID_ANY,
+			# Translators: name of the option in the menu.
+			_("&Access8Math settings...")
+		)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onSettings, self.settingsItem)
+
 	def script_change_next_language(self, gesture):
 		language = config.conf["Access8Math"]["language"]
 		index = (available_languages_short.index(language) +1)% len(available_languages_short)
@@ -251,7 +319,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		A8M_PM.symbol = A8M_PM.load_unicode_dic(language)
 		A8M_PM.math_role, A8M_PM.math_rule = A8M_PM.load_math_rule(language)
 		try:
-			api.setReviewPosition(MathMlTextInfo(globalVars.math_root, textInfos.POSITION_FIRST), False)
+			api.setReviewPosition(MathMlTextInfo(globalVars.math_obj, textInfos.POSITION_FIRST), False)
 		except:
 			pass
 		ui.message(_("Access8Math language change to %s")%available_languages[index][1])
@@ -264,7 +332,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		A8M_PM.symbol = A8M_PM.load_unicode_dic(language)
 		A8M_PM.math_role, A8M_PM.math_rule = A8M_PM.load_math_rule(language)
 		try:
-			api.setReviewPosition(MathMlTextInfo(globalVars.math_root, textInfos.POSITION_FIRST), False)
+			api.setReviewPosition(MathMlTextInfo(globalVars.math_obj, textInfos.POSITION_FIRST), False)
 		except:
 			pass
 		ui.message(_("Access8Math language change to %s")%available_languages[index][1])
@@ -286,6 +354,43 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:control+alt+shift+l": "change_previous_language",
 		"kb:control+alt+m": "change_provider",
 	}
+
+	def onSettings(self, evt):
+		gui.mainFrame._popupSettingsDialog(AddonSettingsDialog)
+
+	def script_settings(self, gesture):
+		wx.CallAfter(self.onSettings, None)
+	script_settings.category = SCRCAT_CONFIG
+	# Translators: message presented in input mode.
+	script_settings.__doc__ = _("Shows the NumLock Manager settings dialog.")
+
+class AddonSettingsDialog(SettingsDialog):
+
+# Translators: Title of the Access8MathDialog.
+	title = _("Access8Math")
+
+	def makeSettings(self, settingsSizer):
+		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+		# Translators: The label for a setting in NumLockManagerDialog.
+		languageLabel = _("&Language:")
+		self.languageChoices = available_languages_long
+		self.languageList = sHelper.addLabeledControl(languageLabel, wx.Choice, choices=self.languageChoices)
+		index = available_languages_short.index(config.conf["Access8Math"]["language"])
+		self.languageList.Selection = index
+
+	def postInit(self):
+		self.languageList.SetFocus()
+
+	def onOk(self,evt):
+		super(AddonSettingsDialog, self).onOk(evt)
+		config.conf["Access8Math"]["language"] = language = available_languages_short[self.languageList.GetSelection()]
+		import A8M_PM
+		A8M_PM.symbol = A8M_PM.load_unicode_dic(language)
+		A8M_PM.math_role, A8M_PM.math_rule = A8M_PM.load_math_rule(language)
+		try:
+			api.setReviewPosition(MathMlTextInfo(globalVars.math_obj, textInfos.POSITION_FIRST), False)
+		except:
+			pass
 
 #=====custom=====
 
