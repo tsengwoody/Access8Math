@@ -344,7 +344,11 @@ class AddonSettingsDialog(SettingsDialog):
 		languageLabel = _("&Language:")
 		self.languageChoices = available_languages_long
 		self.languageList = sHelper.addLabeledControl(languageLabel, wx.Choice, choices=self.languageChoices)
-		index = available_languages_short.index(config.conf["Access8Math"]["language"])
+		try:
+			index = available_languages_short.index(config.conf["Access8Math"]["language"])
+		except:
+			initialize_config()
+			index = available_languages_short.index(config.conf["Access8Math"]["language"])
 		self.languageList.Selection = index
 
 	def postInit(self):
