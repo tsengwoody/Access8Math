@@ -397,6 +397,13 @@
 ⋾	小型包含有頂線	none
 ⋿	Z 符號包成员	none
 
+# special case
+¯	橫線	none
+→	右箭頭
+↔	全形橫線	none
+⇀	向量	none
+⌢	弧	none
+
 # constant
 math	數學	none
 item	項	none
