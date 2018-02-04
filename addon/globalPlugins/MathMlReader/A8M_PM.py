@@ -1,4 +1,6 @@
 ﻿# coding: utf-8
+# Copyright (C) 2017-2018 Tseng Woody <tsengwoody.tw@gmail.com>
+
 import copy
 import io
 import os
@@ -48,11 +50,12 @@ class Node(object):
 			if isinstance(c, Node):
 				c.parent = self
 		self.attrib = attrib
-		self.data = data.strip() if data else u''
+		self.data = unicode(data.strip()) if data else u''
 		self.type = None
 		for nodetype in nodetypes:
 			if nodetype.check(self) and nodetype.name in math_rule:
 				self.type = nodetype
+				break
 		self.role = math_role[self.name] if math_role.has_key(self.name) else [symbol_translate('item')]
 		d = len(self.child) -len(self.role)
 		if d > 0:
@@ -99,14 +102,14 @@ class Node(object):
 		return serialized
 
 	def get_mathml(self):
-		mathml = ''
+		mathml = u''
 		for c in self.child:
 			mathml = mathml +c.get_mathml()
-		attrib = ''
+		attrib = u''
 		for k, v in self.attrib.items():
-			attrib = attrib +'{0}="{1}"'.format(k,v)
+			attrib = attrib +u'{0}="{1}"'.format(k,v)
 
-		return '<{0} {1}>{2}</{0}>'.format(self.tag, attrib, mathml)
+		return u'<{0} {1}>{2}</{0}>'.format(self.tag, attrib, mathml)
 
 	@property
 	def des(self):
@@ -207,9 +210,9 @@ class TerminalNode(Node):
 			return [unicode(symbol_translate(self.data))]
 
 	def get_mathml(self):
-		mathml = ''
-		mathml = mathml +self.data.encode('utf8') if self.data else mathml
-		return '<{0}>{1}</{0}>'.format(self.tag, mathml)
+		mathml = u''
+		mathml = mathml +self.data if self.data else mathml
+		return u'<{0}>{1}</{0}>'.format(self.tag, mathml)
 
 class BlockNode(Node):
 	def rule(self):
@@ -519,6 +522,58 @@ class DeterminantType(NonTerminalNodeType):
 	}
 	child = [MtableType]
 	name = 'determinant'
+
+class SingleFractionType(NonTerminalNodeType):
+	tag = Mfrac
+	child = [OperandType, OperandType,]
+	name = 'single_fraction'
+
+class SingleSqrtType(NonTerminalNodeType):
+	tag = Msqrt
+	child = [OperandType]
+	name = 'single_square_root'
+
+class MiType(TerminalNodeType):
+	tag = Mi
+
+class MnType(TerminalNodeType):
+	tag = Mn
+
+class MoType(TerminalNodeType):
+	tag = Mo
+
+class SingleType(CompoundNodeType):
+	compound = [MiType, MnType, MoType]
+
+class SingleMsubsupType(NonTerminalNodeType):
+	tag = Msubsup
+	child = [SingleType, SingleType, SingleType]
+	name = 'SingleMsubsup'
+
+class SingleMsubType(NonTerminalNodeType):
+	tag = Msub
+	child = [SingleType, SingleType]
+	name = 'SingleMsub'
+
+class SingleMsupType(NonTerminalNodeType):
+	tag = Msup
+	child = [SingleType, SingleType]
+	name = 'SingleMsup'
+
+class SingleMunderoverType(NonTerminalNodeType):
+	tag = Munderover
+	child = [SingleType, SingleType, SingleType]
+	name = 'SingleMunderover'
+
+class SingleMunderType(NonTerminalNodeType):
+	tag = Munder
+	child = [SingleType, SingleType]
+	name = 'SingleMunder'
+
+class SingleMoverType(NonTerminalNodeType):
+	tag = Mover
+	child = [SingleType, SingleType]
+	name = 'SingleMover'
 
 class LimitOperatorType(TerminalNodeType):
 	tag = Mi
