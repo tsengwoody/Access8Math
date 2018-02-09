@@ -8,6 +8,9 @@ import re
 import sys
 import weakref
 
+AUTO_GENERATE = 0
+DIC_GENERATE = 1
+
 def create_node(et):
 	p_tag = re.compile(r'[\{].*[\}](?P<mp_type>.+)')
 	r = p_tag.search(et.tag)
@@ -56,6 +59,7 @@ class Node(object):
 			if nodetype.check(self) and nodetype.name in math_rule:
 				self.type = nodetype
 				break
+
 		self.role = math_role[self.name] if math_role.has_key(self.name) else [symbol_translate('item')]
 		d = len(self.child) -len(self.role)
 		if d > 0:
@@ -63,9 +67,12 @@ class Node(object):
 			self.role = self.role[:-1]
 			for i in range(d+1):
 				self.role.append(u'{0}{1}'.format(append, i+1))
+			self.role_level = AUTO_GENERATE
+		else:
+			self.role_level = DIC_GENERATE
 
 	def rule(self):
-		if self.type and self.type.rule:
+		if self.type and self.type.rule and AMM:
 			if issubclass(self.type, NonTerminalNodeType):
 				rule = self.type.rule()
 			elif issubclass(self.type, TerminalNodeType):
@@ -401,7 +408,9 @@ class NodeType(object):
 
 		#check attrib
 		for key, value in cls.attrib.items():
-			if not value.search(obj.attrib[key]) is not None:
+			if not obj.attrib.has_key(key):
+				return False
+			elif not value.search(obj.attrib[key]) is not None:
 				return False
 
 		#check child
@@ -697,3 +706,28 @@ nodetypes = [ i for i in locals().values() if inspect.isclass(i) and issubclass(
 language = os.environ.get('LANGUAGE', 'Windows')
 symbol = load_unicode_dic(language)
 math_role, math_rule = load_math_rule(language)
+AMM = True if os.environ.get('AMM', 'True') in [u'True', u'true'] else False
+
+
+
+import os
+import re
+import sys
+path = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, path)
+Base_Dir = os.path.dirname(os.path.dirname(__file__))
+sys.path.insert(0, Base_Dir)
+import cgi
+import HTMLParser
+import xml
+from xml.etree import ElementTree as ET
+if __name__ == '__main__':
+	mathMl = u'<math><mfenced><mrow><mo>-</mo><mn>2</mn></mrow></mfenced><mo>&times;</mo><mfenced close="|" open="|"><mrow><mo>-</mo><mn>5</mn></mrow></mfenced><mo>-</mo><mfenced close="|" open="|"><mrow><mo>-</mo><mn>3</mn></mrow></mfenced></math>'
+	gtlt_pattern = re.compile(ur"([\>])(.*?)([\<])")
+	mathMl = gtlt_pattern.sub(lambda m: m.group(1) +cgi.escape(HTMLParser.HTMLParser().unescape(m.group(2))) +m.group(3), mathMl)
+	quote_pattern = re.compile(ur"([\"\'])(.*?)\1")
+	mathMl = quote_pattern.sub(lambda m: m.group(1) +cgi.escape(m.group(2)) +m.group(1), mathMl)
+	parser = ET.XMLParser()
+
+	tree = ET.fromstring(mathMl.encode('utf-8'), parser=parser)
+	node = create_node(tree)
