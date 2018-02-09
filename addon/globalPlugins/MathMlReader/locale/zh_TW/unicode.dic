@@ -1,7 +1,18 @@
 ﻿symbols:
-*	乘	none
+# ASCII
+!	階層	none
+*	乘以	none
++	加	none
 -	減	none
+.	點	none
+/	除以	none
+:	比	none
+<	小於	none
+=	等於	none
+>	大於	none
 ±	加減	none
+×	乘以	none
+÷	除以	none
 
 #0370−03FF
 Ͱ	Heta	none
@@ -305,7 +316,7 @@
 ⊢	右丁字	none
 ⊣	左丁字	none
 ⊤	下丁字	none
-⊥	上丁字	none
+⊥	垂直	none
 ⊦	斷定	none
 ⊧	模型	none
 ⊨	真	none
@@ -400,7 +411,7 @@
 # special case
 ¯	橫線	none
 →	右箭頭
-↔	全形橫線	none
+↔	左右雙向箭頭	none
 ⇀	向量	none
 ⌢	弧	none
 

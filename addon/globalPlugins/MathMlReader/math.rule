@@ -1,7 +1,7 @@
 ﻿#
 node	, ( .*),	項
 mfrac	分數, 1, 分之, 0, 結束分數	分子,分母
-mfenced	開括號, ( .*), 閉括號	項
+mfenced	括號, ( .*), 括號	項
 msqrt	根號, ( .*), 結束根號	項
 mroot	根號, 0, 開, 1, 次	根號內,開方數
 math	, ( .*),	項
@@ -25,8 +25,8 @@ set	集合, (元素.*), 結束集合	元素
 absolute_value	絕對值, ( .*), 結束絕對值	項
 determinant	行列式, ( .*), 結束行列式	項
 matrix	矩陣, ( .*), 結束矩陣	項
-single_fraction	1,分之,0	分母,分子
-single_square_root	方根,0	根號內
+single_fraction	1,分之,0	分子,分母
+single_square_root	0,的平方根	根號內
 SingleMsubsup	, 0, 下標, 1, 上標, 2, 	主符號,下標,上標
 SingleMsub	, 0, 下標, 1, 	主符號,下標
 SingleMsup	, 0, 上標, 1, 	主符號,上標

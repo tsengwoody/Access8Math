@@ -25,4 +25,12 @@ set	set, (element.*), end set	element
 absolute_value	absolute value of, ( .*), end absolute value	item
 determinant	determinant, ( .*), end determinant	item
 matrix	matrix, ( .*), end matrix	item
+single_fraction	0,over,1	numerator,denominator
+single_square_root	square root,0	root in
+SingleMsubsup	, 0, sub, 1, super, 2, 	main,sub,super
+SingleMsub	, 0, sub, 1, 	main,sub
+SingleMsup	, 0, super, 1, 	main,super
+SingleMunderover	, 0, below, 1, above, 2, 	main,below,above
+SingleMunder	, 0, below, 1, 	main,below
+SingleMover	, 0, above, 1, 	main,above
 limit	operator,limit,,1,	operator,approache condition

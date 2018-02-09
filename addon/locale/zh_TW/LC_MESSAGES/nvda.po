@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Access8Math - 0.1\n"
-"POT-Creation-Date: 2018-01-26 16:02+0800\n"
-"PO-Revision-Date: 2018-01-26 16:06+0800\n"
+"Project-Id-Version: Access8Math - 1.1\n"
+"POT-Creation-Date: 2018-02-09 10:45+0800\n"
+"PO-Revision-Date: 2018-02-09 10:50+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_TW\n"
@@ -14,24 +14,74 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-SearchPath-0: __init__.py\n"
 
-#: __init__.py:164
-msgid "copy"
-msgstr "複製"
-
-#: __init__.py:172
+#: __init__.py:197
 msgid "not move"
 msgstr "無移動"
 
-#: __init__.py:206
+#: __init__.py:201
+msgid "copy"
+msgstr "複製"
+
+#: __init__.py:207
+msgid "snapshot"
+msgstr "快照"
+
+#: __init__.py:255
 msgid "build-in"
 msgstr "內建"
 
-#: __init__.py:238 __init__.py:247
+#: __init__.py:274 __init__.py:372
+msgid "Access8Math"
+msgstr "Access8Math"
+
+#: __init__.py:286
+msgid "&Access8Math settings..."
+msgstr "&Access8Math 設定..."
+
+#: __init__.py:311 __init__.py:331
 #, python-format
 msgid "Access8Math language change to %s"
 msgstr "Access8Math語言更改為 %s"
 
-#: __init__.py:260
+#: __init__.py:314
+msgid "Change next language"
+msgstr "切換至下個語言"
+
+#: __init__.py:334
+msgid "Change previous language"
+msgstr "切換至上個語言"
+
+#: __init__.py:351
 #, python-format
 msgid "mathml provider change to %s"
 msgstr "mathml閱讀程式更改為 %s"
+
+#: __init__.py:354
+msgid "Change mathml provider"
+msgstr "更改閱讀程式"
+
+#: __init__.py:363
+msgid "Shows the Access8Math settings dialog."
+msgstr "顯示 Access8Math 設定對話框"
+
+#: __init__.py:376
+msgid "&Language:"
+msgstr "語言(&L)"
+
+#: __init__.py:386
+msgid "Analyze mathematical meaning of content"
+msgstr "分析內容的數學意義"
+
+#: __init__.py:389
+msgid "Read the meaning of definied pattern in dictionary"
+msgstr "讀出字典有定義模式的意義"
+
+#: __init__.py:392
+msgid "Read the meaning of auto-generated"
+msgstr "讀出自動生成的意義"
+
+#~ msgid "Report dictionary defination meaning"
+#~ msgstr "讀出已字典定義的意義"
+
+#~ msgid "Report automatic generation meaning"
+#~ msgstr "讀出自動產生的意義"

@@ -25,4 +25,12 @@ set	集合, (元素.*), 结束集合	元素
 absolute_value	绝对值, ( .*), 结束绝对值	项
 determinant	行列式, ( .*), 结束行列式	项
 matrix	矩阵, ( .*), 结束矩阵	项
+single_fraction	1,分之,0	分子,分母
+single_square_root	0,的平方根	根号内
+SingleMsubsup	, 0, 下标, 1, 上标, 2, 	主符号,下标,上标
+SingleMsub	, 0, 下标, 1, 	主符号,下标
+SingleMsup	, 0, 上标, 1, 	主符号,上标
+SingleMunderover	, 0, 正下标, 1, 正上标, 2, 	主符号,正下标,正上标
+SingleMunder	, 0, 正下标, 1, 	主符号,正下标
+SingleMover	, 0, 正上标, 1, 	主符号,正上标
 limit	运算,极限,,1,	运算符,趋近条件
