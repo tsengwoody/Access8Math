@@ -275,8 +275,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def __init__(self, *args, **kwargs):
 		super(GlobalPlugin, self).__init__(*args, **kwargs)
-		'''xml_NVDA = sys.modules['xml']
-		sys.modules['xml'] = globalPlugins.MathMlReader.xml'''
+		xml_NVDA = sys.modules['xml']
+		sys.modules['xml'] = globalPlugins.MathMlReader.xml
 
 		# Gui
 		self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu

@@ -43,6 +43,10 @@ def create_node(et):
 		node = Node(child, et.attrib)
 		#raise RuntimeError('unknown tag : {}'.format(mp_tag))
 
+	for c in node.child:
+		c.type = None
+		c.check_type()
+
 	return node
 
 class Node(object):
@@ -55,11 +59,7 @@ class Node(object):
 		self.attrib = attrib
 		self.data = unicode(data.strip()) if data else u''
 		self.type = None
-		for nodetype in nodetypes:
-			if nodetype.check(self) and nodetype.name in math_rule:
-				self.type = nodetype
-				break
-
+		self.check_type()
 		self.role = math_role[self.name] if math_role.has_key(self.name) else [symbol_translate('item')]
 		d = len(self.child) -len(self.role)
 		if d > 0:
@@ -71,12 +71,29 @@ class Node(object):
 		else:
 			self.role_level = DIC_GENERATE
 
+	def check_type(self):
+		for nodetype in SNT:
+			if nodetype.check(self) and nodetype.name in math_rule:
+				if not self.type:
+					self.type = nodetype
+				elif self.type and issubclass(nodetype, self.type):
+					self.type = nodetype
+
+		for nodetype in nodetypes:
+			if nodetype.check(self) and nodetype.name in math_rule:
+				if not self.type:
+					self.type = nodetype
+				elif self.type and issubclass(nodetype, self.type):
+					self.type = nodetype
+
 	def rule(self):
 		if self.type and self.type.rule and AMM:
 			if issubclass(self.type, NonTerminalNodeType):
 				rule = self.type.rule()
 			elif issubclass(self.type, TerminalNodeType):
 				rule = [unicode(self.type.data.sub(self.type.rule, self.data))]
+			elif issubclass(self.type, SiblingNodeType):
+				rule = self.type.rule()
 		else:
 			rule = math_rule[self.tag]
 		if isinstance(rule[1], tuple):
@@ -213,7 +230,7 @@ class TerminalNode(Node):
 	def rule(self):
 		try:
 			return super(TerminalNode, self).rule()
-		except:
+		except BaseException as e:
 			return [unicode(symbol_translate(self.data))]
 
 	def get_mathml(self):
@@ -394,15 +411,23 @@ class Nones(Node):
 
 class NodeType(object):
 	tag = object
-	child = []
+	child = [u'object', '*']
 	attrib = {}
 	data = re.compile(r".*")
-	name = ''
+	name = 'nodetype'
 	rule = None
 
 	@classmethod
 	def check(cls, obj):
-		result = []
+		if not issubclass(obj.__class__, cls.tag):
+			return False
+
+		return True
+
+class TerminalNodeType(NodeType):
+
+	@classmethod
+	def check(cls, obj):
 		if not issubclass(obj.__class__, cls.tag):
 			return False
 
@@ -413,15 +438,7 @@ class NodeType(object):
 			elif not value.search(obj.attrib[key]) is not None:
 				return False
 
-		#check child
-		d = len(obj.child) - (len(cls.child) -1)
-		if d > 0 and len(cls.child) > 0 and cls.child[-1]=='*':
-			type_list = cls.child[:-1] +[cls.child[-2]]*d
-		else:
-			type_list = cls.child
-		for mt, o in zip(type_list, obj.child):
-			if not mt.check(o):
-				return False
+		# check data
 		if not obj.data == '':
 			try:
 				if not cls.data.search(obj.data) is not None:
@@ -429,9 +446,6 @@ class NodeType(object):
 			except:
 				return False
 		return True
-		#return False if False in result else True
-
-class TerminalNodeType(NodeType):
 
 	@classmethod
 	def rule(cls, m):
@@ -448,6 +462,96 @@ class TerminalNodeType(NodeType):
 class NonTerminalNodeType(NodeType):
 
 	@classmethod
+	def check(cls, obj):
+		result = []
+		if not issubclass(obj.__class__, cls.tag):
+			return False
+
+		#check attrib
+		for key, value in cls.attrib.items():
+			if not obj.attrib.has_key(key):
+				return False
+			elif not value.search(obj.attrib[key]) is not None:
+				return False
+
+		#check child
+		if cls.child[-1]=='*' and len(cls.child)>1:
+			d = len(obj.child) - (len(cls.child) -1)
+			type_list = cls.child[:-1] +[cls.child[-2]]*d
+		else:
+			type_list = cls.child
+		if not len(type_list) == len(obj.child):
+			return False
+
+		# change type
+		type_list_str = [t if isinstance(t, unicode) else t.__name__ for t in type_list]
+		type_list = [all_nodetypes_dict[t] for t in type_list_str]
+
+		# check child type
+		for mt, o in zip(type_list, obj.child):
+			if not mt==object and not mt.check(o):
+				return False
+
+		return True
+
+	@classmethod
+	def rule(cls):
+		return math_rule[cls.name]
+
+class SiblingNodeType(NodeType):
+	previous_siblings = []
+	next_siblings = []
+	self_ = NodeType
+
+	@classmethod
+	def check(cls, obj):
+		self_index = obj.index_in_parent()
+		cls_previous_siblings = cls.previous_siblings
+		cls_next_siblings = cls.next_siblings
+		cpsl = len(cls_previous_siblings)
+		cnsl = len(cls_next_siblings)
+		if not self_index is None:
+			start_index = self_index -cpsl
+			if cpsl>0 and cls_previous_siblings[0] == None:
+				cls_previous_siblings = cls_previous_siblings[1:]
+				if not start_index==-1:
+					return False
+			elif start_index < 0:
+				return False
+
+			end_index = self_index +cnsl
+			if cnsl>0 and cls_next_siblings[-1] == None:
+				cls_next_siblings = cls_next_siblings[:-1]
+				if not end_index==len(obj.parent.child):
+					return False
+			elif end_index > len(obj.parent.child):
+				return False
+		else:
+			return False
+
+		if not cls.self_.check(obj):
+			return False
+
+		# change type
+		type_list = cls_previous_siblings
+		type_list_str = [t if isinstance(t, unicode) else t.__name__ for t in type_list]
+		type_list = [all_nodetypes_dict[t] for t in type_list_str]
+		obj_previous_siblings = obj.parent.child[start_index:self_index]
+		for mt, o in zip(type_list, obj_previous_siblings):
+			if not mt==object and not mt.check(o):
+				return False
+
+		type_list = cls_next_siblings
+		type_list_str = [t if isinstance(t, unicode) else t.__name__ for t in type_list]
+		type_list = [all_nodetypes_dict[t] for t in type_list_str]
+		obj_next_siblings = obj.parent.child[self_index+1:end_index+1]
+		for mt, o in zip(type_list, obj_next_siblings):
+			if not mt==object and not mt.check(o):
+				return False
+
+		return True
+
+	@classmethod
 	def rule(cls):
 		return math_rule[cls.name]
 
@@ -461,6 +565,9 @@ class CompoundNodeType(NodeType):
 				return True
 		return False
 
+class FractionType(NonTerminalNodeType):
+	tag = Mfrac
+
 class MiOperandType(TerminalNodeType):
 	tag = Mi
 	data = re.compile(r"^[\d\w]+$")
@@ -470,7 +577,7 @@ class MnOperandType(TerminalNodeType):
 	data = re.compile(r"^[\d\w]+$")
 
 class OperandType(CompoundNodeType):
-	compound = [MiOperandType, MnOperandType]
+	compound = [MiOperandType, MnOperandType, FractionType]
 
 class OperatorType(TerminalNodeType):
 	tag = Mo
@@ -490,12 +597,12 @@ class PowerType(NonTerminalNodeType):
 
 class MsubsupFromToType(NonTerminalNodeType):
 	tag = Msubsup
-	child = [FromToOperatorType]
+	child = [FromToOperatorType, NodeType, NodeType]
 	name = 'from_to'
 
 class MunderoverFromToType(NonTerminalNodeType):
 	tag = Munderover
-	child = [FromToOperatorType]
+	child = [FromToOperatorType, NodeType, NodeType]
 	name = 'from_to'
 
 class SetType(NonTerminalNodeType):
@@ -523,7 +630,7 @@ class MatrixType(NonTerminalNodeType):
 	child = [MtableType]
 	name = 'matrix'
 
-class DeterminantType(NonTerminalNodeType):
+class DeterminantType(AbsoluteType):
 	tag = Mfenced
 	attrib = {
 		'open': re.compile(ur"^[|]$"),
@@ -532,7 +639,7 @@ class DeterminantType(NonTerminalNodeType):
 	child = [MtableType]
 	name = 'determinant'
 
-class SingleFractionType(NonTerminalNodeType):
+class SingleFractionType(FractionType):
 	tag = Mfrac
 	child = [OperandType, OperandType,]
 	name = 'single_fraction'
@@ -584,19 +691,78 @@ class SingleMoverType(NonTerminalNodeType):
 	child = [SingleType, SingleType]
 	name = 'SingleMover'
 
-class LimitOperatorType(TerminalNodeType):
+# SiblingNodeType
+
+class SingleNumberFractionType(SingleFractionType):
+	child = [MnOperandType, MnOperandType,]
+
+class AddIntegerFractionType(SiblingNodeType):
+	previous_siblings = [MnOperandType]
+	self_ = SingleNumberFractionType
+	name = 'AddIntegerFractionType'
+
+class MinusType(TerminalNodeType):
+	tag = Mo
+	data = re.compile(ur"^[-−]$")
+
+class NegativeSignType(SiblingNodeType):
+	previous_siblings = [MoType]
+	self_ = MinusType
+	name = 'NegativeSignType'
+
+class FirstNegativeSignType(SiblingNodeType):
+	previous_siblings = [None,]
+	self_ = MinusType
+	name = 'NegativeSignType'
+
+'''class LimitOperatorType(SiblingNodeType):
 	tag = Mi
 	data = re.compile(ur"^[Ll][Ii][Mm]$")
 
-class LimitApproacheType(TerminalNodeType):
+class LimitApproacheType(SiblingNodeType):
 	tag = TerminalNode
 	data = re.compile(ur"^([→])$")
 	name = 'limit_approache'
 
-class LimitType(NonTerminalNodeType):
+class LimitType(SiblingNodeType):
 	tag = Munder
 	child = [LimitOperatorType, ]
 	name = 'limit'
+'''
+
+import inspect
+# get class which is Node subclass
+nodes = { i.__name__: i for i in locals().values() if inspect.isclass(i) and issubclass(i, Node) }
+
+# get class which is NodeType subclass
+nodetypes = [ i for i in locals().values() if inspect.isclass(i) and issubclass(i, NodeType) ]
+nodetypes_dict = { k:v for k,v in locals().items() if inspect.isclass(v) and issubclass(v, NodeType) }
+SNT = [ i for i in locals().values() if inspect.isclass(i) and issubclass(i, SiblingNodeType) ]
+
+def ComplementMethod(method):
+	def decorator(cls, obj):
+		return not method(obj)
+	return decorator
+
+notnodetypes = []
+notnodetypes_dict = {}
+for nodetype in nodetypes:
+	dic = dict(nodetype.__dict__)
+	dic.update({
+		'check': classmethod(ComplementMethod(nodetype.check)),
+		'name': '',
+	})
+	notnodetype = type('Not'+nodetype.__name__, nodetype.__bases__, dic)
+	notnodetypes.append(notnodetype)
+	notnodetypes_dict.update({
+		'Not'+nodetype.__name__: notnodetype,
+	})
+	locals()['Not'+nodetype.__name__]= notnodetype
+
+nodetypes_dict.update({'object': object})
+all_nodetypes = [ i for i in locals().values() if inspect.isclass(i) and issubclass(i, NodeType) ]
+all_nodetypes_dict = { k:v for k,v in locals().items() if inspect.isclass(v) and issubclass(v, NodeType) }
+all_nodetypes_dict.update({'object': object})
 
 def load_unicode_dic(language):
 	path = os.path.dirname(os.path.abspath(__file__))
@@ -696,13 +862,6 @@ def save_math_rule(language, math_role, math_rule):
 def symbol_translate(u):
 	return symbol[u] if symbol.has_key(u) else u
 
-import inspect
-# get class which is Node subclass
-nodes = { i.__name__: i for i in locals().values() if inspect.isclass(i) and issubclass(i, Node) }
-
-# get class which is NodeType subclass
-nodetypes = [ i for i in locals().values() if inspect.isclass(i) and issubclass(i, NodeType) ]
-
 language = os.environ.get('LANGUAGE', 'Windows')
 symbol = load_unicode_dic(language)
 math_role, math_rule = load_math_rule(language)
@@ -722,7 +881,10 @@ import HTMLParser
 import xml
 from xml.etree import ElementTree as ET
 if __name__ == '__main__':
-	mathMl = u'<math><mfenced><mrow><mo>-</mo><mn>2</mn></mrow></mfenced><mo>&times;</mo><mfenced close="|" open="|"><mrow><mo>-</mo><mn>5</mn></mrow></mfenced><mo>-</mo><mfenced close="|" open="|"><mrow><mo>-</mo><mn>3</mn></mrow></mfenced></math>'
+	mathMl = u'<math xml:lang="zh_TW"> <semantics> <mrow> <mfrac> <mn>1</mn> <mn>2</mn> </mfrac> <mo>+</mo><mfrac> <mn>3</mn> <mn>4</mn> </mfrac> <mo>−</mo><mn>1</mn><mfrac> <mn>1</mn> <mn>3</mn> </mfrac> </mrow> </semantics> </math>'
+	mathMl = u'<math><mrow><mi>x</mi><mo>=</mo><mfrac><mrow><mo form="prefix">−</mo><mi>b</mi><mo>±</mo><msqrt><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mo>*</mo><mi>a</mi><mo>*</mo><mi>c</mi></msqrt></mrow><mrow><mn>2</mn><mo>*</mo><mi>a</mi></mrow></mfrac></mrow></math>'
+	mathMl = u'<math xml:lang="zh_TW"><msub><mi>L</mi><mn>2</mn></msub><mo>:</mo><mfenced close="" open="{"><mtable columnalign="left"><mtr><mtd><mi>x</mi><mo>-</mo><mn>2</mn><mi>y</mi><mo>+</mo><mn>2</mn><mi>z</mi><mo>=</mo><mo>-</mo><mn>4</mn></mtd></mtr><mtr><mtd><mi>x</mi><mo>+</mo><mi>y</mi><mo>-</mo><mn>4</mn><mi>z</mi><mo>=</mo><mn>5</mn></mtd></mtr></mtable></mfenced></math>'
+
 	gtlt_pattern = re.compile(ur"([\>])(.*?)([\<])")
 	mathMl = gtlt_pattern.sub(lambda m: m.group(1) +cgi.escape(HTMLParser.HTMLParser().unescape(m.group(2))) +m.group(3), mathMl)
 	quote_pattern = re.compile(ur"([\"\'])(.*?)\1")
@@ -731,3 +893,5 @@ if __name__ == '__main__':
 
 	tree = ET.fromstring(mathMl.encode('utf-8'), parser=parser)
 	node = create_node(tree)
+	s = node.child[2]
+	print ''.join([i for i in s.serialized() if i != '@10@'])
