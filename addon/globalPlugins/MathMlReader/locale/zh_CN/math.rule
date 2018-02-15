@@ -33,4 +33,6 @@ SingleMsup	, 0, 上标, 1, 	主符号,上标
 SingleMunderover	, 0, 正下标, 1, 正上标, 2, 	主符号,正下标,正上标
 SingleMunder	, 0, 正下标, 1, 	主符号,正下标
 SingleMover	, 0, 正上标, 1, 	主符号,正上标
+AddIntegerFractionType	又,1,分之,0	分子,分母
+NegativeSignType	,负,	负号
 limit	运算,极限,,1,	运算符,趋近条件

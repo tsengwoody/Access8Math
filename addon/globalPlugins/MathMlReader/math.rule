@@ -26,11 +26,13 @@ absolute_value	絕對值, ( .*), 結束絕對值	項
 determinant	行列式, ( .*), 結束行列式	項
 matrix	矩陣, ( .*), 結束矩陣	項
 single_fraction	1,分之,0	分子,分母
-single_square_root	0,的平方根	根號內
+single_square_root	平方根,0	根號內
 SingleMsubsup	, 0, 下標, 1, 上標, 2, 	主符號,下標,上標
 SingleMsub	, 0, 下標, 1, 	主符號,下標
 SingleMsup	, 0, 上標, 1, 	主符號,上標
 SingleMunderover	, 0, 正下標, 1, 正上標, 2, 	主符號,正下標,正上標
 SingleMunder	, 0, 正下標, 1, 	主符號,正下標
 SingleMover	, 0, 正上標, 1, 	主符號,正上標
+AddIntegerFractionType	又,1,分之,0	分子,分母
+NegativeSignType	,負,	負號
 limit	運算,極限,,1,	運算符,趨近條件

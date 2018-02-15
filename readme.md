@@ -1,3 +1,15 @@
+# Access8Math v1.1 update log
+
+*	In navigation mode command, "Ctrl+c" copy object MathML source code.
+*	Settings dialog box in Preferences:
+	*	Language: Access8Math reading language
+	*	Analyze the mathematical meaning of content: Semantically analyze the math content, in line with specific rules, read in mathematical meaning of that rules.
+	*	Read the meaning of definied pattern in dictionary: When the pattern is definied in the dictionary, use dictionary to read the meaning of subpart in the upper layer part.
+	*	Read the meaning of auto-generated: When the pattern is not difined or incomplete in dictionary, use automatic generation function to read the meaning of subpart in the upper layer part.
+*	Add some simple rule. Single rules are simplified versions of various rules. When the content only has one single item, for better understanding and reading without confusion, you can omit to choose not to read the script before and after the content.
+*	Update unicode.dic
+*	Fix bug
+
 # Access8Math ReadMe
 
 This NVDA addon provides the function of reading math content. Although the original NVDA already equipped this feature by applying MathPlayer, some functions still needed to be improved, especially in MathPlayer some language not provided navigation mode.
@@ -23,8 +35,8 @@ Access8Math allows:
 *	Settings dialog box:
 	*	Language: Access8Math reading language
 	*	Analyze the mathematical meaning of content: Semantically analyze the math content, in line with specific rules, read in mathematical meaning of that rules.
-	*	Read the meaning of definied pattern in dictionary: When the pattern is definied in the dictionary, use dictionary to read the meaning of subpart in the upper layer part.
-	*	Read the meaning of auto-generated: When the pattern is not difined or incomplete in dictionary, use automatic generation function to read the meaning of subpart in the upper layer part.
+	*	Read defined meaning  in dictionary: When the pattern is definied in the dictionary, use dictionary to read the meaning of subpart in the upper layer part.
+	*	Read auto-generated meaning: When the pattern is not difined or incomplete in dictionary, use automatic generation function to read the meaning of subpart in the upper layer part.
 *	Currently available rules include:
 	*	...from...to...
 		*	Circle area intergration:
@@ -469,6 +481,18 @@ Example
 Source code: https://github.com/tsengwoody/Access8Math
 
 Please report any bugs or comments, thank you!
+
+# Access8Math v1.1 更新日誌
+
+*	在導航瀏覽時按"Ctrl+c"複製物件MathML原始碼
+*	再偏好設定內增加 Access8Math 設定的項目，設定選項對話框，可設定：
+	*	語言：Access8Math 的朗讀語言
+	*	分析內容的數學意義：將數學內容進行語意分析，符合特定規則時，以該規則的數學意義進行朗讀
+	*	讀出字典有定義模式的意義：當字典檔有定義時，使用字典檔讀出提示該項子內容在其上層子內容的意義
+	*	讀出自動生成的意義：當字典檔無定義或不完整時，使用自動產生功能讀出提示該項子內容在其上層子內容的意義或項次
+*	加入多條簡單規則，簡單規則是各種規則的簡化版，當其內容僅為單一項目時，便可省略前後標記朗讀，以達到更好的理解與閱讀，而亦不致造成混淆
+*	更新unicode.dic
+*	修正已知問題
 
 # Access8Math 說明
 

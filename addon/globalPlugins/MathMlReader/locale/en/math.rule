@@ -33,4 +33,6 @@ SingleMsup	, 0, super, 1, 	main,super
 SingleMunderover	, 0, below, 1, above, 2, 	main,below,above
 SingleMunder	, 0, below, 1, 	main,below
 SingleMover	, 0, above, 1, 	main,above
+AddIntegerFractionType	add,0,over,1	numerator,denominator
+NegativeSignType	,negative,	negative
 limit	operator,limit,,1,	operator,approache condition
