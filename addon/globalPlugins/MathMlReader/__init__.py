@@ -386,10 +386,10 @@ class AddonSettingsDialog(SettingsDialog):
 		AMMLabel = _("Analyze mathematical meaning of content")
 		self.AMMCheckBox = sHelper.addItem(wx.CheckBox(self, label=AMMLabel))
 		self.AMMCheckBox.SetValue(config.conf["Access8Math"]["AMM"])
-		DGLabel = _("Read the meaning of definied pattern in dictionary")
+		DGLabel = _("Read defined meaning in dictionary")
 		self.DGCheckBox = sHelper.addItem(wx.CheckBox(self, label=DGLabel))
 		self.DGCheckBox.SetValue(config.conf["Access8Math"]["DG"])
-		AGLabel = _("Read the meaning of auto-generated")
+		AGLabel = _("Read of auto-generated meaning")
 		self.AGCheckBox = sHelper.addItem(wx.CheckBox(self, label=AGLabel))
 		self.AGCheckBox.SetValue(config.conf["Access8Math"]["AG"])
 

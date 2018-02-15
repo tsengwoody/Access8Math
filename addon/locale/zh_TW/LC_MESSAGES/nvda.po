@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Access8Math - 1.1\n"
-"POT-Creation-Date: 2018-02-09 10:45+0800\n"
-"PO-Revision-Date: 2018-02-09 10:50+0800\n"
+"Project-Id-Version: Access8Math - 1.2\n"
+"POT-Creation-Date: 2018-02-15 22:11+0800\n"
+"PO-Revision-Date: 2018-02-15 22:15+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_TW\n"
@@ -73,15 +73,15 @@ msgid "Analyze mathematical meaning of content"
 msgstr "分析內容的數學意義"
 
 #: __init__.py:389
-msgid "Read the meaning of definied pattern in dictionary"
-msgstr "讀出字典有定義模式的意義"
+msgid "Read defined meaning in dictionary"
+msgstr "讀出字典有定義的意義"
 
 #: __init__.py:392
-msgid "Read the meaning of auto-generated"
-msgstr "讀出自動生成的意義"
+msgid "Read of auto-generated meaning"
+msgstr "讀出自動產生的意義"
+
+#~ msgid "Read the meaning of auto-generated"
+#~ msgstr "讀出自動生成的意義"
 
 #~ msgid "Report dictionary defination meaning"
 #~ msgstr "讀出已字典定義的意義"
-
-#~ msgid "Report automatic generation meaning"
-#~ msgstr "讀出自動產生的意義"
