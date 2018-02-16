@@ -105,8 +105,8 @@ class MathMlReader(mathPres.MathPresentationProvider):
 	def getSpeechForMathMl(self, mathMl):
 		gtlt_pattern = re.compile(ur"([\>])(.*?)([\<])")
 		mathMl = gtlt_pattern.sub(lambda m: m.group(1) +cgi.escape(HTMLParser.HTMLParser().unescape(m.group(2))) +m.group(3), mathMl)
-		quote_pattern = re.compile(ur"([\"\'])(.*?)\1")
-		mathMl = quote_pattern.sub(lambda m: m.group(1) +cgi.escape(m.group(2)) +m.group(1), mathMl)
+		quote_pattern = re.compile(ur"=([\"\'])(.*?)\1")
+		mathMl = quote_pattern.sub(lambda m: '=' +m.group(1) +cgi.escape(m.group(2)) +m.group(1), mathMl)
 		parser = ET.XMLParser()
 		try:
 			tree = ET.fromstring(mathMl.encode('utf-8'), parser=parser)
@@ -127,8 +127,8 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 
 		gtlt_pattern = re.compile(ur"([\>])(.*?)([\<])")
 		mathMl = gtlt_pattern.sub(lambda m: m.group(1) +cgi.escape(HTMLParser.HTMLParser().unescape(m.group(2))) +m.group(3), mathMl)
-		quote_pattern = re.compile(ur"([\"\'])(.*?)\1")
-		mathMl = quote_pattern.sub(lambda m: m.group(1) +cgi.escape(m.group(2)) +m.group(1), mathMl)
+		quote_pattern = re.compile(ur"=([\"\'])(.*?)\1")
+		mathMl = quote_pattern.sub(lambda m: '=' +m.group(1) +cgi.escape(m.group(2)) +m.group(1), mathMl)
 		parser = ET.XMLParser()
 		try:
 			tree = ET.fromstring(mathMl.encode('utf-8'), parser=parser)
