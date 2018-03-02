@@ -325,7 +325,7 @@ class Mtable(NonTerminalNode):
 		row_count = len(self.child)
 		column_count_list = [len(i.child) for i in self.child]
 		column_count = max(column_count_list)
-		table_head = [rule[0] +u'{0}{1}{2}{3}{4}'.format(symbol_translate('has'), row_count, symbol['row'], column_count, symbol['column'])]
+		table_head = [rule[0] +u'{0}{1}{2}{3}{4}'.format(symbol_translate('has'), row_count, symbol_translate('row'), column_count, symbol_translate('column'))]
 		cell = rule[1:-1]
 		table_tail = rule[-1:]
 		return table_head +cell +table_tail
@@ -587,20 +587,132 @@ class FromToOperatorType(TerminalNodeType):
 	tag = Mo
 	data = re.compile(ur"^[∑∫]$")
 
+class MiType(TerminalNodeType):
+	tag = Mi
+
+class MnType(TerminalNodeType):
+	tag = Mn
+
+class MoType(TerminalNodeType):
+	tag = Mo
+
 class MtableType(NonTerminalNodeType):
 	tag = Mtable
 
-class PowerType(NonTerminalNodeType):
+class TwoMnType(TerminalNodeType):
+	tag = Mn
+	data = re.compile(ur"^[2]$")
+
+class ThreeMnType(TerminalNodeType):
+	tag = Mn
+	data = re.compile(ur"^[3]$")
+
+class TwoMiOperandItemType(NonTerminalNodeType):
+	tag = Mrow
+	child = [MiOperandType, MiOperandType]
+
+class MoLineType(TerminalNodeType):
+	tag = Mo
+	data = re.compile(ur"^[↔]$")
+
+class LineType(NonTerminalNodeType):
+	tag = Mover
+	child = [TwoMiOperandItemType, MoLineType]
+	name = 'LineType'
+
+class MoLineSegmentType(TerminalNodeType):
+	tag = Mo
+	data = re.compile(ur"^[¯]$")
+
+class LineSegmentType(NonTerminalNodeType):
+	tag = Mover
+	child = [TwoMiOperandItemType, MoLineSegmentType]
+	name = 'LineSegmentType'
+
+class MoRayType(TerminalNodeType):
+	tag = Mo
+	data = re.compile(ur"^[→]$")
+
+class RayType(NonTerminalNodeType):
+	tag = Mover
+	child = [TwoMiOperandItemType, MoRayType]
+	name = 'RayType'
+
+'''class MoFrownType(TerminalNodeType):
+	tag = Mo
+	data = re.compile(ur"^[⌢]$")
+
+class FrownType(NonTerminalNodeType):
+	tag = Mover
+	child = [TwoMiOperandItemType, MoFrownType]
+	name = 'FrownType'
+'''
+
+
+class SingleType(CompoundNodeType):
+	compound = [MiType, MnType, MoType]
+
+class SingleMsubsupType(NonTerminalNodeType):
+	tag = Msubsup
+	child = [SingleType, SingleType, SingleType]
+	name = 'SingleMsubsup'
+
+class SingleMsubType(NonTerminalNodeType):
+	tag = Msub
+	child = [SingleType, SingleType]
+	name = 'SingleMsub'
+
+class SingleMsupType(NonTerminalNodeType):
+	tag = Msup
+	child = [SingleType, SingleType]
+	name = 'SingleMsup'
+
+class SingleMunderoverType(NonTerminalNodeType):
+	tag = Munderover
+	child = [SingleType, SingleType, SingleType]
+	name = 'SingleMunderover'
+
+class SingleMunderType(NonTerminalNodeType):
+	tag = Munder
+	child = [SingleType, SingleType]
+	name = 'SingleMunder'
+
+class SingleMoverType(NonTerminalNodeType):
+	tag = Mover
+	child = [SingleType, SingleType]
+	name = 'SingleMover'
+
+class SingleFractionType(FractionType):
+	tag = Mfrac
+	child = [OperandType, OperandType,]
+	name = 'single_fraction'
+
+class SingleSqrtType(NonTerminalNodeType):
+	tag = Msqrt
+	child = [OperandType]
+	name = 'single_square_root'
+
+class PowerType(SingleMsupType):
 	tag = Msup
 	child = [OperandType, OperandType,]
 	name = 'power'
 
-class MsubsupFromToType(NonTerminalNodeType):
+class SquarePowerType(PowerType):
+	tag = Msup
+	child = [OperandType, TwoMnType,]
+	name = 'SquarePowerType'
+
+class CubePowerType(PowerType):
+	tag = Msup
+	child = [OperandType, ThreeMnType,]
+	name = 'CubePowerType'
+
+class MsubsupFromToType(SingleMsubsupType):
 	tag = Msubsup
 	child = [FromToOperatorType, NodeType, NodeType]
 	name = 'from_to'
 
-class MunderoverFromToType(NonTerminalNodeType):
+class MunderoverFromToType(SingleMunderoverType):
 	tag = Munderover
 	child = [FromToOperatorType, NodeType, NodeType]
 	name = 'from_to'
@@ -639,58 +751,6 @@ class DeterminantType(AbsoluteType):
 	child = [MtableType]
 	name = 'determinant'
 
-class SingleFractionType(FractionType):
-	tag = Mfrac
-	child = [OperandType, OperandType,]
-	name = 'single_fraction'
-
-class SingleSqrtType(NonTerminalNodeType):
-	tag = Msqrt
-	child = [OperandType]
-	name = 'single_square_root'
-
-class MiType(TerminalNodeType):
-	tag = Mi
-
-class MnType(TerminalNodeType):
-	tag = Mn
-
-class MoType(TerminalNodeType):
-	tag = Mo
-
-class SingleType(CompoundNodeType):
-	compound = [MiType, MnType, MoType]
-
-class SingleMsubsupType(NonTerminalNodeType):
-	tag = Msubsup
-	child = [SingleType, SingleType, SingleType]
-	name = 'SingleMsubsup'
-
-class SingleMsubType(NonTerminalNodeType):
-	tag = Msub
-	child = [SingleType, SingleType]
-	name = 'SingleMsub'
-
-class SingleMsupType(NonTerminalNodeType):
-	tag = Msup
-	child = [SingleType, SingleType]
-	name = 'SingleMsup'
-
-class SingleMunderoverType(NonTerminalNodeType):
-	tag = Munderover
-	child = [SingleType, SingleType, SingleType]
-	name = 'SingleMunderover'
-
-class SingleMunderType(NonTerminalNodeType):
-	tag = Munder
-	child = [SingleType, SingleType]
-	name = 'SingleMunder'
-
-class SingleMoverType(NonTerminalNodeType):
-	tag = Mover
-	child = [SingleType, SingleType]
-	name = 'SingleMover'
-
 # SiblingNodeType
 
 class SingleNumberFractionType(SingleFractionType):
@@ -701,12 +761,16 @@ class AddIntegerFractionType(SiblingNodeType):
 	self_ = SingleNumberFractionType
 	name = 'AddIntegerFractionType'
 
+class SignPreviousMoType(TerminalNodeType):
+	tag = Mo
+	data = re.compile(ur"^[(*+-\./:<=>±·×÷−∔]$")
+
 class MinusType(TerminalNodeType):
 	tag = Mo
 	data = re.compile(ur"^[-−]$")
 
 class NegativeSignType(SiblingNodeType):
-	previous_siblings = [MoType]
+	previous_siblings = [SignPreviousMoType]
 	self_ = MinusType
 	name = 'NegativeSignType'
 
@@ -715,20 +779,19 @@ class FirstNegativeSignType(SiblingNodeType):
 	self_ = MinusType
 	name = 'NegativeSignType'
 
-'''class LimitOperatorType(SiblingNodeType):
-	tag = Mi
-	data = re.compile(ur"^[Ll][Ii][Mm]$")
+class PlusType(TerminalNodeType):
+	tag = Mo
+	data = re.compile(ur"^[+∔]$")
 
-class LimitApproacheType(SiblingNodeType):
-	tag = TerminalNode
-	data = re.compile(ur"^([→])$")
-	name = 'limit_approache'
+class PositiveSignType(SiblingNodeType):
+	previous_siblings = [SignPreviousMoType]
+	self_ = PlusType
+	name = 'PositiveSignType'
 
-class LimitType(SiblingNodeType):
-	tag = Munder
-	child = [LimitOperatorType, ]
-	name = 'limit'
-'''
+class FirstPositiveSignType(SiblingNodeType):
+	previous_siblings = [None,]
+	self_ = PlusType
+	name = 'PositiveSignType'
 
 import inspect
 # get class which is Node subclass
@@ -866,32 +929,3 @@ language = os.environ.get('LANGUAGE', 'Windows')
 symbol = load_unicode_dic(language)
 math_role, math_rule = load_math_rule(language)
 AMM = True if os.environ.get('AMM', 'True') in [u'True', u'true'] else False
-
-
-
-import os
-import re
-import sys
-path = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, path)
-Base_Dir = os.path.dirname(os.path.dirname(__file__))
-sys.path.insert(0, Base_Dir)
-import cgi
-import HTMLParser
-import xml
-from xml.etree import ElementTree as ET
-if __name__ == '__main__':
-	mathMl = u'<math xml:lang="zh_TW"> <semantics> <mrow> <mfrac> <mn>1</mn> <mn>2</mn> </mfrac> <mo>+</mo><mfrac> <mn>3</mn> <mn>4</mn> </mfrac> <mo>−</mo><mn>1</mn><mfrac> <mn>1</mn> <mn>3</mn> </mfrac> </mrow> </semantics> </math>'
-	mathMl = u'<math><mrow><mi>x</mi><mo>=</mo><mfrac><mrow><mo form="prefix">−</mo><mi>b</mi><mo>±</mo><msqrt><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mo>*</mo><mi>a</mi><mo>*</mo><mi>c</mi></msqrt></mrow><mrow><mn>2</mn><mo>*</mo><mi>a</mi></mrow></mfrac></mrow></math>'
-	mathMl = u'<math xml:lang="zh_TW"><msub><mi>L</mi><mn>2</mn></msub><mo>:</mo><mfenced close="" open="{"><mtable columnalign="left"><mtr><mtd><mi>x</mi><mo>-</mo><mn>2</mn><mi>y</mi><mo>+</mo><mn>2</mn><mi>z</mi><mo>=</mo><mo>-</mo><mn>4</mn></mtd></mtr><mtr><mtd><mi>x</mi><mo>+</mo><mi>y</mi><mo>-</mo><mn>4</mn><mi>z</mi><mo>=</mo><mn>5</mn></mtd></mtr></mtable></mfenced></math>'
-
-	gtlt_pattern = re.compile(ur"([\>])(.*?)([\<])")
-	mathMl = gtlt_pattern.sub(lambda m: m.group(1) +cgi.escape(HTMLParser.HTMLParser().unescape(m.group(2))) +m.group(3), mathMl)
-	quote_pattern = re.compile(ur"([\"\'])(.*?)\1")
-	mathMl = quote_pattern.sub(lambda m: m.group(1) +cgi.escape(m.group(2)) +m.group(1), mathMl)
-	parser = ET.XMLParser()
-
-	tree = ET.fromstring(mathMl.encode('utf-8'), parser=parser)
-	node = create_node(tree)
-	s = node.child[2]
-	print ''.join([i for i in s.serialized() if i != '@10@'])

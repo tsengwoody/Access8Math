@@ -21,6 +21,7 @@ addonHandler.initTranslation()
 import api
 from brailleInput import BrailleInputGesture
 import config
+import eventHandler
 import globalPlugins
 import globalPluginHandler
 import globalVars
@@ -70,6 +71,50 @@ def translate_Unicode(serializes):
 	sequence = pattern.sub(lambda m: u' ', sequence)
 	return sequence.strip()
 
+class InteractionFrame(wx.Frame):
+	def __init__(self, obj):
+		super(InteractionFrame, self).__init__(None, title=_("Access8Math interaction window"))
+		self.obj = obj
+
+		self.CreateStatusBar() # A StatusBar in the bottom of the window
+
+		# Setting up the menu.
+		filemenu= wx.Menu()
+
+		# wx.ID_ABOUT and wx.ID_EXIT are standard ids provided by wxWidgets.
+		menuAbout = filemenu.Append(wx.ID_ABOUT, _("&About"),_("Information about this program"))
+		menuExit = filemenu.Append(wx.ID_EXIT,_("&Exit"),_("Terminate the program"))
+
+		# Creating the menubar.
+		menuBar = wx.MenuBar()
+		menuBar.Append(filemenu,_("&Menu"))
+		self.SetMenuBar(menuBar)  # Adding the MenuBar to the Frame content.
+
+		# Set events.
+		self.Bind(wx.EVT_MENU, self.OnExit, menuExit)
+
+		panel = wx.Panel(self, -1)
+		interactionButton =wx.Button(panel, label=_("interaction"))
+		self.Bind(wx.EVT_BUTTON, self.OnInteraction,interactionButton)
+		copyButton =wx.Button(panel, label=_("copy"))
+		self.Bind(wx.EVT_BUTTON, self.OnRawdataToClip,copyButton)
+		mainSizer=wx.BoxSizer(wx.HORIZONTAL)
+		mainSizer.Add(interactionButton)
+		mainSizer.Add(copyButton)
+		panel.SetSizer(mainSizer)
+		mainSizer.Fit(self)
+
+	def OnExit(self,event):
+		self.Close(True)  # Close the frame.
+
+	def OnInteraction(self,event):
+		self.obj.interactionFrameNVDAobj = self.obj.parent = api.getFocusObject()
+		eventHandler.executeEvent("gainFocus", self.obj)
+
+	def OnRawdataToClip(self,event):
+		api.copyToClip(self.obj.raw_data)
+		ui.message(_("copy"))
+
 class MathMlTextInfo(textInfos.offsets.OffsetsTextInfo):
 
 	def __init__(self,obj,position):
@@ -118,7 +163,7 @@ class MathMlReader(mathPres.MathPresentationProvider):
 		return translate_SpeechCommand(node.serialized())
 
 	def interactWithMathMl(self, mathMl):
-		MathMlReaderInteraction(provider=self, mathMl=mathMl).setFocus()
+		MathMlReaderInteraction(provider=self, mathMl=mathMl)
 
 class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 
@@ -139,6 +184,10 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 		self.raw_data = mathMl
 		api.setReviewPosition(self.makeTextInfo(), False)
 
+		self.interactionFrame = InteractionFrame(self)
+		self.interactionFrame.Show()
+		self.interactionFrame.Raise()
+
 	def _get_mathMl(self):
 		return self.raw_data
 
@@ -146,11 +195,7 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 		return MathMlTextInfo(self, position)
 
 	'''def event_gainFocus(self):
-		super(MathMlReaderInteraction, self).event_gainFocus()
-		api.setReviewPosition = interaction_setReviewPosition
-
-	def event_loseFocus(self):
-		api.setReviewPosition = not_interaction_setReviewPosition'''
+	def event_loseFocus(self):'''
 
 	def reportFocus(self):
 		super(MathMlReaderInteraction, self).reportFocus()
@@ -202,14 +247,15 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 
 	def script_snapshot(self, gesture):
 		globalVars.math_obj = self
-		globalVars.root = self.root
-		globalVars.math_pointer = self.pointer
 		ui.message(_("snapshot"))
 
 	__gestures={
 		"kb:control+c": "rawdataToClip",
 		"kb:control+s": "snapshot",
 	}
+
+from collections import deque
+mathObjectCache = deque(maxlen=10)
 
 provider_list = [
 	u"MathMlReader",
@@ -259,10 +305,14 @@ available_languages_long = [i[1] for i in available_languages]
 try:
 	language = config.conf["Access8Math"]["language"]
 	for k in ["AMM", "AG", "DG",]:
-		config.conf["Access8Math"][k] = True if config.conf["Access8Math"][k] in [u'True', u'true'] else False
+		config.conf["Access8Math"][k] = True if config.conf["Access8Math"][k] in [u'True', u'true', True] else False
 		locals()[k] = config.conf["Access8Math"][k]
 except:
 	initialize_config()
+	language = config.conf["Access8Math"]["language"]
+	for k in ["AMM", "AG", "DG",]:
+		config.conf["Access8Math"][k] = True if config.conf["Access8Math"][k] in [u'True', u'true'] else False
+		locals()[k] = config.conf["Access8Math"][k]
 
 os.environ['LANGUAGE'] = language
 os.environ['AMM'] = unicode(AMM)
@@ -368,7 +418,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 class AddonSettingsDialog(SettingsDialog):
 
-# Translators: Title of the Access8MathDialog.
+	# Translators: Title of the Access8MathDialog.
 	title = _("Access8Math")
 
 	def makeSettings(self, settingsSizer):
