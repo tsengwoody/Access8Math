@@ -1,15 +1,3 @@
-# Access8Math v1.1 更新日誌
-
-*	在導航瀏覽時按"Ctrl+c"複製物件MathML原始碼
-*	再偏好設定內增加 Access8Math 設定的項目，設定選項對話框，可設定：
-	*	語言：Access8Math 的朗讀語言
-	*	分析內容的數學意義：將數學內容進行語意分析，符合特定規則時，以該規則的數學意義進行朗讀
-	*	讀出字典有定義模式的意義：當字典檔有定義時，使用字典檔讀出提示該項子內容在其上層子內容的意義
-	*	讀出自動生成的意義：當字典檔無定義或不完整時，使用自動產生功能讀出提示該項子內容在其上層子內容的意義或項次
-*	加入多條簡單規則，簡單規則是各種規則的簡化版，當其內容僅為單一項目時，便可省略前後標記朗讀，以達到更好的理解與閱讀，而亦不致造成混淆
-*	更新unicode.dic
-*	修正已知問題
-
 # Access8Math 說明
 
 此NVDA addon提供數學內容的閱讀，原先NVDA亦有此功能，但因是調用MathPlayer的功能，部份功能尚顯不足，尤其一些語言未提供導航瀏覽(互動式閱讀部份內容)。
@@ -20,7 +8,9 @@
 
 *	可閱讀網頁瀏覽器(Mozilla Firefox, Microsoft Internet Explorer and Google Chrome)上以MathML撰寫的數學內容
 *	可閱讀Microsoft Word上以MathType 撰寫的數學內容。(需安裝MathType)
-*	在數學內容上按空白鍵可與該數學內容進行導航瀏覽，亦即可部份瀏覽數學內容中的子內容並在子內容間移動或縮放子內容大小
+*	在數學內容上按空白鍵後開啟「Access8Math 互動視窗」，視窗內含有「互動」、「複製」按鈕。
+	*	互動：與該數學內容進行導航瀏覽，亦即可部份瀏覽數學內容中的子內容並在子內容間移動或縮放子內容大小
+	*	複製：複製物件MathML原始碼
 *	在導航瀏覽時會提示該項子內容在其上層子內容的意義
 *	在導航瀏覽時按鍵：
 	*	向下鍵縮小當前數學內容成更小的子內容
@@ -33,374 +23,11 @@
 	*	esc鍵退出導航瀏覽模式
 *	ctrl+alt+m：可在Access8Math與MathPlayer間切換閱讀器(有安裝MathPlayer才能切換)
 *	設定選項對話框，可設定：
-	*	語言：Access8Math 的朗讀語言
+	*	語言：Access8Math 朗讀數學內容的語言
 	*	分析內容的數學意義：將數學內容進行語意分析，符合特定規則時，以該規則的數學意義進行朗讀
 	*	讀出字典有定義模式的意義：當字典檔有定義時，使用字典檔讀出提示該項子內容在其上層子內容的意義
 	*	讀出自動生成的意義：當字典檔無定義或不完整時，使用自動產生功能讀出提示該項子內容在其上層子內容的意義或項次
-*	目前可分析的規則包含：
-	*	…從…到…
-		*	圓面積積分：
-<math xml:lang="zh_TW">
-  <semantics>
-    <mrow class="MJX-TeXAtom-ORD">
-      <mstyle displaystyle="true" scriptlevel="0">
-        <mrow class="MJX-TeXAtom-ORD">
-          <mtable columnalign="right left right left right left right left right left right left" rowspacing="3pt" columnspacing="0em 2em 0em 2em 0em 2em 0em 2em 0em 2em 0em" displaystyle="true">
-            <mtr>
-              <mtd>
-                <mrow class="MJX-TeXAtom-ORD">
-                  <mi mathvariant="normal">A</mi>
-                  <mi mathvariant="normal">r</mi>
-                  <mi mathvariant="normal">e</mi>
-                  <mi mathvariant="normal">a</mi>
-                </mrow>
-                <mo stretchy="false">(</mo>
-                <mi>r</mi>
-                <mo stretchy="false">)</mo>
-              </mtd>
-              <mtd>
-                <mi></mi>
-                <mrow class="MJX-TeXAtom-ORD">
-                </mrow>
-                <mo>=</mo>
-                <msubsup>
-                  <mo>∫<!-- ∫ --></mo>
-                  <mrow class="MJX-TeXAtom-ORD">
-                    <mn>0</mn>
-                  </mrow>
-                  <mrow class="MJX-TeXAtom-ORD">
-                    <mi>r</mi>
-                  </mrow>
-                </msubsup>
-                <mn>2</mn>
-                <mi>π<!-- π --></mi>
-                <mi>t</mi>
-                <mspace width="thinmathspace"></mspace>
-                <mi>d</mi>
-                <mi>t</mi>
-              </mtd>
-            </mtr>
-            <mtr>
-              <mtd></mtd>
-              <mtd>
-                <mi></mi>
-                <mrow class="MJX-TeXAtom-ORD">
-                </mrow>
-                <mo>=</mo>
-                <msubsup>
-                  <mrow>
-                    <mo>[</mo>
-                    <mrow>
-                      <mo stretchy="false">(</mo>
-                      <mn>2</mn>
-                      <mi>π<!-- π --></mi>
-                      <mo stretchy="false">)</mo>
-                      <mrow class="MJX-TeXAtom-ORD">
-                        <mfrac>
-                          <msup>
-                            <mi>t</mi>
-                            <mrow class="MJX-TeXAtom-ORD">
-                              <mn>2</mn>
-                            </mrow>
-                          </msup>
-                          <mn>2</mn>
-                        </mfrac>
-                      </mrow>
-                    </mrow>
-                    <mo>]</mo>
-                  </mrow>
-                  <mrow class="MJX-TeXAtom-ORD">
-                    <mi>t</mi>
-                    <mo>=</mo>
-                    <mn>0</mn>
-                  </mrow>
-                  <mrow class="MJX-TeXAtom-ORD">
-                    <mi>r</mi>
-                  </mrow>
-                </msubsup>
-              </mtd>
-            </mtr>
-            <mtr>
-              <mtd></mtd>
-              <mtd>
-                <mi></mi>
-                <mrow class="MJX-TeXAtom-ORD">
-                </mrow>
-                <mo>=</mo>
-                <mi>π<!-- π --></mi>
-                <msup>
-                  <mi>r</mi>
-                  <mrow class="MJX-TeXAtom-ORD">
-                    <mn>2</mn>
-                  </mrow>
-                </msup>
-                <mo>.</mo>
-              </mtd>
-            </mtr>
-          </mtable>
-        </mrow>
-      </mstyle>
-    </mrow>
-    <annotation encoding="application/x-tex">{\displaystyle {\begin{aligned}\mathrm {Area} (r)&amp;{}=\int_{0}^{r}2\pi t\,dt\\&amp;{}=\left[(2\pi ){\frac {t^{2}}{2}}\right]_{t=0}^{r}\\&amp;{}=\pi r^{2}.\end{aligned}}}</annotation>
-  </semantics>
-</math>
-	*	…的…次方
-		*	e的x次方泰勒展開式(展開表意方式)：
-<math xml:lang="zh_TW">
-  <semantics>
-    <mrow class="MJX-TeXAtom-ORD">
-      <mstyle displaystyle="true" scriptlevel="0">
-        <msup>
-          <mi>e</mi>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mi>x</mi>
-          </mrow>
-        </msup>
-        <mo>=</mo>
-        <mn>1</mn>
-        <mo>+</mo>
-        <mi>x</mi>
-        <mo>+</mo>
-        <mrow class="MJX-TeXAtom-ORD">
-          <mfrac>
-            <msup>
-              <mi>x</mi>
-              <mrow class="MJX-TeXAtom-ORD">
-                <mn>2</mn>
-              </mrow>
-            </msup>
-            <mrow>
-              <mn>2</mn>
-              <mo>!</mo>
-            </mrow>
-          </mfrac>
-        </mrow>
-        <mo>+</mo>
-        <mrow class="MJX-TeXAtom-ORD">
-          <mfrac>
-            <msup>
-              <mi>x</mi>
-              <mrow class="MJX-TeXAtom-ORD">
-                <mn>3</mn>
-              </mrow>
-            </msup>
-            <mrow>
-              <mn>3</mn>
-              <mo>!</mo>
-            </mrow>
-          </mfrac>
-        </mrow>
-        <mo>+</mo>
-        <mo>⋯<!-- ⋯ --></mo>
-      </mstyle>
-    </mrow>
-    <annotation encoding="application/x-tex">{\displaystyle e^{x}=1+x+{\frac {x^{2}}{2!}}+{\frac {x^{3}}{3!}}+\cdots }</annotation>
-  </semantics>
-</math>
-	*	簡單分數
-		*	幾何級數從 1/2 開始公共比為 1/2
-<math xml:lang="zh_TW">
-  <semantics>
-    <mrow class="MJX-TeXAtom-ORD">
-      <mstyle displaystyle="true" scriptlevel="0">
-        <mrow class="MJX-TeXAtom-ORD">
-          <mfrac>
-            <mn>1</mn>
-            <mn>2</mn>
-          </mfrac>
-        </mrow>
-        <mo>+</mo>
-        <mrow class="MJX-TeXAtom-ORD">
-          <mfrac>
-            <mn>1</mn>
-            <mn>4</mn>
-          </mfrac>
-        </mrow>
-        <mo>+</mo>
-        <mrow class="MJX-TeXAtom-ORD">
-          <mfrac>
-            <mn>1</mn>
-            <mn>8</mn>
-          </mfrac>
-        </mrow>
-        <mo>+</mo>
-        <mrow class="MJX-TeXAtom-ORD">
-          <mfrac>
-            <mn>1</mn>
-            <mn>16</mn>
-          </mfrac>
-        </mrow>
-        <mo>+</mo>
-        <mo>⋯<!-- ⋯ --></mo>
-        <mo>=</mo>
-        <mrow class="MJX-TeXAtom-ORD">
-          <mfrac>
-            <mfrac>
-              <mn>1</mn>
-              <mn>2</mn>
-            </mfrac>
-            <mrow>
-              <mn>1</mn>
-              <mo>−<!-- − --></mo>
-              <mo stretchy="false">(</mo>
-              <mo>+</mo>
-              <mrow class="MJX-TeXAtom-ORD">
-                <mfrac>
-                  <mn>1</mn>
-                  <mn>2</mn>
-                </mfrac>
-              </mrow>
-              <mo stretchy="false">)</mo>
-            </mrow>
-          </mfrac>
-        </mrow>
-        <mo>=</mo>
-        <mn>1.</mn>
-      </mstyle>
-    </mrow>
-    <annotation encoding="application/x-tex">{\displaystyle {\frac {1}{2}}+{\frac {1}{4}}+{\frac {1}{8}}+{\frac {1}{16}}+\cdots ={\frac {\frac {1}{2}}{1-(+{\frac {1}{2}})}}=1.}</annotation>
-  </semantics>
-</math>
-	*	簡單方根
-		*	正三角型邊長a的面積A
-<math xml:lang="zh_TW">
-  <semantics>
-    <mrow class="MJX-TeXAtom-ORD">
-      <mstyle displaystyle="true" scriptlevel="0">
-        <mi>A</mi>
-        <mo>=</mo>
-        <mrow class="MJX-TeXAtom-ORD">
-          <mfrac>
-            <msqrt>
-              <mn>3</mn>
-            </msqrt>
-            <mn>4</mn>
-          </mfrac>
-        </mrow>
-        <msup>
-          <mi>a</mi>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mn>2</mn>
-          </mrow>
-        </msup>
-      </mstyle>
-    </mrow>
-    <annotation encoding="application/x-tex">{\displaystyle A={\frac {\sqrt {3}}{4}}a^{2}}</annotation>
-  </semantics>
-</math>
-	*	簡單上下標
-		*	等差數列
-<math xml:lang="zh_TW">
-  <semantics>
-    <mrow class="MJX-TeXAtom-ORD">
-      <mstyle displaystyle="true" scriptlevel="0">
-        <munderover>
-          <mo>∑<!-- ∑ --></mo>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mi>i</mi>
-            <mo>=</mo>
-            <mn>0</mn>
-          </mrow>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mi>n</mi>
-            <mo>−<!-- − --></mo>
-            <mn>1</mn>
-          </mrow>
-        </munderover>
-        <mo stretchy="false">(</mo>
-        <msub>
-          <mi>a</mi>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mn>1</mn>
-          </mrow>
-        </msub>
-        <mo>+</mo>
-        <mi>i</mi>
-        <mi>d</mi>
-        <mo stretchy="false">)</mo>
-        <mo>=</mo>
-        <mrow class="MJX-TeXAtom-ORD">
-          <mfrac>
-            <mrow>
-              <mi>n</mi>
-              <mo stretchy="false">(</mo>
-              <msub>
-                <mi>a</mi>
-                <mrow class="MJX-TeXAtom-ORD">
-                  <mn>1</mn>
-                </mrow>
-              </msub>
-              <mo>+</mo>
-              <msub>
-                <mi>a</mi>
-                <mrow class="MJX-TeXAtom-ORD">
-                  <mi>n</mi>
-                </mrow>
-              </msub>
-              <mo stretchy="false">)</mo>
-            </mrow>
-            <mn>2</mn>
-          </mfrac>
-        </mrow>
-        <mo>=</mo>
-        <mrow class="MJX-TeXAtom-ORD">
-          <mfrac>
-            <mrow>
-              <mi>n</mi>
-              <mo stretchy="false">[</mo>
-              <mn>2</mn>
-              <msub>
-                <mi>a</mi>
-                <mrow class="MJX-TeXAtom-ORD">
-                  <mn>1</mn>
-                </mrow>
-              </msub>
-              <mo>+</mo>
-              <mo stretchy="false">(</mo>
-              <mi>n</mi>
-              <mo>−<!-- − --></mo>
-              <mn>1</mn>
-              <mo stretchy="false">)</mo>
-              <mi>d</mi>
-              <mo stretchy="false">]</mo>
-            </mrow>
-            <mn>2</mn>
-          </mfrac>
-        </mrow>
-        <mo>=</mo>
-        <msub>
-          <mi>a</mi>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mn>1</mn>
-          </mrow>
-        </msub>
-        <msubsup>
-          <mi>C</mi>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mi>n</mi>
-          </mrow>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mn>1</mn>
-          </mrow>
-        </msubsup>
-        <mo>+</mo>
-        <mi>d</mi>
-        <msubsup>
-          <mi>C</mi>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mi>n</mi>
-          </mrow>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mn>2</mn>
-          </mrow>
-        </msubsup>
-      </mstyle>
-    </mrow>
-    <annotation encoding="application/x-tex">{\displaystyle \sum_{i=0}^{n-1}(a_{1}+id)={\frac {n(a_{1}+a_{n})}{2}}={\frac {n[2a_{1}+(n-1)d]}{2}}=a_{1}C_{n}^{1}+dC_{n}^{2}}</annotation>
-  </semantics>
-</math>
-
-簡單規則是各種規則的簡化版，當其內容僅為單一項目時，便可省略前後標記朗讀，以達到更好的理解與閱讀，而亦不致造成混淆
+*	簡單規則：簡單規則是各種規則的簡化版，當其內容僅為單一項目時，便可省略前後標記朗讀，以達到更好的理解與閱讀，而亦不致造成混淆
 
 數學內容解析數學規則意義持續增加中
 
@@ -480,3 +107,41 @@
 原始碼：https://github.com/tsengwoody/Access8Math
 
 歡迎提出見意與bug回報，謝謝！
+
+# Access8Math v1.3 更新日誌
+
+*	新規則
+	*	正規則：當「+」在首項或其前項為<mo></mo>標記時，將「+」讀為「正」而非「加」
+	*	平方規則：當次方數為2時，將其讀為「…的平方」
+	*	立方規則：當次方數為3時，將其項讀為「…的立方」
+	*	直線規則：當兩個Identifier的正上方有「↔」時，將其項讀為「直線……」
+	*	線段規則：當兩個Identifier的正上方有「¯」時，將其項讀為「線段……」
+	*	射線規則：當兩個Identifier的正上方有「→」時，將其項讀為「射線……」
+*	新增互動視窗：在數學內容上按空白鍵後開啟「Access8Math 互動視窗」，視窗內含有「互動」、「複製」按鈕。
+	*	互動：進入數學內容導航瀏覽
+	*	複製：複製物件MathML原始碼
+*	多國語言新增 zh_CN 的語言
+*	調整規則間繼承關係，確保規則衝突時，能正確使用適合的規則
+*	修正已知問題
+
+# Access8Math v1.2 更新日誌
+
+*	新規則
+	*	負規則：當「-」在首項或其前項為<mo></mo>標記時，將「-」讀為「負」而非「減」
+	*	帶分數：當分數前項為數字時，將數字與分數間讀為「又」
+*	程式架構優化
+	*	加入「sibling」的類別
+	*	加入動態產生「反向」 nodetype的類別
+*	修正已知問題
+
+# Access8Math v1.1 更新日誌
+
+*	在導航瀏覽時按"Ctrl+c"複製物件MathML原始碼
+*	再偏好設定內增加 Access8Math 設定的項目，設定選項對話框，可設定：
+	*	語言：Access8Math 朗讀數學內容的語言
+	*	分析內容的數學意義：將數學內容進行語意分析，符合特定規則時，以該規則的數學意義進行朗讀
+	*	讀出字典有定義模式的意義：當字典檔有定義時，使用字典檔讀出提示該項子內容在其上層子內容的意義
+	*	讀出自動生成的意義：當字典檔無定義或不完整時，使用自動產生功能讀出提示該項子內容在其上層子內容的意義或項次
+*	加入多條簡單規則，簡單規則是各種規則的簡化版，當其內容僅為單一項目時，便可省略前後標記朗讀，以達到更好的理解與閱讀，而亦不致造成混淆
+*	更新unicode.dic
+*	修正已知問題

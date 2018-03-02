@@ -35,4 +35,9 @@ SingleMunder	, 0, below, 1, 	main,below
 SingleMover	, 0, above, 1, 	main,above
 AddIntegerFractionType	add,0,over,1	numerator,denominator
 NegativeSignType	,negative,	negative
-limit	operator,limit,,1,	operator,approache condition
+PositiveSignType	,positive,	positive
+SquarePowerType	, 0, squared	base,exponent
+CubePowerType	, 0, cubed	base,exponent
+LineType	line, 0,	main,super
+RayType	ray, 0,	main,super
+LineSegmentType	line segment, 0,	main,super

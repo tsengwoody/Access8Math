@@ -35,4 +35,9 @@ SingleMunder	, 0, 正下標, 1, 	主符號,正下標
 SingleMover	, 0, 正上標, 1, 	主符號,正上標
 AddIntegerFractionType	又,1,分之,0	分子,分母
 NegativeSignType	,負,	負號
-limit	運算,極限,,1,	運算符,趨近條件
+PositiveSignType	,正,	正號
+SquarePowerType	, 0, 的平方	底數,指數
+CubePowerType	, 0, 的立方	底數,指數
+LineType	直線, 0,	主符號,正上標
+RayType	射線, 0,	主符號,正上標
+LineSegmentType	線段, 0,	主符號,正上標

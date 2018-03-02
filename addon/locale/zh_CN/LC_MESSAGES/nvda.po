@@ -2,10 +2,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Access8Math - 1.3\n"
 "POT-Creation-Date: 2018-02-27 13:26+0800\n"
-"PO-Revision-Date: 2018-02-27 13:31+0800\n"
+"PO-Revision-Date: 2018-02-27 13:50+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: zh_TW\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,39 +16,39 @@ msgstr ""
 
 #: __init__.py:76
 msgid "Access8Math interaction window"
-msgstr "Access8Math 互動視窗"
+msgstr "Access8Math 互动窗口"
 
 #: __init__.py:85
 msgid "&About"
-msgstr "關於(&A)"
+msgstr "关于(&A)"
 
 #: __init__.py:85
 msgid "Information about this program"
-msgstr "關於程式資訊"
+msgstr "关于程序信息"
 
 #: __init__.py:86
 msgid "&Exit"
-msgstr "離開(&E)"
+msgstr "离开(&E)"
 
 #: __init__.py:86
 msgid "Terminate the program"
-msgstr "終止程式"
+msgstr "终止程序"
 
 #: __init__.py:90
 msgid "&Menu"
-msgstr "功能表(&M)"
+msgstr "菜单(&M)"
 
 #: __init__.py:97
 msgid "interaction"
-msgstr "互動"
+msgstr "互动"
 
 #: __init__.py:99 __init__.py:116 __init__.py:246
 msgid "copy"
-msgstr "複製"
+msgstr "复制"
 
 #: __init__.py:242
 msgid "not move"
-msgstr "無移動"
+msgstr "无移动"
 
 #: __init__.py:250
 msgid "snapshot"
@@ -56,7 +56,7 @@ msgstr "快照"
 
 #: __init__.py:315
 msgid "build-in"
-msgstr "內建"
+msgstr "内建"
 
 #: __init__.py:338 __init__.py:436
 msgid "Access8Math"
@@ -64,49 +64,49 @@ msgstr "Access8Math"
 
 #: __init__.py:350
 msgid "&Access8Math settings..."
-msgstr "&Access8Math 設定..."
+msgstr "&Access8Math 设定..."
 
 #: __init__.py:375 __init__.py:395
 #, python-format
 msgid "Access8Math language change to %s"
-msgstr "Access8Math語言更改為 %s"
+msgstr "Access8Math语言更改为 %s"
 
 #: __init__.py:378
 msgid "Change next language"
-msgstr "切換至下個語言"
+msgstr "切换至下个语言"
 
 #: __init__.py:398
 msgid "Change previous language"
-msgstr "切換至上個語言"
+msgstr "切换至上个语言"
 
 #: __init__.py:415
 #, python-format
 msgid "mathml provider change to %s"
-msgstr "mathml閱讀程式更改為 %s"
+msgstr "mathml阅读程序更改为 %s"
 
 #: __init__.py:418
 msgid "Change mathml provider"
-msgstr "更改閱讀程式"
+msgstr "更改阅读程序"
 
 #: __init__.py:427
 msgid "Shows the Access8Math settings dialog."
-msgstr "顯示 Access8Math 設定對話框"
+msgstr "显示 Access8Math 设定对话框"
 
 #: __init__.py:440
 msgid "&Language:"
-msgstr "語言(&L)"
+msgstr "语言(&L)"
 
 #: __init__.py:450
 msgid "Analyze mathematical meaning of content"
-msgstr "分析內容的數學意義"
+msgstr "分析内容的数学意义"
 
 #: __init__.py:453
 msgid "Read defined meaning in dictionary"
-msgstr "讀出字典有定義的意義"
+msgstr "读出字典有定义的意义"
 
 #: __init__.py:456
 msgid "Read of auto-generated meaning"
-msgstr "讀出自動產生的意義"
+msgstr "读出自动产生的意义"
 
 #~ msgid "Read the meaning of auto-generated"
 #~ msgstr "讀出自動生成的意義"
