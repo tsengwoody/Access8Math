@@ -72,14 +72,14 @@ class Node(object):
 			self.role_level = DIC_GENERATE
 
 	def check_type(self):
-		for nodetype in SNT:
+		'''for nodetype in SNT_check:
 			if nodetype.check(self) and nodetype.name in math_rule:
 				if not self.type:
 					self.type = nodetype
 				elif self.type and issubclass(nodetype, self.type):
-					self.type = nodetype
+					self.type = nodetype'''
 
-		for nodetype in nodetypes:
+		for nodetype in nodetypes_check:
 			if nodetype.check(self) and nodetype.name in math_rule:
 				if not self.type:
 					self.type = nodetype
@@ -87,7 +87,7 @@ class Node(object):
 					self.type = nodetype
 
 	def rule(self):
-		if self.type and self.type.rule and AMM:
+		if self.type and self.type.rule:
 			if issubclass(self.type, NonTerminalNodeType):
 				rule = self.type.rule()
 			elif issubclass(self.type, TerminalNodeType):
@@ -577,7 +577,7 @@ class MnOperandType(TerminalNodeType):
 	data = re.compile(r"^[\d\w]+$")
 
 class OperandType(CompoundNodeType):
-	compound = [MiOperandType, MnOperandType, FractionType]
+	compound = [MiOperandType, MnOperandType, FractionType,]
 
 class OperatorType(TerminalNodeType):
 	tag = Mo
@@ -638,7 +638,21 @@ class RayType(NonTerminalNodeType):
 	child = [TwoMiOperandItemType, MoRayType]
 	name = 'RayType'
 
-'''class MoFrownType(TerminalNodeType):
+class MoVectorType(TerminalNodeType):
+	tag = Mo
+	data = re.compile(ur"^[⇀]$")
+
+class VectorSingleType(NonTerminalNodeType):
+	tag = Mover
+	child = [MiOperandType, MoVectorType]
+	name = 'VectorSingleType'
+
+class VectorDoubleType(NonTerminalNodeType):
+	tag = Mover
+	child = [TwoMiOperandItemType, MoVectorType]
+	name = 'VectorDoubleType'
+
+class MoFrownType(TerminalNodeType):
 	tag = Mo
 	data = re.compile(ur"^[⌢]$")
 
@@ -646,8 +660,6 @@ class FrownType(NonTerminalNodeType):
 	tag = Mover
 	child = [TwoMiOperandItemType, MoFrownType]
 	name = 'FrownType'
-'''
-
 
 class SingleType(CompoundNodeType):
 	compound = [MiType, MnType, MoType]
@@ -755,6 +767,7 @@ class DeterminantType(AbsoluteType):
 
 class SingleNumberFractionType(SingleFractionType):
 	child = [MnOperandType, MnOperandType,]
+	name = ''
 
 class AddIntegerFractionType(SiblingNodeType):
 	previous_siblings = [MnOperandType]
@@ -792,40 +805,6 @@ class FirstPositiveSignType(SiblingNodeType):
 	previous_siblings = [None,]
 	self_ = PlusType
 	name = 'PositiveSignType'
-
-import inspect
-# get class which is Node subclass
-nodes = { i.__name__: i for i in locals().values() if inspect.isclass(i) and issubclass(i, Node) }
-
-# get class which is NodeType subclass
-nodetypes = [ i for i in locals().values() if inspect.isclass(i) and issubclass(i, NodeType) ]
-nodetypes_dict = { k:v for k,v in locals().items() if inspect.isclass(v) and issubclass(v, NodeType) }
-SNT = [ i for i in locals().values() if inspect.isclass(i) and issubclass(i, SiblingNodeType) ]
-
-def ComplementMethod(method):
-	def decorator(cls, obj):
-		return not method(obj)
-	return decorator
-
-notnodetypes = []
-notnodetypes_dict = {}
-for nodetype in nodetypes:
-	dic = dict(nodetype.__dict__)
-	dic.update({
-		'check': classmethod(ComplementMethod(nodetype.check)),
-		'name': '',
-	})
-	notnodetype = type('Not'+nodetype.__name__, nodetype.__bases__, dic)
-	notnodetypes.append(notnodetype)
-	notnodetypes_dict.update({
-		'Not'+nodetype.__name__: notnodetype,
-	})
-	locals()['Not'+nodetype.__name__]= notnodetype
-
-nodetypes_dict.update({'object': object})
-all_nodetypes = [ i for i in locals().values() if inspect.isclass(i) and issubclass(i, NodeType) ]
-all_nodetypes_dict = { k:v for k,v in locals().items() if inspect.isclass(v) and issubclass(v, NodeType) }
-all_nodetypes_dict.update({'object': object})
 
 def load_unicode_dic(language):
 	path = os.path.dirname(os.path.abspath(__file__))
@@ -925,7 +904,57 @@ def save_math_rule(language, math_role, math_rule):
 def symbol_translate(u):
 	return symbol[u] if symbol.has_key(u) else u
 
-language = os.environ.get('LANGUAGE', 'Windows')
-symbol = load_unicode_dic(language)
-math_role, math_rule = load_math_rule(language)
-AMM = True if os.environ.get('AMM', 'True') in [u'True', u'true'] else False
+def config_from_environ():
+	global language, AMM
+	global symbol, math_role, math_rule
+	language = os.environ.get('LANGUAGE', 'Windows')
+	symbol = load_unicode_dic(language)
+	math_role, math_rule = load_math_rule(language)
+	AMM = True if os.environ.get('AMM', 'True') in [u'True', u'true'] else False
+
+	global nodetypes_check, SNT_check
+	nodetypes_check = SNT_check = []
+	for i in nodetypes:
+		if os.environ.get(i.__name__, 'True') in [u'True', u'true']:
+			nodetypes_check.append(globals()[i.__name__])
+	for i in SNT:
+		if os.environ.get(i.__name__, 'True') in [u'True', u'true']:
+			SNT_check.append(globals()[i.__name__])
+	if not AMM:
+		nodetypes_check = SNT_check = []
+
+import inspect
+# get class which is Node subclass
+nodes = { i.__name__: i for i in locals().values() if inspect.isclass(i) and issubclass(i, Node) }
+
+# get class which is NodeType subclass
+nodetypes = [ i for i in locals().values() if inspect.isclass(i) and issubclass(i, NodeType) ]
+nodetypes_dict = { k:v for k,v in locals().items() if inspect.isclass(v) and issubclass(v, NodeType) }
+SNT = [ i for i in locals().values() if inspect.isclass(i) and issubclass(i, SiblingNodeType) ]
+
+def ComplementMethod(method):
+	def decorator(cls, obj):
+		return not method(obj)
+	return decorator
+
+notnodetypes = []
+notnodetypes_dict = {}
+for nodetype in nodetypes:
+	dic = dict(nodetype.__dict__)
+	dic.update({
+		'check': classmethod(ComplementMethod(nodetype.check)),
+		'name': '',
+	})
+	notnodetype = type('Not'+nodetype.__name__, nodetype.__bases__, dic)
+	notnodetypes.append(notnodetype)
+	notnodetypes_dict.update({
+		'Not'+nodetype.__name__: notnodetype,
+	})
+	locals()['Not'+nodetype.__name__]= notnodetype
+
+nodetypes_dict.update({'object': object})
+all_nodetypes = [ i for i in locals().values() if inspect.isclass(i) and issubclass(i, NodeType) ]
+all_nodetypes_dict = { k:v for k,v in locals().items() if inspect.isclass(v) and issubclass(v, NodeType) }
+all_nodetypes_dict.update({'object': object})
+
+config_from_environ()

@@ -4,6 +4,7 @@
 # This file is covered by the GNU General Public License.
 # See the file COPYING.txt for more details.
 
+from collections import OrderedDict
 import os
 import re
 import sys
@@ -42,6 +43,7 @@ import ui
 import wx
 
 from languageHandler_custom import getAvailableLanguages
+import wxgui
 
 def translate_SpeechCommand(serializes):
 	pattern = re.compile(r'[@](?P<time>[\d]*)[@]')
@@ -71,39 +73,30 @@ def translate_Unicode(serializes):
 	sequence = pattern.sub(lambda m: u' ', sequence)
 	return sequence.strip()
 
-class InteractionFrame(wx.Frame):
+class InteractionFrame(wxgui.GenericFrame):
 	def __init__(self, obj):
-		super(InteractionFrame, self).__init__(None, title=_("Access8Math interaction window"))
 		self.obj = obj
+		super(InteractionFrame, self).__init__(wx.GetApp().TopWindow, title=_("Access8Math interaction window"))
 
-		self.CreateStatusBar() # A StatusBar in the bottom of the window
+	def menuData(self):
+		return [
+			(_("&Menu"), (
+				(_("&About"),_("Information about this program"), self.OnAbout),
+				(_("&Exit"),_("Terminate the program"), self.OnExit),
+			))
+		]
 
-		# Setting up the menu.
-		filemenu= wx.Menu()
+	def buttonData(self):
+		return (
+			(_("interaction"), self.OnInteraction),
+			(_("copy"), self.OnRawdataToClip),
+		)
 
-		# wx.ID_ABOUT and wx.ID_EXIT are standard ids provided by wxWidgets.
-		menuAbout = filemenu.Append(wx.ID_ABOUT, _("&About"),_("Information about this program"))
-		menuExit = filemenu.Append(wx.ID_EXIT,_("&Exit"),_("Terminate the program"))
-
-		# Creating the menubar.
-		menuBar = wx.MenuBar()
-		menuBar.Append(filemenu,_("&Menu"))
-		self.SetMenuBar(menuBar)  # Adding the MenuBar to the Frame content.
-
-		# Set events.
-		self.Bind(wx.EVT_MENU, self.OnExit, menuExit)
-
-		panel = wx.Panel(self, -1)
-		interactionButton =wx.Button(panel, label=_("interaction"))
-		self.Bind(wx.EVT_BUTTON, self.OnInteraction,interactionButton)
-		copyButton =wx.Button(panel, label=_("copy"))
-		self.Bind(wx.EVT_BUTTON, self.OnRawdataToClip,copyButton)
-		mainSizer=wx.BoxSizer(wx.HORIZONTAL)
-		mainSizer.Add(interactionButton)
-		mainSizer.Add(copyButton)
-		panel.SetSizer(mainSizer)
-		mainSizer.Fit(self)
-
+	def OnNew(self, event): pass
+	def OnOpen(self, event): pass
+	def OnSave(self, event): pass
+	def OnColor(self, event): pass
+	def OnAbout(self, event): pass
 	def OnExit(self,event):
 		self.Close(True)  # Close the frame.
 
@@ -114,6 +107,114 @@ class InteractionFrame(wx.Frame):
 	def OnRawdataToClip(self,event):
 		api.copyToClip(self.obj.raw_data)
 		ui.message(_("copy"))
+
+class GeneralSettingsDialog(SettingsDialog):
+	# Translators: Title of the Access8MathDialog.
+	title = _("General Settings")
+	CheckBox_settings = OrderedDict([
+		("AMM", _("Analyze mathematical meaning of content")),
+		("DG", _("Read defined meaning in dictionary")),
+		("AG", _("Read of auto-generated meaning")),
+	])
+
+	def makeSettings(self, settingsSizer):
+		global language
+		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+		languageLabel = _("&Language:")
+		self.languageChoices = available_languages_long
+		self.languageList = sHelper.addLabeledControl(languageLabel, wx.Choice, choices=self.languageChoices)
+		try:
+			index = available_languages_short.index(language)
+		except:
+			initialize_config()
+			index = available_languages_short.index(language)
+		self.languageList.Selection = index
+
+		for k,v in self.CheckBox_settings.items():
+			setattr(self, k +"CheckBox", sHelper.addItem(wx.CheckBox(self, label=v)))
+			getattr(self, k +"CheckBox").SetValue(globals()[k])
+
+	def postInit(self):
+		self.languageList.SetFocus()
+
+	def onOk(self,evt):
+		super(GeneralSettingsDialog, self).onOk(evt)
+
+		global language
+		os.environ['LANGUAGE'] = language
+		for k in self.CheckBox_settings.keys():
+			globals()[k] = getattr(self, k +"CheckBox").IsChecked()
+			os.environ[k] = unicode(globals()[k])
+
+		try:
+			config.conf["Access8Math"]["language"] = language = available_languages_short[self.languageList.GetSelection()]
+			for k in self.CheckBox_settings.keys():
+				config.conf["Access8Math"][k] = unicode(globals()[k])
+		except:
+			initialize_config()
+			config.conf["Access8Math"]["language"] = language = available_languages_short[self.languageList.GetSelection()]
+			for k in self.CheckBox_settings.keys():
+				config.conf["Access8Math"][k] = unicode(globals()[k])
+
+		A8M_PM.config_from_environ()
+
+		try:
+			api.setReviewPosition(MathMlTextInfo(globalVars.math_obj, textInfos.POSITION_FIRST), False)
+		except:
+			pass
+
+class RuleSettingsDialog(SettingsDialog):
+	# Translators: Title of the Access8MathDialog.
+	title = _("Rule Settings")
+	CheckBox_settings = OrderedDict([
+		("SingleMsubsupType", _("Simplified subscript and superscript")),
+		("SingleMsubType", _("Simplified subscript")),
+		("SingleMsupType", _("Simplified superscript")),
+		("SingleMunderoverType", _("Simplified underscript and overscript")),
+		("SingleMunderType", _("Simplified underscript")),
+		("SingleMoverType", _("Simplified overscript")),
+		("SingleFractionType", _("Simplified fraction")),
+		("SingleSqrtType", _("Simplified square root")),
+		("PowerType", _("Power")),
+		("SquarePowerType", _("Square power")),
+		("CubePowerType", _("Cube power")),
+		("SetType", _("Set")),
+		("AbsoluteType", _("Absolute value")),
+		("MatrixType", _("Matrix")),
+		("DeterminantType", _("Determinant")),
+		("AddIntegerFractionType", _("Integer and fraction")),
+	])
+
+	def makeSettings(self, settingsSizer):
+		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+		for k,v in self.CheckBox_settings.items():
+			setattr(self, k +"CheckBox", sHelper.addItem(wx.CheckBox(self, label=v)))
+			getattr(self, k +"CheckBox").SetValue(globals()[k])
+
+	def postInit(self):
+		getattr(self, self.CheckBox_settings.keys()[0] +"CheckBox").SetFocus()
+
+	def onOk(self,evt):
+		super(RuleSettingsDialog, self).onOk(evt)
+
+		for k in self.CheckBox_settings.keys():
+			globals()[k] = getattr(self, k +"CheckBox").IsChecked()
+			os.environ[k] = unicode(globals()[k])
+
+		try:
+			for k in self.CheckBox_settings.keys():
+				config.conf["Access8Math"][k] = unicode(globals()[k])
+		except:
+			initialize_config()
+			for k in self.CheckBox_settings.keys():
+				config.conf["Access8Math"][k] = unicode(globals()[k])
+
+		A8M_PM.config_from_environ()
+
+		try:
+			api.setReviewPosition(MathMlTextInfo(globalVars.math_obj, textInfos.POSITION_FIRST), False)
+		except:
+			pass
 
 class MathMlTextInfo(textInfos.offsets.OffsetsTextInfo):
 
@@ -254,9 +355,6 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 		"kb:control+s": "snapshot",
 	}
 
-from collections import deque
-mathObjectCache = deque(maxlen=10)
-
 provider_list = [
 	u"MathMlReader",
 ]
@@ -270,10 +368,9 @@ except:
 
 def initialize_config():
 	config.conf["Access8Math"] = {}
-	config.conf["Access8Math"]["version"] = "1.1"
-	config.conf["Access8Math"]["language"] = language = "Windows"
-	config.conf["Access8Math"]["provider"] = provider = "MathMlReader"
-	for k in ["AMM", "AG", "DG",]:
+	config.conf["Access8Math"]["language"] = "Windows"
+	config.conf["Access8Math"]["provider"] = "MathMlReader"
+	for k in GeneralSettingsDialog.CheckBox_settings.keys() +RuleSettingsDialog.CheckBox_settings.keys():
 		config.conf["Access8Math"][k] = u"True"
 	tones.beep(100,100)
 
@@ -304,18 +401,17 @@ available_languages_long = [i[1] for i in available_languages]
 
 try:
 	language = config.conf["Access8Math"]["language"]
-	for k in ["AMM", "AG", "DG",]:
-		config.conf["Access8Math"][k] = True if config.conf["Access8Math"][k] in [u'True', u'true', True] else False
-		locals()[k] = config.conf["Access8Math"][k]
+	for k in GeneralSettingsDialog.CheckBox_settings.keys() +RuleSettingsDialog.CheckBox_settings.keys():
+		globals()[k] = True if config.conf["Access8Math"][k] in [u'True', u'true', True] else False
 except:
 	initialize_config()
 	language = config.conf["Access8Math"]["language"]
-	for k in ["AMM", "AG", "DG",]:
-		config.conf["Access8Math"][k] = True if config.conf["Access8Math"][k] in [u'True', u'true'] else False
-		locals()[k] = config.conf["Access8Math"][k]
+	for k in GeneralSettingsDialog.CheckBox_settings.keys() +RuleSettingsDialog.CheckBox_settings.keys():
+		globals()[k] = True if config.conf["Access8Math"][k] in [u'True', u'true', True] else False
 
 os.environ['LANGUAGE'] = language
-os.environ['AMM'] = unicode(AMM)
+for k in GeneralSettingsDialog.CheckBox_settings.keys() +RuleSettingsDialog.CheckBox_settings.keys():
+	os.environ[k] = unicode(globals()[k])
 
 import A8M_PM
 from A8M_PM import create_node
@@ -328,18 +424,29 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		xml_NVDA = sys.modules['xml']
 		sys.modules['xml'] = globalPlugins.MathMlReader.xml
 
-		# Gui
+		self.create_menu()
+
+	def create_menu(self):
 		self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
-		self.settingsItem = self.prefsMenu.Append(
+		self.menu = wx.Menu()
+		self.generalSettings = self.menu.Append(
 			wx.ID_ANY,
-			# Translators: name of the option in the menu.
-			_("&Access8Math settings...")
+			_("&General settings...")
 		)
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onSettings, self.settingsItem)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onGeneralSettings, self.generalSettings)
+		self.ruleSettings = self.menu.Append(
+			wx.ID_ANY,
+			_("&Rule settings...")
+		)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onRuleSettings, self.ruleSettings)
+
+		self.Access8Math_item = self.prefsMenu.AppendSubMenu(self.menu, _("Access8Math"), _("Access8Math"))
+		#systray = gui.mainFrame.sysTrayIcon
+		#systray.menu.InsertMenu(2,wx.ID_ANY,  _("A&ccess8Math"), self.menu)
 
 	def terminate(self):
 		try:
-			self.prefsMenu.RemoveItem(self.settingsItem)
+			self.prefsMenu.RemoveItem(self.Access8Math_item)
 		except (RuntimeError, AttributeError, wx.PyDeadObjectError):
 			pass
 
@@ -352,8 +459,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 		index = (available_languages_short.index(language) +1)% len(available_languages_short)
 		config.conf["Access8Math"]["language"] = language = available_languages_short[index]
-		A8M_PM.symbol = A8M_PM.load_unicode_dic(language)
-		A8M_PM.math_role, A8M_PM.math_rule = A8M_PM.load_math_rule(language)
+		os.environ['LANGUAGE'] = language
+		A8M_PM.config_from_environ()
+
 		try:
 			api.setReviewPosition(MathMlTextInfo(globalVars.math_obj, textInfos.POSITION_FIRST), False)
 		except:
@@ -372,8 +480,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 		index = (available_languages_short.index(language) -1)% len(available_languages_short)
 		config.conf["Access8Math"]["language"] = language = available_languages_short[index]
-		A8M_PM.symbol = A8M_PM.load_unicode_dic(language)
-		A8M_PM.math_role, A8M_PM.math_rule = A8M_PM.load_math_rule(language)
+		os.environ['LANGUAGE'] = language
+		A8M_PM.config_from_environ()
+
 		try:
 			api.setReviewPosition(MathMlTextInfo(globalVars.math_obj, textInfos.POSITION_FIRST), False)
 		except:
@@ -403,8 +512,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# Translators: message presented in input mode.
 	script_change_provider.__doc__ = _("Change mathml provider")
 
-	def onSettings(self, evt):
-		gui.mainFrame._popupSettingsDialog(AddonSettingsDialog)
+	def onGeneralSettings(self, evt):
+		gui.mainFrame._popupSettingsDialog(GeneralSettingsDialog)
+
+	def onRuleSettings(self, evt):
+		gui.mainFrame._popupSettingsDialog(RuleSettingsDialog)
 
 	def script_settings(self, gesture):
 		wx.CallAfter(self.onSettings, None)
@@ -415,57 +527,3 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	__gestures={
 		"kb:control+alt+m": "change_provider",
 	}
-
-class AddonSettingsDialog(SettingsDialog):
-
-	# Translators: Title of the Access8MathDialog.
-	title = _("Access8Math")
-
-	def makeSettings(self, settingsSizer):
-		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
-		languageLabel = _("&Language:")
-		self.languageChoices = available_languages_long
-		self.languageList = sHelper.addLabeledControl(languageLabel, wx.Choice, choices=self.languageChoices)
-		try:
-			index = available_languages_short.index(config.conf["Access8Math"]["language"])
-		except:
-			initialize_config()
-			index = available_languages_short.index(config.conf["Access8Math"]["language"])
-		self.languageList.Selection = index
-
-		AMMLabel = _("Analyze mathematical meaning of content")
-		self.AMMCheckBox = sHelper.addItem(wx.CheckBox(self, label=AMMLabel))
-		self.AMMCheckBox.SetValue(config.conf["Access8Math"]["AMM"])
-		DGLabel = _("Read defined meaning in dictionary")
-		self.DGCheckBox = sHelper.addItem(wx.CheckBox(self, label=DGLabel))
-		self.DGCheckBox.SetValue(config.conf["Access8Math"]["DG"])
-		AGLabel = _("Read of auto-generated meaning")
-		self.AGCheckBox = sHelper.addItem(wx.CheckBox(self, label=AGLabel))
-		self.AGCheckBox.SetValue(config.conf["Access8Math"]["AG"])
-
-	def postInit(self):
-		self.languageList.SetFocus()
-
-	def onOk(self,evt):
-		global AMM, AG, DG
-		super(AddonSettingsDialog, self).onOk(evt)
-		try:
-			config.conf["Access8Math"]["language"] = language = available_languages_short[self.languageList.GetSelection()]
-			config.conf["Access8Math"]["AMM"] = AMM = self.AMMCheckBox.IsChecked()
-			config.conf["Access8Math"]["AG"] = AG = self.AGCheckBox.IsChecked()
-			config.conf["Access8Math"]["DG"] = DG = self.DGCheckBox.IsChecked()
-		except:
-			initialize_config()
-			config.conf["Access8Math"]["language"] = language = available_languages_short[self.languageList.GetSelection()]
-			config.conf["Access8Math"]["AMM"] = AMM = self.AMMCheckBox.IsChecked()
-			config.conf["Access8Math"]["AG"] = AG = self.AGCheckBox.IsChecked()
-			config.conf["Access8Math"]["DG"] = DG = self.DGCheckBox.IsChecked()
-
-		A8M_PM.symbol = A8M_PM.load_unicode_dic(language)
-		A8M_PM.math_role, A8M_PM.math_rule = A8M_PM.load_math_rule(language)
-		A8M_PM.AMM = AMM
-
-		try:
-			api.setReviewPosition(MathMlTextInfo(globalVars.math_obj, textInfos.POSITION_FIRST), False)
-		except:
-			pass

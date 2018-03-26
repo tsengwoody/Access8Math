@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Access8Math - 1.3\n"
-"POT-Creation-Date: 2018-02-27 13:26+0800\n"
-"PO-Revision-Date: 2018-02-27 13:31+0800\n"
+"Project-Id-Version: Access8Math - 1.4\n"
+"POT-Creation-Date: 2018-03-23 09:55+0800\n"
+"PO-Revision-Date: 2018-03-23 10:04+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_TW\n"
@@ -14,99 +14,175 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-SearchPath-0: __init__.py\n"
 
-#: __init__.py:76
+#: __init__.py:79
 msgid "Access8Math interaction window"
 msgstr "Access8Math 互動視窗"
 
-#: __init__.py:85
-msgid "&About"
-msgstr "關於(&A)"
-
-#: __init__.py:85
-msgid "Information about this program"
-msgstr "關於程式資訊"
-
-#: __init__.py:86
-msgid "&Exit"
-msgstr "離開(&E)"
-
-#: __init__.py:86
-msgid "Terminate the program"
-msgstr "終止程式"
-
-#: __init__.py:90
+#: __init__.py:83
 msgid "&Menu"
 msgstr "功能表(&M)"
 
-#: __init__.py:97
+#: __init__.py:84
+msgid "&About"
+msgstr "關於(&A)"
+
+#: __init__.py:84
+msgid "Information about this program"
+msgstr "關於程式資訊"
+
+#: __init__.py:85
+msgid "&Exit"
+msgstr "離開(&E)"
+
+#: __init__.py:85
+msgid "Terminate the program"
+msgstr "終止程式"
+
+#: __init__.py:91
 msgid "interaction"
 msgstr "互動"
 
-#: __init__.py:99 __init__.py:116 __init__.py:246
+#: __init__.py:92 __init__.py:109 __init__.py:347
 msgid "copy"
 msgstr "複製"
 
-#: __init__.py:242
+#: __init__.py:113
+msgid "General Settings"
+msgstr "一般設定"
+
+#: __init__.py:115
+msgid "Analyze mathematical meaning of content"
+msgstr "分析內容的數學意義"
+
+#: __init__.py:116
+msgid "Read defined meaning in dictionary"
+msgstr "讀出字典有定義的意義"
+
+#: __init__.py:117
+msgid "Read of auto-generated meaning"
+msgstr "讀出自動產生的意義"
+
+#: __init__.py:123
+msgid "&Language:"
+msgstr "語言(&L)"
+
+#: __init__.py:168
+msgid "Rule Settings"
+msgstr "規則設定"
+
+#: __init__.py:170
+msgid "Simplified subscript and superscript"
+msgstr "簡化下標與上標"
+
+#: __init__.py:171
+msgid "Simplified subscript"
+msgstr "簡化下標"
+
+#: __init__.py:172
+msgid "Simplified superscript"
+msgstr "簡化上標"
+
+#: __init__.py:173
+msgid "Simplified underscript and overscript"
+msgstr "簡化正下標與正上標"
+
+#: __init__.py:174
+msgid "Simplified underscript"
+msgstr "簡化正下標"
+
+#: __init__.py:175
+msgid "Simplified overscript"
+msgstr "簡化正上標"
+
+#: __init__.py:176
+msgid "Simplified fraction"
+msgstr "簡化分數"
+
+#: __init__.py:177
+msgid "Simplified square root"
+msgstr "簡化平方根"
+
+#: __init__.py:178
+msgid "Power"
+msgstr "指數"
+
+#: __init__.py:179
+msgid "Square power"
+msgstr "平方指數"
+
+#: __init__.py:180
+msgid "Cube power"
+msgstr "立方指數"
+
+#: __init__.py:181
+msgid "Set"
+msgstr "集合"
+
+#: __init__.py:182
+msgid "Absolute value"
+msgstr "絕對值"
+
+#: __init__.py:183
+msgid "Matrix"
+msgstr "矩陣"
+
+#: __init__.py:184
+msgid "Determinant"
+msgstr "行列式"
+
+#: __init__.py:185
+msgid "Integer and fraction"
+msgstr "帶分數"
+
+#: __init__.py:343
 msgid "not move"
 msgstr "無移動"
 
-#: __init__.py:250
+#: __init__.py:351
 msgid "snapshot"
 msgstr "快照"
 
-#: __init__.py:315
+#: __init__.py:398
 msgid "build-in"
 msgstr "內建"
 
-#: __init__.py:338 __init__.py:436
+#: __init__.py:420 __init__.py:443
 msgid "Access8Math"
 msgstr "Access8Math"
 
-#: __init__.py:350
-msgid "&Access8Math settings..."
-msgstr "&Access8Math 設定..."
+#: __init__.py:434
+msgid "&General settings..."
+msgstr "一般設定(&G)"
 
-#: __init__.py:375 __init__.py:395
+#: __init__.py:439
+msgid "&Rule settings..."
+msgstr "規則設定(&R)"
+
+#: __init__.py:469 __init__.py:490
 #, python-format
 msgid "Access8Math language change to %s"
 msgstr "Access8Math語言更改為 %s"
 
-#: __init__.py:378
+#: __init__.py:472
 msgid "Change next language"
 msgstr "切換至下個語言"
 
-#: __init__.py:398
+#: __init__.py:493
 msgid "Change previous language"
 msgstr "切換至上個語言"
 
-#: __init__.py:415
+#: __init__.py:510
 #, python-format
 msgid "mathml provider change to %s"
 msgstr "mathml閱讀程式更改為 %s"
 
-#: __init__.py:418
+#: __init__.py:513
 msgid "Change mathml provider"
 msgstr "更改閱讀程式"
 
-#: __init__.py:427
+#: __init__.py:525
 msgid "Shows the Access8Math settings dialog."
 msgstr "顯示 Access8Math 設定對話框"
-
-#: __init__.py:440
-msgid "&Language:"
-msgstr "語言(&L)"
-
-#: __init__.py:450
-msgid "Analyze mathematical meaning of content"
-msgstr "分析內容的數學意義"
-
-#: __init__.py:453
-msgid "Read defined meaning in dictionary"
-msgstr "讀出字典有定義的意義"
-
-#: __init__.py:456
-msgid "Read of auto-generated meaning"
-msgstr "讀出自動產生的意義"
 
 #~ msgid "Read the meaning of auto-generated"
 #~ msgstr "讀出自動生成的意義"
