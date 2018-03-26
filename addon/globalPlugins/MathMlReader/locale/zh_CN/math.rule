@@ -41,3 +41,6 @@ CubePowerType	, 0, 的立方	底数,指数
 LineType	直线, 0,	主符号,正上标
 RayType	射线, 0,	主符号,正上标
 LineSegmentType	线段, 0,	主符号,正上标
+VectorSingleType	向量, 0,	主符号,正上标
+VectorDoubleType	向量, 0,	主符号,正上标
+FrownType	弧, 0,	主符号,正上标

@@ -41,3 +41,6 @@ CubePowerType	, 0, cubed	base,exponent
 LineType	line, 0,	main,super
 RayType	ray, 0,	main,super
 LineSegmentType	line segment, 0,	main,super
+VectorSingleType	vector, 0,	main,super
+VectorDoubleType	向量, 0,	main,super
+FrownType	弧, 0,	main,super

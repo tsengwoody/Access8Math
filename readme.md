@@ -22,11 +22,13 @@ Access8Math allows:
 	*	"Numpad 1~9": Reading the math content into serialized text using NVDA Reviewing Text.
 	*	"ESC": Exit the navigation mode.
 *	"Ctrl+Alt+m": Switch the provider between Access8Math and MathPlayer.(MathPlayer installed only)
-*	Settings dialog box:
-	*	Language: Access8Math reading language
-	*	Analyze the mathematical meaning of content: Semantically analyze the math content, in line with specific rules, read in mathematical meaning of that rules.
-	*	Read defined meaning  in dictionary: When the pattern is definied in the dictionary, use dictionary to read the meaning of subpart in the upper layer part.
-	*	Read auto-generated meaning: When the pattern is not difined or incomplete in dictionary, use automatic generation function to read the meaning of subpart in the upper layer part.
+*	Menu:
+	*	General Settings dialog box:
+		*	Language: Access8Math reading language
+		*	Analyze the mathematical meaning of content: Semantically analyze the math content, in line with specific rules, read in mathematical meaning of that rules.
+		*	Read defined meaning  in dictionary: When the pattern is definied in the dictionary, use dictionary to read the meaning of subpart in the upper layer part.
+		*	Read auto-generated meaning: When the pattern is not difined or incomplete in dictionary, use automatic generation function to read the meaning of subpart in the upper layer part.
+	*	Rule Settings dialog box: select whether specific rules are enabled.
 *	Single rules are simplified versions of various rules. When the content only has one single item, for better understanding and reading without confusion, you can omit to choose not to read the script before and after the content.
 
 Math rules and definitions analyzed by math contents are continuing increasing.
@@ -109,7 +111,15 @@ Source code: https://github.com/tsengwoody/Access8Math
 
 Please report any bugs or comments, thank you!
 
-# Access8Math v1.3 update log
+# Access8Math v1.4 update log
+
+*	Adjust settings dialog box which divided into "general setting" and "rules setting" dialog box. "General Settings" is the original "Access8Math Settings" dialog box, and "Rule Settings" dialog box is for selecting whether specific rules are enabled.
+*	New rules
+	*	vector rule: When there is a "⇀" right above two Identifier, the item is read as "Vector...".
+	*	frown rule：When there is a " ⌢ " right above two Identifier, the item is read as "frown...".
+*	Fix bug.
+
+	# Access8Math v1.3 update log
 
 *	New rule
 	*	positive rule: Read "positive" rather than "plus" when plus sign in first item or its previous item is certain operator.
@@ -171,11 +181,14 @@ Please report any bugs or comments, thank you!
 	*	數字鍵盤1-9：使用NVDA Reviewing Text方式閱讀序列化的數學內容
 	*	esc鍵退出導航瀏覽模式
 *	ctrl+alt+m：可在Access8Math與MathPlayer間切換閱讀器(有安裝MathPlayer才能切換)
-*	設定選項對話框，可設定：
-	*	語言：Access8Math 朗讀數學內容的語言
-	*	分析內容的數學意義：將數學內容進行語意分析，符合特定規則時，以該規則的數學意義進行朗讀
-	*	讀出字典有定義模式的意義：當字典檔有定義時，使用字典檔讀出提示該項子內容在其上層子內容的意義
-	*	讀出自動生成的意義：當字典檔無定義或不完整時，使用自動產生功能讀出提示該項子內容在其上層子內容的意義或項次
+
+*	功能表：
+	*	「一般設定」對話框，可設定：
+		*	語言：Access8Math 朗讀數學內容的語言
+		*	分析內容的數學意義：將數學內容進行語意分析，符合特定規則時，以該規則的數學意義進行朗讀
+		*	讀出字典有定義模式的意義：當字典檔有定義時，使用字典檔讀出提示該項子內容在其上層子內容的意義
+		*	讀出自動生成的意義：當字典檔無定義或不完整時，使用自動產生功能讀出提示該項子內容在其上層子內容的意義或項次
+	*	「規則設定」對話框：可選擇特定規則是否啟用的設定。
 *	簡單規則：簡單規則是各種規則的簡化版，當其內容僅為單一項目時，便可省略前後標記朗讀，以達到更好的理解與閱讀，而亦不致造成混淆
 
 數學內容解析數學規則意義持續增加中
@@ -256,6 +269,14 @@ Please report any bugs or comments, thank you!
 原始碼：https://github.com/tsengwoody/Access8Math
 
 歡迎提出見意與bug回報，謝謝！
+
+# Access8Math v1.4 更新日誌
+
+*	調整設定選項對話框，分為「一般設定」、「規則設定」對話框。「一般設定」為原先「Access8Math 設定」對話框，「規則設定」對話框則為可選擇特定規則是否啟用的設定。
+*	新規則
+	*	向量規則：當兩個Identifier的正上方有「⇀」時，將其項讀為「向量……」
+	*	弧度規則：當兩個Identifier的正上方有「⌢」時，將其項讀為「弧……」
+*	修正已知問題
 
 # Access8Math v1.3 更新日誌
 
