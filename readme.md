@@ -1,4 +1,4 @@
-# Access8Math ReadMe
+﻿# Access8Math ReadMe
 
 This NVDA addon provides the function of reading math content. Although the original NVDA already equipped this feature by applying MathPlayer, some functions still needed to be improved, especially in MathPlayer some language not provided navigation mode.
 
@@ -25,6 +25,7 @@ Access8Math allows:
 *	Menu:
 	*	General Settings dialog box:
 		*	Language: Access8Math reading language
+		*	Item interval time: Setting pause time between items. Values from 1 to 100, the smaller the value, the shorter the pause time, and the greater the value, the longer the pause time.
 		*	Analyze the mathematical meaning of content: Semantically analyze the math content, in line with specific rules, read in mathematical meaning of that rules.
 		*	Read defined meaning  in dictionary: When the pattern is definied in the dictionary, use dictionary to read the meaning of subpart in the upper layer part.
 		*	Read auto-generated meaning: When the pattern is not difined or incomplete in dictionary, use automatic generation function to read the meaning of subpart in the upper layer part.
@@ -111,6 +112,11 @@ Source code: https://github.com/tsengwoody/Access8Math
 
 Please report any bugs or comments, thank you!
 
+# Access8Math v1.5 update log
+
+*	In "general setting" dialog box add setting pause time between items. Values from 1 to 100, the smaller the value, the shorter the pause time, and the greater the value, the longer the pause time.
+*	Fix setting dialog box can't save configure.
+
 # Access8Math v1.4 update log
 
 *	Adjust settings dialog box which divided into "general setting" and "rules setting" dialog box. "General Settings" is the original "Access8Math Settings" dialog box, and "Rule Settings" dialog box is for selecting whether specific rules are enabled.
@@ -185,7 +191,8 @@ Please report any bugs or comments, thank you!
 *	功能表：
 	*	「一般設定」對話框，可設定：
 		*	語言：Access8Math 朗讀數學內容的語言
-		*	分析內容的數學意義：將數學內容進行語意分析，符合特定規則時，以該規則的數學意義進行朗讀
+		*	項目間隔時間：設定項目間停頓時間，數值從1到100，數值愈小表示停頓時間愈短，反之數值愈大表示停頓時間愈長。
+*	分析內容的數學意義：將數學內容進行語意分析，符合特定規則時，以該規則的數學意義進行朗讀
 		*	讀出字典有定義模式的意義：當字典檔有定義時，使用字典檔讀出提示該項子內容在其上層子內容的意義
 		*	讀出自動生成的意義：當字典檔無定義或不完整時，使用自動產生功能讀出提示該項子內容在其上層子內容的意義或項次
 	*	「規則設定」對話框：可選擇特定規則是否啟用的設定。
@@ -269,6 +276,11 @@ Please report any bugs or comments, thank you!
 原始碼：https://github.com/tsengwoody/Access8Math
 
 歡迎提出見意與bug回報，謝謝！
+
+# Access8Math v1.5 更新日誌
+
+*	在「一般設定」新增項與項間停頓時間設定。數值從1到100，數值愈小表示停頓時間愈短，反之數值愈大表示停頓時間愈長。
+*	更新 unicode.dic
 
 # Access8Math v1.4 更新日誌
 

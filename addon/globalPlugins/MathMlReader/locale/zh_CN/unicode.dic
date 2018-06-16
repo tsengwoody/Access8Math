@@ -1,7 +1,29 @@
 ﻿symbols:
-*	乘	none
+# ASCII
+!	阶层	none
+"	双引号	none
+'	单引号	none
+(	左小括	none
+)	右小括	none
+*	乘以	none
++	加	none
 -	减	none
+.	点	none
+/	除以	none
+:	冒号	none
+<	小于	none
+=	等于	none
+>	大于	none
+[	左中括	none
+]	右中括	none
+{	左大括	none
+|	竖线	none
+}	右大括	none
+¯	横线	none
 ±	加减	none
+•	圆点	none
+×	乘以	none
+÷	除以	none
 
 #0370−03FF
 Ͱ	Heta	none

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Access8Math - 1.4\n"
-"POT-Creation-Date: 2018-03-23 10:05+0800\n"
-"PO-Revision-Date: 2018-03-23 10:15+0800\n"
+"POT-Creation-Date: 2018-06-12 13:16+0800\n"
+"PO-Revision-Date: 2018-06-12 13:17+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -42,7 +42,7 @@ msgstr "终止程序"
 msgid "interaction"
 msgstr "互动"
 
-#: __init__.py:92 __init__.py:109 __init__.py:347
+#: __init__.py:92 __init__.py:109 __init__.py:360
 msgid "copy"
 msgstr "复制"
 
@@ -66,121 +66,125 @@ msgstr "读出自动产生的意义"
 msgid "&Language:"
 msgstr "语言(&L)"
 
-#: __init__.py:168
+#: __init__.py:135
+msgid "&Item interval time:"
+msgstr "项目间隔时间(&I)"
+
+#: __init__.py:181
 msgid "Rule Settings"
 msgstr "规则设定"
 
-#: __init__.py:170
+#: __init__.py:183
 msgid "Simplified subscript and superscript"
 msgstr "简化下标与上标"
 
-#: __init__.py:171
+#: __init__.py:184
 msgid "Simplified subscript"
 msgstr "简化下标"
 
-#: __init__.py:172
+#: __init__.py:185
 msgid "Simplified superscript"
 msgstr "简化上标"
 
-#: __init__.py:173
+#: __init__.py:186
 msgid "Simplified underscript and overscript"
 msgstr "简化正下标与正上标"
 
-#: __init__.py:174
+#: __init__.py:187
 msgid "Simplified underscript"
 msgstr "简化正下标"
 
-#: __init__.py:175
+#: __init__.py:188
 msgid "Simplified overscript"
 msgstr "简化正上标"
 
-#: __init__.py:176
+#: __init__.py:189
 msgid "Simplified fraction"
 msgstr "简化分数"
 
-#: __init__.py:177
+#: __init__.py:190
 msgid "Simplified square root"
 msgstr "简化平方根"
 
-#: __init__.py:178
+#: __init__.py:191
 msgid "Power"
 msgstr "指数"
 
-#: __init__.py:179
+#: __init__.py:192
 msgid "Square power"
 msgstr "平方指数"
 
-#: __init__.py:180
+#: __init__.py:193
 msgid "Cube power"
 msgstr "立方指数"
 
-#: __init__.py:181
+#: __init__.py:194
 msgid "Set"
 msgstr "集合"
 
-#: __init__.py:182
+#: __init__.py:195
 msgid "Absolute value"
 msgstr "绝对值"
 
-#: __init__.py:183
+#: __init__.py:196
 msgid "Matrix"
 msgstr "矩阵"
 
-#: __init__.py:184
+#: __init__.py:197
 msgid "Determinant"
 msgstr "行列式"
 
-#: __init__.py:185
+#: __init__.py:198
 msgid "Integer and fraction"
 msgstr "带分数"
 
-#: __init__.py:343
+#: __init__.py:356
 msgid "not move"
 msgstr "无移动"
 
-#: __init__.py:351
+#: __init__.py:364
 msgid "snapshot"
 msgstr "快照"
 
-#: __init__.py:398
+#: __init__.py:412
 msgid "build-in"
 msgstr "内建"
 
-#: __init__.py:420 __init__.py:443
+#: __init__.py:437 __init__.py:460
 msgid "Access8Math"
 msgstr "Access8Math"
 
-#: __init__.py:434
+#: __init__.py:451
 msgid "&General settings..."
 msgstr "一般设定(&G)"
 
-#: __init__.py:439
+#: __init__.py:456
 msgid "&Rule settings..."
 msgstr "规则设定(&R)"
 
-#: __init__.py:469 __init__.py:490
+#: __init__.py:486 __init__.py:507
 #, python-format
 msgid "Access8Math language change to %s"
 msgstr "Access8Math语言更改为 %s"
 
-#: __init__.py:472
+#: __init__.py:489
 msgid "Change next language"
 msgstr "切换至下个语言"
 
-#: __init__.py:493
+#: __init__.py:510
 msgid "Change previous language"
 msgstr "切换至上个语言"
 
-#: __init__.py:510
+#: __init__.py:527
 #, python-format
 msgid "mathml provider change to %s"
 msgstr "mathml阅读程序更改为 %s"
 
-#: __init__.py:513
+#: __init__.py:530
 msgid "Change mathml provider"
 msgstr "更改阅读程序"
 
-#: __init__.py:525
+#: __init__.py:542
 msgid "Shows the Access8Math settings dialog."
 msgstr "显示 Access8Math 设定对话框"
 

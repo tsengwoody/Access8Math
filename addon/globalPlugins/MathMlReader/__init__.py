@@ -52,7 +52,7 @@ def translate_SpeechCommand(serializes):
 		time_search = pattern.search(r)
 		try:
 			time = time_search.group('time')
-			command = speech.BreakCommand(time=int(time)+90)
+			command = speech.BreakCommand(time=int(time) +int(item_interval_time))
 			speechSequence.append(command)
 		except:
 			speechSequence.append(r)
@@ -130,6 +130,18 @@ class GeneralSettingsDialog(SettingsDialog):
 			index = available_languages_short.index(language)
 		self.languageList.Selection = index
 
+		global item_interval_time
+		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+		item_interval_timeLabel = _("&Item interval time:")
+		self.item_interval_timeChoices = item_interval_time_option
+		self.item_interval_timeList = sHelper.addLabeledControl(item_interval_timeLabel, wx.Choice, choices=self.item_interval_timeChoices)
+		try:
+			index = item_interval_time_option.index(item_interval_time)
+		except:
+			initialize_config()
+			index = item_interval_time_option.index(item_interval_time)
+		self.item_interval_timeList.Selection = index
+
 		for k,v in self.CheckBox_settings.items():
 			setattr(self, k +"CheckBox", sHelper.addItem(wx.CheckBox(self, label=v)))
 			getattr(self, k +"CheckBox").SetValue(globals()[k])
@@ -138,9 +150,8 @@ class GeneralSettingsDialog(SettingsDialog):
 		self.languageList.SetFocus()
 
 	def onOk(self,evt):
-		super(GeneralSettingsDialog, self).onOk(evt)
 
-		global language
+		global language, item_interval_time
 		os.environ['LANGUAGE'] = language
 		for k in self.CheckBox_settings.keys():
 			globals()[k] = getattr(self, k +"CheckBox").IsChecked()
@@ -148,6 +159,7 @@ class GeneralSettingsDialog(SettingsDialog):
 
 		try:
 			config.conf["Access8Math"]["language"] = language = available_languages_short[self.languageList.GetSelection()]
+			config.conf["Access8Math"]["item_interval_time"] = item_interval_time = item_interval_time_option[self.item_interval_timeList.GetSelection()]
 			for k in self.CheckBox_settings.keys():
 				config.conf["Access8Math"][k] = unicode(globals()[k])
 		except:
@@ -162,6 +174,8 @@ class GeneralSettingsDialog(SettingsDialog):
 			api.setReviewPosition(MathMlTextInfo(globalVars.math_obj, textInfos.POSITION_FIRST), False)
 		except:
 			pass
+
+		return super(GeneralSettingsDialog, self).onOk(evt)
 
 class RuleSettingsDialog(SettingsDialog):
 	# Translators: Title of the Access8MathDialog.
@@ -195,7 +209,6 @@ class RuleSettingsDialog(SettingsDialog):
 		getattr(self, self.CheckBox_settings.keys()[0] +"CheckBox").SetFocus()
 
 	def onOk(self,evt):
-		super(RuleSettingsDialog, self).onOk(evt)
 
 		for k in self.CheckBox_settings.keys():
 			globals()[k] = getattr(self, k +"CheckBox").IsChecked()
@@ -215,6 +228,8 @@ class RuleSettingsDialog(SettingsDialog):
 			api.setReviewPosition(MathMlTextInfo(globalVars.math_obj, textInfos.POSITION_FIRST), False)
 		except:
 			pass
+
+		return 		super(RuleSettingsDialog, self).onOk(evt)
 
 class MathMlTextInfo(textInfos.offsets.OffsetsTextInfo):
 
@@ -369,6 +384,7 @@ except:
 def initialize_config():
 	config.conf["Access8Math"] = {}
 	config.conf["Access8Math"]["language"] = "Windows"
+	config.conf["Access8Math"]["item_interval_time"] = "50"
 	config.conf["Access8Math"]["provider"] = "MathMlReader"
 	for k in GeneralSettingsDialog.CheckBox_settings.keys() +RuleSettingsDialog.CheckBox_settings.keys():
 		config.conf["Access8Math"][k] = u"True"
@@ -399,8 +415,11 @@ available_languages.append(("Windows", _("build-in")))
 available_languages_short = [i[0] for i in available_languages]
 available_languages_long = [i[1] for i in available_languages]
 
+item_interval_time_option = [unicode(i) for i in range(1, 101)]
+
 try:
 	language = config.conf["Access8Math"]["language"]
+	item_interval_time = config.conf["Access8Math"]["item_interval_time"]
 	for k in GeneralSettingsDialog.CheckBox_settings.keys() +RuleSettingsDialog.CheckBox_settings.keys():
 		globals()[k] = True if config.conf["Access8Math"][k] in [u'True', u'true', True] else False
 except:
@@ -421,8 +440,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def __init__(self, *args, **kwargs):
 		super(GlobalPlugin, self).__init__(*args, **kwargs)
-		xml_NVDA = sys.modules['xml']
-		sys.modules['xml'] = globalPlugins.MathMlReader.xml
+		#xml_NVDA = sys.modules['xml']
+		#sys.modules['xml'] = globalPlugins.MathMlReader.xml
 
 		self.create_menu()
 
