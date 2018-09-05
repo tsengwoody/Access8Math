@@ -1,10 +1,10 @@
 ﻿#
-node	, ( .*),	item
+node	, (.*),	item
 mfrac	fraction with numerator, 0, and denominator, 1, end fraction	numerator,denominator
-mfenced	open parentheses, ( .*), close parentheses	item
-msqrt	square root of, ( .*), end root	item
+mfenced	open parentheses, (.*), close parentheses	item
+msqrt	square root of, (.*), end root	item
 mroot	the, 1, root of, 0, end root	root,count
-math	, ( .*),	item
+math	, (.*),	item
 msubsup	, 0, with, 1, sub, 2, super	main,sub,super
 msub	, 0, with, 1, sub	main,sub
 msup	, 0, with, 1, super	main,super
@@ -13,8 +13,8 @@ munder	, 0, with, 1, below	main,below
 mover	, 0, with, 1, above	main,above
 mtable	table, (row.*), end table	row
 mtr	,(column.*),	column
-mtd	,( .*),	item
-mmultiscripts	left script,( .*),end script	item
+mtd	,(.*),	item
+mmultiscripts	left script,(.*),end script	item
 mprescripts		
 none		
 from_to	operator, 0, from, 1, to, 2, apply to	operator,from,to
@@ -22,20 +22,20 @@ from	operator, 0, from, 1, apply to	operator,from
 to	operator, 0, to, 1, apply to	operator,to
 power	, 0, to the, 1, power	base,exponent
 set	set, (element.*), end set	element
-absolute_value	absolute value of, ( .*), end absolute value	item
-determinant	determinant, ( .*), end determinant	item
-matrix	matrix, ( .*), end matrix	item
-single_fraction	0,over,1	numerator,denominator
-single_square_root	square root,0	root in
+absolute_value	absolute value of, (.*), end absolute value	item
+determinant	determinant, (.*), end determinant	item
+matrix	matrix, (.*), end matrix	item
+single_fraction	, 0, over, 1,	numerator,denominator
+single_square_root	square root, 0,	root in
 SingleMsubsup	, 0, sub, 1, super, 2, 	main,sub,super
 SingleMsub	, 0, sub, 1, 	main,sub
 SingleMsup	, 0, super, 1, 	main,super
 SingleMunderover	, 0, below, 1, above, 2, 	main,below,above
 SingleMunder	, 0, below, 1, 	main,below
 SingleMover	, 0, above, 1, 	main,above
-AddIntegerFractionType	add,0,over,1	numerator,denominator
-NegativeSignType	,negative,	negative
-PositiveSignType	,positive,	positive
+AddIntegerFractionType	add,0,over,1,	numerator,denominator
+NegativeSignType	negative	negative
+PositiveSignType	positive	positive
 SquarePowerType	, 0, squared	base,exponent
 CubePowerType	, 0, cubed	base,exponent
 LineType	line, 0,	main,super

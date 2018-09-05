@@ -4,7 +4,7 @@
 # This file is covered by the GNU General Public License.
 # See the file COPYING.txt for more details.
 
-from collections import OrderedDict
+from collections import Iterable, OrderedDict
 import os
 import re
 import sys
@@ -17,10 +17,12 @@ import HTMLParser
 import xml
 from xml.etree import ElementTree as ET
 
+import A8M_PM
+from A8M_PM import MathContent
+
 import addonHandler
 addonHandler.initTranslation()
 import api
-from brailleInput import BrailleInputGesture
 import config
 import eventHandler
 import globalPlugins
@@ -32,6 +34,7 @@ import gui
 from gui import guiHelper
 from gui.settingsDialogs import SettingsDialog
 from keyboardHandler import KeyboardInputGesture
+import languageHandler
 from logHandler import log
 import mathPres
 from mathPres.mathPlayer import MathPlayer
@@ -45,10 +48,37 @@ import wx
 from languageHandler_custom import getAvailableLanguages
 import wxgui
 
+def event_focusEntered(self):
+	if self.role in (controlTypes.ROLE_MENUBAR,controlTypes.ROLE_POPUPMENU,controlTypes.ROLE_MENUITEM):
+		speech.cancelSpeech()
+		return
+	#if self.isPresentableFocusAncestor:
+		#speech.speakObject(self,reason=controlTypes.REASON_FOCUSENTERED)
+
+def mathml2etree(mathMl):
+	gtlt_pattern = re.compile(ur"([\>])(.*?)([\<])")
+	mathMl = gtlt_pattern.sub(lambda m: m.group(1) +cgi.escape(HTMLParser.HTMLParser().unescape(m.group(2))) +m.group(3), mathMl)
+	quote_pattern = re.compile(ur"=([\"\'])(.*?)\1")
+	mathMl = quote_pattern.sub(lambda m: '=' +m.group(1) +cgi.escape(m.group(2)) +m.group(1), mathMl)
+	parser = ET.XMLParser()
+	try:
+		tree = ET.fromstring(mathMl.encode('utf-8'), parser=parser)
+	except BaseException as e:
+		raise SystemError(e)
+	return tree
+
+def flatten(l):
+	for el in l:
+		if isinstance(el, Iterable) and not isinstance(el, basestring):
+			for sub in flatten(el):
+				yield sub
+		else:
+			yield el
+
 def translate_SpeechCommand(serializes):
 	pattern = re.compile(r'[@](?P<time>[\d]*)[@]')
 	speechSequence = []
-	for r in serializes:
+	for r in flatten(serializes):
 		time_search = pattern.search(r)
 		try:
 			time = time_search.group('time')
@@ -62,15 +92,31 @@ def translate_SpeechCommand(serializes):
 def translate_Unicode(serializes):
 	pattern = re.compile(r'[@](?P<time>[\d]*)[@]')
 	sequence = ''
-	for r in serializes:
-		time_search = pattern.search(r)
-		try:
-			time = time_search.group('time')
-		except:
-			sequence = sequence +unicode(r)
-		sequence = sequence +u' '
+
+	for c in serializes:
+		sequence = sequence +u'\n'
+		for r in flatten(c):
+			time_search = pattern.search(r)
+			try:
+				time = time_search.group('time')
+			except:
+				sequence = sequence +unicode(r)
+			sequence = sequence +u' '
+
+	# replace mutiple blank to single blank
 	pattern = re.compile(ur'[ ]+')
 	sequence = pattern.sub(lambda m: u' ', sequence)
+
+	# replace blank line to none
+	pattern = re.compile(ur'\n\s*\n')
+	sequence = pattern.sub(lambda m: u'\n', sequence)
+
+	# strip blank at start and end line
+	temp = ''
+	for i in sequence.split('\n'):
+		temp = temp +i.strip() +'\n'
+	sequence = temp
+
 	return sequence.strip()
 
 class InteractionFrame(wxgui.GenericFrame):
@@ -81,7 +127,6 @@ class InteractionFrame(wxgui.GenericFrame):
 	def menuData(self):
 		return [
 			(_("&Menu"), (
-				(_("&About"),_("Information about this program"), self.OnAbout),
 				(_("&Exit"),_("Terminate the program"), self.OnExit),
 			))
 		]
@@ -92,21 +137,38 @@ class InteractionFrame(wxgui.GenericFrame):
 			(_("copy"), self.OnRawdataToClip),
 		)
 
-	def OnNew(self, event): pass
-	def OnOpen(self, event): pass
-	def OnSave(self, event): pass
-	def OnColor(self, event): pass
-	def OnAbout(self, event): pass
 	def OnExit(self,event):
 		self.Close(True)  # Close the frame.
 
 	def OnInteraction(self,event):
-		self.obj.interactionFrameNVDAobj = self.obj.parent = api.getFocusObject()
+		self.obj.parent = api.getFocusObject()
+		#import NVDAObjects
+		#old_event_focusEntered = NVDAObjects.NVDAObject.event_focusEntered
+		#NVDAObjects.NVDAObject.event_focusEntered = event_focusEntered
 		eventHandler.executeEvent("gainFocus", self.obj)
+		#NVDAObjects.NVDAObject.event_focusEntered = old_event_focusEntered
 
 	def OnRawdataToClip(self,event):
-		api.copyToClip(self.obj.raw_data)
+		#api.copyToClip(self.obj.raw_data)
+		api.copyToClip(self.obj.mathcontent.root.get_mathml())
 		ui.message(_("copy"))
+
+	def OnInsert(self,event):
+		# asciimath to mathml
+		from xml.etree.ElementTree import tostring
+		import asciimathml
+		from dialogs import AsciiMathEntryDialog
+		entryDialog = AsciiMathEntryDialog(self)
+		if entryDialog.ShowModal()==wx.ID_OK:
+			asciimath = entryDialog.GetValue()
+			mathMl = tostring(asciimathml.parse(asciimath))
+			mathMl = mathMl.replace('math>', 'mrow>')
+
+			tree = mathml2etree(mathMl)
+
+			from A8M_PM import create_node
+			node = create_node(tree)
+			self.obj.mathcontent.insert(node)
 
 class GeneralSettingsDialog(SettingsDialog):
 	# Translators: Title of the Access8MathDialog.
@@ -121,13 +183,13 @@ class GeneralSettingsDialog(SettingsDialog):
 		global language
 		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 		languageLabel = _("&Language:")
-		self.languageChoices = available_languages_long
+		self.languageChoices = available_languages_dict.values()
 		self.languageList = sHelper.addLabeledControl(languageLabel, wx.Choice, choices=self.languageChoices)
 		try:
-			index = available_languages_short.index(language)
+			index = available_languages_dict.keys().index(language)
 		except:
 			initialize_config()
-			index = available_languages_short.index(language)
+			index = available_languages_dict.keys().index(language)
 		self.languageList.Selection = index
 
 		global item_interval_time
@@ -152,21 +214,22 @@ class GeneralSettingsDialog(SettingsDialog):
 	def onOk(self,evt):
 
 		global language, item_interval_time
-		os.environ['LANGUAGE'] = language
-		for k in self.CheckBox_settings.keys():
-			globals()[k] = getattr(self, k +"CheckBox").IsChecked()
-			os.environ[k] = unicode(globals()[k])
 
 		try:
-			config.conf["Access8Math"]["language"] = language = available_languages_short[self.languageList.GetSelection()]
+			config.conf["Access8Math"]["language"] = language = available_languages_dict.keys()[self.languageList.GetSelection()]
 			config.conf["Access8Math"]["item_interval_time"] = item_interval_time = item_interval_time_option[self.item_interval_timeList.GetSelection()]
 			for k in self.CheckBox_settings.keys():
 				config.conf["Access8Math"][k] = unicode(globals()[k])
 		except:
 			initialize_config()
-			config.conf["Access8Math"]["language"] = language = available_languages_short[self.languageList.GetSelection()]
+			config.conf["Access8Math"]["language"] = language = available_languages_dict.keys()[self.languageList.GetSelection()]
 			for k in self.CheckBox_settings.keys():
 				config.conf["Access8Math"][k] = unicode(globals()[k])
+
+		os.environ['LANGUAGE'] = language
+		for k in self.CheckBox_settings.keys():
+			globals()[k] = getattr(self, k +"CheckBox").IsChecked()
+			os.environ[k] = unicode(globals()[k])
 
 		A8M_PM.config_from_environ()
 
@@ -238,7 +301,7 @@ class MathMlTextInfo(textInfos.offsets.OffsetsTextInfo):
 		self.obj = obj
 
 	def _getStoryLength(self):
-		serializes = self.obj.pointer.serialized()
+		serializes = self.obj.mathcontent.pointer.serialized()
 		return len(translate_Unicode(serializes))
 
 	def _getStoryText(self):
@@ -246,7 +309,7 @@ class MathMlTextInfo(textInfos.offsets.OffsetsTextInfo):
 		@return: The entire text of the object.
 		@rtype: unicode
 		"""
-		serializes = self.obj.pointer.serialized()
+		serializes = self.obj.mathcontent.pointer.serialized()
 		return translate_Unicode(serializes)
 
 	def _getTextRange(self,start,end):
@@ -264,59 +327,52 @@ class MathMlTextInfo(textInfos.offsets.OffsetsTextInfo):
 class MathMlReader(mathPres.MathPresentationProvider):
 
 	def getSpeechForMathMl(self, mathMl):
-		gtlt_pattern = re.compile(ur"([\>])(.*?)([\<])")
-		mathMl = gtlt_pattern.sub(lambda m: m.group(1) +cgi.escape(HTMLParser.HTMLParser().unescape(m.group(2))) +m.group(3), mathMl)
-		quote_pattern = re.compile(ur"=([\"\'])(.*?)\1")
-		mathMl = quote_pattern.sub(lambda m: '=' +m.group(1) +cgi.escape(m.group(2)) +m.group(1), mathMl)
-		parser = ET.XMLParser()
-		try:
-			tree = ET.fromstring(mathMl.encode('utf-8'), parser=parser)
-		except BaseException as e:
-			globalVars.raw_data = mathMl
-			raise SystemError(e)
-		node = create_node(tree)
-		globalVars.nodes = node
-		return translate_SpeechCommand(node.serialized())
+		tree = mathml2etree(mathMl)
+		self.mathcontent = MathContent(A8M_PM.mathrule , tree)
+		globalVars.mathcontent = self.mathcontent
+		return translate_SpeechCommand(self.mathcontent.pointer.serialized())
 
 	def interactWithMathMl(self, mathMl):
-		MathMlReaderInteraction(provider=self, mathMl=mathMl)
+		MathMlReaderInteraction(mathMl=mathMl)
 
 class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 
-	def __init__(self, provider=None, mathMl=None):
-		super(MathMlReaderInteraction, self).__init__(provider=provider, mathMl=mathMl)
+	def __init__(self, mathMl, show=False):
+		super(MathMlReaderInteraction, self).__init__(mathMl=mathMl)
 
-		gtlt_pattern = re.compile(ur"([\>])(.*?)([\<])")
-		mathMl = gtlt_pattern.sub(lambda m: m.group(1) +cgi.escape(HTMLParser.HTMLParser().unescape(m.group(2))) +m.group(3), mathMl)
-		quote_pattern = re.compile(ur"=([\"\'])(.*?)\1")
-		mathMl = quote_pattern.sub(lambda m: '=' +m.group(1) +cgi.escape(m.group(2)) +m.group(1), mathMl)
-		parser = ET.XMLParser()
-		try:
-			tree = ET.fromstring(mathMl.encode('utf-8'), parser=parser)
-		except BaseException as e:
-			globalVars.raw_data = mathMl
-			raise SystemError(e)
-		globalVars.root = self.root = self.pointer = create_node(tree)
+		tree = mathml2etree(mathMl)
+		globalVars.math_obj = self
+		self.mathcontent = MathContent(A8M_PM.mathrule , tree)
+		globalVars.mathcontent = self.mathcontent
 		self.raw_data = mathMl
 		api.setReviewPosition(self.makeTextInfo(), False)
 
 		self.interactionFrame = InteractionFrame(self)
-		self.interactionFrame.Show()
-		self.interactionFrame.Raise()
+		if True:
+			self.interactionFrame.Show()
+			self.interactionFrame.Raise()
+		else:
+			#api.setFocusObject(self)
+			eventHandler.executeEvent("gainFocus", self)
 
 	def _get_mathMl(self):
-		return self.raw_data
+		return self.mathcontent.root.get_mathml()
+		#return self.raw_data
 
 	def makeTextInfo(self, position=textInfos.POSITION_FIRST):
 		return MathMlTextInfo(self, position)
 
-	'''def event_gainFocus(self):
-	def event_loseFocus(self):'''
+	def event_gainFocus(self):
+		speech.speak(_("enter interaction mode"))
+		super(MathMlReaderInteraction, self).event_gainFocus()
+		api.setReviewPosition(self.makeTextInfo(), False)
+
+	'''def event_loseFocus(self):
+		print('QQ')'''
 
 	def reportFocus(self):
-		super(MathMlReaderInteraction, self).reportFocus()
-		speech.speak(translate_SpeechCommand(self.root.serialized()))
-		api.setReviewPosition(self.makeTextInfo(), False)
+		#super(MathMlReaderInteraction, self).reportFocus()
+		speech.speak(translate_SpeechCommand(self.mathcontent.root.serialized()))
 
 	def getScript(self, gesture):
 		if isinstance(gesture, KeyboardInputGesture) and "NVDA" not in gesture.modifierNames and (
@@ -331,43 +387,49 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 		return super(MathMlReaderInteraction, self).getScript(gesture)
 
 	def script_navigate(self, gesture):
-		r = None
-		if gesture.mainKeyName == "downArrow":
-			r = self.pointer.down()
-		elif gesture.mainKeyName == "upArrow":
-			r = self.pointer.up()
-		elif gesture.mainKeyName == "leftArrow":
-			r = self.pointer.previous_sibling
-		elif gesture.mainKeyName == "rightArrow":
-			r = self.pointer.next_sibling
-		elif gesture.mainKeyName == "home":
-			r = self.root
+		r = False
+		if gesture.mainKeyName in ["downArrow", "upArrow", "leftArrow", "rightArrow", "home"]:
+			r = self.mathcontent.navigate(gesture.mainKeyName)
 
-		if r is not None:
-			self.pointer = r
+		if r:
 			api.setReviewPosition(self.makeTextInfo(), False)
-			if self.pointer.parent:
-				if AG and self.pointer.parent.role_level == A8M_PM.AUTO_GENERATE:
-					speech.speak([self.pointer.des])
-				elif DG and self.pointer.parent.role_level == A8M_PM.DIC_GENERATE:
-					speech.speak([self.pointer.des])
+			if self.mathcontent.pointer.parent:
+				if AG and self.mathcontent.pointer.parent.role_level == A8M_PM.AUTO_GENERATE:
+					speech.speak([self.mathcontent.pointer.des])
+				elif DG and self.mathcontent.pointer.parent.role_level == A8M_PM.DIC_GENERATE:
+					speech.speak([self.mathcontent.pointer.des])
 			else:
-					speech.speak([self.pointer.des])
-			speech.speak(translate_SpeechCommand(self.pointer.serialized()))
+					speech.speak([self.mathcontent.pointer.des])
+			speech.speak(translate_SpeechCommand(self.mathcontent.pointer.serialized()))
 		else:
 			speech.speak([_("not move")])
 
 	def script_rawdataToClip(self, gesture):
-		api.copyToClip(self.raw_data)
+		#api.copyToClip(self.raw_data)
+		api.copyToClip(self.mathcontent.root.get_mathml())
 		ui.message(_("copy"))
 
 	def script_snapshot(self, gesture):
 		globalVars.math_obj = self
 		ui.message(_("snapshot"))
 
+	def script_insert(self, gesture):
+		wx.CallAfter(self.interactionFrame.OnInsert, None)
+
+	def script_delete(self, gesture):
+		self.mathcontent.delete()
+
+	def script_showMenu(self, gesture):
+		self.interactionFrame.Show()
+		self.interactionFrame.Raise()
+		ui.message(_("show menu"))
+
 	__gestures={
 		"kb:control+c": "rawdataToClip",
-		"kb:control+s": "snapshot",
+		""""kb:control+s": "snapshot",
+		"kb:control+i": "insert",
+		"kb:control+d": "delete","""
+		"kb:control+m": "showMenu",
 	}
 
 provider_list = [
@@ -412,8 +474,7 @@ except:
 	available_languages = []
 
 available_languages.append(("Windows", _("build-in")))
-available_languages_short = [i[0] for i in available_languages]
-available_languages_long = [i[1] for i in available_languages]
+available_languages_dict = {k: v for k, v in available_languages}
 
 item_interval_time_option = [unicode(i) for i in range(1, 101)]
 
@@ -432,84 +493,83 @@ os.environ['LANGUAGE'] = language
 for k in GeneralSettingsDialog.CheckBox_settings.keys() +RuleSettingsDialog.CheckBox_settings.keys():
 	os.environ[k] = unicode(globals()[k])
 
-import A8M_PM
-from A8M_PM import create_node
-
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	scriptCategory = _("Access8Math")
 
 	def __init__(self, *args, **kwargs):
 		super(GlobalPlugin, self).__init__(*args, **kwargs)
-		#xml_NVDA = sys.modules['xml']
-		#sys.modules['xml'] = globalPlugins.MathMlReader.xml
+		xml_NVDA = sys.modules['xml']
+		sys.modules['xml'] = globalPlugins.MathMlReader.xml
 
 		self.create_menu()
 
 	def create_menu(self):
-		self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
+		self.toolsMenu = gui.mainFrame.sysTrayIcon.toolsMenu
 		self.menu = wx.Menu()
+
+		# add 
 		self.generalSettings = self.menu.Append(
 			wx.ID_ANY,
 			_("&General settings...")
 		)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onGeneralSettings, self.generalSettings)
+
+		# add
 		self.ruleSettings = self.menu.Append(
 			wx.ID_ANY,
 			_("&Rule settings...")
 		)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onRuleSettings, self.ruleSettings)
 
-		self.Access8Math_item = self.prefsMenu.AppendSubMenu(self.menu, _("Access8Math"), _("Access8Math"))
-		#systray = gui.mainFrame.sysTrayIcon
-		#systray.menu.InsertMenu(2,wx.ID_ANY,  _("A&ccess8Math"), self.menu)
+		# add
+		self.unicodeDictionary = self.menu.Append(
+			wx.ID_ANY,
+			_("&unicode dictionary...")
+		)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onUnicodeDictionary, self.unicodeDictionary)
+
+		# add
+		self.mathRule = self.menu.Append(
+			wx.ID_ANY,
+			_("&math rule...")
+		)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onMathRule, self.mathRule)
+
+		# add
+		self.newLanguageAdding = self.menu.Append(
+			wx.ID_ANY,
+			_("&New language adding...")
+		)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onNewLanguageAdding, self.newLanguageAdding)
+
+		'''# add
+		self.asciiMath = self.menu.Append(
+			wx.ID_ANY,
+			_("&asciimath...")
+		)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onAsciiMathAdd, self.asciiMath)
+
+		# add
+		self.latex = self.menu.Append(
+			wx.ID_ANY,
+			_("&latex...")
+		)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onLatexAdd, self.latex)'''
+
+		# add
+		self.about = self.menu.Append(
+			wx.ID_ANY,
+			_("&About...")
+		)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onAbout, self.about)
+
+		self.Access8Math_item = self.toolsMenu.AppendSubMenu(self.menu, _("Access8Math"), _("Access8Math"))
 
 	def terminate(self):
 		try:
-			self.prefsMenu.RemoveItem(self.Access8Math_item)
+			self.toolsMenu.RemoveItem(self.Access8Math_item)
 		except (RuntimeError, AttributeError, wx.PyDeadObjectError):
 			pass
-
-	def script_change_next_language(self, gesture):
-		try:
-			language = config.conf["Access8Math"]["language"]
-		except:
-			initialize_config()
-			language = config.conf["Access8Math"]["language"]
-
-		index = (available_languages_short.index(language) +1)% len(available_languages_short)
-		config.conf["Access8Math"]["language"] = language = available_languages_short[index]
-		os.environ['LANGUAGE'] = language
-		A8M_PM.config_from_environ()
-
-		try:
-			api.setReviewPosition(MathMlTextInfo(globalVars.math_obj, textInfos.POSITION_FIRST), False)
-		except:
-			pass
-		ui.message(_("Access8Math language change to %s")%available_languages[index][1])
-	script_change_next_language.category = scriptCategory
-	# Translators: message presented in input mode.
-	script_change_next_language.__doc__ = _("Change next language")
-
-	def script_change_previous_language(self, gesture):
-		try:
-			language = config.conf["Access8Math"]["language"]
-		except:
-			initialize_config()
-			language = config.conf["Access8Math"]["language"]
-
-		index = (available_languages_short.index(language) -1)% len(available_languages_short)
-		config.conf["Access8Math"]["language"] = language = available_languages_short[index]
-		os.environ['LANGUAGE'] = language
-		A8M_PM.config_from_environ()
-
-		try:
-			api.setReviewPosition(MathMlTextInfo(globalVars.math_obj, textInfos.POSITION_FIRST), False)
-		except:
-			pass
-		ui.message(_("Access8Math language change to %s")%available_languages[index][1])
-	script_change_previous_language.category = scriptCategory
-	# Translators: message presented in input mode.
-	script_change_previous_language.__doc__ = _("Change previous language")
 
 	def script_change_provider(self, gesture):
 		try:
@@ -536,6 +596,58 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def onRuleSettings(self, evt):
 		gui.mainFrame._popupSettingsDialog(RuleSettingsDialog)
+
+	def onNewLanguageAdding(self, evt):
+		from dialogs import NewLanguageAddingDialog
+		NewLanguageAddingDialog(gui.mainFrame).Show()
+
+	def onUnicodeDictionary(self, evt):
+		from dialogs import UnicodeDicDialog
+		global language
+		gui.mainFrame._popupSettingsDialog(UnicodeDicDialog, language)
+
+	def onMathRule(self, evt):
+		from dialogs import MathRuleDialog
+		global language
+		gui.mainFrame._popupSettingsDialog(MathRuleDialog, language)
+
+	def onAbout(self,evt):
+		import gui
+		# Translators: The title of the dialog to show about info for NVDA.
+		aboutMessage = _(
+u"""Access8Math
+Version: 2.0
+URL: https://addons.nvda-project.org/addons/access8math.en.html
+Copyright (C) 2017-2018 Access8Math Contributors
+Access8Math is covered by the GNU General Public License (Version 2). You are free to share or change this software in any way you like as long as it is accompanied by the license and you make all source code available to anyone who wants it. This applies to both original and modified copies of this software, plus any derivative works.
+It can be viewed online at: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+Access8Math has been sponsored by "Taiwan Visually Impaired People Association" in 2018, hereby express our sincere appreciation.
+If you feel this add-on is helpful, please don't hesitate to give support to "Taiwan Visually Impaired Association" and authors."""
+		)
+		gui.messageBox(aboutMessage, _("About Access8Math"), wx.OK)
+
+	def onAsciiMathAdd(self, evt):
+		from xml.etree.ElementTree import tostring
+		import asciimathml
+		from dialogs import AsciiMathEntryDialog
+		entryDialog = AsciiMathEntryDialog(gui.mainFrame)
+		if entryDialog.ShowModal()==wx.ID_OK:
+			asciimath = entryDialog.GetValue()
+			mathml = tostring(asciimathml.parse(asciimath))
+			mathml = unicode(mathml)
+			MathMlReaderInteraction(mathMl=mathml, show=True)
+
+	def onLatexAdd(self, evt):
+		import latex2mathml.converter
+		from dialogs import LatexEntryDialog
+		entryDialog = LatexEntryDialog(gui.mainFrame)
+		if entryDialog.ShowModal()==wx.ID_OK:
+			latex = entryDialog.GetValue()
+			mathml = latex2mathml.converter.convert(latex)
+			print type(mathml)
+			mathml = HTMLParser.HTMLParser().unescape(mathml)
+			print type(mathml)
+			MathMlReaderInteraction(mathMl=mathml, show=True)
 
 	def script_settings(self, gesture):
 		wx.CallAfter(self.onSettings, None)

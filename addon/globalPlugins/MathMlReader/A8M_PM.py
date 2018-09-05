@@ -1,6 +1,7 @@
 ﻿# coding: utf-8
 # Copyright (C) 2017-2018 Tseng Woody <tsengwoody.tw@gmail.com>
 
+import collections
 import copy
 import io
 import os
@@ -21,7 +22,7 @@ def create_node(et):
 
 	node_class = nodes[mp_tag.capitalize()] if mp_tag.capitalize() in nodes.keys() else object
 
-	if issubclass(node_class, NonTerminalNode) or (issubclass(node_class, BlockNode) and len(et)!=1):
+	if issubclass(node_class, NonTerminalNode) or issubclass(node_class, BlockNode):
 		child = []
 		for c in et:
 			node = create_node(c)
@@ -29,28 +30,129 @@ def create_node(et):
 		node = node_class(child, et.attrib)
 	elif issubclass(node_class, TerminalNode):
 		node = node_class([], et.attrib, data=et.text)
-	elif issubclass(node_class, BlockNode) and len(et) == 1:
-		node = create_node(et[0])
 	elif mp_tag == 'none':
 		node = Nones()
-	#elif mp_tag == 'semantics':
-		#node = create_node(et[0])
 	else:
 		child = []
 		for c in et:
 			node = create_node(c)
 			child.append(node)
-		node = Node(child, et.attrib)
+		node = Mrow(child, et.attrib)
 		#raise RuntimeError('unknown tag : {}'.format(mp_tag))
-
-	for c in node.child:
-		c.type = None
-		c.check_type()
 
 	return node
 
+def clean_allnode(node):
+	for child in node.child:
+		clean_allnode(child)
+
+	if isinstance(node, BlockNode):
+		if len(node.child)==1 or (isinstance(node.parent, AlterNode) and len(node.child)>0):
+
+			#remove node
+			parent_new_child = node.parent.child[0:node.index_in_parent()] +node.child
+			if node.index_in_parent()+1 < len(node.parent.child):
+				parent_new_child = parent_new_child +node.parent.child[node.index_in_parent()+1:]
+			node.parent.child = parent_new_child
+			for child in node.child:
+				child.parent = node.parent
+
+		elif isinstance(node.parent, AlterNode) and len(node.child)==0:
+			index = node.index_in_parent()
+			node.parent.child[index].child = []
+
+
+	return  node
+
+def set_mathrule_allnode(node, mathrule):
+	for child in node.child:
+		set_mathrule_allnode(child, mathrule)
+	node.set_mathrule(mathrule)
+	return  node
+
+def clear_type_allnode(node):
+	for child in node.child:
+		clear_type_allnode(child)
+	node.type = None
+	return  node
+
+def check_type_allnode(node):
+	for child in node.child:
+		check_type_allnode(child)
+	node.check_type()
+	return  node
+
+class MathContent(object):
+	def __init__(self, mathrule, et):
+		self.root = self.pointer = create_node(et)
+		clean_allnode(self.root)
+		self.mathrule = {}
+		self.set_mathrule(mathrule)
+
+	def set_mathrule(self, mathrule):
+		self.mathrule = mathrule
+		set_mathrule_allnode(self.root, self.mathrule)
+		check_type_allnode(self.root)
+
+	def navigate(self, action):
+		pointer = None
+		if action == "downArrow":
+			pointer = self.pointer.down()
+		elif action == "upArrow":
+			pointer = self.pointer.up()
+		elif action == "leftArrow":
+			pointer = self.pointer.previous_sibling
+		elif action == "rightArrow":
+			pointer = self.pointer.next_sibling
+		elif action == "home":
+			pointer = self.root
+
+		if pointer is not None:
+			self.pointer = pointer
+			return True
+		else:
+			return False
+
+	def insert(self, node):
+		if self.pointer.parent:
+			self.pointer.parent.insert(self.pointer.index_in_parent(), node)
+			self.pointer = node
+
+			# node refresh
+			clean_allnode(self.root)
+			clear_type_allnode(self.root)
+			set_mathrule_allnode(self.root, self.mathrule)
+			check_type_allnode(self.root)
+
+		else:
+			self.pointer.insert(len(self.pointer.child), node)
+			self.pointer = node
+
+			# node refresh
+			clean_allnode(self.root)
+			clear_type_allnode(self.root)
+			set_mathrule_allnode(self.root, self.mathrule)
+			check_type_allnode(self.root)
+
+	def delete(self):
+		if self.pointer.parent:
+			parent = self.pointer.parent
+			index = self.pointer.index_in_parent()
+			self.pointer.parent.delete(self.pointer.index_in_parent())
+			try:
+				self.pointer = parent.child[index]
+			except:
+				self.pointer = parent
+
+			# node refresh
+			clean_allnode(self.root)
+			clear_type_allnode(self.root)
+			set_mathrule_allnode(self.root, self.mathrule)
+			check_type_allnode(self.root)
+
 class Node(object):
 	def __init__(self, child=[], attrib={}, data=u''):
+		self._mathcontent = None
 		self._parent = None
 		self.child = list(child)
 		for c in child:
@@ -58,9 +160,37 @@ class Node(object):
 				c.parent = self
 		self.attrib = attrib
 		self.data = unicode(data.strip()) if data else u''
+		self.mathrule = {}
+		self.rule = []
+		self.role = []
 		self.type = None
-		self.check_type()
-		self.role = math_role[self.name] if math_role.has_key(self.name) else [symbol_translate('item')]
+		#self.set_mathrule(mathrule)
+		#self.check_type()
+
+	def check_type(self):
+		for nodetype in nodetypes_check:
+			if nodetype.check(self) and nodetype.name in self.mathrule:
+				if not self.type:
+					self.type = nodetype()
+				elif self.type and issubclass(nodetype, self.type.__class__):
+					self.type = nodetype()
+
+		if self.type:
+			self.type.set_mathrule(self.mathrule)
+
+			self.type.set_rule()
+			self.set_role()
+			self.set_rule()
+
+	def set_mathrule(self, mathrule):
+		self.mathrule = mathrule
+		self.set_role()
+		self.set_rule()
+		if self.type:
+			self.type.set_mathrule(self.mathrule)
+
+	def set_role(self):
+		self.role = self.mathrule[self.name].role if mathrule.has_key(self.name) else [symbol_translate('item')]
 		d = len(self.child) -len(self.role)
 		if d > 0:
 			append = self.role[-1]
@@ -71,58 +201,39 @@ class Node(object):
 		else:
 			self.role_level = DIC_GENERATE
 
-	def check_type(self):
-		'''for nodetype in SNT_check:
-			if nodetype.check(self) and nodetype.name in math_rule:
-				if not self.type:
-					self.type = nodetype
-				elif self.type and issubclass(nodetype, self.type):
-					self.type = nodetype'''
-
-		for nodetype in nodetypes_check:
-			if nodetype.check(self) and nodetype.name in math_rule:
-				if not self.type:
-					self.type = nodetype
-				elif self.type and issubclass(nodetype, self.type):
-					self.type = nodetype
-
-	def rule(self):
+	def set_rule(self):
 		if self.type and self.type.rule:
-			if issubclass(self.type, NonTerminalNodeType):
-				rule = self.type.rule()
-			elif issubclass(self.type, TerminalNodeType):
-				rule = [unicode(self.type.data.sub(self.type.rule, self.data))]
-			elif issubclass(self.type, SiblingNodeType):
-				rule = self.type.rule()
+			rule = self.type.rule
 		else:
-			rule = math_rule[self.tag]
-		if isinstance(rule[1], tuple):
+			rule = self.mathrule[self.name].serialized_order
+		if len(rule)>=2 and isinstance(rule[1], tuple):
 			result = []
 			for i in range(len(self.child)):
-				if not rule[1][0] == u' ':
+				if not (rule[1][0].isspace() or rule[1][0]==u''):
 					result.append(u'{0}{1}'.format(rule[1][0], i+1))
 				result.append(i)
 
 			rule = rule[0:1] +result +rule[-1:]
-		return rule
+		self.rule = rule
 
 	def serialized(self):
 		serialized = []
 		if isinstance(self, TerminalNode):
-			serialized = serialized +['@10@']
-		for r in self.rule():
+			serialized.append(['@10@'])
+		for r in self.rule:
 			if isinstance(r, int):
-				serialized = serialized +self.child[r].serialized()
+				serialized.append(self.child[r].serialized())
 			elif r == '*':
 				for c in self.child:
-					serialized = serialized +c.serialized() if c else serialized
-					serialized = serialized +['@10@']
+					if c:
+						serialized.append(c.serialized())
+						serialized.append(['@10@'])
 			elif isinstance(r, unicode):
-				serialized = serialized +[r]
+				serialized.append([r])
 			else:
 				raise TypeError('rule element type error : expect int or unicode (get {0})'.format(type(r)))
 		if isinstance(self, TerminalNode):
-			serialized = serialized +['@10@']
+			serialized.append(['@10@'])
 		return serialized
 
 	def get_mathml(self):
@@ -146,6 +257,14 @@ class Node(object):
 	@property
 	def tag(self):
 		return self.__class__.__name__.lower()
+
+	@property
+	def mathcontent(self):
+		return None if self._mathcontent is None else self._mathcontent()
+
+	@mathcontent.setter
+	def mathcontent(self, mathcontent):
+		self._mathcontent = weakref.ref(mathcontent)
 
 	@property
 	def parent(self):
@@ -224,50 +343,205 @@ class Node(object):
 			return None
 
 class NonTerminalNode(Node):
-	pass
+	def set_rule(self):
+		try:
+			super(NonTerminalNode, self).set_rule()
+		except:
+			self.rule = range(len(self.child))
+
+	def set_role(self):
+		try:
+			super(NonTerminalNode, self).set_role()
+		except:
+			self.rule = range(len(self.child))
 
 class TerminalNode(Node):
-	def rule(self):
+	def set_rule(self):
 		try:
-			return super(TerminalNode, self).rule()
+			super(TerminalNode, self).set_rule()
 		except BaseException as e:
-			return [unicode(symbol_translate(self.data))]
+			self.rule = [unicode(symbol_translate(self.data))]
 
 	def get_mathml(self):
 		mathml = u''
 		mathml = mathml +self.data if self.data else mathml
 		return u'<{0}>{1}</{0}>'.format(self.tag, mathml)
 
-class BlockNode(Node):
-	def rule(self):
-		try:
-			return super(BlockNode, self).rule()
-		except:
-			return [u''] +range(len(self.child)) +[u'']
+class AlterNode(NonTerminalNode):
+	def insert(self, index, node):
+		if index > len(self.child):
+			return None
+		if index == len(self.child):
+			self.child.insert(index+1, node)
+			node.parent = self
+		elif isinstance(self.child[index], BlockNode) and len(self.child[index].child) == 0:
+			self.child[index].child.insert(0, node)
+			node.parent = self.child[index]
+		else:
+			self.child.insert(index+1, node)
+			node.parent = self
+		return node
 
-class Math(NonTerminalNode):
-	pass
+	def delete(self, index):
+		if index >= len(self.child):
+			return None
+		node = self.child[index]
+		del self.child[index]
+		if len(self.child) <= 0:
+			mrow_node = Mrow([], {})
+			self.child.insert(0, mrow_node)
+			mrow_node.parent = self
+		return node
+
+class FixNode(NonTerminalNode):
+	def insert(self, index, node):
+		if index >= len(self.child):
+			return None
+		if isinstance(self.child[index], BlockNode):
+			self.child[index].child.append(node)
+			node.parent = self.child[index]
+		else:
+			mrow_child = [self.child[index], node]
+			mrow_node = Mrow(mrow_child, {})
+			mrow_node.parent = self
+			for child in mrow_node.child:
+				child.parent = mrow_node
+			self.child[index] = mrow_node
+
+		return node
+
+	def delete(self, index):
+		if index >= len(self.child):
+			return None
+		node = self.child[index]
+		self.child[index] = Mrow([], {})
+		self.child[index].parent = self
+		return node
+
+class BlockNode(AlterNode):
+	def set_rule(self):
+		try:
+			super(BlockNode, self).set_rule()
+		except:
+			self.rule = range(len(self.child))
 
 class Mrow(BlockNode):
+	pass
+
+class Mfrac(FixNode):
+	pass
+
+class Msqrt(AlterNode):
+	pass
+
+class Mroot(FixNode):
 	pass
 
 class Mstyle(BlockNode):
 	pass
 
+class Merror(AlterNode):
+	pass
+
+class Mpadded(AlterNode):
+	pass
+
+class Mphantom(AlterNode):
+	pass
+
+class Mfenced(AlterNode):
+	def set_rule(self):
+		super(Mfenced, self).set_rule()
+		rule = self.rule
+		if not self.type:
+			if self.attrib.has_key('open'):
+				rule = [unicode(self.attrib['open'])] +rule
+			if self.attrib.has_key('close'):
+				rule = rule[0:-1] +[unicode(self.attrib['close'])] +rule[-1:]
+			if (not self.attrib.has_key('open')) and (not self.attrib.has_key('close')):
+				rule = [u'('] +rule[0:-1] +[u')'] +rule[-1:]
+
+		self.rule = rule
+
+class Menclose(AlterNode):
+	pass
+
+class Msub(FixNode):
+	pass
+
+class Msup(FixNode):
+	pass
+
+class Msubsup(FixNode):
+	pass
+
+class Munder(FixNode):
+	pass
+
+class Mover(FixNode):
+	pass
+
+class Munderover(FixNode):
+	pass
+
+class Mtable(AlterNode):
+	def set_rule(self):
+		super(Mtable, self).set_rule()
+		rule = self.rule
+
+		row_count = len(self.child)
+		column_count_list = [len(i.child) for i in self.child]
+		column_count = max(column_count_list)
+		table_head = [rule[0] +u'{0}{1}{2}{3}{4}'.format(symbol_translate('has'), row_count, symbol_translate('row'), column_count, symbol_translate('column'))]
+		cell = rule[1:-1]
+		table_tail = rule[-1:]
+		self.rule = table_head +cell +table_tail
+
+class Mlabeledtr(AlterNode):
+	pass
+
+class Mtr(AlterNode):
+	def set_rule(self):
+		super(Mtr, self).set_rule()
+		rule = self.rule
+		cell = rule[1:-1]
+		self.rule = rule[:1] +cell +rule[-1:]
+
+class Mtd(AlterNode):
+	pass
+
+class Mstack(AlterNode):
+	pass
+
+class Mlongdiv(AlterNode):
+	pass
+
+class Msgroup(AlterNode):
+	pass
+
+class Msrow(AlterNode):
+	pass
+
+class Mscarries(AlterNode):
+	pass
+
+class Mscarry(AlterNode):
+	pass
+
+class Maction(AlterNode):
+	pass
+
+class Math(AlterNode):
+	pass
+
 class Mi(TerminalNode):
-	def __init__(self, child=[], attrib={}, data=None):
-		super(Mi, self).__init__(child, attrib, data)
-		self.identifier = data
+	pass
 
 class Mn(TerminalNode):
-	def __init__(self, child=[], attrib={}, data=None):
-		super(Mn, self).__init__(child, attrib, data)
-		self.number = data
+	pass
 
 class Mo(TerminalNode):
-	def __init__(self, child=[], attrib={}, data=None):
-		super(Mo, self).__init__(child, attrib, data)
-		self.operator = data
+	pass
 
 class Mtext(TerminalNode):
 	pass
@@ -278,69 +552,8 @@ class Mspace(TerminalNode):
 class Ms(TerminalNode):
 	pass
 
-class Mfrac(NonTerminalNode):
-	pass
-
-class Mfenced(NonTerminalNode):
-	def rule(self):
-		rule = super(Mfenced, self).rule()
-		if not self.type:
-			if self.attrib.has_key('open'):
-				rule = [unicode(self.attrib['open'])] +rule
-			if self.attrib.has_key('close'):
-				rule = rule[0:-1] +[unicode(self.attrib['close'])] +rule[-1:]
-			if (not self.attrib.has_key('open')) and (not self.attrib.has_key('close')):
-				rule = [u'('] +rule[0:-1] +[u')'] +rule[-1:]
-
-		return rule
-
-class Msqrt(NonTerminalNode):
-	pass
-
-class Mroot(NonTerminalNode):
-	pass
-
-class Msubsup(NonTerminalNode):
-	pass
-
-class Msub(NonTerminalNode):
-	pass
-
-class Msup(NonTerminalNode):
-	pass
-
-class Munderover(NonTerminalNode):
-	pass
-
-class Munder(NonTerminalNode):
-	pass
-
-class Mover(NonTerminalNode):
-	pass
-
-class Mtable(NonTerminalNode):
-	def rule(self):
-		rule = super(Mtable, self).rule()
-
-		row_count = len(self.child)
-		column_count_list = [len(i.child) for i in self.child]
-		column_count = max(column_count_list)
-		table_head = [rule[0] +u'{0}{1}{2}{3}{4}'.format(symbol_translate('has'), row_count, symbol_translate('row'), column_count, symbol_translate('column'))]
-		cell = rule[1:-1]
-		table_tail = rule[-1:]
-		return table_head +cell +table_tail
-
-class Mtr(NonTerminalNode):
-	def rule(self):
-		rule = super(Mtr, self).rule()
-		cell = rule[1:-1]
-		return rule[:1] +cell +rule[-1:]
-
-class Mtd(NonTerminalNode):
-	pass
-
-class Mmultiscripts(NonTerminalNode):
-	def __init__(self, *args, **kwargs):
+class Mmultiscripts(AlterNode):
+	'''def __init__(self, *args, **kwargs):
 		super(Mmultiscripts, self).__init__(*args, **kwargs)
 
 		role = [symbol_translate('main')]
@@ -363,10 +576,11 @@ class Mmultiscripts(NonTerminalNode):
 			]
 			role = role +temp
 
-		self.role = role
+		self.role = role'''
 
-	def rule(self):
-		rule = super(Mmultiscripts, self).rule()
+	def set_rule(self):
+		super(Mmultiscripts, self).set_rule()
+		rule = self.rule
 
 		index = range(1, self.mprescripts_index_in_child())
 		index_odd = index[0::2]
@@ -395,7 +609,7 @@ class Mmultiscripts(NonTerminalNode):
 			rule = rule[:1] +temp +rule[-1:]
 
 		rule.insert(1,0)
-		return rule
+		self.rule = rule
 
 	def mprescripts_index_in_child(self):
 		for c in self.child:
@@ -406,8 +620,7 @@ class Mprescripts(TerminalNode):
 	pass
 
 class Nones(Node):
-	def rule(self):
-		return []
+	pass
 
 class NodeType(object):
 	tag = object
@@ -415,7 +628,11 @@ class NodeType(object):
 	attrib = {}
 	data = re.compile(r".*")
 	name = 'nodetype'
-	rule = None
+
+	def __init__(self):
+		self.mathrule = {}
+		self.rule = []
+		self.role = []
 
 	@classmethod
 	def check(cls, obj):
@@ -424,8 +641,17 @@ class NodeType(object):
 
 		return True
 
-class TerminalNodeType(NodeType):
+	def set_mathrule(self, mathrule):
+		self.mathrule = mathrule
+		self.set_rule()
 
+	def set_rule(self):
+		try:
+			self.rule = self.mathrule[self.name].serialized_order
+		except:
+			self.rule = None
+
+class TerminalNodeType(NodeType):
 	@classmethod
 	def check(cls, obj):
 		if not issubclass(obj.__class__, cls.tag):
@@ -446,18 +672,6 @@ class TerminalNodeType(NodeType):
 			except:
 				return False
 		return True
-
-	@classmethod
-	def rule(cls, m):
-		temp = ''
-		if not math_rule.has_key(cls.name):
-			return None
-		for i in math_rule[cls.name]:
-			if isinstance(i, int):
-				temp = temp +m.group(int(i))
-			else:
-				temp = temp +i
-		return temp
 
 class NonTerminalNodeType(NodeType):
 
@@ -493,10 +707,6 @@ class NonTerminalNodeType(NodeType):
 				return False
 
 		return True
-
-	@classmethod
-	def rule(cls):
-		return math_rule[cls.name]
 
 class SiblingNodeType(NodeType):
 	previous_siblings = []
@@ -550,10 +760,6 @@ class SiblingNodeType(NodeType):
 				return False
 
 		return True
-
-	@classmethod
-	def rule(cls):
-		return math_rule[cls.name]
 
 class CompoundNodeType(NodeType):
 	compound = []
@@ -729,6 +935,26 @@ class MunderoverFromToType(SingleMunderoverType):
 	child = [FromToOperatorType, NodeType, NodeType]
 	name = 'from_to'
 
+class MsubFromType(SingleMsubType):
+	tag = Msub
+	child = [FromToOperatorType, NodeType]
+	name = 'from'
+
+class MunderFromType(SingleMunderType):
+	tag = Munder
+	child = [FromToOperatorType, NodeType]
+	name = 'from'
+
+class MsupToType(SingleMsupType):
+	tag = Msup
+	child = [FromToOperatorType, NodeType]
+	name = 'to'
+
+class MoverToType(SingleMoverType):
+	tag = Mover
+	child = [FromToOperatorType, NodeType]
+	name = 'to'
+
 class SetType(NonTerminalNodeType):
 	tag = Mfenced
 	attrib = {
@@ -806,20 +1032,30 @@ class FirstPositiveSignType(SiblingNodeType):
 	self_ = PlusType
 	name = 'PositiveSignType'
 
-def load_unicode_dic(language):
-	path = os.path.dirname(os.path.abspath(__file__))
-	if not language == 'Windows':
-		path = path +'/locale/{0}'.format(language)
+class MathRule(object):
+	def __init__(self, name, description, category, serialized_order, role, example=''):
+		self.name = name
+		self.description = description
+		self.category= category
+		self.serialized_order = serialized_order
+		self.role = role
+		self.example = example
+
+def load_unicode_dic(path=None, language=''):
+	if not path and language:
+		path = os.path.dirname(os.path.abspath(__file__))
+		if not language == 'Windows':
+			path = path +'/locale/{0}'.format(language)
+		frp = os.path.join(path, 'unicode.dic')
+		frp_user = os.path.join(path, 'unicode_user.dic')
+		if not os.path.exists(frp_user):
+			with io.open(frp, 'r', encoding='utf-8') as fr, io.open(frp_user, 'w', encoding='utf-8') as fr_user:
+				fr_user.write(fr.read())
+		path = frp_user
+
 	symbol = {}
-
-	frp = os.path.join(path, 'unicode.dic')
-	frp_user = os.path.join(path, 'unicode_user.dic')
-	if not os.path.exists(frp_user):
-		with io.open(frp, 'r', encoding='utf-8') as fr, io.open(frp_user, 'w', encoding='utf-8') as fr_user:
-			fr_user.write(fr.read())
-
 	try:
-		with io.open(frp, 'r', encoding='utf-8') as fr:
+		with io.open(path, 'r', encoding='utf-8') as fr:
 			for line in fr:
 				line = line.split('\t')
 				if len(line) >= 2:
@@ -828,22 +1064,28 @@ def load_unicode_dic(language):
 		pass
 	return symbol
 
-def load_math_rule(language):
-	path = os.path.dirname(os.path.abspath(__file__))
-	if not language == 'Windows':
-		path = path +'/locale/{0}'.format(language)
-	math_role = {}
-	math_rule = {}
+def load_math_rule(path=None, language=''):
+	math_example_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'math.example')
+	if not path and language:
+		path = os.path.dirname(os.path.abspath(__file__))
+		if not language == 'Windows':
+			path = path +'/locale/{0}'.format(language)
+		frp = os.path.join(path, 'math.rule')
+		frp_user = os.path.join(path, 'math_user.rule')
+		if not os.path.exists(frp_user):
+			with io.open(frp, 'r', encoding='utf-8') as fr, io.open(frp_user, 'w', encoding='utf-8') as fr_user:
+				fr_user.write(fr.read())
+		path = frp_user
 
-	frp = os.path.join(path, 'math.rule')
-	frp_user = os.path.join(path, 'math_user.rule')
-	if not os.path.exists(frp_user):
-		with io.open(frp, 'r', encoding='utf-8') as fr, io.open(frp_user, 'w', encoding='utf-8') as fr_user:
-			fr_user.write(fr.read())
+	mathrule = collections.OrderedDict({})
+	for category_key in mathrule_category_order:
+		category = mathrule_order[category_key]
+		for item in category:
+			mathrule[item] = None
 
-	try:
-		with io.open(frp_user, 'r', encoding='utf-8') as fr:
-			for line in fr:
+	with io.open(path, 'r', encoding='utf-8') as fr, io.open(math_example_path, 'r', encoding='utf-8') as math_example:
+		for line in fr:
+			try:
 				line = line.split('\t')
 				if len(line) == 3:
 					rule = []
@@ -858,45 +1100,62 @@ def load_math_rule(language):
 							rule.append(int(i))
 						except:
 							rule.append(i)
-					math_rule[line[0]] = rule
 
 					role = []
 					for i in line[2].split(','):
 						i = i.strip()
 						role.append(i)
-					math_role[line[0]] = role
-	except:
-		pass
 
-	return [math_role, math_rule]
+					mathrule[line[0]] = MathRule(line[0], '', '', rule, role)
+			except BaseException as e:
+				pass
 
-def save_unicode_dic(language, symbol):
-	path = os.path.dirname(os.path.abspath(__file__))
-	if not language == 'Windows':
-		path = path +'/locale/{0}'.format(language)
+		for line in math_example:
+			try:
+				line = line.split('\t')
+				if len(line) == 2:
+					mathrule[line[0]].example = line[1].strip()
+			except BaseException as e:
+				pass
 
-def save_math_rule(language, math_role, math_rule):
-	path = os.path.dirname(os.path.abspath(__file__))
-	if not language == 'Windows':
-		path = path +'/locale/{0}'.format(language)
+	return mathrule
 
-	math_rule_unicode = {}
-	for k,v in math_rule.items():
-		line = [unicode(i) if not isinstance(i, tuple) else '(' +'.'.join(i) +')' for i in v]
-		line = ', '.join(line)
-		math_rule_unicode[k] = line
+def save_unicode_dic(symbol,path=None, language=''):
+	if not path and language:
+		path = os.path.dirname(os.path.abspath(__file__))
+		if not language == 'Windows':
+			path = path +'/locale/{0}'.format(language)
+		path = os.path.join(path, 'unicode_user.dic')
 
-	math_role_unicode = {}
-	for k,v in math_role.items():
-		line = ', '.join(v)
-		math_role_unicode[k] = line
+	with io.open(path, 'w', encoding='utf-8') as f:
+		f.write(u'symbols:\r\n')
+		key = symbol.keys()
+		#key.sort()
+		for k in key:
+			line = '\t'.join([k, symbol[k], 'none']) +'\r\n'
+			f.write(line)
 
-	fwp = os.path.join(path, 'math_user.rule')
-	with io.open(fwp, 'w', encoding='utf-8') as f:
-		key = math_rule.keys()
+	return True
+
+def save_math_rule(mathrule, path=None, language=''):
+	if not path and language:
+		path = os.path.dirname(os.path.abspath(__file__))
+		if not language == 'Windows':
+			path = path +'/locale/{0}'.format(language)
+		path = os.path.join(path, 'math_user.rule')
+
+	mathrule_unicode = {}
+	for k,v in mathrule.items():
+		so_line = [unicode(i) if not isinstance(i, tuple) else '(' +'.'.join(i) +')' for i in v.serialized_order]
+		so_line = ', '.join(so_line)
+		role_line = ', '.join(v.role)
+		mathrule_unicode[k] ='\t'.join([so_line, role_line])
+
+	with io.open(path, 'w', encoding='utf-8') as f:
+		key = mathrule.keys()
 		key.sort()
 		for k in key:
-			line = '\t'.join([k, math_rule_unicode[k], math_role_unicode[k]]) +'\r\n'
+			line = '\t'.join([k, mathrule_unicode[k]]) +'\r\n'
 			f.write(line)
 
 	return True
@@ -906,10 +1165,10 @@ def symbol_translate(u):
 
 def config_from_environ():
 	global language, AMM
-	global symbol, math_role, math_rule
+	global symbol, mathrule
 	language = os.environ.get('LANGUAGE', 'Windows')
-	symbol = load_unicode_dic(language)
-	math_role, math_rule = load_math_rule(language)
+	symbol = load_unicode_dic(language=language)
+	mathrule = load_math_rule(language=language)
 	AMM = True if os.environ.get('AMM', 'True') in [u'True', u'true'] else False
 
 	global nodetypes_check, SNT_check
@@ -957,4 +1216,183 @@ all_nodetypes = [ i for i in locals().values() if inspect.isclass(i) and issubcl
 all_nodetypes_dict = { k:v for k,v in locals().items() if inspect.isclass(v) and issubclass(v, NodeType) }
 all_nodetypes_dict.update({'object': object})
 
+mathrule_info = {
+	"generics": {
+		"node": [3, 1, "*",],
+		"math": [3, 1, "*",],
+	},
+	"fraction": {
+		"mfrac": [5, 2, ".",],
+		"single_fraction": [5, 2, ".",],
+		"AddIntegerFractionType": [5, 2, ".",],
+	},
+	"fenced": {
+		"mfenced": [3, 1, "*",],
+		"set": [3, 1, "*",],
+		"absolute_value": [3, 1, "*",],
+		"determinant": [3, 1, "*",],
+		"matrix": [3, 1, "*",],
+	},
+	"root": {
+		"msqrt": [3, 1, "*",],
+		"mroot": [5, 2, ".",],
+		"single_square_root": [3, 1, ".",],
+	},
+	"position": {
+		"msubsup": [7, 3, ".",],
+		"msup": [5, 2, ".",],
+		"msub": [5, 2, ".",],
+		"munderover": [7, 3, ".",],
+		"munder": [5, 2, ".",],
+		"mover": [5, 2, ".",],
+		"SingleMsubsup": [7, 3, ".",],
+		"SingleMsub": [5, 2, ".",],
+		"SingleMsup": [5, 2, ".",],
+		"SingleMunderover": [7, 3, ".",],
+		"SingleMunder": [5, 2, ".",],
+		"SingleMover": [5, 2, ".",],
+	},
+	"power": {
+		"power": [5, 2, ".",],
+		"SquarePowerType": [3, 2, ".",],
+		"CubePowerType": [3, 2, ".",],
+	},
+	"from to": {
+		"from_to": [7, 3, ".",],
+		"from": [5, 2, ".",],
+		"to": [5, 2, ".",],
+	},
+	"table": {
+		"mtable": [3, 1, "*",],
+		"mtr": [3, 1, "*",],
+		"mtd": [3, 1, "*",],
+	},
+	"line": {
+		"LineType": [3, 2, ".",],
+		"RayType": [3, 2, ".",],
+		"LineSegmentType": [3, 2, ".",],
+		"VectorSingleType": [3, 2, ".",],
+		"VectorDoubleType": [3, 2, ".",],
+		"FrownType": [3, 2, ".",],
+	},
+	"other": {
+		"NegativeSignType": [1, 1, ".",],
+		"PositiveSignType": [1, 1, ".",],
+		"mmultiscripts": [0, 0, ".",],
+		"mprescripts": [0, 0, ".",],
+		"none": [0, 0, ".",],
+	},
+}
+
+mathrule_category_order = [
+	"generics",
+	"fraction",
+	"fenced",
+	"root",
+	"position",
+	"power",
+	"from to",
+	"table",
+	"line",
+	"other",
+]
+
+mathrule_order = {
+	"generics": [
+		"node",
+		"math",
+	],
+	"fraction": [
+		"mfrac",
+		"single_fraction",
+		"AddIntegerFractionType",
+	],
+	"fenced": [
+		"mfenced",
+		"set",
+		"absolute_value",
+		"determinant",
+		"matrix",
+	],
+	"root": [
+		"msqrt",
+		"mroot",
+		"single_square_root",
+	],
+	"position": [
+		"msubsup",
+		"msup",
+		"msub",
+		"munderover",
+		"munder",
+		"mover",
+		"SingleMsubsup",
+		"SingleMsub",
+		"SingleMsup",
+		"SingleMunderover",
+		"SingleMunder",
+		"SingleMover",
+	],
+	"power": [
+		"power",
+		"SquarePowerType",
+		"CubePowerType",
+	],
+	"from to": [
+		"from_to",
+		"from",
+		"to",
+	],
+	"table": [
+		"mtable",
+		"mtr",
+		"mtd",
+	],
+	"line": [
+		"LineType",
+		"RayType",
+		"LineSegmentType",
+		"VectorSingleType",
+		"VectorDoubleType",
+		"FrownType",
+	],
+	"other": [
+		"NegativeSignType",
+		"PositiveSignType",
+		"mmultiscripts",
+		"mprescripts",
+		"none",
+	],
+}
+
 config_from_environ()
+
+def mathrule_validate(mathrule, validator):
+	if not len(mathrule.serialized_order) == validator[0]:
+		return False
+	if not len(mathrule.role) == validator[1]:
+		return False
+	if validator[2] == ".":
+		for index in range(len(mathrule.serialized_order)):
+			if index%2 == 0:
+				if not isinstance(mathrule.serialized_order[index], unicode):
+					return False
+			else:
+				if not isinstance(mathrule.serialized_order[index], int):
+					return False
+	elif validator[2] == "*":
+		if not isinstance(mathrule.serialized_order[0], unicode):
+			return False
+		elif not isinstance(mathrule.serialized_order[1], tuple):
+			return False
+		elif not isinstance(mathrule.serialized_order[2], unicode):
+			return False
+	else:
+		pass
+	return True
+
+for category_key in mathrule_category_order:
+	category = mathrule_order[category_key]
+	for item in category:
+		if not mathrule_validate(mathrule[item], mathrule_info[category_key][item]):
+			pass

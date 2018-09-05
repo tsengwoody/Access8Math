@@ -4,6 +4,8 @@ This NVDA addon provides the function of reading math content. Although the orig
 
 navigation mode is important to read long math content. It help to understand long math content's structure easily.
 
+## function
+
 Access8Math allows:
 
 *	Read math content written in MathML in web browser(Mozilla Firefox, Microsoft Internet Explorer and Google Chrome).
@@ -30,7 +32,31 @@ Access8Math allows:
 		*	Read defined meaning  in dictionary: When the pattern is definied in the dictionary, use dictionary to read the meaning of subpart in the upper layer part.
 		*	Read auto-generated meaning: When the pattern is not difined or incomplete in dictionary, use automatic generation function to read the meaning of subpart in the upper layer part.
 	*	Rule Settings dialog box: select whether specific rules are enabled.
-*	Single rules are simplified versions of various rules. When the content only has one single item, for better understanding and reading without confusion, you can omit to choose not to read the script before and after the content.
+*	"unicode dictionary" allows customizing the reading method for each symbol text.
+*	"math rule" allows customizing the reading method for each type of mathematics.
+*	"New language adding" allows adding language not provided in the built-in system. The newly language will be added to the "General settings", and multi-language customization can be achieved through reading definition of "unicode dictionary" and "math rule".
+
+## Math Rules
+
+Access8Math establishes 43 mathematical rules according to the mathematical type and logic to decide the reading math method and order. According to different local math reading logic, the math reading text and order can be changed. The method is as follows:
+
+Edit: After entering the "math rule", the window lists 43 math rules. Choose any math rule and select the "Edit" to enter the editing entry.
+
+The "editing entry" can be divided into two major blocks, the "Serialized ordering" and the "Child role".
+*	Serialized ordering: Math rule is divided into multiple blocks according to the reading order. In this area, the reading order of child node and the delimitation text of start, inter- and the end can be changed. Taking the fractional rule mfrac as an example, this rule is divided into five reading blocks. The order 0, 2, and 4 represent the initial prompt, the project segmentation prompt, and the end prompt, respectively, and the meanings text can be changed in each field. Order 1 and 3 adjust the reading	sequence of child node which can be changed in the drop-down menu.
+*	Child role:  The next-level sub-item of the mathematical rule. Taking the fractional rule mfrac as an example, the rule contains the numerator and the denominator. The sub-content in the upper sub-content meaning can be changed in the child-node role field.
+
+Example: You can check the reading method of this math rule after editing. After clicking, a math content is preset the corresponding math rules for confirming whether the reading method is as expected.
+
+Recover default: Restores the list of math rules to their initial presets.
+
+Import: Import math rules files, which can be used to load math rules files.
+
+Export: Save the math rules file to the specified path to share or keep.
+
+## other
+
+Single rules are simplified versions of various rules. When the content only has one single item, for better understanding and reading without confusion, you can omit to choose not to read the script before and after the content.
 
 Math rules and definitions analyzed by math contents are continuing increasing.
 
@@ -112,10 +138,18 @@ Source code: https://github.com/tsengwoody/Access8Math
 
 Please report any bugs or comments, thank you!
 
+# Access8Math v2.0 Update
+
+*	Add multi-language new-adding and customizing settings,and add three windows of "unicode dictionary", "math rule", "New language adding"
+*	The "unicode dictionary" can customize the reading way of each math symbolic text.
+*	"math rule" can customize the reading method and preview the modification through the sample button before completed.
+*	"New language adding" allows adding language not provided in the built-in system. The newly language will be added to the general settings, and multi-language customization can be achieved through reading definition of "unicode dictionary" and "mathematical rules".
+*	improved in interactive mode, you can use the number keys 7~9 to read sequence text in the unit of line.
+
 # Access8Math v1.5 update log
 
 *	In "general setting" dialog box add setting pause time between items. Values from 1 to 100, the smaller the value, the shorter the pause time, and the greater the value, the longer the pause time.
-*	Fix setting dialog box can't save configure.
+*	Fix setting dialog box can't save configure in NVDA 2018.2.
 
 # Access8Math v1.4 update log
 
@@ -169,7 +203,7 @@ Please report any bugs or comments, thank you!
 
 導航瀏覽對於閱讀理解長數學內容相當重要，可協助理解長數學內容的結構。
 
-功能有：
+## 功能
 
 *	可閱讀網頁瀏覽器(Mozilla Firefox, Microsoft Internet Explorer and Google Chrome)上以MathML撰寫的數學內容
 *	可閱讀Microsoft Word上以MathType 撰寫的數學內容。(需安裝MathType)
@@ -188,15 +222,40 @@ Please report any bugs or comments, thank you!
 	*	esc鍵退出導航瀏覽模式
 *	ctrl+alt+m：可在Access8Math與MathPlayer間切換閱讀器(有安裝MathPlayer才能切換)
 
-*	功能表：
-	*	「一般設定」對話框，可設定：
-		*	語言：Access8Math 朗讀數學內容的語言
-		*	項目間隔時間：設定項目間停頓時間，數值從1到100，數值愈小表示停頓時間愈短，反之數值愈大表示停頓時間愈長。
-*	分析內容的數學意義：將數學內容進行語意分析，符合特定規則時，以該規則的數學意義進行朗讀
-		*	讀出字典有定義模式的意義：當字典檔有定義時，使用字典檔讀出提示該項子內容在其上層子內容的意義
-		*	讀出自動生成的意義：當字典檔無定義或不完整時，使用自動產生功能讀出提示該項子內容在其上層子內容的意義或項次
-	*	「規則設定」對話框：可選擇特定規則是否啟用的設定。
-*	簡單規則：簡單規則是各種規則的簡化版，當其內容僅為單一項目時，便可省略前後標記朗讀，以達到更好的理解與閱讀，而亦不致造成混淆
+## 功能表
+
+*	「一般設定」對話框，可設定：
+	*	語言：Access8Math 朗讀數學內容的語言
+	*	項目間隔時間：設定項目間停頓時間，數值從1到100，數值愈小表示停頓時間愈短，反之數值愈大表示停頓時間愈長。
+	*	分析內容的數學意義：將數學內容進行語意分析，符合特定規則時，以該規則的數學意義進行朗讀
+	*	讀出字典有定義模式的意義：當字典檔有定義時，使用字典檔讀出提示該項子內容在其上層子內容的意義
+	*	讀出自動生成的意義：當字典檔無定義或不完整時，使用自動產生功能讀出提示該項子內容在其上層子內容的意義或項次
+*	「規則設定」對話框：可選擇特定規則是否啟用的設定。
+*	「unicode 字典」可客製設定各項符號文字的報讀方式。
+*	「數學規則」可客製設定各數學類型的報讀方式。
+*	「加入新語言」可加入原先於內建未提供的語言，加入後於一般設定內會多出剛新增的語系並可再透過「unicode 字典」與「數學規則」定義讀法達到多國語言客製化設定
+
+## 數學規則
+
+Access8Math將常用數學式依據類型與邏輯，建立43項數學規則，程式依據這套規則判別數學式的唸法與唸讀順序，依據各地習慣不同，可以變更數學唸讀順序與唸法，方法如下：
+
+編輯: 進入"數學規則"後，小視窗列有43項數學規則，選則任一規則可選擇"編輯按鈕"進入編輯條目。
+
+規則的"編輯條目"可分為兩大區塊，分別是序列化順序與子節點角色。
+	*	序列化順序：將數學規則依據唸讀順序劃分多個區塊，在此區域可變更規則子項目的唸讀順序及開始、項目間與結束的分隔文字，以分數規則mfrac為例，此規則分為五個唸讀順序，順序0、2和4分別代表起始提示、項目區隔提示與結束提示，可在各欄位中輸入變更自己習慣的唸法，而順序1與3則可調整子節點唸讀的先後，可於下拉式選單中變更順序。
+	*	子節點角色：為該數學規則的下一階層子項目，以分數規則mfrac為例，此項規則就包含分子與分母兩項，而在子節點欄位中，可以變更該項子內容在其上層子內容的意義文字，。
+
+範例：可先行查閱確認編輯修改後對此類型的數學規則讀法。點擊後會出現一個預設好符合該對應數學規則的數學內容，供確認對此類型的數學規則讀法是否符合預期。
+
+還原預設值：將數學規則列表還原到初始預設值。
+
+匯入：將數學規則檔案匯入，可用於載入數學規則檔案。
+
+匯出：將數學規則檔案儲存於指定路徑，以利分享或保存數學規則檔案。
+
+## 其他
+
+	簡單規則：簡單規則是各種規則的簡化版，當其內容僅為單一項目時，便可省略前後標記朗讀，以達到更好的理解與閱讀，而亦不致造成混淆
 
 數學內容解析數學規則意義持續增加中
 
@@ -276,6 +335,14 @@ Please report any bugs or comments, thank you!
 原始碼：https://github.com/tsengwoody/Access8Math
 
 歡迎提出見意與bug回報，謝謝！
+
+# Access8Math v2.0 更新日誌
+
+*	加入多國語系新增與客製化設定功能，新增三個視窗「unicode 字典」、「數學規則」、「加入新語言」
+*	unicode 字典可客製設定各項符號文字的報讀方式。
+*	數學規則可客製設定各數學類型的報讀方式並可於修改完成前透過範例的按鈕先行查閱修改的效果。
+*	加入新語言可加入原先於內建未提供的語言，加入後於一般設定內會多出剛新增的語系並可再透過「unicode 字典」與「數學規則」定義讀法達到多國語言客製化設定
+*	優化在互動模式下，可使用數字鍵7~9以行為單位閱讀序列文字
 
 # Access8Math v1.5 更新日誌
 

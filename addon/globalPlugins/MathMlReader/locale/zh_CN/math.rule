@@ -1,10 +1,10 @@
 ﻿#
-node	, ( .*),	项
+node	, (.*),	项
 mfrac	分数, 1, 分之, 0, 结束分数	分子,分母
-mfenced	开括号, ( .*), 闭括号	项
-msqrt	根号, ( .*), 结束根号	项
+mfenced	开括号, (.*), 闭括号	项
+msqrt	根号, (.*), 结束根号	项
 mroot	根号, 0, 开, 1, 次	底数,开方数
-math	, ( .*),	项
+math	, (.*),	项
 msubsup	, 0, 下标, 1, 上标, 2, 结束标记	主符号,下标,上标
 msub	, 0, 下标, 1, 结束标记	主符号,下标
 msup	, 0, 上标, 1, 结束标记	主符号,上标
@@ -13,8 +13,8 @@ munder	, 0, 正下标, 1, 结束标记	主符号,正下标
 mover	, 0, 正上标, 1, 结束标记	主符号,正上标
 mtable	表格, (行.*), 结束表	行
 mtr	,(列.*),	列
-mtd	,( .*),	项
-mmultiscripts	左标记,( .*),结束左标记	项
+mtd	,(.*),	项
+mmultiscripts	左标记,(.*),结束左标记	项
 mprescripts		
 none		
 from_to	运算, 0, 从, 1, 到, 2, 对	运算符,从,到
@@ -22,20 +22,20 @@ from	运算, 0, 从, 1, 对	运算符,从
 to	运算, 0, 到, 1, 对	运算符,到
 power	, 0, 的, 1, 次方	底数,指数
 set	集合, (元素.*), 结束集合	元素
-absolute_value	绝对值, ( .*), 结束绝对值	项
-determinant	行列式, ( .*), 结束行列式	项
-matrix	矩阵, ( .*), 结束矩阵	项
-single_fraction	1,分之,0	分子,分母
-single_square_root	0,的平方根	根号内
+absolute_value	绝对值, (.*), 结束绝对值	项
+determinant	行列式, (.*), 结束行列式	项
+matrix	矩阵, (.*), 结束矩阵	项
+single_fraction	,1,分之,0,	分子,分母
+single_square_root	,0,的平方根	根号内
 SingleMsubsup	, 0, 下标, 1, 上标, 2, 	主符号,下标,上标
 SingleMsub	, 0, 下标, 1, 	主符号,下标
 SingleMsup	, 0, 上标, 1, 	主符号,上标
 SingleMunderover	, 0, 正下标, 1, 正上标, 2, 	主符号,正下标,正上标
 SingleMunder	, 0, 正下标, 1, 	主符号,正下标
 SingleMover	, 0, 正上标, 1, 	主符号,正上标
-AddIntegerFractionType	又,1,分之,0	分子,分母
-NegativeSignType	,负,	负号
-PositiveSignType	,正,	正号
+AddIntegerFractionType	又,1,分之,0,	分子,分母
+NegativeSignType	负	负号
+PositiveSignType	正	正号
 SquarePowerType	, 0, 的平方	底数,指数
 CubePowerType	, 0, 的立方	底数,指数
 LineType	直线, 0,	主符号,正上标
