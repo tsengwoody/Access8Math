@@ -19,6 +19,8 @@ from xml.etree import ElementTree as ET
 
 import A8M_PM
 from A8M_PM import MathContent
+import dialogs
+from utils import convert_bool
 
 import addonHandler
 addonHandler.initTranslation()
@@ -34,7 +36,6 @@ import gui
 from gui import guiHelper
 from gui.settingsDialogs import SettingsDialog
 from keyboardHandler import KeyboardInputGesture
-import languageHandler
 from logHandler import log
 import mathPres
 from mathPres.mathPlayer import MathPlayer
@@ -45,7 +46,6 @@ import tones
 import ui
 import wx
 
-from languageHandler_custom import getAvailableLanguages
 import wxgui
 
 def event_focusEntered(self):
@@ -82,7 +82,7 @@ def translate_SpeechCommand(serializes):
 		time_search = pattern.search(r)
 		try:
 			time = time_search.group('time')
-			command = speech.BreakCommand(time=int(time) +int(item_interval_time))
+			command = speech.BreakCommand(time=int(time) +int(os.environ['item_interval_time']))
 			speechSequence.append(command)
 		except:
 			speechSequence.append(r)
@@ -169,130 +169,6 @@ class InteractionFrame(wxgui.GenericFrame):
 			from A8M_PM import create_node
 			node = create_node(tree)
 			self.obj.mathcontent.insert(node)
-
-class GeneralSettingsDialog(SettingsDialog):
-	# Translators: Title of the Access8MathDialog.
-	title = _("General Settings")
-	CheckBox_settings = OrderedDict([
-		("AMM", _("Analyze mathematical meaning of content")),
-		("DG", _("Read defined meaning in dictionary")),
-		("AG", _("Read of auto-generated meaning")),
-	])
-
-	def makeSettings(self, settingsSizer):
-		global language
-		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
-		languageLabel = _("&Language:")
-		self.languageChoices = available_languages_dict.values()
-		self.languageList = sHelper.addLabeledControl(languageLabel, wx.Choice, choices=self.languageChoices)
-		try:
-			index = available_languages_dict.keys().index(language)
-		except:
-			initialize_config()
-			index = available_languages_dict.keys().index(language)
-		self.languageList.Selection = index
-
-		global item_interval_time
-		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
-		item_interval_timeLabel = _("&Item interval time:")
-		self.item_interval_timeChoices = item_interval_time_option
-		self.item_interval_timeList = sHelper.addLabeledControl(item_interval_timeLabel, wx.Choice, choices=self.item_interval_timeChoices)
-		try:
-			index = item_interval_time_option.index(item_interval_time)
-		except:
-			initialize_config()
-			index = item_interval_time_option.index(item_interval_time)
-		self.item_interval_timeList.Selection = index
-
-		for k,v in self.CheckBox_settings.items():
-			setattr(self, k +"CheckBox", sHelper.addItem(wx.CheckBox(self, label=v)))
-			getattr(self, k +"CheckBox").SetValue(globals()[k])
-
-	def postInit(self):
-		self.languageList.SetFocus()
-
-	def onOk(self,evt):
-
-		global language, item_interval_time
-
-		try:
-			config.conf["Access8Math"]["language"] = language = available_languages_dict.keys()[self.languageList.GetSelection()]
-			config.conf["Access8Math"]["item_interval_time"] = item_interval_time = item_interval_time_option[self.item_interval_timeList.GetSelection()]
-			for k in self.CheckBox_settings.keys():
-				config.conf["Access8Math"][k] = unicode(globals()[k])
-		except:
-			initialize_config()
-			config.conf["Access8Math"]["language"] = language = available_languages_dict.keys()[self.languageList.GetSelection()]
-			for k in self.CheckBox_settings.keys():
-				config.conf["Access8Math"][k] = unicode(globals()[k])
-
-		os.environ['LANGUAGE'] = language
-		for k in self.CheckBox_settings.keys():
-			globals()[k] = getattr(self, k +"CheckBox").IsChecked()
-			os.environ[k] = unicode(globals()[k])
-
-		A8M_PM.config_from_environ()
-
-		try:
-			api.setReviewPosition(MathMlTextInfo(globalVars.math_obj, textInfos.POSITION_FIRST), False)
-		except:
-			pass
-
-		return super(GeneralSettingsDialog, self).onOk(evt)
-
-class RuleSettingsDialog(SettingsDialog):
-	# Translators: Title of the Access8MathDialog.
-	title = _("Rule Settings")
-	CheckBox_settings = OrderedDict([
-		("SingleMsubsupType", _("Simplified subscript and superscript")),
-		("SingleMsubType", _("Simplified subscript")),
-		("SingleMsupType", _("Simplified superscript")),
-		("SingleMunderoverType", _("Simplified underscript and overscript")),
-		("SingleMunderType", _("Simplified underscript")),
-		("SingleMoverType", _("Simplified overscript")),
-		("SingleFractionType", _("Simplified fraction")),
-		("SingleSqrtType", _("Simplified square root")),
-		("PowerType", _("Power")),
-		("SquarePowerType", _("Square power")),
-		("CubePowerType", _("Cube power")),
-		("SetType", _("Set")),
-		("AbsoluteType", _("Absolute value")),
-		("MatrixType", _("Matrix")),
-		("DeterminantType", _("Determinant")),
-		("AddIntegerFractionType", _("Integer and fraction")),
-	])
-
-	def makeSettings(self, settingsSizer):
-		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
-		for k,v in self.CheckBox_settings.items():
-			setattr(self, k +"CheckBox", sHelper.addItem(wx.CheckBox(self, label=v)))
-			getattr(self, k +"CheckBox").SetValue(globals()[k])
-
-	def postInit(self):
-		getattr(self, self.CheckBox_settings.keys()[0] +"CheckBox").SetFocus()
-
-	def onOk(self,evt):
-
-		for k in self.CheckBox_settings.keys():
-			globals()[k] = getattr(self, k +"CheckBox").IsChecked()
-			os.environ[k] = unicode(globals()[k])
-
-		try:
-			for k in self.CheckBox_settings.keys():
-				config.conf["Access8Math"][k] = unicode(globals()[k])
-		except:
-			initialize_config()
-			for k in self.CheckBox_settings.keys():
-				config.conf["Access8Math"][k] = unicode(globals()[k])
-
-		A8M_PM.config_from_environ()
-
-		try:
-			api.setReviewPosition(MathMlTextInfo(globalVars.math_obj, textInfos.POSITION_FIRST), False)
-		except:
-			pass
-
-		return 		super(RuleSettingsDialog, self).onOk(evt)
 
 class MathMlTextInfo(textInfos.offsets.OffsetsTextInfo):
 
@@ -394,9 +270,9 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 		if r:
 			api.setReviewPosition(self.makeTextInfo(), False)
 			if self.mathcontent.pointer.parent:
-				if AG and self.mathcontent.pointer.parent.role_level == A8M_PM.AUTO_GENERATE:
+				if convert_bool(os.environ['AG']) and self.mathcontent.pointer.parent.role_level == A8M_PM.AUTO_GENERATE:
 					speech.speak([self.mathcontent.pointer.des])
-				elif DG and self.mathcontent.pointer.parent.role_level == A8M_PM.DIC_GENERATE:
+				elif convert_bool(os.environ['DG']) and self.mathcontent.pointer.parent.role_level == A8M_PM.DIC_GENERATE:
 					speech.speak([self.mathcontent.pointer.des])
 			else:
 					speech.speak([self.mathcontent.pointer.des])
@@ -443,19 +319,10 @@ try:
 except:
 	log.warning("MathPlayer 4 not available")
 
-def initialize_config():
-	config.conf["Access8Math"] = {}
-	config.conf["Access8Math"]["language"] = "Windows"
-	config.conf["Access8Math"]["item_interval_time"] = "50"
-	config.conf["Access8Math"]["provider"] = "MathMlReader"
-	for k in GeneralSettingsDialog.CheckBox_settings.keys() +RuleSettingsDialog.CheckBox_settings.keys():
-		config.conf["Access8Math"][k] = u"True"
-	tones.beep(100,100)
-
 try:
 	index = provider_list.index(config.conf["Access8Math"]["provider"])% len(provider_list)
 except:
-	initialize_config()
+	config.conf["Access8Math"]["provider"] = "MathMlReader"
 	index = provider_list.index(config.conf["Access8Math"]["provider"])% len(provider_list)
 
 try:
@@ -467,32 +334,6 @@ except:
 	log.warning("{} not available".format(provider_list[index]))
 mathPres.registerProvider(reader, speech=True, braille=False, interaction=True)
 
-try:
-	available_languages = getAvailableLanguages(path)
-	available_languages = available_languages[:-1]
-except:
-	available_languages = []
-
-available_languages.append(("Windows", _("build-in")))
-available_languages_dict = {k: v for k, v in available_languages}
-
-item_interval_time_option = [unicode(i) for i in range(1, 101)]
-
-try:
-	language = config.conf["Access8Math"]["language"]
-	item_interval_time = config.conf["Access8Math"]["item_interval_time"]
-	for k in GeneralSettingsDialog.CheckBox_settings.keys() +RuleSettingsDialog.CheckBox_settings.keys():
-		globals()[k] = True if config.conf["Access8Math"][k] in [u'True', u'true', True] else False
-except:
-	initialize_config()
-	language = config.conf["Access8Math"]["language"]
-	for k in GeneralSettingsDialog.CheckBox_settings.keys() +RuleSettingsDialog.CheckBox_settings.keys():
-		globals()[k] = True if config.conf["Access8Math"][k] in [u'True', u'true', True] else False
-
-os.environ['LANGUAGE'] = language
-for k in GeneralSettingsDialog.CheckBox_settings.keys() +RuleSettingsDialog.CheckBox_settings.keys():
-	os.environ[k] = unicode(globals()[k])
-
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	scriptCategory = _("Access8Math")
 
@@ -501,6 +342,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		xml_NVDA = sys.modules['xml']
 		sys.modules['xml'] = globalPlugins.MathMlReader.xml
 
+		self.language = os.environ['LANGUAGE']
 		self.create_menu()
 
 	def create_menu(self):
@@ -575,14 +417,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		try:
 			index = (provider_list.index(config.conf["Access8Math"]["provider"]) +1)% len(provider_list)
 		except:
-			initialize_config()
+			config.conf["Access8Math"]["provider"] = reader.__class__.__name__
 			index = (provider_list.index(config.conf["Access8Math"]["provider"]) +1)% len(provider_list)
 
 		try:
 			exec(
 				'reader = {}()'.format(provider_list[index])
 			)
-			config.conf["Access8Math"]["provider"] = reader.__class__.__name__
 		except:
 			log.warning("{} not available".format(provider_list[index]))
 		mathPres.registerProvider(reader, speech=True, braille=False, interaction=True)
@@ -592,9 +433,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	script_change_provider.__doc__ = _("Change mathml provider")
 
 	def onGeneralSettings(self, evt):
+		from dialogs import GeneralSettingsDialog
 		gui.mainFrame._popupSettingsDialog(GeneralSettingsDialog)
 
 	def onRuleSettings(self, evt):
+		from dialogs import RuleSettingsDialog
 		gui.mainFrame._popupSettingsDialog(RuleSettingsDialog)
 
 	def onNewLanguageAdding(self, evt):
@@ -602,27 +445,27 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		NewLanguageAddingDialog(gui.mainFrame).Show()
 
 	def onUnicodeDictionary(self, evt):
+		self.language = os.environ['LANGUAGE']
 		from dialogs import UnicodeDicDialog
-		global language
-		gui.mainFrame._popupSettingsDialog(UnicodeDicDialog, language)
+		gui.mainFrame._popupSettingsDialog(UnicodeDicDialog, self.language)
 
 	def onMathRule(self, evt):
+		self.language = os.environ['LANGUAGE']
 		from dialogs import MathRuleDialog
-		global language
-		gui.mainFrame._popupSettingsDialog(MathRuleDialog, language)
+		gui.mainFrame._popupSettingsDialog(MathRuleDialog, self.language)
 
 	def onAbout(self,evt):
 		import gui
 		# Translators: The title of the dialog to show about info for NVDA.
 		aboutMessage = _(
 u"""Access8Math
-Version: 2.0
+Version: 2.1
 URL: https://addons.nvda-project.org/addons/access8math.en.html
 Copyright (C) 2017-2018 Access8Math Contributors
 Access8Math is covered by the GNU General Public License (Version 2). You are free to share or change this software in any way you like as long as it is accompanied by the license and you make all source code available to anyone who wants it. This applies to both original and modified copies of this software, plus any derivative works.
 It can be viewed online at: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
-Access8Math has been sponsored by "Taiwan Visually Impaired People Association" in 2018, hereby express our sincere appreciation.
-If you feel this add-on is helpful, please don't hesitate to give support to "Taiwan Visually Impaired Association" and authors."""
+Access8Math has been sponsored by "Taiwan Visually Impaired People Association"(vipastaiwan@gmail.com) in 2018, hereby express our sincere appreciation.
+If you feel this add-on is helpful, please don't hesitate to give support to "Taiwan Visually Impaired People Association" and authors."""
 		)
 		gui.messageBox(aboutMessage, _("About Access8Math"), wx.OK)
 

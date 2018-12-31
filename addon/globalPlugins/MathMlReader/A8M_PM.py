@@ -46,6 +46,16 @@ def clean_allnode(node):
 	for child in node.child:
 		clean_allnode(child)
 
+	'''if len(node.child) > 1:
+		clean_child = []
+		clean_child.append(node.child[0])
+		for index in range(1, len(node.child)):
+			if isinstance(node, Mrow) and isinstance(node.child[index-1], Mn) and isinstance(node.child[index], Mn):
+				clean_child[-1].data = clean_child[-1].data +node.child[index].data
+			else:
+				clean_child.append(node.child[index])
+		node.child = clean_child'''
+
 	if isinstance(node, BlockNode):
 		if len(node.child)==1 or (isinstance(node.parent, AlterNode) and len(node.child)>0):
 
@@ -81,6 +91,15 @@ def check_type_allnode(node):
 		check_type_allnode(child)
 	node.check_type()
 	return  node
+
+def check_in_allnode(node, check_node):
+
+	if id(node) == id(check_node):
+		return True
+
+	for child in node.child:
+		if check_in_allnode(child, check_node):
+			return True
 
 class MathContent(object):
 	def __init__(self, mathrule, et):
@@ -118,21 +137,19 @@ class MathContent(object):
 			self.pointer.parent.insert(self.pointer.index_in_parent(), node)
 			self.pointer = node
 
-			# node refresh
-			clean_allnode(self.root)
-			clear_type_allnode(self.root)
-			set_mathrule_allnode(self.root, self.mathrule)
-			check_type_allnode(self.root)
-
 		else:
 			self.pointer.insert(len(self.pointer.child), node)
 			self.pointer = node
 
-			# node refresh
-			clean_allnode(self.root)
-			clear_type_allnode(self.root)
-			set_mathrule_allnode(self.root, self.mathrule)
-			check_type_allnode(self.root)
+		# node refresh
+		clean_allnode(self.root)
+		clear_type_allnode(self.root)
+		set_mathrule_allnode(self.root, self.mathrule)
+		check_type_allnode(self.root)
+		self.pointer = self.root
+
+		if check_in_allnode(self.root, node):
+			del node
 
 	def delete(self):
 		if self.pointer.parent:

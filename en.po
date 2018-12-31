@@ -1,96 +1,96 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Access8Math - 2.1\n"
-"POT-Creation-Date: 2018-12-31 09:56+0800\n"
-"PO-Revision-Date: 2018-12-31 10:00+0800\n"
+"Project-Id-Version: Access8Math 2.1\n"
+"POT-Creation-Date: 2018-12-31 10:15+0800\n"
+"PO-Revision-Date: 2018-12-31 10:15+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: zh_CN\n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.2\n"
-"X-Poedit-Basepath: ../../../globalPlugins/MathMlReader\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Basepath: ../globalPlugins/MathMlReader\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: __init__.py\n"
 "X-Poedit-SearchPath-1: dialogs.py\n"
 
 #: __init__.py:125
 msgid "Access8Math interaction window"
-msgstr "Access8Math 互动窗口"
+msgstr ""
 
 #: __init__.py:129
 msgid "&Menu"
-msgstr "菜单(&M)"
+msgstr ""
 
 #: __init__.py:130
 msgid "&Exit"
-msgstr "离开(&E)"
+msgstr ""
 
 #: __init__.py:130
 msgid "Terminate the program"
-msgstr "终止程序"
+msgstr ""
 
 #: __init__.py:136
 msgid "interaction"
-msgstr "互动"
+msgstr ""
 
 #: __init__.py:137 __init__.py:154 __init__.py:286
 msgid "copy"
-msgstr "复制"
+msgstr ""
 
 #: __init__.py:242
 msgid "enter interaction mode"
-msgstr "进入互动模式"
+msgstr ""
 
 #: __init__.py:281
 msgid "not move"
-msgstr "无移动"
+msgstr ""
 
 #: __init__.py:290
 msgid "snapshot"
-msgstr "快照"
+msgstr ""
 
 #: __init__.py:301
 msgid "show menu"
-msgstr "显示菜单(&M)"
+msgstr ""
 
 #: __init__.py:338 __init__.py:408
 msgid "Access8Math"
-msgstr "Access8Math"
+msgstr ""
 
 #: __init__.py:355
 msgid "&General settings..."
-msgstr "一般设定(&G)"
+msgstr ""
 
 #: __init__.py:362
 msgid "&Rule settings..."
-msgstr "规则设定(&R)"
+msgstr ""
 
 #: __init__.py:369
 msgid "&unicode dictionary..."
-msgstr "&unicode 字典..."
+msgstr ""
 
 #: __init__.py:376
 msgid "&math rule..."
-msgstr "数学规则(&M)"
+msgstr ""
 
 #: __init__.py:383
 msgid "&New language adding..."
-msgstr "加入新语言(&N)"
+msgstr ""
 
 #: __init__.py:404
 msgid "&About..."
-msgstr "关于(&A)"
+msgstr ""
 
 #: __init__.py:430
 #, python-format
 msgid "mathml provider change to %s"
-msgstr "mathml阅读程序更改为 %s"
+msgstr ""
 
 #: __init__.py:433
 msgid "Change mathml provider"
-msgstr "更改阅读程序"
+msgstr ""
 
 #: __init__.py:461
 msgid ""
@@ -111,338 +111,299 @@ msgid ""
 "If you feel this add-on is helpful, please don't hesitate to give support to "
 "\"Taiwan Visually Impaired People Association\" and authors."
 msgstr ""
-"Access8Math\n"
-"Version: 2.1\n"
-"URL: https://addons.nvda-project.org/addons/access8math.en.html\n"
-"Copyright (C) 2017-2018 Access8Math Contributors\n"
-"Access8Math 受 GNU 通用公共授权条款第二版所规范。您可以自由分享或以任何方式修"
-"改本软件，前提是发布时必需包含该许可证，同时公开原版与修改版的原始码，并加上"
-"任何用本软件的原始码所创造的软件。\n"
-"此项许可证可以在此网站查看：https：//www.gnu.org/licenses/old-licenses/"
-"gpl-2.0.html\n"
-"Access8Math 于 2018 年受台湾视障协会(vipastaiwan@gmail.com)支持开发，特此深表"
-"感谢。\n"
-"若您觉得此项附加组件有所帮助，请不吝给予我们与台湾视障协会支持。"
 
 #: __init__.py:470
 msgid "About Access8Math"
-msgstr "关于Access8Math"
+msgstr ""
 
 #: __init__.py:499
 msgid "Shows the Access8Math settings dialog."
-msgstr "显示 Access8Math 设定对话框."
+msgstr ""
 
 #: dialogs.py:31
 msgid "General Settings"
-msgstr "一般设定"
+msgstr ""
 
 #: dialogs.py:33
 msgid "Analyze mathematical meaning of content"
-msgstr "分析内容的数学意义"
+msgstr ""
 
 #: dialogs.py:34
 msgid "Read defined meaning in dictionary"
-msgstr "读出字典有定义的意义"
+msgstr ""
 
 #: dialogs.py:35
 msgid "Read of auto-generated meaning"
-msgstr "读出自动产生的意义"
+msgstr ""
 
 #: dialogs.py:40 dialogs.py:632
 msgid "&Language:"
-msgstr "语言(&L)"
+msgstr ""
 
 #: dialogs.py:52
 msgid "&Item interval time:"
-msgstr "项目间隔时间(&I)"
+msgstr ""
 
 #: dialogs.py:95
 msgid "Rule Settings"
-msgstr "规则设定"
+msgstr ""
 
 #: dialogs.py:97
 msgid "Simplified subscript and superscript"
-msgstr "简化下标与上标"
+msgstr ""
 
 #: dialogs.py:98
 msgid "Simplified subscript"
-msgstr "简化下标"
+msgstr ""
 
 #: dialogs.py:99
 msgid "Simplified superscript"
-msgstr "简化上标"
+msgstr ""
 
 #: dialogs.py:100
 msgid "Simplified underscript and overscript"
-msgstr "简化正下标与正上标"
+msgstr ""
 
 #: dialogs.py:101
 msgid "Simplified underscript"
-msgstr "简化正下标"
+msgstr ""
 
 #: dialogs.py:102
 msgid "Simplified overscript"
-msgstr "简化正上标"
+msgstr ""
 
 #: dialogs.py:103
 msgid "Simplified fraction"
-msgstr "简化分数"
+msgstr ""
 
 #: dialogs.py:104
 msgid "Simplified square root"
-msgstr "简化平方根"
+msgstr ""
 
 #: dialogs.py:105
 msgid "Power"
-msgstr "指数"
+msgstr ""
 
 #: dialogs.py:106
 msgid "Square power"
-msgstr "平方指数"
+msgstr ""
 
 #: dialogs.py:107
 msgid "Cube power"
-msgstr "立方指数"
+msgstr ""
 
 #: dialogs.py:108
 msgid "Set"
-msgstr "集合"
+msgstr ""
 
 #: dialogs.py:109
 msgid "Absolute value"
-msgstr "绝对值"
+msgstr ""
 
 #: dialogs.py:110
 msgid "Matrix"
-msgstr "矩阵"
+msgstr ""
 
 #: dialogs.py:111
 msgid "Determinant"
-msgstr "行列式"
+msgstr ""
 
 #: dialogs.py:112
 msgid "Integer and fraction"
-msgstr "带分数"
+msgstr ""
 
 #: dialogs.py:147
 msgid "Add Symbol"
-msgstr "加入符号"
+msgstr ""
 
 #: dialogs.py:152
 msgid "Symbol:"
-msgstr "符号"
+msgstr ""
 
 #: dialogs.py:174
 #, python-format
 msgid "unicode dictionary (%s)"
-msgstr "unicode 字典 (%s)"
+msgstr ""
 
 #: dialogs.py:182
 msgid "&Symbols"
-msgstr "符号(&S)"
+msgstr ""
 
 #: dialogs.py:185
 msgid "Symbol"
-msgstr "符号"
+msgstr ""
 
 #: dialogs.py:186
 msgid "Replacement"
-msgstr "替代文字"
+msgstr ""
 
 #: dialogs.py:194
 msgid "Change selected symbol"
-msgstr "修改选择符号"
+msgstr ""
 
 #: dialogs.py:210
 msgid "&Replacement"
-msgstr "替代文字(&R)"
+msgstr ""
 
 #: dialogs.py:219
 msgid "&Add"
-msgstr "加入(&A)"
+msgstr ""
 
 #: dialogs.py:222
 msgid "Re&move"
-msgstr "移除(&M)"
+msgstr ""
 
 #: dialogs.py:226 dialogs.py:509
 msgid "&Recover default"
-msgstr "还原预设值(&R)"
+msgstr ""
 
 #: dialogs.py:229 dialogs.py:512
 msgid "&Import"
-msgstr "汇入(&I)"
+msgstr ""
 
 #: dialogs.py:232 dialogs.py:515
 msgid "&Export"
-msgstr "汇出(&I)"
+msgstr ""
 
 #: dialogs.py:301
 #, python-format
 msgid "Symbol \"%s\" is already present."
-msgstr "符号 \"%s\" 已存在。"
+msgstr ""
 
 #: dialogs.py:302
 msgid "Error"
-msgstr "错误"
+msgstr ""
 
 #: dialogs.py:339 dialogs.py:582
 msgid "Import file..."
-msgstr "汇入档案..."
+msgstr ""
 
 #: dialogs.py:348 dialogs.py:591
 msgid "Export file..."
-msgstr "汇出档案..."
+msgstr ""
 
 #: dialogs.py:377
 msgid "Edit Math Rule Entry"
-msgstr "编辑数学规则条目"
+msgstr ""
 
 #: dialogs.py:386
 msgid "Serialized ordering"
-msgstr "序列化顺序"
+msgstr ""
 
 #: dialogs.py:389
 #, python-format
 msgid "Ordering %d"
-msgstr "顺序 %d"
+msgstr ""
 
 #: dialogs.py:392
 msgid "Child"
-msgstr "子节点"
+msgstr ""
 
 #: dialogs.py:397
 #, python-format
 msgid "Prefix text &%d"
-msgstr "项目前文字 &%d"
+msgstr ""
 
 #: dialogs.py:403
 #, python-format
 msgid "Start text &%d"
-msgstr "開始文字 &%d"
+msgstr ""
 
 #: dialogs.py:405
 #, python-format
 msgid "End text &%d"
-msgstr "结束文字 &%d"
+msgstr ""
 
 #: dialogs.py:407
 #, python-format
 msgid "&Interval text &%d"
-msgstr "项目间文字 &%d"
+msgstr ""
 
 #: dialogs.py:415
 msgid "Child role"
-msgstr "子节点角色"
+msgstr ""
 
 #: dialogs.py:418
 #, python-format
 msgid "&Child %d meaning"
-msgstr "子节点 %d 意义(&C)"
+msgstr ""
 
 #: dialogs.py:452
 #, python-format
 msgid "Regular Expression error: \"%s\"."
-msgstr "正规表达式错误： \"%s\"。"
+msgstr ""
 
 #: dialogs.py:452
 msgid "Dictionary Entry Error"
-msgstr "字典条目错误"
+msgstr ""
 
 #: dialogs.py:468
 #, python-format
 msgid "math rule (%s)"
-msgstr "数学规则 (%s)"
+msgstr ""
 
 #: dialogs.py:476
 msgid "&Mathrules"
-msgstr "数学规则(&M)"
+msgstr ""
 
 #: dialogs.py:479
 msgid "Rule"
-msgstr "规则"
+msgstr ""
 
 #: dialogs.py:480
 msgid "Description"
-msgstr "描述"
+msgstr ""
 
 #: dialogs.py:501
 msgid "&Edit"
-msgstr "编辑(&E)"
+msgstr ""
 
 #: dialogs.py:505
 msgid "&Example"
-msgstr "范例(&E)"
+msgstr ""
 
 #: dialogs.py:622
 msgid "New language adding"
-msgstr "新语言加入"
+msgstr ""
 
 #: dialogs.py:641
 msgid "&Certain"
-msgstr "选定(&C)"
+msgstr ""
 
 #: dialogs.py:645
 msgid "&Uncertain"
-msgstr "取消选定(&U)"
+msgstr ""
 
 #: dialogs.py:653
 msgid "&unicode dictionary"
-msgstr "&unicode 字典"
+msgstr ""
 
 #: dialogs.py:654
 msgid "&math rule"
-msgstr "数学规则(&M)"
+msgstr ""
 
 #: dialogs.py:655
 msgid "OK"
-msgstr "确定"
+msgstr ""
 
 #: dialogs.py:746
 msgid ""
 "For the new language to add, NVDA must be restarted. Press enter to restart "
 "NVDA, or cancel to exit at a later time."
-msgstr "为了让新语言加入， NVDA 必需重新启动。请按Enter键，或按取消稍后离开。"
+msgstr ""
 
 #: dialogs.py:748
 msgid "New language add"
-msgstr "新语言加入"
+msgstr ""
 
 #: dialogs.py:754
 msgid "Write AsciiMath Entry"
-msgstr "输写 AsciiMath 条目"
+msgstr ""
 
 #: dialogs.py:758
 msgid "Write Latex Entry"
-msgstr "输写 Latex 条目"
+msgstr ""
 
 #: dialogs.py:778
 msgid "build-in"
-msgstr "内建"
-
-#~ msgid "&About"
-#~ msgstr "关于(&A)"
-
-#~ msgid "Information about this program"
-#~ msgstr "关于程序信息"
-
-#~ msgid "&asciimath..."
-#~ msgstr "&asciimath..."
-
-#~ msgid "&latex..."
-#~ msgstr "&latex..."
-
-#~ msgid "Access8Math language change to %s"
-#~ msgstr "Access8Math语言更改为 %s"
-
-#~ msgid "Change next language"
-#~ msgstr "切换至下个语言"
-
-#~ msgid "Change previous language"
-#~ msgstr "切换至上个语言"
-
-#~ msgid "Read the meaning of auto-generated"
-#~ msgstr "讀出自動生成的意義"
-
-#~ msgid "Report dictionary defination meaning"
-#~ msgstr "讀出已字典定義的意義"
+msgstr ""

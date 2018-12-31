@@ -393,3 +393,17 @@
 ⋽	contains with overbar	none
 ⋾	small contains with overbar	none
 ⋿	z notation bag membership	none
+
+# constant
+math	math	none
+item	item	none
+has	has	none
+row	row	none
+column	column	none
+order	order	none
+rightdownmark	right down mark	none
+rightupmark	right up mark	none
+leftdownmark	left down mark	none
+leftupmark	left up mark	none
+main	main	none
+mprescripts_index	mprescripts index	none
