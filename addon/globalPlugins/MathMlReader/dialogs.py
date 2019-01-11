@@ -30,6 +30,7 @@ class GeneralSettingsDialog(SettingsDialog):
 	# Translators: Title of the Access8MathDialog.
 	title = _("General Settings")
 	CheckBox_settings = OrderedDict([
+		("IFS", _("showing Access8Math interaction window when entering interaction mode")),
 		("AMM", _("Analyze mathematical meaning of content")),
 		("DG", _("Read defined meaning in dictionary")),
 		("AG", _("Read of auto-generated meaning")),
@@ -229,7 +230,7 @@ class UnicodeDicDialog(SettingsDialog):
 		importButton = bHelper.addButton(self, label=_("&Import"))
 
 		# Translators: The label for a button to export unicode.dic.
-		exportButton = bHelper.addButton(self, label=_("&Export"))
+		exportButton = bHelper.addButton(self, label=_("Export(&O)"))
 
 		addButton.Bind(wx.EVT_BUTTON, self.OnAddClick)
 		self.removeButton.Bind(wx.EVT_BUTTON, self.OnRemoveClick)
@@ -345,7 +346,7 @@ class UnicodeDicDialog(SettingsDialog):
 		self.load(pathname)
 
 	def OnExportClick(self, evt):
-		with wx.FileDialog(self, message=_("Export file..."), defaultDir=base_path, defaultFile="export.dic", wildcard="dictionary files (*.dic)|*.dic", style=wx.SAVE | wx.OVERWRITE_PROMPT) as entryDialog:
+		with wx.FileDialog(self, message=_("Export file..."), defaultDir=base_path, defaultFile="export.dic", wildcard="dictionary files (*.dic)|*.dic", style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT) as entryDialog:
 			if entryDialog.ShowModal() != wx.ID_OK:
 				return
 			pathname = entryDialog.GetPath()
@@ -381,6 +382,16 @@ class RuleEntryDialog(wx.Dialog):
 		childChoices = [unicode(i) for i in range(self.mathrule_child_count)]
 		mainSizer=wx.BoxSizer(wx.VERTICAL)
 		sHelper = guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
+
+		labelText = _("&description")
+
+		groupLabelText = _("description")
+		descriptionGroup = guiHelper.BoxSizerHelper(self, sizer=wx.StaticBoxSizer(wx.StaticBox(self, label=groupLabelText), wx.VERTICAL))
+
+		labelText = _("&description")
+		self.descriptionWidget = descriptionGroup.addLabeledControl(labelText, wx.TextCtrl)
+		self.descriptionWidget.SetValue(self.mathrule[1].description)
+		sHelper.addItem(descriptionGroup)
 
 		self.so_widgets = []
 		groupLabelText = _("Serialized ordering")
@@ -426,13 +437,18 @@ class RuleEntryDialog(wx.Dialog):
 		mainSizer.Add(sHelper.sizer,border=20,flag=wx.ALL)
 		mainSizer.Fit(self)
 		self.SetSizer(mainSizer)
+
 		try:
-			self.so_widgets[0].SetFocus()
+			self.descriptionWidget.SetFocus()
 		except:
 			pass
+
 		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
 
 	def onOk(self,evt):
+
+		self.mathrule[1].description = self.descriptionWidget.GetValue()
+
 		for index, item in enumerate(self.mathrule[1].serialized_order):
 			if isinstance(item, int):
 				self.mathrule[1].serialized_order[index] = self.so_widgets[index].GetSelection()
@@ -479,8 +495,7 @@ class MathRuleDialog(SettingsDialog):
 		self.mathrulesList.InsertColumn(0, _("Rule"))
 		self.mathrulesList.InsertColumn(1, _("Description"))
 
-		for item in self.mathrules:
-			item = self.mathrulesList.Append((item[0], ))
+		self.refresh()
 
 		self.mathrulesList.Bind(wx.EVT_LIST_ITEM_FOCUSED, self.onListItemFocused)
 
@@ -502,7 +517,7 @@ class MathRuleDialog(SettingsDialog):
 		self.editButton.Disable()
 
 		# Translators: The label for a button to example math rule.
-		self.exampleButton = bHelper.addButton(self, label=_("&Example"))
+		self.exampleButton = bHelper.addButton(self, label=_("Example"))
 		self.exampleButton.Disable()
 
 		# Translators: The label for a button to recover default value.
@@ -512,7 +527,7 @@ class MathRuleDialog(SettingsDialog):
 		importButton = bHelper.addButton(self, label=_("&Import"))
 
 		# Translators: The label for a button to export math.rule.
-		exportButton = bHelper.addButton(self, label=_("&Export"))
+		exportButton = bHelper.addButton(self, label=_("Export(&O)"))
 
 		self.editButton.Bind(wx.EVT_BUTTON, self.OnEditClick)
 		self.exampleButton.Bind(wx.EVT_BUTTON, self.OnExampleClick)
@@ -527,8 +542,7 @@ class MathRuleDialog(SettingsDialog):
 		mathrule = self.A8M_mathrule = A8M_PM.load_math_rule(path)
 
 		self.mathrules = [(k, v) for k, v in self.A8M_mathrule.items() if k not in ['node', 'none'] ]
-		for item in self.mathrules:
-			item = self.mathrulesList.Append((item[0], ))
+		self.refresh()
 
 		return True
 
@@ -537,8 +551,13 @@ class MathRuleDialog(SettingsDialog):
 		return True
 
 	def clear(self):
-		self.mathrulesList.DeleteAllItems()
 		self.mathrules = []
+		self.refresh()
+
+	def refresh(self):
+		self.mathrulesList.DeleteAllItems()
+		for item in self.mathrules:
+			self.mathrulesList.Append((item[0], item[1].description,))
 
 	def onListItemFocused(self, evt):
 		# ChangeValue and Selection property used because they do not cause EVNT_CHANGED to be fired.
@@ -557,6 +576,7 @@ class MathRuleDialog(SettingsDialog):
 			for key, mathrule in self.mathrules:
 				self.A8M_mathrule[key] = mathrule
 
+			self.refresh()
 			self.mathrulesList.Select(index)
 			self.mathrulesList.Focus(index)
 			self.mathrulesList.SetFocus()
@@ -588,7 +608,7 @@ class MathRuleDialog(SettingsDialog):
 		self.load(pathname)
 
 	def OnExportClick(self, evt):
-		with wx.FileDialog(self, message=_("Export file..."), defaultDir=base_path, defaultFile="export.rule", wildcard="rule files (*.rule)|*.rule", style=wx.SAVE | wx.OVERWRITE_PROMPT) as entryDialog:
+		with wx.FileDialog(self, message=_("Export file..."), defaultDir=base_path, defaultFile="export.rule", wildcard="rule files (*.rule)|*.rule", style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT) as entryDialog:
 			if entryDialog.ShowModal() != wx.ID_OK:
 				return
 			pathname = entryDialog.GetPath()
@@ -638,11 +658,11 @@ class NewLanguageAddingDialog(wx.Dialog):
 		#self.certainLanguageList=self.sHelper.addLabeledControl(languageLabelText, wx.Choice, choices=[], size=languageListSize)
 		self.certainLanguageList.Hide()
 
-		self.certainButton = self.sHelper.addItem(wx.Button(self, label=_("&Certain")))
+		self.certainButton = self.sHelper.addItem(wx.Button(self, label=_("&Select")))
 		self.certainButton.Bind(wx.EVT_BUTTON, self.OnCertainClick)
 		self.certainLanguage = None
 
-		self.uncertainButton = self.sHelper.addItem(wx.Button(self, label=_("&Uncertain")))
+		self.uncertainButton = self.sHelper.addItem(wx.Button(self, label=_("&Unselect")))
 		self.uncertainButton.Bind(wx.EVT_BUTTON, self.OnUncertainClick)
 		self.uncertainButton.Hide()
 
@@ -650,8 +670,8 @@ class NewLanguageAddingDialog(wx.Dialog):
 		self.bHelper = guiHelper.ButtonHelper(orientation=wx.HORIZONTAL)
 
 		# Add button
-		self.unicodeDicButton = self.bHelper.addButton(self, label=_("&unicode dictionary"))
-		self.mathRuleButton = self.bHelper.addButton(self, label=_("&math rule"))
+		self.unicodeDicButton = self.bHelper.addButton(self, label=_("unicode dictionary"))
+		self.mathRuleButton = self.bHelper.addButton(self, label=_("math rule"))
 		self.OkButton = self.bHelper.addButton(self, label=_("OK"), id=wx.ID_OK)
 
 		# Bind button
@@ -760,7 +780,7 @@ class LatexEntryDialog(wx.TextEntryDialog):
 
 def initialize_config():
 	config.conf["Access8Math"] = {}
-	config.conf["Access8Math"]["language"] = "Windows"
+	config.conf["Access8Math"]["language"] = "en"
 	config.conf["Access8Math"]["item_interval_time"] = "50"
 	for k in GeneralSettingsDialog.CheckBox_settings.keys() +RuleSettingsDialog.CheckBox_settings.keys():
 		config.conf["Access8Math"][k] = u"True"

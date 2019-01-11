@@ -48,13 +48,6 @@ import wx
 
 import wxgui
 
-def event_focusEntered(self):
-	if self.role in (controlTypes.ROLE_MENUBAR,controlTypes.ROLE_POPUPMENU,controlTypes.ROLE_MENUITEM):
-		speech.cancelSpeech()
-		return
-	#if self.isPresentableFocusAncestor:
-		#speech.speakObject(self,reason=controlTypes.REASON_FOCUSENTERED)
-
 def mathml2etree(mathMl):
 	gtlt_pattern = re.compile(ur"([\>])(.*?)([\<])")
 	mathMl = gtlt_pattern.sub(lambda m: m.group(1) +cgi.escape(HTMLParser.HTMLParser().unescape(m.group(2))) +m.group(3), mathMl)
@@ -142,6 +135,15 @@ class InteractionFrame(wxgui.GenericFrame):
 
 	def OnInteraction(self,event):
 		self.obj.parent = api.getFocusObject()
+
+		# 用ctrl+m 出現的互動視窗會朗讀原始程式的視窗資訊
+		def event_focusEntered(self):
+			if self.role in (controlTypes.ROLE_MENUBAR,controlTypes.ROLE_POPUPMENU,controlTypes.ROLE_MENUITEM):
+				speech.cancelSpeech()
+				return
+			#if self.isPresentableFocusAncestor:
+				#speech.speakObject(self,reason=controlTypes.REASON_FOCUSENTERED)
+
 		#import NVDAObjects
 		#old_event_focusEntered = NVDAObjects.NVDAObject.event_focusEntered
 		#NVDAObjects.NVDAObject.event_focusEntered = event_focusEntered
@@ -213,7 +215,7 @@ class MathMlReader(mathPres.MathPresentationProvider):
 
 class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 
-	def __init__(self, mathMl, show=False):
+	def __init__(self, mathMl, interaction_frame=False):
 		super(MathMlReaderInteraction, self).__init__(mathMl=mathMl)
 
 		tree = mathml2etree(mathMl)
@@ -223,10 +225,12 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 		self.raw_data = mathMl
 		api.setReviewPosition(self.makeTextInfo(), False)
 
-		self.interactionFrame = InteractionFrame(self)
-		if True:
+		self.interactionFrame = None
+		if convert_bool(os.environ['IFS']):
+			self.interactionFrame = InteractionFrame(self)
 			self.interactionFrame.Show()
 			self.interactionFrame.Raise()
+			eventHandler.executeEvent("gainFocus", self)
 		else:
 			#api.setFocusObject(self)
 			eventHandler.executeEvent("gainFocus", self)
@@ -296,15 +300,16 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 		self.mathcontent.delete()
 
 	def script_showMenu(self, gesture):
-		self.interactionFrame.Show()
-		self.interactionFrame.Raise()
-		ui.message(_("show menu"))
+		if not self.interactionFrame:
+			MathMlReaderInteraction(mathMl=self.raw_data, interaction_frame=True)
+		else:
+			ui.message(_("Access8Math interaction window already showed"))
 
 	__gestures={
 		"kb:control+c": "rawdataToClip",
-		""""kb:control+s": "snapshot",
-		"kb:control+i": "insert",
-		"kb:control+d": "delete","""
+		#"kb:control+s": "snapshot",
+		#"kb:control+i": "insert",
+		#"kb:control+d": "delete",
 		"kb:control+m": "showMenu",
 	}
 

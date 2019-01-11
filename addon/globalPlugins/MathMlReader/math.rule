@@ -1,46 +1,46 @@
 ﻿#
-node	, (.*),	項
-mfrac	分數, 1, 分之, 0, 結束分數	分子,分母
-mfenced	括號, (.*), 括號	項
-msqrt	根號, (.*), 結束根號	項
-mroot	根號, 0, 開, 1, 次	根號內,開方數
-math	, (.*),	項
-msubsup	標記, 0, 下標, 1, 上標, 2, 結束標記	主符號,下標,上標
-msub	標記, 0, 下標, 1, 結束標記	主符號,下標
-msup	標記, 0, 上標, 1, 結束標記	主符號,上標
-munderover	標記, 0, 正下標, 1, 正上標, 2, 結束標記	主符號,正下標,正上標
-munder	標記, 0, 正下標, 1, 結束標記	主符號,正下標
-mover	標記, 0, 正上標, 1, 結束標記	主符號,正上標
-mtable	表格, (列.*), 結束表	列
-mtr	,(行.*),	行
-mtd	,(.*),	項
-mmultiscripts	左標記,(.*),結束左標記	項
-mprescripts		
-none		
-from_to	運算, 0, 從, 1, 到, 2, 對	運算符,從,到
-from	運算, 0, 從, 1, 對	運算符,從
-to	運算, 0, 到, 1, 對	運算符,到
-power	, 0, 的, 1, 次方	底數,指數
-set	集合, (元素.*), 結束集合	元素
-absolute_value	絕對值, (.*), 結束絕對值	項
-determinant	行列式, (.*), 結束行列式	項
-matrix	矩陣, (.*), 結束矩陣	項
-single_fraction	, 1, 分之, 0,	分子,分母
-single_square_root	平方根, 0,	根號內
-SingleMsubsup	, 0, 下標, 1, 上標, 2, 	主符號,下標,上標
-SingleMsub	, 0, 下標, 1, 	主符號,下標
-SingleMsup	, 0, 上標, 1, 	主符號,上標
-SingleMunderover	, 0, 正下標, 1, 正上標, 2, 	主符號,正下標,正上標
-SingleMunder	, 0, 正下標, 1, 	主符號,正下標
-SingleMover	, 0, 正上標, 1, 	主符號,正上標
-AddIntegerFractionType	又,1,分之,0,	分子,分母
-NegativeSignType	負	負號
-PositiveSignType	正	正號
-SquarePowerType	, 0, 的平方	底數,指數
-CubePowerType	, 0, 的立方	底數,指數
-LineType	直線, 0,	主符號,正上標
-RayType	射線, 0,	主符號,正上標
-LineSegmentType	線段, 0,	主符號,正上標
-VectorSingleType	向量, 0,	主符號,正上標
-VectorDoubleType	向量, 0,	主符號,正上標
-FrownType	弧, 0,	主符號,正上標
+node	, (.*),	item	node
+mfrac	fraction with numerator, 0, and denominator, 1, end fraction	numerator,denominator	generics fraction
+mfenced	open parentheses, (.*), close parentheses	item	generics parentheses
+msqrt	square root of, (.*), end root	item	square root
+mroot	the, 1, root of, 0, end root	root,count	root
+math	, (.*),	item	math
+msubsup	, 0, with, 1, sub, 2, super	main,sub,super	symbol have subscript and supscript
+msub	, 0, with, 1, sub	main,sub	symbol have subscript
+msup	, 0, with, 1, super	main,super	symbol have supscript
+munderover	, 0, with, 1, below, 2, above	main,below,above	symbol have underscript and overscript
+munder	, 0, with, 1, below	main,below	symbol have underscript
+mover	, 0, with, 1, above	main,above	symbol have overscript
+mtable	table, (row.*), end table	row	2-dimension table
+mtr	,(column.*),	column	table row
+mtd	,(.*),	item	table cell
+mmultiscripts	left script,(.*),end script	item	symbol have left mark
+mprescripts			
+none			
+from_to	operator, 0, from, 1, to, 2, apply to	operator,from,to	from ... to ... operator
+from	operator, 0, from, 1, apply to	operator,from	from ... operator
+to	operator, 0, to, 1, apply to	operator,to	to ... operator
+power	, 0, to the, 1, power	base,exponent	power
+set	set, (element.*), end set	element	set
+absolute_value	absolute value of, (.*), end absolute value	item	absolute value
+determinant	determinant, (.*), end determinant	item	determinant
+matrix	matrix, (.*), end matrix	item	matrix
+single_fraction	, 0, over, 1,	numerator,denominator	single fraction
+single_square_root	square root, 0,	root in	single square root
+SingleMsubsup	, 0, sub, 1, super, 2, 	main,sub,super	single subscript and supscript
+SingleMsub	, 0, sub, 1, 	main,sub	single subscript
+SingleMsup	, 0, super, 1, 	main,super	single supscript
+SingleMunderover	, 0, below, 1, above, 2, 	main,below,above	single underscript and overscript
+SingleMunder	, 0, below, 1, 	main,below	single underscript
+SingleMover	, 0, above, 1, 	main,above	single overscript
+AddIntegerFractionType	add,0,over,1,	numerator,denominator	add integer fraction
+NegativeSignType	negative	negative	negative sign
+PositiveSignType	positive	positive	positive sign
+SquarePowerType	, 0, squared	base,exponent	square power
+CubePowerType	, 0, cubed	base,exponent	cube power
+LineType	line, 0,	main,super	line
+RayType	ray, 0,	main,super	ray
+LineSegmentType	line segment, 0,	main,super	line segment
+VectorSingleType	vector, 0,	main,super	vector have one symbol
+VectorDoubleType	vector, 0,	main,super	vector have two symbol
+FrownType	frown, 0,	main,super	frown

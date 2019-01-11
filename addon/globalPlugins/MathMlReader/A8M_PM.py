@@ -1104,7 +1104,7 @@ def load_math_rule(path=None, language=''):
 		for line in fr:
 			try:
 				line = line.split('\t')
-				if len(line) == 3:
+				if len(line) == 4:
 					rule = []
 					for i in line[1].split(','):
 						i = i.strip()
@@ -1123,7 +1123,7 @@ def load_math_rule(path=None, language=''):
 						i = i.strip()
 						role.append(i)
 
-					mathrule[line[0]] = MathRule(line[0], '', '', rule, role)
+					mathrule[line[0]] = MathRule(line[0], line[3].strip(), '', rule, role)
 			except BaseException as e:
 				pass
 
@@ -1166,7 +1166,7 @@ def save_math_rule(mathrule, path=None, language=''):
 		so_line = [unicode(i) if not isinstance(i, tuple) else '(' +'.'.join(i) +')' for i in v.serialized_order]
 		so_line = ', '.join(so_line)
 		role_line = ', '.join(v.role)
-		mathrule_unicode[k] ='\t'.join([so_line, role_line])
+		mathrule_unicode[k] ='\t'.join([so_line, role_line, v.description])
 
 	with io.open(path, 'w', encoding='utf-8') as f:
 		key = mathrule.keys()
