@@ -1,4 +1,4 @@
-﻿# coding: utf-8
+# coding: utf-8
 # Access8Math: Allows access math content written by MathML in NVDA
 # Copyright (C) 2017-2018 Tseng Woody <tsengwoody.tw@gmail.com>
 # This file is covered by the GNU General Public License.

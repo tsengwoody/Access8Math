@@ -1,4 +1,4 @@
-﻿# coding: utf-8
+# coding: utf-8
 # Access8Math: Allows access math content written by MathML in NVDA
 # Copyright (C) 2017-2018 Tseng Woody <tsengwoody.tw@gmail.com>
 # This file is covered by the GNU General Public License.
@@ -19,7 +19,6 @@ from xml.etree import ElementTree as ET
 
 import A8M_PM
 from A8M_PM import MathContent
-import dialogs
 from utils import convert_bool
 
 import addonHandler
@@ -347,6 +346,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		xml_NVDA = sys.modules['xml']
 		sys.modules['xml'] = globalPlugins.MathMlReader.xml
 
+		import dialogs
+		A8M_PM.config_from_environ()
 		self.language = os.environ['LANGUAGE']
 		self.create_menu()
 
