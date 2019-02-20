@@ -1,6 +1,6 @@
 # coding: utf-8
 # Access8Math: Allows access math content written by MathML in NVDA
-# Copyright (C) 2017-2018 Tseng Woody <tsengwoody.tw@gmail.com>
+# Copyright (C) 2017-2019 Tseng Woody <tsengwoody.tw@gmail.com>
 # This file is covered by the GNU General Public License.
 # See the file COPYING.txt for more details.
 
@@ -146,7 +146,8 @@ class InteractionFrame(wxgui.GenericFrame):
 		#import NVDAObjects
 		#old_event_focusEntered = NVDAObjects.NVDAObject.event_focusEntered
 		#NVDAObjects.NVDAObject.event_focusEntered = event_focusEntered
-		eventHandler.executeEvent("gainFocus", self.obj)
+		#eventHandler.executeEvent("gainFocus", self.obj)
+		self.obj.setFocus()
 		#NVDAObjects.NVDAObject.event_focusEntered = old_event_focusEntered
 
 	def OnRawdataToClip(self,event):
@@ -225,14 +226,11 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 		api.setReviewPosition(self.makeTextInfo(), False)
 
 		self.interactionFrame = None
-		if convert_bool(os.environ['IFS']):
+		if convert_bool(os.environ['IFS']) or interaction_frame:
 			self.interactionFrame = InteractionFrame(self)
 			self.interactionFrame.Show()
 			self.interactionFrame.Raise()
-			eventHandler.executeEvent("gainFocus", self)
-		else:
-			#api.setFocusObject(self)
-			eventHandler.executeEvent("gainFocus", self)
+		self.setFocus()
 
 	def _get_mathMl(self):
 		return self.mathcontent.root.get_mathml()
@@ -433,6 +431,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		except:
 			log.warning("{} not available".format(provider_list[index]))
 		mathPres.registerProvider(reader, speech=True, braille=False, interaction=True)
+		config.conf["Access8Math"]["provider"] = provider_list[index]
 		ui.message(_("mathml provider change to %s")%config.conf["Access8Math"]["provider"])
 	script_change_provider.category = scriptCategory
 	# Translators: message presented in input mode.

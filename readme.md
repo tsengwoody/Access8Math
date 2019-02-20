@@ -1,4 +1,4 @@
-﻿# Access8Math ReadMe
+# Access8Math ReadMe
 
 This NVDA addon provides the function of reading math content. Although the original NVDA already equipped this feature by applying MathPlayer, some functions still needed to be improved, especially in MathPlayer some language not provided navigation mode.
 
@@ -137,6 +137,14 @@ Example
 Source code: https://github.com/tsengwoody/Access8Math
 
 Please report any bugs or comments, thank you!
+
+# Access8Math v2.1 Update
+
+*	In "General Settings", you can set whether "Access8Math interaction window" is automatically displayed when entering interactive mode.
+*	In interactive mode, "interaction window" can be displayed manually via ctrl+m when "interaction window" are not showed.
+*	Fix multi-language switching bug.
+*	Compatibility update for nvda 2019.1 check for add-on`s manifest.ini flag.
+*	Refactoring dialog window source code.
 
 # Access8Math v2.0 Update
 
@@ -340,8 +348,8 @@ Access8Math將常用數學式依據類型與邏輯，建立43項數學規則，�
 
 *	在「一般設定」中，可設定進入互動模式時，是否一併自動顯示「Access8Math 互動視窗」
 *	在互動模式中，當無顯示互動視窗時，可透過 ctrl+m 來手動顯示互動視窗
-*	新增法語的介面翻譯與數學朗讀功能，感謝  的協助
-*	相容性更新，針對 NVDA 2019.1 對附加元件的測試檢查
+*	修政多國語言切換問題
+*	相容性更新，針對 NVDA 2019.1 對附加元件 manifest 標示的檢查
 *	重構對話視窗原始碼
 
 # Access8Math v2.0 更新日誌

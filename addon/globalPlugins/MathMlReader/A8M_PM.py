@@ -1,5 +1,5 @@
 # coding: utf-8
-# Copyright (C) 2017-2018 Tseng Woody <tsengwoody.tw@gmail.com>
+# Copyright (C) 2017-2019 Tseng Woody <tsengwoody.tw@gmail.com>
 
 import collections
 import copy
