@@ -305,8 +305,8 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 	__gestures={
 		"kb:control+c": "rawdataToClip",
 		#"kb:control+s": "snapshot",
-		#"kb:control+i": "insert",
-		#"kb:control+d": "delete",
+		"kb:control+i": "insert",
+		"kb:control+d": "delete",
 		"kb:control+m": "showMenu",
 	}
 
@@ -320,6 +320,11 @@ try:
 	mathPres.registerProvider(reader, speech=True, braille=True, interaction=True)
 except:
 	log.warning("MathPlayer 4 not available")
+
+try:
+	config.conf["Access8Math"]
+except:
+	config.conf["Access8Math"] = {}
 
 try:
 	index = provider_list.index(config.conf["Access8Math"]["provider"])% len(provider_list)
