@@ -1,0 +1,356 @@
+symbols:
+⊇	üst kümesi veya denk	none
+∌	Içermez	none
+⊗	çevrimli çarpım	none
+∜	4.dereceden kök	none
+row	satır	none
+⊧	models	none
+έ	epsilon tonos	none
+∬	çift katlı integral	none
+⊷	görüntüsü	none
+ν	nu	none
+∼	tilde operator	none
+⋇	division times	none
+ύ	upsilon tonos	none
+≌	hepsi eşit	none
+⋗	greater-than with dot	none
+ϝ	diggmma	none
+≜	delta equal to	none
+⋧	greater-than but not equivalent to	none
+ϭ	shima	none
+≬	arasında	none
+item	öğe	none
+⋷	small element of with overbar	none
+≼	önce gelir veya eşit	none
+∇	nabla	none
+⊌	çoklu küme	none
+∗	asterisk	none
+⊜	circled equals	none
+∧	Mantık ve	none
+⊬	kanıtlamaz	none
+β	beta	none
+∷	Orantı	none
+⊼	nand	none
+ς	final sigma	none
+≇	yaklaşık olarak eşit değil ya da tam olarak eşit değil	none
+⋌	right semidirect product	none
+ϒ	upsilon with hook	none
+≗	ring equal to	none
+[	aç köşeli parantez	none
+⋜	equal to or less-than	none
+POWER	ÜS	none
+≧	greater-than over equal to	none
+⋬	not normal subgroup of or equal to	none
+ϲ	lunate sigma	none
+≷	büyük veya küçük	none
+{	aç küme parantezi	none
+ͽ	reversed dotted lunate sigma	none
+⋼	small contains with vertical bar at end of horizontal stroke	none
+∂	Kısmi Türev	none
+·	ano teleia	none
+⊍	çoklu küme çarpımı	none
+−	Eksi	none
+⊝	circled dash	none
+∢	küresel açı	none
+⊭	doğru değil	none
+∲	saat yönünde kontür integrali	none
+η	eta	none
+⊽	nor	none
+≂	minus tilde	none
+χ	çi	none
+⋍	reversed tilde equals	none
+≒	yaklaşık olarak eşit ya da görüntüsü	none
+ϗ	kai	none
+⋝	equal to or greater-than	none
+≢	denk değil	none
+ϧ	khei	none
+⋭	does not contain as normal subgroup or equal	none
+≲	küçük veya denk	none
+⋽	contains with overbar	none
+ͼ	dotted lunate sigma	none
+⊂	alt kümesi	none
+∍	Küçük içerir	none
+⊒	kare orjinali veya eşit	none
+∝	Orantılı	none
+!	faktöriyel	none
+⊢	right tack	none
+∭	üç katlı integral	none
+ά	alfa tonos	none
+⊲	normal subgroup of	none
+∽	reversed tilde	none
+μ	mu	none
+⋂	n-ary intersection	none
+≍	denk	none
+ό	omikron tonos	none
+⋒	double intersection	none
+≝	equal to by definition	none
+⋢	not square image of or equal to	none
+≭	denk değil	none
+⋲	element of with long horizontal stroke	none
+ͷ	pamphylian digamma	none
+≽	sonra gelir veya eşit	none
+ϼ	rho with stroke	none
+∀	Her	none
+⊋	üst kümesi fakat denk değil	none
+Α	alfa	none
+∐	en-li ortak çarpım	none
+⊛	circled asterisk operator	none
+∠	Açı	none
+⊫	double vertical bar double right turnstile	none
+α	alfa	none
+∰	hacim integrali	none
+⊻	xor	none
+main	taban	none
+ρ	ro	none
+≀	wreath product	none
+⋋	left semidirect product	none
+ϑ	theta	none
+≐	limite yaklaşır	none
+⋛	greater-than equal to or less-than	none
+ϡ	sampi	none
+≠	eşit değil	none
+⋫	does not contain as normal subgroup	none
+ϱ	rho	none
+≰	küçük değil veya eşit değil	none
+⋻	contains with vertical bar at end of horizontal stroke	none
+|	dik çizgi	none
+⊀	önce gelmez	none
+∋	Içerir	none
+⊐	kare orjinali	none
+∛	Küp kök	none
+⊠	squared times	none
+∫	integral	none
+⊰	precedes under relation	none
+ζ	zeta	none
+∻	homothetic	none
+math	MATEMATİK	none
+⋀	n-ary logical and	none
+φ	fi	none
+≋	triple tilde	none
+⋐	double subset	none
+ϖ	pi	none
+≛	star equals	none
+⋠	does not precede or equal	none
+≫	çok daha fazla	none
+ͱ	heta	none
+⋰	up right diagonal ellipsis	none
+϶	reversed lunate epsilon	none
+≻	sonra gelir	none
+⊁	sonra gelmez	none
+∆	Artım	none
+⊑	kare görüntüsü veya eşit	none
+∖	küme farkı	none
+⊡	squared dot operator	none
+∦	Paralel değil	none
+⊱	succeeds under relation	none
+∶	Oran	none
+λ	lamda	none
+⋁	n-ary logical or	none
+≆	yaklaşık olarak eşit	none
+ϋ	upsilon dialytika	none
+⋑	double superset	none
+≖	ring in equal to	none
+ϛ	stigma	none
+⋡	does not succeed or equal	none
+≦	less than over equal to	none
+ϫ	gangia	none
+⋱	down right diagonal ellipsis	none
+≶	küçük veya büyük	none
+ϻ	san	none
+∁	Tümleyen	none
+⊆	eşit veya alt kümesi	none
+∑	toplam sembolü	none
+ΐ	iota dialytika tonos	none
+⊖	çevrimli fark	none
+∡	measured angle	none
+⊦	assertion	none
+-	tire	none
+∱	saat yönünde integral	none
+ΰ	upsilon dialytika tonos	none
+⊶	original of	none
+≁	not tilde	none
+π	pi	none
+⋆	yıldız operatör	none
+≑	geometrik olarak eşit	none
+ϐ	beta	none
+⋖	less-than with dot	none
+]	kapa köşeli parantez	none
+≡	denk	none
+⋦	less-than but not equivalent to	none
+≱	büyük değil veya eşit değil	none
+ϰ	kappa	none
+⋶	element of with overbar	none
+ͻ	reversed lunate sigma	none
+}	kapa küme parantezi	none
+΅	dialytika tonos	none
+∄	Hiçbir	none
+⊏	kare görüntüsü	none
+İTEM	ÖĞE	none
+∔	dot plus	none
+⊟	squared minus	none
+∤	bölmez	none
+(	parantez aç	none
+⊯	negated double vertical bar double right turnstile	none
+ε	epsilon	none
+∴	Dolayısıyla	none
+⊿	right triangle	none
+υ	upsilon	none
+≄	asimptotik olarak eşit değil	none
+⋏	kıvrık mantık ve	none
+ϕ	phi	none
+≔	colon equals	none
+⋟	equal to or succeeds	none
+ϥ	fei	none
+≤	küçük veya eşit	none
+⋯	midline horizontal ellipsis	none
+ϵ	lunate epsilon	none
+≴	küçük değil veya denk değil	none
+ͺ	ypogegrammeni	none
+⋿	z notation bag membership	none
+⊄	alt kümesi değil	none
+∏	en'li çarpım sembolü	none
+⊔	square cup	none
+∟	Dik açı	none
+⊤	down tack	none
+∯	yüzey integrali	none
+⊴	normal subgroup of or equal to	none
+κ	kappa	none
+∿	sinüs dalgası	none
+⋄	diamond operator	none
+ϊ	iota dialytika	none
+≏	aralarındaki fark	none
+⋔	pitchfork	none
+≟	questioned equal to	none
+⋤	square image of or not equal to	none
+≯	büyük değil	none
+͵	lower numeral sign	none
+⋴	small element of with vertical bar at end of horizontal stroke	none
+≿	sonra gelir veya denk	none
+⊅	üst kümesi değil	none
+∊	Küçük elemanıdır	none
+⊕	çevrimli toplam	none
+√	Karekök	none
+⊥	up tack	none
+∪	Birleşim	none
+ί	iota tonos	none
+⊵	contains as normal subgroup or equal to	none
+∺	geometrik oran	none
+ο	omikron	none
+⋅	nokta operatörü	none
+≊	neredeyse eşit ya da eşit değil	none
+⋕	equal and parallel to	none
+≚	equiangular to	none
+ϟ	koppa	none
+⋥	square original of or not equal to	none
+≪	çok daha az	none
+ϯ	dei	none
+⋵	element of with dot above	none
+ʹ	numeral sign	none
+≺	önce gelir	none
+∅	Boş Küme	none
+΄	tonos	none
+⊊	alt kümesi fakat denk değil	none
+∕	bölme	none
+⊚	circled ring operator	none
+∥	Paralel	none
+)	kapa parantez	none
+⊪	triple vertical bar right turnstile	none
+∵	Çünkü	none
+δ	delta	none
+⊺	intercalate	none
+≅	yaklaşık olarak eşit	none
+τ	tau	none
+⋊	right normal factor semidirect product	none
+≕	equals colon	none
+ϔ	upsilon with diaeresis and hook	none
+⋚	less-than equal to or greater-than	none
+≥	büyük veya eşit	none
+⋪	not normal subgroup of	none
+≵	büyük değil veya denk değil	none
+⋺	contains with long horizontal stroke	none
+Ϳ	yot	none
+⊃	üst kümesi	none
+∈	Elemanıdır	none
+⊓	square cap	none
+∘	halka operator	none
+⊣	left tack	none
+∨	Mantık veya	none
+⊳	contains as normal subgroup	none
+ι	lota	none
+∸	dot minus	none
+has	da	none
+⋃	n-ary union	none
+ω	omega	none
+≈	neredeyse eşit	none
+⋓	double union	none
+ϙ	koppa	none
+≘	corresponds to	none
+⋣	not square original of or equal to	none
+ϩ	hori	none
+≨	küçük ama eşit değil	none
+⋳	element of with vertical bar at end of horizontal stroke	none
+≸	küçük değil veya büyük değil	none
+;	soru işareti	none
+∃	vardır	none
+⊈	alt kümesi değil veya denk değil	none
+∓	eksi ya da artı	none
+⊘	circled division slash	none
+∣	böler	none
+⊨	doğru	none
+ή	eta tonos	none
+∳	saat tersi yönünde kontür integrali	none
+⊸	multimap	none
+ξ	xi	none
+≃	asymptotik olarak eşit	none
+⋈	bowtie	none
+ώ	omega tonos	none
+≓	görüntüsü ya da yaklaşık olarak eşit	none
+⋘	very much less-than	none
+≣	kesinlikle denk	none
+column	sütun	none
+⋨	precedes but not equivalent to	none
+≳	büyük veya denk	none
+⋸	element of with underbar	none
+⊉	üst kümesi değil veya denk değil	none
+∎	İspat sonu	none
+⊙	circled dot operator	none
+∞	Sonsuz	none
+⊩	kuvvet	none
+*	yıldız	none
+∮	kontür integrali	none
+γ	gamma	none
+⊹	hermitian conjugate matrix	none
+:	iki nokta üstüste	none
+∾	inverted lazy s	none
+σ	sigma	none
+⋉	left normal factor semidirect product	none
+≎	geometrik olarak eşit	none
+ϓ	upsilon with acute and hook	none
+⋙	very much greater-than	none
+≞	measured by	none
+ϣ	shei	none
+⋩	succeeds but not equivalent to	none
+≮	küçük değil	none
+ϳ	yot	none
+⋹	element of with two horizontal strokes	none
+≾	önce gelir veya denk	none
+∉	Elemanı değildir	none
+⊎	çoklu küme birleşimi	none
+∙	bullet operator	none
+⊞	kare artı	none
+∩	Kesişim	none
+⊮	kuvvet değil	none
+∹	aşar	none
+θ	theta	none
+⊾	right angle with arc	none
+≉	neredeyse eşit değil	none
+ψ	psi	none
+⋎	kıvrık mantık veya	none
+≙	estimates	none
+⋞	equal to or precedes	none
+≩	büyük ama eşit değil	none
+⋮	dikey elips	none
+ͳ	archaic sampi	none
+≹	büyük değil veya küçük değil	none
+ϸ	sho	none
+⋾	small contains with overbar	none

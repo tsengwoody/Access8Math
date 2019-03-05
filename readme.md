@@ -143,6 +143,7 @@ Please report any bugs or comments, thank you!
 *	In "General Settings", you can set whether "Access8Math interaction window" is automatically displayed when entering interactive mode.
 *	In interactive mode, "interaction window" can be displayed manually via ctrl+m when "interaction window" are not showed.
 *	Fix multi-language switching bug.
+* Add translations in Turkish, thanks to the translation work of cagri (çağrı doğan).
 *	Compatibility update for nvda 2019.1 check for add-on`s manifest.ini flag.
 *	Refactoring dialog window source code.
 
@@ -349,6 +350,7 @@ Access8Math將常用數學式依據類型與邏輯，建立43項數學規則，�
 *	在「一般設定」中，可設定進入互動模式時，是否一併自動顯示「Access8Math 互動視窗」
 *	在互動模式中，當無顯示互動視窗時，可透過 ctrl+m 來手動顯示互動視窗
 *	修政多國語言切換問題
+*	加入土耳其語的翻譯，感謝 Cagri(Çağrı Doğan) 的翻譯工作
 *	相容性更新，針對 NVDA 2019.1 對附加元件 manifest 標示的檢查
 *	重構對話視窗原始碼
 
