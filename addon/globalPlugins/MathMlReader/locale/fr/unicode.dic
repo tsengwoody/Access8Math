@@ -15,8 +15,8 @@
 ͽ	sigma lunaire pointé réfléchi	none
 ;	point d'interrogation grec	none
 Ϳ	yot	none
-΄	accent grec	none
-΅	tréma accent grec	none
+΄	accent	none
+΅	tréma accent	none
 ά	alpha accent	none
 ·	ano teleia	none
 έ	epsilon accent	none
@@ -400,10 +400,10 @@ item	item	none
 has	a	none
 row	ligne	none
 column	colonne	none
-order	order	none
-rightdownmark	right down mark	none
-rightupmark	right up mark	none
-leftdownmark	left down mark	none
-leftupmark	left up mark	none
-main	main	none
-mprescripts_index	mprescripts index	none
+order	ordre	none
+rightdownmark	indice bas droite	none
+rightupmark	indice haud droite	none
+leftdownmark	indice bas gauche	none
+leftupmark	indice haut gauche	none
+main	principal	none
+mprescripts_index	indice gauche	none
