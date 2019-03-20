@@ -396,7 +396,7 @@
 
 # constant
 math	math	none
-item	item	none
+item	élément	none
 has	a	none
 row	ligne	none
 column	colonne	none
