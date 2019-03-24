@@ -1,0 +1,409 @@
+﻿symbols:
+
+#0370−03ff
+ͱ	hêta	none
+ͱ	hêta	none
+ͳ	sampi	none
+ͳ	sampi	none
+ʹ	signe numéral grec	none
+͵	signe numéral souscrit grec	none
+ͷ	Digamma	none
+ͷ	Digamma	none
+ͺ	iota souscrit	none
+ͻ	sigma lunaire réfléchi	none
+ͼ	sigma lunaire pointé	none
+ͽ	sigma lunaire pointé réfléchi	none
+;	point d'interrogation grec	none
+Ϳ	yot	none
+΄	accent	none
+΅	tréma accent	none
+ά	alpha accent	none
+·	ano teleia	none
+έ	epsilon accent	none
+ή	êta accent	none
+ί	iota accent	none
+ό	omicron accent	none
+ύ	upsilon accent	none
+ώ	oméga accent	none
+ΐ	iota  tréma accent	none
+α	alpha	none
+β	bêta	none
+γ	gamma	none
+δ	delta	none
+ε	epsilon	none
+ζ	zêta	none
+η	êta	none
+θ	thêta	none
+ι	iota	none
+κ	kappa	none
+λ	lambda	none
+μ	mu	none
+ν	nu	none
+ξ	ksi	none
+ο	omicron	none
+π	pi	none
+ρ	rhô	none
+σ	sigma	none
+τ	tau	none
+υ	upsilon	none
+φ	phi	none
+χ	khi	none
+ψ	psi	none
+ω	oméga	none
+ϊ	iota tréma	none
+ϋ	upsilon tréma	none
+ά	alpha accent	none
+έ	epsilon accent	none
+ή	êta accent	none
+ί	iota accent	none
+ΰ	upsilon tréma accent	none
+α	alpha	none
+β	bêta	none
+γ	gamma	none
+δ	delta	none
+ε	epsilon	none
+ζ	zêta	none
+η	êta	none
+θ	thêta	none
+ι	iota	none
+κ	kappa	none
+λ	lambda	none
+μ	mu	none
+ν	nu	none
+ξ	ksi	none
+ο	omicron	none
+π	pi	none
+ρ	rhô	none
+ς	sigma	none
+σ	sigma	none
+τ	tau	none
+υ	upsilon	none
+φ	phi	none
+χ	khi	none
+ψ	psi	none
+ω	oméga	none
+ϊ	iota tréma	none
+ϋ	upsilon tréma	none
+ό	omicron accent	none
+ύ	upsilon accent	none
+ώ	oméga accent	none
+ϗ	kai	none
+ϐ	bêta	none
+ϑ	thêta	none
+ϒ	upsilon crochet	none
+ϓ	upsilon accent crochet	none
+ϔ	upsilon tréma crochet	none
+ϕ	phi	none
+ϖ	pi	none
+ϗ	kai	none
+ϙ	koppa	none
+ϙ	koppa	none
+ϛ	stigma	none
+ϛ	stigma	none
+ϝ	Digamma	none
+ϝ	Digamma	none
+ϟ	koppa	none
+ϟ	koppa	none
+ϡ	sampi	none
+ϡ	sampi	none
+ϣ	chaï	none
+ϣ	chaï	none
+ϥ	faï	none
+ϥ	faï	none
+ϧ	khaï	none
+ϧ	khaï	none
+ϩ	hori	none
+ϩ	hori	none
+ϫ	djanda	none
+ϫ	djanda	none
+ϭ	tchima	none
+ϭ	tchima	none
+ϯ	ti	none
+ϯ	ti	none
+ϰ	kappa	none
+ϱ	rhô	none
+ϲ	sigma lunaire	none
+ϳ	yot	none
+θ	thêta	none
+ϵ	epsilon lunaire	none
+϶	epsilon lunaire réfléchi	none
+ϸ	sho	none
+ϸ	sho	none
+ϲ	sigma lunaire	none
+ϻ	san	none
+ϻ	san	none
+ϼ	rhô barré	none
+ͻ	sigma lunaire réfléchi	none
+ͼ	sigma lunaire pointé	none
+ͽ	sigma lunaire pointé réfléchi	none
+
+∀	pour tout 	none
+∁	complément	none
+∂	différencielle partielle	none
+∃	il existe	none
+∄	il n'existe pas de	none
+∅	ensemble vide	none
+∆	incrément	none
+∇	NABLA	none
+∈	élément de	none
+∉	pas un élément de	none
+∊	petit élément de	none
+∋	contient comme membre	none
+∌	ne contient pas comme membre	none
+∍	petit contient comme membre	none
+∎	fin de preuve	none
+∏	produit n-aire	none
+∐	coproduit de la famille	none
+∑	somme n-aire	none
+−	moins	none
+∓	signe moins-ou-plus	none
+∔	plus pointé	none
+∕	barre oblique de division	none
+∖	différence d'ensembles	none
+∗	opérateur astérisque	none
+∘	rond	none
+∙	opérateur puce	none
+√	racine carrée	none
+∛	racine cubique	none
+∜	racine quatrième	none
+∝	proportionnel à	none
+∞	infini	none
+∟	angle droit	none
+∠	angle	none
+∡	angle mesuré	none
+∢	angle sphérique	none
+∣	est un diviseur de	none
+∤	n'est pas un diviseur de	none
+∥	parallèle à	none
+∦	non parallèle à	none
+∧	et logique	none
+∨	ou logique	none
+∩	intersection	none
+∪	union	none
+∫	intégrale	none
+∬	intégrale double	none
+∭	intégrale triple	none
+∮	intégrale de contour	none
+∯	intégrale de surface	none
+∰	intégrale de volume	none
+∱	intégrale en sens négatif	none
+∲	intégrale de contour en sens négatif	none
+∳	intégrale de contour en sens positif	none
+∴	ainsi	none
+∵	parce que	none
+∶	RATIO	none
+∷	PROPORTION	none
+∸	moins pointé	none
+∹	excès	none
+∺	proportion géométrique	none
+∻	homothétique	none
+∼	opérateur tilde	none
+∽	opérateur tilde renversé	none
+∾	s couché renversé	none
+∿	sinusoïde	none
+≀	produit couronne	none
+≁	non tilde	none
+≂	moins tilde	none
+≃	asymptotiquement égal à	none
+≄	non asymptotiquement égal à	none
+≅	approximativement égal à	none
+≆	approximativement mais non strictement égal à	none
+≇	ni approximativement ni strictement égal à	none
+≈	environ égal à	none
+≉	non presque égal à	none
+≊	presque égal ou égal à	none
+≋	triple tilde	none
+≌	entièrement égal à	none
+≍	équivalent à	none
+≎	géométriquement équivalent à	none
+≏	différence entre	none
+≐	tend vers la limite	none
+≑	géométriquement égal à	none
+≒	approximativement égal à ou image de	none
+≓	image de ou approximativement égal à	none
+≔	deux-points égal	none
+≕	égal deux-points	none
+≖	rond dans égal	none
+≗	égal avec rond en chef	none
+≘	correspond à	none
+≙	estime	none
+≚	équiangulaire à	none
+≛	égal avec étoile en chef	none
+≜	égal delta	none
+≝	égal par définition à	none
+≞	mesuré par	none
+≟	égalité en doute	none
+≠	différent de	none
+≡	identique à	none
+≢	non identique à	none
+≣	strictement équivalent à	none
+≤	inférieur ou égal à	none
+≥	supérieur ou égal à	none
+≦	plus petit que par-dessus égal à	none
+≧	plus grand que par-dessus égal à	none
+≨	plus petit mais pas égal à	none
+≩	plus grand mais pas égal à	none
+≪	très inférieur à	none
+≫	très supérieur à	none
+≬	entre	none
+≭	non équivalent à	none
+≮	pas plus petit que	none
+≯	pas plus grand que	none
+≰	ni plus petit ni égal à	none
+≱	ni plus grand ni égal à	none
+≲	plus petit ou équivalent à	none
+≳	plus grand ou équivalent à	none
+≴	ni plus petit ni équivalent à	none
+≵	ni plus grand ni équivalent à	none
+≶	plus petit ou plus grand que	none
+≷	plus grand ou plus petit que	none
+≸	ni plus petit ni plus grand que	none
+≹	ni plus grand ni plus petit que	none
+≺	précède	none
+≻	suit	none
+≼	précède ou est égal à	none
+≽	suit ou est égal à	none
+≾	précède ou est équivalent à	none
+≿	suit ou est équivalent à	none
+⊀	ne précède pas	none
+⊁	ne suit pas	none
+⊂	sous-ensemble de	none
+⊃	sur ensemble de	none
+⊄	pas un sous-ensemble de	none
+⊅	pas un sur-ensemble de	none
+⊆	est inclus dans ou est égal à	none
+⊇	contient ou est égal à	none
+⊈	ni un sous-ensemble ni égal à	none
+⊉	ni un sur-ensemble ni égal à	none
+⊊	sous-ensemble mais pas égal à	none
+⊋	sur-ensemble mais pas égal à	none
+⊌	multiensemble	none
+⊍	multiplication de multiensemble	none
+⊎	union de multiensemble	none
+⊏	image carrée de	none
+⊐	original carré de	none
+⊑	image carrée ou égal à	none
+⊒	original carré ou égal à	none
+⊓	chapeau carré	none
+⊔	coupe carrée	none
+⊕	plus encerclé	none
+⊖	moins cerclé	none
+⊗	multiplié par cerclé	none
+⊘	barre oblique de division cerclée	none
+⊙	opérateur point cerclé	none
+⊚	opérateur rond cerclé	none
+⊛	opérateur astérisque cerclé	none
+⊜	égal cerclé	none
+⊝	tiret cerclé	none
+⊞	plus encadré	none
+⊟	moins encadré	none
+⊠	multiplié par encadré	none
+⊡	opérateur point encadré	none
+⊢	taquet droit	none
+⊣	taquet gauche	none
+⊤	taquet vers le bas	none
+⊥	perpendiculaire à	none
+⊦	assertion	none
+⊧	modélise	none
+⊨	vrai	none
+⊩	oblige	none
+⊪	barre verticale triple avec tourniquet à droite	none
+⊫	barre verticale double avec tourniquet à droite double	none
+⊬	ne prouve pas	none
+⊭	pas vrai	none
+⊮	n'oblige pas	none
+⊯	non-barre verticale double avec tourniquet à droite double	none
+⊰	précède sous relation	none
+⊱	suit sous relation	none
+⊲	sous-groupe normal de	none
+⊳	contient comme sous-groupe normal	none
+⊴	sous-groupe normal ou égal à	none
+⊵	contient comme sous-groupe normal ou égal à	none
+⊶	original de	none
+⊷	image de	none
+⊸	multijection	none
+⊹	matrice hermitienne conjuguée	none
+⊺	intercale	none
+⊻	ou exclusif	none
+⊼	non et	none
+⊽	non ou	none
+⊾	angle droit avec arc	none
+⊿	triangle rectangle	none
+⋀	grand et logique	none
+⋁	grand ou logique	none
+⋂	grande intersection	none
+⋃	grande union	none
+⋄	opérateur losange	none
+⋅	opérateur point	none
+⋆	opérateur étoile	none
+⋇	divisé multiplié	none
+⋈	nœud papillon	none
+⋉	produit semi-direct à gauche de facteur normal	none
+⋊	produit semi-direct à droite de facteur normal	none
+⋋	produit semi-direct à gauche	none
+⋌	produit semi-direct à droite	none
+⋍	moins tilde renversé	none
+⋎	ou logique recourbé	none
+⋏	et logique recourbé	none
+⋐	sous-ensemble double	none
+⋑	sur-ensemble double	none
+⋒	intersection double	none
+⋓	union double	none
+⋔	fourche	none
+⋕	égal et parallèle à	none
+⋖	plus petit que pointé	none
+⋗	plus grand que pointé	none
+⋘	considérablement plus petit que	none
+⋙	considérablement plus grand que	none
+⋚	plus petit ou égal ou plus grand que	none
+⋛	plus grand ou égal ou plus petit que	none
+⋜	égal ou plus petit que	none
+⋝	égal ou plus grand que	none
+⋞	égal ou précède	none
+⋟	égal ou suit	none
+⋠	ni précédant ni égal à	none
+⋡	ni suivant ni égal à	none
+⋢	ni image carrée ni égal à	none
+⋣	ni original carré ni égal à	none
+⋤	image carré ou différent de	none
+⋥	original carré ou différent de	none
+⋦	plus petit mais non équivalent à	none
+⋧	plus grand mais non équivalent à	none
+⋨	précédant mais non équivalent à	none
+⋩	suivant mais non équivalent à	none
+⋪	pas un sous-groupe normal de	none
+⋫	ne contient pas comme sous-groupe normal	none
+⋬	ni sous-groupe normal ni égal à	none
+⋭	ni égal ni contenant comme sous-groupe normal	none
+⋮	trois points suspendus	none
+⋯	trois points médians	none
+⋰	trois points diagonaux vers le coin haut à droite	none
+⋱	trois points diagonaux vers le coin bas à droite	none
+⋲	appartient à avec long trait horizontal	none
+⋳	appartient à avec barre verticale au bout du trait horizontal	none
+⋴	petit appartient à avec barre verticale au bout du trait horizontal	none
+⋵	appartient à avec point en chef	none
+⋶	appartient à avec trait en chef	none
+⋷	petit appartient à avec trait en chef	none
+⋸	appartient à avec trait souscrit	none
+⋹	appartient à avec deux traits horizontaux	none
+⋺	contient avec long trait horizontal	none
+⋻	contient avec barre verticale au bout du trait horizontal	none
+⋼	petit contient avec barre verticale au bout du trait horizontal	none
+⋽	contient avec trait en chef	none
+⋾	petit contient avec trait en chef	none
+⋿	appartient à un sac en notation z	none
+
+# constant
+math	math	none
+item	élément	none
+has	a	none
+row	ligne	none
+column	colonne	none
+order	ordre	none
+rightdownmark	indice bas droite	none
+rightupmark	indice haud droite	none
+leftdownmark	indice bas gauche	none
+leftupmark	indice haut gauche	none
+main	principal	none
+mprescripts_index	indice gauche	none
