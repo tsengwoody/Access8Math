@@ -240,7 +240,7 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 		return MathMlTextInfo(self, position)
 
 	def event_gainFocus(self):
-		speech.speak(_("enter interaction mode"))
+		speech.speak([_("enter interaction mode")])
 		super(MathMlReaderInteraction, self).event_gainFocus()
 		api.setReviewPosition(self.makeTextInfo(), False)
 
