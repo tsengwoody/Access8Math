@@ -181,7 +181,12 @@ class UnicodeDicDialog(SettingsDialog):
 		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 		# Translators: The label for symbols list in symbol pronunciation dialog.
 		symbolsText = _("&Symbols")
-		self.symbolsList = sHelper.addLabeledControl(symbolsText, nvdaControls.AutoWidthColumnListCtrl, autoSizeColumnIndex=0, style=wx.LC_REPORT | wx.LC_SINGLE_SEL)
+		try:
+			#NVDA version >= 2019.2 syntax with autoSizeColumn keyword
+			self.symbolsList = sHelper.addLabeledControl(symbolsText, nvdaControls.AutoWidthColumnListCtrl, autoSizeColumn=0, style=wx.LC_REPORT | wx.LC_SINGLE_SEL)
+		except TypeError:
+			#NVDA version <= 2019.1.1 syntax with autoSizeColumnIndex keyword
+			self.symbolsList = sHelper.addLabeledControl(symbolsText, nvdaControls.AutoWidthColumnListCtrl, autoSizeColumnIndex=0, style=wx.LC_REPORT | wx.LC_SINGLE_SEL)
 		# Translators: The label for a column in symbols list used to identify a symbol.
 		self.symbolsList.InsertColumn(0, _("Symbol"))
 		self.symbolsList.InsertColumn(1, _("Replacement"))
@@ -490,7 +495,12 @@ class MathRuleDialog(SettingsDialog):
 		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 		# Translators: The label for symbols list in symbol pronunciation dialog.
 		mathrulesText = _("&Mathrules")
-		self.mathrulesList = sHelper.addLabeledControl(mathrulesText, nvdaControls.AutoWidthColumnListCtrl, autoSizeColumnIndex=0, style=wx.LC_REPORT | wx.LC_SINGLE_SEL)
+		try:
+			#NVDA version >= 2019.2 syntax with autoSizeColumn keyword
+			self.mathrulesList = sHelper.addLabeledControl(mathrulesText, nvdaControls.AutoWidthColumnListCtrl, autoSizeColumn=0, style=wx.LC_REPORT | wx.LC_SINGLE_SEL)
+		except TypeError:
+			#NVDA version <= 2019.1.1 syntax with autoSizeColumnIndex keyword
+			self.mathrulesList = sHelper.addLabeledControl(mathrulesText, nvdaControls.AutoWidthColumnListCtrl, autoSizeColumnIndex=0, style=wx.LC_REPORT | wx.LC_SINGLE_SEL)
 		# Translators: The label for a column in symbols list used to identify a symbol.
 		self.mathrulesList.InsertColumn(0, _("Rule"))
 		self.mathrulesList.InsertColumn(1, _("Description"))
