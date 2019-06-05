@@ -230,7 +230,7 @@ class UnicodeDicDialog(SettingsDialog):
 		importButton = bHelper.addButton(self, label=_("&Import"))
 
 		# Translators: The label for a button to export unicode.dic.
-		exportButton = bHelper.addButton(self, label=_("Export(&O)"))
+		exportButton = bHelper.addButton(self, label=_("Exp&ort"))
 
 		addButton.Bind(wx.EVT_BUTTON, self.OnAddClick)
 		self.removeButton.Bind(wx.EVT_BUTTON, self.OnRemoveClick)
@@ -517,7 +517,7 @@ class MathRuleDialog(SettingsDialog):
 		self.editButton.Disable()
 
 		# Translators: The label for a button to example math rule.
-		self.exampleButton = bHelper.addButton(self, label=_("Example"))
+		self.exampleButton = bHelper.addButton(self, label=_("E&xample"))
 		self.exampleButton.Disable()
 
 		# Translators: The label for a button to recover default value.
@@ -527,7 +527,7 @@ class MathRuleDialog(SettingsDialog):
 		importButton = bHelper.addButton(self, label=_("&Import"))
 
 		# Translators: The label for a button to export math.rule.
-		exportButton = bHelper.addButton(self, label=_("Export(&O)"))
+		exportButton = bHelper.addButton(self, label=_("Exp&ort"))
 
 		self.editButton.Bind(wx.EVT_BUTTON, self.OnEditClick)
 		self.exampleButton.Bind(wx.EVT_BUTTON, self.OnExampleClick)

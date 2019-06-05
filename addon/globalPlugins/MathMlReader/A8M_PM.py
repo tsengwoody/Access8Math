@@ -1,4 +1,4 @@
-# coding: utf-8
+﻿# coding: utf-8
 # Copyright (C) 2017-2019 Tseng Woody <tsengwoody.tw@gmail.com>
 
 import collections
@@ -1178,7 +1178,11 @@ def save_math_rule(mathrule, path=None, language=''):
 	return True
 
 def symbol_translate(u):
-	return symbol[u] if symbol.has_key(u) else u
+	t = [symbol[i] if symbol.has_key(i) else i for i in u]
+	r = u''
+	for i in t:
+		r = r +i
+	return r
 
 def config_from_environ():
 	global language, AMM
