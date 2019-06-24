@@ -43,3 +43,4 @@ set	küme, (.*), küme sonu	eleman	set
 single_fraction	, , 0, bölü, 1, , 	pay, payda	single fraction
 single_square_root	kare kök, 0, 	kök içi	single square root
 to	operator, 0, to, 1, apply to	operator, to	to ... operator
+ArrowOverSingleSymbolType	vector, 0,	main,super	Arrow over a single symbol (vector in French notation)

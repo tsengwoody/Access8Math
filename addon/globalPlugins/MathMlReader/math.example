@@ -37,6 +37,7 @@ RayType	<math><mrow><mover accent='true'><mrow><mi>A</mi><mi>B</mi></mrow><mo st
 LineSegmentType	<math><mover><mrow><mi>A</mi><mi>B</mi></mrow><mo>&#xAF;</mo></mover></math>
 VectorSingleType	<math><mrow><mover accent='true'><mrow><mi>A</mi></mrow><mo stretchy='true'>&#x21C0;</mo></mover></mrow></math>
 VectorDoubleType	<math><mrow><mover accent='true'><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy='true'>&#x21C0;</mo></mover></mrow></math>
+ArrowOverSingleSymbolType	<math><mrow><mover accent='true'><mrow><mi>a</mi></mrow><mo stretchy='true'>&#x2192;</mo></mover></mrow></math>
 FrownType	<math><mrow><mover accent='true'><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy='true'>&#x2322;</mo></mover></mrow></math>
 NegativeSignType	<math><mo>-</mo><mn>2</mn></math>
 PositiveSignType	<math><mo>+</mo><mn>2</mn></math>
