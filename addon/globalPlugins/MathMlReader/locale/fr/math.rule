@@ -39,8 +39,9 @@ PositiveSignType	positif,	plus	signe positif
 SquarePowerType	, 0, au carré	base,exposant	élévation au carré
 CubePowerType	, 0, au cube	base,exposant	élévation au cube
 LineType	droite, 0,	principal,suscrit	droite (notation anglo-saxonne)
-RayType	vecteur, 0,	principal,suscrit	vecteur (notation française) = demi-droite (notation anglo-saxonne)
+RayType	vecteur, 0,	principal,suscrit	vecteur avec deux symboles (notation française) = demi-droite (notation anglo-saxonne)
 LineSegmentType	mesure algébrique de, 0,	principal,suscrit	mesure algébrique (notation française) = segment (notation anglo-saxonne)
 VectorSingleType	vecteur, 0,	principal,suscrit	vecteur avec un symbole (notation anglo-saxonne)
 VectorDoubleType	vecteur, 0,	principal,suscrit	vecteur avec deux symboles (notation anglo-saxonne)
+ArrowOverSingleSymbolType	vecteur, 0,	main,super	Vecteur avec un symbole (notation française)
 FrownType	arc, 0,	principal,suscrit	arc

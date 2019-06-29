@@ -852,10 +852,13 @@ class LineSegmentType(NonTerminalNodeType):
 	child = [TwoMiOperandItemType, MoLineSegmentType]
 	name = 'LineSegmentType'
 
+#Arrow above 2 symbols denotes Ray in English notation and vector in French notation (equivalent of VectorDoubleType).
+#Arrow above 1 symbol denotes also vector in French notation.
 class MoRayType(TerminalNodeType):
 	tag = Mo
 	data = re.compile(ur"^[→]$")
 
+#Arrow above 2 symbols denotes Ray in English notation and vector in French notation (equivalent of VectorDoubleType).
 class RayType(NonTerminalNodeType):
 	tag = Mover
 	child = [TwoMiOperandItemType, MoRayType]
@@ -874,6 +877,12 @@ class VectorDoubleType(NonTerminalNodeType):
 	tag = Mover
 	child = [TwoMiOperandItemType, MoVectorType]
 	name = 'VectorDoubleType'
+
+#Arrow above single symbol denotes vector in French notation.
+class ArrowOverSingleSymbolType(NonTerminalNodeType):
+	tag = Mover
+	child = [MiOperandType, MoRayType]
+	name = 'ArrowOverSingleSymbolType'
 
 class MoFrownType(TerminalNodeType):
 	tag = Mo
@@ -1294,6 +1303,7 @@ mathrule_info = {
 		"LineSegmentType": [3, 2, ".",],
 		"VectorSingleType": [3, 2, ".",],
 		"VectorDoubleType": [3, 2, ".",],
+		"ArrowOverSingleSymbolType": [3, 2, ".",],
 		"FrownType": [3, 2, ".",],
 	},
 	"other": {
@@ -1375,6 +1385,7 @@ mathrule_order = {
 		"LineSegmentType",
 		"VectorSingleType",
 		"VectorDoubleType",
+		"ArrowOverSingleSymbolType",
 		"FrownType",
 	],
 	"other": [
