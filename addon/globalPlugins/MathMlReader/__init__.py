@@ -1,4 +1,4 @@
-# coding: utf-8
+﻿# coding: utf-8
 # Access8Math: Allows access math content written by MathML in NVDA
 # Copyright (C) 2017-2019 Tseng Woody <tsengwoody.tw@gmail.com>
 # This file is covered by the GNU General Public License.
@@ -8,17 +8,33 @@ from collections import Iterable, OrderedDict
 import os
 import re
 import sys
-path = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, path)
 Base_Dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.insert(0, Base_Dir)
-import cgi
-import HTMLParser
-import xml
-from xml.etree import ElementTree as ET
 
-import A8M_PM
-from A8M_PM import MathContent
+if sys.version_info.major==2:
+	path = os.path.dirname(os.path.abspath(__file__))
+	python_path = os.path.join(path, 'python2')
+	sys.path.insert(0, python_path)
+	sys.path.insert(0, path)
+	import cgi
+	import xml
+	from xml.etree import ElementTree as ET
+elif sys.version_info.major==3:
+	path = os.path.dirname(os.path.abspath(__file__))
+	python_path = os.path.join(path, 'python3')
+	sys.path.insert(0, python_path)
+	sys.path.insert(0, path)
+	import cgi
+	import globalPlugins.MathMlReader.python3.xml as xml
+	from globalPlugins.MathMlReader.python3.xml.etree import ElementTree as ET
+
+if sys.version_info.major==2:
+	import A8M_PM_2 as A8M_PM
+	from A8M_PM_2 import create_node, MathContent
+elif sys.version_info.major==3:
+	import A8M_PM_3 as A8M_PM
+	from A8M_PM_3 import create_node, MathContent
+
 from utils import convert_bool
 
 import addonHandler
@@ -47,10 +63,23 @@ import wx
 
 import wxgui
 
+if sys.version_info.major==2:
+	string_types = basestring
+	unicode = unicode
+elif sys.version_info.major==3:
+	string_types = str
+	unicode = str
+
 def mathml2etree(mathMl):
-	gtlt_pattern = re.compile(ur"([\>])(.*?)([\<])")
-	mathMl = gtlt_pattern.sub(lambda m: m.group(1) +cgi.escape(HTMLParser.HTMLParser().unescape(m.group(2))) +m.group(3), mathMl)
-	quote_pattern = re.compile(ur"=([\"\'])(.*?)\1")
+	gtlt_pattern = re.compile(r"([\>])(.*?)([\<])")
+	if sys.version_info.major==2:
+		import HTMLParser
+		mathMl = gtlt_pattern.sub(lambda m: m.group(1) +cgi.escape(HTMLParser.HTMLParser().unescape(m.group(2))) +m.group(3), mathMl)
+	elif sys.version_info.major==3:
+		import html
+		mathMl = gtlt_pattern.sub(lambda m: m.group(1) +cgi.escape(html.unescape(m.group(2))) +m.group(3), mathMl)
+
+	quote_pattern = re.compile(r"=([\"\'])(.*?)\1")
 	mathMl = quote_pattern.sub(lambda m: '=' +m.group(1) +cgi.escape(m.group(2)) +m.group(1), mathMl)
 	parser = ET.XMLParser()
 	try:
@@ -61,7 +90,7 @@ def mathml2etree(mathMl):
 
 def flatten(l):
 	for el in l:
-		if isinstance(el, Iterable) and not isinstance(el, basestring):
+		if isinstance(el, Iterable) and not isinstance(el, string_types):
 			for sub in flatten(el):
 				yield sub
 		else:
@@ -96,11 +125,11 @@ def translate_Unicode(serializes):
 			sequence = sequence +u' '
 
 	# replace mutiple blank to single blank
-	pattern = re.compile(ur'[ ]+')
+	pattern = re.compile(r'[ ]+')
 	sequence = pattern.sub(lambda m: u' ', sequence)
 
 	# replace blank line to none
-	pattern = re.compile(ur'\n\s*\n')
+	pattern = re.compile(r'\n\s*\n')
 	sequence = pattern.sub(lambda m: u'\n', sequence)
 
 	# strip blank at start and end line
@@ -168,7 +197,6 @@ class InteractionFrame(wxgui.GenericFrame):
 
 			tree = mathml2etree(mathMl)
 
-			from A8M_PM import create_node
 			node = create_node(tree)
 			self.obj.mathcontent.insert(node)
 
@@ -245,7 +273,7 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 		api.setReviewPosition(self.makeTextInfo(), False)
 
 	'''def event_loseFocus(self):
-		print('QQ')'''
+		pass'''
 
 	def reportFocus(self):
 		#super(MathMlReaderInteraction, self).reportFocus()
@@ -497,9 +525,13 @@ If you feel this add-on is helpful, please don't hesitate to give support to "Ta
 		if entryDialog.ShowModal()==wx.ID_OK:
 			latex = entryDialog.GetValue()
 			mathml = latex2mathml.converter.convert(latex)
-			print type(mathml)
-			mathml = HTMLParser.HTMLParser().unescape(mathml)
-			print type(mathml)
+			if sys.version_info.major==2:
+				import HTMLParser
+				mathml = HTMLParser.HTMLParser().unescape(mathml)
+			elif sys.version_info.major==3:
+				import html
+				mathml = html.unescape(mathml)
+
 			MathMlReaderInteraction(mathMl=mathml, show=True)
 
 	def script_settings(self, gesture):

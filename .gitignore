@@ -5,10 +5,6 @@ addon/doc/en/
 *.ini
 *.mo
 *.pot
-*.pyc
+*.py[co]
 *.nvda-addon
 .sconsign.dblite
-*.pyo
-
-addon/globalPlugins/MathMlReader/*user*
-addon/globalPlugins/MathMlReader/locale/*/*user*

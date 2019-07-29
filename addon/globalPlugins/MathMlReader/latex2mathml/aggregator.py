@@ -1,102 +1,205 @@
 #!/usr/bin/env python
+# __author__ = "Ronie Martinez"
+# __copyright__ = "Copyright 2016-2019, Ronie Martinez"
+# __credits__ = ["Ronie Martinez"]
+# __license__ = "MIT"
+# __maintainer__ = "Ronie Martinez"
+# __email__ = "ronmarti18@gmail.com"
 from latex2mathml.commands import MATRICES
+from latex2mathml.exceptions import EmptyGroupError, NumeratorNotFoundError, DenominatorNotFoundError
 from latex2mathml.tokenizer import tokenize
 
-__author__ = "Ronie Martinez"
-__copyright__ = "Copyright 2016-2017, Ronie Martinez"
-__credits__ = ["Ronie Martinez"]
-__license__ = "MIT"
-__maintainer__ = "Ronie Martinez"
-__email__ = "ronmarti18@gmail.com"
-__status__ = "Development"
 
-
-def aggregate(latex):
-    aggregation = []
-    subgroups = [aggregation]
-    insert_before_last_item = False
-    environment = None
-    has_negative_sign = False
-    for token in tokenize(latex):
-        if token in MATRICES:
-            environment = token
-            _insert_before_last_item(insert_before_last_item, token, subgroups)
-        elif token in '{([':
-            try:
-                a = subgroups[-1][-1]
-                if a != r'\left':
-                    raise IndexError
-            except IndexError:
-                n = []
-                _insert_before_last_item(insert_before_last_item, n, subgroups)
-                subgroups.append(n)
-            if environment and environment in MATRICES:
-                if a and a in MATRICES:
-                    _add_new_subgroup(subgroups)
-                else:
-                    try:
-                        b = subgroups[-2][-3]
-                        if b in MATRICES:
-                            _add_new_subgroup(subgroups)
-                    except IndexError:
-                        pass
-            elif token == '[' and subgroups[-2][-2] == r'\sqrt':
-                subgroups[-2][-2] = r'\root'  # change name from \sqrt to \root - not a latex command!
-            elif token != '{':
-                subgroups[-1].append(token)
-        elif token in '})]':
-            try:
-                a = subgroups[-1][-1]
-            except IndexError:
-                pass
-            if token == ']' and subgroups[-2][-2] == r'\root':
-                insert_before_last_item = True
-            elif token != '}':
-                subgroups[-1].append(token)
-            if a and a == r'\right':
-                pass
+def group(tokens, opening='{', closing='}', delimiter=None):
+    g = []
+    if delimiter:
+        g.append(delimiter)
+        g.append(next(tokens))
+    while True:
+        token = next(tokens)
+        if token == closing:
+            if len(g):
+                break
             else:
-                subgroups.pop()
-        elif token in '_^':
+                raise EmptyGroupError
+        elif token == opening:
             try:
-                a = subgroups[-1][-3]
-                if a == '_' and token == '^':
-                    subgroups[-1][-3] = '_^'
-                elif a == '^' and token == '_':
-                    subgroups[-1][-3] = '_^'
-                    insert_before_last_item = True
-                else:
-                    subgroups[-1].insert(-1, token)
-            except IndexError:
-                subgroups[-1].insert(-1, token)
-        elif token == '-' and environment and environment in MATRICES:
-            _add_new_subgroup(subgroups)
-            _insert_before_last_item(insert_before_last_item, token, subgroups)
-            has_negative_sign = True
-        elif token == '&' and environment and environment in MATRICES:
-            if has_negative_sign:
-                subgroups.pop()
-                has_negative_sign = False
-        elif (token == r'\\' or token == r'\cr') and environment and environment in MATRICES:
-            if has_negative_sign:
-                subgroups.pop()
-                has_negative_sign = False
-            subgroups.pop()
-            _add_new_subgroup(subgroups)
+                g.append(group(tokens))
+            except EmptyGroupError:
+                g += [opening, closing]
+        elif token == r'\right':
+            g.append(token)
+            g.append(next(tokens))
+            break
         else:
-            _insert_before_last_item(insert_before_last_item, token, subgroups)
-    return aggregation
+            g.append(token)
+    if delimiter:
+        content = g[2:-2]
+        if len(content):
+            return [g[0], g[1], _aggregate(iter(content)), g[-2], g[-1]]
+        return g
+    return _aggregate(iter(g))
 
 
-def _insert_before_last_item(insert_before_last_item, n, subgroups):
-    if insert_before_last_item:
-        subgroups[-1].insert(-1, n)
-        insert_before_last_item = False
+def process_row(tokens):
+    row = []
+    content = []
+    for token in tokens:
+        if token == '&':
+            pass
+        elif token == '\\\\':
+            if len(row):
+                content.append(row)
+            row = []
+        else:
+            row.append(token)
+    if len(row):
+        content.append(row)
+    while len(content) == 1 and isinstance(content[0], list):
+        content = content.pop()
+    return content
+
+
+def environment(begin, tokens):
+    if begin.startswith(r'\begin'):
+        env = begin[7:-1]
     else:
-        subgroups[-1].append(n)
+        env = begin[1:]
+    alignment = None
+    content = []
+    row = []
+    while True:
+        try:
+            token = next_item_or_group(tokens)
+            if isinstance(token, list):
+                if env == 'array' and all(x in 'lcr|' for x in token):
+                    alignment = token
+                else:
+                    row.append(process_row(token))
+            elif token == r'\end{{{}}}'.format(env):
+                break
+            elif token == '&':
+                pass
+            elif token == '\\\\':
+                content.append(row)
+                row = []
+            elif token == '[' and not len(content):
+                try:
+                    alignment = group(tokens, '[', ']')
+                except EmptyGroupError:
+                    pass
+            elif token == '-':
+                try:
+                    next_token = next(tokens)
+                    row.append([token, next_token])
+                except StopIteration:
+                    row.append(token)
+            elif token in '_^':
+                process_sub_sup(row, token, tokens)
+            else:
+                row.append(token)
+        except EmptyGroupError:
+            row += ['{', '}']
+            continue
+        except StopIteration:
+            break
+    if len(row):
+        content.append(row)
+    while len(content) == 1 and isinstance(content[0], list):
+        content = content.pop()
+    if alignment:
+        return r'\{}'.format(env), ''.join(alignment), content
+    else:
+        return r'\{}'.format(env), content
 
 
-def _add_new_subgroup(subgroups):
-    n = []
-    subgroups[-1].append(n)
-    subgroups.append(n)
+def next_item_or_group(tokens):
+    token = next(tokens)
+    if token == '{':
+        return group(tokens)
+    elif token == r'\left':
+        return group(tokens, delimiter=token)
+    return token
+
+
+def _aggregate(tokens):
+    aggregated = []
+    while True:
+        try:
+            token = next_item_or_group(tokens)
+            if isinstance(token, list):
+                aggregated.append(token)
+            elif token == '[':
+                try:
+                    g = group(tokens, '[', ']')
+                    if len(aggregated):
+                        previous = aggregated[-1]
+                        if previous == r'\sqrt':
+                            root = next(tokens)
+                            if root == '{':
+                                try:
+                                    root = group(tokens)
+                                except EmptyGroupError:
+                                    root = ''
+                            aggregated[-1] = r'\root'
+                            aggregated.append(root)
+                        else:
+                            pass  # FIXME: possible issues
+                    aggregated.append(g)
+                except EmptyGroupError:
+                    aggregated += ['[', ']']
+            elif token in '_^':
+                process_sub_sup(aggregated, token, tokens)
+            elif token.startswith(r'\begin') or token in MATRICES:
+                aggregated += environment(token, tokens)
+            elif token == r'\over':
+                try:
+                    numerator = aggregated.pop()
+                    aggregated.append(r'\frac')
+                    aggregated.append([numerator])
+                    denominator = next_item_or_group(tokens)
+                    aggregated.append([denominator])
+                except IndexError:
+                    raise NumeratorNotFoundError
+                except (StopIteration, EmptyGroupError):
+                    raise DenominatorNotFoundError
+            else:
+                aggregated.append(token)
+        except EmptyGroupError:
+            aggregated += ['{', '}']
+            continue
+        except StopIteration:
+            break
+    return aggregated
+
+
+def aggregate(data):
+    tokens = tokenize(data)
+    return _aggregate(tokens)
+
+
+def process_sub_sup(aggregated, token, tokens):
+    try:
+        previous = aggregated.pop()
+        if isinstance(previous, str) and previous in '+-*/=[]_^{}':
+            aggregated += [previous, token]
+            return
+        try:
+            next_token = next_item_or_group(tokens)
+            if len(aggregated) >= 2:
+                if aggregated[-2] == '_' and token == '^':
+                    aggregated[-2] = '_^'
+                    aggregated += [previous, next_token]
+                elif aggregated[-2] == '^' and token == '_':
+                    aggregated[-2] = '_^'
+                    aggregated += [next_token, previous]
+                else:
+                    aggregated += [token, previous, next_token]
+            else:
+                aggregated += [token, previous, next_token]
+        except EmptyGroupError:
+            aggregated += [previous, token, '{', '}']
+        except StopIteration:
+            return
+    except IndexError:
+        aggregated.append(token)

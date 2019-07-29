@@ -1,5 +1,11 @@
 # coding: utf-8
 
+import sys
+if sys.version_info.major==2:
+	unicode = unicode
+elif sys.version_info.major==3:
+	unicode = str
+
 from collections import OrderedDict
 import io
 import os
@@ -19,7 +25,11 @@ from logHandler import log
 import queueHandler
 import tones
 
-import A8M_PM
+if sys.version_info.major==2:
+	import A8M_PM_2 as A8M_PM
+elif sys.version_info.major==3:
+	import A8M_PM_3 as A8M_PM
+
 from __init__ import MathMlReaderInteraction
 from utils import convert_bool
 addonHandler.initTranslation()
@@ -39,14 +49,14 @@ class GeneralSettingsDialog(SettingsDialog):
 	def makeSettings(self, settingsSizer):
 		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 		languageLabel = _("&Language:")
-		self.languageChoices = available_languages_dict.values()
+		self.languageChoices = list(available_languages_dict.values())
 		self.language = os.environ['LANGUAGE']
 		self.languageList = sHelper.addLabeledControl(languageLabel, wx.Choice, choices=self.languageChoices)
 		try:
-			index = available_languages_dict.keys().index(self.language)
+			index = list(available_languages_dict.keys()).index(self.language)
 		except:
 			initialize_config()
-			index = available_languages_dict.keys().index(self.language)
+			index = list(available_languages_dict.keys()).index(self.language)
 		self.languageList.Selection = index
 
 		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
@@ -71,13 +81,13 @@ class GeneralSettingsDialog(SettingsDialog):
 	def onOk(self,evt):
 
 		try:
-			config.conf["Access8Math"]["language"] = os.environ['LANGUAGE'] = available_languages_dict.keys()[self.languageList.GetSelection()]
+			config.conf["Access8Math"]["language"] = os.environ['LANGUAGE'] = list(available_languages_dict.keys())[self.languageList.GetSelection()]
 			config.conf["Access8Math"]["item_interval_time"] = os.environ['item_interval_time'] = item_interval_time_option[self.item_interval_timeList.GetSelection()]
 			for k in self.CheckBox_settings.keys():
 				config.conf["Access8Math"][k] = os.environ[k] = unicode(getattr(self, k +"CheckBox").IsChecked())
 		except:
 			initialize_config()
-			config.conf["Access8Math"]["language"] = os.environ['LANGUAGE'] = available_languages_dict.keys()[self.languageList.GetSelection()]
+			config.conf["Access8Math"]["language"] = os.environ['LANGUAGE'] = list(available_languages_dict.keys())[self.languageList.GetSelection()]
 			config.conf["Access8Math"]["item_interval_time"] = os.environ['item_interval_time'] = item_interval_time_option[self.item_interval_timeList.GetSelection()]
 			for k in self.CheckBox_settings.keys():
 				config.conf["Access8Math"][k] = os.environ[k] = unicode(getattr(self, k +"CheckBox").IsChecked())
@@ -121,7 +131,7 @@ class RuleSettingsDialog(SettingsDialog):
 			getattr(self, k +"CheckBox").SetValue(value)
 
 	def postInit(self):
-		getattr(self, self.CheckBox_settings.keys()[0] +"CheckBox").SetFocus()
+		getattr(self, list(self.CheckBox_settings.keys())[0] +"CheckBox").SetFocus()
 
 	def onOk(self,evt):
 		try:
@@ -792,26 +802,26 @@ def initialize_config():
 	config.conf["Access8Math"] = {}
 	config.conf["Access8Math"]["language"] = "en"
 	config.conf["Access8Math"]["item_interval_time"] = "50"
-	for k in GeneralSettingsDialog.CheckBox_settings.keys() +RuleSettingsDialog.CheckBox_settings.keys():
+	for k in list(GeneralSettingsDialog.CheckBox_settings.keys()) +list(RuleSettingsDialog.CheckBox_settings.keys()):
 		config.conf["Access8Math"][k] = u"True"
 	tones.beep(100,100)
 
-import sys
 path = os.path.dirname(os.path.abspath(__file__))
 from languageHandler_custom import getAvailableLanguages
 try:
 	available_languages = getAvailableLanguages(path)
 	available_languages = available_languages[:-1]
-except:
+except BaseException as e:
 	available_languages = []
 
 available_languages.append(("Windows", _("build-in")))
+print(available_languages)
 available_languages_dict = {k: v for k, v in available_languages}
 item_interval_time_option = [unicode(i) for i in range(1, 101)]
 
 try:
 	os.environ['LANGUAGE'] = config.conf["Access8Math"]["language"]
-	for k in GeneralSettingsDialog.CheckBox_settings.keys() +RuleSettingsDialog.CheckBox_settings.keys():
+	for k in list(GeneralSettingsDialog.CheckBox_settings.keys()) +list(RuleSettingsDialog.CheckBox_settings.keys()):
 		os.environ[k] = unicode(True if config.conf["Access8Math"][k] in [u'True', u'true', True] else False)
 	os.environ['item_interval_time'] = config.conf["Access8Math"]["item_interval_time"]
 except:
