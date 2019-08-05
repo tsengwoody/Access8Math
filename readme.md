@@ -1,4 +1,4 @@
-# Access8Math ReadMe
+﻿# Access8Math ReadMe
 
 This NVDA addon provides the function of reading math content. Although the original NVDA already equipped this feature by applying MathPlayer, some functions still needed to be improved, especially in MathPlayer some language not provided navigation mode.
 
@@ -137,6 +137,21 @@ Example
 Source code: https://github.com/tsengwoody/Access8Math
 
 Please report any bugs or comments, thank you!
+
+# Access8Math v2.3 Update
+
+*	Compatibility with Python3
+*	refactoring module and fix code style
+*	Adding one symbol vector rule
+
+# Access8Math v2.2 Update
+
+*fix bug incorrect speech when a single node has more characters.
+*	Fix compatibility issue in NVDA 2019.2, thanks to pull requests of CyrilleB79.
+*	Fix bug in unicode dict has duplicate symbols.
+* Add translations in Turkish, thanks to the translation work of CyrilleB79.
+*	Adjust keyboard shortcut.
+
 
 # Access8Math v2.1 Update
 

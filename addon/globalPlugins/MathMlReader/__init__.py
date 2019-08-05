@@ -1,55 +1,51 @@
-﻿# coding: utf-8
-# Access8Math: Allows access math content written by MathML in NVDA
+﻿"""# Access8Math: Allows access math content written by MathML in NVDA
 # Copyright (C) 2017-2019 Tseng Woody <tsengwoody.tw@gmail.com>
 # This file is covered by the GNU General Public License.
-# See the file COPYING.txt for more details.
+# See the file COPYING.txt for more details."""
+# coding: utf-8
 
-from collections import Iterable, OrderedDict
+from collections import Iterable
 import os
 import re
 import sys
-Base_Dir = os.path.dirname(os.path.dirname(__file__))
-sys.path.insert(0, Base_Dir)
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+sys.path.insert(0, BASE_DIR)
 
-if sys.version_info.major==2:
-	path = os.path.dirname(os.path.abspath(__file__))
-	python_path = os.path.join(path, 'python2')
-	sys.path.insert(0, python_path)
-	sys.path.insert(0, path)
+if sys.version_info.major == 2:
+	PATH = os.path.dirname(os.path.abspath(__file__))
+	PYTHON_PATH = os.path.join(PATH, 'python2')
+	sys.path.insert(0, PYTHON_PATH)
+	sys.path.insert(0, PATH)
 	import cgi
 	import xml
 	from xml.etree import ElementTree as ET
-elif sys.version_info.major==3:
-	path = os.path.dirname(os.path.abspath(__file__))
-	python_path = os.path.join(path, 'python3')
-	sys.path.insert(0, python_path)
-	sys.path.insert(0, path)
+elif sys.version_info.major >= 3:
+	PATH = os.path.dirname(os.path.abspath(__file__))
+	PYTHON_PATH = os.path.join(PATH, 'python3')
+	sys.path.insert(0, PYTHON_PATH)
+	sys.path.insert(0, PATH)
 	import cgi
 	import globalPlugins.MathMlReader.python3.xml as xml
 	from globalPlugins.MathMlReader.python3.xml.etree import ElementTree as ET
 
-if sys.version_info.major==2:
+if sys.version_info.major == 2:
 	import A8M_PM_2 as A8M_PM
 	from A8M_PM_2 import create_node, MathContent
-elif sys.version_info.major==3:
+elif sys.version_info.major >= 3:
 	import A8M_PM_3 as A8M_PM
 	from A8M_PM_3 import create_node, MathContent
 
 from utils import convert_bool
 
 import addonHandler
-addonHandler.initTranslation()
 import api
 import config
+import controlTypes
 import eventHandler
 import globalPlugins
 import globalPluginHandler
 import globalVars
-import globalCommands
-from globalCommands import SCRCAT_CONFIG
 import gui
-from gui import guiHelper
-from gui.settingsDialogs import SettingsDialog
 from keyboardHandler import KeyboardInputGesture
 from logHandler import log
 import mathPres
@@ -57,46 +53,86 @@ from mathPres.mathPlayer import MathPlayer
 import speech
 import textInfos
 import textInfos.offsets
-import tones
 import ui
 import wx
-
 import wxgui
 
-if sys.version_info.major==2:
+if sys.version_info.major == 2:
 	string_types = basestring
 	unicode = unicode
-elif sys.version_info.major==3:
+elif sys.version_info.major >= 3:
 	string_types = str
 	unicode = str
 
-def mathml2etree(mathMl):
+
+try:
+	from scriptHandler import script
+except:
+	def script(**kwargs):
+		def script_decorator(decoratedScript):
+			return decoratedScript
+		return script_decorator
+try:
+	addonHandler.initTranslation()
+except:
+	_ = lambda x : x
+try:
+	ADDON_SUMMARY = addonHandler.getCodeAddon().manifest["summary"]
+	ADDON_PANEL_TITLE = str(ADDON_SUMMARY) if sys.version_info.major >= 3 else unicode(ADDON_SUMMARY)
+except:
+	ADDON_PANEL_TITLE = ADDON_SUMMARY = 'focusHighlight'
+
+def mathml2etree(mathml):
+	"""
+	Convert mathml to XML etree object
+	@param mathml: source mathml
+	@type mathml: str
+	@rtype: XML etree
+	"""
 	gtlt_pattern = re.compile(r"([\>])(.*?)([\<])")
-	if sys.version_info.major==2:
+	if sys.version_info.major == 2:
 		import HTMLParser
-		mathMl = gtlt_pattern.sub(lambda m: m.group(1) +cgi.escape(HTMLParser.HTMLParser().unescape(m.group(2))) +m.group(3), mathMl)
-	elif sys.version_info.major==3:
+		mathml = gtlt_pattern.sub(
+						lambda m: m.group(1) +cgi.escape(HTMLParser.HTMLParser().unescape(m.group(2))) +m.group(3),
+						mathml
+		)
+	elif sys.version_info.major >= 3:
 		import html
-		mathMl = gtlt_pattern.sub(lambda m: m.group(1) +cgi.escape(html.unescape(m.group(2))) +m.group(3), mathMl)
+		mathml = gtlt_pattern.sub(
+						lambda m: m.group(1) +cgi.escape(html.unescape(m.group(2))) +m.group(3),
+						mathml
+		)
 
 	quote_pattern = re.compile(r"=([\"\'])(.*?)\1")
-	mathMl = quote_pattern.sub(lambda m: '=' +m.group(1) +cgi.escape(m.group(2)) +m.group(1), mathMl)
+	mathml = quote_pattern.sub(lambda m: '=' +m.group(1) +cgi.escape(m.group(2)) +m.group(1), mathml)
 	parser = ET.XMLParser()
 	try:
-		tree = ET.fromstring(mathMl.encode('utf-8'), parser=parser)
-	except BaseException as e:
-		raise SystemError(e)
+		tree = ET.fromstring(mathml.encode('utf-8'), parser=parser)
+	except BaseException as error:
+		raise SystemError(error)
 	return tree
 
-def flatten(l):
-	for el in l:
-		if isinstance(el, Iterable) and not isinstance(el, string_types):
-			for sub in flatten(el):
+def flatten(lines):
+	"""
+	convert tree to linear using generator
+	@param lines:
+	@type list
+	@rtype
+	"""
+	for line in lines:
+		if isinstance(line, Iterable) and not isinstance(line, string_types):
+			for sub in flatten(line):
 				yield sub
 		else:
-			yield el
+			yield line
 
 def translate_SpeechCommand(serializes):
+	"""
+	convert Access8Math serialize object to SpeechCommand
+	@param lines: source serializes
+	@type list
+	@rtype SpeechCommand
+	"""
 	pattern = re.compile(r'[@](?P<time>[\d]*)[@]')
 	speechSequence = []
 	for r in flatten(serializes):
@@ -111,6 +147,12 @@ def translate_SpeechCommand(serializes):
 	return speechSequence
 
 def translate_Unicode(serializes):
+	"""
+	convert Access8Math serialize object to unicode
+	@param lines: source serializes
+	@type list
+	@rtype unicode
+	"""
 	pattern = re.compile(r'[@](?P<time>[\d]*)[@]')
 	sequence = ''
 
@@ -143,7 +185,8 @@ def translate_Unicode(serializes):
 class InteractionFrame(wxgui.GenericFrame):
 	def __init__(self, obj):
 		self.obj = obj
-		super(InteractionFrame, self).__init__(wx.GetApp().TopWindow, title=_("Access8Math interaction window"))
+		title = _("Access8Math interaction window")
+		super(InteractionFrame, self).__init__(wx.GetApp().TopWindow, title=title)
 
 	def menuData(self):
 		return [
@@ -158,15 +201,15 @@ class InteractionFrame(wxgui.GenericFrame):
 			(_("copy"), self.OnRawdataToClip),
 		)
 
-	def OnExit(self,event):
+	def OnExit(self, event):
 		self.Close(True)  # Close the frame.
 
-	def OnInteraction(self,event):
+	def OnInteraction(self, event):
 		self.obj.parent = api.getFocusObject()
 
 		# 用ctrl+m 出現的互動視窗會朗讀原始程式的視窗資訊
 		def event_focusEntered(self):
-			if self.role in (controlTypes.ROLE_MENUBAR,controlTypes.ROLE_POPUPMENU,controlTypes.ROLE_MENUITEM):
+			if self.role in (controlTypes.ROLE_MENUBAR, controlTypes.ROLE_POPUPMENU, controlTypes.ROLE_MENUITEM):
 				speech.cancelSpeech()
 				return
 			#if self.isPresentableFocusAncestor:
@@ -179,31 +222,31 @@ class InteractionFrame(wxgui.GenericFrame):
 		self.obj.setFocus()
 		#NVDAObjects.NVDAObject.event_focusEntered = old_event_focusEntered
 
-	def OnRawdataToClip(self,event):
+	def OnRawdataToClip(self, event):
 		#api.copyToClip(self.obj.raw_data)
 		api.copyToClip(self.obj.mathcontent.root.get_mathml())
 		ui.message(_("copy"))
 
-	def OnInsert(self,event):
+	def OnInsert(self, event):
 		# asciimath to mathml
 		from xml.etree.ElementTree import tostring
 		import asciimathml
 		from dialogs import AsciiMathEntryDialog
 		entryDialog = AsciiMathEntryDialog(self)
-		if entryDialog.ShowModal()==wx.ID_OK:
+		if entryDialog.ShowModal() == wx.ID_OK:
 			asciimath = entryDialog.GetValue()
-			mathMl = tostring(asciimathml.parse(asciimath))
-			mathMl = mathMl.replace('math>', 'mrow>')
+			mathml = tostring(asciimathml.parse(asciimath))
+			mathml = mathml.replace('math>', 'mrow>')
 
-			tree = mathml2etree(mathMl)
+			tree = mathml2etree(mathml)
 
 			node = create_node(tree)
 			self.obj.mathcontent.insert(node)
 
 class MathMlTextInfo(textInfos.offsets.OffsetsTextInfo):
 
-	def __init__(self,obj,position):
-		super(MathMlTextInfo,self).__init__(obj,position)
+	def __init__(self, obj, position):
+		super(MathMlTextInfo, self).__init__(obj, position)
 		self.obj = obj
 
 	def _getStoryLength(self):
@@ -218,7 +261,7 @@ class MathMlTextInfo(textInfos.offsets.OffsetsTextInfo):
 		serializes = self.obj.mathcontent.pointer.serialized()
 		return translate_Unicode(serializes)
 
-	def _getTextRange(self,start,end):
+	def _getTextRange(self, start, end):
 		"""Retrieve the text in a given offset range.
 		@param start: The start offset.
 		@type start: int
@@ -227,14 +270,18 @@ class MathMlTextInfo(textInfos.offsets.OffsetsTextInfo):
 		@return: The text contained in the requested range.
 		@rtype: unicode
 		"""
-		text=self._getStoryText()
+		text = self._getStoryText()
 		return text[start:end] if text else u""
 
 class MathMlReader(mathPres.MathPresentationProvider):
 
+	def __init__(self, *args, **kwargs):
+		super(MathMlReader, self).__init__(*args, **kwargs)
+		self.mathcontent = None
+
 	def getSpeechForMathMl(self, mathMl):
 		tree = mathml2etree(mathMl)
-		self.mathcontent = MathContent(A8M_PM.mathrule , tree)
+		self.mathcontent = MathContent(A8M_PM.mathrule, tree)
 		globalVars.mathcontent = self.mathcontent
 		return translate_SpeechCommand(self.mathcontent.pointer.serialized())
 
@@ -248,7 +295,7 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 
 		tree = mathml2etree(mathMl)
 		globalVars.math_obj = self
-		self.mathcontent = MathContent(A8M_PM.mathrule , tree)
+		self.mathcontent = MathContent(A8M_PM.mathrule, tree)
 		globalVars.mathcontent = self.mathcontent
 		self.raw_data = mathMl
 		api.setReviewPosition(self.makeTextInfo(), False)
@@ -272,8 +319,8 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 		super(MathMlReaderInteraction, self).event_gainFocus()
 		api.setReviewPosition(self.makeTextInfo(), False)
 
-	'''def event_loseFocus(self):
-		pass'''
+	#def event_loseFocus(self):
+		#pass
 
 	def reportFocus(self):
 		#super(MathMlReaderInteraction, self).reportFocus()
@@ -281,12 +328,12 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 
 	def getScript(self, gesture):
 		if isinstance(gesture, KeyboardInputGesture) and "NVDA" not in gesture.modifierNames and (
-			gesture.mainKeyName in {
-				"leftArrow", "rightArrow", "upArrow", "downArrow",
-				"home", "end",
-				"space", "backspace", "enter",
-			}
-			#or len(gesture.mainKeyName) == 1
+						gesture.mainKeyName in {
+							"leftArrow", "rightArrow", "upArrow", "downArrow",
+							"home", "end",
+							"space", "backspace", "enter",
+						}
+						#or len(gesture.mainKeyName)  ==  1
 		):
 			return self.script_navigate
 		return super(MathMlReaderInteraction, self).getScript(gesture)
@@ -304,80 +351,100 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 				elif convert_bool(os.environ['DG']) and self.mathcontent.pointer.parent.role_level == A8M_PM.DIC_GENERATE:
 					speech.speak([self.mathcontent.pointer.des])
 			else:
-					speech.speak([self.mathcontent.pointer.des])
+				speech.speak([self.mathcontent.pointer.des])
 			speech.speak(translate_SpeechCommand(self.mathcontent.pointer.serialized()))
 		else:
 			speech.speak([_("not move")])
 
+	@script(
+		gesture="kb:control+c",
+		description=_("copy mathml"),
+		category=ADDON_SUMMARY,
+	)
 	def script_rawdataToClip(self, gesture):
 		#api.copyToClip(self.raw_data)
 		api.copyToClip(self.mathcontent.root.get_mathml())
 		ui.message(_("copy"))
 
+	@script(
+		gesture="kb:control+s",
+		description=_("snapshot"),
+		category=ADDON_SUMMARY,
+	)
 	def script_snapshot(self, gesture):
 		globalVars.math_obj = self
 		ui.message(_("snapshot"))
 
+	@script(
+		gesture="kb:control+i",
+		description=_("Insert math object"),
+		category=ADDON_SUMMARY,
+	)
 	def script_insert(self, gesture):
 		wx.CallAfter(self.interactionFrame.OnInsert, None)
 
+	@script(
+		gesture="kb:control+d",
+		description=_("Delete math object"),
+		category=ADDON_SUMMARY,
+	)
 	def script_delete(self, gesture):
 		self.mathcontent.delete()
 
+	@script(
+		gesture="kb:control+m",
+		description=_("Show Access8Math interaction window"),
+		category=ADDON_SUMMARY,
+	)
 	def script_showMenu(self, gesture):
 		if not self.interactionFrame:
 			MathMlReaderInteraction(mathMl=self.raw_data, interaction_frame=True)
 		else:
 			ui.message(_("Access8Math interaction window already showed"))
 
-	__gestures={
-		"kb:control+c": "rawdataToClip",
-		#"kb:control+s": "snapshot",
-		"kb:control+i": "insert",
-		"kb:control+d": "delete",
-		"kb:control+m": "showMenu",
-	}
-
-provider_list = [
-	u"MathMlReader",
-]
-
-try:
-	reader = MathPlayer()
-	provider_list.append(u"MathPlayer")
-	mathPres.registerProvider(reader, speech=True, braille=True, interaction=True)
-except:
-	log.warning("MathPlayer 4 not available")
-
 try:
 	config.conf["Access8Math"]
 except:
 	config.conf["Access8Math"] = {}
 
-try:
-	index = provider_list.index(config.conf["Access8Math"]["provider"])% len(provider_list)
-except:
-	config.conf["Access8Math"]["provider"] = "MathMlReader"
-	index = provider_list.index(config.conf["Access8Math"]["provider"])% len(provider_list)
+provider_list = [
+	MathMlReader,
+]
 
 try:
-	exec(
-		'reader = {}()'.format(provider_list[index])
-	)
+	reader = MathPlayer()
+	provider_list.append(MathPlayer)
+	mathPres.registerProvider(reader, speech=True, braille=True, interaction=True)
+except:
+	log.warning("MathPlayer 4 not available")
+
+try:
+	if config.conf["Access8Math"]["provider"] == "MathMlReader":
+		provider = MathMlReader
+	elif config.conf["Access8Math"]["provider"] == "MathPlayer":
+		provider = MathPlayer
+	else:
+		provider = MathMlReader
+except:
+	config.conf["Access8Math"]["provider"] = "MathMlReader"
+	provider = MathMlReader
+
+try:
+	reader = provider()
 	config.conf["Access8Math"]["provider"] = reader.__class__.__name__
 except:
-	log.warning("{} not available".format(provider_list[index]))
+	log.warning("{} not available".format(reader.__class__.__name__))
+
 mathPres.registerProvider(reader, speech=True, braille=False, interaction=True)
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
-	scriptCategory = _("Access8Math")
-
 	def __init__(self, *args, **kwargs):
 		super(GlobalPlugin, self).__init__(*args, **kwargs)
 		xml_NVDA = sys.modules['xml']
 		sys.modules['xml'] = globalPlugins.MathMlReader.xml
 
-		import dialogs
+		import configure
+		configure.environ_from_config()
 		A8M_PM.config_from_environ()
 		self.language = os.environ['LANGUAGE']
 		self.create_menu()
@@ -386,7 +453,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.toolsMenu = gui.mainFrame.sysTrayIcon.toolsMenu
 		self.menu = wx.Menu()
 
-		# add 
+		# add
 		self.generalSettings = self.menu.Append(
 			wx.ID_ANY,
 			_("&General settings...")
@@ -450,25 +517,35 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		except (RuntimeError, AttributeError, wx.PyDeadObjectError):
 			pass
 
+	@script(
+		gesture="kb:control+alt+m",
+		description=_("Change mathml provider"),
+		category=ADDON_SUMMARY,
+	)
 	def script_change_provider(self, gesture):
-		try:
-			index = (provider_list.index(config.conf["Access8Math"]["provider"]) +1)% len(provider_list)
-		except:
-			config.conf["Access8Math"]["provider"] = reader.__class__.__name__
-			index = (provider_list.index(config.conf["Access8Math"]["provider"]) +1)% len(provider_list)
+		if config.conf["Access8Math"]["provider"] == "MathMlReader":
+			provider = MathPlayer
+		elif config.conf["Access8Math"]["provider"] == "MathPlayer":
+			provider = MathMlReader
+		else:
+			provider = MathMlReader
 
 		try:
-			exec(
-				'reader = {}()'.format(provider_list[index])
-			)
+			reader = provider()
+			config.conf["Access8Math"]["provider"] = reader.__class__.__name__
 		except:
-			log.warning("{} not available".format(provider_list[index]))
+			log.warning("{} not available".format(reader.__class__.__name__))
+
 		mathPres.registerProvider(reader, speech=True, braille=False, interaction=True)
-		config.conf["Access8Math"]["provider"] = provider_list[index]
+
 		ui.message(_("mathml provider change to %s")%config.conf["Access8Math"]["provider"])
-	script_change_provider.category = scriptCategory
-	# Translators: message presented in input mode.
-	script_change_provider.__doc__ = _("Change mathml provider")
+
+	@script(
+		description=_("Shows the Access8Math settings dialog."),
+		category=ADDON_SUMMARY,
+	)
+	def script_settings(self, gesture):
+		wx.CallAfter(self.onGeneralSettings, None)
 
 	def onGeneralSettings(self, evt):
 		from dialogs import GeneralSettingsDialog
@@ -492,12 +569,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		from dialogs import MathRuleDialog
 		gui.mainFrame._popupSettingsDialog(MathRuleDialog, self.language)
 
-	def onAbout(self,evt):
-		import gui
-		# Translators: The title of the dialog to show about info for NVDA.
+	def onAbout(self, evt):
 		aboutMessage = _(
 u"""Access8Math
-Version: 2.1
+Version: 2.3
 URL: https://addons.nvda-project.org/addons/access8math.en.html
 Copyright (C) 2017-2018 Access8Math Contributors
 Access8Math is covered by the GNU General Public License (Version 2). You are free to share or change this software in any way you like as long as it is accompanied by the license and you make all source code available to anyone who wants it. This applies to both original and modified copies of this software, plus any derivative works.
@@ -512,34 +587,24 @@ If you feel this add-on is helpful, please don't hesitate to give support to "Ta
 		import asciimathml
 		from dialogs import AsciiMathEntryDialog
 		entryDialog = AsciiMathEntryDialog(gui.mainFrame)
-		if entryDialog.ShowModal()==wx.ID_OK:
+		if entryDialog.ShowModal() == wx.ID_OK:
 			asciimath = entryDialog.GetValue()
 			mathml = tostring(asciimathml.parse(asciimath))
 			mathml = unicode(mathml)
-			MathMlReaderInteraction(mathMl=mathml, show=True)
+			MathMlReaderInteraction(mathMl=mathml, interaction_frame=True)
 
 	def onLatexAdd(self, evt):
 		import latex2mathml.converter
 		from dialogs import LatexEntryDialog
 		entryDialog = LatexEntryDialog(gui.mainFrame)
-		if entryDialog.ShowModal()==wx.ID_OK:
+		if entryDialog.ShowModal() == wx.ID_OK:
 			latex = entryDialog.GetValue()
 			mathml = latex2mathml.converter.convert(latex)
-			if sys.version_info.major==2:
+			if sys.version_info.major == 2:
 				import HTMLParser
 				mathml = HTMLParser.HTMLParser().unescape(mathml)
-			elif sys.version_info.major==3:
+			elif sys.version_info.major >= 3:
 				import html
 				mathml = html.unescape(mathml)
 
-			MathMlReaderInteraction(mathMl=mathml, show=True)
-
-	def script_settings(self, gesture):
-		wx.CallAfter(self.onSettings, None)
-	script_settings.category = scriptCategory
-	# Translators: message presented in input mode.
-	script_settings.__doc__ = _("Shows the Access8Math settings dialog.")
-
-	__gestures={
-		"kb:control+alt+m": "change_provider",
-	}
+			MathMlReaderInteraction(mathMl=mathml, interaction_frame=True)

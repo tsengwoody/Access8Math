@@ -4,8 +4,6 @@
 # This file is covered by the GNU General Public License.
 # See the file COPYING.txt for more details.
 
-import config
-
 def convert_bool(s):
 	if s in ['True', 'true',]:
 		return True
