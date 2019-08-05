@@ -149,7 +149,7 @@ Please report any bugs or comments, thank you!
 *fix bug incorrect speech when a single node has more characters.
 *	Fix compatibility issue in NVDA 2019.2, thanks to pull requests of CyrilleB79.
 *	Fix bug in unicode dict has duplicate symbols.
-* Add translations in Turkish, thanks to the translation work of CyrilleB79.
+* Add translations in French, thanks to the translation work of CyrilleB79.
 *	Adjust keyboard shortcut.
 
 
