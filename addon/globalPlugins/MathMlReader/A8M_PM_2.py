@@ -244,8 +244,10 @@ class Node(object):
 		if len(rule) >= 2 and isinstance(rule[1], tuple):
 			result = []
 			for i in range(len(self.child)):
-				if not (rule[1][0].isspace() or rule[1][0] == u''):
-					result.append(u'{0}{1}'.format(rule[1][0], i + 1))
+				before_empty = (rule[1][0].isspace() or rule[1][0] == u'')
+				after_empty = (rule[1][1].isspace() or rule[1][1] == u'')
+				if not (before_empty and after_empty):
+					result.append(u'{0}{1}{2}'.format(rule[1][0], i + 1, rule[1][1]))
 				result.append(i)
 
 			rule = rule[0:1] + result + rule[-1:]
@@ -1315,11 +1317,9 @@ def save_math_rule(mathrule, path=None, language=''):
 
 
 def symbol_translate(u):
-	t = [symbol[i] if i in symbol else i for i in u]
-	r = u''
-	for i in t:
-		r = r + i
-	return r
+	for key, value in symbol.items():
+		u = u.replace(key, value)
+	return u
 
 
 def config_from_environ():

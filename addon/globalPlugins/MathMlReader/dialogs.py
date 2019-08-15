@@ -420,9 +420,15 @@ class RuleEntryDialog(wx.Dialog):
 				widget.Selection = item
 				self.so_widgets.append(widget)
 			elif isinstance(item, tuple):
-				labelText = _("Prefix text &%d")%(index)
+				# before item
+				labelText = _("Before item text &%d")%(index)
 				widget = itemGroup.addLabeledControl(labelText, wx.TextCtrl)
 				widget.SetValue(item[0])
+				self.so_widgets.append(widget)
+				# after item
+				labelText = _("After item text &%d")%(index)
+				widget = itemGroup.addLabeledControl(labelText, wx.TextCtrl)
+				widget.SetValue(item[1])
 				self.so_widgets.append(widget)
 			else:
 				if index==0:

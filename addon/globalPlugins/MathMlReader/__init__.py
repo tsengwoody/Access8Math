@@ -424,6 +424,7 @@ try:
 	elif config.conf["Access8Math"]["provider"] == "MathPlayer":
 		provider = MathPlayer
 	else:
+		config.conf["Access8Math"]["provider"] = "MathMlReader"
 		provider = MathMlReader
 except:
 	config.conf["Access8Math"]["provider"] = "MathMlReader"
@@ -433,7 +434,9 @@ try:
 	reader = provider()
 	config.conf["Access8Math"]["provider"] = reader.__class__.__name__
 except:
-	log.warning("{} not available".format(reader.__class__.__name__))
+	provider = MathMlReader
+	reader = provider()
+	config.conf["Access8Math"]["provider"] = reader.__class__.__name__
 
 mathPres.registerProvider(reader, speech=True, braille=False, interaction=True)
 
@@ -523,18 +526,24 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		category=ADDON_SUMMARY,
 	)
 	def script_change_provider(self, gesture):
-		if config.conf["Access8Math"]["provider"] == "MathMlReader":
-			provider = MathPlayer
-		elif config.conf["Access8Math"]["provider"] == "MathPlayer":
-			provider = MathMlReader
-		else:
+		try:
+			if config.conf["Access8Math"]["provider"] == "MathMlReader":
+				provider = MathPlayer
+			elif config.conf["Access8Math"]["provider"] == "MathPlayer":
+				provider = MathMlReader
+			else:
+				provider = MathMlReader
+		except:
+			config.conf["Access8Math"]["provider"] = "MathMlReader"
 			provider = MathMlReader
 
 		try:
 			reader = provider()
 			config.conf["Access8Math"]["provider"] = reader.__class__.__name__
 		except:
-			log.warning("{} not available".format(reader.__class__.__name__))
+			provider = MathMlReader
+			reader = provider()
+			config.conf["Access8Math"]["provider"] = reader.__class__.__name__
 
 		mathPres.registerProvider(reader, speech=True, braille=False, interaction=True)
 
