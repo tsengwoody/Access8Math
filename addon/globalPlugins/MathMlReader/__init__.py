@@ -515,10 +515,16 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.Access8Math_item = self.toolsMenu.AppendSubMenu(self.menu, _("Access8Math"), _("Access8Math"))
 
 	def terminate(self):
-		try:
-			self.toolsMenu.RemoveItem(self.Access8Math_item)
-		except (RuntimeError, AttributeError, wx.PyDeadObjectError):
-			pass
+		if wx.VERSION[0] < 4:
+			try:
+				self.toolsMenu.RemoveItem(self.Access8Math_item)
+			except (AttributeError, wx.PyDeadObjectError):
+				pass
+		else:
+			try:
+				self.toolsMenu.Remove(self.Access8Math_item)
+			except (AttributeError, RuntimeError):
+				pass
 
 	@script(
 		gesture="kb:control+alt+m",

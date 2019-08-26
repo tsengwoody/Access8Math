@@ -45,3 +45,4 @@ VectorSingleType	vecteur, 0,	principal,suscrit	vecteur avec un symbole (notation
 VectorDoubleType	vecteur, 0,	principal,suscrit	vecteur avec deux symboles (notation anglo-saxonne)
 ArrowOverSingleSymbolType	vecteur, 0,	main,super	Vecteur avec un symbole (notation française)
 FrownType	arc, 0,	principal,suscrit	arc
+DegreeType	0, degree	main,super	degree

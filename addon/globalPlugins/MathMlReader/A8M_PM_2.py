@@ -118,8 +118,8 @@ class MathContent(object):
 	def __init__(self, mathrule, et):
 		self.root = self.pointer = create_node(et)
 		clean_allnode(self.root)
-		self.mathrule = {}
-		self.set_mathrule(mathrule)
+		self.mathrule = mathrule
+		self.set_mathrule(self.mathrule)
 
 	def set_mathrule(self, mathrule):
 		self.mathrule = mathrule
@@ -988,6 +988,17 @@ class FrownType(NonTerminalNodeType):
 	name = 'FrownType'
 
 
+class MoDegreeType(TerminalNodeType):
+	tag = Mo
+	data = re.compile(ur"^[°∘]$")
+
+
+class DegreeType(NonTerminalNodeType):
+	tag = Msup
+	child = [MnOperandType, MoDegreeType, ]
+	name = 'DegreeType'
+
+
 class SingleType(CompoundNodeType):
 	compound = [MiType, MnType, MoType]
 
@@ -1435,6 +1446,7 @@ mathrule_info = {
 		"VectorDoubleType": [3, 2, ".", ],
 		"ArrowOverSingleSymbolType": [3, 2, ".", ],
 		"FrownType": [3, 2, ".", ],
+		"DegreeType": [3, 2, ".", ],
 	},
 	"other": {
 		"NegativeSignType": [1, 1, ".", ],
@@ -1517,6 +1529,7 @@ mathrule_order = {
 		"VectorDoubleType",
 		"ArrowOverSingleSymbolType",
 		"FrownType",
+		"DegreeType",
 	],
 	"other": [
 		"NegativeSignType",

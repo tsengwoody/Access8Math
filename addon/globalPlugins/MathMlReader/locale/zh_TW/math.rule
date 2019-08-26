@@ -45,3 +45,4 @@ VectorSingleType	向量, 0,	主符號,正上標	單符號向量
 VectorDoubleType	向量, 0,	主符號,正上標	雙符號向量
 ArrowOverSingleSymbolType	vector, 0,	main,super	Arrow over a single symbol (vector in French notation)
 FrownType	弧, 0,	主符號,正上標	符號弧
+DegreeType	0, 度	主符號,上標	符號度

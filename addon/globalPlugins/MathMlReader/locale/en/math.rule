@@ -45,3 +45,4 @@ VectorSingleType	vector, 0,	main,super	vector have one symbol
 VectorDoubleType	vector, 0,	main,super	vector have two symbol
 ArrowOverSingleSymbolType	vector, 0,	main,super	Arrow over a single symbol (vector in French notation)
 FrownType	frown, 0,	main,super	frown
+DegreeType	0, degree	main,super	degree

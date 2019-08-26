@@ -1,4 +1,4 @@
-node	
+﻿node	
 math	<math><mn>1</mn><mo>+</mo><mn>2</mn><mo>+</mo><mn>3</mn></math>
 mfrac	<math><mrow><mfrac><mn>3</mn><mrow><mn>1</mn><mo>+</mo><mi>x</mi></mrow></mfrac></mrow></math>
 single_fraction	<math><mfrac><mi>3</mi><mi>4</mi></mfrac></math>
@@ -39,6 +39,7 @@ VectorSingleType	<math><mrow><mover accent='true'><mrow><mi>A</mi></mrow><mo str
 VectorDoubleType	<math><mrow><mover accent='true'><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy='true'>&#x21C0;</mo></mover></mrow></math>
 ArrowOverSingleSymbolType	<math><mrow><mover accent='true'><mrow><mi>a</mi></mrow><mo stretchy='true'>&#x2192;</mo></mover></mrow></math>
 FrownType	<math><mrow><mover accent='true'><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy='true'>&#x2322;</mo></mover></mrow></math>
+DegreeType	<math ><msup ><mn>15</mn><mo>∘</mo></msup><mo>+</mo><msup ><mn>10</mn><mo>∘</mo></msup><mo>=</mo><msup ><mn>25</mn><mo>∘</mo></msup></math>
 NegativeSignType	<math><mo>-</mo><mn>2</mn></math>
 PositiveSignType	<math><mo>+</mo><mn>2</mn></math>
 mmultiscripts	<math><mmultiscripts><mi>T</mi><mprescripts/><mi>n</mi><mi>m</mi></mmultiscripts></math>
