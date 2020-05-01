@@ -1,0 +1,409 @@
+﻿symbols:
+
+#0370−03ff
+ͱ	heta	none
+ͱ	heta	none
+ͳ	archaic sampi	none
+ͳ	archaic sampi	none
+ʹ	numeral sign	none
+͵	lower numeral sign	none
+ͷ	pamphylian digamma	none
+ͷ	pamphylian digamma	none
+ͺ	ypogegrammeni	none
+ͻ	reversed lunate sigma 	none
+ͼ	dotted lunate sigma 	none
+ͽ	reversed dotted lunate sigma 	none
+;	ponto de interrogação	none
+Ϳ	yot	none
+΄	tom	none
+΅	dialytika tonos	none
+ά	letra alfa com tom	none
+·	ano teleia	none
+έ	letra epsilon com tom	none
+ή	letra eta com tom	none
+ί	letra iota com tom	none
+ό	letra omicron com tom	none
+ύ	letra upsilon com tom	none
+ώ	letra omega com tom	none
+ΐ	letra iota com solventes e tom	none
+α	letra grega alfa	none
+β	letra grega beta	none
+γ	letra grega gama	none
+δ	letra grega delta	none
+ε	letra grega epsilon	none
+ζ	letra grega zeta	none
+η	letra grega eta	none
+θ	letra grega theta	none
+ι	letra grega lota	none
+κ	letra grega kappa	none
+λ	letra grega lamda	none
+μ	letra grega mu	none
+ν	letra grega nu	none
+ξ	letra grega xi	none
+ο	letra grega omicron	none
+π	letra grega pi	none
+ρ	letra grega rho	none
+σ	letra grega sigma	none
+τ	letra grega tau	none
+υ	letra grega upsilon	none
+φ	letra grega phi	none
+χ	letra grega chi	none
+ψ	letra grega psi	none
+ω	letra grega omega	none
+ϊ	letra grega iota com solventes	none
+ϋ	letra grega upsilon com solventes	none
+ά	letra grega alfa com tom	none
+έ	letra grega epsilon com tom	none
+ή	letra grega eta com tom	none
+ί	letra grega iota com tom	none
+ΰ	letra grega upsilon com solventes e tom	none
+α	letra grega alfa	none
+β	letra grega beta	none
+γ	letra grega gama	none
+δ	letra grega delta	none
+ε	letra grega epsilon	none
+ζ	letra grega zeta	none
+η	letra grega eta	none
+θ	letra grega theta	none
+ι	letra grega lota	none
+κ	letra grega kappa	none
+λ	letra grega lamda	none
+μ	letra grega mu	none
+ν	letra grega nu	none
+ξ	letra grega xi	none
+ο	letra grega omicron	none
+π	letra grega pi	none
+ρ	letra grega rho	none
+ς	letra grega final sigma	none
+σ	letra grega sigma	none
+τ	letra grega tau	none
+υ	letra grega upsilon	none
+φ	letra grega phi	none
+χ	letra grega chi	none
+ψ	letra grega psi	none
+ω	letra grega omega	none
+ϊ	iota with dialytika	none
+ϋ	upsilon with dialytika	none
+ό	omicron with tonos	none
+ύ	upsilon with tonos	none
+ώ	omega with tonos	none
+ϗ	kai 	none
+ϐ	beta	none
+ϑ	theta	none
+ϒ	upsilon with hook 	none
+ϓ	upsilon with acute and hook 	none
+ϔ	upsilon with diaeresis and hook 	none
+ϕ	phi	none
+ϖ	pi	none
+ϗ	kai	none
+ϙ	koppa	none
+ϙ	koppa	none
+ϛ	stigma	none
+ϛ	stigma	none
+ϝ	diggmma	none
+ϝ	diggmma	none
+ϟ	koppa	none
+ϟ	koppa	none
+ϡ	sampi	none
+ϡ	sampi	none
+ϣ	shei	none
+ϣ	shei	none
+ϥ	fei	none
+ϥ	fei	none
+ϧ	khei	none
+ϧ	khei	none
+ϩ	hori	none
+ϩ	hori	none
+ϫ	gangia	none
+ϫ	gangia	none
+ϭ	shima	none
+ϭ	shima	none
+ϯ	dei	none
+ϯ	dei	none
+ϰ	kappa	none
+ϱ	rho	none
+ϲ	lunate sigma	none
+ϳ	yot	none
+θ	theta	none
+ϵ	lunate epsilon	none
+϶	reversed lunate epsilon 	none
+ϸ	sho	none
+ϸ	sho	none
+ϲ	lunate sigma	none
+ϻ	san	none
+ϻ	san	none
+ϼ	rho with stroke	none
+ͻ	reversed lunate sigma 	none
+ͼ	dotted lunate sigma 	none
+ͽ	reversed dotted lunate sigma	none
+
+∀	for all	none
+∁	complement	none
+∂	partial differential	none
+∃	there exists	none
+∄	there does not exist	none
+∅	empty set	none
+∆	increment	none
+∇	nabla	none
+∈	element of	none
+∉	not an element of	none
+∊	small element of	none
+∋	contains as member	none
+∌	does not contain as member	none
+∍	small contains as member	none
+∎	end of proof	none
+∏	n-ary product	none
+∐	n-ary coproduct	none
+∑	n-ary summation	none
+−	minus sign	none
+∓	minus-or-plus sign	none
+∔	dot plus	none
+∕	division slash	none
+∖	set minus	none
+∗	asterisk operator	none
+∘	ring operator	none
+∙	bullet operator	none
+√	square root	none
+∛	cube root	none
+∜	fourth root	none
+∝	proportional to	none
+∞	infinity	none
+∟	right angle	none
+∠	angle	none
+∡	measured angle	none
+∢	spherical ang	none
+∣	divides	none
+∤	does not divide	none
+∥	parallel to	none
+∦	not parallel to	none
+∧	logical and	none
+∨	logical or	none
+∩	intersection	none
+∪	union	none
+∫	integral	none
+∬	double integral	none
+∭	triple integral	none
+∮	contour integral	none
+∯	surface integral	none
+∰	volume integral	none
+∱	clockwise integral	none
+∲	clockwise contour integral	none
+∳	anticlockwise contour integral	none
+∴	therefore	none
+∵	because	none
+∶	ratio	none
+∷	proportion	none
+∸	dot minus	none
+∹	excess	none
+∺	geometric proportion	none
+∻	homothetic	none
+∼	tilde operator	none
+∽	reversed tilde	none
+∾	inverted lazy s	none
+∿	sine wave	none
+≀	wreath product	none
+≁	not tilde	none
+≂	minus tilde	none
+≃	asymptotically equal to	none
+≄	not asymptotically equal to	none
+≅	approximately equal to	none
+≆	approximately but not actually equal to	none
+≇	neither approximately nor actually equal to	none
+≈	almost equal to	none
+≉	not almost equal to	none
+≊	almost equal or equal to	none
+≋	triple tilde	none
+≌	all equal to	none
+≍	equivalent to	none
+≎	geometrically equivalent to	none
+≏	difference between	none
+≐	approaches the limit	none
+≑	geometrically equal to	none
+≒	approximately equal to or the image of	none
+≓	image of or approximately equal to	none
+≔	colon equals	none
+≕	equals colon	none
+≖	ring in equal to	none
+≗	ring equal to	none
+≘	corresponds to	none
+≙	estimates	none
+≚	equiangular to	none
+≛	star equals	none
+≜	delta equal to	none
+≝	equal to by definition	none
+≞	measured by	none
+≟	questioned equal to	none
+≠	not equal to	none
+≡	identical to	none
+≢	not identical to	none
+≣	strictly equivalent to	none
+≤	less-than or equal to	none
+≥	greater-than or equal to	none
+≦	less-than over equal to	none
+≧	greater-than over equal to	none
+≨	less-than but not equal to	none
+≩	greater-than but not equal to	none
+≪	much less-than	none
+≫	much greater-than	none
+≬	between	none
+≭	not equivalent to	none
+≮	not less-than	none
+≯	not greater-than	none
+≰	neither less-than nor equal to	none
+≱	neither greater-than nor equal to	none
+≲	less-than or equivalent to	none
+≳	greater-than or equivalent to	none
+≴	neither less-than nor equivalent to	none
+≵	neither greater-than nor equivalent to	none
+≶	less-than or greater-than	none
+≷	greater-than or less-than	none
+≸	neither less-than nor greater-than	none
+≹	neither greater-than nor less-than	none
+≺	precedes	none
+≻	succeeds	none
+≼	precedes or equal to	none
+≽	succeeds or equal to	none
+≾	precedes or equivalent to	none
+≿	succeeds or equivalent to	none
+⊀	does not precede	none
+⊁	does not succeed	none
+⊂	subset of	none
+⊃	superset of	none
+⊄	not a subset of	none
+⊅	not a superset of	none
+⊆	subset of or equal to	none
+⊇	superset of or equal to	none
+⊈	neither a subset of nor equal to	none
+⊉	neither a superset of nor equal to	none
+⊊	subset of with not equal to	none
+⊋	superset of with not equal to	none
+⊌	multiset	none
+⊍	multiset multiplication	none
+⊎	multiset union	none
+⊏	square image of	none
+⊐	square original of	none
+⊑	square image of or equal to	none
+⊒	square original of or equal to	none
+⊓	square cap	none
+⊔	square cup	none
+⊕	circled plus	none
+⊖	circled minus	none
+⊗	circled times	none
+⊘	circled division slash	none
+⊙	circled dot operator	none
+⊚	circled ring operator	none
+⊛	circled asterisk operator	none
+⊜	circled equals	none
+⊝	circled dash	none
+⊞	squared plus	none
+⊟	squared minus	none
+⊠	squared times	none
+⊡	squared dot operator	none
+⊢	right tack	none
+⊣	left tack	none
+⊤	down tack	none
+⊥	up tack	none
+⊦	assertion	none
+⊧	models	none
+⊨	true	none
+⊩	forces	none
+⊪	triple vertical bar right turnstile	none
+⊫	double vertical bar double right turnstile	none
+⊬	does not prove	none
+⊭	not true	none
+⊮	does not force	none
+⊯	negated double vertical bar double right turnstile	none
+⊰	precedes under relation	none
+⊱	succeeds under relation	none
+⊲	normal subgroup of	none
+⊳	contains as normal subgroup	none
+⊴	normal subgroup of or equal to	none
+⊵	contains as normal subgroup or equal to	none
+⊶	original of	none
+⊷	image of	none
+⊸	multimap	none
+⊹	hermitian conjugate matrix	none
+⊺	intercalate	none
+⊻	xor	none
+⊼	nand	none
+⊽	nor	none
+⊾	right angle with arc	none
+⊿	right triangle	none
+⋀	n-ary logical and	none
+⋁	n-ary logical or	none
+⋂	n-ary intersection	none
+⋃	n-ary union	none
+⋄	diamond operator	none
+⋅	dot operator	none
+⋆	star operator	none
+⋇	division times	none
+⋈	bowtie	none
+⋉	left normal factor semidirect product	none
+⋊	right normal factor semidirect product	none
+⋋	left semidirect product	none
+⋌	right semidirect product	none
+⋍	reversed tilde equals	none
+⋎	curly logical or	none
+⋏	curly logical and	none
+⋐	double subset	none
+⋑	double superset	none
+⋒	double intersection	none
+⋓	double union	none
+⋔	pitchfork	none
+⋕	equal and parallel to	none
+⋖	less-than with dot	none
+⋗	greater-than with dot	none
+⋘	very much less-than	none
+⋙	very much greater-than	none
+⋚	less-than equal to or greater-than	none
+⋛	greater-than equal to or less-than	none
+⋜	equal to or less-than	none
+⋝	equal to or greater-than	none
+⋞	equal to or precedes	none
+⋟	equal to or succeeds	none
+⋠	does not precede or equal	none
+⋡	does not succeed or equal	none
+⋢	not square image of or equal to	none
+⋣	not square original of or equal to	none
+⋤	square image of or not equal to	none
+⋥	square original of or not equal to	none
+⋦	less-than but not equivalent to	none
+⋧	greater-than but not equivalent to	none
+⋨	precedes but not equivalent to	none
+⋩	succeeds but not equivalent to	none
+⋪	not normal subgroup of	none
+⋫	does not contain as normal subgroup	none
+⋬	not normal subgroup of or equal to	none
+⋭	does not contain as normal subgroup or equal	none
+⋮	vertical ellipsis	none
+⋯	midline horizontal ellipsis	none
+⋰	up right diagonal ellipsis	none
+⋱	down right diagonal ellipsis	none
+⋲	element of with long horizontal stroke	none
+⋳	element of with vertical bar at end of horizontal stroke	none
+⋴	small element of with vertical bar at end of horizontal stroke	none
+⋵	element of with dot above	none
+⋶	element of with overbar	none
+⋷	small element of with overbar	none
+⋸	element of with underbar	none
+⋹	element of with two horizontal strokes	none
+⋺	contains with long horizontal stroke	none
+⋻	contains with vertical bar at end of horizontal stroke	none
+⋼	small contains with vertical bar at end of horizontal stroke	none
+⋽	contains with overbar	none
+⋾	small contains with overbar	none
+⋿	z notation bag membership	none
+
+# constant
+math	math	none
+item	item	none
+has	has	none
+row	row	none
+column	column	none
+order	order	none
+rightdownmark	right down mark	none
+rightupmark	right up mark	none
+leftdownmark	left down mark	none
+leftupmark	left up mark	none
+main	main	none
+mprescripts_index	mprescripts index	none
