@@ -102,7 +102,7 @@ def mathml2etree(mathml):
 						lambda m: m.group(1) +cgi.escape(html.unescape(m.group(2))) +m.group(3),
 						mathml
 		)
-
+	
 	quote_pattern = re.compile(r"=([\"\'])(.*?)\1")
 	mathml = quote_pattern.sub(lambda m: '=' +m.group(1) +cgi.escape(m.group(2)) +m.group(1), mathml)
 	parser = ET.XMLParser()
@@ -110,6 +110,7 @@ def mathml2etree(mathml):
 		tree = ET.fromstring(mathml.encode('utf-8'), parser=parser)
 	except BaseException as error:
 		raise SystemError(error)
+
 	return tree
 
 def flatten(lines):
@@ -136,6 +137,7 @@ def translate_SpeechCommand(serializes):
 	pattern = re.compile(r'[@](?P<time>[\d]*)[@]')
 	speechSequence = []
 	for r in flatten(serializes):
+	
 		time_search = pattern.search(r)
 		try:
 			time = time_search.group('time')
@@ -198,13 +200,11 @@ class InteractionFrame(wxgui.GenericFrame):
 	def buttonData(self):
 		return (
 			(_("interaction"), self.OnInteraction),
+			(_("interação usando abstração de complexidade"), self.OnInteractionAbstractComplexity),
 			(_("copy"), self.OnRawdataToClip),
 		)
 
-	def OnExit(self, event):
-		self.Close(True)  # Close the frame.
-
-	def OnInteraction(self, event):
+	def interactionTreatment(self, event):
 		self.obj.parent = api.getFocusObject()
 
 		# 用ctrl+m 出現的互動視窗會朗讀原始程式的視窗資訊
@@ -220,7 +220,16 @@ class InteractionFrame(wxgui.GenericFrame):
 		#NVDAObjects.NVDAObject.event_focusEntered = event_focusEntered
 		#eventHandler.executeEvent("gainFocus", self.obj)
 		self.obj.setFocus()
-		#NVDAObjects.NVDAObject.event_focusEntered = old_event_focusEntered
+
+	def OnInteractionAbstractComplexity(self, event):
+		self.interactionTreatment(event)
+		abstraction_complexity_treatment = True
+
+	def OnExit(self, event):
+		self.Close(True)  # Close the frame.
+
+	def OnInteraction(self, event):
+		self.interactionTreatment(event)
 
 	def OnRawdataToClip(self, event):
 		#api.copyToClip(self.obj.raw_data)
