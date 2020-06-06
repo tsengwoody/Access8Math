@@ -284,7 +284,13 @@ class Node(object):
 			serialized.append(['@10@'])
 		for r in self.rule:
 			if isinstance(r, int):
-				serialized.append(self.mathrule[self.child[r].tag].abstract_reading if self.child[r].shouldReadAbstract else self.child[r].serialized())
+				strReading = ''
+				if abstractMode:
+					strReading = self.mathrule[self.child[r].tag].abstract_reading if self.child[r].shouldReadAbstract else self.child[r].serialized()
+				else:
+					strReading = self.child[r].serialized()
+
+				serialized.append(strReading)
 			elif r == '*':
 				for c in self.child:
 					if c:
@@ -1372,11 +1378,11 @@ def symbol_translate(u):
 
 
 def config_from_environ():
-	global AMM, symbol, mathrule, mathrule_abstract, abstraction_complexity_treatment
+	global AMM, symbol, mathrule, abstractMode, abstraction_complexity_treatment
 	language = os.environ.get('LANGUAGE', 'Windows')
 	symbol = load_unicode_dic(language=language)
 	mathrule = load_math_rule(language=language)
-	# mathrule_abstract = load_math_rule(language=language, abstract=True)
+	abstractMode = False
 	AMM = True if os.environ.get('AMM', 'True') in [u'True', u'true'] else False
 
 	global nodetypes_check, SNT_check
@@ -1390,6 +1396,11 @@ def config_from_environ():
 	if not AMM:
 		nodetypes_check = SNT_check = []
 
+
+abstractMode = False
+def abstractModeToggle():
+	global abstractMode
+	abstractMode = not abstractMode
 
 # get class which is Node subclass
 nodes = {i.__name__: i for i in locals().values() if inspect.isclass(i) and issubclass(i, Node)}

@@ -632,3 +632,14 @@ If you feel this add-on is helpful, please don't hesitate to give support to "Ta
 				mathml = html.unescape(mathml)
 
 			MathMlReaderInteraction(mathMl=mathml, interaction_frame=True)
+	
+	@script(
+		gesture="kb:control+alt+a",
+		description=_("Enable abstract reading"),
+		category=ADDON_SUMMARY,
+	)
+	def script_teste(self, gesture):
+		A8M_PM.abstractModeToggle()
+		A8M_PM.printLog(A8M_PM.abstractMode)
+		A8M_PM.printLog(api.getFocusObject())
+		eventHandler.executeEvent("gainFocus", api.getFocusObject().next)
