@@ -1402,6 +1402,10 @@ def abstractModeToggle():
 	global abstractMode
 	abstractMode = not abstractMode
 
+def is_on_abstract_mode():
+	global abstractMode
+	return abstractMode
+
 # get class which is Node subclass
 nodes = {i.__name__: i for i in locals().values() if inspect.isclass(i) and issubclass(i, Node)}
 

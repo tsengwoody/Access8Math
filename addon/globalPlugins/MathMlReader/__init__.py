@@ -207,6 +207,7 @@ class InteractionFrame(wxgui.GenericFrame):
 	def interactionTreatment(self, event):
 		self.obj.parent = api.getFocusObject()
 
+
 		# 用ctrl+m 出現的互動視窗會朗讀原始程式的視窗資訊
 		def event_focusEntered(self):
 			if self.role in (controlTypes.ROLE_MENUBAR, controlTypes.ROLE_POPUPMENU, controlTypes.ROLE_MENUITEM):
@@ -226,6 +227,8 @@ class InteractionFrame(wxgui.GenericFrame):
 		abstraction_complexity_treatment = True
 
 	def OnExit(self, event):
+		if self.obj.parent is not None:
+			self.obj.parent.setFocus()
 		self.Close(True)  # Close the frame.
 
 	def OnInteraction(self, event):
@@ -287,6 +290,7 @@ class MathMlReader(mathPres.MathPresentationProvider):
 	def __init__(self, *args, **kwargs):
 		super(MathMlReader, self).__init__(*args, **kwargs)
 		self.mathcontent = None
+		self.mathReader = None
 
 	def getSpeechForMathMl(self, mathMl):
 		tree = mathml2etree(mathMl)
@@ -295,7 +299,7 @@ class MathMlReader(mathPres.MathPresentationProvider):
 		return translate_SpeechCommand(self.mathcontent.pointer.serialized())
 
 	def interactWithMathMl(self, mathMl):
-		MathMlReaderInteraction(mathMl=mathMl)
+		self.mathReader = MathMlReaderInteraction(mathMl=mathMl)
 
 class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 
@@ -310,10 +314,11 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 		api.setReviewPosition(self.makeTextInfo(), False)
 
 		self.interactionFrame = None
-		if convert_bool(os.environ['IFS']) or interaction_frame:
+		if (not A8M_PM.is_on_abstract_mode()) and (convert_bool(os.environ['IFS']) or interaction_frame):
 			self.interactionFrame = InteractionFrame(self)
 			self.interactionFrame.Show()
 			self.interactionFrame.Raise()
+
 		self.setFocus()
 
 	def _get_mathMl(self):
@@ -327,6 +332,9 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 		speech.speak([_("enter interaction mode")])
 		super(MathMlReaderInteraction, self).event_gainFocus()
 		api.setReviewPosition(self.makeTextInfo(), False)
+	
+	def event_loseFocus(self):
+		speech.speak([_("exiting interaction mode")])
 
 	#def event_loseFocus(self):
 		#pass
@@ -638,8 +646,8 @@ If you feel this add-on is helpful, please don't hesitate to give support to "Ta
 		description=_("Enable abstract reading"),
 		category=ADDON_SUMMARY,
 	)
-	def script_teste(self, gesture):
+	def script_switch_reading_strategy(self, gesture):
 		A8M_PM.abstractModeToggle()
-		A8M_PM.printLog(A8M_PM.abstractMode)
-		A8M_PM.printLog(api.getFocusObject())
-		eventHandler.executeEvent("gainFocus", api.getFocusObject().next)
+		speech.speak([_("enabling abstract reading mode")])
+
+	
