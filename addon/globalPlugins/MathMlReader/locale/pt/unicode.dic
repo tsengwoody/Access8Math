@@ -155,7 +155,7 @@
 ∏	n-ary product	none
 ∐	n-ary coproduct	none
 ∑	n-ary summation	none
-−	minus sign	none
+−	menos	none
 ∓	minus-or-plus sign	none
 ∔	dot plus	none
 ∕	division slash	none
@@ -393,6 +393,8 @@
 ⋽	contains with overbar	none
 ⋾	small contains with overbar	none
 ⋿	z notation bag membership	none
+(	abre parentesis	none
+)	fecha parentesis 	none
 
 # constant
 math	math	none

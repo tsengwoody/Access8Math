@@ -3,12 +3,12 @@ node	, (.),	item	nó
 mfrac	fração com numerador, 0, e denominador, 1, final da fração	numerador,denominador	fração genérica	fração
 mfenced	parênteses abertos, (.), parênteses fechados	item	parênteses genéricos
 msqrt	raiz quadrada de, (.), final da raiz	item	raiz quadrada	raiz quadrada
-mroot	a, 1, raiz de, 0, final da raiz	raiz,contagem	raiz	raiz
+mroot	raiz a, 1, de, 0, final da raiz	raiz,contagem	raiz	raiz
 math	, (.),	item	matemática
 msubsup	, 0, com, 1, sub, 2, super	principal,sub,super	símbolo tem subscrito e sobrescrito
 msub	, 0, com, 1, sub	principal,sub	símbolo tem subscrito
-msup	, 0, com, 1, super	principal,super	símbolo tem subscrito
-munderover	, 0, com, 1, abaixo, 2, principal acima,abaixo,acima	símbolo tem subscrito e sobrescrito
+msup	base, 0, final da base elevado a expoente, 1, final do expoente	principal,super	símbolo tem subscrito exponencial exponencial
+munderover	, 0, com, 1, inferior, 2, superior	principal,inferior,superior	símbolo com valor subscrito e sobrescrito
 munder	, 0, com, 1, abaixo	principal,abaixo	símbolo tem subscrito
 mover	, 0, com, 1, acima	principal,acima	símbolo tem sobrescrito
 mtable	tabela, (linha.), final da tabela	linha	tabela bidimensional
@@ -21,18 +21,18 @@ from_to	operador, 0, a partir de, 1, to, 2, aplicar a	operador,a partir de,para	
 from	operador, 0, a partir de, 1, aplicar a	operador,a partir de	a partir de ... operador
 to	operador, 0, ao, 1, aplicar ao	operador,ao	ao ... operador
 power	, 0, ao, 1, potência	base,exponente	potência
-set	conjunto, (elemento.), final do conjunto	elemento do conjunto
+set	conjunto, (elemento.), final do conjunto	elemento	conjunto
 absolute_value	valor absoluto de, (.), valor final absoluto	item	valor absoluto
 determinant	determinante, (.), final determinante	item	determinante
-matrix	matriz, (.), item final da matriz	matriz
+matrix	matriz, (.), fim da matriz	item	matriz
 single_fraction	, 0, sobre, 1,	numerador,denominador	fração única
-single_square_root	raiz quadrada, 0,	raiz em raiz quadrada única
-SingleMsubsup	, 0, sub, 1, super, 2, 	principal,sub,super único subscrito e sobrescrito
+single_square_root	raiz quadrada, 0,	interior da raiz	raiz quadrada simples
+SingleMsubsup	, 0, sub, 1, super, 2, 	principal,sub,super	subscrito e sobrescrito unico
 SingleMsub	, 0, sub, 1, 	principal,sub	único subscrito
 SingleMsup	, 0, super, 1, 	principal,super	único subscrito
 SingleMunderover	, 0, abaixo, 1, acima, 2, 	principal,abaixo,acima	único subscrito e sobrescrito
-SingleMunder	, 0, abaixo, 1, 	principal,abaixo de um único subscrito
-SingleMover	, 0, acima, 1, 	principal,acima do sobrescrito único
+SingleMunder	, 0, abaixo, 1, 	principal, abaixo	subscrito único
+SingleMover	, 0, acima, 1, 	principal, acima	sobrescrito único
 AddIntegerFractionType	adição,0,sobre,1,	numerador,denominador	adicionar fração inteira
 NegativeSignType	negativo	menos	símbolo negativo
 PositiveSignType	positivo	mais	símbolo positivo

@@ -200,7 +200,7 @@ class InteractionFrame(wxgui.GenericFrame):
 	def buttonData(self):
 		return (
 			(_("interaction"), self.OnInteraction),
-			(_("interação usando abstração de complexidade"), self.OnInteractionAbstractComplexity),
+			(_("enable abstract reading mode"), self.OnInteractionAbstractComplexity),
 			(_("copy"), self.OnRawdataToClip),
 		)
 
@@ -223,8 +223,8 @@ class InteractionFrame(wxgui.GenericFrame):
 		self.obj.setFocus()
 
 	def OnInteractionAbstractComplexity(self, event):
+		toggleAbstractMode()
 		self.interactionTreatment(event)
-		abstraction_complexity_treatment = True
 
 	def OnExit(self, event):
 		if self.obj.parent is not None:
@@ -647,7 +647,10 @@ If you feel this add-on is helpful, please don't hesitate to give support to "Ta
 		category=ADDON_SUMMARY,
 	)
 	def script_switch_reading_strategy(self, gesture):
-		A8M_PM.abstractModeToggle()
-		speech.speak([_("enabling abstract reading mode")])
+		toggleAbstractMode()
 
-	
+def toggleAbstractMode():
+	if A8M_PM.abstractModeToggle():
+		speech.speak([_("Enabling abstract reading mode")])
+	else:
+		speech.speak([_("Disabling abstract reading mode")])

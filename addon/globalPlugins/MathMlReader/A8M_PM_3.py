@@ -1401,6 +1401,7 @@ abstractMode = False
 def abstractModeToggle():
 	global abstractMode
 	abstractMode = not abstractMode
+	return abstractMode
 
 def is_on_abstract_mode():
 	global abstractMode
