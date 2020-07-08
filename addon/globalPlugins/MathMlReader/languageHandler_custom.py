@@ -9,8 +9,8 @@ def getAvailableLanguages(path):
 	l=[x for x in os.listdir(path +'/locale') if not x.startswith('.')]
 	l=[x for x in l if os.path.isfile(path +'/locale/%s/unicode.dic'%x)]
 	#Make sure that en (english) is in the list as it may not have any locale files, but is default
-	if 'en' not in l:
-		l.append('en')
+	if 'pt' not in l:
+		l.append('pt')
 		l.sort()
 	#For each locale, ask Windows for its human readable display name
 	d=[]

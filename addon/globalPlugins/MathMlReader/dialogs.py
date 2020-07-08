@@ -721,7 +721,7 @@ class NewLanguageAddingDialog(wx.Dialog):
 	def OnCertainClick(self, evt):
 		self.languageIndex = self.languageList.Selection
 		self.certainLanguage = self.languageNames[self.languageIndex][0]
-		src = os.path.join(base_path, 'locale', 'en')
+		src = os.path.join(base_path, 'locale', 'pt')
 		dst = os.path.join(base_path, 'locale', self.certainLanguage)
 		try:
 			shutil.copytree(src, dst, ignore=shutil.ignore_patterns('*_user.*'))
