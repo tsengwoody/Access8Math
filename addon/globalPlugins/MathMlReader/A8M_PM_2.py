@@ -17,8 +17,14 @@ elif sys.version_info.major >= 3:
 AUTO_GENERATE = 0
 DIC_GENERATE = 1
 
+import json
 
-def create_node(et):
+def printLog(message):
+	# log.error('\n\n\n\n============================\n' + str(message) + '\n' + '============================\n\n\n\n')
+	print '\n\n\n\n============================\n' + str(message) + '\n' + '============================\n\n\n\n'
+
+
+def create_node(et, mathrule={}):
 	p_tag = re.compile(ur"[\{].*[\}](?P<mp_type>.+)")
 	r = p_tag.search(et.tag)
 	try:
@@ -31,9 +37,9 @@ def create_node(et):
 	if issubclass(node_class, NonTerminalNode) or issubclass(node_class, BlockNode):
 		child = []
 		for c in et:
-			node = create_node(c)
+			node = create_node(c, mathrule)
 			child.append(node)
-		node = node_class(child, et.attrib)
+		node = node_class(child, et.attrib, read_status=ReadStatus.ABSTRACT if et.tag in mathrule and mathrule[et.tag].abstract_reading else ReadStatus.ELEMENT)
 	elif issubclass(node_class, TerminalNode):
 		node = node_class([], et.attrib, data=et.text)
 	elif mp_tag == 'none':
@@ -41,7 +47,7 @@ def create_node(et):
 	else:
 		child = []
 		for c in et:
-			node = create_node(c)
+			node = create_node(c, mathrule)
 			child.append(node)
 		node = Mrow(child, et.attrib)
 		# raise RuntimeError('unknown tag : {}'.format(mp_tag))
@@ -116,7 +122,7 @@ def check_in_allnode(node, check_node):
 
 class MathContent(object):
 	def __init__(self, mathrule, et):
-		self.root = self.pointer = create_node(et)
+		self.root = self.pointer = create_node(et, mathrule)
 		clean_allnode(self.root)
 		self.mathrule = mathrule
 		self.set_mathrule(self.mathrule)
@@ -129,9 +135,17 @@ class MathContent(object):
 	def navigate(self, action):
 		pointer = None
 		if action == "downArrow":
-			pointer = self.pointer.down()
+			if self.pointer.read_status == ReadStatus.ELEMENT:
+				pointer = self.pointer.down()
+			elif self.pointer.read_status == ReadStatus.ABSTRACT:
+				pointer = self.pointer
+				pointer.read_status = ReadStatus.ELEMENT
 		elif action == "upArrow":
-			pointer = self.pointer.up()
+			if self.pointer.read_status == ReadStatus.ELEMENT:
+				pointer = self.pointer
+				pointer.read_status = ReadStatus.ABSTRACT
+			elif self.pointer.read_status == ReadStatus.ABSTRACT:
+				pointer = self.pointer.up()
 		elif action == "leftArrow":
 			pointer = self.pointer.previous_sibling
 		elif action == "rightArrow":
@@ -180,9 +194,13 @@ class MathContent(object):
 			set_mathrule_allnode(self.root, self.mathrule)
 			check_type_allnode(self.root)
 
+class ReadStatus():
+	ABSTRACT = 1
+	ELEMENT = 2
+	NEXT = 3
 
 class Node(object):
-	def __init__(self, child=None, attrib=None, data=None):
+	def __init__(self, child=None, attrib=None, data=None, read_status=ReadStatus.ELEMENT):
 		self._mathcontent = None
 		self._parent = None
 
@@ -199,6 +217,7 @@ class Node(object):
 		self.role = []
 		self.type = None
 		self.role_level = None
+		self.read_status = read_status
 		# self.set_mathrule(mathrule)
 		# self.check_type()
 
@@ -241,6 +260,7 @@ class Node(object):
 			rule = self.type.rule
 		else:
 			rule = self.mathrule[self.name].serialized_order
+
 		if len(rule) >= 2 and isinstance(rule[1], tuple):
 			result = []
 			for i in range(len(self.child)):
@@ -259,7 +279,13 @@ class Node(object):
 			serialized.append(['@10@'])
 		for r in self.rule:
 			if isinstance(r, int):
-				serialized.append(self.child[r].serialized())
+				strReading = ''
+				if abstractMode:
+					strReading = self.mathrule[self.child[r].tag].abstract_reading if self.child[r].shouldReadAbstract else self.child[r].serialized()
+				else:
+					strReading = self.child[r].serialized()
+
+				serialized.append(strReading)
 			elif r == '*':
 				for c in self.child:
 					if c:
@@ -272,6 +298,10 @@ class Node(object):
 		if isinstance(self, TerminalNode):
 			serialized.append(['@10@'])
 		return serialized
+
+	@property
+	def shouldReadAbstract(self):
+		return self.tag in self.mathrule and self.mathrule[self.tag].abstract_reading and self.read_status == ReadStatus.ABSTRACT
 
 	def get_mathml(self):
 		mathml = u''
@@ -1195,13 +1225,14 @@ class FirstPositiveSignType(SiblingNodeType):
 
 
 class MathRule(object):
-	def __init__(self, name, description, category, serialized_order, role, example=''):
+	def __init__(self, name, description, category, serialized_order, role, abstract_reading='', example=''):
 		self.name = name
 		self.description = description
 		self.category = category
 		self.serialized_order = serialized_order
 		self.role = role
 		self.example = example
+		self.abstract_reading = abstract_reading
 
 
 def load_unicode_dic(path=None, language=''):
@@ -1228,14 +1259,21 @@ def load_unicode_dic(path=None, language=''):
 	return symbol
 
 
-def load_math_rule(path=None, language=''):
+def load_math_rule(path=None, language='', abstract=False):
+	if abstract:
+		math_rule_file_name = 'math_abstract.rule'
+		math_user_rule_file_name = 'math_user_abstract.rule'
+	else:
+		math_rule_file_name = 'math.rule'
+		math_user_rule_file_name = 'math_user.rule'
+		
 	math_example_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'math.example')
 	if not path and language:
 		path = os.path.dirname(os.path.abspath(__file__))
 		if language != 'Windows':
 			path = path + '/locale/{0}'.format(language)
-		frp = os.path.join(path, 'math.rule')
-		frp_user = os.path.join(path, 'math_user.rule')
+		frp = os.path.join(path, math_rule_file_name)
+		frp_user = os.path.join(path, math_user_rule_file_name)
 		if not os.path.exists(frp_user):
 			with io.open(frp, 'r', encoding='utf-8') as fr, io.open(frp_user, 'w', encoding='utf-8') as fr_user:
 				fr_user.write(fr.read())
@@ -1251,7 +1289,7 @@ def load_math_rule(path=None, language=''):
 		for line in fr:
 			try:
 				line = line.split('\t')
-				if len(line) == 4:
+				if len(line) >= 4:
 					rule = []
 					for i in line[1].split(','):
 						i = i.strip()
@@ -1270,7 +1308,8 @@ def load_math_rule(path=None, language=''):
 						i = i.strip()
 						role.append(i)
 
-					mathrule[line[0]] = MathRule(line[0], line[3].strip(), '', rule, role)
+					abstract_reading = line[4] if len(line) > 4 else ''
+					mathrule[line[0]] = MathRule(line[0], line[3].strip(), '', rule, role, abstract_reading)
 			except:
 				pass
 
@@ -1334,10 +1373,11 @@ def symbol_translate(u):
 
 
 def config_from_environ():
-	global AMM, symbol, mathrule
+	global AMM, symbol, mathrule, abstractMode, abstraction_complexity_treatment
 	language = os.environ.get('LANGUAGE', 'Windows')
 	symbol = load_unicode_dic(language=language)
 	mathrule = load_math_rule(language=language)
+	abstractMode = False
 	AMM = True if os.environ.get('AMM', 'True') in [u'True', u'true'] else False
 
 	global nodetypes_check, SNT_check
@@ -1351,6 +1391,15 @@ def config_from_environ():
 	if not AMM:
 		nodetypes_check = SNT_check = []
 
+abstractMode = False
+def abstractModeToggle():
+	global abstractMode
+	abstractMode = not abstractMode
+	return abstractMode
+
+def is_on_abstract_mode():
+	global abstractMode
+	return abstractMode
 
 # get class which is Node subclass
 nodes = {i.__name__: i for i in locals().values() if inspect.isclass(i) and issubclass(i, Node)}
