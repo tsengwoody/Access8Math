@@ -20,7 +20,7 @@ none
 from_to	operador, 0, a partir de, 1, to, 2, aplicar a	operador,a partir de,para	a partir de ... para ... operador
 from	operador, 0, a partir de, 1, aplicar a	operador,a partir de	a partir de ... operador
 to	operador, 0, ao, 1, aplicar ao	operador,ao	ao ... operador
-power	, 0, ao, 1, potência	base,exponente	potência
+power	, 0, elevado a, 1	base,exponente	potência  exponencial
 set	conjunto, (elemento.), final do conjunto	elemento	conjunto
 absolute_value	valor absoluto de, (.), valor final absoluto	item	valor absoluto
 determinant	determinante, (.), final determinante	item	determinante
