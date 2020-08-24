@@ -330,8 +330,10 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 
 	def event_gainFocus(self):
 		speech.speak([_("enter interaction mode")])
-		super(MathMlReaderInteraction, self).event_gainFocus()
+		# super(MathMlReaderInteraction, self).event_gainFocus()
 		api.setReviewPosition(self.makeTextInfo(), False)
+		self.mathcontent.navigate('downArrow')
+		self.reportFocus()
 	
 	def event_loseFocus(self):
 		speech.speak([_("exiting interaction mode")])
@@ -341,7 +343,7 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 
 	def reportFocus(self):
 		#super(MathMlReaderInteraction, self).reportFocus()
-		speech.speak(translate_SpeechCommand(self.mathcontent.root.serialized()))
+		speech.speak(translate_SpeechCommand(self.mathcontent.pointer.serialized()))
 
 	def getScript(self, gesture):
 		if isinstance(gesture, KeyboardInputGesture) and "NVDA" not in gesture.modifierNames and (
@@ -651,6 +653,6 @@ If you feel this add-on is helpful, please don't hesitate to give support to "Ta
 
 def toggleAbstractMode():
 	if A8M_PM.abstractModeToggle():
-		speech.speak([_("Enabling abstract reading mode")])
+		speech.speak([_("enabling abstract reading mode")])
 	else:
 		speech.speak([_("Disabling abstract reading mode")])

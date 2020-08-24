@@ -8,3 +8,19 @@ addon/doc/en/
 *.py[co]
 *.nvda-addon
 .sconsign.dblite
+
+ECHO Iniciando deploy
+
+deploy.bat
+
+addon/msgfmt.exe
+
+addon/xgettext.exe
+
+addon/globalPlugins/MathMlReader/math_user.rule
+
+addon/globalPlugins/MathMlReader/.DS_Store
+
+addon/globalPlugins/.DS_Store
+
+.DS_Store
