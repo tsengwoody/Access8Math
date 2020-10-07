@@ -1,0 +1,440 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the 'Access8Math' package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 'Access8Math' '2.4'\n"
+"Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
+"POT-Creation-Date: 2020-10-07 22:31+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4\n"
+"X-Poedit-Basepath: addon/globalPlugins/MathMlReader\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: __init__.py:188
+msgid "Access8Math interaction window"
+msgstr ""
+
+#: __init__.py:193
+msgid "&Menu"
+msgstr ""
+
+#: __init__.py:194
+msgid "&Exit"
+msgstr ""
+
+#: __init__.py:194
+msgid "Terminate the program"
+msgstr ""
+
+#: __init__.py:200
+msgid "interaction"
+msgstr ""
+
+#: __init__.py:201 __init__.py:228 __init__.py:367
+msgid "copy"
+msgstr ""
+
+#: __init__.py:318
+msgid "enter interaction mode"
+msgstr ""
+
+#: __init__.py:357
+msgid "not move"
+msgstr ""
+
+#: __init__.py:361
+msgid "copy mathml"
+msgstr ""
+
+#: __init__.py:371 __init__.py:376
+msgid "snapshot"
+msgstr ""
+
+#: __init__.py:380
+msgid "Insert math object"
+msgstr ""
+
+#: __init__.py:388
+msgid "Delete math object"
+msgstr ""
+
+#: __init__.py:396
+msgid "Show Access8Math interaction window"
+msgstr ""
+
+#: __init__.py:403
+msgid "Access8Math interaction window already showed"
+msgstr ""
+
+#: __init__.py:462
+msgid "&General settings..."
+msgstr ""
+
+#: __init__.py:469
+msgid "&Rule settings..."
+msgstr ""
+
+#: __init__.py:476
+msgid "&unicode dictionary..."
+msgstr ""
+
+#: __init__.py:483
+msgid "&math rule..."
+msgstr ""
+
+#: __init__.py:490
+msgid "&New language adding..."
+msgstr ""
+
+#: __init__.py:511
+msgid "&About..."
+msgstr ""
+
+#: __init__.py:515
+msgid "Access8Math"
+msgstr ""
+
+#: __init__.py:531
+msgid "Change mathml provider"
+msgstr ""
+
+#: __init__.py:556
+#, python-format
+msgid "mathml provider change to %s"
+msgstr ""
+
+#: __init__.py:559
+msgid "Shows the Access8Math settings dialog."
+msgstr ""
+
+#: __init__.py:589
+msgid ""
+"Access8Math\n"
+"Version: 2.4\n"
+"URL: https://addons.nvda-project.org/addons/access8math.en.html\n"
+"Copyright (C) 2017-2020 Access8Math Contributors\n"
+"Access8Math is covered by the GNU General Public License (Version 2). You are free to share or change this software in any way you like as long as it is accompanied by the license and you make all source code available to anyone who wants it. This applies to both original and modified copies of this software, plus any derivative works.\n"
+"It can be viewed online at: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html\n"
+"Access8Math has been sponsored by \"Taiwan Visually Impaired People Association\"(accessibility@twvip.org) in 2018~2019, hereby express our sincere appreciation.\n"
+"If you feel this add-on is helpful, please don't hesitate to give support to \"Taiwan Visually Impaired People Association\" and authors."
+msgstr ""
+
+#: __init__.py:598
+msgid "About Access8Math"
+msgstr ""
+
+#: dialogs.py:41
+msgid "General Settings"
+msgstr ""
+
+#: dialogs.py:43
+msgid "showing Access8Math interaction window when entering interaction mode"
+msgstr ""
+
+#: dialogs.py:44
+msgid "Analyze mathematical meaning of content"
+msgstr ""
+
+#: dialogs.py:45
+msgid "Read defined meaning in dictionary"
+msgstr ""
+
+#: dialogs.py:46
+msgid "Read of auto-generated meaning"
+msgstr ""
+
+#: dialogs.py:51 dialogs.py:678
+msgid "&Language:"
+msgstr ""
+
+#: dialogs.py:63
+msgid "&Item interval time:"
+msgstr ""
+
+#: dialogs.py:106
+msgid "Rule Settings"
+msgstr ""
+
+#: dialogs.py:108
+msgid "Simplified subscript and superscript"
+msgstr ""
+
+#: dialogs.py:109
+msgid "Simplified subscript"
+msgstr ""
+
+#: dialogs.py:110
+msgid "Simplified superscript"
+msgstr ""
+
+#: dialogs.py:111
+msgid "Simplified underscript and overscript"
+msgstr ""
+
+#: dialogs.py:112
+msgid "Simplified underscript"
+msgstr ""
+
+#: dialogs.py:113
+msgid "Simplified overscript"
+msgstr ""
+
+#: dialogs.py:114
+msgid "Simplified fraction"
+msgstr ""
+
+#: dialogs.py:115
+msgid "Simplified square root"
+msgstr ""
+
+#: dialogs.py:116
+msgid "Power"
+msgstr ""
+
+#: dialogs.py:117
+msgid "Square power"
+msgstr ""
+
+#: dialogs.py:118
+msgid "Cube power"
+msgstr ""
+
+#: dialogs.py:119
+msgid "Set"
+msgstr ""
+
+#: dialogs.py:120
+msgid "Absolute value"
+msgstr ""
+
+#: dialogs.py:121
+msgid "Matrix"
+msgstr ""
+
+#: dialogs.py:122
+msgid "Determinant"
+msgstr ""
+
+#: dialogs.py:123
+msgid "Integer and fraction"
+msgstr ""
+
+#: dialogs.py:158
+msgid "Add Symbol"
+msgstr ""
+
+#: dialogs.py:163
+msgid "Symbol:"
+msgstr ""
+
+#: dialogs.py:185
+#, python-format
+msgid "unicode dictionary (%s)"
+msgstr ""
+
+#: dialogs.py:193
+msgid "&Symbols"
+msgstr ""
+
+#: dialogs.py:201
+msgid "Symbol"
+msgstr ""
+
+#: dialogs.py:202
+msgid "Replacement"
+msgstr ""
+
+#: dialogs.py:210
+msgid "Change selected symbol"
+msgstr ""
+
+#: dialogs.py:226
+msgid "&Replacement"
+msgstr ""
+
+#: dialogs.py:235
+msgid "&Add"
+msgstr ""
+
+#: dialogs.py:238
+msgid "Re&move"
+msgstr ""
+
+#: dialogs.py:242 dialogs.py:550
+msgid "&Recover default"
+msgstr ""
+
+#: dialogs.py:245 dialogs.py:553
+msgid "&Import"
+msgstr ""
+
+#: dialogs.py:248 dialogs.py:556
+msgid "Exp&ort"
+msgstr ""
+
+#: dialogs.py:317
+#, python-format
+msgid "Symbol \"%s\" is already present."
+msgstr ""
+
+#: dialogs.py:318
+msgid "Error"
+msgstr ""
+
+#: dialogs.py:355 dialogs.py:628
+msgid "Import file..."
+msgstr ""
+
+#: dialogs.py:364 dialogs.py:637
+msgid "Export file..."
+msgstr ""
+
+#: dialogs.py:393
+msgid "Edit Math Rule Entry"
+msgstr ""
+
+#: dialogs.py:401 dialogs.py:406
+msgid "&description"
+msgstr ""
+
+#: dialogs.py:403
+msgid "description"
+msgstr ""
+
+#: dialogs.py:412
+msgid "Serialized ordering"
+msgstr ""
+
+#: dialogs.py:415
+#, python-format
+msgid "Ordering %d"
+msgstr ""
+
+#: dialogs.py:418
+msgid "Child"
+msgstr ""
+
+#: dialogs.py:424
+#, python-format
+msgid "Before item text &%d"
+msgstr ""
+
+#: dialogs.py:429
+#, python-format
+msgid "After item text &%d"
+msgstr ""
+
+#: dialogs.py:435
+#, python-format
+msgid "Start text &%d"
+msgstr ""
+
+#: dialogs.py:437
+#, python-format
+msgid "End text &%d"
+msgstr ""
+
+#: dialogs.py:439
+#, python-format
+msgid "&Interval text &%d"
+msgstr ""
+
+#: dialogs.py:447
+msgid "Child role"
+msgstr ""
+
+#: dialogs.py:450
+#, python-format
+msgid "&Child %d meaning"
+msgstr ""
+
+#: dialogs.py:489
+#, python-format
+msgid "Regular Expression error: \"%s\"."
+msgstr ""
+
+#: dialogs.py:489
+msgid "Dictionary Entry Error"
+msgstr ""
+
+#: dialogs.py:505
+#, python-format
+msgid "math rule (%s)"
+msgstr ""
+
+#: dialogs.py:513
+msgid "&Mathrules"
+msgstr ""
+
+#: dialogs.py:521
+msgid "Rule"
+msgstr ""
+
+#: dialogs.py:522
+msgid "Description"
+msgstr ""
+
+#: dialogs.py:542
+msgid "&Edit"
+msgstr ""
+
+#: dialogs.py:546
+msgid "E&xample"
+msgstr ""
+
+#: dialogs.py:668
+msgid "New language adding"
+msgstr ""
+
+#: dialogs.py:687
+msgid "&Select"
+msgstr ""
+
+#: dialogs.py:691
+msgid "&Unselect"
+msgstr ""
+
+#: dialogs.py:699
+msgid "unicode dictionary"
+msgstr ""
+
+#: dialogs.py:700
+msgid "math rule"
+msgstr ""
+
+#: dialogs.py:701
+msgid "OK"
+msgstr ""
+
+#: dialogs.py:792
+msgid "For the new language to add, NVDA must be restarted. Press enter to restart NVDA, or cancel to exit at a later time."
+msgstr ""
+
+#: dialogs.py:794
+msgid "New language add"
+msgstr ""
+
+#: dialogs.py:800
+msgid "Write AsciiMath Entry"
+msgstr ""
+
+#: dialogs.py:804
+msgid "Write Latex Entry"
+msgstr ""
+
+#: dialogs.py:815
+msgid "build-in"
+msgstr ""
+
+#: languageHandler_custom.py:24
+msgid "User default"
+msgstr ""

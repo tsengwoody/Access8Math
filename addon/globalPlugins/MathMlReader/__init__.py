@@ -587,12 +587,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def onAbout(self, evt):
 		aboutMessage = _(
 u"""Access8Math
-Version: 2.3
+Version: 2.4
 URL: https://addons.nvda-project.org/addons/access8math.en.html
-Copyright (C) 2017-2018 Access8Math Contributors
+Copyright (C) 2017-2020 Access8Math Contributors
 Access8Math is covered by the GNU General Public License (Version 2). You are free to share or change this software in any way you like as long as it is accompanied by the license and you make all source code available to anyone who wants it. This applies to both original and modified copies of this software, plus any derivative works.
 It can be viewed online at: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
-Access8Math has been sponsored by "Taiwan Visually Impaired People Association"(vipastaiwan@gmail.com) in 2018, hereby express our sincere appreciation.
+Access8Math has been sponsored by "Taiwan Visually Impaired People Association"(accessibility@twvip.org) in 2018~2019, hereby express our sincere appreciation.
 If you feel this add-on is helpful, please don't hesitate to give support to "Taiwan Visually Impaired People Association" and authors."""
 		)
 		gui.messageBox(aboutMessage, _("About Access8Math"), wx.OK)
