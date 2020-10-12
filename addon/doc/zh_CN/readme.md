@@ -137,6 +137,16 @@ Access8Math将常用数学式依据类型与逻辑，建立43项数学规则，�
 
 欢迎提出见意与bug回报，谢谢！
 
+# Access8Math v2.5 更新日志
+
+*	加入俄语的翻译，感谢 Futyn-Maker 的翻译工作
+*	修正复合符号翻译失败的问题
+*	移除在 en unicode.dic 内重复的小写字母并加入大写字母(0370~03FF)
+
+# Access8Math v2.4 更新日志
+
+*	修正已知问题
+
 # Access8Math v2.3 更新日志
 
 *	相容于 Python3

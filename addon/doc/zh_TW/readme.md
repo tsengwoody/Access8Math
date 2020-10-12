@@ -1,4 +1,4 @@
-﻿# Access8Math 說明
+# Access8Math 說明
 
 此NVDA addon提供數學內容的閱讀，原先NVDA亦有此功能，但因是調用MathPlayer的功能，部份功能尚顯不足，尤其一些語言未提供導航瀏覽(互動式閱讀部份內容)。
 
@@ -136,6 +136,16 @@ Access8Math將常用數學式依據類型與邏輯，建立43項數學規則，�
 原始碼：https://github.com/tsengwoody/Access8Math
 
 歡迎提出見意與bug回報，謝謝！
+
+# Access8Math v2.5 更新日誌
+
+*	加入俄語的翻譯，感謝 Futyn-Maker 的翻譯工作
+*	修正複合符號翻譯失敗的問題
+*	移除在 en unicode.dic 內重複的小寫字母並加入大寫字母(0370~03FF)
+
+# Access8Math v2.4 更新日誌
+
+*	修正已知問題
 
 # Access8Math v2.3 更新日誌
 

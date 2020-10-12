@@ -138,6 +138,16 @@ Source code: https://github.com/tsengwoody/Access8Math
 
 Please report any bugs or comments, thank you!
 
+# Access8Math v2.5 Update
+
+*	Adding Russian translation of rules and UI. Thanks to the translation work of Futyn-Maker.
+*	Fixing compound symbol translation failed bug.
+*	Removing duplicates of lowercase letters and added general uppercases in en unicode.dic(0370~03FF).
+
+# Access8Math v2.3 Update
+
+*	Fix bug.
+
 # Access8Math v2.3 Update
 
 *	Compatibility with Python3
