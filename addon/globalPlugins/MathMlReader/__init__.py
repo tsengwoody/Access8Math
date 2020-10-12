@@ -1,4 +1,5 @@
-﻿"""# Access8Math: Allows access math content written by MathML in NVDA
+# coding: utf-8
+"""# Access8Math: Allows access math content written by MathML in NVDA
 # Copyright (C) 2017-2019 Tseng Woody <tsengwoody.tw@gmail.com>
 # This file is covered by the GNU General Public License.
 # See the file COPYING.txt for more details."""
@@ -587,7 +588,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def onAbout(self, evt):
 		aboutMessage = _(
 u"""Access8Math
-Version: 2.4
+Version: 2.5
 URL: https://addons.nvda-project.org/addons/access8math.en.html
 Copyright (C) 2017-2020 Access8Math Contributors
 Access8Math is covered by the GNU General Public License (Version 2). You are free to share or change this software in any way you like as long as it is accompanied by the license and you make all source code available to anyone who wants it. This applies to both original and modified copies of this software, plus any derivative works.

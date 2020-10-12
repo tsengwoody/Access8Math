@@ -5,123 +5,128 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 'Access8Math' '2.4'\n"
+"Project-Id-Version: 'Access8Math' '2.5'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2020-10-07 22:31+0800\n"
-"PO-Revision-Date: 2020-10-10 13:13+0300\n"
+"POT-Creation-Date: 2020-10-12 09:09+0800\n"
+"PO-Revision-Date: 2020-10-12 09:17+0800\n"
+"Last-Translator: Andrey Yakuboy <andrewia2002@yandex.ru>\n"
 "Language-Team: \n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.4\n"
 "X-Poedit-Basepath: addon/globalPlugins/MathMlReader\n"
-"Last-Translator: Andrey Yakuboy <andrewia2002@yandex.ru>\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"Language: ru\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: __init__.py:188
+#: addon\globalPlugins\MathMlReader\__init__.py:189
 msgid "Access8Math interaction window"
 msgstr "Окно взаимодействия с формулой"
 
-#: __init__.py:193
+#: addon\globalPlugins\MathMlReader\__init__.py:194
 msgid "&Menu"
 msgstr "&Меню"
 
-#: __init__.py:194
+#: addon\globalPlugins\MathMlReader\__init__.py:195
 msgid "&Exit"
 msgstr "&Выход"
 
-#: __init__.py:194
+#: addon\globalPlugins\MathMlReader\__init__.py:195
 msgid "Terminate the program"
 msgstr "Закрыть программу"
 
-#: __init__.py:200
+#: addon\globalPlugins\MathMlReader\__init__.py:201
 msgid "interaction"
 msgstr "взаимодействие"
 
-#: __init__.py:201 __init__.py:228 __init__.py:367
+#: addon\globalPlugins\MathMlReader\__init__.py:202
+#: addon\globalPlugins\MathMlReader\__init__.py:229
+#: addon\globalPlugins\MathMlReader\__init__.py:368
 msgid "copy"
 msgstr "скопировать"
 
-#: __init__.py:318
+#: addon\globalPlugins\MathMlReader\__init__.py:319
 msgid "enter interaction mode"
 msgstr "вход в режим навигации"
 
-#: __init__.py:357
+#: addon\globalPlugins\MathMlReader\__init__.py:358
 msgid "not move"
 msgstr "крайний элемент"
 
-#: __init__.py:361
+#: addon\globalPlugins\MathMlReader\__init__.py:362
 msgid "copy mathml"
 msgstr "скопировать mathml"
 
-#: __init__.py:371 __init__.py:376
+#: addon\globalPlugins\MathMlReader\__init__.py:372
+#: addon\globalPlugins\MathMlReader\__init__.py:377
 msgid "snapshot"
 msgstr "снимок"
 
-#: __init__.py:380
+#: addon\globalPlugins\MathMlReader\__init__.py:381
 msgid "Insert math object"
 msgstr "Вставить математический объект"
 
-#: __init__.py:388
+#: addon\globalPlugins\MathMlReader\__init__.py:389
 msgid "Delete math object"
 msgstr "Удалить математический объект"
 
-#: __init__.py:396
+#: addon\globalPlugins\MathMlReader\__init__.py:397
 msgid "Show Access8Math interaction window"
 msgstr "Показать окно взаимодействия Access8Math"
 
-#: __init__.py:403
+#: addon\globalPlugins\MathMlReader\__init__.py:404
 msgid "Access8Math interaction window already showed"
 msgstr "Диалог взаимодействия Access8Math уже открыт"
 
-#: __init__.py:462
+#: addon\globalPlugins\MathMlReader\__init__.py:463
 msgid "&General settings..."
 msgstr "Общие &настройки..."
 
-#: __init__.py:469
+#: addon\globalPlugins\MathMlReader\__init__.py:470
 msgid "&Rule settings..."
 msgstr "&Обработка правил..."
 
-#: __init__.py:476
+#: addon\globalPlugins\MathMlReader\__init__.py:477
 msgid "&unicode dictionary..."
 msgstr "&Словарь символов Unicode..."
 
-#: __init__.py:483
+#: addon\globalPlugins\MathMlReader\__init__.py:484
 msgid "&math rule..."
 msgstr "&Математические правила..."
 
-#: __init__.py:490
+#: addon\globalPlugins\MathMlReader\__init__.py:491
 msgid "&New language adding..."
 msgstr "&Добавление нового языка..."
 
-#: __init__.py:511
+#: addon\globalPlugins\MathMlReader\__init__.py:512
 msgid "&About..."
 msgstr "О дополн&ении..."
 
-#: __init__.py:515
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on to be shown on installation and add-on information.
+#: addon\globalPlugins\MathMlReader\__init__.py:516 buildVars.py:17
 msgid "Access8Math"
 msgstr "Access8Math"
 
-#: __init__.py:531
+#: addon\globalPlugins\MathMlReader\__init__.py:532
 msgid "Change mathml provider"
 msgstr "Изменяет обработчик MathML"
 
-#: __init__.py:556
+#: addon\globalPlugins\MathMlReader\__init__.py:557
 #, python-format
 msgid "mathml provider change to %s"
 msgstr "обработчик MathML изменён на %s"
 
-#: __init__.py:559
+#: addon\globalPlugins\MathMlReader\__init__.py:560
 msgid "Shows the Access8Math settings dialog."
 msgstr "Показывает диалог настроек Access8Math"
 
-#: __init__.py:589
+#: addon\globalPlugins\MathMlReader\__init__.py:590
 msgid ""
 "Access8Math\n"
-"Version: 2.4\n"
+"Version: 2.5\n"
 "URL: https://addons.nvda-project.org/addons/access8math.en.html\n"
 "Copyright (C) 2017-2020 Access8Math Contributors\n"
 "Access8Math is covered by the GNU General Public License (Version 2). You "
@@ -138,7 +143,7 @@ msgid ""
 "\"Taiwan Visually Impaired People Association\" and authors."
 msgstr ""
 "Access8Math\n"
-"Версия: 2.4\n"
+"Версия: 2.5\n"
 "URL: https://addons.nvda-project.org/addons/access8math.ru.html\n"
 "Copyright (C) 2017-2020 команда разработчиков Access8Math\n"
 "Access8Math защищён стандартной общественной лицензией GNU (Версия 2). Вы "
@@ -155,293 +160,331 @@ msgstr ""
 "Если вы считаете, что это дополнение полезно, поддержите тайваньскую "
 "ассоциацию людей с нарушениями зрения и авторов дополнения."
 
-#: __init__.py:598
+#: addon\globalPlugins\MathMlReader\__init__.py:599
 msgid "About Access8Math"
 msgstr "О дополнении Access8Math"
 
-#: dialogs.py:41
+#. Translators: Title of the Access8MathDialog.
+#: addon\globalPlugins\MathMlReader\dialogs.py:41
 msgid "General Settings"
 msgstr "Общие настройки"
 
-#: dialogs.py:43
+#: addon\globalPlugins\MathMlReader\dialogs.py:43
 msgid "showing Access8Math interaction window when entering interaction mode"
 msgstr "показывать диалог взаимодействия Access8Math при клике на формулу"
 
-#: dialogs.py:44
+#: addon\globalPlugins\MathMlReader\dialogs.py:44
 msgid "Analyze mathematical meaning of content"
 msgstr "Анализировать значение математического содержимого"
 
-#: dialogs.py:45
+#: addon\globalPlugins\MathMlReader\dialogs.py:45
 msgid "Read defined meaning in dictionary"
 msgstr "Использовать определённые в словаре значения"
 
-#: dialogs.py:46
+#: addon\globalPlugins\MathMlReader\dialogs.py:46
 msgid "Read of auto-generated meaning"
 msgstr "Использовать автоматически созданные значения"
 
-#: dialogs.py:51 dialogs.py:678
+#. Translators: The label for a setting in general settings to select NVDA's interface language (once selected, NVDA must be restarted; the option user default means the user's Windows language will be used).
+#: addon\globalPlugins\MathMlReader\dialogs.py:51
+#: addon\globalPlugins\MathMlReader\dialogs.py:678
 msgid "&Language:"
 msgstr "&Язык:"
 
-#: dialogs.py:63
+#: addon\globalPlugins\MathMlReader\dialogs.py:63
 msgid "&Item interval time:"
 msgstr "&Время паузы между элементами:"
 
-#: dialogs.py:106
+#. Translators: Title of the Access8MathDialog.
+#: addon\globalPlugins\MathMlReader\dialogs.py:106
 msgid "Rule Settings"
 msgstr "Обработка правил"
 
-#: dialogs.py:108
+#: addon\globalPlugins\MathMlReader\dialogs.py:108
 msgid "Simplified subscript and superscript"
 msgstr "Упрощённые верхний и нижний индексы"
 
-#: dialogs.py:109
+#: addon\globalPlugins\MathMlReader\dialogs.py:109
 msgid "Simplified subscript"
 msgstr "Упрощённый нижний индекс"
 
-#: dialogs.py:110
+#: addon\globalPlugins\MathMlReader\dialogs.py:110
 msgid "Simplified superscript"
 msgstr "Упрощённый верхний индекс"
 
-#: dialogs.py:111
+#: addon\globalPlugins\MathMlReader\dialogs.py:111
 msgid "Simplified underscript and overscript"
 msgstr "Упрощённые строгие индексы"
 
-#: dialogs.py:112
+#: addon\globalPlugins\MathMlReader\dialogs.py:112
 msgid "Simplified underscript"
 msgstr "Упрощённый индекс строго снизу"
 
-#: dialogs.py:113
+#: addon\globalPlugins\MathMlReader\dialogs.py:113
 msgid "Simplified overscript"
 msgstr "Упрощённый индекс строго сверху"
 
-#: dialogs.py:114
+#: addon\globalPlugins\MathMlReader\dialogs.py:114
 msgid "Simplified fraction"
 msgstr "Упрощённая (обыкновенная) дробь"
 
-#: dialogs.py:115
+#: addon\globalPlugins\MathMlReader\dialogs.py:115
 msgid "Simplified square root"
 msgstr "Упрощённый квадратный корень"
 
-#: dialogs.py:116
+#: addon\globalPlugins\MathMlReader\dialogs.py:116
 msgid "Power"
 msgstr "Степень"
 
-#: dialogs.py:117
+#: addon\globalPlugins\MathMlReader\dialogs.py:117
 msgid "Square power"
 msgstr "Квадратная степень"
 
-#: dialogs.py:118
+#: addon\globalPlugins\MathMlReader\dialogs.py:118
 msgid "Cube power"
 msgstr "Кубическая степень"
 
-#: dialogs.py:119
+#: addon\globalPlugins\MathMlReader\dialogs.py:119
 msgid "Set"
 msgstr "Множество"
 
-#: dialogs.py:120
+#: addon\globalPlugins\MathMlReader\dialogs.py:120
 msgid "Absolute value"
 msgstr "Модуль"
 
-#: dialogs.py:121
+#: addon\globalPlugins\MathMlReader\dialogs.py:121
 msgid "Matrix"
 msgstr "Матрица"
 
-#: dialogs.py:122
+#: addon\globalPlugins\MathMlReader\dialogs.py:122
 msgid "Determinant"
 msgstr "Определитель"
 
-#: dialogs.py:123
+#: addon\globalPlugins\MathMlReader\dialogs.py:123
 msgid "Integer and fraction"
 msgstr "Смешанное число"
 
-#: dialogs.py:158
+#. Translators: This is the label for the add symbol dialog.
+#: addon\globalPlugins\MathMlReader\dialogs.py:158
 msgid "Add Symbol"
 msgstr "Добавить символ"
 
-#: dialogs.py:163
+#. Translators: This is the label for the edit field in the add symbol dialog.
+#: addon\globalPlugins\MathMlReader\dialogs.py:163
 msgid "Symbol:"
 msgstr "Символ:"
 
-#: dialogs.py:185
+#. Translators: This is the label for the symbol pronunciation dialog.
+#. %s is replaced by the language for which symbol pronunciation is being edited.
+#: addon\globalPlugins\MathMlReader\dialogs.py:185
 #, python-format
 msgid "unicode dictionary (%s)"
 msgstr "словарь символов Unicode (%s)"
 
-#: dialogs.py:193
+#. Translators: The label for symbols list in symbol pronunciation dialog.
+#: addon\globalPlugins\MathMlReader\dialogs.py:193
 msgid "&Symbols"
 msgstr "&Символы"
 
-#: dialogs.py:201
+#. Translators: The label for a column in symbols list used to identify a symbol.
+#: addon\globalPlugins\MathMlReader\dialogs.py:201
 msgid "Symbol"
 msgstr "Символ"
 
-#: dialogs.py:202
+#: addon\globalPlugins\MathMlReader\dialogs.py:202
 msgid "Replacement"
 msgstr "Замена"
 
-#: dialogs.py:210
+#. Translators: The label for the group of controls in symbol pronunciation dialog to change the pronunciation of a symbol.
+#: addon\globalPlugins\MathMlReader\dialogs.py:210
 msgid "Change selected symbol"
 msgstr "Изменить выбранный символ"
 
-#: dialogs.py:226
+#. Translators: The label for the edit field in symbol pronunciation dialog to change the replacement text of a symbol.
+#: addon\globalPlugins\MathMlReader\dialogs.py:226
 msgid "&Replacement"
 msgstr "&Замена"
 
-#: dialogs.py:235
+#. Translators: The label for a button in the Symbol Pronunciation dialog to add a new symbol.
+#: addon\globalPlugins\MathMlReader\dialogs.py:235
 msgid "&Add"
 msgstr "&Добавить"
 
-#: dialogs.py:238
+#. Translators: The label for a button in the Symbol Pronunciation dialog to remove a symbol.
+#: addon\globalPlugins\MathMlReader\dialogs.py:238
 msgid "Re&move"
 msgstr "&Удалить"
 
-#: dialogs.py:242 dialogs.py:550
+#. Translators: The label for a button to recover default value.
+#: addon\globalPlugins\MathMlReader\dialogs.py:242
+#: addon\globalPlugins\MathMlReader\dialogs.py:550
 msgid "&Recover default"
 msgstr "&Восстановить по умолчанию"
 
-#: dialogs.py:245 dialogs.py:553
+#. Translators: The label for a button to import unicode.dic.
+#. Translators: The label for a button to import math.rule.
+#: addon\globalPlugins\MathMlReader\dialogs.py:245
+#: addon\globalPlugins\MathMlReader\dialogs.py:553
 msgid "&Import"
 msgstr "&Импорт"
 
-#: dialogs.py:248 dialogs.py:556
+#. Translators: The label for a button to export unicode.dic.
+#. Translators: The label for a button to export math.rule.
+#: addon\globalPlugins\MathMlReader\dialogs.py:248
+#: addon\globalPlugins\MathMlReader\dialogs.py:556
 msgid "Exp&ort"
 msgstr "&Экспорт"
 
-#: dialogs.py:317
+#. Translators: An error reported in the Symbol Pronunciation dialog when adding a symbol that is already present.
+#: addon\globalPlugins\MathMlReader\dialogs.py:317
 #, python-format
 msgid "Symbol \"%s\" is already present."
 msgstr "Символ \"%s\" уже существует."
 
-#: dialogs.py:318
+#: addon\globalPlugins\MathMlReader\dialogs.py:318
 msgid "Error"
 msgstr "Ошибка"
 
-#: dialogs.py:355 dialogs.py:628
+#: addon\globalPlugins\MathMlReader\dialogs.py:355
+#: addon\globalPlugins\MathMlReader\dialogs.py:628
 msgid "Import file..."
 msgstr "Импортировать файл..."
 
-#: dialogs.py:364 dialogs.py:637
+#: addon\globalPlugins\MathMlReader\dialogs.py:364
+#: addon\globalPlugins\MathMlReader\dialogs.py:637
 msgid "Export file..."
 msgstr "Экспортировать файл..."
 
-#: dialogs.py:393
+#: addon\globalPlugins\MathMlReader\dialogs.py:393
 msgid "Edit Math Rule Entry"
 msgstr "Редактировать математическое правило"
 
-#: dialogs.py:401 dialogs.py:406
+#: addon\globalPlugins\MathMlReader\dialogs.py:401
+#: addon\globalPlugins\MathMlReader\dialogs.py:406
 msgid "&description"
 msgstr "&описание"
 
-#: dialogs.py:403
+#: addon\globalPlugins\MathMlReader\dialogs.py:403
 msgid "description"
 msgstr "описание"
 
-#: dialogs.py:412
+#: addon\globalPlugins\MathMlReader\dialogs.py:412
 msgid "Serialized ordering"
 msgstr "Метод и порядок чтения"
 
-#: dialogs.py:415
+#: addon\globalPlugins\MathMlReader\dialogs.py:415
+#, python-format
 msgid "Ordering %d"
 msgstr "Элемент %d"
 
-#: dialogs.py:418
+#: addon\globalPlugins\MathMlReader\dialogs.py:418
 msgid "Child"
 msgstr "Дочерний элемент"
 
-#: dialogs.py:424
+#. before item
+#: addon\globalPlugins\MathMlReader\dialogs.py:424
 #, python-format
 msgid "Before item text &%d"
 msgstr "Текст перед элементом &%d"
 
-#: dialogs.py:429
+#. after item
+#: addon\globalPlugins\MathMlReader\dialogs.py:429
 #, python-format
 msgid "After item text &%d"
 msgstr "Текст после элемента &%d"
 
-#: dialogs.py:435
+#: addon\globalPlugins\MathMlReader\dialogs.py:435
 #, python-format
 msgid "Start text &%d"
 msgstr "Текст в начале &%d"
 
-#: dialogs.py:437
+#: addon\globalPlugins\MathMlReader\dialogs.py:437
 #, python-format
 msgid "End text &%d"
 msgstr "Текст в конце &%d"
 
-#: dialogs.py:439
+#: addon\globalPlugins\MathMlReader\dialogs.py:439
 #, python-format
 msgid "&Interval text &%d"
 msgstr "&Разделительный текст &%d"
 
-#: dialogs.py:447
+#: addon\globalPlugins\MathMlReader\dialogs.py:447
 msgid "Child role"
 msgstr "Описания дочерних элементов"
 
-#: dialogs.py:450
+#: addon\globalPlugins\MathMlReader\dialogs.py:450
 #, python-format
 msgid "&Child %d meaning"
 msgstr "&Описание дочернего элемента %d"
 
-#: dialogs.py:489
+#. Translators: This is an error message to let the user know that the dictionary entry is not valid.
+#: addon\globalPlugins\MathMlReader\dialogs.py:489
 #, python-format
 msgid "Regular Expression error: \"%s\"."
 msgstr "Ошибка регулярного выражения: \"%s\""
 
-#: dialogs.py:489
+#: addon\globalPlugins\MathMlReader\dialogs.py:489
 msgid "Dictionary Entry Error"
 msgstr "Ошибка словаря"
 
-#: dialogs.py:505
+#. Translators: This is the label for the symbol pronunciation dialog.
+#. %s is replaced by the language for which symbol pronunciation is being edited.
+#: addon\globalPlugins\MathMlReader\dialogs.py:505
 #, python-format
 msgid "math rule (%s)"
 msgstr "математические правила (%s)"
 
-#: dialogs.py:513
+#. Translators: The label for symbols list in symbol pronunciation dialog.
+#: addon\globalPlugins\MathMlReader\dialogs.py:513
 msgid "&Mathrules"
 msgstr "&Математические правила"
 
-#: dialogs.py:521
+#. Translators: The label for a column in symbols list used to identify a symbol.
+#: addon\globalPlugins\MathMlReader\dialogs.py:521
 msgid "Rule"
 msgstr "Правило"
 
-#: dialogs.py:522
+#: addon\globalPlugins\MathMlReader\dialogs.py:522
 msgid "Description"
 msgstr "Описание"
 
-#: dialogs.py:542
+#. Translators: The label for a button to edit math rule.
+#: addon\globalPlugins\MathMlReader\dialogs.py:542
 msgid "&Edit"
 msgstr "&Изменить"
 
-#: dialogs.py:546
+#. Translators: The label for a button to example math rule.
+#: addon\globalPlugins\MathMlReader\dialogs.py:546
 msgid "E&xample"
 msgstr "&Пример"
 
-#: dialogs.py:668
+#: addon\globalPlugins\MathMlReader\dialogs.py:668
 msgid "New language adding"
 msgstr "Добавление нового языка"
 
-#: dialogs.py:687
+#: addon\globalPlugins\MathMlReader\dialogs.py:687
 msgid "&Select"
 msgstr "&Выбрать"
 
-#: dialogs.py:691
+#: addon\globalPlugins\MathMlReader\dialogs.py:691
 msgid "&Unselect"
 msgstr "&Отменить выбор"
 
-#: dialogs.py:699
+#. Add button
+#: addon\globalPlugins\MathMlReader\dialogs.py:699
 msgid "unicode dictionary"
 msgstr "словарь символов Unicode"
 
-#: dialogs.py:700
+#: addon\globalPlugins\MathMlReader\dialogs.py:700
 msgid "math rule"
 msgstr "математические правила"
 
-#: dialogs.py:701
+#: addon\globalPlugins\MathMlReader\dialogs.py:701
 msgid "OK"
 msgstr "ОК"
 
-#: dialogs.py:792
+#. Translators: The message displayed
+#: addon\globalPlugins\MathMlReader\dialogs.py:792
 msgid ""
 "For the new language to add, NVDA must be restarted. Press enter to restart "
 "NVDA, or cancel to exit at a later time."
@@ -450,22 +493,30 @@ msgstr ""
 "чтобы перезапустить NVDA сейчас, или \"Отмена\", чтобы перезапустить позже "
 "самостоятельно."
 
-#: dialogs.py:794
+#. Translators: The title of the dialog
+#: addon\globalPlugins\MathMlReader\dialogs.py:794
 msgid "New language add"
 msgstr "Добавить новый язык"
 
-#: dialogs.py:800
+#: addon\globalPlugins\MathMlReader\dialogs.py:800
 msgid "Write AsciiMath Entry"
 msgstr "Написать AsciiMath-код"
 
-#: dialogs.py:804
+#: addon\globalPlugins\MathMlReader\dialogs.py:804
 msgid "Write Latex Entry"
 msgstr "Написать Latex-код"
 
-#: dialogs.py:815
+#: addon\globalPlugins\MathMlReader\dialogs.py:815
 msgid "build-in"
 msgstr "по умолчанию"
 
-#: languageHandler_custom.py:24
+#. Translators: the label for the Windows default NVDA interface language.
+#: addon\globalPlugins\MathMlReader\languageHandler_custom.py:24
 msgid "User default"
 msgstr "пользователь по умолчанию"
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#: buildVars.py:20
+msgid "Allows access math content written by MathML"
+msgstr "Allows access math content written by MathML"

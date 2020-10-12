@@ -1,141 +1,141 @@
 ﻿symbols:
 
-#0370−03ff
-ͱ	heta	none
-ͱ	heta	none
-ͳ	archaic sampi	none
-ͳ	archaic sampi	none
-ʹ	numeral sign	none
-͵	lower numeral sign	none
-ͷ	pamphylian digamma	none
-ͷ	pamphylian digamma	none
-ͺ	ypogegrammeni	none
-ͻ	reversed lunate sigma 	none
-ͼ	dotted lunate sigma 	none
-ͽ	reversed dotted lunate sigma 	none
-;	question mark	none
-Ϳ	yot	none
-΄	tonos	none
-΅	dialytika tonos	none
-ά	alpha with tonos	none
-·	ano teleia	none
-έ	epsilon with tonos	none
-ή	eta with tonos	none
-ί	iota with tonos	none
-ό	omicron with tonos	none
-ύ	upsilon with tonos	none
-ώ	omega with tonos	none
-ΐ	iota with dialytika and tonos	none
-α	alpha	none
-β	beta	none
-γ	gamma	none
-δ	delta	none
-ε	epsilon	none
-ζ	zeta	none
-η	eta	none
-θ	theta	none
-ι	lota	none
-κ	kappa	none
-λ	lamda	none
-μ	mu	none
-ν	nu	none
-ξ	xi	none
-ο	omicron	none
-π	pi	none
-ρ	rho	none
-σ	sigma	none
-τ	tau	none
-υ	upsilon	none
-φ	phi	none
-χ	chi	none
-ψ	psi	none
-ω	omega	none
-ϊ	iota with dialytika	none
-ϋ	upsilon with dialytika	none
-ά	alpha with tonos	none
-έ	epsilon with tonos	none
-ή	eta with tonos	none
-ί	iota with tonos	none
-ΰ	upsilon with dialytika and tonos	none
-α	alpha	none
-β	beta	none
-γ	gamma	none
-δ	delta	none
-ε	epsilon	none
-ζ	zeta	none
-η	eta	none
-θ	theta	none
-ι	lota	none
-κ	kappa	none
-λ	lamda	none
-μ	mu	none
-ν	nu	none
-ξ	xi	none
-ο	omicron	none
-π	pi	none
-ρ	rho	none
-ς	final sigma	none
-σ	sigma	none
-τ	tau	none
-υ	upsilon	none
-φ	phi	none
-χ	chi	none
-ψ	psi	none
-ω	omega	none
-ϊ	iota with dialytika	none
-ϋ	upsilon with dialytika	none
-ό	omicron with tonos	none
-ύ	upsilon with tonos	none
-ώ	omega with tonos	none
-ϗ	kai 	none
-ϐ	beta	none
-ϑ	theta	none
-ϒ	upsilon with hook 	none
-ϓ	upsilon with acute and hook 	none
-ϔ	upsilon with diaeresis and hook 	none
-ϕ	phi	none
-ϖ	pi	none
-ϗ	kai	none
-ϙ	koppa	none
-ϙ	koppa	none
-ϛ	stigma	none
-ϛ	stigma	none
-ϝ	diggmma	none
-ϝ	diggmma	none
-ϟ	koppa	none
-ϟ	koppa	none
-ϡ	sampi	none
-ϡ	sampi	none
-ϣ	shei	none
-ϣ	shei	none
-ϥ	fei	none
-ϥ	fei	none
-ϧ	khei	none
-ϧ	khei	none
-ϩ	hori	none
-ϩ	hori	none
-ϫ	gangia	none
-ϫ	gangia	none
-ϭ	shima	none
-ϭ	shima	none
-ϯ	dei	none
-ϯ	dei	none
-ϰ	kappa	none
-ϱ	rho	none
-ϲ	lunate sigma	none
-ϳ	yot	none
-θ	theta	none
-ϵ	lunate epsilon	none
-϶	reversed lunate epsilon 	none
-ϸ	sho	none
-ϸ	sho	none
-ϲ	lunate sigma	none
-ϻ	san	none
-ϻ	san	none
-ϼ	rho with stroke	none
-ͻ	reversed lunate sigma 	none
-ͼ	dotted lunate sigma 	none
-ͽ	reversed dotted lunate sigma	none
+#0370~03FF
+Ͱ	Heta	none
+ͱ	Heta	none
+Ͳ	Archaic Sampi	none
+ͳ	Archaic Sampi	none
+ʹ	Numeral Sign	none
+͵	Lower Numeral Sign	none
+Ͷ	Pamphylian Digamma	none
+ͷ	Pamphylian Digamma	none
+ͺ	Ypogegrammeni	none
+ͻ	Reversed Lunate Sigma 	none
+ͼ	Dotted Lunate Sigma 	none
+ͽ	Reversed Dotted Lunate Sigma 	none
+;	Question Mark	none
+Ϳ	Yot	none
+΄	Tonos	none
+΅	Dialytika Tonos	none
+Ά	Alpha with Tonos	none
+·	Ano Teleia	none
+Έ	Epsilon with Tonos	none
+Ή	Eta with Tonos	none
+Ί	Iota with Tonos	none
+Ό	Omicron with Tonos	none
+Ύ	Upsilon with Tonos	none
+Ώ	Omega with Tonos	none
+ΐ	Iota with Dialytika and Tonos	none
+Α	Alpha	none
+Β	Beta	none
+Γ	Gamma	none
+Δ	Delta	none
+Ε	Epsilon	none
+Ζ	Zeta	none
+Η	Eta	none
+Θ	Theta	none
+Ι	Lota	none
+Κ	Kappa	none
+Λ	Lamda	none
+Μ	Mu	none
+Ν	Nu	none
+Ξ	Xi	none
+Ο	Omicron	none
+Π	Pi	none
+Ρ	Rho	none
+Σ	Sigma	none
+Τ	Tau	none
+Υ	Upsilon	none
+Φ	Phi	none
+Χ	Chi	none
+Ψ	Psi	none
+Ω	Omega	none
+Ϊ	Iota with Dialytika	none
+Ϋ	Upsilon with Dialytika	none
+ά	Alpha with Tonos	none
+έ	Epsilon with Tonos	none
+ή	Eta with Tonos	none
+ί	Iota with Tonos	none
+ΰ	Upsilon with Dialytika and Tonos	none
+α	Alpha	none
+β	Beta	none
+γ	Gamma	none
+δ	Delta	none
+ε	Epsilon	none
+ζ	Zeta	none
+η	Eta	none
+θ	Theta	none
+ι	Lota	none
+κ	Kappa	none
+λ	Lamda	none
+μ	Mu	none
+ν	Nu	none
+ξ	Xi	none
+ο	Omicron	none
+π	Pi	none
+ρ	Rho	none
+ς	Final Sigma	none
+σ	Sigma	none
+τ	Tau	none
+υ	Upsilon	none
+φ	Phi	none
+χ	Chi	none
+ψ	Psi	none
+ω	Omega	none
+ϊ	Iota with Dialytika	none
+ϋ	Upsilon with Dialytika	none
+ό	Omicron with Tonos	none
+ύ	Upsilon with Tonos	none
+ώ	Omega with Tonos	none
+Ϗ	Kai 	none
+ϐ	Beta	none
+ϑ	Theta	none
+ϒ	Upsilon with Hook 	none
+ϓ	Upsilon with Acute and Hook 	none
+ϔ	Upsilon with Diaeresis and Hook 	none
+ϕ	Phi	none
+ϖ	Pi	none
+ϗ	Kai	none
+Ϙ	Koppa	none
+ϙ	Koppa	none
+Ϛ	Stigma	none
+ϛ	Stigma	none
+Ϝ	Diggmma	none
+ϝ	Diggmma	none
+Ϟ	Koppa	none
+ϟ	Koppa	none
+Ϡ	Sampi	none
+ϡ	Sampi	none
+Ϣ	Shei	none
+ϣ	Shei	none
+Ϥ	Fei	none
+ϥ	Fei	none
+Ϧ	Khei	none
+ϧ	Khei	none
+Ϩ	Hori	none
+ϩ	Hori	none
+Ϫ	Gangia	none
+ϫ	Gangia	none
+Ϭ	Shima	none
+ϭ	Shima	none
+Ϯ	Dei	none
+ϯ	Dei	none
+ϰ	Kappa	none
+ϱ	Rho	none
+ϲ	Lunate Sigma	none
+ϳ	Yot	none
+ϴ	Theta	none
+ϵ	Lunate Epsilon	none
+϶	Reversed Lunate Epsilon 	none
+Ϸ	Sho	none
+ϸ	Sho	none
+Ϲ	Lunate Sigma	none
+Ϻ	San	none
+ϻ	San	none
+ϼ	Rho with Stroke	none
+Ͻ	Reversed Lunate Sigma 	none
+Ͼ	Dotted Lunate Sigma 	none
+Ͽ	Reversed Dotted Lunate Sigma	none
 
 ∀	for all	none
 ∁	complement	none
