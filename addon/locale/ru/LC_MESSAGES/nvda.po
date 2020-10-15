@@ -23,9 +23,6 @@ msgstr ""
 "X-Poedit-SearchPath-0: locale/ru/LC_MESSAGES/addon/globalPlugins/"
 "MathMlReader/.\n"
 "X-Poedit-SearchPath-1: .\n"
-"X-Poedit-SearchPathExcluded-0: ../../pcKbBrl-master/addon\n"
-"X-Poedit-SearchPathExcluded-1: ../../pcKbBrl-master/addon\n"
-"X-Poedit-SearchPathExcluded-2: ../../pcKbBrl-master/addon/globalPlugins\n"
 
 #: addon\globalPlugins\MathMlReader\__init__.py:189
 msgid "Access8Math interaction window"
