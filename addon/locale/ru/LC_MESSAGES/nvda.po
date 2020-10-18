@@ -8,18 +8,21 @@ msgstr ""
 "Project-Id-Version: 'Access8Math' '2.5'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2020-10-12 09:09+0800\n"
-"PO-Revision-Date: 2020-10-12 09:17+0800\n"
+"PO-Revision-Date: 2020-10-15 15:57+0300\n"
 "Last-Translator: Andrey Yakuboy <andrewia2002@yandex.ru>\n"
 "Language-Team: \n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4\n"
-"X-Poedit-Basepath: addon/globalPlugins/MathMlReader\n"
+"X-Generator: Poedit 2.4.1\n"
+"X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: locale/ru/LC_MESSAGES/addon/globalPlugins/"
+"MathMlReader/.\n"
+"X-Poedit-SearchPath-1: .\n"
 
 #: addon\globalPlugins\MathMlReader\__init__.py:189
 msgid "Access8Math interaction window"
@@ -121,7 +124,7 @@ msgstr "обработчик MathML изменён на %s"
 
 #: addon\globalPlugins\MathMlReader\__init__.py:560
 msgid "Shows the Access8Math settings dialog."
-msgstr "Показывает диалог настроек Access8Math"
+msgstr "Показывает диалог настроек Access8Math."
 
 #: addon\globalPlugins\MathMlReader\__init__.py:590
 msgid ""
@@ -421,7 +424,7 @@ msgstr "&Описание дочернего элемента %d"
 #: addon\globalPlugins\MathMlReader\dialogs.py:489
 #, python-format
 msgid "Regular Expression error: \"%s\"."
-msgstr "Ошибка регулярного выражения: \"%s\""
+msgstr "Ошибка регулярного выражения: \"%s\"."
 
 #: addon\globalPlugins\MathMlReader\dialogs.py:489
 msgid "Dictionary Entry Error"
@@ -513,10 +516,10 @@ msgstr "по умолчанию"
 #. Translators: the label for the Windows default NVDA interface language.
 #: addon\globalPlugins\MathMlReader\languageHandler_custom.py:24
 msgid "User default"
-msgstr "пользователь по умолчанию"
+msgstr "Пользователь по умолчанию"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 #: buildVars.py:20
 msgid "Allows access math content written by MathML"
-msgstr "Allows access math content written by MathML"
+msgstr "Предоставляет доступ к чтению математического контента MathML"
