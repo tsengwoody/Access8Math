@@ -1,4 +1,4 @@
-# coding: utf-8
+﻿# coding: utf-8
 # Copyright (C) 2017-2019 Tseng Woody <tsengwoody.tw@gmail.com>
 
 import collections
@@ -709,6 +709,7 @@ class NodeType(object):
 	attrib = {}
 	data = re.compile(r".*")
 	name = 'nodetype'
+	priority = 0
 
 	def __init__(self):
 		self.mathrule = {}
@@ -882,6 +883,11 @@ class OperatorType(TerminalNodeType):
 class FromToOperatorType(TerminalNodeType):
 	tag = Mo
 	data = re.compile(r"^[∑∫]$")
+
+
+class LogOperatorType(TerminalNodeType):
+	tag = Mi
+	data = re.compile(r"^log$")
 
 
 class MiType(TerminalNodeType):
@@ -1105,6 +1111,12 @@ class MoverToType(SingleMoverType):
 	name = 'to'
 
 
+class MsubLogType(SingleMsubType):
+	tag = Msub
+	child = [LogOperatorType, OperandType]
+	name = 'LogType'
+
+
 class SetType(NonTerminalNodeType):
 	tag = Mfenced
 	attrib = {
@@ -1143,6 +1155,15 @@ class DeterminantType(AbsoluteType):
 	name = 'determinant'
 
 
+class BinomialType(FractionType):
+	tag = Mfrac
+	attrib = {
+		'linethickness': re.compile(r"^[0]$"),
+	}
+	name = 'BinomialType'
+	priority = 1
+
+
 # SiblingNodeType
 class SingleNumberFractionType(SingleFractionType):
 	child = [MnOperandType, MnOperandType]
@@ -1153,6 +1174,7 @@ class AddIntegerFractionType(SiblingNodeType):
 	previous_siblings = [MnOperandType]
 	self_ = SingleNumberFractionType
 	name = 'AddIntegerFractionType'
+	priority = 1
 
 
 class SignPreviousMoType(TerminalNodeType):
@@ -1357,6 +1379,7 @@ nodes = {i.__name__: i for i in locals().values() if inspect.isclass(i) and issu
 
 # get class which is NodeType subclass
 nodetypes = [i for i in locals().values() if inspect.isclass(i) and issubclass(i, NodeType)]
+nodetypes = sorted(nodetypes, key=lambda c: -c.priority)
 nodetypes_dict = {k: v for k, v in locals().items() if inspect.isclass(v) and issubclass(v, NodeType)}
 SNT = [i for i in locals().values() if inspect.isclass(i) and issubclass(i, SiblingNodeType)]
 
@@ -1396,6 +1419,7 @@ mathrule_info = {
 		"mfrac": [5, 2, ".", ],
 		"single_fraction": [5, 2, ".", ],
 		"AddIntegerFractionType": [5, 2, ".", ],
+		"BinomialType": [5, 2, ".", ],
 	},
 	"fenced": {
 		"mfenced": [3, 1, "*", ],
@@ -1432,6 +1456,7 @@ mathrule_info = {
 		"from_to": [7, 3, ".", ],
 		"from": [5, 2, ".", ],
 		"to": [5, 2, ".", ],
+		"LogType": [3, 2, ".", ],
 	},
 	"table": {
 		"mtable": [3, 1, "*", ],
@@ -1479,6 +1504,7 @@ mathrule_order = {
 		"mfrac",
 		"single_fraction",
 		"AddIntegerFractionType",
+		"BinomialType",
 	],
 	"fenced": [
 		"mfenced",

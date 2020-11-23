@@ -1,4 +1,4 @@
-﻿#
+#
 node	, (.),	élément	nœud
 mfrac	fraction avec numérateur, 0, et dénominateur, 1, fin fraction	numérateur,dénominateur	fraction générique
 mfenced	parenthèse gauche, ( .), parenthèse droite	élément	parenthèses génériques
@@ -46,3 +46,5 @@ VectorDoubleType	vecteur, 0,	principal,suscrit	vecteur avec deux symboles (notat
 ArrowOverSingleSymbolType	vecteur, 0,	main,super	Vecteur avec un symbole (notation française)
 FrownType	arc, 0,	principal,suscrit	arc
 DegreeType	0, degree	main,super	degree
+LogType	log, 1, based	main,sub	log
+BinomialType	from, 0, item choice, 1, item	all,choice	binomial

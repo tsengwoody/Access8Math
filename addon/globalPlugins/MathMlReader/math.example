@@ -40,6 +40,8 @@ VectorDoubleType	<math><mrow><mover accent='true'><mrow><mi>A</mi><mi>B</mi></mr
 ArrowOverSingleSymbolType	<math><mrow><mover accent='true'><mrow><mi>a</mi></mrow><mo stretchy='true'>&#x2192;</mo></mover></mrow></math>
 FrownType	<math><mrow><mover accent='true'><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy='true'>&#x2322;</mo></mover></mrow></math>
 DegreeType	<math ><msup ><mn>15</mn><mo>∘</mo></msup><mo>+</mo><msup ><mn>10</mn><mo>∘</mo></msup><mo>=</mo><msup ><mn>25</mn><mo>∘</mo></msup></math>
+LogType	<math><msub><mi>log</mi><mn>10</mn></msub></math>
+BinomialType	<math><mo>(</mo><mfrac linethickness = "0"><mi>n</mi><mi>k</mi></mfrac><mo>)</mo></math>
 NegativeSignType	<math><mo>-</mo><mn>2</mn></math>
 PositiveSignType	<math><mo>+</mo><mn>2</mn></math>
 mmultiscripts	<math><mmultiscripts><mi>T</mi><mprescripts/><mi>n</mi><mi>m</mi></mmultiscripts></math>

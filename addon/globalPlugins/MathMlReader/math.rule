@@ -1,4 +1,4 @@
-﻿#
+#
 node	, (.),	item	node
 mfrac	fraction with numerator, 0, and denominator, 1, end fraction	numerator,denominator	generics fraction
 mfenced	open parentheses, (.), close parentheses	item	generics parentheses
@@ -46,3 +46,5 @@ VectorDoubleType	vector, 0,	main,super	vector have two symbol
 ArrowOverSingleSymbolType	vector, 0,	main,super	Arrow over a single symbol (vector in French notation)
 FrownType	frown, 0,	main,super	frown
 DegreeType	0, degree	main,super	degree
+LogType	log, 1, based	main,sub	log
+BinomialType	from, 0, item choice, 1, item	all,choice	binomial

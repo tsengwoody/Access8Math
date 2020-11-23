@@ -1,4 +1,4 @@
-﻿#
+#
 node	, (.),	项	node
 mfrac	分数, 1, 分之, 0, 结束分数	分子,分母	一般分数
 mfenced	括号, (.), 括号	项	一般括号
@@ -46,3 +46,5 @@ VectorDoubleType	向量, 0,	主符号,正上标	双符号向量
 ArrowOverSingleSymbolType	vector, 0,	main,super	Arrow over a single symbol (vector in French notation)
 FrownType	弧, 0,	主符号,正上标	符号弧
 DegreeType	0, 度	主符號,上標	符號度
+LogType	对数, 1, 为底	主符号,下标	对数
+BinomialType	从, 0, 项选, 1, 项	全,选	二项式
