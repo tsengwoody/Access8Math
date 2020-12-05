@@ -19,7 +19,7 @@ addon_info = {
 	# Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 	"addon_description" : _("""Allows access math content written by MathML"""),
 	# version
-	"addon_version" : "2.5",
+	"addon_version" : "2.6",
 	# Author(s)
 	"addon_author" : u"Tseng Woody <tsengwoody.tw@gmail.com>",
 	# URL for the add-on documentation support

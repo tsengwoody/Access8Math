@@ -1350,7 +1350,8 @@ def save_math_rule(mathrule, path=None, language=''):
 
 
 def symbol_translate(u):
-	for key, value in symbol.items():
+	symbol_order = sorted(list(symbol.items()), key=lambda i: -len(i[0]))
+	for key, value in symbol_order:
 		u = u.replace(key, value)
 	return u
 
