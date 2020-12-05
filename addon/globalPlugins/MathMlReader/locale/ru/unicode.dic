@@ -114,6 +114,11 @@
 ϻ	сан	none
 ϼ	ро со штрихом	none
 
+′	штрих	none
+″	двойной штрих	none
+‵	обратный штрих	none
+‶	обратный двойной штрих	none
+‴	тройной штрих	none
 ∀	для всех	none
 ∁	дополнение	none
 ∂	частный дифференциал	none
@@ -385,11 +390,22 @@ leftupmark	отметка слева и вверху	none
 main	основная строка	none
 mprescripts_index	mprescripts index	none
 arcsin	арксинус	none
+arccosec	арккосеканс	none
 arccos	арккосинус	none
+arctg	арктангенс	none
 arctan	арктангенс	none
+arcctg	арккотангенс	none
+arccotan	арккотангенс	none
+arccot	арккотангенс	none
+arcsec	арксеканс	none
+arccsc	арккосеканс	none
+cosec	косеканс	none
 sin	синус	none
 cos	косинус	none
+ctg	котангенс	none
+tg	тангенс	none
 tan	тангенс	none
+cotan	котангенс	none
 cot	котангенс	none
 sec	секанс	none
 csc	косеканс	none
@@ -399,6 +415,6 @@ lg	десятичный логарифм	none
 lb	двоичный логарифм	none
 max	максимум	none
 min	минимум	none
-exp	экспонента	none
+тexp	экспонента	none
 lim	предел	none
 
