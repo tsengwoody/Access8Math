@@ -44,6 +44,7 @@ class GeneralSettingsDialog(SettingsDialog):
 		("AMM", _("Analyze mathematical meaning of content")),
 		("DG", _("Read defined meaning in dictionary")),
 		("AG", _("Read of auto-generated meaning")),
+		("AI", _("Announce index of items in current frame")),
 	])
 
 	def makeSettings(self, settingsSizer):

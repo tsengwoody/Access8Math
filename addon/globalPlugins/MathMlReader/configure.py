@@ -13,6 +13,7 @@ settings = [
 	"AMM",
 	"DG",
 	"AG",
+	"AI",
 	"SingleMsubsupType",
 	"SingleMsubType",
 	"SingleMsupType",

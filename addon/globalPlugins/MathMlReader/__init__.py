@@ -346,13 +346,14 @@ class MathMlReaderInteraction(mathPres.MathInteractionNVDAObject):
 
 		if r:
 			api.setReviewPosition(self.makeTextInfo(), False)
-			if self.mathcontent.pointer.parent:
-				if convert_bool(os.environ['AG']) and self.mathcontent.pointer.parent.role_level == A8M_PM.AUTO_GENERATE:
+			if convert_bool(os.environ['AI']):
+				if self.mathcontent.pointer.parent:
+					if convert_bool(os.environ['AG']) and self.mathcontent.pointer.parent.role_level == A8M_PM.AUTO_GENERATE:
+						speech.speak([self.mathcontent.pointer.des])
+					elif convert_bool(os.environ['DG']) and self.mathcontent.pointer.parent.role_level == A8M_PM.DIC_GENERATE:
+						speech.speak([self.mathcontent.pointer.des])
+				else:
 					speech.speak([self.mathcontent.pointer.des])
-				elif convert_bool(os.environ['DG']) and self.mathcontent.pointer.parent.role_level == A8M_PM.DIC_GENERATE:
-					speech.speak([self.mathcontent.pointer.des])
-			else:
-				speech.speak([self.mathcontent.pointer.des])
 			speech.speak(translate_SpeechCommand(self.mathcontent.pointer.serialized()))
 		else:
 			speech.speak([_("not move")])
