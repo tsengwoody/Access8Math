@@ -188,6 +188,7 @@ class InteractionFrame(wxgui.GenericFrame):
 		self.obj = obj
 		title = _("Access8Math interaction window")
 		super(InteractionFrame, self).__init__(wx.GetApp().TopWindow, title=title)
+		self.Bind(wx.EVT_CHAR_HOOK, self.OnChar)
 
 	def menuData(self):
 		return [
@@ -243,6 +244,12 @@ class InteractionFrame(wxgui.GenericFrame):
 
 			node = create_node(tree)
 			self.obj.mathcontent.insert(node)
+			
+	def OnChar(self, event):
+		keyCode = event.GetKeyCode()
+		if keyCode == wx.WXK_ESCAPE:
+			self.Close()
+		event.Skip() 
 
 class MathMlTextInfo(textInfos.offsets.OffsetsTextInfo):
 
