@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 'Access8Math' '2.5'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2020-11-24 15:25+0300\n"
-"PO-Revision-Date: 2020-11-24 15:25+0300\n"
+"POT-Creation-Date: 2021-01-05 14:10+0300\n"
+"PO-Revision-Date: 2021-01-05 14:14+0300\n"
 "Last-Translator: Andrey Yakuboy <andrewia2002@yandex.ru>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -27,100 +27,100 @@ msgstr ""
 msgid "Access8Math interaction window"
 msgstr "Окно взаимодействия с формулой"
 
-#: __init__.py:194
+#: __init__.py:195
 msgid "&Menu"
 msgstr "&Меню"
 
-#: __init__.py:195
+#: __init__.py:196
 msgid "&Exit"
 msgstr "&Выход"
 
-#: __init__.py:195
+#: __init__.py:196
 msgid "Terminate the program"
 msgstr "Закрыть программу"
 
-#: __init__.py:201
+#: __init__.py:202
 msgid "interaction"
 msgstr "взаимодействие"
 
-#: __init__.py:202 __init__.py:229 __init__.py:368
+#: __init__.py:203 __init__.py:230 __init__.py:375
 msgid "copy"
 msgstr "скопировать"
 
-#: __init__.py:319
+#: __init__.py:326
 msgid "enter interaction mode"
 msgstr "вход в режим навигации"
 
-#: __init__.py:358
+#: __init__.py:365
 msgid "not move"
 msgstr "крайний элемент"
 
-#: __init__.py:362
+#: __init__.py:369
 msgid "copy mathml"
 msgstr "скопировать mathml"
 
-#: __init__.py:372 __init__.py:377
+#: __init__.py:379 __init__.py:384
 msgid "snapshot"
 msgstr "снимок"
 
-#: __init__.py:381
+#: __init__.py:388
 msgid "Insert math object"
 msgstr "Вставить математический объект"
 
-#: __init__.py:389
+#: __init__.py:396
 msgid "Delete math object"
 msgstr "Удалить математический объект"
 
-#: __init__.py:397
+#: __init__.py:404
 msgid "Show Access8Math interaction window"
 msgstr "Показать окно взаимодействия Access8Math"
 
-#: __init__.py:404
+#: __init__.py:411
 msgid "Access8Math interaction window already showed"
 msgstr "Диалог взаимодействия Access8Math уже открыт"
 
-#: __init__.py:463
+#: __init__.py:470
 msgid "&General settings..."
 msgstr "Общие &настройки..."
 
-#: __init__.py:470
+#: __init__.py:477
 msgid "&Rule settings..."
 msgstr "&Обработка правил..."
 
-#: __init__.py:477
+#: __init__.py:484
 msgid "&unicode dictionary..."
 msgstr "&Словарь символов Unicode..."
 
-#: __init__.py:484
+#: __init__.py:491
 msgid "&math rule..."
 msgstr "&Математические правила..."
 
-#: __init__.py:491
+#: __init__.py:498
 msgid "&New language adding..."
 msgstr "&Добавление нового языка..."
 
-#: __init__.py:512
+#: __init__.py:519
 msgid "&About..."
 msgstr "О дополн&ении..."
 
-#: __init__.py:516
+#: __init__.py:523
 msgid "Access8Math"
 msgstr "Access8Math"
 
-#: __init__.py:532
+#: __init__.py:539
 msgid "Change mathml provider"
 msgstr "Изменяет обработчик MathML"
 
-#: __init__.py:557
+#: __init__.py:564
 #, python-format
 msgid "mathml provider change to %s"
 msgstr "обработчик MathML изменён на %s"
 
-#: __init__.py:560
+#: __init__.py:567
 msgid "Shows the Access8Math settings dialog."
 msgstr "Показывает диалог настроек Access8Math."
 
-#: __init__.py:590
+#: __init__.py:597
 msgid ""
 "Access8Math\n"
 "Version: 2.5\n"
@@ -157,7 +157,7 @@ msgstr ""
 "Если вы считаете, что это дополнение полезно, поддержите тайваньскую "
 "ассоциацию людей с нарушениями зрения и авторов дополнения."
 
-#: __init__.py:599
+#: __init__.py:606
 msgid "About Access8Math"
 msgstr "О дополнении Access8Math"
 
@@ -175,11 +175,11 @@ msgstr "Анализировать значение математическог
 
 #: dialogs.py:45
 msgid "Read defined meaning in dictionary"
-msgstr "Использовать определённые в словаре значения"
+msgstr "Читать определённые в правилах описания дочерних элементов"
 
 #: dialogs.py:46
 msgid "Read of auto-generated meaning"
-msgstr "Использовать автоматически созданные значения"
+msgstr "Читать автоматически сгенерированное описание дочерних элементов"
 
 #: dialogs.py:51 dialogs.py:678
 msgid "&Language:"
@@ -450,7 +450,7 @@ msgid ""
 "NVDA, or cancel to exit at a later time."
 msgstr ""
 "Чтобы добавить новый язык, необходимо перезапустить NVDA. Нажмите Enter, "
-"чтобы перезапустить NVDA сейчас, или \"Отмена\", чтобы перезапустить позже "
+"чтобы перезапустить сейчас, или \"Отмена\", чтобы перезапустить позже "
 "самостоятельно."
 
 #: dialogs.py:794
