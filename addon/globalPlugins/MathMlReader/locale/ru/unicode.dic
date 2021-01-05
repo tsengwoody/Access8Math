@@ -417,4 +417,5 @@ max	максимум	none
 min	минимум	none
 тexp	экспонента	none
 lim	предел	none
+const	константа	none
 
