@@ -140,7 +140,7 @@ def translate_SpeechCommand(serializes):
 		time_search = pattern.search(r)
 		try:
 			time = time_search.group('time')
-			command = speech.BreakCommand(time=int(time) +int(os.environ['item_interval_time']))
+			command = speech.commands.BreakCommand(time=int(time) +int(os.environ['item_interval_time']))
 			speechSequence.append(command)
 		except:
 			speechSequence.append(r)
