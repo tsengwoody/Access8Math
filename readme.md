@@ -1,46 +1,42 @@
-﻿# Access8Math ReadMe
+# Access8Math ReadMe
 
-This NVDA addon provides the function of reading math content. Although the original NVDA already equipped this feature by applying MathPlayer, some functions still needed to be improved, especially in MathPlayer some language not provided navigation mode.
+This NVDA addon provides the function of reading math content. Although the original NVDA already equipped this feature by applying MathPlayer, some functions still needed to be improved, such as not providing or incomplete specific language translation, not providing specific language navigation and browsing and many more.
 
-navigation mode is important to read long math content. It help to understand long math content's structure easily.
+Navigation interactive mode can segment a math content into smaller partial fragments for speaking, and select the read fragment and method through a series of keyboard key operations. This function can better understand the structure and items of long math content. The hierarchical relationship with the item.
 
-## function
+## Reading feature
 
-Access8Math allows:
-
-*	Read math content written in MathML in web browser(Mozilla Firefox, Microsoft Internet Explorer and Google Chrome).
-*	Read Microsoft Word math content written in MathType. (MathPlayer installed only)
+*	Read math content written in MathML in web browser(Mozilla Firefox, Microsoft Internet Explorer and Google Chrome) or read Microsoft Word math content written in MathType. (MathPlayer installed only)
+*	Interaction: Press space or enter on the MathML math object to enter navigation interactive mode. It means you can browse part of the sub-content in the math content and move between sub-contents or zoom the size of the sub-content
 *	Pressing "Space" in math content to open "Access8Math interaction window" which contains "interactive" and "copy" button.
 	*	interaction: Into math content to navigate and browse. Also, you can partially explore the subparts in expression and move or zoom the content between the subpart.
 	*	copy: Copy MathML object source code.
-*	In navigation mode, indicate the meaning of subpart in the upper layer part.
-*	In navigation mode command：
-	*	"Down Arrow": Zoom in on a smaller subpart of the math content.
-	*	"Up Arrow": Zoom out to  a larger subpartthe of the math content .
-	*	"Left Arrow": Move to the previous math content.
-	*	"Right Arrow": Move to the next math content.
-	*	"Home": Move back to the top.(Entire math content)	
-	*	"Ctrl+c": Copy object MathML source code
-	*	"Numpad 1~9": Reading the math content into serialized text using NVDA Reviewing Text.
-	*	"ESC": Exit the navigation mode.
-*	"Ctrl+Alt+m": Switch the provider between Access8Math and MathPlayer.(MathPlayer installed only)
-*	Menu:
-	*	General Settings dialog box:
-		*	Language: Access8Math reading language
-		*	Item interval time: Setting pause time between items. Values from 1 to 100, the smaller the value, the shorter the pause time, and the greater the value, the longer the pause time.
-		*	Analyze the mathematical meaning of content: Semantically analyze the math content, in line with specific rules, read in mathematical meaning of that rules.
-		*	Read defined meaning  in dictionary: When the pattern is definied in the dictionary, use dictionary to read the meaning of subpart in the upper layer part.
-		*	Read auto-generated meaning: When the pattern is not difined or incomplete in dictionary, use automatic generation function to read the meaning of subpart in the upper layer part.
-	*	Rule Settings dialog box: select whether specific rules are enabled.
-*	"unicode dictionary" allows customizing the reading method for each symbol text.
-*	"math rule" allows customizing the reading method for each type of mathematics.
-*	"New language adding" allows adding language not provided in the built-in system. The newly language will be added to the "General settings", and multi-language customization can be achieved through reading definition of "unicode dictionary" and "math rule".
+* Text review: Press the numeric keyboard 1-9 during navigation to read the mathematical content of the serialized text word by word and line by line
+* Analyze the overall mathematical meaning of the content: analyze the structure of MathML, and when it meets a specific rule, read it aloud in the mathematical meaning of the rule
+* Analyze the mathematical meaning of the content item: When navigating and browsing, it will prompt the meaning of the content under its upper content. For example, there are two score items, and moving between them will enroll the item as the denominator or numerator
 
-## Math Rules
+## navigation interactive mode command：
 
-Access8Math establishes 43 mathematical rules according to the mathematical type and logic to decide the reading math method and order. According to different local math reading logic, the math reading text and order can be changed. The method is as follows:
+*	"Down Arrow": Zoom in on a smaller subpart of the math content.
+*	"Up Arrow": Zoom out to  a larger subpartthe of the math content .
+*	"Left Arrow": Move to the previous math content.
+*	"Right Arrow": Move to the next math content.
+*	"Home": Move back to the top.(Entire math content)	
+*	"Ctrl+c": Copy object MathML source code
+*	"Numpad 1~9": Reading the math content into serialized text using NVDA Reviewing Text.
+*	"ESC": Exit the navigation mode.
 
-Edit: After entering the "math rule", the window lists 43 math rules. Choose any math rule and select the "Edit" to enter the editing entry.
+## Multi-language custom settings
+
+*	"Unicode dictionary" allows customizing the reading method for each symbol text.
+*	"Mathematics Rules" allows customizing the reading method for each type of mathematics.
+*	"Add a new language" can add languages: that were not originally provided in the built-in. After adding, there will be more newly added language families in the general settings and can be used to define the reading method through the "unicode dictionary" and "mathematics rules" to reach multiple countries Language customization
+
+### Math Rules
+
+Access8Math establishes 46 mathematical rules according to the mathematical type and logic to decide the reading math method and order. According to different local math reading logic, the math reading text and order can be changed. The method is as follows:
+
+Edit: After entering the "math rule", the window lists 46 math rules. Choose any math rule and select the "Edit" to enter the editing entry.
 
 The "editing entry" can be divided into two major blocks, the "Serialized ordering" and the "Child role".
 *	Serialized ordering: Math rule is divided into multiple blocks according to the reading order. In this area, the reading order of child node and the delimitation text of start, inter- and the end can be changed. Taking the fractional rule mfrac as an example, this rule is divided into five reading blocks. The order 0, 2, and 4 represent the initial prompt, the project segmentation prompt, and the end prompt, respectively, and the meanings text can be changed in each field. Order 1 and 3 adjust the reading	sequence of child node which can be changed in the drop-down menu.
@@ -54,16 +50,37 @@ Import: Import math rules files, which can be used to load math rules files.
 
 Export: Save the math rules file to the specified path to share or keep.
 
-## other
+## Writing feature
 
-Single rules are simplified versions of various rules. When the content only has one single item, for better understanding and reading without confusion, you can omit to choose not to read the script before and after the content.
+Writing mathematical content in AsciiMath
 
-Math rules and definitions analyzed by math contents are continuing increasing.
+Writing mathematical content in LaTeX
 
-We are now focusing the MathML written in Presentation Markup, because MathML graphical input tools such as word, math type, wiris generated MathML are all in this type.
+Writing integrative content (text content and mathematical content):
 
-Math contents in Wiki are all written in MathML.
+*	Use the start delimiter "\(" and end delimiter "\)" to determine the area between the text content and the mathematical content, that is, the data in the start delimiter and the end delimiter are mathematical content (LaTeX), and the data outside the delimiter are Text content.
+*	Convert to HTML format
+	*	"Text-math..." in the menu will display an editing area to enter the integrative content and press OK
+	*	Press NVDA+shift+m in any edit field
+*	After the conversion is completed, the "Access8Math HTML Window" will show
+	*	review: Open the result of the conversion through the program that opens the HTML file by default
+	*	export: Pack the converted file into a zip file
 
+## settings
+
+*	General Settings dialog:
+	*	Language: Access8Math speaking language
+	*	Item interval time: Setting pause time between items. Values from 1 to 100, the smaller the value, the shorter the pause time, and the greater the value, the longer the pause time.
+	*	Showing Access8Math interaction window when entering interaction mode: Whether to show "Access8Math interaction window" when pressing the space key on the math object.
+	*	Analyze the mathematical meaning of the content: perform semantic analysis on the mathematical content, and when it meets a specific rule, using that rule to speak.
+	*	Reading pre-defined meaning in dictionary when navigating in interactive mode: When the pattern is definied in the dictionary, use dictionary to read the meaning of subpart in the upper layer part.
+	*	Reading of auto-generated meaning when navigating in interactive mode: When the pattern is not difined or incomplete in dictionary, use automatic generation function to read the meaning of subpart in the upper layer part.
+	*	Using a beep to alert no move: When navigating in interactive mode, It will hint by beep. If it is not checked, it will hint by speaking "no move".
+*	Rule Settings dialog box: select whether rules are actived.
+
+Math contents in Wiki are all written by MathML.
+
+*	Quadratic equation: https://en.wikipedia.org/wiki/Quadratic_equation
 *	Matrix multiplication: https://en.wikipedia.org/wiki/Matrix_multiplication
 *	Cubic function: https://en.wikipedia.org/wiki/Cubic_function
 
@@ -71,72 +88,22 @@ Example
 
 *	Quadratic equation
 <math xmlns="http://www.w3.org/1998/Math/MathML"><mfrac><mrow><mo>-</mo><mi>b</mi><mo>&#xB1;</mo><msqrt><msup><mi>b</mi><mn>2</mn></msup><mo>-</mo><mn>4</mn><mi>a</mi><mi>c</mi></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></math>
-*	Binomial theorem
-<math xml:lang="en">
-  <semantics>
-    <mrow class="MJX-TeXAtom-ORD">
-      <mstyle displaystyle="true" scriptlevel="0">
-        <mo stretchy="false">(</mo>
-        <mn>1</mn>
-        <mo>+</mo>
-        <mi>x</mi>
-        <msup>
-          <mo stretchy="false">)</mo>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mi>α<!-- α --></mi>
-          </mrow>
-        </msup>
-        <mo>=</mo>
-        <munderover>
-          <mo>∑<!-- ∑ --></mo>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mi>n</mi>
-            <mo>=</mo>
-            <mn>0</mn>
-          </mrow>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mi mathvariant="normal">∞<!-- ∞ --></mi>
-          </mrow>
-        </munderover>
-        <mi>C</mi>
-        <mo stretchy="false">(</mo>
-        <mi>α<!-- α --></mi>
-        <mo>,</mo>
-        <mi>n</mi>
-        <mo stretchy="false">)</mo>
-        <msup>
-          <mi>x</mi>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mi>n</mi>
-          </mrow>
-        </msup>
-        <mspace width="1em"></mspace>
-        <mi mathvariant="normal">∀<!-- ∀ --></mi>
-        <mi>x</mi>
-        <mo>:</mo>
-        <mrow>
-          <mo>|</mo>
-          <mi>x</mi>
-          <mo>|</mo>
-        </mrow>
-        <mo>&lt;</mo>
-        <mn>1</mn>
-        <mo>,</mo>
-        <mi mathvariant="normal">∀<!-- ∀ --></mi>
-        <mi>α<!-- α --></mi>
-        <mo>∈<!-- ∈ --></mo>
-        <mrow class="MJX-TeXAtom-ORD">
-          <mi mathvariant="double-struck">C</mi>
-        </mrow>
-      </mstyle>
-    </mrow>
-    <annotation encoding="application/x-tex">{\displaystyle (1+x)^{\alpha }=\sum _{n=0}^{\infty }C(\alpha ,n)x^{n}\quad \forall x:\left|x\right|&lt;1,\forall \alpha \in \mathbb {C} }</annotation>
-  </semantics>
-</math>
 
-Source code: https://github.com/tsengwoody/Access8Math
+github: https://github.com/tsengwoody/Access8Math
 
 Please report any bugs or comments, thank you!
+
+# Access8Math v3.0 Update
+
+* Write mathematical content in AsciiMath
+* Write mathematical content in LaTeX
+* Writing integrative content (text content and mathematical content)
+
+# Access8Math v2.6 Update
+
+*	Auto entering interactive mode when showing Access8Math interaction window.
+*	You can choose how to hint no movement in interactive mode: beep or speech 'no move' two way.
+*	The content of the current item will be repeated again When there is no movement.
 
 # Access8Math v2.5 Update
 
