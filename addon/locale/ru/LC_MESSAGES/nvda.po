@@ -1,14 +1,14 @@
 # Access8Math: the Russian UI-translation.
-# Copyright (C) 2020-2021 Andrey Yakuboy
+# Copyright (C) 2020 Andrey Yakuboy
 # This file is distributed under the same license as the 'Access8Math' package.
-# Andrey Yakuboy <andrewia2002@yandex.ru>, 2020-2021.
+# Andrey Yakuboy <andrewia2002@yandex.ru>, 2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 'Access8Math' '2.5'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2021-05-08 18:00+0300\n"
-"PO-Revision-Date: 2021-05-08 18:11+0300\n"
+"POT-Creation-Date: 2021-05-09 12:37+0300\n"
+"PO-Revision-Date: 2021-05-09 12:40+0300\n"
 "Last-Translator: Andrey Yakuboy <andrewia2002@yandex.ru>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -44,17 +44,15 @@ msgstr "Закрыть программу"
 
 #: globalPlugins/Access8Math/__init__.py:243
 msgid "review"
-msgstr "обзор"
+msgstr "просмотр"
 
 #: globalPlugins/Access8Math/__init__.py:244
 msgid "export"
 msgstr "экспорт"
 
 #: globalPlugins/Access8Math/__init__.py:268
-#, fuzzy
-#| msgid "Import file..."
 msgid "Open file..."
-msgstr "Импортировать файл..."
+msgstr "Экспортировать файл"
 
 #: globalPlugins/Access8Math/__init__.py:278
 #: globalPlugins/Access8Math/__init__.py:595
@@ -171,7 +169,7 @@ msgstr "О дополнении Access8Math"
 
 #: globalPlugins/Access8Math/dialogs.py:47
 msgid "&Review"
-msgstr "обзор"
+msgstr "&Просмотр"
 
 #: globalPlugins/Access8Math/dialogs.py:52
 msgid "&Export"
