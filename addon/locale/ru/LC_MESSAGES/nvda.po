@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 'Access8Math' '2.5'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2021-05-09 12:37+0300\n"
-"PO-Revision-Date: 2021-05-09 12:40+0300\n"
+"PO-Revision-Date: 2021-05-09 13:05+0300\n"
 "Last-Translator: Andrey Yakuboy <andrewia2002@yandex.ru>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -190,11 +190,13 @@ msgstr "Анализировать значение математическог
 #: globalPlugins/Access8Math/dialogs.py:90
 msgid ""
 "Reading pre-defined meaning in dictionary when navigating in interactive mode"
-msgstr "Использовать определённые в словаре значения при навигации по формуле"
+msgstr ""
+"Читать определённые в словаре описания элементов при навигации по формуле"
 
 #: globalPlugins/Access8Math/dialogs.py:91
 msgid "Reading of auto-generated meaning when navigating in interactive mode"
-msgstr "Использовать автоматически созданные значения при навигации по формуле"
+msgstr ""
+"Читать автоматически созданные описания элементов при навигации по формуле"
 
 #: globalPlugins/Access8Math/dialogs.py:92
 msgid "Using a beep to alert no move"
