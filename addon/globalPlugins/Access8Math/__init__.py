@@ -148,7 +148,7 @@ def text2template(value, output):
 		raw.append({'type': 'text-content', 'data': ''})
 
 	data = raw
-	template = env.get_template("index.html")
+	template = env.get_template("index.template")
 	content = template.render({'title': 'Access8Math', 'data': data, 'raw': raw})
 	with open(output, 'w', encoding='utf8') as f:
 		f.write(content)
