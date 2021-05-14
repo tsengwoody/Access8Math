@@ -1,14 +1,14 @@
 # Access8Math: the Russian UI-translation.
-# Copyright (C) 2020 Andrey Yakuboy
+# Copyright (C) 2020-2021 Andrey Yakuboy
 # This file is distributed under the same license as the 'Access8Math' package.
-# Andrey Yakuboy <andrewia2002@yandex.ru>, 2020.
+# Andrey Yakuboy <andrewia2002@yandex.ru>, 2020-2021.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 'Access8Math' '2.5'\n"
+"Project-Id-Version: 'Access8Math' '3.0'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2021-05-09 12:37+0300\n"
-"PO-Revision-Date: 2021-05-09 13:05+0300\n"
+"POT-Creation-Date: 2021-05-14 20:32+0300\n"
+"PO-Revision-Date: 2021-05-14 20:40+0300\n"
 "Last-Translator: Andrey Yakuboy <andrewia2002@yandex.ru>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -22,6 +22,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: globalPlugins/Access8Math\n"
+"X-Poedit-SearchPathExcluded-0: globalPlugins/Access8Math/output\n"
 
 #: globalPlugins/Access8Math/__init__.py:226
 msgid "Access8Math HTML window"
@@ -89,8 +90,10 @@ msgid "Insert math object by asciimath"
 msgstr "Вставить математический объект asciimath"
 
 #: globalPlugins/Access8Math/__init__.py:442
-#: globalPlugins/Access8Math/__init__.py:732
-msgid "Write AsciiMath Entry"
+#: globalPlugins/Access8Math/__init__.py:746
+#, fuzzy
+#| msgid "Write AsciiMath Entry"
+msgid "Write AsciiMath Content"
 msgstr "Напишите AsciiMath-код"
 
 #: globalPlugins/Access8Math/__init__.py:455
@@ -98,8 +101,10 @@ msgid "Insert math object by latex"
 msgstr "Вставить математический объект latex"
 
 #: globalPlugins/Access8Math/__init__.py:465
-#: globalPlugins/Access8Math/__init__.py:748
-msgid "Write Latex Entry"
+#: globalPlugins/Access8Math/__init__.py:762
+#, fuzzy
+#| msgid "Write Latex Entry"
+msgid "Write LaTeX Content"
 msgstr "Напишите Latex-код"
 
 #: globalPlugins/Access8Math/__init__.py:477
@@ -114,62 +119,72 @@ msgstr "Общие &настройки..."
 msgid "&Rule settings..."
 msgstr "&Обработка правил..."
 
-#: globalPlugins/Access8Math/__init__.py:618
-msgid "&unicode dictionary..."
-msgstr "&Словарь символов Unicode..."
-
-#: globalPlugins/Access8Math/__init__.py:624
-msgid "&math rule..."
-msgstr "&Математические правила..."
-
-#: globalPlugins/Access8Math/__init__.py:630
-msgid "&New language adding..."
-msgstr "&Добавление нового языка..."
-
-#: globalPlugins/Access8Math/__init__.py:636
+#: globalPlugins/Access8Math/__init__.py:619
 msgid "&asciimath..."
 msgstr "&asciimath..."
 
-#: globalPlugins/Access8Math/__init__.py:642
+#: globalPlugins/Access8Math/__init__.py:625
 msgid "&latex..."
 msgstr "&latex..."
 
-#: globalPlugins/Access8Math/__init__.py:648
+#: globalPlugins/Access8Math/__init__.py:631
 msgid "&text-math..."
 msgstr "&текст с математическим содержимым"
 
-#: globalPlugins/Access8Math/__init__.py:654
+#: globalPlugins/Access8Math/__init__.py:637
+msgid "&Write..."
+msgstr "&Написать"
+
+#: globalPlugins/Access8Math/__init__.py:644
+msgid "&unicode dictionary..."
+msgstr "&Словарь символов Unicode..."
+
+#: globalPlugins/Access8Math/__init__.py:650
+msgid "&math rule..."
+msgstr "&Математические правила..."
+
+#: globalPlugins/Access8Math/__init__.py:656
+msgid "&New language adding..."
+msgstr "&Добавление нового языка..."
+
+#: globalPlugins/Access8Math/__init__.py:662
+msgid "&Localization..."
+msgstr "&Локализация"
+
+#: globalPlugins/Access8Math/__init__.py:668
 msgid "&About..."
 msgstr "О дополн&ении..."
 
-#: globalPlugins/Access8Math/__init__.py:658
+#: globalPlugins/Access8Math/__init__.py:672
 msgid "Access8Math"
 msgstr "Access8Math"
 
-#: globalPlugins/Access8Math/__init__.py:668
+#: globalPlugins/Access8Math/__init__.py:682
 msgid "Change mathml provider"
 msgstr "Изменяет обработчик MathML"
 
-#: globalPlugins/Access8Math/__init__.py:695
+#: globalPlugins/Access8Math/__init__.py:709
 #, python-format
 msgid "mathml provider change to %s"
 msgstr "обработчик MathML изменён на %s"
 
-#: globalPlugins/Access8Math/__init__.py:698
+#: globalPlugins/Access8Math/__init__.py:712
 msgid "Shows the Access8Math settings dialog."
 msgstr "Показывает диалог настроек Access8Math."
 
-#: globalPlugins/Access8Math/__init__.py:759
-msgid "Write TextMath Entry"
+#: globalPlugins/Access8Math/__init__.py:773
+#, fuzzy
+#| msgid "Write TextMath Entry"
+msgid "Write TextMath Content"
 msgstr "Напишите текст с математическим содержимым"
 
-#: globalPlugins/Access8Math/__init__.py:769
+#: globalPlugins/Access8Math/__init__.py:783
 msgid "About Access8Math"
 msgstr "О дополнении Access8Math"
 
 #: globalPlugins/Access8Math/dialogs.py:47
 msgid "&Review"
-msgstr "&Просмотр"
+msgstr "просмотр"
 
 #: globalPlugins/Access8Math/dialogs.py:52
 msgid "&Export"
