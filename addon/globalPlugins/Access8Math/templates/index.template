@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+	<head>
+		<title>{|{ title }|}</title>
+		<meta name="description" content="Access8Math" />
+		<meta name="keywords" content="Access8Math" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<script src="modules/vue-3.0.11.min.js"></script>
+		<script src="modules/mathProcess.js"></script>
+	<style>
+		.sr-only {
+			// visibility: hidden;
+			// Intend to remove it from "content flow"
+			position: absolute;
+			width: 0;
+			height: 0;
+		}
+	</style>
+	</head>
+	<body>
+		<div id="app">
+			<template
+				v-for="item in data"
+			>
+				<template v-if="item.type === 'text-content'">
+					<template v-if="item.data === ''"><br/></template>
+					<template v-else>{{ item.data }}</template>
+				</template>
+				<template v-if="item.type === 'math-content'">
+					<div v-html="item.data"/>
+				</template>
+				<template v-if="item.type === 'html-content'">
+					<div v-html="item.data"/>
+				</template>
+				<!--<template v-if="item.type === 'latex-content'">
+					<div v-html="mml2svg(latex2mml(item.data))"/>
+				</template>-->
+				<template v-if="item.type === 'latex-content'">
+					<div v-html="latex2mml(item.data)"/>
+				</template>
+			</template>
+		</div>
+	<script>
+		const Content = {
+			data() {
+				return {
+					asciimath2mml, latex2mml, mml2svg,
+					data: [
+						{% for item in data %}
+							{
+								type: `{|{ item.type }|}`,
+								data: `{|{ item.data }|}`,
+							},
+						{% endfor %}
+					]
+				}
+			},
+		}
+		const app = Vue.createApp(Content).mount('#app');
+	</script>
+	</body>
+</html>

@@ -148,7 +148,7 @@ def text2template(value, output):
 		raw.append({'type': 'text-content', 'data': ''})
 
 	data = raw
-	template = env.get_template("index.html")
+	template = env.get_template("index.template")
 	content = template.render({'title': 'Access8Math', 'data': data, 'raw': raw})
 	with open(output, 'w', encoding='utf8') as f:
 		f.write(content)
@@ -439,7 +439,7 @@ class A8MInteraction(Window):
 			import asciimathml
 			global main_frame
 			parent = main_frame if main_frame else gui.mainFrame
-			with wx.TextEntryDialog(parent=parent, message=_("Write AsciiMath Entry")) as dialog:
+			with wx.TextEntryDialog(parent=parent, message=_("Write AsciiMath Content")) as dialog:
 				if dialog.ShowModal() == wx.ID_OK:
 					data = dialog.GetValue()
 					data = asciimathml.parse(data)
@@ -462,7 +462,7 @@ class A8MInteraction(Window):
 			import latex2mathml.converter
 			global main_frame
 			parent = main_frame if main_frame else gui.mainFrame
-			with wx.TextEntryDialog(parent=parent, message=_("Write Latex Entry")) as dialog:
+			with wx.TextEntryDialog(parent=parent, message=_("Write LaTeX Content")) as dialog:
 				if dialog.ShowModal() == wx.ID_OK:
 					data = dialog.GetValue()
 					data = latex2mathml.converter.convert(data)
@@ -613,41 +613,55 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onRuleSettings, self.ruleSettings)
 
-		self.unicodeDictionary = self.menu.Append(
-			wx.ID_ANY,
-			_("&unicode dictionary...")
-		)
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onUnicodeDictionary, self.unicodeDictionary)
-
-		self.mathRule = self.menu.Append(
-			wx.ID_ANY,
-			_("&math rule...")
-		)
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onMathRule, self.mathRule)
-
-		self.newLanguageAdding = self.menu.Append(
-			wx.ID_ANY,
-			_("&New language adding...")
-		)
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onNewLanguageAdding, self.newLanguageAdding)
-
-		self.asciiMath = self.menu.Append(
+		writeMenu = wx.Menu()
+		self.asciiMath = writeMenu.Append(
 			wx.ID_ANY,
 			_("&asciimath...")
 		)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onAsciiMathAdd, self.asciiMath)
 
-		self.latex = self.menu.Append(
+		self.latex = writeMenu.Append(
 			wx.ID_ANY,
 			_("&latex...")
 		)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onLatexAdd, self.latex)
 
-		self.textmath = self.menu.Append(
+		self.textmath = writeMenu.Append(
 			wx.ID_ANY,
 			_("&text-math...")
 		)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onTextMathAdd, self.textmath)
+
+		self.menu.AppendMenu(
+			wx.ID_ANY,
+			_("&Write..."),
+			writeMenu
+		)
+
+		l10nMenu = wx.Menu()
+		self.unicodeDictionary = l10nMenu.Append(
+			wx.ID_ANY,
+			_("&unicode dictionary...")
+		)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onUnicodeDictionary, self.unicodeDictionary)
+
+		self.mathRule = l10nMenu.Append(
+			wx.ID_ANY,
+			_("&math rule...")
+		)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onMathRule, self.mathRule)
+
+		self.newLanguageAdding = l10nMenu.Append(
+			wx.ID_ANY,
+			_("&New language adding...")
+		)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onNewLanguageAdding, self.newLanguageAdding)
+
+		self.menu.AppendMenu(
+			wx.ID_ANY,
+			_("&Localization..."),
+			l10nMenu
+		)
 
 		self.about = self.menu.Append(
 			wx.ID_ANY,
@@ -729,7 +743,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		import asciimathml
 		global main_frame
 		parent = main_frame if main_frame else gui.mainFrame
-		with wx.TextEntryDialog(parent=parent, message=_("Write AsciiMath Entry")) as dialog:
+		with wx.TextEntryDialog(parent=parent, message=_("Write AsciiMath Content")) as dialog:
 			if dialog.ShowModal() == wx.ID_OK:
 				data = dialog.GetValue()
 				data = asciimathml.parse(data)
@@ -745,7 +759,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		import latex2mathml.converter
 		global main_frame
 		parent = main_frame if main_frame else gui.mainFrame
-		with wx.TextEntryDialog(parent=parent, message=_("Write Latex Entry")) as dialog:
+		with wx.TextEntryDialog(parent=parent, message=_("Write LaTeX Content")) as dialog:
 			if dialog.ShowModal() == wx.ID_OK:
 				data = dialog.GetValue()
 				data = latex2mathml.converter.convert(data)
@@ -756,7 +770,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def onTextMathAdd(self, evt):
 		global main_frame
 		parent = main_frame if main_frame else gui.mainFrame
-		with wx.TextEntryDialog(parent=parent, message=_("Write TextMath Entry"), style=wx.OK | wx.CANCEL | wx.TE_MULTILINE) as dialog:
+		with wx.TextEntryDialog(parent=parent, message=_("Write TextMath Content"), style=wx.OK | wx.CANCEL | wx.TE_MULTILINE) as dialog:
 			if dialog.ShowModal() == wx.ID_OK:
 				value = dialog.GetValue()
 				output_file = text2template(value, os.path.join(PATH, 'output', 'index.html'))
