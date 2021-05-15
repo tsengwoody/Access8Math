@@ -1,0 +1,20 @@
+id,latex,offset
+frac,\frac{}{},-3
+sqrt,\sqrt{},-1
+root,\sqrt[]{},-3
+times,\times ,0
+div,\div ,0
+circ,\circ ,0
+degree,^{\circ},-8
+angle,\angle{},-1
+cong,\cong ,0
+triangle,\triangle{},-1
+parallel,\parallel ,0
+perp,\perp ,0
+overline,\overline{},-1
+leftarrow,\leftarrow ,0
+rightarrow,\rightarrow ,0
+leftrightarrow,\leftrightarrow ,0
+uparrow,\uparrow ,0
+downarrow,\downarrow ,0
+updownarrow,\updownarrow ,0

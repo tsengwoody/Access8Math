@@ -36,7 +36,7 @@ from keyboardHandler import KeyboardInputGesture
 from logHandler import log
 import mathPres
 from mathPres.mathPlayer import MathPlayer
-from NVDAObjects.IAccessible import Button, IAccessible, WindowRoot
+from NVDAObjects.IAccessible import IAccessible
 from NVDAObjects.window import Window
 from scriptHandler import script
 import speech
@@ -44,12 +44,13 @@ import textInfos
 import textInfos.offsets
 import tones
 import ui
-import virtualBuffers
 import wx
 
 import A8M_PM
 from A8M_PM import MathContent
 import _config
+from command.mark import A8MMarkCommandView
+from command.latex import A8MLaTeXCommandView
 
 addonHandler.initTranslation()
 
@@ -64,7 +65,7 @@ except:
 	from speech.commands import BreakCommand
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
-TEMPLATES_PATH = os.path.join(PATH, 'templates')
+TEMPLATES_PATH = os.path.join(PATH, 'web', 'templates')
 env = Environment(loader=FileSystemLoader(TEMPLATES_PATH), variable_start_string='{|{', variable_end_string='}|}')
 #, autoescape=select_autoescape(['html', 'xml']))
 
@@ -153,6 +154,7 @@ def text2template(value, output):
 	with open(output, 'w', encoding='utf8') as f:
 		f.write(content)
 	return output
+
 
 class GenericFrame(wx.Frame):
 	def __init__(self, *args, **kwargs):
@@ -265,10 +267,10 @@ class TemplateFrame(GenericFrame):
 
 	def OnExport(self, event):
 		def show():
-			with wx.FileDialog(self, message=_("Open file..."), wildcard="zip files (*.zip)|*.zip", style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT) as dialog:
+			with wx.FileDialog(self, message=_("Save file..."), wildcard="zip files (*.zip)|*.zip", style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT) as dialog:
 				if dialog.ShowModal() != wx.ID_OK:
 					return
-				src = os.path.join(PATH, 'output')
+				src = os.path.join(PATH, 'web', 'review')
 				dst = dialog.GetPath()[:-4]
 				shutil.make_archive(dst, 'zip', src)
 		wx.CallAfter(show)
@@ -317,7 +319,6 @@ class A8MInteractionFrame(GenericFrame):
 		vw.setFocus()
 
 	def OnRawdataToClip(self, event):
-		#api.copyToClip(self.obj.raw_data)
 		api.copyToClip(self.mathcontent.root.get_mathml())
 		ui.message(_("copy"))
 
@@ -345,6 +346,7 @@ class A8MProvider(mathPres.MathPresentationProvider):
 class A8MInteraction(Window):
 	def __init__(self, parent, root=None):
 		self.parent = parent
+		self.mathcontent = self.data = None
 		super().__init__(windowHandle=self.parent.windowHandle)
 
 	def set(self, name, data, *args, **kwargs):
@@ -365,15 +367,14 @@ class A8MInteraction(Window):
 		#return self.raw_data
 
 	def makeTextInfo(self, position=textInfos.POSITION_FIRST):
-		return A8MTextInfo(self, position)
+		return A8MInteractionTextInfo(self, position)
 
 	"""def event_gainFocus(self):
-		speech.speak([_("enter interaction mode")])
+		ui.message(_("enter interaction mode"))
 		super().event_gainFocus()
 		api.setReviewPosition(self.makeTextInfo(), False)"""
 
 	def reportFocus(self):
-		#super().reportFocus()
 		speech.speak(translate_SpeechCommand(self.mathcontent.root.serialized()))
 
 	def getScript(self, gesture):
@@ -481,7 +482,7 @@ class A8MInteraction(Window):
 		self.mathcontent.delete()
 
 
-class A8MTextInfo(textInfos.offsets.OffsetsTextInfo):
+class A8MInteractionTextInfo(textInfos.offsets.OffsetsTextInfo):
 	def __init__(self, obj, position):
 		super().__init__(obj, position)
 		self.obj = obj
@@ -491,25 +492,12 @@ class A8MTextInfo(textInfos.offsets.OffsetsTextInfo):
 		return len(translate_Unicode(serializes))
 
 	def _getStoryText(self):
-		"""Retrieve the entire text of the object.
-		@return: The entire text of the object.
-		@rtype: unicode
-		"""
 		serializes = self.obj.mathcontent.pointer.serialized()
 		return translate_Unicode(serializes)
 
 	def _getTextRange(self, start, end):
-		"""Retrieve the text in a given offset range.
-		@param start: The start offset.
-		@type start: int
-		@param end: The end offset (exclusive).
-		@type end: int
-		@return: The text contained in the requested range.
-		@rtype: unicode
-		"""
 		text = self._getStoryText()
 		return text[start:end] if text else u""
-
 
 provider_list = [
 	A8MProvider,
@@ -554,14 +542,26 @@ class AppWindowRoot(IAccessible):
 		wx.CallLater(100, run)
 
 class TextMathEditField(IAccessible):
-	@script(gesture="kb:NVDA+shift+m")
+	@script(
+		category=ADDON_SUMMARY,
+		description=_("Shows the Access8Math HTML window."),
+		gesture="kb:NVDA+shift+m",
+	)
 	def script_view_math(self, gesture):
-		output_file = text2template(self.value, os.path.join(PATH, 'output', 'index.html'))
+		output_file = text2template(self.value, os.path.join(PATH, 'web', 'review', 'index.html'))
 		show_template_frame(file=output_file)
 
 		def openfile():
 			os.startfile(output_file)
 		# wx.CallAfter(openfile)
+
+	@script(gestures=["kb:NVDA+rightArrow"])
+	def script_latex_mark(self, gesture):
+		A8MMarkCommandView().setFocus()
+
+	@script(gestures=["kb:NVDA+leftArrow"])
+	def script_latex_command(self, gesture):
+		A8MLaTeXCommandView().setFocus()
 
 def show_main_frame(mathcontent):
 	global main_frame
@@ -614,17 +614,17 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onRuleSettings, self.ruleSettings)
 
 		writeMenu = wx.Menu()
-		self.asciiMath = writeMenu.Append(
-			wx.ID_ANY,
-			_("&asciimath...")
-		)
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onAsciiMathAdd, self.asciiMath)
-
 		self.latex = writeMenu.Append(
 			wx.ID_ANY,
 			_("&latex...")
 		)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onLatexAdd, self.latex)
+
+		self.asciiMath = writeMenu.Append(
+			wx.ID_ANY,
+			_("&asciimath...")
+		)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onAsciiMathAdd, self.asciiMath)
 
 		self.textmath = writeMenu.Append(
 			wx.ID_ANY,
@@ -708,13 +708,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 		ui.message(_("mathml provider change to %s")%_config.Access8MathConfig["settings"]["provider"])
 
-	@script(
-		description=_("Shows the Access8Math settings dialog."),
-		category=ADDON_SUMMARY,
-	)
-	def script_settings(self, gesture):
-		wx.CallAfter(self.onGeneralSettings, None)
-
 	def onGeneralSettings(self, evt):
 		from dialogs import GeneralSettingsDialog
 		gui.mainFrame._popupSettingsDialog(GeneralSettingsDialog, _config.Access8MathConfig)
@@ -773,7 +766,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		with wx.TextEntryDialog(parent=parent, message=_("Write TextMath Content"), style=wx.OK | wx.CANCEL | wx.TE_MULTILINE) as dialog:
 			if dialog.ShowModal() == wx.ID_OK:
 				value = dialog.GetValue()
-				output_file = text2template(value, os.path.join(PATH, 'output', 'index.html'))
+				output_file = text2template(value, os.path.join(PATH, 'web', 'review', 'index.html'))
 				show_template_frame(file=output_file)
 
 	def onAbout(self, evt):
