@@ -1364,8 +1364,8 @@ def save_unicode_dic(symbol, path=None, language=''):
 
 	with io.open(path, 'w', encoding='utf-8') as f:
 		f.write('symbols:\r\n')
-		key = symbol.keys()
-		# key.sort()
+		key = list(symbol.keys())
+		key.sort()
 		for k in key:
 			line = '\t'.join([k, symbol[k], 'none']) + '\r\n'
 			f.write(line)
@@ -1390,7 +1390,7 @@ def save_math_rule(mathrule, path=None, language=''):
 		mathrule_unicode[k] = '\t'.join([so_line, role_line, v.description])
 
 	with io.open(path, 'w', encoding='utf-8') as f:
-		key = mathrule.keys()
+		key = list(mathrule.keys())
 		key.sort()
 		for k in key:
 			line = '\t'.join([k, mathrule_unicode[k]]) + '\r\n'

@@ -23,64 +23,6 @@ addonHandler.initTranslation()
 
 base_path = os.path.dirname(os.path.abspath(__file__))
 
-class TemplateMenu(wx.Menu):
-	def __init__(self, parent, data):
-		self.parent = parent
-		self.data = None
-		self.set(data=data)
-
-		super().__init__()
-
-		for item in self.menuData:
-			if 'menu' in item:
-				label = item['label']
-				subMenu = self.createMenu(item['menu'])
-				self.AppendMenu(wx.ID_ANY, label, subMenu)
-			else:
-				self.createMenuItem(self, **item)
-
-	@property
-	def menuData(self):
-		return [
-			{
-				'id': 'review',
-				'label': _('&Review'),
-				'action': self.review,
-			},
-			{
-				'id': 'export',
-				'label': _('&Export'),
-				'action': self.export,
-			},
-		]
-
-	def createMenu(self, menuData):
-		menu = wx.Menu()
-		for item in menuData:
-			if 'menu' in item:
-				label = item['label']
-				subMenu = self.createMenu(item['menu'])
-				menu.AppendMenu(wx.ID_ANY, label, subMenu)
-			else:
-				self.createMenuItem(menu, **item)
-		return menu
-
-	def createMenuItem(self, menu, id, label, action):
-		menuItem = menu.Append(wx.ID_ANY, label)
-		self.Bind(wx.EVT_MENU, action, menuItem)
-
-	def set(self, data, *args, **kwargs):
-		self.data = data
-
-	def onNoAction(self, event):
-		pass
-
-	def review(self, event):
-		pass
-
-	def export(self, event):
-		pass
-
 class GeneralSettingsDialog(SettingsDialog):
 	# Translators: Title of the Access8MathDialog.
 	title = _("General Settings")
