@@ -71,6 +71,16 @@ class A8MLaTeXCommandModel(MenuModel):
 						"name": _("root"),
 						"type": "item",
 					},
+					{
+						"id": "sumupdown",
+						"name": _("summation"),
+						"type": "item",
+					},
+					{
+						"id": "vector",
+						"name": _("vector"),
+						"type": "item",
+					},
 				],
 			},
 			{
@@ -165,18 +175,23 @@ class A8MLaTeXCommandModel(MenuModel):
 						"type": "item",
 					},
 					{
-						"id": "angle",
-						"name": _("angle"),
-						"type": "item",
-					},
-					{
 						"id": "overline",
 						"name": _("line segment"),
 						"type": "item",
 					},
 					{
+						"id": "angle",
+						"name": _("angle"),
+						"type": "item",
+					},
+					{
 						"id": "degree",
 						"name": _("degree"),
+						"type": "item",
+					},
+					{
+						"id": "binom",
+						"name": _("binomial coefficient"),
 						"type": "item",
 					},
 				],

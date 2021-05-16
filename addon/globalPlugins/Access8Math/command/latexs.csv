@@ -18,3 +18,6 @@ leftrightarrow,\leftrightarrow ,0
 uparrow,\uparrow ,0
 downarrow,\downarrow ,0
 updownarrow,\updownarrow ,0
+sumupdown,\sum_{}^{},-4
+vector,\vec {},-1
+binom,\binom{}{},-3

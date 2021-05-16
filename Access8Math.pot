@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 'Access8Math' '3.0'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2021-05-14 14:16+0800\n"
+"POT-Creation-Date: 2021-05-16 20:50+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -113,11 +113,11 @@ msgid "&Rule settings..."
 msgstr ""
 
 #: globalPlugins/Access8Math/__init__.py:619
-msgid "&asciimath..."
+msgid "&latex..."
 msgstr ""
 
 #: globalPlugins/Access8Math/__init__.py:625
-msgid "&latex..."
+msgid "&asciimath..."
 msgstr ""
 
 #: globalPlugins/Access8Math/__init__.py:631
@@ -185,87 +185,99 @@ msgstr ""
 msgid "root"
 msgstr ""
 
-#: globalPlugins/Access8Math/command/latex.py:78
-msgid "operator"
+#: globalPlugins/Access8Math/command/latex.py:76
+msgid "summation"
 msgstr ""
 
-#: globalPlugins/Access8Math/command/latex.py:83
-msgid "times"
+#: globalPlugins/Access8Math/command/latex.py:81
+msgid "vector"
 msgstr ""
 
 #: globalPlugins/Access8Math/command/latex.py:88
-msgid "divide"
+msgid "operator"
 msgstr ""
 
 #: globalPlugins/Access8Math/command/latex.py:93
+msgid "times"
+msgstr ""
+
+#: globalPlugins/Access8Math/command/latex.py:98
+msgid "divide"
+msgstr ""
+
+#: globalPlugins/Access8Math/command/latex.py:103
 msgid "circle"
 msgstr ""
 
-#: globalPlugins/Access8Math/command/latex.py:100
+#: globalPlugins/Access8Math/command/latex.py:110
 msgid "relation"
 msgstr ""
 
-#: globalPlugins/Access8Math/command/latex.py:105
+#: globalPlugins/Access8Math/command/latex.py:115
 msgid "parallel"
 msgstr ""
 
-#: globalPlugins/Access8Math/command/latex.py:110
+#: globalPlugins/Access8Math/command/latex.py:120
 msgid "perpendicular"
 msgstr ""
 
-#: globalPlugins/Access8Math/command/latex.py:115
+#: globalPlugins/Access8Math/command/latex.py:125
 msgid "full equal"
 msgstr ""
 
-#: globalPlugins/Access8Math/command/latex.py:122
+#: globalPlugins/Access8Math/command/latex.py:132
 msgid "arrow"
 msgstr ""
 
-#: globalPlugins/Access8Math/command/latex.py:127
+#: globalPlugins/Access8Math/command/latex.py:137
 msgid "left arrow"
 msgstr ""
 
-#: globalPlugins/Access8Math/command/latex.py:132
+#: globalPlugins/Access8Math/command/latex.py:142
 msgid "right arrow"
 msgstr ""
 
-#: globalPlugins/Access8Math/command/latex.py:137
+#: globalPlugins/Access8Math/command/latex.py:147
 msgid "left right arrow"
 msgstr ""
 
-#: globalPlugins/Access8Math/command/latex.py:142
+#: globalPlugins/Access8Math/command/latex.py:152
 msgid "up arrow"
 msgstr ""
 
-#: globalPlugins/Access8Math/command/latex.py:147
+#: globalPlugins/Access8Math/command/latex.py:157
 msgid "down arrow"
 msgstr ""
 
-#: globalPlugins/Access8Math/command/latex.py:152
+#: globalPlugins/Access8Math/command/latex.py:162
 msgid "up down arrow"
 msgstr ""
 
-#: globalPlugins/Access8Math/command/latex.py:159
+#: globalPlugins/Access8Math/command/latex.py:169
 msgid "other"
 msgstr ""
 
-#: globalPlugins/Access8Math/command/latex.py:164
+#: globalPlugins/Access8Math/command/latex.py:174
 msgid "triangle"
 msgstr ""
 
-#: globalPlugins/Access8Math/command/latex.py:169
-msgid "angle"
-msgstr ""
-
-#: globalPlugins/Access8Math/command/latex.py:174
+#: globalPlugins/Access8Math/command/latex.py:179
 msgid "line segment"
 msgstr ""
 
-#: globalPlugins/Access8Math/command/latex.py:179
+#: globalPlugins/Access8Math/command/latex.py:184
+msgid "angle"
+msgstr ""
+
+#: globalPlugins/Access8Math/command/latex.py:189
 msgid "degree"
 msgstr ""
 
-#: globalPlugins/Access8Math/command/latex.py:188
+#: globalPlugins/Access8Math/command/latex.py:194
+msgid "binomial coefficient"
+msgstr ""
+
+#: globalPlugins/Access8Math/command/latex.py:203
 msgid "LaTeX command"
 msgstr ""
 

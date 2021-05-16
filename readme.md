@@ -58,13 +58,14 @@ Writing mathematical content in LaTeX
 
 Writing integrative content (text content and mathematical content):
 
-*	Use the start delimiter "\(" and end delimiter "\)" to determine the area between the text content and the mathematical content, that is, the data in the start delimiter and the end delimiter are mathematical content (LaTeX), and the data outside the delimiter are Text content.
-*	Convert to HTML format
-	*	"Text-math..." in the menu will display an editing area to enter the integrative content and press OK
-	*	Press NVDA+shift+m in any edit field
-*	After the conversion is completed, the "Access8Math HTML Window" will show
-	*	review: Open the result of the conversion through the program that opens the HTML file by default
-	*	export: Pack the converted file into a zip file
+*	Use delimiter(start delimiter "\(" and end delimiter "\)", LaTeX mark area) to determine the area between the text content and the mathematical content, that is, the data in LaTeX mark area is mathematical content (LaTeX), and the data outside LaTeX mark area is text content.
+*	Press NVDA+shift+m in any edit field to convert an HTML document with mixed text and mathematical data. The data in the LaTeX mark area will be converted to MathML for presentation with normal text.
+*	HTML document can be reviewed or exported.
+	*	review: Open the converted HTML document through a program that opens the .HTML extension by default.
+	*	export: Pack the converted HTML document into a zip file.
+	example: The solution of the quadratic equation in one variable \(ax^2+bx+c=0\) is \(\frac{-b\pm\sqrt{b^2-4ac}}{2a}\).
+*	Press NVDA+rightarrow key in any edit field to pop up the mark command window, select "LaTeX" and press enter, the LaTeX mark area will be added to the current cursor and the cursor will be automatically moved into it for quick input the content.
+*	Press NVDA+leftarrow key in any edit field to pop up the LaTeX command window, select the LaTeX command item to be added and press enter to add the corresponding LaTeX syntax at the current cursor and automatically move the cursor to the appropriate input point for quick Enter the content.
 
 ## settings
 
