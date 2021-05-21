@@ -1,11 +1,14 @@
 import addonHandler
+import api
 import eventHandler
 from keyboardHandler import KeyboardInputGesture
 from scriptHandler import script
 import tones
 import ui
+import wx
 
-from .gesture import text2gestures
+from .clipboard import clearClipboard
+from .gesture import CTRL
 from .models import MenuModel
 from .views import MenuView, MenuViewTextInfo
 
@@ -34,10 +37,9 @@ def load():
 latexCommand = load()
 
 def command(text, offset):
-	gestures = text2gestures(text)
-	for gesture in gestures:
-		gesture.send()
-
+	api.copyToClip(text)
+	gesture = KeyboardInputGesture(CTRL, 86, 47, False)
+	gesture.send()
 	leftArrow = KeyboardInputGesture(set(), 37, 75, True)
 	rightArrow = KeyboardInputGesture(set(), 39, 77, True)
 	if offset > 0:
@@ -46,6 +48,7 @@ def command(text, offset):
 	else:
 		for i in range(abs(offset)):
 			leftArrow.send()
+	wx.CallLater(100, clearClipboard)
 
 class A8MLaTeXCommandModel(MenuModel):
 	def __init__(self):

@@ -4,6 +4,7 @@ from python.csv import DictReader
 from keyboardHandler import KeyboardInputGesture
 
 EMPTY = set()
+CTRL = set(((17, False),))
 SHIFT = set(((16, False),))
 
 def text2gestures(text):

@@ -64,8 +64,8 @@ Writing integrative content (text content and mathematical content):
 	*	review: Open the converted HTML document through a program that opens the .HTML extension by default.
 	*	export: Pack the converted HTML document into a zip file.
 	example: The solution of the quadratic equation in one variable \(ax^2+bx+c=0\) is \(\frac{-b\pm\sqrt{b^2-4ac}}{2a}\).
-*	Press NVDA+rightarrow key in any edit field to pop up the mark command window, select "LaTeX" and press enter, the LaTeX mark area will be added to the current cursor and the cursor will be automatically moved into it for quick input the content.
-*	Press NVDA+leftarrow key in any edit field to pop up the LaTeX command window, select the LaTeX command item to be added and press enter to add the corresponding LaTeX syntax at the current cursor and automatically move the cursor to the appropriate input point for quick Enter the content.
+*	Press alt+rightarrow key in any edit field to pop up the mark command window, select "LaTeX" and press enter, the LaTeX mark area will be added to the current cursor and the cursor will be automatically moved into it for quick input the content.
+*	Press alt+leftarrow key in any edit field to pop up the LaTeX command window, select the LaTeX command item to be added and press enter to add the corresponding LaTeX syntax at the current cursor and automatically move the cursor to the appropriate input point for quick Enter the content.
 
 ## settings
 

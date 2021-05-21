@@ -1,24 +1,28 @@
 import addonHandler
+import api
 import eventHandler
 from keyboardHandler import KeyboardInputGesture
 from scriptHandler import script
 import tones
 import ui
+import wx
 
-from .gesture import text2gestures
+from .clipboard import clearClipboard
+from .gesture import CTRL
 from .models import MenuModel
 from .views import MenuView, MenuViewTextInfo
 
 addonHandler.initTranslation()
 
 def markLaTeX():
-	gestures = text2gestures(r'\(\)')
-	for gesture in gestures:
-		gesture.send()
+	api.copyToClip(r'\(\)')
+	gesture = KeyboardInputGesture(CTRL, 86, 47, False)
+	gesture.send()
 
 	leftArrow = KeyboardInputGesture(set(), 37, 75, True)
 	leftArrow.send()
 	leftArrow.send()
+	wx.CallLater(100, clearClipboard)
 
 
 class A8MMarkCommandModel(MenuModel):

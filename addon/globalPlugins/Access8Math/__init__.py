@@ -555,11 +555,11 @@ class TextMathEditField(IAccessible):
 			os.startfile(output_file)
 		# wx.CallAfter(openfile)
 
-	@script(gestures=["kb:NVDA+rightArrow"])
+	@script(gestures=["kb:alt+rightArrow"])
 	def script_latex_mark(self, gesture):
 		A8MMarkCommandView().setFocus()
 
-	@script(gestures=["kb:NVDA+leftArrow"])
+	@script(gestures=["kb:alt+leftArrow"])
 	def script_latex_command(self, gesture):
 		A8MLaTeXCommandView().setFocus()
 
