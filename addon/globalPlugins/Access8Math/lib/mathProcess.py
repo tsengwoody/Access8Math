@@ -9,6 +9,53 @@ def latex2mathml(latex):
 	mathml = html.unescape(mathml)
 	return mathml
 
+def textmath2laObjEdit(input):
+	reTexMath = re.compile(r"\\\(.*?\\\)")
+	point = []
+	maths = reTexMath.finditer(input)
+	previous = None
+	index = 0
+	for index, item in enumerate(maths):
+		if not previous:
+			start = 0
+			end = item.start(0)
+		else:
+			start = previous.end(0)
+			end = item.start(0)
+		point.append({
+			"start": start,
+			"end": end,
+			"type": "text",
+			"data": input[start:end],
+			"index": index,
+		})
+
+
+		start = item.start(0)
+		end = item.end(0)
+		point.append({
+			"start": start,
+			"end": end,
+			"type": "math",
+			"data": input[start:end],
+			"index": index,
+		})
+		previous = item
+
+
+	start = previous.end(0) if previous else 0
+	end = len(input)
+	point.append({
+		"start": start,
+		"end": end,
+		"type": "text",
+		"data": input[start:end],
+		"index": index+1 if previous else 0,
+	})
+
+	return point
+
+
 def textmath2laObj(input):
 	reTexMath = re.compile(r"\\\(.*?\\\)")
 	text = reTexMath.split(input)

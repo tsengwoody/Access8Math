@@ -56,16 +56,51 @@ Writing mathematical content in AsciiMath
 
 Writing mathematical content in LaTeX
 
-Writing integrative content (text content and mathematical content):
+Writing mixed content (text content and mathematical content):
 
-*	Use delimiter(start delimiter "\(" and end delimiter "\)", LaTeX mark area) to determine the area between the text content and the mathematical content, that is, the data in LaTeX mark area is mathematical content (LaTeX), and the data outside LaTeX mark area is text content.
-*	Press NVDA+shift+m in any edit field to convert an HTML document with mixed text and mathematical data. The data in the LaTeX mark area will be converted to MathML for presentation with normal text.
-*	HTML document can be reviewed or exported.
-	*	review: Open the converted HTML document through a program that opens the .HTML extension by default.
-	*	export: Pack the converted HTML document into a zip file.
-	example: The solution of the quadratic equation in one variable \(ax^2+bx+c=0\) is \(\frac{-b\pm\sqrt{b^2-4ac}}{2a}\).
-*	Press alt+rightarrow key in any edit field to pop up the mark command window, select "LaTeX" and press enter, the LaTeX mark area will be added to the current cursor and the cursor will be automatically moved into it for quick input the content.
-*	Press alt+leftarrow key in any edit field to pop up the LaTeX command window, select the LaTeX command item to be added and press enter to add the corresponding LaTeX syntax at the current cursor and automatically move the cursor to the appropriate input point for quick Enter the content.
+### writ mixed content
+
+Use delimiter(start delimiter "\(" and end delimiter "\)", LaTeX block) to determine the area between the text content and the mathematical content, that is, the data in LaTeX block is mathematical content (LaTeX), and the data outside LaTeX block is text content.
+
+Press alt+v in edit area to convert an HTML document with mixed text data and mathematical data and can be reviewed or exported. The data in the LaTeX block will be converted to MathML for presentation with normal text.
+
+*	review: Open the converted HTML document through a program that opens the .HTML extension by default.
+*	export: Pack the converted HTML document into a zip file.
+
+Press alt+m key in edit area to pop up the markup command window, select "LaTeX" and press enter, the LaTeX block will be added to the current cursor and the cursor will be automatically moved into it for quick input the content.
+
+Press alt+l key in edit area to pop up the LaTeX command window, select the LaTeX command item to be added and press enter to add the corresponding LaTeX syntax at the current cursor and automatically move the cursor to the appropriate input point for quick Enter the content.
+
+LaTeX command window
+
+* Select the LaTeX command item and press f1~f12 to set the shortcut
+* Select the LaTeX command item and press d to remove the shortcut that has been set
+* Select the LaTeX command item and press enter to add the corresponding LaTeX syntax at the current cursor
+
+Edit cursor navigation move
+
+*	In edit area, press alt+left arrow key to move to the start point of the previous data block
+*	In edit area, press alt+down key without moving, but only read the content of the current data block
+*	In edit area, press alt+right arrow key to move to the start point of the next data block
+*	In edit area, press alt+home to move to the start point of the current data block
+*	In edit area, press alt+end to move to the end point of the current data block
+
+Edit cursor navigation move and select
+
+* In the editing area, press alt+shift+left arrow key to move to the previous data block and select
+* In the editing area, press alt+shift+down key to move to the current data block and select
+* In the editing area, press alt+shift+right arrow to move to the next data block and select
+
+Press alt+s in the editing area to turn on or off the shortcut mode. When the shortcut mode is on, press f1~f12 to quickly insert LaTeX syntax according to the shortcut settings in the LaTeX command window
+
+Press NVDA+shift+space in edit area to turn on or off the edit browse mode. When the edit browse mode is turned on, you can move the edit cursor with single letter navigation
+
+The following keys by themselves jump edit cursor to the next available block, while adding the shift key causes them to jump edit cursor to the previous block:
+
+*	l: move to the next LaTeX block
+*	t: move to the next text block
+
+mixed content example: The solution of the quadratic equation in one variable \(ax^2+bx+c=0\) is \(\frac{-b\pm\sqrt{b^2-4ac}}{2a}\).
 
 ## settings
 
@@ -96,9 +131,13 @@ Please report any bugs or comments, thank you!
 
 # Access8Math v3.0 Update
 
-* Write mathematical content in AsciiMath
-* Write mathematical content in LaTeX
-* Writing integrative content (text content and mathematical content)
+*	Write mathematical content in AsciiMath
+*	Write mathematical content in LaTeX
+*	Writing mixed content (text content and mathematical content)
+*	Use shortcut keys to move the cursor to different types of blocks in edit area
+*	Use command menu to select commands in edit area
+*	Set shortcuts in the LaTeX command menu
+*	Review and export content in edit area to HTML
 
 # Access8Math v2.6 Update
 

@@ -18,8 +18,6 @@ class MenuView(Window):
 		super().__init__(windowHandle=self.parent.windowHandle)
 
 	def getScript(self, gesture):
-		# print(gesture.modifiers)
-		print("{}\t{}\t{}\t{}".format(gesture.mainKeyName, gesture.vkCode, gesture.scanCode, gesture.isExtended))
 		if isinstance(gesture, KeyboardInputGesture):
 			if (gesture.mainKeyName in ["NVDA", "enter", "escape", "leftArrow", "rightArrow", "upArrow", "downArrow", "home", "end"] or "NVDA" in gesture.modifierNames):
 				return super().getScript(gesture)
@@ -39,6 +37,14 @@ class MenuView(Window):
 	def setFocus(self):
 		eventHandler.executeEvent("gainFocus", self)
 		ui.message(self.data.pointer['name'])
+		if "shortcut" in self.data.pointer and self.data.pointer["shortcut"] != "-1":
+			ui.message(_("f{shortcut}").format(shortcut=self.data.pointer["shortcut"]))
+		if self.data.pointer["type"] == "menu":
+			ui.message(_("subMenu"))
+		ui.message(_("{number} of {total}").format(
+			number=self.data.path[-1]+1,
+			total=self.data.count,
+		))
 
 	@script(
 		gestures=["kb:escape"]
@@ -69,6 +75,8 @@ class MenuView(Window):
 
 		self.syncTextInfoPosition()
 		ui.message(self.data.pointer["name"])
+		if "shortcut" in self.data.pointer and self.data.pointer["shortcut"] != "-1":
+			ui.message(_("f{shortcut}").format(shortcut=self.data.pointer["shortcut"]))
 		if self.data.pointer["type"] == "menu":
 			ui.message(_("subMenu"))
 		ui.message(_("{number} of {total}").format(

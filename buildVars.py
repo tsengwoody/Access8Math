@@ -21,15 +21,15 @@ addon_info = {
 	# version
 	"addon_version" : "3.0",
 	# Author(s)
-	"addon_author" : u"Tseng Woody <tsengwoody.tw@gmail.com>",
+	"addon_author" : "Tseng Woody <tsengwoody.tw@gmail.com>",
 	# URL for the add-on documentation support
 	"addon_url" : "https://github.com/tsengwoody/Access8Math",
 	# Documentation file name
 	"addon_docFileName" : "readme.html",
 	# Minimum NVDA version supported (e.g. "2018.3.0", minor version is optional)
-	"addon_minimumNVDAVersion" : "2017.3",
+	"addon_minimumNVDAVersion" : "2019.3",
 	# Last NVDA version supported/tested (e.g. "2018.4.0", ideally more recent than minimum version)
-	"addon_lastTestedNVDAVersion" : "2020.3",
+	"addon_lastTestedNVDAVersion" : "2021.1",
 	# Add-on update channel (default is stable or None)
 	"addon_updateChannel" : None,
 }

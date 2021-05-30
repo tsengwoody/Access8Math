@@ -1,4 +1,4 @@
-﻿"""# Access8Math: Allows access math content written by MathML in NVDA
+﻿"""# Access8Math: Allows access math content written by MathML and write math as MathML
 # Copyright (C) 2017-2021 Tseng Woody <tsengwoody.tw@gmail.com>
 # This file is covered by the GNU General Public License.
 # See the file COPYING.txt for more details."""
@@ -50,7 +50,8 @@ import A8M_PM
 from A8M_PM import MathContent
 import _config
 from command.mark import A8MMarkCommandView
-from command.latex import A8MLaTeXCommandView
+from command.latex import A8MLaTeXCommandView, A8MLaTeXCommandModel
+from lib.mathProcess import textmath2laObj, laObj2mathObj, obj2html, textmath2laObjEdit
 
 addonHandler.initTranslation()
 
@@ -140,7 +141,6 @@ def translate_Unicode(serializes):
 	return sequence.strip()
 
 def text2template(value, output):
-	from mathProcess import textmath2laObj, laObj2mathObj, obj2html
 	raw = []
 	for line in value.split('\n'):
 		line = line.replace('\r', '')
@@ -541,11 +541,25 @@ class AppWindowRoot(IAccessible):
 				tones.beep(100, 100)
 		wx.CallLater(100, run)
 
+shortcut_mode = False
+sln_mode = False
+
 class TextMathEditField(IAccessible):
+	def getScript(self, gesture):
+		global sln_mode
+		if (
+			(len(gesture.modifierNames) == 0 or (len(gesture.modifierNames) == 1 and "shift" in gesture.modifierNames)) \
+			and (
+				gesture.mainKeyName in set("abcdefghijklmnopqrstuvwxyz1234567890") 
+			) \
+			and sln_mode
+		):
+			return self.script_sln
+		else:
+			return super().getScript(gesture)
+
 	@script(
-		category=ADDON_SUMMARY,
-		description=_("Shows the Access8Math HTML window."),
-		gesture="kb:NVDA+shift+m",
+		gesture="kb:alt+v",
 	)
 	def script_view_math(self, gesture):
 		output_file = text2template(self.value, os.path.join(PATH, 'web', 'review', 'index.html'))
@@ -555,13 +569,222 @@ class TextMathEditField(IAccessible):
 			os.startfile(output_file)
 		# wx.CallAfter(openfile)
 
-	@script(gestures=["kb:alt+rightArrow"])
-	def script_latex_mark(self, gesture):
-		A8MMarkCommandView().setFocus()
+	@script(gestures=["kb:alt+s"])
+	def script_shortcut_switch(self, gesture):
+		global shortcut_mode
+		shortcut_mode = not shortcut_mode
+		if shortcut_mode:
+			ui.message(_("shortcut mode on"))
+		else:
+			ui.message(_("shortcut mode off"))
 
-	@script(gestures=["kb:alt+leftArrow"])
+	@script(gestures=["kb:NVDA+shift+space"])
+	def script_sln_switch(self, gesture):
+		global sln_mode
+		sln_mode = not sln_mode
+		if sln_mode:
+			ui.message(_("single letter navigation mode on"))
+		else:
+			ui.message(_("single letter navigation mode off"))
+
+	def script_sln(self, gesture):
+		if not (gesture.mainKeyName == "t" or gesture.mainKeyName == "m"):
+			tones.beep(100, 50)
+			return
+		self.script_navigate(gesture)
+
+	@script(gestures=["kb:f{}".format(i) for i in range(1, 13)])
+	def script_shortcut(self, gesture):
+		global shortcut_mode
+		if not shortcut_mode:
+			gesture.send()
+			return
+		with SectionManager() as manager:
+			if manager.pointer and manager.pointer['type'] == 'math':
+				view = A8MLaTeXCommandView()
+				slot = gesture.mainKeyName[1:]
+				if slot in view.data.shortcut:
+					view.command(view.data.shortcut[slot]["id"])
+				else:
+					ui.message(_("shortcut {shortcut} is not set").format(
+						shortcut=slot,
+					))
+			else:
+				ui.message(_("Not in math section. Please insert LaTeX mark first and try again."))
+
+	@script(gestures=["kb:alt+m"])
+	def script_mark(self, gesture):
+		with SectionManager() as manager:
+			if manager.pointer and manager.pointer['type'] == 'text':
+				A8MMarkCommandView().setFocus()
+			else:
+				ui.message(_("In math section. Please leave math section first and try again."))
+
+	@script(gestures=["kb:alt+l"])
 	def script_latex_command(self, gesture):
-		A8MLaTeXCommandView().setFocus()
+		with SectionManager() as manager:
+			if manager.pointer and manager.pointer['type'] == 'math':
+				A8MLaTeXCommandView().setFocus()
+			else:
+				ui.message(_("Not in math section. Please insert LaTeX mark first and try again."))
+
+	@script(gestures=[
+		"kb:alt+downArrow", "kb:alt+leftArrow", "kb:alt+rightArrow",
+		"kb:alt+shift+downArrow", "kb:alt+shift+leftArrow", "kb:alt+shift+rightArrow",
+	])
+	def script_navigate(self, gesture):
+		with SectionManager() as manager:
+			selected = False
+			if gesture.mainKeyName == "downArrow":
+				result = manager.move(type='any', step=0)
+				if "shift" in gesture.modifierNames:
+					selected = True
+			elif gesture.mainKeyName == "leftArrow":
+				result = manager.move(type='any', step=-1)
+				if "shift" in gesture.modifierNames:
+					selected = True
+			elif gesture.mainKeyName == "rightArrow":
+				result = manager.move(type='any', step=1)
+				if "shift" in gesture.modifierNames:
+					selected = True
+			if gesture.mainKeyName == "t":
+				if "shift" in gesture.modifierNames:
+					result = manager.move(type='text', step=-1)
+				else:
+					result = manager.move(type='text', step=1)
+			elif gesture.mainKeyName == "l":
+				if "shift" in gesture.modifierNames:
+					result = manager.move(type='math', step=-1)
+				else:
+					result = manager.move(type='math', step=1)
+
+			if result:
+				tones.beep(500, 50)
+				if selected:
+					manager.caret.updateSelection()
+				else:
+					ui.message(result['data'])
+			else:
+				tones.beep(100, 50)
+
+	@script(gestures=[
+		"kb:alt+home", "kb:alt+end",
+	])
+	def script_startend(self, gesture):
+		with SectionManager() as manager:
+			if gesture.mainKeyName == "home":
+				manager.start()
+			elif gesture.mainKeyName == "end":
+				manager.end()
+		tones.beep(500, 20)
+
+class SectionManager:
+	def __init__(self):
+		self.reset()
+
+	@property
+	def pointer(self):
+		try:
+			pointer = self.points[self.all_index]
+		except:
+			pointer = None
+
+		return pointer
+
+	def reset(self):
+		self.index = -1
+		self.type = ''
+		self.all_index = -1
+		self.points = None
+
+	def __enter__(self):
+		focus = api.getFocusObject()
+		self.caret = focus.makeTextInfo(textInfos.POSITION_CARET)
+		self.reset()
+		document = focus.makeTextInfo(textInfos.POSITION_ALL)
+		self.points = textmath2laObjEdit(document.text)
+		for index, point in enumerate(self.points):
+			if self.caret._startOffset >= point['start'] and self.caret._startOffset < point['end']:
+				self.index = point['index']
+				self.type = point['type']
+				self.all_index = index
+				break
+
+		if self.caret._startOffset >= point['start'] and self.caret._startOffset <= point['end']:
+			self.index = point['index']
+			self.type = point['type']
+			self.all_index = index
+
+		return self
+
+	def __exit__(self, exc_type, exc_val, exc_tb):
+		pass
+
+	def move(self, step, type):
+		if step == 0:
+			self.caret._startOffset = self.pointer['start']
+			self.caret._endOffset = self.pointer['end']
+			return self.pointer
+
+		index = -1
+		if type == 'any':
+			if self.all_index != -1 and self.all_index+step >= 0 and self.all_index+step < len(self.points):
+				type = self.points[self.all_index+step]['type']
+				index = self.points[self.all_index+step]['index']
+		else:
+			if step > 0:
+				for point in self.points[self.all_index+1:]:
+					if point['type'] == type:
+						index = point['index']
+						break
+			elif step < 0:
+				for point in self.points[0:self.all_index]:
+					if point['type'] == type:
+						index = point['index']
+
+		pointer = None
+		for all_index, point in enumerate(self.points):
+			if point['type'] == type and point['index'] == index:
+				self.index = point['index']
+				self.type = point['type']
+				self.all_index = all_index
+				pointer = point
+				break
+
+		if not pointer:
+			return None
+
+		self.caret._startOffset = self.caret._endOffset = pointer['start']+2 if type == 'math' else pointer['start']
+		self.caret.updateCaret()
+		self.caret._startOffset = pointer['start']
+		self.caret._endOffset = pointer['end']
+
+		return pointer
+
+	def start(self):
+		if self.pointer:
+			if self.pointer['type'] == 'math':
+				self.caret._startOffset = self.pointer['start']+2
+				self.caret._endOffset = self.pointer['start']+2
+			else:
+				self.caret._startOffset = self.pointer['start']
+				self.caret._endOffset = self.pointer['start']
+			self.caret.updateCaret()
+			return True
+		return False
+
+	def end(self):
+		if self.pointer:
+			if self.pointer['type'] == 'math':
+				self.caret._startOffset = self.pointer['end'] - 3
+				self.caret._endOffset = self.pointer['end'] - 3
+			else:
+				self.caret._startOffset = self.pointer['end'] - 1
+				self.caret._endOffset = self.pointer['end'] - 1
+
+			self.caret.updateCaret()
+			return True
+		return False
 
 def show_main_frame(mathcontent):
 	global main_frame
@@ -584,12 +807,23 @@ template_frame = None
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self, *args, **kwargs):
+		from command.latex import initialize
+		initialize()
 		super().__init__(*args, **kwargs)
 
 		A8M_PM.initialize(_config.Access8MathConfig)
 
 		self.language = _config.Access8MathConfig["settings"]["language"]
 		self.create_menu()
+
+	def terminate(self):
+		from command.latex import terminate
+		terminate()
+		_config.save()
+		try:
+			self.toolsMenu.Remove(self.Access8Math_item)
+		except (AttributeError, RuntimeError):
+			pass
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		if obj.windowClassName == "wxWindowNR" and obj.role == controlTypes.ROLE_WINDOW and obj.name == _("Access8Math interaction window"):
@@ -670,13 +904,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onAbout, self.about)
 
 		self.Access8Math_item = self.toolsMenu.AppendSubMenu(self.menu, _("Access8Math"), _("Access8Math"))
-
-	def terminate(self):
-		_config.save()
-		try:
-			self.toolsMenu.Remove(self.Access8Math_item)
-		except (AttributeError, RuntimeError):
-			pass
 
 	@script(
 		description=_("Change mathml provider"),

@@ -43,7 +43,11 @@ class MenuModel:
 			elif direction == "right":
 				if self.pointer["type"] == "menu":
 					self.path = self.path + [0]
-					result = True
+					if self.count == 0:
+						self.path = self.path[:-1]
+						result = False
+					else:
+						result = True
 				else:
 					result = False
 		elif direction == "home":
