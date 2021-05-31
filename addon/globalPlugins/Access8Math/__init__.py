@@ -38,7 +38,7 @@ import mathPres
 from mathPres.mathPlayer import MathPlayer
 from NVDAObjects.IAccessible import IAccessible
 from NVDAObjects.window import Window
-from scriptHandler import script
+from scriptHandler import script, getLastScriptRepeatCount
 import speech
 import textInfos
 import textInfos.offsets
@@ -51,7 +51,7 @@ from A8M_PM import MathContent
 import _config
 from command.mark import A8MMarkCommandView
 from command.latex import A8MLaTeXCommandView, A8MLaTeXCommandModel
-from lib.mathProcess import textmath2laObj, laObj2mathObj, obj2html, textmath2laObjEdit
+from lib.mathProcess import textmath2laObj, laObj2mathObj, obj2html, textmath2laObjEdit, latex2mathml
 
 addonHandler.initTranslation()
 
@@ -559,7 +559,7 @@ class TextMathEditField(IAccessible):
 			return super().getScript(gesture)
 
 	@script(
-		gesture="kb:alt+v",
+		gesture="kb:alt+h",
 	)
 	def script_view_math(self, gesture):
 		output_file = text2template(self.value, os.path.join(PATH, 'web', 'review', 'index.html'))
@@ -588,7 +588,7 @@ class TextMathEditField(IAccessible):
 			ui.message(_("single letter navigation mode off"))
 
 	def script_sln(self, gesture):
-		if not (gesture.mainKeyName == "t" or gesture.mainKeyName == "m"):
+		if not (gesture.mainKeyName == "t" or gesture.mainKeyName == "l"):
 			tones.beep(100, 50)
 			return
 		self.script_navigate(gesture)
@@ -605,12 +605,28 @@ class TextMathEditField(IAccessible):
 				slot = gesture.mainKeyName[1:]
 				if slot in view.data.shortcut:
 					view.command(view.data.shortcut[slot]["id"])
+
 				else:
 					ui.message(_("shortcut {shortcut} is not set").format(
 						shortcut=slot,
 					))
 			else:
 				ui.message(_("Not in math section. Please insert LaTeX mark first and try again."))
+
+	@script(gestures=["kb:shift+f{}".format(i) for i in range(1, 13)])
+	def script_shortcut_help(self, gesture):
+		global shortcut_mode
+		if not shortcut_mode:
+			gesture.send()
+			return
+		view = A8MLaTeXCommandView()
+		slot = gesture.mainKeyName[1:]
+		if slot in view.data.shortcut:
+			ui.message(view.data.shortcut[slot]["name"])
+		else:
+			ui.message(_("shortcut {shortcut} is not set").format(
+				shortcut=slot,
+			))
 
 	@script(gestures=["kb:alt+m"])
 	def script_mark(self, gesture):
@@ -678,6 +694,22 @@ class TextMathEditField(IAccessible):
 				manager.end()
 		tones.beep(500, 20)
 
+	@script(gestures=["kb:alt+i"])
+	def script_interacte(self, gesture):
+		with SectionManager() as manager:
+			if manager.pointer and manager.pointer['type'] == 'math':
+				mathMl = latex2mathml(manager.pointer['data'][2:-2])
+				mathcontent = MathContent(A8M_PM.mathrule, mathMl)
+				if _config.Access8MathConfig["settings"]["interaction_frame_show"]:
+					show_main_frame(mathcontent)
+				else:
+					parent = api.getFocusObject()
+					vw = A8MInteraction(parent=parent)
+					vw.set(data=mathcontent, name="")
+					vw.setFocus()
+			else:
+				ui.message(_("This block cannot be interacted"))
+
 class SectionManager:
 	def __init__(self):
 		self.reset()
@@ -692,8 +724,6 @@ class SectionManager:
 		return pointer
 
 	def reset(self):
-		self.index = -1
-		self.type = ''
 		self.all_index = -1
 		self.points = None
 
@@ -705,14 +735,10 @@ class SectionManager:
 		self.points = textmath2laObjEdit(document.text)
 		for index, point in enumerate(self.points):
 			if self.caret._startOffset >= point['start'] and self.caret._startOffset < point['end']:
-				self.index = point['index']
-				self.type = point['type']
 				self.all_index = index
 				break
 
 		if self.caret._startOffset >= point['start'] and self.caret._startOffset <= point['end']:
-			self.index = point['index']
-			self.type = point['type']
 			self.all_index = index
 
 		return self
@@ -745,8 +771,6 @@ class SectionManager:
 		pointer = None
 		for all_index, point in enumerate(self.points):
 			if point['type'] == type and point['index'] == index:
-				self.index = point['index']
-				self.type = point['type']
 				self.all_index = all_index
 				pointer = point
 				break

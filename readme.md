@@ -62,14 +62,14 @@ Writing mixed content (text content and mathematical content):
 
 Use delimiter(start delimiter "\(" and end delimiter "\)", LaTeX block) to determine the area between the text content and the mathematical content, that is, the data in LaTeX block is mathematical content (LaTeX), and the data outside LaTeX block is text content.
 
-Press alt+v in edit area to convert an HTML document with mixed text data and mathematical data and can be reviewed or exported. The data in the LaTeX block will be converted to MathML for presentation with normal text.
+Press alt+h in edit field to convert an HTML document with mixed text data and mathematical data and can be reviewed or exported. The data in the LaTeX block will be converted to MathML for presentation with normal text.
 
 *	review: Open the converted HTML document through a program that opens the .HTML extension by default.
 *	export: Pack the converted HTML document into a zip file.
 
-Press alt+m key in edit area to pop up the markup command window, select "LaTeX" and press enter, the LaTeX block will be added to the current cursor and the cursor will be automatically moved into it for quick input the content.
+Press alt+m key in edit field to pop up the markup command window, select "LaTeX" and press enter, the LaTeX block will be added to the current cursor and the cursor will be automatically moved into it for quick input the content.
 
-Press alt+l key in edit area to pop up the LaTeX command window, select the LaTeX command item to be added and press enter to add the corresponding LaTeX syntax at the current cursor and automatically move the cursor to the appropriate input point for quick Enter the content.
+Press alt+l key in edit field to pop up the LaTeX command window, select the LaTeX command item to be added and press enter to add the corresponding LaTeX syntax at the current cursor and automatically move the cursor to the appropriate input point for quick Enter the content.
 
 LaTeX command window
 
@@ -79,11 +79,11 @@ LaTeX command window
 
 Edit cursor navigation move
 
-*	In edit area, press alt+left arrow key to move to the start point of the previous data block
-*	In edit area, press alt+down key without moving, but only read the content of the current data block
-*	In edit area, press alt+right arrow key to move to the start point of the next data block
-*	In edit area, press alt+home to move to the start point of the current data block
-*	In edit area, press alt+end to move to the end point of the current data block
+*	In edit field, press alt+left arrow key to move to the start point of the previous data block
+*	In edit field, press alt+down key without moving, but only read the content of the current data block
+*	In edit field, press alt+right arrow key to move to the start point of the next data block
+*	In edit field, press alt+home to move to the start point of the current data block
+*	In edit field, press alt+end to move to the end point of the current data block
 
 Edit cursor navigation move and select
 
@@ -91,9 +91,11 @@ Edit cursor navigation move and select
 * In the editing area, press alt+shift+down key to move to the current data block and select
 * In the editing area, press alt+shift+right arrow to move to the next data block and select
 
-Press alt+s in the editing area to turn on or off the shortcut mode. When the shortcut mode is on, press f1~f12 to quickly insert LaTeX syntax according to the shortcut settings in the LaTeX command window
+Press alt+s in edit field to turn on or off the shortcut mode. When the shortcut mode is on, press f1~f12 to quickly insert LaTeX syntax. When the shortcut mode is on, press shift+f1~f12 to read out the LaTeX commands currently bound to the shortcut.
 
-Press NVDA+shift+space in edit area to turn on or off the edit browse mode. When the edit browse mode is turned on, you can move the edit cursor with single letter navigation
+In edit field and the cursor is in the LaTeX block, press alt+i to enter navigation interactive mode
+
+Press NVDA+shift+space in edit field to turn on or off the edit single letter navigation mode. When the edit single letter navigation mode is turned on, you can move the edit cursor with single letter navigation
 
 The following keys by themselves jump edit cursor to the next available block, while adding the shift key causes them to jump edit cursor to the previous block:
 
@@ -114,16 +116,18 @@ mixed content example: The solution of the quadratic equation in one variable \(
 	*	Using a beep to alert no move: When navigating in interactive mode, It will hint by beep. If it is not checked, it will hint by speaking "no move".
 *	Rule Settings dialog box: select whether rules are actived.
 
+## example
+
 Math contents in Wiki are all written by MathML.
 
 *	Quadratic equation: https://en.wikipedia.org/wiki/Quadratic_equation
 *	Matrix multiplication: https://en.wikipedia.org/wiki/Matrix_multiplication
 *	Cubic function: https://en.wikipedia.org/wiki/Cubic_function
 
-Example
+Quadratic equation
 
-*	Quadratic equation
-<math xmlns="http://www.w3.org/1998/Math/MathML"><mfrac><mrow><mo>-</mo><mi>b</mi><mo>&#xB1;</mo><msqrt><msup><mi>b</mi><mn>2</mn></msup><mo>-</mo><mn>4</mn><mi>a</mi><mi>c</mi></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></math>
+*	LaTeX: \(ax^2+bx+c=0\)
+*	MathML: <math xmlns="http://www.w3.org/1998/Math/MathML"><mfrac><mrow><mo>-</mo><mi>b</mi><mo>&#xB1;</mo><msqrt><msup><mi>b</mi><mn>2</mn></msup><mo>-</mo><mn>4</mn><mi>a</mi><mi>c</mi></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></math>
 
 github: https://github.com/tsengwoody/Access8Math
 
@@ -134,10 +138,10 @@ Please report any bugs or comments, thank you!
 *	Write mathematical content in AsciiMath
 *	Write mathematical content in LaTeX
 *	Writing mixed content (text content and mathematical content)
-*	Use shortcut keys to move the cursor to different types of blocks in edit area
-*	Use command menu to select commands in edit area
+*	Use shortcut keys to move the cursor to different types of blocks in edit field
+*	Use command menu to select commands in edit field
 *	Set shortcuts in the LaTeX command menu
-*	Review and export content in edit area to HTML
+*	Review and export content in edit field to HTML
 
 # Access8Math v2.6 Update
 

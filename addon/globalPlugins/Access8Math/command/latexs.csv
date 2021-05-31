@@ -32,3 +32,8 @@ ne,\ne ,0,relation,-1
 because,\because ,0,relation,-1
 therefore,\therefore ,0,relation,-1
 limit,\lim_{{} \to {}},-9,common,-1
+matrix2X2,\left [ \begin{matrix} {} &{} \\ {} &{} \end{matrix} \right ],-37,2-dimension,-1
+matrix3X3,\left [ \begin{matrix} {} &{} &{} \\ {} &{} &{} \\ {} &{} &{} \end{matrix} \right ],-59,2-dimension,-1
+determinant2X2,\left | \begin{array} {cc} {} &{} \\ {} &{} \end{array} \right |,-36,2-dimension,-1
+determinant3X3,\left | \begin{array} {ccc} {} &{} &{} \\ {} &{} &{} \\ {} &{} &{} \end{array} \right |,-58,2-dimension,-1
+simultaneous-equations,\begin{cases} {} &{} \\ {} &{} \end{cases},-27,2-dimension,-1

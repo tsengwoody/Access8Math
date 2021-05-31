@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Access8Math - 3.0\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2021-05-30 11:00+0800\n"
-"PO-Revision-Date: 2021-05-30 11:01+0800\n"
+"POT-Creation-Date: 2021-05-31 10:23+0800\n"
+"PO-Revision-Date: 2021-05-31 10:27+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_TW\n"
@@ -48,7 +48,7 @@ msgid "Save file..."
 msgstr "儲存檔案..."
 
 #: globalPlugins/Access8Math/__init__.py:280
-#: globalPlugins/Access8Math/__init__.py:829
+#: globalPlugins/Access8Math/__init__.py:861
 msgid "Access8Math interaction window"
 msgstr "Access8Math 互動視窗"
 
@@ -80,7 +80,7 @@ msgid "Insert math object by asciimath"
 msgstr "加入數學物件透過 asciimath"
 
 #: globalPlugins/Access8Math/__init__.py:443
-#: globalPlugins/Access8Math/__init__.py:966
+#: globalPlugins/Access8Math/__init__.py:998
 msgid "Write AsciiMath Content"
 msgstr "輸寫 AsciiMath 內容"
 
@@ -89,7 +89,7 @@ msgid "Insert math object by latex"
 msgstr "加入數學物件透過 latex"
 
 #: globalPlugins/Access8Math/__init__.py:466
-#: globalPlugins/Access8Math/__init__.py:982
+#: globalPlugins/Access8Math/__init__.py:1014
 msgid "Write LaTeX Content"
 msgstr "輸寫 LaTeX 內容"
 
@@ -113,82 +113,87 @@ msgstr "單鍵導航開"
 msgid "single letter navigation mode off"
 msgstr "單鍵導航關"
 
-#: globalPlugins/Access8Math/__init__.py:609
+#: globalPlugins/Access8Math/__init__.py:610
+#: globalPlugins/Access8Math/__init__.py:627
 #, python-brace-format
 msgid "shortcut {shortcut} is not set"
 msgstr "快捷鍵{shortcut}未設定"
 
-#: globalPlugins/Access8Math/__init__.py:613
-#: globalPlugins/Access8Math/__init__.py:629
+#: globalPlugins/Access8Math/__init__.py:614
+#: globalPlugins/Access8Math/__init__.py:645
 msgid "Not in math section. Please insert LaTeX mark first and try again."
 msgstr "非在數學區內。請先插入 LaTeX 標記後再試一次。"
 
-#: globalPlugins/Access8Math/__init__.py:621
+#: globalPlugins/Access8Math/__init__.py:637
 msgid "In math section. Please leave math section first and try again."
 msgstr "在數學區內。請先離開數學區後再試一次。"
 
-#: globalPlugins/Access8Math/__init__.py:840
+#: globalPlugins/Access8Math/__init__.py:711
+msgid "This block cannot be interacted"
+msgstr "此區塊無法互動"
+
+#: globalPlugins/Access8Math/__init__.py:872
 msgid "&General settings..."
 msgstr "一般設定(&G)"
 
-#: globalPlugins/Access8Math/__init__.py:846
+#: globalPlugins/Access8Math/__init__.py:878
 msgid "&Rule settings..."
 msgstr "規則設定(&R)"
 
-#: globalPlugins/Access8Math/__init__.py:853
+#: globalPlugins/Access8Math/__init__.py:885
 msgid "&latex..."
 msgstr "&latex..."
 
-#: globalPlugins/Access8Math/__init__.py:859
+#: globalPlugins/Access8Math/__init__.py:891
 msgid "&asciimath..."
 msgstr "&asciimath..."
 
-#: globalPlugins/Access8Math/__init__.py:865
+#: globalPlugins/Access8Math/__init__.py:897
 msgid "&text-math..."
 msgstr "&text-math..."
 
-#: globalPlugins/Access8Math/__init__.py:871
+#: globalPlugins/Access8Math/__init__.py:903
 msgid "&Write..."
 msgstr "書寫(&W)"
 
-#: globalPlugins/Access8Math/__init__.py:878
+#: globalPlugins/Access8Math/__init__.py:910
 msgid "&unicode dictionary..."
 msgstr "&unicode 字典..."
 
-#: globalPlugins/Access8Math/__init__.py:884
+#: globalPlugins/Access8Math/__init__.py:916
 msgid "&math rule..."
 msgstr "數學規則(&M)"
 
-#: globalPlugins/Access8Math/__init__.py:890
+#: globalPlugins/Access8Math/__init__.py:922
 msgid "&New language adding..."
 msgstr "加入新語言(&N)"
 
-#: globalPlugins/Access8Math/__init__.py:896
+#: globalPlugins/Access8Math/__init__.py:928
 msgid "&Localization..."
 msgstr "本地化(&L)"
 
-#: globalPlugins/Access8Math/__init__.py:902
+#: globalPlugins/Access8Math/__init__.py:934
 msgid "&About..."
 msgstr "關於(&A)"
 
-#: globalPlugins/Access8Math/__init__.py:906
+#: globalPlugins/Access8Math/__init__.py:938
 msgid "Access8Math"
 msgstr "Access8Math"
 
-#: globalPlugins/Access8Math/__init__.py:909
+#: globalPlugins/Access8Math/__init__.py:941
 msgid "Change mathml provider"
 msgstr "更改閱讀程式"
 
-#: globalPlugins/Access8Math/__init__.py:936
+#: globalPlugins/Access8Math/__init__.py:968
 #, python-format
 msgid "mathml provider change to %s"
 msgstr "mathml閱讀程式更改為 %s"
 
-#: globalPlugins/Access8Math/__init__.py:993
+#: globalPlugins/Access8Math/__init__.py:1025
 msgid "Write TextMath Content"
 msgstr "輸寫 TextMath 內容"
 
-#: globalPlugins/Access8Math/__init__.py:1003
+#: globalPlugins/Access8Math/__init__.py:1035
 msgid "About Access8Math"
 msgstr "關於 Access8Math"
 
@@ -324,52 +329,76 @@ msgstr "圓圈"
 msgid "binomial coefficient"
 msgstr "二項式係數"
 
-#: globalPlugins/Access8Math/command/latex.py:303
+#: globalPlugins/Access8Math/command/latex.py:273
+msgid "matrix (2X2)"
+msgstr "矩陣 (2X2)"
+
+#: globalPlugins/Access8Math/command/latex.py:277
+msgid "matrix (3X3)"
+msgstr "矩陣 (3X3)"
+
+#: globalPlugins/Access8Math/command/latex.py:281
+msgid "determinant (2X2)"
+msgstr "行列式 (2X2)"
+
+#: globalPlugins/Access8Math/command/latex.py:285
+msgid "determinant (3X3)"
+msgstr "行列式 (3X3)"
+
+#: globalPlugins/Access8Math/command/latex.py:289
+msgid "simultaneous equations"
+msgstr "聯立方程"
+
+#: globalPlugins/Access8Math/command/latex.py:323
 msgid "shortcut"
 msgstr "快捷"
 
-#: globalPlugins/Access8Math/command/latex.py:309
+#: globalPlugins/Access8Math/command/latex.py:329
 msgid "common"
 msgstr "常見"
 
-#: globalPlugins/Access8Math/command/latex.py:315
+#: globalPlugins/Access8Math/command/latex.py:335
 msgid "operator"
 msgstr "運算子"
 
-#: globalPlugins/Access8Math/command/latex.py:321
+#: globalPlugins/Access8Math/command/latex.py:341
 msgid "relation"
 msgstr "關係"
 
-#: globalPlugins/Access8Math/command/latex.py:327
+#: globalPlugins/Access8Math/command/latex.py:347
 msgid "arrow"
 msgstr "箭頭"
 
-#: globalPlugins/Access8Math/command/latex.py:333
+#: globalPlugins/Access8Math/command/latex.py:353
+msgid "2-dimension"
+msgstr "2維"
+
+#: globalPlugins/Access8Math/command/latex.py:359
 msgid "other"
 msgstr "其他"
 
-#: globalPlugins/Access8Math/command/latex.py:341
+#: globalPlugins/Access8Math/command/latex.py:367
 msgid "LaTeX command"
 msgstr "LaTeX 指令"
 
-#: globalPlugins/Access8Math/command/latex.py:369
+#: globalPlugins/Access8Math/command/latex.py:395
 msgid "menu can not set shortcut"
 msgstr "功能表無法設定快捷"
 
-#: globalPlugins/Access8Math/command/latex.py:385
+#: globalPlugins/Access8Math/command/latex.py:411
 #, python-brace-format
 msgid "set shortcut {slot}"
 msgstr "設定快捷鍵{slot}"
 
-#: globalPlugins/Access8Math/command/latex.py:393
+#: globalPlugins/Access8Math/command/latex.py:419
 msgid "sub menu no shortcut"
 msgstr "子功能表無快捷鍵"
 
-#: globalPlugins/Access8Math/command/latex.py:399
+#: globalPlugins/Access8Math/command/latex.py:425
 msgid "no set shortcut"
 msgstr "無設定快捷"
 
-#: globalPlugins/Access8Math/command/latex.py:408
+#: globalPlugins/Access8Math/command/latex.py:434
 #, python-brace-format
 msgid "clear shortcut {slot}"
 msgstr "清除快捷鍵 {slot}"

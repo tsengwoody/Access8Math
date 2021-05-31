@@ -965,7 +965,7 @@ class LineType(NonTerminalNodeType):
 
 class MoLineSegmentType(TerminalNodeType):
 	tag = Mo
-	data = re.compile(r"^[¯]$")
+	data = re.compile(r"^[¯―]$")
 
 
 class LineSegmentType(NonTerminalNodeType):
@@ -1148,24 +1148,16 @@ class MsubLogType(SingleMsubType):
 	name = 'LogType'
 
 
-"""class AbsoluteType(TerminalNodeType):
+class VerticalBarType(TerminalNodeType):
 	tag = Mo
-	data = re.compile(r"^|$")
+	data = re.compile(r"^\|$")
 
-class OpenAbsoluteType(TerminalNodeType):
-	name = 'absolute_value'
-	tag = Mo
 
-	@classmethod
-	def check(cls, obj):
-		self_index = obj.index_in_parent()
-		if not issubclass(obj.__class__, cls.tag):
-			return False
-
-		abvs = []
-		for child in obj.parent.child:
-			pass
-"""
+class AbsoluteType(SiblingNodeType):
+	previous_siblings = [VerticalBarType]
+	self_ = MnOperandType
+	next_siblings = [VerticalBarType]
+	name = 'absolute'
 
 
 class OpenMatrixType(TerminalNodeType):
@@ -1179,20 +1171,16 @@ class CloseMatrixType(TerminalNodeType):
 
 
 class MatrixType(SiblingNodeType):
-	tag = Mtable
 	previous_siblings = [OpenMatrixType]
+	self_ = MtableType
 	next_siblings = [CloseMatrixType]
 	name = 'matrix'
 
 
-class VerticalBarType(TerminalNodeType):
-	tag = Mo
-	data = re.compile(r"^|$")
-
-
-class DeterminantType(NonTerminalNodeType):
+class DeterminantType(SiblingNodeType):
 	tag = Mtable
 	previous_siblings = [VerticalBarType]
+	self_ = MtableType
 	next_siblings = [VerticalBarType]
 	name = 'determinant'
 

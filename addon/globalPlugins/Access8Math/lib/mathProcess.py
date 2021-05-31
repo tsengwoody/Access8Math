@@ -22,14 +22,15 @@ def textmath2laObjEdit(input):
 		else:
 			start = previous.end(0)
 			end = item.start(0)
-		point.append({
-			"start": start,
-			"end": end,
-			"type": "text",
-			"data": input[start:end],
-			"index": index,
-		})
 
+		if start != end:
+			point.append({
+				"start": start,
+				"end": end,
+				"type": "text",
+				"data": input[start:end],
+				"index": index,
+			})
 
 		start = item.start(0)
 		end = item.end(0)

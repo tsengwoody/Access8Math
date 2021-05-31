@@ -268,6 +268,26 @@ latexMenuData = [
 		"id": "binom",
 		"name": _("binomial coefficient"),
 	},
+	{
+		"id": "matrix2X2",
+		"name": _("matrix (2X2)"),
+	},
+	{
+		"id": "matrix3X3",
+		"name": _("matrix (3X3)"),
+	},
+	{
+		"id": "determinant2X2",
+		"name": _("determinant (2X2)"),
+	},
+	{
+		"id": "determinant3X3",
+		"name": _("determinant (3X3)"),
+	},
+	{
+		"id": "simultaneous-equations",
+		"name": _("simultaneous equations"),
+	},
 ]
 latexAll = []
 latexShortcut = {}
@@ -327,6 +347,12 @@ class A8MLaTeXCommandModel(MenuModel):
 				"name": _("arrow"),
 				"type": "menu",
 				"items": latexMenu['arrow'],
+			},
+			{
+				"id": "2-dimension",
+				"name": _("2-dimension"),
+				"type": "menu",
+				"items": latexMenu['2-dimension'],
 			},
 			{
 				"id": "other",

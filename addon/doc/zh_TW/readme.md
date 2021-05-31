@@ -123,7 +123,7 @@ Access8Math將常用數學式依據類型與邏輯，建立46項數學規則，�
 
 使用分隔標記(開始分隔標記「\(」、結束分隔標記「\)」，下稱 LaTeX 標記區)來判斷文字內容與數學內容的區域，亦即在LaTeX 標記區內的資料為 LaTeX 數學內容，在 LaTeX 標記區外的為文字內容。
 
-在編輯區按下 alt+v 可轉換出混合文字資料與數學資料的 HTML 文件並可進行檢視或匯出。其中 LaTeX 區塊之內容匯轉成 MathML 以利與一般文字並列呈現。
+在編輯區按下 alt+h 可轉換出混合文字資料與數學資料的 HTML 文件並可進行檢視或匯出。其中 LaTeX 區塊之內容匯轉成 MathML 以利與一般文字並列呈現。
 
 *	檢視：透過預設開啟 .HTML 副檔名的程式打開轉換後的 HTML 文件。
 *	匯出：將轉換後的 HTML 文件打包成一壓縮檔。
@@ -152,9 +152,11 @@ LaTeX 指令視窗
 *	在編輯區按下 alt+shift+向下鍵移動到當前資料區塊並選取
 *	在編輯區按下 alt+shift+向右鍵移動到下一個資料區塊並選取
 
-在編輯區按下 alt+s 開啟或關閉快捷模式。當快捷模式開啟時按 f1~f12 可依於 LaTeX 指令視窗中的快捷設定快速插入 LaTeX 語法
+在編輯區按下 alt+s 開啟或關閉快捷模式。當快捷模式開啟時按 f1~f12 可快速插入  LaTeX 語法。當快捷模式開啟時按 shift+f1~f12 可讀出該快捷當下綁定的 LaTeX 指令。
 
-在編輯區按下 NVDA+shift+space 開啟或關閉編輯瀏覽模式。當編輯瀏覽模式開啟時可用單鍵導航移動編輯游標
+在編輯區且游標在 LaTeX 區塊處按下 alt+i 與該數學內容進行導航瀏覽
+
+在編輯區按下 NVDA+shift+space 開啟或關閉編輯單鍵導航模式。當編輯單鍵導航模式開啟時可用單鍵導航移動編輯游標
 
 下列的按鍵，若僅按該單一鍵，編輯游標會跳至其對應的後一個區塊位置，若同時按 Shif+該單一按鍵，編輯游標會跳至前一個區塊位置：
 
@@ -175,15 +177,18 @@ LaTeX 指令視窗
 	*	使用提示音來警告無移動：在互動模式下導航時，當無法在移動時發出提示音，如未勾選將以語音「無移動」提示
 *	「規則設定」對話框：選擇特定規則是否啟用的設定。
 
+## 範例
+
 維基百科上的數學內容皆以MathML寫成
 
 *	一元二次方程式：https://zh.wikipedia.org/wiki/一元二次方程
 *	矩陣乘法：https://zh.wikipedia.org/zh-tw/%E7%9F%A9%E9%99%A3%E4%B9%98%E6%B3%95
 *	三次方程式：https://zh.wikipedia.org/zh-tw/%E4%B8%89%E6%AC%A1%E6%96%B9%E7%A8%8B
 
-*	例子
-	*	一元二次方程解：
-<math xmlns="http://www.w3.org/1998/Math/MathML"><mfrac><mrow><mo>-</mo><mi>b</mi><mo>&#xB1;</mo><msqrt><msup><mi>b</mi><mn>2</mn></msup><mo>-</mo><mn>4</mn><mi>a</mi><mi>c</mi></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></math>
+一元二次方程解：
+
+*	LaTeX: \(ax^2+bx+c=0\)
+*	MathML: <math xmlns="http://www.w3.org/1998/Math/MathML"><mfrac><mrow><mo>-</mo><mi>b</mi><mo>&#xB1;</mo><msqrt><msup><mi>b</mi><mn>2</mn></msup><mo>-</mo><mn>4</mn><mi>a</mi><mi>c</mi></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></math>
 
 github： https://github.com/tsengwoody/Access8Math
 
