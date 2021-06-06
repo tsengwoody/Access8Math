@@ -52,10 +52,6 @@ Export: Save the math rules file to the specified path to share or keep.
 
 ## Writing feature
 
-Writing mathematical content in AsciiMath
-
-Writing mathematical content in LaTeX
-
 Writing mixed content (text content and mathematical content):
 
 ### writ mixed content

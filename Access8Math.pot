@@ -8,16 +8,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 'Access8Math' '3.0'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2021-05-31 10:23+0800\n"
+"POT-Creation-Date: 2021-06-04 22:01+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0\n"
 "X-Poedit-Basepath: addon\n"
 "X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: globalPlugins/Access8Math/web\n"
 
 #: globalPlugins/Access8Math/__init__.py:228
 msgid "Access8Math HTML window"
@@ -51,7 +52,7 @@ msgid "Save file..."
 msgstr ""
 
 #: globalPlugins/Access8Math/__init__.py:280
-#: globalPlugins/Access8Math/__init__.py:861
+#: globalPlugins/Access8Math/__init__.py:853
 msgid "Access8Math interaction window"
 msgstr ""
 
@@ -83,7 +84,7 @@ msgid "Insert math object by asciimath"
 msgstr ""
 
 #: globalPlugins/Access8Math/__init__.py:443
-#: globalPlugins/Access8Math/__init__.py:998
+#: globalPlugins/Access8Math/__init__.py:990
 msgid "Write AsciiMath Content"
 msgstr ""
 
@@ -92,7 +93,7 @@ msgid "Insert math object by latex"
 msgstr ""
 
 #: globalPlugins/Access8Math/__init__.py:466
-#: globalPlugins/Access8Math/__init__.py:1014
+#: globalPlugins/Access8Math/__init__.py:1006
 msgid "Write LaTeX Content"
 msgstr ""
 
@@ -135,68 +136,68 @@ msgstr ""
 msgid "This block cannot be interacted"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:872
+#: globalPlugins/Access8Math/__init__.py:864
 msgid "&General settings..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:878
+#: globalPlugins/Access8Math/__init__.py:870
 msgid "&Rule settings..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:885
+#: globalPlugins/Access8Math/__init__.py:877
 msgid "&latex..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:891
+#: globalPlugins/Access8Math/__init__.py:883
 msgid "&asciimath..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:897
+#: globalPlugins/Access8Math/__init__.py:889
 msgid "&text-math..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:903
+#: globalPlugins/Access8Math/__init__.py:895
 msgid "&Write..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:910
+#: globalPlugins/Access8Math/__init__.py:902
 msgid "&unicode dictionary..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:916
+#: globalPlugins/Access8Math/__init__.py:908
 msgid "&math rule..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:922
+#: globalPlugins/Access8Math/__init__.py:914
 msgid "&New language adding..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:928
+#: globalPlugins/Access8Math/__init__.py:920
 msgid "&Localization..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:934
+#: globalPlugins/Access8Math/__init__.py:926
 msgid "&About..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:938
+#: globalPlugins/Access8Math/__init__.py:930
 msgid "Access8Math"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:941
+#: globalPlugins/Access8Math/__init__.py:933
 msgid "Change mathml provider"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:968
+#: globalPlugins/Access8Math/__init__.py:960
 #, python-format
 msgid "mathml provider change to %s"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:1025
+#: globalPlugins/Access8Math/__init__.py:1017
 msgid "Write TextMath Content"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:1035
+#: globalPlugins/Access8Math/__init__.py:1027
 msgid "About Access8Math"
 msgstr ""
 

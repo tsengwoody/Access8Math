@@ -2,7 +2,7 @@ Access8Math
 Version: 3.0
 URL: https://addons.nvda-project.org/addons/access8math.en.html
 Copyright (C) 2017-2021 Access8Math Contributors
-Access8Math is covered by the GNU General Public License (Version 2). You are free to share or change this software in any way you like as long as it is accompanied by the license and you make all source code available to anyone who wants it. This applies to both original and modified copies of this software, plus any derivative works.
-It can be viewed online at: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
-Access8Math has been sponsored by "Taiwan Visually Impaired People Association"(accessibility@twvip.org) in 2018~2019, hereby express our sincere appreciation.
-If you feel this add-on is helpful, please don't hesitate to give support to "Taiwan Visually Impaired People Association" and authors.
+Access8Math 受 GNU 通用公共授權條款第二版所規範。您可以自由分享或以任何方式修改本軟體，前提是發布時必需包含該許可證，同時公開原版與修改版的原始碼，並加上任何用本軟體的原始碼所創造的軟體。
+此項許可證可以在此網站查看：https：//www.gnu.org/licenses/old-licenses/gpl-2.0.html
+Access8Math 於 2018~2019 年受臺灣視障協會(accessibility@twvip.org)支持開發，特此深表感謝。
+若您覺得此項附加元件有所助益，請不吝給予我們與臺灣視障協會支持。
