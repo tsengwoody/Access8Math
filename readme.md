@@ -26,30 +26,6 @@ Navigation interactive mode can segment a math content into smaller partial frag
 *	"Numpad 1~9": Reading the math content into serialized text using NVDA Reviewing Text.
 *	"ESC": Exit the navigation mode.
 
-## Multi-language custom settings
-
-*	"Unicode dictionary" allows customizing the reading method for each symbol text.
-*	"Mathematics Rules" allows customizing the reading method for each type of mathematics.
-*	"Add a new language" can add languages: that were not originally provided in the built-in. After adding, there will be more newly added language families in the general settings and can be used to define the reading method through the "unicode dictionary" and "mathematics rules" to reach multiple countries Language customization
-
-### Math Rules
-
-Access8Math establishes 46 mathematical rules according to the mathematical type and logic to decide the reading math method and order. According to different local math reading logic, the math reading text and order can be changed. The method is as follows:
-
-Edit: After entering the "math rule", the window lists 46 math rules. Choose any math rule and select the "Edit" to enter the editing entry.
-
-The "editing entry" can be divided into two major blocks, the "Serialized ordering" and the "Child role".
-*	Serialized ordering: Math rule is divided into multiple blocks according to the reading order. In this area, the reading order of child node and the delimitation text of start, inter- and the end can be changed. Taking the fractional rule mfrac as an example, this rule is divided into five reading blocks. The order 0, 2, and 4 represent the initial prompt, the project segmentation prompt, and the end prompt, respectively, and the meanings text can be changed in each field. Order 1 and 3 adjust the reading	sequence of child node which can be changed in the drop-down menu.
-*	Child role:  The next-level sub-item of the mathematical rule. Taking the fractional rule mfrac as an example, the rule contains the numerator and the denominator. The sub-content in the upper sub-content meaning can be changed in the child-node role field.
-
-Example: You can check the reading method of this math rule after editing. After clicking, a math content is preset the corresponding math rules for confirming whether the reading method is as expected.
-
-Recover default: Restores the list of math rules to their initial presets.
-
-Import: Import math rules files, which can be used to load math rules files.
-
-Export: Save the math rules file to the specified path to share or keep.
-
 ## Writing feature
 
 Writing mixed content (text content and mathematical content):
@@ -102,6 +78,10 @@ mixed content example: The solution of the quadratic equation in one variable \(
 
 ## settings
 
+All Access8Math menus are centralized in tools -> Access8Math
+
+### read feature settings
+
 *	General Settings dialog:
 	*	Language: Access8Math speaking language
 	*	Item interval time: Setting pause time between items. Values from 1 to 100, the smaller the value, the shorter the pause time, and the greater the value, the longer the pause time.
@@ -111,6 +91,30 @@ mixed content example: The solution of the quadratic equation in one variable \(
 	*	Reading of auto-generated meaning when navigating in interactive mode: When the pattern is not difined or incomplete in dictionary, use automatic generation function to read the meaning of subpart in the upper layer part.
 	*	Using a beep to alert no move: When navigating in interactive mode, It will hint by beep. If it is not checked, it will hint by speaking "no move".
 *	Rule Settings dialog box: select whether rules are actived.
+
+### localization
+
+*	"Unicode dictionary" allows customizing the reading method for each symbol text.
+*	"Mathematics Rules" allows customizing the reading method for each type of mathematics.
+*	"Add a new language" can add languages: that were not originally provided in the built-in. After adding, there will be more newly added language families in the general settings and can be used to define the reading method through the "unicode dictionary" and "mathematics rules" to reach localization
+
+#### Math Rules
+
+Access8Math establishes 46 mathematical rules according to the mathematical type and logic to decide the reading math method and order. According to different local math reading logic, the math reading text and order can be changed. The method is as follows:
+
+Edit: After entering the "math rule", the window lists 46 math rules. Choose any math rule and select the "Edit" to enter the editing entry.
+
+The "editing entry" can be divided into two major blocks, the "Serialized ordering" and the "Child role".
+*	Serialized ordering: Math rule is divided into multiple blocks according to the reading order. In this area, the reading order of child node and the delimitation text of start, inter- and the end can be changed. Taking the fractional rule mfrac as an example, this rule is divided into five reading blocks. The order 0, 2, and 4 represent the initial prompt, the project segmentation prompt, and the end prompt, respectively, and the meanings text can be changed in each field. Order 1 and 3 adjust the reading	sequence of child node which can be changed in the drop-down menu.
+*	Child role:  The next-level sub-item of the mathematical rule. Taking the fractional rule mfrac as an example, the rule contains the numerator and the denominator. The sub-content in the upper sub-content meaning can be changed in the child-node role field.
+
+Example: You can check the reading method of this math rule after editing. After clicking, a math content is preset the corresponding math rules for confirming whether the reading method is as expected.
+
+Recover default: Restores the list of math rules to their initial presets.
+
+Import: Import math rules files, which can be used to load math rules files.
+
+Export: Save the math rules file to the specified path to share or keep.
 
 ## example
 
