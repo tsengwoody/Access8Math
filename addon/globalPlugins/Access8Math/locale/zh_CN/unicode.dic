@@ -1,6 +1,6 @@
 symbols:
 # ASCII
-!	阶层	none
+!	阶乘	none
 "	双引号	none
 '	单引号	none
 (	左小括	none
@@ -163,13 +163,13 @@ symbols:
 Ͽ	Reversed Dotted Lunate Sigma	none
 
 ∀	对任意的,所有的	none
-∁	余,补,补码,补码,余补	none
+∁	补集	none
 ∂	偏微分	none
 ∃	存在	none
 ∄	不存在	none
-∅	空集合	none
+∅	空集	none
 ∆	变化量	none
-∇	del,nebla,梯度	none
+∇	向量微分	none
 ∈	属于	none
 ∉	不属于	none
 ∊	属于	none
@@ -179,20 +179,20 @@ symbols:
 ∎	结束证明	none
 ∏	N元乘积,从…到…的积,求积	none
 ∐	N元余积	none
-∑	和,求和,sigma,从…到…的和	none
+∑	∑	none
 −	减,负号	none
 ∓	正负号	none
 ∔	点正号	none
 ∕	正斜线	none
 ∖	反斜线	none
-∗		none
+∗	星号运算符	none
 ∘	合成	none
 ∙	点	none
 √	开根号	none
 ∛	开立方根	none
 ∜	开四次根	none
 ∝	正比于	none
-∞	无限	none
+∞	无穷大	none
 ∟	直角	none
 ∠	角	none
 ∡	测量角	none
@@ -204,7 +204,7 @@ symbols:
 ∧	逻辑与	none
 ∨	逻辑或	none
 ∩	交集	none
-∪	联集	none
+∪	并集	none
 ∫	积分	none
 ∬	双重积分	none
 ∭	三重积分	none
@@ -239,8 +239,8 @@ symbols:
 ≊	约等于或等于	none
 ≋	三重波浪符	none
 ≌	全等于	none
-≍	等于	none
-≎	几何等于	none
+≍	等价于	none
+≎	几何等价于	none
 ≏	相差	none
 ≐	接近极限	none
 ≑	几何等于	none
