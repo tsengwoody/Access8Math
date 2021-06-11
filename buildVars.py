@@ -17,7 +17,7 @@ addon_info = {
 	"addon_summary" : _("Access8Math"),
 	# Add-on description
 	# Translators: Long description to be shown for this add-on on add-on information from add-ons manager
-	"addon_description" : _("""Allows access math content written by MathML"""),
+	"addon_description" : _("""Allows access math content written by MathML ; Allows write math content by LaTeX"""),
 	# version
 	"addon_version" : "3.0",
 	# Author(s)

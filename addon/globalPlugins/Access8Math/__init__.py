@@ -547,16 +547,17 @@ sln_mode = False
 class TextMathEditField(IAccessible):
 	def getScript(self, gesture):
 		global sln_mode
-		if (
-			(len(gesture.modifierNames) == 0 or (len(gesture.modifierNames) == 1 and "shift" in gesture.modifierNames)) \
-			and (
-				gesture.mainKeyName in set("abcdefghijklmnopqrstuvwxyz1234567890") 
-			) \
-			and sln_mode
-		):
-			return self.script_sln
-		else:
-			return super().getScript(gesture)
+		if isinstance(gesture, KeyboardInputGesture):
+			if (
+				(len(gesture.modifierNames) == 0 or (len(gesture.modifierNames) == 1 and "shift" in gesture.modifierNames)) \
+				and (
+					gesture.mainKeyName in set("abcdefghijklmnopqrstuvwxyz1234567890") 
+				) \
+				and sln_mode
+			):
+				return self.script_sln
+
+		return super().getScript(gesture)
 
 	@script(
 		gesture="kb:alt+h",

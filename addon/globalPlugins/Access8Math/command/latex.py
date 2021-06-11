@@ -380,12 +380,13 @@ class A8MLaTeXCommandView(MenuView):
 		latexShortcut = data2shortcut(latexAll)
 
 	def getScript(self, gesture):
-		if gesture.mainKeyName in ["f{}".format(i) for i in range(1, 13)]:
-			return self.script_set_shortcut
-		elif gesture.mainKeyName in ["d"]:
-			return self.script_reset_shortcut
-		else:
-			return super().getScript(gesture)
+		if isinstance(gesture, KeyboardInputGesture):
+			if gesture.mainKeyName in ["f{}".format(i) for i in range(1, 13)]:
+				return self.script_set_shortcut
+			elif gesture.mainKeyName in ["d"]:
+				return self.script_reset_shortcut
+
+		return super().getScript(gesture)
 
 	@script(
 		gestures=["kb:f{}".format(i) for i in range(1, 13)]
