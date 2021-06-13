@@ -13,11 +13,12 @@ _configSpec = u"""[settings]
 provider = string(default=Access8Math)
 language = string(default=en)
 item_interval_time = integer(default=50,min=0,max=100)
-interaction_frame_show = boolean(default=true)
+interaction_frame_show = boolean(default=false)
 analyze_math_meaning = boolean(default=true)
-auto_generate = boolean(default=true)
+auto_generate = boolean(default=false)
 dictionary_generate = boolean(default=true)
 no_move_beep = boolean(default=true)
+edit_NVDA_gesture = boolean(default=true)
 
 [rules]
 SingleMsubsupType = boolean(default=true)

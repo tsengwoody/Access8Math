@@ -30,7 +30,7 @@ Navigation interactive mode can segment a math content into smaller partial frag
 
 Writing mixed content (text content and mathematical content):
 
-### writ mixed content
+### write mixed content
 
 Use delimiter(start delimiter "\(" and end delimiter "\)", LaTeX block) to determine the area between the text content and the mathematical content, that is, the data in LaTeX block is mathematical content (LaTeX), and the data outside LaTeX block is text content.
 
@@ -90,6 +90,7 @@ All Access8Math menus are centralized in tools -> Access8Math
 	*	Reading pre-defined meaning in dictionary when navigating in interactive mode: When the pattern is definied in the dictionary, use dictionary to read the meaning of subpart in the upper layer part.
 	*	Reading of auto-generated meaning when navigating in interactive mode: When the pattern is not difined or incomplete in dictionary, use automatic generation function to read the meaning of subpart in the upper layer part.
 	*	Using a beep to alert no move: When navigating in interactive mode, It will hint by beep. If it is not checked, it will hint by speaking "no move".
+	*	Using NVDA+alt+letter gesture to active action: Whether shortcut key needs to be added with NVDA key when write mixed content in edit field
 *	Rule Settings dialog box: select whether rules are actived.
 
 ### localization

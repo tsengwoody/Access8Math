@@ -32,6 +32,7 @@ class GeneralSettingsDialog(SettingsDialog):
 		("dictionary_generate", _("Reading pre-defined meaning in dictionary when navigating in interactive mode")),
 		("auto_generate", _("Reading of auto-generated meaning when navigating in interactive mode")),
 		("no_move_beep", _("Using a beep to alert no move")),
+		("edit_NVDA_gesture", _("Using NVDA+alt+letter gesture to active action")),
 	])
 
 	def __init__(self, parent, Access8MathConfig):

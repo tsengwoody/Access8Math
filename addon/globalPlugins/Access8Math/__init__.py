@@ -412,8 +412,6 @@ class A8MInteraction(Window):
 
 	@script(
 		gesture="kb:control+c",
-		description=_("copy mathml"),
-		category=ADDON_SUMMARY,
 	)
 	def script_rawdataToClip(self, gesture):
 		#api.copyToClip(self.raw_data)
@@ -422,16 +420,12 @@ class A8MInteraction(Window):
 
 	@script(
 		gesture="kb:control+s",
-		description=_("snapshot"),
-		category=ADDON_SUMMARY,
 	)
 	def script_snapshot(self, gesture):
 		ui.message(_("snapshot"))
 
 	@script(
 		gesture="kb:control+a",
-		description=_("Insert math object by asciimath"),
-		category=ADDON_SUMMARY,
 	)
 	def script_asciimath_insert(self, gesture):
 		def show(event):
@@ -453,8 +447,6 @@ class A8MInteraction(Window):
 
 	@script(
 		gesture="kb:control+l",
-		description=_("Insert math object by latex"),
-		category=ADDON_SUMMARY,
 	)
 	def script_latex_insert(self, gesture):
 		def show(event):
@@ -475,8 +467,6 @@ class A8MInteraction(Window):
 
 	@script(
 		gesture="kb:control+delete",
-		description=_("Delete math object"),
-		category=ADDON_SUMMARY,
 	)
 	def script_delete(self, gesture):
 		self.mathcontent.delete()
@@ -544,172 +534,188 @@ class AppWindowRoot(IAccessible):
 shortcut_mode = False
 sln_mode = False
 
-class TextMathEditField(IAccessible):
-	def getScript(self, gesture):
-		global sln_mode
-		if isinstance(gesture, KeyboardInputGesture):
-			if (
-				(len(gesture.modifierNames) == 0 or (len(gesture.modifierNames) == 1 and "shift" in gesture.modifierNames)) \
-				and (
-					gesture.mainKeyName in set("abcdefghijklmnopqrstuvwxyz1234567890") 
-				) \
-				and sln_mode
-			):
-				return self.script_sln
+def TextMathEditFieldFactory(active):
+	class TextMathEditField(IAccessible):
+		def getScript(self, gesture):
+			global sln_mode
+			if isinstance(gesture, KeyboardInputGesture):
+				if (
+					(len(gesture.modifierNames) == 0 or (len(gesture.modifierNames) == 1 and "shift" in gesture.modifierNames)) \
+					and (
+						gesture.mainKeyName in set("abcdefghijklmnopqrstuvwxyz1234567890") 
+					) \
+					and sln_mode
+				):
+					return self.script_sln
 
-		return super().getScript(gesture)
+			return super().getScript(gesture)
 
-	@script(
-		gesture="kb:alt+h",
-	)
-	def script_view_math(self, gesture):
-		output_file = text2template(self.value, os.path.join(PATH, 'web', 'review', 'index.html'))
-		show_template_frame(file=output_file)
+		@script(
+			gestures=["kb:NVDA+alt+h" if active else "kb:alt+h"],
+		)
+		def script_view_math(self, gesture):
+			output_file = text2template(self.value, os.path.join(PATH, 'web', 'review', 'index.html'))
+			show_template_frame(file=output_file)
 
-		def openfile():
-			os.startfile(output_file)
-		# wx.CallAfter(openfile)
+			def openfile():
+				os.startfile(output_file)
+			# wx.CallAfter(openfile)
 
-	@script(gestures=["kb:alt+s"])
-	def script_shortcut_switch(self, gesture):
-		global shortcut_mode
-		shortcut_mode = not shortcut_mode
-		if shortcut_mode:
-			ui.message(_("shortcut mode on"))
-		else:
-			ui.message(_("shortcut mode off"))
-
-	@script(gestures=["kb:NVDA+shift+space"])
-	def script_sln_switch(self, gesture):
-		global sln_mode
-		sln_mode = not sln_mode
-		if sln_mode:
-			ui.message(_("single letter navigation mode on"))
-		else:
-			ui.message(_("single letter navigation mode off"))
-
-	def script_sln(self, gesture):
-		if not (gesture.mainKeyName == "t" or gesture.mainKeyName == "l"):
-			tones.beep(100, 50)
-			return
-		self.script_navigate(gesture)
-
-	@script(gestures=["kb:f{}".format(i) for i in range(1, 13)])
-	def script_shortcut(self, gesture):
-		global shortcut_mode
-		if not shortcut_mode:
-			gesture.send()
-			return
-		with SectionManager() as manager:
-			if manager.pointer and manager.pointer['type'] == 'math':
-				view = A8MLaTeXCommandView()
-				slot = gesture.mainKeyName[1:]
-				if slot in view.data.shortcut:
-					view.command(view.data.shortcut[slot]["id"])
-
-				else:
-					ui.message(_("shortcut {shortcut} is not set").format(
-						shortcut=slot,
-					))
+		@script(
+			gestures=["kb:NVDA+alt+s" if active else "kb:alt+s"],
+		)
+		def script_shortcut_switch(self, gesture):
+			global shortcut_mode
+			shortcut_mode = not shortcut_mode
+			if shortcut_mode:
+				ui.message(_("shortcut mode on"))
 			else:
-				ui.message(_("Not in math section. Please insert LaTeX mark first and try again."))
+				ui.message(_("shortcut mode off"))
 
-	@script(gestures=["kb:shift+f{}".format(i) for i in range(1, 13)])
-	def script_shortcut_help(self, gesture):
-		global shortcut_mode
-		if not shortcut_mode:
-			gesture.send()
-			return
-		view = A8MLaTeXCommandView()
-		slot = gesture.mainKeyName[1:]
-		if slot in view.data.shortcut:
-			ui.message(view.data.shortcut[slot]["name"])
-		else:
-			ui.message(_("shortcut {shortcut} is not set").format(
-				shortcut=slot,
-			))
-
-	@script(gestures=["kb:alt+m"])
-	def script_mark(self, gesture):
-		with SectionManager() as manager:
-			if manager.pointer and manager.pointer['type'] == 'text':
-				A8MMarkCommandView().setFocus()
+		@script(gestures=["kb:NVDA+shift+space"])
+		def script_sln_switch(self, gesture):
+			global sln_mode
+			sln_mode = not sln_mode
+			if sln_mode:
+				ui.message(_("single letter navigation mode on"))
 			else:
-				ui.message(_("In math section. Please leave math section first and try again."))
+				ui.message(_("single letter navigation mode off"))
 
-	@script(gestures=["kb:alt+l"])
-	def script_latex_command(self, gesture):
-		with SectionManager() as manager:
-			if manager.pointer and manager.pointer['type'] == 'math':
-				A8MLaTeXCommandView().setFocus()
-			else:
-				ui.message(_("Not in math section. Please insert LaTeX mark first and try again."))
-
-	@script(gestures=[
-		"kb:alt+downArrow", "kb:alt+leftArrow", "kb:alt+rightArrow",
-		"kb:alt+shift+downArrow", "kb:alt+shift+leftArrow", "kb:alt+shift+rightArrow",
-	])
-	def script_navigate(self, gesture):
-		with SectionManager() as manager:
-			selected = False
-			if gesture.mainKeyName == "downArrow":
-				result = manager.move(type='any', step=0)
-				if "shift" in gesture.modifierNames:
-					selected = True
-			elif gesture.mainKeyName == "leftArrow":
-				result = manager.move(type='any', step=-1)
-				if "shift" in gesture.modifierNames:
-					selected = True
-			elif gesture.mainKeyName == "rightArrow":
-				result = manager.move(type='any', step=1)
-				if "shift" in gesture.modifierNames:
-					selected = True
-			if gesture.mainKeyName == "t":
-				if "shift" in gesture.modifierNames:
-					result = manager.move(type='text', step=-1)
-				else:
-					result = manager.move(type='text', step=1)
-			elif gesture.mainKeyName == "l":
-				if "shift" in gesture.modifierNames:
-					result = manager.move(type='math', step=-1)
-				else:
-					result = manager.move(type='math', step=1)
-
-			if result:
-				tones.beep(500, 50)
-				if selected:
-					manager.caret.updateSelection()
-				else:
-					ui.message(result['data'])
-			else:
+		def script_sln(self, gesture):
+			if not (gesture.mainKeyName == "t" or gesture.mainKeyName == "l"):
 				tones.beep(100, 50)
+				return
+			self.script_navigate(gesture)
 
-	@script(gestures=[
-		"kb:alt+home", "kb:alt+end",
-	])
-	def script_startend(self, gesture):
-		with SectionManager() as manager:
-			if gesture.mainKeyName == "home":
-				manager.start()
-			elif gesture.mainKeyName == "end":
-				manager.end()
-		tones.beep(500, 20)
-
-	@script(gestures=["kb:alt+i"])
-	def script_interacte(self, gesture):
-		with SectionManager() as manager:
-			if manager.pointer and manager.pointer['type'] == 'math':
-				mathMl = latex2mathml(manager.pointer['data'][2:-2])
-				mathcontent = MathContent(A8M_PM.mathrule, mathMl)
-				if _config.Access8MathConfig["settings"]["interaction_frame_show"]:
-					show_main_frame(mathcontent)
+		@script(gestures=["kb:f{}".format(i) for i in range(1, 13)])
+		def script_shortcut(self, gesture):
+			global shortcut_mode
+			if not shortcut_mode:
+				gesture.send()
+				return
+			with SectionManager() as manager:
+				if manager.pointer and manager.pointer['type'] == 'math':
+					view = A8MLaTeXCommandView()
+					slot = gesture.mainKeyName[1:]
+					if slot in view.data.shortcut:
+						view.command(view.data.shortcut[slot]["id"])
+					else:
+						ui.message(_("shortcut {shortcut} is not set").format(
+							shortcut=slot,
+						))
 				else:
-					parent = api.getFocusObject()
-					vw = A8MInteraction(parent=parent)
-					vw.set(data=mathcontent, name="")
-					vw.setFocus()
+					ui.message(_("Not in math section. Please insert LaTeX mark first and try again."))
+
+		@script(gestures=["kb:shift+f{}".format(i) for i in range(1, 13)])
+		def script_shortcut_help(self, gesture):
+			global shortcut_mode
+			if not shortcut_mode:
+				gesture.send()
+				return
+			view = A8MLaTeXCommandView()
+			slot = gesture.mainKeyName[1:]
+			if slot in view.data.shortcut:
+				ui.message(view.data.shortcut[slot]["name"])
 			else:
-				ui.message(_("This block cannot be interacted"))
+				ui.message(_("shortcut {shortcut} is not set").format(
+					shortcut=slot,
+				))
+
+		@script(
+			gestures=["kb:NVDA+alt+m" if active else "kb:alt+m"],
+		)
+		def script_mark(self, gesture):
+			with SectionManager() as manager:
+				if manager.pointer and manager.pointer['type'] == 'text':
+					A8MMarkCommandView().setFocus()
+				else:
+					ui.message(_("In math section. Please leave math section first and try again."))
+
+		@script(
+			gestures=["kb:NVDA+alt+l" if active else "kb:alt+l"],
+		)
+		def script_latex_command(self, gesture):
+			with SectionManager() as manager:
+				if manager.pointer and manager.pointer['type'] == 'math':
+					A8MLaTeXCommandView().setFocus()
+				else:
+					ui.message(_("Not in math section. Please insert LaTeX mark first and try again."))
+
+		@script(gestures=[
+			"kb:NVDA+alt+downArrow" if active else "kb:alt+downArrow",
+			"kb:NVDA+alt+leftArrow" if active else "kb:alt+leftArrow",
+			"kb:NVDA+alt+rightArrow" if active else "kb:alt+rightArrow",
+			"kb:NVDA+alt+shift+downArrow" if active else "kb:alt+shift+downArrow",
+			"kb:NVDA+alt+shift+leftArrow" if active else "kb:alt+shift+leftArrow",
+			"kb:NVDA+alt+shift+rightArrow" if active else "kb:alt+shift+rightArrow"
+		])
+		def script_navigate(self, gesture):
+			with SectionManager() as manager:
+				selected = False
+				if gesture.mainKeyName == "downArrow":
+					result = manager.move(type='any', step=0)
+					if "shift" in gesture.modifierNames:
+						selected = True
+				elif gesture.mainKeyName == "leftArrow":
+					result = manager.move(type='any', step=-1)
+					if "shift" in gesture.modifierNames:
+						selected = True
+				elif gesture.mainKeyName == "rightArrow":
+					result = manager.move(type='any', step=1)
+					if "shift" in gesture.modifierNames:
+						selected = True
+				if gesture.mainKeyName == "t":
+					if "shift" in gesture.modifierNames:
+						result = manager.move(type='text', step=-1)
+					else:
+						result = manager.move(type='text', step=1)
+				elif gesture.mainKeyName == "l":
+					if "shift" in gesture.modifierNames:
+						result = manager.move(type='math', step=-1)
+					else:
+						result = manager.move(type='math', step=1)
+
+				if result:
+					tones.beep(500, 50)
+					if selected:
+						manager.caret.updateSelection()
+					else:
+						ui.message(result['data'])
+				else:
+					tones.beep(100, 50)
+
+		@script(gestures=[
+			"kb:NVDA+alt+home" if active else "kb:alt+home",
+			"kb:NVDA+alt+end" if active else "kb:alt+end",
+		])
+		def script_startend(self, gesture):
+			with SectionManager() as manager:
+				if gesture.mainKeyName == "home":
+					manager.start()
+				elif gesture.mainKeyName == "end":
+					manager.end()
+			tones.beep(500, 20)
+
+		@script(
+			gestures=["kb:NVDA+alt+i" if active else "kb:alt+i"],
+		)
+		def script_interacte(self, gesture):
+			with SectionManager() as manager:
+				if manager.pointer and manager.pointer['type'] == 'math':
+					mathMl = latex2mathml(manager.pointer['data'][2:-2])
+					mathcontent = MathContent(A8M_PM.mathrule, mathMl)
+					if _config.Access8MathConfig["settings"]["interaction_frame_show"]:
+						show_main_frame(mathcontent)
+					else:
+						parent = api.getFocusObject()
+						vw = A8MInteraction(parent=parent)
+						vw.set(data=mathcontent, name="")
+						vw.setFocus()
+				else:
+					ui.message(_("This block cannot be interacted"))
+
+	return TextMathEditField
+
 
 class SectionManager:
 	def __init__(self):
@@ -854,7 +860,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if obj.windowClassName == "wxWindowNR" and obj.role == controlTypes.ROLE_WINDOW and obj.name == _("Access8Math interaction window"):
 			clsList.insert(0, AppWindowRoot)
 		if obj.windowClassName == "Edit" and obj.role == controlTypes.ROLE_EDITABLETEXT:
-			clsList.insert(0, TextMathEditField)
+			clsList.insert(0, TextMathEditFieldFactory(_config.Access8MathConfig["settings"]["edit_NVDA_gesture"]))
 
 	def create_menu(self):
 		self.toolsMenu = gui.mainFrame.sysTrayIcon.toolsMenu
@@ -931,10 +937,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.Access8Math_item = self.toolsMenu.AppendSubMenu(self.menu, _("Access8Math"), _("Access8Math"))
 
 	@script(
-		description=_("Change mathml provider"),
+		description=_("switch MathML provider"),
 		category=ADDON_SUMMARY,
 	)
-	def script_change_provider(self, gesture):
+	def script_switch_provider(self, gesture):
 		if _config.Access8MathConfig["settings"]["provider"] == "Access8Math":
 			_config.Access8MathConfig["settings"]["provider"] = "MathPlayer"
 		elif _config.Access8MathConfig["settings"]["provider"] == "MathPlayer":
@@ -959,6 +965,17 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		mathPres.registerProvider(reader, speech=True, braille=False, interaction=True)
 
 		ui.message(_("mathml provider change to %s")%_config.Access8MathConfig["settings"]["provider"])
+
+	@script(
+		description=_("Switch NVDA+alt+letter gesture to active action"),
+		category=ADDON_SUMMARY,
+	)
+	def script_switch_edit_NVDA_gesture(self, gesture):
+		_config.Access8MathConfig["settings"]["edit_NVDA_gesture"] = not _config.Access8MathConfig["settings"]["edit_NVDA_gesture"]
+		if _config.Access8MathConfig["settings"]["edit_NVDA_gesture"]:
+			ui.message(_("edit field NVDA gesture on"))
+		else:
+			ui.message(_("edit field NVDA gesture off"))
 
 	def onGeneralSettings(self, evt):
 		from dialogs import GeneralSettingsDialog
