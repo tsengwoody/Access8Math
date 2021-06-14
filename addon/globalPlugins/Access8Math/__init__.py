@@ -967,7 +967,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		ui.message(_("mathml provider change to %s")%_config.Access8MathConfig["settings"]["provider"])
 
 	@script(
-		description=_("Switch NVDA+alt+letter gesture to active action"),
+		description=_("Switch NVDA+gesture to active action"),
 		category=ADDON_SUMMARY,
 	)
 	def script_switch_edit_NVDA_gesture(self, gesture):

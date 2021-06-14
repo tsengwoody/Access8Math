@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 'Access8Math' '3.0'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2021-06-13 11:40+0800\n"
+"POT-Creation-Date: 2021-06-13 13:18+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,7 +52,7 @@ msgid "Save file..."
 msgstr ""
 
 #: globalPlugins/Access8Math/__init__.py:280
-#: globalPlugins/Access8Math/__init__.py:855
+#: globalPlugins/Access8Math/__init__.py:860
 msgid "Access8Math interaction window"
 msgstr ""
 
@@ -75,12 +75,12 @@ msgid "snapshot"
 msgstr ""
 
 #: globalPlugins/Access8Math/__init__.py:437
-#: globalPlugins/Access8Math/__init__.py:1003
+#: globalPlugins/Access8Math/__init__.py:1008
 msgid "Write AsciiMath Content"
 msgstr ""
 
 #: globalPlugins/Access8Math/__init__.py:458
-#: globalPlugins/Access8Math/__init__.py:1019
+#: globalPlugins/Access8Math/__init__.py:1024
 msgid "Write LaTeX Content"
 msgstr ""
 
@@ -115,84 +115,84 @@ msgstr ""
 msgid "In math section. Please leave math section first and try again."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:710
+#: globalPlugins/Access8Math/__init__.py:715
 msgid "This block cannot be interacted"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:866
+#: globalPlugins/Access8Math/__init__.py:871
 msgid "&General settings..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:872
+#: globalPlugins/Access8Math/__init__.py:877
 msgid "&Rule settings..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:879
+#: globalPlugins/Access8Math/__init__.py:884
 msgid "&latex..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:885
+#: globalPlugins/Access8Math/__init__.py:890
 msgid "&asciimath..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:891
+#: globalPlugins/Access8Math/__init__.py:896
 msgid "&text-math..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:897
+#: globalPlugins/Access8Math/__init__.py:902
 msgid "&Write..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:904
+#: globalPlugins/Access8Math/__init__.py:909
 msgid "&unicode dictionary..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:910
+#: globalPlugins/Access8Math/__init__.py:915
 msgid "&math rule..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:916
+#: globalPlugins/Access8Math/__init__.py:921
 msgid "&New language adding..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:922
+#: globalPlugins/Access8Math/__init__.py:927
 msgid "&Localization..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:928
+#: globalPlugins/Access8Math/__init__.py:933
 msgid "&About..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:932
+#: globalPlugins/Access8Math/__init__.py:937
 msgid "Access8Math"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:935
+#: globalPlugins/Access8Math/__init__.py:940
 msgid "switch MathML provider"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:962
+#: globalPlugins/Access8Math/__init__.py:967
 #, python-format
 msgid "mathml provider change to %s"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:965
-msgid "Switch NVDA+alt+letter gesture to active action"
+#: globalPlugins/Access8Math/__init__.py:970
+msgid "Switch NVDA+gesture to active action"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:971
+#: globalPlugins/Access8Math/__init__.py:976
 msgid "edit field NVDA gesture on"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:973
+#: globalPlugins/Access8Math/__init__.py:978
 msgid "edit field NVDA gesture off"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:1030
+#: globalPlugins/Access8Math/__init__.py:1035
 msgid "Write TextMath Content"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:1040
+#: globalPlugins/Access8Math/__init__.py:1045
 msgid "About Access8Math"
 msgstr ""
 
@@ -457,7 +457,7 @@ msgid "Using a beep to alert no move"
 msgstr ""
 
 #: globalPlugins/Access8Math/dialogs.py:35
-msgid "Using NVDA+alt+letter gesture to active action"
+msgid "Using NVDA+gesture to active action"
 msgstr ""
 
 #: globalPlugins/Access8Math/dialogs.py:45

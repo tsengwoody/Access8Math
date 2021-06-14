@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Access8Math - 3.0\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2021-06-13 11:40+0800\n"
-"PO-Revision-Date: 2021-06-13 11:59+0800\n"
+"POT-Creation-Date: 2021-06-13 13:18+0800\n"
+"PO-Revision-Date: 2021-06-13 13:20+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_TW\n"
@@ -48,7 +48,7 @@ msgid "Save file..."
 msgstr "儲存檔案..."
 
 #: globalPlugins/Access8Math/__init__.py:280
-#: globalPlugins/Access8Math/__init__.py:855
+#: globalPlugins/Access8Math/__init__.py:860
 msgid "Access8Math interaction window"
 msgstr "Access8Math 互動視窗"
 
@@ -71,12 +71,12 @@ msgid "snapshot"
 msgstr "快照"
 
 #: globalPlugins/Access8Math/__init__.py:437
-#: globalPlugins/Access8Math/__init__.py:1003
+#: globalPlugins/Access8Math/__init__.py:1008
 msgid "Write AsciiMath Content"
 msgstr "輸寫 AsciiMath 內容"
 
 #: globalPlugins/Access8Math/__init__.py:458
-#: globalPlugins/Access8Math/__init__.py:1019
+#: globalPlugins/Access8Math/__init__.py:1024
 msgid "Write LaTeX Content"
 msgstr "輸寫 LaTeX 內容"
 
@@ -111,84 +111,84 @@ msgstr "非在數學區內。請先插入 LaTeX 標記後再試一次。"
 msgid "In math section. Please leave math section first and try again."
 msgstr "在數學區內。請先離開數學區後再試一次。"
 
-#: globalPlugins/Access8Math/__init__.py:710
+#: globalPlugins/Access8Math/__init__.py:715
 msgid "This block cannot be interacted"
 msgstr "此區塊無法互動"
 
-#: globalPlugins/Access8Math/__init__.py:866
+#: globalPlugins/Access8Math/__init__.py:871
 msgid "&General settings..."
 msgstr "一般設定(&G)"
 
-#: globalPlugins/Access8Math/__init__.py:872
+#: globalPlugins/Access8Math/__init__.py:877
 msgid "&Rule settings..."
 msgstr "規則設定(&R)"
 
-#: globalPlugins/Access8Math/__init__.py:879
+#: globalPlugins/Access8Math/__init__.py:884
 msgid "&latex..."
 msgstr "&latex..."
 
-#: globalPlugins/Access8Math/__init__.py:885
+#: globalPlugins/Access8Math/__init__.py:890
 msgid "&asciimath..."
 msgstr "&asciimath..."
 
-#: globalPlugins/Access8Math/__init__.py:891
+#: globalPlugins/Access8Math/__init__.py:896
 msgid "&text-math..."
 msgstr "&text-math..."
 
-#: globalPlugins/Access8Math/__init__.py:897
+#: globalPlugins/Access8Math/__init__.py:902
 msgid "&Write..."
 msgstr "書寫(&W)"
 
-#: globalPlugins/Access8Math/__init__.py:904
+#: globalPlugins/Access8Math/__init__.py:909
 msgid "&unicode dictionary..."
 msgstr "&unicode 字典..."
 
-#: globalPlugins/Access8Math/__init__.py:910
+#: globalPlugins/Access8Math/__init__.py:915
 msgid "&math rule..."
 msgstr "數學規則(&M)"
 
-#: globalPlugins/Access8Math/__init__.py:916
+#: globalPlugins/Access8Math/__init__.py:921
 msgid "&New language adding..."
 msgstr "加入新語言(&N)"
 
-#: globalPlugins/Access8Math/__init__.py:922
+#: globalPlugins/Access8Math/__init__.py:927
 msgid "&Localization..."
 msgstr "本地化(&L)"
 
-#: globalPlugins/Access8Math/__init__.py:928
+#: globalPlugins/Access8Math/__init__.py:933
 msgid "&About..."
 msgstr "關於(&A)"
 
-#: globalPlugins/Access8Math/__init__.py:932
+#: globalPlugins/Access8Math/__init__.py:937
 msgid "Access8Math"
 msgstr "Access8Math"
 
-#: globalPlugins/Access8Math/__init__.py:935
+#: globalPlugins/Access8Math/__init__.py:940
 msgid "switch MathML provider"
 msgstr "切換 MathML 閱讀器"
 
-#: globalPlugins/Access8Math/__init__.py:962
+#: globalPlugins/Access8Math/__init__.py:967
 #, python-format
 msgid "mathml provider change to %s"
 msgstr "mathml閱讀程式更改為 %s"
 
-#: globalPlugins/Access8Math/__init__.py:965
-msgid "Switch NVDA+alt+letter gesture to active action"
-msgstr "切換 NVDA+alt+字母手勢來啟動動作"
+#: globalPlugins/Access8Math/__init__.py:970
+msgid "Switch NVDA+gesture to active action"
+msgstr "切換 NVDA+手勢來啟動動作"
 
-#: globalPlugins/Access8Math/__init__.py:971
+#: globalPlugins/Access8Math/__init__.py:976
 msgid "edit field NVDA gesture on"
 msgstr "編輯區 NVDA 手勢開"
 
-#: globalPlugins/Access8Math/__init__.py:973
+#: globalPlugins/Access8Math/__init__.py:978
 msgid "edit field NVDA gesture off"
 msgstr "編輯區 NVDA 手勢關"
 
-#: globalPlugins/Access8Math/__init__.py:1030
+#: globalPlugins/Access8Math/__init__.py:1035
 msgid "Write TextMath Content"
 msgstr "輸寫 TextMath 內容"
 
-#: globalPlugins/Access8Math/__init__.py:1040
+#: globalPlugins/Access8Math/__init__.py:1045
 msgid "About Access8Math"
 msgstr "關於 Access8Math"
 
@@ -453,8 +453,8 @@ msgid "Using a beep to alert no move"
 msgstr "無法繼續移動時以聲音提示"
 
 #: globalPlugins/Access8Math/dialogs.py:35
-msgid "Using NVDA+alt+letter gesture to active action"
-msgstr "使用 NVDA+alt+字母手勢來啟動動作"
+msgid "Using NVDA+gesture to active action"
+msgstr "使用 NVDA+手勢來啟動動作"
 
 #: globalPlugins/Access8Math/dialogs.py:45
 #: globalPlugins/Access8Math/dialogs.py:683
