@@ -68,6 +68,8 @@ class GeneralSettingsDialog(SettingsDialog):
 			value = self.Access8MathConfig["settings"][k]
 			getattr(self, k +"CheckBox").SetValue(value)
 
+		self.edit_NVDA_gesture = self.Access8MathConfig["settings"]["edit_NVDA_gesture"]
+
 	def postInit(self):
 		self.languageList.SetFocus()
 
@@ -93,6 +95,15 @@ class GeneralSettingsDialog(SettingsDialog):
 			api.setReviewPosition(MathMlTextInfo(globalVars.math_obj, textInfos.POSITION_FIRST), False)
 		except:
 			pass
+
+		if self.edit_NVDA_gesture != self.Access8MathConfig["settings"]["edit_NVDA_gesture"]:
+			if gui.messageBox(
+				# Translators: The message displayed
+				_("For the NVDA+gesture configuration to apply, NVDA must be restarted. Do you want to restart NVDA now?"),
+				# Translators: The title of the dialog
+				_("NVDA+gesture Configuration Change"),wx.OK|wx.CANCEL|wx.ICON_WARNING,self
+			)==wx.OK:
+				queueHandler.queueFunction(queueHandler.eventQueue,core.restart)
 
 		return super(GeneralSettingsDialog, self).onOk(evt)
 

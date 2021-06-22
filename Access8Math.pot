@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 'Access8Math' '3.0'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2021-06-13 13:18+0800\n"
+"POT-Creation-Date: 2021-06-22 16:56+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,179 +20,167 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: globalPlugins/Access8Math/web\n"
 
-#: globalPlugins/Access8Math/__init__.py:228
+#: globalPlugins/Access8Math/__init__.py:229
 msgid "Access8Math HTML window"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:238
-#: globalPlugins/Access8Math/__init__.py:286
+#: globalPlugins/Access8Math/__init__.py:239
+#: globalPlugins/Access8Math/__init__.py:287
 msgid "&Menu"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:239
-#: globalPlugins/Access8Math/__init__.py:287
+#: globalPlugins/Access8Math/__init__.py:240
+#: globalPlugins/Access8Math/__init__.py:288
 msgid "&Exit"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:239
-#: globalPlugins/Access8Math/__init__.py:287
+#: globalPlugins/Access8Math/__init__.py:240
+#: globalPlugins/Access8Math/__init__.py:288
 msgid "Terminate the program"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:245
+#: globalPlugins/Access8Math/__init__.py:246
 msgid "review"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:246
+#: globalPlugins/Access8Math/__init__.py:247
 msgid "export"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:270
+#: globalPlugins/Access8Math/__init__.py:271
 msgid "Save file..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:280
-#: globalPlugins/Access8Math/__init__.py:860
+#: globalPlugins/Access8Math/__init__.py:281
+#: globalPlugins/Access8Math/__init__.py:846
 msgid "Access8Math interaction window"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:293
+#: globalPlugins/Access8Math/__init__.py:294
 msgid "interaction"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:294
-#: globalPlugins/Access8Math/__init__.py:323
-#: globalPlugins/Access8Math/__init__.py:419
+#: globalPlugins/Access8Math/__init__.py:295
+#: globalPlugins/Access8Math/__init__.py:324
+#: globalPlugins/Access8Math/__init__.py:420
 msgid "copy"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:401
+#: globalPlugins/Access8Math/__init__.py:402
 msgid "no move"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:425
+#: globalPlugins/Access8Math/__init__.py:426
 msgid "snapshot"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:437
-#: globalPlugins/Access8Math/__init__.py:1008
+#: globalPlugins/Access8Math/__init__.py:438
+#: globalPlugins/Access8Math/__init__.py:983
 msgid "Write AsciiMath Content"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:458
-#: globalPlugins/Access8Math/__init__.py:1024
+#: globalPlugins/Access8Math/__init__.py:459
+#: globalPlugins/Access8Math/__init__.py:999
 msgid "Write LaTeX Content"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:571
+#: globalPlugins/Access8Math/__init__.py:569
 msgid "shortcut mode on"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:573
+#: globalPlugins/Access8Math/__init__.py:571
 msgid "shortcut mode off"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:580
+#: globalPlugins/Access8Math/__init__.py:577
 msgid "single letter navigation mode on"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:582
+#: globalPlugins/Access8Math/__init__.py:579
 msgid "single letter navigation mode off"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:603
-#: globalPlugins/Access8Math/__init__.py:620
+#: globalPlugins/Access8Math/__init__.py:598
+#: globalPlugins/Access8Math/__init__.py:614
 #, python-brace-format
 msgid "shortcut {shortcut} is not set"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:607
-#: globalPlugins/Access8Math/__init__.py:642
+#: globalPlugins/Access8Math/__init__.py:602
+#: globalPlugins/Access8Math/__init__.py:634
 msgid "Not in math section. Please insert LaTeX mark first and try again."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:632
+#: globalPlugins/Access8Math/__init__.py:625
 msgid "In math section. Please leave math section first and try again."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:715
+#: globalPlugins/Access8Math/__init__.py:703
 msgid "This block cannot be interacted"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:871
+#: globalPlugins/Access8Math/__init__.py:857
 msgid "&General settings..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:877
+#: globalPlugins/Access8Math/__init__.py:863
 msgid "&Rule settings..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:884
+#: globalPlugins/Access8Math/__init__.py:870
 msgid "&latex..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:890
+#: globalPlugins/Access8Math/__init__.py:876
 msgid "&asciimath..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:896
+#: globalPlugins/Access8Math/__init__.py:882
 msgid "&text-math..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:902
+#: globalPlugins/Access8Math/__init__.py:888
 msgid "&Write..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:909
+#: globalPlugins/Access8Math/__init__.py:895
 msgid "&unicode dictionary..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:915
+#: globalPlugins/Access8Math/__init__.py:901
 msgid "&math rule..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:921
+#: globalPlugins/Access8Math/__init__.py:907
 msgid "&New language adding..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:927
+#: globalPlugins/Access8Math/__init__.py:913
 msgid "&Localization..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:933
+#: globalPlugins/Access8Math/__init__.py:919
 msgid "&About..."
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:937
+#: globalPlugins/Access8Math/__init__.py:923
 msgid "Access8Math"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:940
+#: globalPlugins/Access8Math/__init__.py:926
 msgid "switch MathML provider"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:967
+#: globalPlugins/Access8Math/__init__.py:953
 #, python-format
 msgid "mathml provider change to %s"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:970
-msgid "Switch NVDA+gesture to active action"
-msgstr ""
-
-#: globalPlugins/Access8Math/__init__.py:976
-msgid "edit field NVDA gesture on"
-msgstr ""
-
-#: globalPlugins/Access8Math/__init__.py:978
-msgid "edit field NVDA gesture off"
-msgstr ""
-
-#: globalPlugins/Access8Math/__init__.py:1035
+#: globalPlugins/Access8Math/__init__.py:1010
 msgid "Write TextMath Content"
 msgstr ""
 
-#: globalPlugins/Access8Math/__init__.py:1045
+#: globalPlugins/Access8Math/__init__.py:1020
 msgid "About Access8Math"
 msgstr ""
 
@@ -461,7 +449,7 @@ msgid "Using NVDA+gesture to active action"
 msgstr ""
 
 #: globalPlugins/Access8Math/dialogs.py:45
-#: globalPlugins/Access8Math/dialogs.py:683
+#: globalPlugins/Access8Math/dialogs.py:694
 msgid "&Language:"
 msgstr ""
 
@@ -469,274 +457,284 @@ msgstr ""
 msgid "&Item interval time:"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:101
-msgid "Rule Settings"
-msgstr ""
-
-#: globalPlugins/Access8Math/dialogs.py:103
-msgid "Simplified subscript and superscript"
+#: globalPlugins/Access8Math/dialogs.py:102
+msgid ""
+"For the NVDA+gesture configuration to apply, NVDA must be restarted. Do you "
+"want to restart NVDA now?"
 msgstr ""
 
 #: globalPlugins/Access8Math/dialogs.py:104
-msgid "Simplified subscript"
-msgstr ""
-
-#: globalPlugins/Access8Math/dialogs.py:105
-msgid "Simplified superscript"
-msgstr ""
-
-#: globalPlugins/Access8Math/dialogs.py:106
-msgid "Simplified underscript and overscript"
-msgstr ""
-
-#: globalPlugins/Access8Math/dialogs.py:107
-msgid "Simplified underscript"
-msgstr ""
-
-#: globalPlugins/Access8Math/dialogs.py:108
-msgid "Simplified overscript"
-msgstr ""
-
-#: globalPlugins/Access8Math/dialogs.py:109
-msgid "Simplified fraction"
-msgstr ""
-
-#: globalPlugins/Access8Math/dialogs.py:110
-msgid "Simplified square root"
-msgstr ""
-
-#: globalPlugins/Access8Math/dialogs.py:111
-msgid "Power"
+msgid "NVDA+gesture Configuration Change"
 msgstr ""
 
 #: globalPlugins/Access8Math/dialogs.py:112
-msgid "Square power"
-msgstr ""
-
-#: globalPlugins/Access8Math/dialogs.py:113
-msgid "Cube power"
+msgid "Rule Settings"
 msgstr ""
 
 #: globalPlugins/Access8Math/dialogs.py:114
-msgid "Set"
+msgid "Simplified subscript and superscript"
 msgstr ""
 
 #: globalPlugins/Access8Math/dialogs.py:115
-msgid "Absolute value"
+msgid "Simplified subscript"
 msgstr ""
 
 #: globalPlugins/Access8Math/dialogs.py:116
-msgid "Matrix"
+msgid "Simplified superscript"
 msgstr ""
 
 #: globalPlugins/Access8Math/dialogs.py:117
-msgid "Determinant"
+msgid "Simplified underscript and overscript"
 msgstr ""
 
 #: globalPlugins/Access8Math/dialogs.py:118
+msgid "Simplified underscript"
+msgstr ""
+
+#: globalPlugins/Access8Math/dialogs.py:119
+msgid "Simplified overscript"
+msgstr ""
+
+#: globalPlugins/Access8Math/dialogs.py:120
+msgid "Simplified fraction"
+msgstr ""
+
+#: globalPlugins/Access8Math/dialogs.py:121
+msgid "Simplified square root"
+msgstr ""
+
+#: globalPlugins/Access8Math/dialogs.py:122
+msgid "Power"
+msgstr ""
+
+#: globalPlugins/Access8Math/dialogs.py:123
+msgid "Square power"
+msgstr ""
+
+#: globalPlugins/Access8Math/dialogs.py:124
+msgid "Cube power"
+msgstr ""
+
+#: globalPlugins/Access8Math/dialogs.py:125
+msgid "Set"
+msgstr ""
+
+#: globalPlugins/Access8Math/dialogs.py:126
+msgid "Absolute value"
+msgstr ""
+
+#: globalPlugins/Access8Math/dialogs.py:127
+msgid "Matrix"
+msgstr ""
+
+#: globalPlugins/Access8Math/dialogs.py:128
+msgid "Determinant"
+msgstr ""
+
+#: globalPlugins/Access8Math/dialogs.py:129
 msgid "Integer and fraction"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:157
+#: globalPlugins/Access8Math/dialogs.py:168
 msgid "Add Symbol"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:162
+#: globalPlugins/Access8Math/dialogs.py:173
 msgid "Symbol:"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:184
+#: globalPlugins/Access8Math/dialogs.py:195
 #, python-format
 msgid "unicode dictionary (%s)"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:192
+#: globalPlugins/Access8Math/dialogs.py:203
 msgid "&Symbols"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:200
+#: globalPlugins/Access8Math/dialogs.py:211
 msgid "Symbol"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:201
+#: globalPlugins/Access8Math/dialogs.py:212
 msgid "Replacement"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:209
+#: globalPlugins/Access8Math/dialogs.py:220
 msgid "Change selected symbol"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:225
+#: globalPlugins/Access8Math/dialogs.py:236
 msgid "&Replacement"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:234
+#: globalPlugins/Access8Math/dialogs.py:245
 msgid "&Add"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:237
+#: globalPlugins/Access8Math/dialogs.py:248
 msgid "Re&move"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:241
-#: globalPlugins/Access8Math/dialogs.py:549
+#: globalPlugins/Access8Math/dialogs.py:252
+#: globalPlugins/Access8Math/dialogs.py:560
 msgid "&Recover default"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:244
-#: globalPlugins/Access8Math/dialogs.py:552
+#: globalPlugins/Access8Math/dialogs.py:255
+#: globalPlugins/Access8Math/dialogs.py:563
 msgid "&Import"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:247
-#: globalPlugins/Access8Math/dialogs.py:555
+#: globalPlugins/Access8Math/dialogs.py:258
+#: globalPlugins/Access8Math/dialogs.py:566
 msgid "Exp&ort"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:316
+#: globalPlugins/Access8Math/dialogs.py:327
 #, python-format
 msgid "Symbol \"%s\" is already present."
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:317
+#: globalPlugins/Access8Math/dialogs.py:328
 msgid "Error"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:354
-#: globalPlugins/Access8Math/dialogs.py:632
+#: globalPlugins/Access8Math/dialogs.py:365
+#: globalPlugins/Access8Math/dialogs.py:643
 msgid "Import file..."
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:363
-#: globalPlugins/Access8Math/dialogs.py:641
+#: globalPlugins/Access8Math/dialogs.py:374
+#: globalPlugins/Access8Math/dialogs.py:652
 msgid "Export file..."
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:392
+#: globalPlugins/Access8Math/dialogs.py:403
 msgid "Edit Math Rule Entry"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:400
-#: globalPlugins/Access8Math/dialogs.py:405
+#: globalPlugins/Access8Math/dialogs.py:411
+#: globalPlugins/Access8Math/dialogs.py:416
 msgid "&description"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:402
+#: globalPlugins/Access8Math/dialogs.py:413
 msgid "description"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:411
+#: globalPlugins/Access8Math/dialogs.py:422
 msgid "Serialized ordering"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:414
+#: globalPlugins/Access8Math/dialogs.py:425
 #, python-format
 msgid "Ordering %d"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:417
-msgid "Child"
-msgstr ""
-
-#: globalPlugins/Access8Math/dialogs.py:423
-#, python-format
-msgid "Before item text &%d"
-msgstr ""
-
 #: globalPlugins/Access8Math/dialogs.py:428
-#, python-format
-msgid "After item text &%d"
+msgid "Child"
 msgstr ""
 
 #: globalPlugins/Access8Math/dialogs.py:434
 #, python-format
+msgid "Before item text &%d"
+msgstr ""
+
+#: globalPlugins/Access8Math/dialogs.py:439
+#, python-format
+msgid "After item text &%d"
+msgstr ""
+
+#: globalPlugins/Access8Math/dialogs.py:445
+#, python-format
 msgid "Start text &%d"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:436
+#: globalPlugins/Access8Math/dialogs.py:447
 #, python-format
 msgid "End text &%d"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:438
+#: globalPlugins/Access8Math/dialogs.py:449
 #, python-format
 msgid "&Interval text &%d"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:446
+#: globalPlugins/Access8Math/dialogs.py:457
 msgid "Child role"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:449
+#: globalPlugins/Access8Math/dialogs.py:460
 #, python-format
 msgid "&Child %d meaning"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:488
+#: globalPlugins/Access8Math/dialogs.py:499
 #, python-format
 msgid "Regular Expression error: \"%s\"."
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:488
+#: globalPlugins/Access8Math/dialogs.py:499
 msgid "Dictionary Entry Error"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:504
+#: globalPlugins/Access8Math/dialogs.py:515
 #, python-format
 msgid "math rule (%s)"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:512
+#: globalPlugins/Access8Math/dialogs.py:523
 msgid "&Mathrules"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:520
+#: globalPlugins/Access8Math/dialogs.py:531
 msgid "Rule"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:521
+#: globalPlugins/Access8Math/dialogs.py:532
 msgid "Description"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:541
+#: globalPlugins/Access8Math/dialogs.py:552
 msgid "&Edit"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:545
+#: globalPlugins/Access8Math/dialogs.py:556
 msgid "E&xample"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:672
+#: globalPlugins/Access8Math/dialogs.py:683
 msgid "New language adding"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:692
+#: globalPlugins/Access8Math/dialogs.py:703
 msgid "&Select"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:696
+#: globalPlugins/Access8Math/dialogs.py:707
 msgid "&Unselect"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:704
+#: globalPlugins/Access8Math/dialogs.py:715
 msgid "unicode dictionary"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:705
+#: globalPlugins/Access8Math/dialogs.py:716
 msgid "math rule"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:706
+#: globalPlugins/Access8Math/dialogs.py:717
 msgid "OK"
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:797
+#: globalPlugins/Access8Math/dialogs.py:808
 msgid ""
 "For the new language to add, NVDA must be restarted. Press enter to restart "
 "NVDA, or cancel to exit at a later time."
 msgstr ""
 
-#: globalPlugins/Access8Math/dialogs.py:799
+#: globalPlugins/Access8Math/dialogs.py:810
 msgid "New language add"
 msgstr ""
 
