@@ -1,4 +1,4 @@
-﻿"""# Access8Math: Allows access math content written by MathML and write math as MathML
+"""# Access8Math: Allows access math content written by MathML and write math as MathML
 # Copyright (C) 2017-2021 Tseng Woody <tsengwoody.tw@gmail.com>
 # This file is covered by the GNU General Public License.
 # See the file COPYING.txt for more details."""
@@ -7,7 +7,6 @@
 from collections import Iterable
 import os
 import re
-import shutil
 import sys
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -50,8 +49,9 @@ import wx
 import A8M_PM
 from A8M_PM import MathContent
 import _config
-from command.mark import A8MMarkCommandView
 from command.latex import A8MLaTeXCommandView, A8MLaTeXCommandModel
+from command.mark import A8MMarkCommandView
+from command.review import A8MHTMLCommandView
 from lib.mathProcess import textmath2laObj, laObj2mathObj, obj2html, textmath2laObjEdit, latex2mathml
 
 addonHandler.initTranslation()
@@ -69,7 +69,7 @@ except:
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 TEMPLATES_PATH = os.path.join(PATH, 'web', 'templates')
 env = Environment(loader=FileSystemLoader(TEMPLATES_PATH), variable_start_string='{|{', variable_end_string='}|}')
-#, autoescape=select_autoescape(['html', 'xml']))
+
 
 def flatten(lines):
 	"""
@@ -144,7 +144,7 @@ def translate_Unicode(serializes):
 def text2template(value, output):
 	raw = []
 	for line in value.split('\n'):
-		line = line.replace('\r', '')
+		line = line.replace('\r', '').replace(r'`', r'\`')
 		if line != '':
 			raw.extend(textmath2laObj(line))
 		raw.append({'type': 'text-content', 'data': ''})
@@ -224,57 +224,6 @@ class GenericFrame(wx.Frame):
 		self.Bind(wx.EVT_BUTTON, handler, button)
 		return button
 
-class TemplateFrame(GenericFrame):
-	def __init__(self):
-		title = _("Access8Math HTML window")
-		self.file = None
-		super().__init__(wx.GetApp().TopWindow, title=title)
-		self.Bind(wx.EVT_CHAR_HOOK, self.OnChar)
-
-	def set_file(self, file):
-		self.file = file
-
-	def menuData(self):
-		return [
-			(_("&Menu"), (
-				(_("&Exit"),_("Terminate the program"), self.OnExit),
-			))
-		]
-
-	def buttonData(self):
-		return (
-			(_("review"), self.OnReview),
-			(_("export"), self.OnExport),
-		)
-
-	def OnExit(self, event):
-		self.Destroy()
-		global main_frame
-		main_frame = None
-
-	def OnChar(self, event):
-		keyCode = event.GetKeyCode()
-		if keyCode == wx.WXK_ESCAPE:
-			self.Destroy()
-			global main_frame
-			main_frame = None
-			# self.Close()
-		event.Skip() 
-
-	def OnReview(self, event):
-		def openfile():
-			os.startfile(self.file)
-		wx.CallAfter(openfile)
-
-	def OnExport(self, event):
-		def show():
-			with wx.FileDialog(self, message=_("Save file..."), wildcard="zip files (*.zip)|*.zip", style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT) as dialog:
-				if dialog.ShowModal() != wx.ID_OK:
-					return
-				src = os.path.join(PATH, 'web', 'review')
-				dst = dialog.GetPath()[:-4]
-				shutil.make_archive(dst, 'zip', src)
-		wx.CallAfter(show)
 
 class A8MInteractionFrame(GenericFrame):
 	def __init__(self):
@@ -535,8 +484,8 @@ class AppWindowRoot(IAccessible):
 shortcut_mode = False
 sln_mode = False
 
-
 active = _config.Access8MathConfig["settings"]["edit_NVDA_gesture"]
+
 class TextMathEditField(NVDAObject):
 	def getScript(self, gesture):
 		global sln_mode
@@ -550,17 +499,20 @@ class TextMathEditField(NVDAObject):
 			):
 				return self.script_sln
 		return super().getScript(gesture)
+
 	@script(
 		gestures=["kb:NVDA+alt+h" if active else "kb:alt+h"],
+		description=_("view math"),
+		category=ADDON_SUMMARY,
 	)
 	def script_view_math(self, gesture):
 		output_file = text2template(self.value, os.path.join(PATH, 'web', 'review', 'index.html'))
-		show_template_frame(file=output_file)
-		def openfile():
-			os.startfile(output_file)
-		# wx.CallAfter(openfile)
+		A8MHTMLCommandView(file=output_file).setFocus()
+
 	@script(
 		gestures=["kb:NVDA+alt+s" if active else "kb:alt+s"],
+		description=_("shortcut switch"),
+		category=ADDON_SUMMARY,
 	)
 	def script_shortcut_switch(self, gesture):
 		global shortcut_mode
@@ -569,6 +521,7 @@ class TextMathEditField(NVDAObject):
 			ui.message(_("shortcut mode on"))
 		else:
 			ui.message(_("shortcut mode off"))
+
 	@script(gestures=["kb:NVDA+shift+space"])
 	def script_sln_switch(self, gesture):
 		global sln_mode
@@ -577,11 +530,13 @@ class TextMathEditField(NVDAObject):
 			ui.message(_("single letter navigation mode on"))
 		else:
 			ui.message(_("single letter navigation mode off"))
+
 	def script_sln(self, gesture):
 		if not (gesture.mainKeyName == "t" or gesture.mainKeyName == "l"):
 			tones.beep(100, 50)
 			return
 		self.script_navigate(gesture)
+
 	@script(gestures=["kb:f{}".format(i) for i in range(1, 13)])
 	def script_shortcut(self, gesture):
 		global shortcut_mode
@@ -600,6 +555,7 @@ class TextMathEditField(NVDAObject):
 					))
 			else:
 				ui.message(_("Not in math section. Please insert LaTeX mark first and try again."))
+
 	@script(gestures=["kb:shift+f{}".format(i) for i in range(1, 13)])
 	def script_shortcut_help(self, gesture):
 		global shortcut_mode
@@ -614,8 +570,11 @@ class TextMathEditField(NVDAObject):
 			ui.message(_("shortcut {shortcut} is not set").format(
 				shortcut=slot,
 			))
+
 	@script(
 		gestures=["kb:NVDA+alt+m" if active else "kb:alt+m"],
+		description=_("insert mark"),
+		category=ADDON_SUMMARY,
 	)
 	def script_mark(self, gesture):
 		with SectionManager() as manager:
@@ -623,8 +582,11 @@ class TextMathEditField(NVDAObject):
 				A8MMarkCommandView().setFocus()
 			else:
 				ui.message(_("In math section. Please leave math section first and try again."))
+
 	@script(
 		gestures=["kb:NVDA+alt+l" if active else "kb:alt+l"],
+		description=_("insert LaTeX"),
+		category=ADDON_SUMMARY,
 	)
 	def script_latex_command(self, gesture):
 		with SectionManager() as manager:
@@ -632,14 +594,19 @@ class TextMathEditField(NVDAObject):
 				A8MLaTeXCommandView().setFocus()
 			else:
 				ui.message(_("Not in math section. Please insert LaTeX mark first and try again."))
-	@script(gestures=[
-		"kb:NVDA+alt+downArrow" if active else "kb:alt+downArrow",
-		"kb:NVDA+alt+leftArrow" if active else "kb:alt+leftArrow",
-		"kb:NVDA+alt+rightArrow" if active else "kb:alt+rightArrow",
-		"kb:NVDA+alt+shift+downArrow" if active else "kb:alt+shift+downArrow",
-		"kb:NVDA+alt+shift+leftArrow" if active else "kb:alt+shift+leftArrow",
-		"kb:NVDA+alt+shift+rightArrow" if active else "kb:alt+shift+rightArrow"
-	])
+
+	@script(
+		gestures=[
+			"kb:NVDA+alt+downArrow" if active else "kb:alt+downArrow",
+			"kb:NVDA+alt+leftArrow" if active else "kb:alt+leftArrow",
+			"kb:NVDA+alt+rightArrow" if active else "kb:alt+rightArrow",
+			"kb:NVDA+alt+shift+downArrow" if active else "kb:alt+shift+downArrow",
+			"kb:NVDA+alt+shift+leftArrow" if active else "kb:alt+shift+leftArrow",
+			"kb:NVDA+alt+shift+rightArrow" if active else "kb:alt+shift+rightArrow"
+		],
+		description=_("navigate block using arrow"),
+		category=ADDON_SUMMARY,
+	)
 	def script_navigate(self, gesture):
 		with SectionManager() as manager:
 			selected = False
@@ -673,10 +640,15 @@ class TextMathEditField(NVDAObject):
 					ui.message(result['data'])
 			else:
 				tones.beep(100, 50)
-	@script(gestures=[
-		"kb:NVDA+alt+home" if active else "kb:alt+home",
-		"kb:NVDA+alt+end" if active else "kb:alt+end",
-	])
+
+	@script(
+		gestures=[
+			"kb:NVDA+alt+home" if active else "kb:alt+home",
+			"kb:NVDA+alt+end" if active else "kb:alt+end",
+		],
+		description=_("block start/end using arrow"),
+		category=ADDON_SUMMARY,
+	)
 	def script_startend(self, gesture):
 		with SectionManager() as manager:
 			if gesture.mainKeyName == "home":
@@ -684,8 +656,11 @@ class TextMathEditField(NVDAObject):
 			elif gesture.mainKeyName == "end":
 				manager.end()
 		tones.beep(500, 20)
+
 	@script(
 		gestures=["kb:NVDA+alt+i" if active else "kb:alt+i"],
+		description=_("interacte with LaTeX"),
+		category=ADDON_SUMMARY,
 	)
 	def script_interacte(self, gesture):
 		with SectionManager() as manager:
@@ -811,16 +786,7 @@ def show_main_frame(mathcontent):
 	main_frame.Show()
 	main_frame.Raise()
 
-def show_template_frame(file):
-	global template_frame
-	if not template_frame:
-		template_frame = TemplateFrame()
-	template_frame.set_file(file=file)
-	template_frame.Show()
-	template_frame.Raise()
-
 main_frame = None
-template_frame = None
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self, *args, **kwargs):
@@ -1011,7 +977,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			if dialog.ShowModal() == wx.ID_OK:
 				value = dialog.GetValue()
 				output_file = text2template(value, os.path.join(PATH, 'web', 'review', 'index.html'))
-				show_template_frame(file=output_file)
+				A8MHTMLCommandView(file=output_file).setFocus()
 
 	def onAbout(self, evt):
 		path = os.path.join(PATH, "locale", self.language, "about.txt")

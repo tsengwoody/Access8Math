@@ -1,4 +1,5 @@
-﻿# Copyright (C) 2017-2021 Tseng Woody <tsengwoody.tw@gmail.com>
+# coding=utf-8
+# Copyright (C) 2017-2021 Tseng Woody <tsengwoody.tw@gmail.com>
 
 import cgi
 import xml

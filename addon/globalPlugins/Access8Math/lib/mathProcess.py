@@ -56,8 +56,8 @@ def textmath2laObjEdit(input):
 
 	return point
 
-
 def textmath2laObj(input):
+	backslash_pattern = re.compile(r"\\[^`]")
 	reTexMath = re.compile(r"\\\(.*?\\\)")
 	text = reTexMath.split(input)
 	math = reTexMath.findall(input)
@@ -65,19 +65,22 @@ def textmath2laObj(input):
 	datas = []
 
 	for i in range(length):
-		raw = text[i].replace('\r\n', '\n').replace('\\', '\\\\').strip('\n')
+		raw = text[i].replace('\r\n', '\n').strip('\n')
+		raw = backslash_pattern.sub(lambda m:m.group(0).replace('\\', '\\\\'), raw)
 		if raw != '':
 			datas.append({
 				'type': 'text-content',
 				'data': raw,
 			})
-		raw = math[i][2: len(math[i])-2].replace('\\', '\\\\')
+		raw = math[i][2: len(math[i])-2]
+		raw = backslash_pattern.sub(lambda m:m.group(0).replace('\\', '\\\\'), raw)
 		datas.append({
 			'type': 'latex-content',
 			'data': raw,
 		})
 
-	raw = text[length].replace('\n', '').replace('\\', '\\\\').strip('\n')
+	raw = text[length].replace('\n', '').strip('\n')
+	raw = backslash_pattern.sub(lambda m:m.group(0).replace('\\', '\\\\'), raw)
 	if raw != '':
 		datas.append({
 			'type': 'text-content',

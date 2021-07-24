@@ -1,108 +1,68 @@
-from typing import Iterator, Union
+import re
+from typing import Iterator
 
+from latex2mathml import commands
 from latex2mathml.symbols_parser import convert_symbol
 
+UNITS = ("in", "mm", "cm", "pt", "em", "ex", "pc", "bp", "dd", "cc", "sp", "mu")
 
-def tokenize(data) -> Iterator[Union[str, list]]:
-    iterable = iter(data)
-    buffer = ""
-    while True:
-        try:
-            char = next(iterable)
-            if char == "\\":
-                if buffer == "\\":
-                    yield buffer + char
-                    buffer = ""
-                    continue
-                elif len(buffer):
-                    yield buffer
-                buffer = char
-                try:
-                    buffer += next(iterable)
-                    if buffer in (r"\\", r"\[", r"\]", r"\{", r"\}"):
-                        yield buffer
-                        buffer = ""
-                except StopIteration:
-                    break
-            elif char.isalpha():
-                if len(buffer):
-                    if buffer.endswith("}"):
-                        yield buffer
-                        yield char
-                        buffer = ""
-                    elif buffer.startswith("\\"):
-                        buffer += char
-                else:
-                    yield char
-            elif char.isdigit():
-                if len(buffer):
-                    yield buffer
-                buffer = char
-                while True:
-                    try:
-                        char = next(iterable)
-                    except StopIteration:
-                        break
-                    if char.isspace():
-                        yield buffer
-                        buffer = ""
-                        break
-                    elif char.isdigit() or char == ".":
-                        buffer += char
-                    else:
-                        if buffer.endswith("."):
-                            yield buffer[:-1]
-                            yield buffer[-1]
-                        else:
-                            yield buffer
-                        buffer = ""
-                        if char == "\\":
-                            buffer = char
-                        else:
-                            yield char
-                        break
-            elif char.isspace():
-                if len(buffer):
-                    yield buffer
-                    buffer = ""
-            elif char in "{}*":
-                # FIXME: Anything that starts with '\math' passes. There is a huge list of math symbols in
-                #  unimathsymbols.txt and hard-coding all of them is inefficient.
-                if buffer.startswith(r"\begin") or buffer.startswith(r"\end") or buffer.startswith(r"\math"):
-                    if buffer.endswith("}"):
-                        yield buffer
-                        yield char
-                        buffer = ""
-                        continue
-                    elif buffer.startswith(r"\math") and char == "}":
-                        symbol = convert_symbol(buffer + char)
-                        if symbol:
-                            yield "&#x{};".format(symbol)
-                            buffer = ""
-                            continue
-                        else:
-                            index = buffer.index("{")
-                            yield buffer[:index]
-                            yield list(tokenize(buffer[index + 1 :]))
-                            buffer = ""
-                            continue
-                    buffer += char
-                else:
-                    if len(buffer):
-                        yield buffer
-                        buffer = ""
-                    yield char
-            else:
-                if len(buffer):
-                    if buffer.startswith(r"\math"):
-                        yield buffer[:-1]
-                        yield buffer[-1]
-                    else:
-                        yield buffer
-                    buffer = ""
-                if len(char):
-                    yield char
-        except StopIteration:
-            break
-    if len(buffer):
-        yield buffer
+PATTERN = re.compile(
+    rf"""
+    %[^\n]+ |  # comment
+    [a-zA-Z] |  # letter
+    [_^]\d |  # number succeeding a underscore or caret
+    -?\d+(\.\d+)?(\s*({'|'.join(UNITS)})) |  # dimension
+    \d+(\.\d+)? |  # integer/decimal
+    \.\d+ |  # decimal can start with just a dot (.)
+    \. |  # dot
+    \\(
+        [\\\[\]{{}}\s!,:>;|_%#$&] |  # escaped characters
+        (begin|end|operatorname){{[a-zA-Z]+\*?}} |  # begin, end or operatorname
+        # FIXME: curly braces is tricky on these commands
+        # color, fbox, href, hbox, mbox, style, text, textbf, textit, textrm, textsf, texttt
+        (color|fbox|hbox|href|mbox|style|text|textbf|textit|textrm|textsf|texttt)\s*{{([^}}]*)}} |
+        math[a-z]+{{[a-zA-Z]}} |  # commands starting with math
+        [a-zA-Z]+  # other commands
+    )? |
+    \S  # non-space character
+    """,
+    re.VERBOSE,
+)
+
+
+def tokenize(data: str) -> Iterator[str]:
+    for match in PATTERN.finditer(data):
+        first_match = match.group(0)
+        if first_match.startswith(commands.MATH):
+            yield from _tokenize_math(first_match)
+        elif first_match == commands.TEXTSTYLE:
+            yield first_match  # prevent the next line (commands.TEXT)
+        elif first_match.startswith(
+            (commands.COLOR, commands.FBOX, commands.HREF, commands.HBOX, commands.MBOX, commands.STYLE, commands.TEXT)
+        ):
+            index = first_match.index(commands.OPENING_BRACE)
+            yield first_match[:index].strip()
+            yield match.group(8)
+        elif first_match.startswith("%"):
+            continue
+        elif first_match[0].isdigit() and first_match.endswith(UNITS):
+            yield first_match.replace(" ", "")
+        elif len(first_match) == 2 and first_match[0] in commands.SUBSUP:
+            yield from first_match
+        else:
+            yield first_match
+
+
+def _tokenize_math(match: str) -> Iterator[str]:
+    symbol = convert_symbol(match)
+    if symbol:
+        yield f"&#x{symbol};"
+        return
+    try:
+        index = match.index(commands.OPENING_BRACE)
+        yield match[:index]
+        yield match[index]
+        yield match[index + 1 : -1]
+        yield match[-1]
+    except ValueError:
+        yield match

@@ -381,9 +381,9 @@ class A8MLaTeXCommandView(MenuView):
 
 	def getScript(self, gesture):
 		if isinstance(gesture, KeyboardInputGesture):
-			if gesture.mainKeyName in ["f{}".format(i) for i in range(1, 13)]:
+			if len(gesture.modifierNames) == 0 and gesture.mainKeyName in ["f{}".format(i) for i in range(1, 13)]:
 				return self.script_set_shortcut
-			elif gesture.mainKeyName in ["d"]:
+			elif len(gesture.modifierNames) == 0 and gesture.mainKeyName in ["d"]:
 				return self.script_reset_shortcut
 
 		return super().getScript(gesture)

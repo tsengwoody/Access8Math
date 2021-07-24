@@ -1,7 +1,3 @@
-class EmptyGroupError(Exception):
-    pass
-
-
 class NumeratorNotFoundError(Exception):
     pass
 
@@ -10,9 +6,37 @@ class DenominatorNotFoundError(Exception):
     pass
 
 
-class ExtraLeftOrMissingRight(Exception):
+class ExtraLeftOrMissingRightError(Exception):
     pass
 
 
-class MissingSuperScriptOrSubscript(Exception):
+class MissingSuperScriptOrSubscriptError(Exception):
+    pass
+
+
+class DoubleSubscriptsError(Exception):
+    pass
+
+
+class DoubleSuperscriptsError(Exception):
+    pass
+
+
+class NoAvailableTokensError(Exception):
+    pass
+
+
+class InvalidStyleForGenfracError(Exception):
+    pass
+
+
+class MissingEndError(Exception):
+    pass
+
+
+class InvalidAlignmentError(Exception):
+    pass
+
+
+class InvalidWidthError(Exception):
     pass
