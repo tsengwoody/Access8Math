@@ -39,7 +39,7 @@ Press alt+h in edit field to convert an HTML document with mixed text data and m
 *	review: Open the converted HTML document through a program that opens the .HTML extension by default.
 *	export: Pack the converted HTML document into a zip file.
 
-Press alt+m key in edit field to pop up the markup command window, select "LaTeX" and press enter, the LaTeX block will be added to the current cursor and the cursor will be automatically moved into it for quick input the content.
+Press alt+m key in edit field to pop up the markup command window, select "LaTeX" and press enter, the LaTeX mark will be insert into before and after the currently selected text (the current cursor when there is no text selected) and the cursor will be automatically moved into it for quick input the content.
 
 Press alt+l key in edit field to pop up the LaTeX command window, select the LaTeX command item to be added and press enter to add the corresponding LaTeX syntax at the current cursor and automatically move the cursor to the appropriate input point for quick Enter the content.
 
@@ -133,6 +133,15 @@ Quadratic equation
 github: https://github.com/tsengwoody/Access8Math
 
 Please report any bugs or comments, thank you!
+
+# Access8Math v3.1 Update
+
+*	NVDA+ gestures enable option adjustment and can modify the shortcut keys in the input gesture
+*	HTML windows are now presented as virtual menu
+*	Fixed an issue where the HTML view cannot be converted when text include "`" character
+*	When the number of words in the document is greater than 4096, the content will not be converted to HTML view
+*	Added mathematical set LaTeX commands
+* Update alt+m to insert "\(", "\)" LaTeX marks before and after the currently selected text (when there is no selected text, it is the current cursor position)
 
 # Access8Math v3.0 Update
 

@@ -37,3 +37,20 @@ matrix3X3,\left [ \begin{matrix} {} &{} &{} \\ {} &{} &{} \\ {} &{} &{} \end{mat
 determinant2X2,\left | \begin{array} {cc} {} &{} \\ {} &{} \end{array} \right |,-36,2-dimension,-1
 determinant3X3,\left | \begin{array} {ccc} {} &{} &{} \\ {} &{} &{} \\ {} &{} &{} \end{array} \right |,-58,2-dimension,-1
 simultaneous-equations,\begin{cases} {} &{} \\ {} &{} \end{cases},-27,2-dimension,-1
+in,\in ,0,set,-1
+notin,\not\in ,0,set,-1
+subset,\subset ,0,set,-1
+subsetneqq,\subsetneqq ,0,set,-1
+not-subset,\not\subset ,0,set,-1
+supset,\supset ,0,set,-1
+supsetneqq,\supsetneqq ,0,set,-1
+not-supset,\not\supset ,0,set,-1
+cap,\cap ,0,set,-1
+cup,\cup ,0,set,-1
+setminus,\setminus ,0,set,-1
+complement,\complement_{},0,set,-1
+emptyset,\emptyset ,0,set,-1
+natural-number,\mathbb{N},0,set,-1
+real-number,\mathbb{R},0,set,-1
+logarithm,\log_{},0,common,-1
+approx,\approx ,0,relation,-1

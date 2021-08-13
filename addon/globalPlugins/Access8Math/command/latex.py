@@ -185,6 +185,10 @@ latexMenuData = [
 		"name": _("not equal to"),
 	},
 	{
+		"id": "approx",
+		"name": _("approximate"),
+	},
+	{
 		"id": "parallel",
 		"name": _("parallel"),
 	},
@@ -288,6 +292,70 @@ latexMenuData = [
 		"id": "simultaneous-equations",
 		"name": _("simultaneous equations"),
 	},
+	{
+		"id": "in",
+		"name": _("belong to"),
+	},
+	{
+		"id": "notin",
+		"name": _("not belong to"),
+	},
+	{
+		"id": "subset",
+		"name": _("lie in"),
+	},
+	{
+		"id": "subsetneqq",
+		"name": _("properly lie in"),
+	},
+	{
+		"id": "not-subset",
+		"name": _("not lie in"),
+	},
+	{
+		"id": "supset",
+		"name": _("include"),
+	},
+	{
+		"id": "supsetneqq",
+		"name": _("properly include"),
+	},
+	{
+		"id": "not-supset",
+		"name": _("not include"),
+	},
+	{
+		"id": "cap",
+		"name": _("intersection set"),
+	},
+	{
+		"id": "cup",
+		"name": _("union set"),
+	},
+	{
+		"id": "setminus",
+		"name": _("difference set"),
+	},
+	{
+		"id": "complement",
+		"name": _("complement"),
+	},
+	{
+		"id": "emptyset",
+		"name": _("empty set"),
+	},
+	{
+		"id": "natural-number",
+		"name": _("natural number"),
+	},
+	{
+		"id": "real-number",
+		"name": _("real number"),
+	},
+	{
+		"id": "logarithm",
+		"name": _("logarithm"),
+	},
 ]
 latexAll = []
 latexShortcut = {}
@@ -355,6 +423,12 @@ class A8MLaTeXCommandModel(MenuModel):
 				"items": latexMenu['2-dimension'],
 			},
 			{
+				"id": "set",
+				"name": _("set"),
+				"type": "menu",
+				"items": latexMenu['set'],
+			},
+			{
 				"id": "other",
 				"name": _("other"),
 				"type": "menu",
@@ -365,8 +439,9 @@ class A8MLaTeXCommandModel(MenuModel):
 
 class A8MLaTeXCommandView(MenuView):
 	name = _("LaTeX command")
-	def __init__(self):
+	def __init__(self, selection):
 		super().__init__(MenuModel=A8MLaTeXCommandModel, TextInfo=A8MLaTeXCommandViewTextInfo)
+		self._selection = selection
 
 	def update_menu(self):
 		global latexMenu, latexShortcut

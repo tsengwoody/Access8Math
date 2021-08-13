@@ -1,11 +1,11 @@
 # coding=utf-8
 # Copyright (C) 2017-2021 Tseng Woody <tsengwoody.tw@gmail.com>
 
-import cgi
 import xml
 from xml.etree import ElementTree as ET
 
 import collections
+import html
 import inspect
 import io
 import os
@@ -23,16 +23,16 @@ def mathml2etree(mathml):
 	@type mathml: str
 	@rtype: XML etree
 	"""
-	gtlt_pattern = re.compile(r"([\>])(.*?)([\<])")
 
-	import html
+	gtlt_pattern = re.compile(r"([\>])(.*?)([\<])")
 	mathml = gtlt_pattern.sub(
-					lambda m: m.group(1) +cgi.escape(html.unescape(m.group(2))) +m.group(3),
+					lambda m: m.group(1) +html.escape(html.unescape(m.group(2))) +m.group(3),
 					mathml
 	)
 
 	quote_pattern = re.compile(r"=([\"\'])(.*?)\1")
-	mathml = quote_pattern.sub(lambda m: '=' +m.group(1) +cgi.escape(m.group(2)) +m.group(1), mathml)
+	mathml = quote_pattern.sub(lambda m: '=' +m.group(1) +html.escape(m.group(2)) +m.group(1), mathml)
+
 	parser = ET.XMLParser()
 
 	try:

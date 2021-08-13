@@ -162,13 +162,13 @@ symbols:
 Ͽ	Reversed Dotted Lunate Sigma	none
 
 ∀	對任意的,所有的	none
-∁	餘,補,補碼,補數,餘補	none
+∁	補集	none
 ∂	偏微分	none
 ∃	存在	none
 ∄	不存在	none
 ∅	空集合	none
 ∆	變化量	none
-∇	del,nebla,梯度	none
+∇	梯度	none
 ∈	屬於	none
 ∉	不屬於	none
 ∊	屬於	none

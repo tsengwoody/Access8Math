@@ -5,6 +5,7 @@
 # coding: utf-8
 
 from collections import Iterable
+import html
 import os
 import re
 import sys
@@ -282,6 +283,16 @@ class A8MProvider(mathPres.MathPresentationProvider):
 		self.mathcontent = MathContent(A8M_PM.mathrule, mathMl)
 		return translate_SpeechCommand(self.mathcontent.pointer.serialized())
 
+	def getBrailleForMathMl(self, mathMl):
+		"""Get braille output for specified MathML markup.
+		@param mathMl: The MathML markup.
+		@type mathMl: str
+		@return: A string of Unicode braille.
+		@rtype: unicode
+		"""
+		raise SystemError
+		# raise NotImplementedError
+
 	def interactWithMathMl(self, mathMl):
 		mathcontent = MathContent(A8M_PM.mathrule, mathMl)
 		if _config.Access8MathConfig["settings"]["interaction_frame_show"]:
@@ -294,6 +305,7 @@ class A8MProvider(mathPres.MathPresentationProvider):
 
 
 class A8MInteraction(Window):
+	# role = controlTypes.Role.MATH
 	def __init__(self, parent, root=None):
 		self.parent = parent
 		self.mathcontent = self.data = None
@@ -302,6 +314,7 @@ class A8MInteraction(Window):
 	def set(self, name, data, *args, **kwargs):
 		# self.name = name + " - math window"
 		self.mathcontent = self.data = data
+		# BrailleHandler.message()
 
 	def setFocus(self):
 		eventHandler.executeEvent("gainFocus", self)
@@ -466,7 +479,7 @@ except:
 	provider = A8MProvider
 	reader = provider()
 
-mathPres.registerProvider(reader, speech=True, braille=False, interaction=True)
+mathPres.registerProvider(reader, speech=True, braille=True, interaction=True)
 
 
 class AppWindowRoot(IAccessible):
@@ -506,7 +519,8 @@ class TextMathEditField(NVDAObject):
 		category=ADDON_SUMMARY,
 	)
 	def script_view_math(self, gesture):
-		output_file = text2template(self.value, os.path.join(PATH, 'web', 'review', 'index.html'))
+		document = self.makeTextInfo(textInfos.POSITION_ALL)
+		output_file = text2template(document.text, os.path.join(PATH, 'web', 'review', 'index.html'))
 		A8MHTMLCommandView(file=output_file).setFocus()
 
 	@script(
@@ -573,25 +587,25 @@ class TextMathEditField(NVDAObject):
 
 	@script(
 		gestures=["kb:NVDA+alt+m" if active else "kb:alt+m"],
-		description=_("insert mark"),
+		description=_("popup mark command menu window"),
 		category=ADDON_SUMMARY,
 	)
 	def script_mark(self, gesture):
 		with SectionManager() as manager:
 			if manager.pointer and manager.pointer['type'] == 'text':
-				A8MMarkCommandView().setFocus()
+				A8MMarkCommandView(selection=manager.selection.text).setFocus()
 			else:
 				ui.message(_("In math section. Please leave math section first and try again."))
 
 	@script(
 		gestures=["kb:NVDA+alt+l" if active else "kb:alt+l"],
-		description=_("insert LaTeX"),
+		description=_("popup LaTeX command menu window"),
 		category=ADDON_SUMMARY,
 	)
 	def script_latex_command(self, gesture):
 		with SectionManager() as manager:
 			if manager.pointer and manager.pointer['type'] == 'math':
-				A8MLaTeXCommandView().setFocus()
+				A8MLaTeXCommandView(selection=manager.selection.text).setFocus()
 			else:
 				ui.message(_("Not in math section. Please insert LaTeX mark first and try again."))
 
@@ -604,7 +618,7 @@ class TextMathEditField(NVDAObject):
 			"kb:NVDA+alt+shift+leftArrow" if active else "kb:alt+shift+leftArrow",
 			"kb:NVDA+alt+shift+rightArrow" if active else "kb:alt+shift+rightArrow"
 		],
-		description=_("navigate block using arrow"),
+		description=_("move cursor by block unit"),
 		category=ADDON_SUMMARY,
 	)
 	def script_navigate(self, gesture):
@@ -646,7 +660,7 @@ class TextMathEditField(NVDAObject):
 			"kb:NVDA+alt+home" if active else "kb:alt+home",
 			"kb:NVDA+alt+end" if active else "kb:alt+end",
 		],
-		description=_("block start/end using arrow"),
+		description=_("move cursor to block start point or block end point"),
 		category=ADDON_SUMMARY,
 	)
 	def script_startend(self, gesture):
@@ -665,7 +679,9 @@ class TextMathEditField(NVDAObject):
 	def script_interacte(self, gesture):
 		with SectionManager() as manager:
 			if manager.pointer and manager.pointer['type'] == 'math':
-				mathMl = latex2mathml(manager.pointer['data'][2:-2])
+				data = manager.pointer['data'][2:-2]
+				mathMl = latex2mathml(data)
+				mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
 				mathcontent = MathContent(A8M_PM.mathrule, mathMl)
 				if _config.Access8MathConfig["settings"]["interaction_frame_show"]:
 					show_main_frame(mathcontent)
@@ -698,6 +714,7 @@ class SectionManager:
 	def __enter__(self):
 		focus = api.getFocusObject()
 		self.caret = focus.makeTextInfo(textInfos.POSITION_CARET)
+		self.selection = focus.makeTextInfo(textInfos.POSITION_SELECTION)
 		self.reset()
 		document = focus.makeTextInfo(textInfos.POSITION_ALL)
 		self.points = textmath2laObjEdit(document.text)
@@ -914,7 +931,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			provider = A8MProvider
 			reader = provider()
 
-		mathPres.registerProvider(reader, speech=True, braille=False, interaction=True)
+		mathPres.registerProvider(reader, speech=True, braille=True, interaction=True)
 
 		ui.message(_("mathml provider change to %s")%_config.Access8MathConfig["settings"]["provider"])
 

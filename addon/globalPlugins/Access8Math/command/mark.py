@@ -13,12 +13,12 @@ from .views import MenuView, MenuViewTextInfo
 
 addonHandler.initTranslation()
 
-def markLaTeX():
+def markLaTeX(selection):
 	try:
 		temp = api.getClipData()
 	except:
 		temp = ''
-	api.copyToClip(r'\(\)')
+	api.copyToClip(r'\({selection}\)'.format(selection=selection))
 
 	KeyboardInputGesture.fromName("control+v").send()
 
@@ -45,8 +45,9 @@ class A8MMarkCommandModel(MenuModel):
 
 class A8MMarkCommandView(MenuView):
 	name = _("mark command")
-	def __init__(self):
+	def __init__(self, selection):
 		super().__init__(MenuModel=A8MMarkCommandModel, TextInfo=A8MMarkCommandViewTextInfo)
+		self._selection = selection
 
 	@script(
 		gestures=["kb:enter"]
@@ -56,7 +57,7 @@ class A8MMarkCommandView(MenuView):
 
 	def markLaTeX(self):
 		eventHandler.executeEvent("gainFocus", self.parent)
-		markLaTeX()
+		markLaTeX(self._selection)
 
 
 class A8MMarkCommandViewTextInfo(MenuViewTextInfo):
