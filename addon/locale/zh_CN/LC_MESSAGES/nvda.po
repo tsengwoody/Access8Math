@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: Access8Math - 3.1\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2021-08-13 19:25+0800\n"
-"PO-Revision-Date: 2021-08-13 22:27+0800\n"
+"PO-Revision-Date: 2021-08-14 13:37+0800\n"
 "Last-Translator: \n"
-"Language-Team: \n"
+"Language-Team: cary-rowen <manchen_0528@outlook.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 2.4.3\n"
 "X-Poedit-Basepath: ../../../globalPlugins/MathMlReader\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-SearchPath-0: __init__.py\n"
@@ -63,13 +63,11 @@ msgstr "书写 LaTeX 内容"
 
 #: addon\globalPlugins\Access8Math\__init__.py:518
 msgid "view math"
-msgstr ""
+msgstr "查看腧穴内容"
 
 #: addon\globalPlugins\Access8Math\__init__.py:528
-#, fuzzy
-#| msgid "shortcut"
 msgid "shortcut switch"
-msgstr "快捷"
+msgstr "快捷开关"
 
 #: addon\globalPlugins\Access8Math\__init__.py:535
 msgid "shortcut mode on"
@@ -100,7 +98,7 @@ msgstr "未在数学区域。请先插入 LaTeX 标记，然后重试。"
 
 #: addon\globalPlugins\Access8Math\__init__.py:590
 msgid "popup mark command menu window"
-msgstr ""
+msgstr "弹出标记命令窗口"
 
 #: addon\globalPlugins\Access8Math\__init__.py:598
 msgid "In math section. Please leave math section first and try again."
@@ -108,19 +106,19 @@ msgstr "在数学区域内。请先退出数学区域，然后重试。"
 
 #: addon\globalPlugins\Access8Math\__init__.py:602
 msgid "popup LaTeX command menu window"
-msgstr ""
+msgstr "弹出 LaTeX 命令窗口"
 
 #: addon\globalPlugins\Access8Math\__init__.py:621
 msgid "move cursor by block unit"
-msgstr ""
+msgstr "以数据区域为单位移动光标"
 
 #: addon\globalPlugins\Access8Math\__init__.py:663
 msgid "move cursor to block start point or block end point"
-msgstr ""
+msgstr "将光标移动到数据区域起点或终点"
 
 #: addon\globalPlugins\Access8Math\__init__.py:676
 msgid "interacte with LaTeX"
-msgstr ""
+msgstr "与 LaTeX 交互"
 
 #: addon\globalPlugins\Access8Math\__init__.py:694
 msgid "This block cannot be interacted"
@@ -222,7 +220,7 @@ msgstr "无法继续移动时播放声音提醒"
 
 #: addon\globalPlugins\Access8Math\dialogs.py:35
 msgid "Using NVDA+gesture to active action"
-msgstr "使用 NVDA+手势来启动动作"
+msgstr "使用 NVDA +手势执行动作"
 
 #. Translators: The label for a setting in general settings to select NVDA's interface language (once selected, NVDA must be restarted; the option user default means the user's Windows language will be used).
 #: addon\globalPlugins\Access8Math\dialogs.py:45
@@ -604,7 +602,7 @@ msgstr "不等于"
 
 #: addon\globalPlugins\Access8Math\command\latex.py:189
 msgid "approximate"
-msgstr ""
+msgstr "约等于"
 
 #: addon\globalPlugins\Access8Math\command\latex.py:193
 msgid "parallel"
@@ -712,73 +710,67 @@ msgstr "联立方程"
 
 #: addon\globalPlugins\Access8Math\command\latex.py:297
 msgid "belong to"
-msgstr ""
+msgstr "属于"
 
 #: addon\globalPlugins\Access8Math\command\latex.py:301
-#, fuzzy
-#| msgid "not equal to"
 msgid "not belong to"
-msgstr "不等于"
+msgstr "不属于"
 
 #: addon\globalPlugins\Access8Math\command\latex.py:305
 msgid "lie in"
-msgstr ""
+msgstr "包含于"
 
 #: addon\globalPlugins\Access8Math\command\latex.py:309
 msgid "properly lie in"
-msgstr ""
+msgstr "真包含于"
 
 #: addon\globalPlugins\Access8Math\command\latex.py:313
 msgid "not lie in"
-msgstr ""
+msgstr "不包含于"
 
 #: addon\globalPlugins\Access8Math\command\latex.py:317
 msgid "include"
-msgstr ""
+msgstr "包含"
 
 #: addon\globalPlugins\Access8Math\command\latex.py:321
 msgid "properly include"
-msgstr ""
+msgstr "真包含"
 
 #: addon\globalPlugins\Access8Math\command\latex.py:325
 msgid "not include"
-msgstr ""
+msgstr "不包含"
 
 #: addon\globalPlugins\Access8Math\command\latex.py:329
-#, fuzzy
-#| msgid "interaction"
 msgid "intersection set"
-msgstr "交互"
+msgstr "交集"
 
 #: addon\globalPlugins\Access8Math\command\latex.py:333
 msgid "union set"
-msgstr ""
+msgstr "并集"
 
 #: addon\globalPlugins\Access8Math\command\latex.py:337
 msgid "difference set"
-msgstr ""
+msgstr "差集"
 
 #: addon\globalPlugins\Access8Math\command\latex.py:341
-#, fuzzy
-#| msgid "Replacement"
 msgid "complement"
-msgstr "替换文本"
+msgstr "补集"
 
 #: addon\globalPlugins\Access8Math\command\latex.py:345
 msgid "empty set"
-msgstr ""
+msgstr "空集"
 
 #: addon\globalPlugins\Access8Math\command\latex.py:349
 msgid "natural number"
-msgstr ""
+msgstr "自然数集"
 
 #: addon\globalPlugins\Access8Math\command\latex.py:353
 msgid "real number"
-msgstr ""
+msgstr "实数集"
 
 #: addon\globalPlugins\Access8Math\command\latex.py:357
 msgid "logarithm"
-msgstr ""
+msgstr "对数"
 
 #: addon\globalPlugins\Access8Math\command\latex.py:391
 msgid "shortcut"
@@ -805,8 +797,6 @@ msgid "2-dimension"
 msgstr "二维"
 
 #: addon\globalPlugins\Access8Math\command\latex.py:427
-#, fuzzy
-#| msgid "Set"
 msgid "set"
 msgstr "集合"
 
@@ -857,10 +847,8 @@ msgid "export"
 msgstr "导出(&O)"
 
 #: addon\globalPlugins\Access8Math\command\review.py:38
-#, fuzzy
-#| msgid "Access8Math HTML window"
 msgid "Access8Math HTML"
-msgstr "Access8Math HTML 交互窗口"
+msgstr "Access8Math HTML"
 
 #: addon\globalPlugins\Access8Math\command\review.py:59
 msgid "Save file..."
@@ -890,12 +878,10 @@ msgstr "{number} 之 {total}"
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 #: buildVars.py:26
-#, fuzzy
-#| msgid "Allows access math content written by MathML"
 msgid ""
 "Allows access math content written by MathML ; Allows write math content by "
 "LaTeX"
-msgstr "允许访问使用 MathML 编写的数学内容"
+msgstr "可以閱讀 MathML 編寫的數學內容；可以使用 LaTeX 書寫數學內容"
 
 #~ msgid "Switch NVDA+gesture to active action"
 #~ msgstr "切换 NVDA+手势来启动动作"
