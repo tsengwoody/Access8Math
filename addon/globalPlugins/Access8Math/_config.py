@@ -18,7 +18,7 @@ analyze_math_meaning = boolean(default=true)
 auto_generate = boolean(default=false)
 dictionary_generate = boolean(default=true)
 no_move_beep = boolean(default=true)
-edit_NVDA_gesture = boolean(default=true)
+edit_NVDA_gesture = boolean(default=false)
 
 [rules]
 SingleMsubsupType = boolean(default=true)

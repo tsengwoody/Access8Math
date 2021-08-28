@@ -5,7 +5,7 @@
 		<meta name="description" content="Access8Math" />
 		<meta name="keywords" content="Access8Math" />
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<script src="modules/vue-3.0.11.min.js"></script>
+		<script src="modules/vue.js"></script>
 		<script src="modules/mathProcess.js"></script>
 		<style>
 			body {
