@@ -203,6 +203,8 @@ github： https://github.com/tsengwoody/Access8Math
 *	修正當文件字數大於 4096 後的內容無轉 HTML 檢視
 *	新增常用集合 LaTeX 指令
 *	更新 alt+m 在當前所選文字前後（無選擇文字時為當前游標處）插入「\(」、「\)」 LaTeX 標記
+*	在一般設定中可選擇匯出的 HTML 中數學內容是否獨立一行呈現
+*	匯出 HTML 時將原始文字檔一併存到壓縮包內
 
 # Access8Math v3.0 更新日誌
 

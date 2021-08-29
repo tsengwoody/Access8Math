@@ -152,7 +152,12 @@ def text2template(value, output):
 
 	data = raw
 	template = env.get_template("index.template")
-	content = template.render({'title': 'Access8Math', 'data': data, 'raw': raw})
+	content = template.render({
+		'title': 'Access8Math',
+		'data': data,
+		'raw': raw,
+		'display': _config.Access8MathConfig["settings"]["HTML_display"],
+	})
 	with open(output, 'w', encoding='utf8') as f:
 		f.write(content)
 	return output
@@ -280,7 +285,7 @@ class A8MProvider(mathPres.MathPresentationProvider):
 		self.mathcontent = None
 
 	def getSpeechForMathMl(self, mathMl):
-		self.mathcontent = MathContent(A8M_PM.mathrule, mathMl)
+		self.mathcontent = MathContent(_config.Access8MathConfig["settings"]["language"], mathMl)
 		return translate_SpeechCommand(self.mathcontent.pointer.serialized())
 
 	def getBrailleForMathMl(self, mathMl):
@@ -294,7 +299,7 @@ class A8MProvider(mathPres.MathPresentationProvider):
 		# raise NotImplementedError
 
 	def interactWithMathMl(self, mathMl):
-		mathcontent = MathContent(A8M_PM.mathrule, mathMl)
+		mathcontent = MathContent(_config.Access8MathConfig["settings"]["language"], mathMl)
 		if _config.Access8MathConfig["settings"]["interaction_frame_show"]:
 			show_main_frame(mathcontent)
 		else:
@@ -306,6 +311,11 @@ class A8MProvider(mathPres.MathPresentationProvider):
 
 class A8MInteraction(Window):
 	# role = controlTypes.Role.MATH
+	# Override the window name.
+	# name = None
+	# Any tree interceptor should not apply here.
+	treeInterceptor = None
+
 	def __init__(self, parent, root=None):
 		self.parent = parent
 		self.mathcontent = self.data = None
@@ -386,6 +396,7 @@ class A8MInteraction(Window):
 	)
 	def script_snapshot(self, gesture):
 		ui.message(_("snapshot"))
+		globalVars.mathcontent = self.mathcontent
 
 	@script(
 		gesture="kb:control+a",
@@ -520,8 +531,11 @@ class TextMathEditField(NVDAObject):
 	)
 	def script_view_math(self, gesture):
 		document = self.makeTextInfo(textInfos.POSITION_ALL)
-		output_file = text2template(document.text, os.path.join(PATH, 'web', 'review', 'index.html'))
-		A8MHTMLCommandView(file=output_file).setFocus()
+		html_file = text2template(document.text, os.path.join(PATH, 'web', 'review', 'index.html'))
+		raw_file = os.path.join(PATH, 'web', 'review', 'raw.txt')
+		with open(raw_file, "w", encoding="utf-8") as f:
+			f.write(document.text)
+		A8MHTMLCommandView(file=html_file).setFocus()
 
 	@script(
 		gestures=["kb:NVDA+alt+s" if active else "kb:alt+s"],
@@ -559,7 +573,7 @@ class TextMathEditField(NVDAObject):
 			return
 		with SectionManager() as manager:
 			if manager.pointer and manager.pointer['type'] == 'math':
-				view = A8MLaTeXCommandView()
+				view = A8MLaTeXCommandView(selection=manager.selection.text)
 				slot = gesture.mainKeyName[1:]
 				if slot in view.data.shortcut:
 					view.command(view.data.shortcut[slot]["id"])
@@ -576,7 +590,8 @@ class TextMathEditField(NVDAObject):
 		if not shortcut_mode:
 			gesture.send()
 			return
-		view = A8MLaTeXCommandView()
+		with SectionManager() as manager:
+			view = A8MLaTeXCommandView(selection=manager.selection.text)
 		slot = gesture.mainKeyName[1:]
 		if slot in view.data.shortcut:
 			ui.message(view.data.shortcut[slot]["name"])
@@ -682,7 +697,7 @@ class TextMathEditField(NVDAObject):
 				data = manager.pointer['data'][2:-2]
 				mathMl = latex2mathml(data)
 				mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
-				mathcontent = MathContent(A8M_PM.mathrule, mathMl)
+				mathcontent = MathContent(_config.Access8MathConfig["settings"]["language"], mathMl)
 				if _config.Access8MathConfig["settings"]["interaction_frame_show"]:
 					show_main_frame(mathcontent)
 				else:
@@ -828,7 +843,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		if obj.windowClassName == "wxWindowNR" and obj.role == controlTypes.ROLE_WINDOW and obj.name == _("Access8Math interaction window"):
 			clsList.insert(0, AppWindowRoot)
-		if obj.windowClassName == "Edit" and obj.role == controlTypes.ROLE_EDITABLETEXT:
+		if (obj.windowClassName == "Edit"  and obj.role == controlTypes.ROLE_EDITABLETEXT) or (obj.windowClassName == "_WwG" and obj.role == controlTypes.ROLE_PANE):
 			clsList.insert(0, TextMathEditField)
 
 	def create_menu(self):
@@ -970,7 +985,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				mathml = tostring(data)
 				mathml = mathml.decode("utf-8")
 				mathml = mathml.replace('math>', 'mrow>')
-				mathcontent = MathContent(A8M_PM.mathrule, mathml)
+				mathcontent = MathContent(_config.Access8MathConfig["settings"]["language"], mathMl)
 				show_main_frame(mathcontent)
 
 	def onLatexAdd(self, evt):
@@ -984,7 +999,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				data = dialog.GetValue()
 				data = latex2mathml.converter.convert(data)
 				mathml = data
-				mathcontent = MathContent(A8M_PM.mathrule, mathml)
+				mathcontent = MathContent(_config.Access8MathConfig["settings"]["language"], mathMl)
 				show_main_frame(mathcontent)
 
 	def onTextMathAdd(self, evt):

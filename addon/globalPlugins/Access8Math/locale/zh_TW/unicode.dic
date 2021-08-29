@@ -183,7 +183,7 @@ symbols:
 ∓	正負號	none
 ∔	點正號	none
 ∕	正斜線	none
-∖	反斜線	none
+∖	差集	none
 ∗		none
 ∘	合成	none
 ∙	點	none
@@ -291,16 +291,16 @@ symbols:
 ≿	後於或等價於	none
 ⊀	不先於	none
 ⊁	不後於	none
-⊂	子集	none
-⊃	超集	none
-⊄	非子集	none
-⊅	非超集	none
-⊆	子集或等於	none
-⊇	超集或等於	none
-⊈	非子集也不等於	none
-⊉	非超集也不等於	none
-⊊	子集也不等於	none
-⊋	超集也不等於	none
+⊂	包含於	none
+⊃	包含	none
+⊄	不包含於	none
+⊅	不包含	none
+⊆	包含於或等於	none
+⊇	包含或等於	none
+⊈	不包含於也不等於	none
+⊉	不包含也不等於	none
+⊊	真包含	none
+⊋	真包含於	none
 ⊌	多重集	none
 ⊍	多重集乘積	none
 ⊎	多重集連集	none
@@ -426,6 +426,11 @@ symbols:
 ↔	左右雙向箭頭	none
 ⇀	向量	none
 ⌢	弧	none
+
+̸	不	none
+⧵	差集	none
+⫋	真包含於	none
+⫌	真包含	none
 
 # FF00~FFFF
 ＋	加號	none

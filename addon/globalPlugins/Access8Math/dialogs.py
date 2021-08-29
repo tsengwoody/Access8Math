@@ -70,6 +70,19 @@ class GeneralSettingsDialog(SettingsDialog):
 
 		self.edit_NVDA_gesture = self.Access8MathConfig["settings"]["edit_NVDA_gesture"]
 
+		HTML_displayLabel = _("&HTML display:")
+		self.HTML_displayChoices = {
+			"block": _("block"),
+			"inline": _("inline"),
+		}
+		self.HTML_displayList = sHelper.addLabeledControl(HTML_displayLabel, wx.Choice, choices=list(self.HTML_displayChoices.values()))
+		try:
+			index = list(self.HTML_displayChoices.keys()).index(str(self.Access8MathConfig["settings"]["HTML_display"]))
+		except:
+			index = 0
+			tones.beep(100, 100)
+		self.HTML_displayList.Selection = index
+
 	def postInit(self):
 		self.languageList.SetFocus()
 
@@ -80,12 +93,14 @@ class GeneralSettingsDialog(SettingsDialog):
 			self.Access8MathConfig["settings"]["item_interval_time"] = self.item_interval_timeChoices[self.item_interval_timeList.GetSelection()]
 			for k in self.CheckBox_settings.keys():
 				self.Access8MathConfig["settings"][k] = getattr(self, k +"CheckBox").IsChecked()
+			self.Access8MathConfig["settings"]["HTML_display"] = list(self.HTML_displayChoices.keys())[self.HTML_displayList.GetSelection()]
 		except:
 			self.Access8MathConfig["settings"]["language"] = "en"
 			self.Access8MathConfig["settings"]["item_interval_time"] = 50
 			for k in self.CheckBox_settings.keys():
 				self.Access8MathConfig["settings"][k] = True
-				tones.beep(100, 100)
+			self.Access8MathConfig["settings"]["HTML_display"] = "block	"
+			tones.beep(100, 100)
 
 		# _config.save()
 
@@ -624,7 +639,7 @@ class MathRuleDialog(SettingsDialog):
 		index = self.mathrulesList.GetFirstSelected()
 		mathrule = copy.deepcopy(self.mathrules[index])
 		mathMl = mathrule[1].example
-		mathcontent = MathContent(A8M_PM.mathrule, mathMl)
+		mathcontent = MathContent(self.Access8MathConfig["settings"]["language"], mathMl)
 		parent = api.getFocusObject()
 		vw = A8MInteraction(parent=parent)
 		vw.set(data=mathcontent, name="")
@@ -817,6 +832,7 @@ from languageHandler_custom import getAvailableLanguages
 path = os.path.dirname(os.path.abspath(__file__))
 try:
 	available_languages = getAvailableLanguages(path)
+	available_languages = [i for i in available_languages if i[0] != "braille"]
 	available_languages = available_languages[:-1]
 except BaseException as e:
 	available_languages = []

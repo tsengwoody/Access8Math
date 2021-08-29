@@ -206,6 +206,8 @@ github： https://github.com/tsengwoody/Access8Math
 *	修正当文件字数超过 4096 无法正常转换 HTML
 *	新增常用集合的 LaTex 指令
 *	更新 alt+m 在当前所选文字前后（未选择文字时在光标处）插入「\(」、「\)」 LaTeX 标记
+*	在一般设定中可选择汇出的 HTML 中数学内容是否独立一行呈现
+*	汇出 HTML 时将原始文本文件一并存到压缩包内
 
 # Access8Math v3.0 更新日志
 

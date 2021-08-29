@@ -104,6 +104,11 @@ def clean_allnode(node):
 
 	return node
 
+def set_mathcontent_allnode(node, mathcontent):
+	for child in node.child:
+		set_mathcontent_allnode(child, mathcontent)
+	node.mathcontent = mathcontent
+	return node
 
 def set_mathrule_allnode(node, mathrule):
 	for child in node.child:
@@ -111,6 +116,12 @@ def set_mathrule_allnode(node, mathrule):
 	node.set_mathrule(mathrule)
 	return node
 
+
+def set_braillemathrule_allnode(node, braillemathrule):
+	for child in node.child:
+		set_braillemathrule_allnode(child, braillemathrule)
+	node.set_braillemathrule(braillemathrule)
+	return node
 
 def clear_type_allnode(node):
 	for child in node.child:
@@ -138,17 +149,35 @@ def check_in_allnode(node, check_node):
 
 
 class MathContent(object):
-	def __init__(self, mathrule, mathMl):
+	def __init__(self, language, mathMl):
 		et = mathml2etree(mathMl)
 		self.root = self.pointer = create_node(et)
+		set_mathcontent_allnode(self.root, self)
 		clean_allnode(self.root)
-		self.mathrule = mathrule
-		self.set_mathrule(self.mathrule)
+		clear_type_allnode(self.root)
+		check_type_allnode(self.root)
+
+		self.symbol = load_unicode_dic(language=language)
+		mathrule = load_math_rule(language=language)
+		self.set_mathrule(mathrule)
+
+		self.braillesymbol = load_unicode_dic(language="braille")
+		braillemathrule = load_math_rule(language="braille")
+		self.set_braillemathrule(braillemathrule)
 
 	def set_mathrule(self, mathrule):
 		self.mathrule = mathrule
 		set_mathrule_allnode(self.root, self.mathrule)
+		clear_type_allnode(self.root)
 		check_type_allnode(self.root)
+		set_mathrule_allnode(self.root, self.mathrule)
+
+	def set_braillemathrule(self, braillemathrule):
+		self.braillemathrule = braillemathrule
+		set_braillemathrule_allnode(self.root, self.braillemathrule)
+		clear_type_allnode(self.root)
+		check_type_allnode(self.root)
+		set_braillemathrule_allnode(self.root, self.braillemathrule)
 
 	def navigate(self, action):
 		pointer = None
@@ -220,13 +249,18 @@ class Node(object):
 		self.attrib = attrib if attrib else {}
 		self.data = str(data.strip()) if data else ''
 
+		self.symbol = {}
+
 		self.mathrule = {}
 		self.rule = []
 		self.role = []
+
+		self.braillemathrule = {}
+		self.braillerule = []
+		self.braillerole = []
+
 		self.type = None
 		self.role_level = None
-		# self.set_mathrule(mathrule)
-		# self.check_type()
 
 	def check_type(self):
 		for nodetype in nodetypes_check:
@@ -236,13 +270,6 @@ class Node(object):
 				elif self.type and issubclass(nodetype, self.type.__class__):
 					self.type = nodetype()
 
-		if self.type:
-			self.type.set_mathrule(self.mathrule)
-
-			self.type.set_rule()
-			self.set_role()
-			self.set_rule()
-
 	def set_mathrule(self, mathrule):
 		self.mathrule = mathrule
 		self.set_role()
@@ -251,7 +278,7 @@ class Node(object):
 			self.type.set_mathrule(self.mathrule)
 
 	def set_role(self):
-		self.role = self.mathrule[self.name].role if self.name in mathrule else [symbol_translate('item')]
+		self.role = self.mathrule[self.name].role if self.name in self.mathrule else [self.symbol_translate('item')]
 		d = len(self.child) - len(self.role)
 		if d > 0:
 			append = self.role[-1]
@@ -279,6 +306,43 @@ class Node(object):
 			rule = rule[0:1] + result + rule[-1:]
 		self.rule = rule
 
+	def set_braillemathrule(self, braillemathrule):
+		self.braillemathrule = braillemathrule
+		self.set_braillerole()
+		self.set_braillerule()
+		if self.type:
+			self.type.set_braillemathrule(self.braillemathrule)
+
+	def set_braillerole(self):
+		self.braillerole = self.braillemathrule[self.name].role if self.name in self.braillemathrule else [self.symbol_translate('item')]
+		d = len(self.child) - len(self.braillerole)
+		if d > 0:
+			append = self.braillerole[-1]
+			self.braillerole = self.braillerole[:-1]
+			for i in range(d + 1):
+				self.braillerole.append('{0}{1}'.format(append, i + 1))
+			self.braillerole_level = AUTO_GENERATE
+		else:
+			self.braillerole_level = DIC_GENERATE
+
+	def set_braillerule(self):
+		if self.type and self.type.braillerule:
+			braillerule = self.type.braillerule
+		else:
+			braillerule = self.braillemathrule[self.name].serialized_order
+
+		if len(braillerule) >= 2 and isinstance(braillerule[1], tuple):
+			result = []
+			for i in range(len(self.child)):
+				before_empty = (braillerule[1][0].isspace() or braillerule[1][0] == '')
+				after_empty = (braillerule[1][1].isspace() or braillerule[1][1] == '')
+				if not (before_empty and after_empty):
+					result.append('{0}{1}{2}'.format(braillerule[1][0], i + 1, braillerule[1][1]))
+				result.append(i)
+
+			braillerule = braillerule[0:1] + result + braillerule[-1:]
+		self.braillerule = braillerule
+
 	def serialized(self):
 		serialized = []
 		if isinstance(self, TerminalNode):
@@ -299,6 +363,33 @@ class Node(object):
 			serialized.append(['@10@'])
 		return serialized
 
+	def brailleserialized(self):
+		serialized = []
+		for r in self.braillerule:
+			if isinstance(r, int):
+				serialized.append(self.child[r].brailleserialized())
+			elif r == '*':
+				for c in self.child:
+					if c:
+						serialized.append(c.brailleserialized())
+			elif isinstance(r, str):
+				serialized.append([r])
+			else:
+				raise TypeError('rule element type error : expect int or str (get {0})'.format(type(r)))
+		return serialized
+
+	def symbol_translate(self, string):
+		symbol_order = sorted(list(self.mathcontent.symbol.items()), key=lambda i: -len(i[0]))
+		for key, value in symbol_order:
+			string = string.replace(key, value)
+		return string
+
+	def braillesymbol_translate(self, string):
+		symbol_order = sorted(list(self.mathcontent.braillesymbol.items()), key=lambda i: -len(i[0]))
+		for key, value in symbol_order:
+			string = string.replace(key, value)
+		return string
+
 	def get_mathml(self):
 		mathml = ''
 		for c in self.child:
@@ -315,8 +406,17 @@ class Node(object):
 		return result
 
 	@property
+	def mathcontent(self):
+		return None if self._mathcontent is None else self._mathcontent()
+
+	@mathcontent.setter
+	def mathcontent(self, mathcontent):
+		# self._mathcontent = mathcontent
+		self._mathcontent = weakref.ref(mathcontent)
+
+	@property
 	def des(self):
-		return self.parent.role[self.index_in_parent()] if self.parent else symbol_translate('math')
+		return self.parent.role[self.index_in_parent()] if self.parent else self.symbol_translate('math')
 
 	@property
 	def name(self):
@@ -325,14 +425,6 @@ class Node(object):
 	@property
 	def tag(self):
 		return self.__class__.__name__.lower()
-
-	@property
-	def mathcontent(self):
-		return None if self._mathcontent is None else self._mathcontent()
-
-	@mathcontent.setter
-	def mathcontent(self, mathcontent):
-		self._mathcontent = weakref.ref(mathcontent)
 
 	@property
 	def parent(self):
@@ -424,13 +516,31 @@ class NonTerminalNode(Node):
 		except:
 			self.rule = range(len(self.child))
 
+	def set_braillerule(self):
+		try:
+			super().set_braillerule()
+		except:
+			self.braillerule = range(len(self.child))
+
+	def set_braillerole(self):
+		try:
+			super().set_braillerole()
+		except:
+			self.braillerule = range(len(self.child))
+
 
 class TerminalNode(Node):
 	def set_rule(self):
 		try:
 			super().set_rule()
 		except BaseException as e:
-			self.rule = [str(symbol_translate(self.data))]
+			self.rule = [str(self.symbol_translate(self.data))]
+
+	def set_braillerule(self):
+		try:
+			super().set_braillerule()
+		except BaseException as e:
+			self.braillerule = [str(self.braillesymbol_translate(self.data))]
 
 	def get_mathml(self):
 		mathml = ''
@@ -498,6 +608,12 @@ class BlockNode(AlterNode):
 		except:
 			self.rule = range(len(self.child))
 
+	def set_braillerule(self):
+		try:
+			super().set_braillerule()
+		except:
+			self.braillerule = range(len(self.child))
+
 
 class Mrow(BlockNode):
 	pass
@@ -545,6 +661,9 @@ class Mfenced(AlterNode):
 
 		self.rule = rule
 
+	def set_braillerule(self):
+		pass
+
 
 class Menclose(AlterNode):
 	pass
@@ -582,10 +701,13 @@ class Mtable(AlterNode):
 		row_count = len(self.child)
 		column_count_list = [len(i.child) for i in self.child]
 		column_count = max(column_count_list)
-		table_head = [rule[0] + '{0}{1}{2}{3}{4}'.format(symbol_translate('has'), row_count, symbol_translate('row'), column_count, symbol_translate('column'))]
+		table_head = [rule[0] + '{0}{1}{2}{3}{4}'.format(self.symbol_translate('has'), row_count, self.symbol_translate('row'), column_count, self.symbol_translate('column'))]
 		cell = rule[1:-1]
 		table_tail = rule[-1:]
 		self.rule = table_head + cell + table_tail
+
+	def set_braillerule(self):
+		pass
 
 
 class Mlabeledtr(AlterNode):
@@ -598,6 +720,9 @@ class Mtr(AlterNode):
 		rule = self.rule
 		cell = rule[1:-1]
 		self.rule = rule[:1] + cell + rule[-1:]
+
+class Mlabeledtr(AlterNode):
+	pass
 
 
 class Mtd(AlterNode):
@@ -654,7 +779,10 @@ class Mtext(TerminalNode):
 
 class Mspace(TerminalNode):
 	def set_rule(self):
-		self.rule = [str(symbol_translate(self.data)) if not self.data == '' else str(symbol_translate("empty"))]
+		self.rule = [str(self.symbol_translate(self.data)) if not self.data == '' else str(self.symbol_translate("empty"))]
+
+class Mlabeledtr(AlterNode):
+	pass
 
 
 class Ms(TerminalNode):
@@ -665,23 +793,23 @@ class Mmultiscripts(AlterNode):
 	'''def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 
-		role = [symbol_translate('main')]
+		role = [self.symbol_translate('main')]
 
 		index = range(1, self.mprescripts_index_in_child())
 		for count in range(len(index)/2):
 			temp = [
-				'{0}{1}{2}'.format(symbol_translate('order'), count, symbol_translate('rightdownmark')),
-				'{0}{1}{2}'.format(symbol_translate('order'), count, symbol_translate('rightupmark')),
+				'{0}{1}{2}'.format(self.symbol_translate('order'), count, self.symbol_translate('rightdownmark')),
+				'{0}{1}{2}'.format(self.symbol_translate('order'), count, self.symbol_translate('rightupmark')),
 			]
 			role = role + temp
 
-		role = role + [symbol_translate('mprescripts_index')]
+		role = role + [self.symbol_translate('mprescripts_index')]
 
 		index = range(self.mprescripts_index_in_child() + 1, len(self.child))
 		for count in range(len(index)/2):
 			temp = [
-				'{0}{1}{2}'.format(symbol_translate('order'), count, symbol_translate('leftdownmark')),
-				'{0}{1}{2}'.format(symbol_translate('order'), count, symbol_translate('leftupmark')),
+				'{0}{1}{2}'.format(self.symbol_translate('order'), count, self.symbol_translate('leftdownmark')),
+				'{0}{1}{2}'.format(self.symbol_translate('order'), count, self.symbol_translate('leftupmark')),
 			]
 			role = role + temp
 
@@ -697,9 +825,9 @@ class Mmultiscripts(AlterNode):
 		index_mix = zip(index_odd, index_even)
 		for count, item in enumerate(index_mix):
 			temp = [
-				'{0}{1}{2}'.format(symbol_translate('order'), count, symbol_translate('rightdownmark')),
+				'{0}{1}{2}'.format(self.symbol_translate('order'), count, self.symbol_translate('rightdownmark')),
 				item[0],
-				'{0}{1}{2}'.format(symbol_translate('order'), count, symbol_translate('rightupmark')),
+				'{0}{1}{2}'.format(self.symbol_translate('order'), count, self.symbol_translate('rightupmark')),
 				item[1],
 			]
 			rule = rule[:1] + temp + rule[-1:]
@@ -710,15 +838,18 @@ class Mmultiscripts(AlterNode):
 		index_mix = zip(index_odd, index_even)
 		for count, item in enumerate(index_mix):
 			temp = [
-				'{0}{1}{2}'.format(symbol_translate('order'), count, symbol_translate('leftdownmark')),
+				'{0}{1}{2}'.format(self.symbol_translate('order'), count, self.symbol_translate('leftdownmark')),
 				item[0],
-				'{0}{1}{2}'.format(symbol_translate('order'), count, symbol_translate('leftupmark')),
+				'{0}{1}{2}'.format(self.symbol_translate('order'), count, self.symbol_translate('leftupmark')),
 				item[1],
 			]
 			rule = rule[:1] + temp + rule[-1:]
 
 		rule.insert(1, 0)
 		self.rule = rule
+
+	def set_braillerule(self):
+		pass
 
 	def mprescripts_index_in_child(self):
 		for c in self.child:
@@ -765,6 +896,16 @@ class NodeType(object):
 		except:
 			self.rule = None
 
+	def set_braillemathrule(self, braillemathrule):
+		self.braillemathrule = braillemathrule
+		self.set_braillerule()
+
+	def set_braillerule(self):
+		try:
+			self.braillerule = self.braillemathrule[self.name].serialized_order
+		except:
+			self.braillerule = None
+
 
 class TerminalNodeType(NodeType):
 	@classmethod
@@ -790,7 +931,6 @@ class TerminalNodeType(NodeType):
 
 
 class NonTerminalNodeType(NodeType):
-
 	@classmethod
 	def check(cls, obj):
 		if not issubclass(obj.__class__, cls.tag):
@@ -1260,16 +1400,19 @@ class MathRule(object):
 def load_unicode_dic(path=None, language=''):
 	if not path and language:
 		path = os.path.dirname(os.path.abspath(__file__))
-		if language != 'Windows':
+		if language != 'Windows' and language != 'braille':
 			path = path + '/locale/{0}'.format(language)
+		elif language == 'braille':
+			path = path + '/locale/braille'
 		else:
 			path = path + '/locale/default'
-		frp = os.path.join(path, 'unicode.dic')
-		frp_user = os.path.join(path, 'unicode_user.dic')
-		if not os.path.exists(frp_user):
-			with io.open(frp, 'r', encoding='utf-8') as fr, io.open(frp_user, 'w', encoding='utf-8') as fr_user:
-				fr_user.write(fr.read())
-		path = frp_user
+
+	frp = os.path.join(path, 'unicode.dic')
+	frp_user = os.path.join(path, 'unicode_user.dic')
+	if not os.path.exists(frp_user):
+		with io.open(frp, 'r', encoding='utf-8') as fr, io.open(frp_user, 'w', encoding='utf-8') as fr_user:
+			fr_user.write(fr.read())
+	path = frp_user
 
 	symbol = {}
 	try:
@@ -1287,16 +1430,19 @@ def load_math_rule(path=None, language=''):
 	math_example_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'math.example')
 	if not path and language:
 		path = os.path.dirname(os.path.abspath(__file__))
-		if language != 'Windows':
+		if language != 'Windows' and language != 'braille':
 			path = path + '/locale/{0}'.format(language)
+		elif language == 'braille':
+			path = path + '/locale/braille'
 		else:
 			path = path + '/locale/default'
-		frp = os.path.join(path, 'math.rule')
-		frp_user = os.path.join(path, 'math_user.rule')
-		if not os.path.exists(frp_user):
-			with io.open(frp, 'r', encoding='utf-8') as fr, io.open(frp_user, 'w', encoding='utf-8') as fr_user:
-				fr_user.write(fr.read())
-		path = frp_user
+
+	frp = os.path.join(path, 'math.rule')
+	frp_user = os.path.join(path, 'math_user.rule')
+	if not os.path.exists(frp_user):
+		with io.open(frp, 'r', encoding='utf-8') as fr, io.open(frp_user, 'w', encoding='utf-8') as fr_user:
+			fr_user.write(fr.read())
+	path = frp_user
 
 	mathrule = collections.OrderedDict({})
 	for category_key in mathrule_category_order:
@@ -1396,20 +1542,8 @@ def symbol_translate(u):
 
 
 def initialize(Access8MathConfig):
-	global AMM, symbol, mathrule
-	try:
-		AMM = Access8MathConfig["settings"]["analyze_math_meaning"]
-		language = Access8MathConfig["settings"]["language"]
-	except BaseException as e:
-		AMM = True
-		language = "en"
-
-	symbol = load_unicode_dic(language=language)
-	mathrule = load_math_rule(language=language)
-
-	global nodetypes_check, SNT_check
-	nodetypes_check = SNT_check = []
-
+	global nodetypes_check
+	nodetypes_check = []
 	if Access8MathConfig:
 		for i in nodetypes:
 			if i.__name__ in Access8MathConfig["rules"]:
@@ -1418,16 +1552,16 @@ def initialize(Access8MathConfig):
 			else:
 				nodetypes_check.append(globals()[i.__name__])
 
-		for i in SNT:
-			if i.__name__ in Access8MathConfig["rules"]:
-				if Access8MathConfig["rules"][i.__name__]:
-					SNT_check.append(globals()[i.__name__])
-			else:
-				SNT_check.append(globals()[i.__name__])
+		if not Access8MathConfig["settings"]["analyze_math_meaning"]:
+			nodetypes_check = []
 
-		if not AMM:
-			nodetypes_check = SNT_check = []
-
+		# SNT_check = []
+		# for i in SNT:
+			# if i.__name__ in Access8MathConfig["rules"]:
+				# if Access8MathConfig["rules"][i.__name__]:
+					# SNT_check.append(globals()[i.__name__])
+			# else:
+				# SNT_check.append(globals()[i.__name__])
 
 def ComplementMethod(method):
 	def decorator(cls, obj):
@@ -1644,8 +1778,9 @@ def mathrule_validate(mathrule, validator):
 
 initialize(None)
 
-for category_key in mathrule_category_order:
+"""for category_key in mathrule_category_order:
 	category = mathrule_order[category_key]
 	for item in category:
 		if not mathrule_validate(mathrule[item], mathrule_info[category_key][item]):
 			pass
+"""

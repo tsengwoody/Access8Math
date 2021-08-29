@@ -419,6 +419,27 @@ symbols:
 ⋾	小型包含有顶线	none
 ⋿	Z 符号包成员	none
 
+# special case
+′	prime	none
+″	double prime	none
+‴	triple prime	none
+→	右箭頭	none
+↔	左右雙向箭頭	none
+⇀	向量	none
+⌢	弧	none
+
+̸	不	none
+⧵	差集	none
+⫋	真包含於	none
+⫌	真包含	none
+
+# FF00~FFFF
+＋	加號	none
+－	減號	none
+＜	小於	none
+＝	等於	none
+＞	大於	none
+
 # constant
 math	数学	none
 item	项	none
