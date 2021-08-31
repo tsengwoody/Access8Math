@@ -13,18 +13,34 @@ from .views import MenuView, MenuViewTextInfo
 
 addonHandler.initTranslation()
 
-def markLaTeX(selection):
+def markLaTeX(selection, mark):
+	LaTeX_delimiter = mark
+	if LaTeX_delimiter == "bracket":
+		delimiter_start = "\\("
+		delimiter_end = "\\)"
+	elif LaTeX_delimiter == "dollar":
+		delimiter_start = "$"
+		delimiter_end = "$"
+	else:
+		delimiter_start = "\\("
+		delimiter_end = "\\)"
+
 	try:
 		temp = api.getClipData()
 	except:
 		temp = ''
-	api.copyToClip(r'\({selection}\)'.format(selection=selection))
+	api.copyToClip(r'{delimiter_start}{selection}{delimiter_end}'.format(
+		selection=selection,
+		delimiter_start=delimiter_start,
+		delimiter_end=delimiter_end,
+		))
 
 	KeyboardInputGesture.fromName("control+v").send()
 
 	leftArrow = KeyboardInputGesture.fromName("leftArrow")
-	leftArrow.send()
-	leftArrow.send()
+	for i in range(len(delimiter_end)):
+		leftArrow.send()
+
 	if temp != '':
 		wx.CallLater(100, api.copyToClip, temp)
 	else:
@@ -45,9 +61,10 @@ class A8MMarkCommandModel(MenuModel):
 
 class A8MMarkCommandView(MenuView):
 	name = _("mark command")
-	def __init__(self, selection):
+	def __init__(self, selection, mark):
 		super().__init__(MenuModel=A8MMarkCommandModel, TextInfo=A8MMarkCommandViewTextInfo)
 		self._selection = selection
+		self.mark = mark
 
 	@script(
 		gestures=["kb:enter"]
@@ -57,7 +74,7 @@ class A8MMarkCommandView(MenuView):
 
 	def markLaTeX(self):
 		eventHandler.executeEvent("gainFocus", self.parent)
-		markLaTeX(self._selection)
+		markLaTeX(self._selection, self.mark)
 
 
 class A8MMarkCommandViewTextInfo(MenuViewTextInfo):

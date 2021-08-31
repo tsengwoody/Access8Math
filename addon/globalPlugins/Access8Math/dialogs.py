@@ -83,6 +83,19 @@ class GeneralSettingsDialog(SettingsDialog):
 			tones.beep(100, 100)
 		self.HTML_displayList.Selection = index
 
+		LaTeX_delimiterLabel = _("&LaTeX delimiter:")
+		self.LaTeX_delimiterChoices = {
+			"bracket": _("bracket"),
+			"dollar": _("dollar"),
+		}
+		self.LaTeX_delimiterList = sHelper.addLabeledControl(LaTeX_delimiterLabel, wx.Choice, choices=list(self.LaTeX_delimiterChoices.values()))
+		try:
+			index = list(self.LaTeX_delimiterChoices.keys()).index(str(self.Access8MathConfig["settings"]["LaTeX_delimiter"]))
+		except:
+			index = 0
+			tones.beep(100, 100)
+		self.LaTeX_delimiterList.Selection = index
+
 	def postInit(self):
 		self.languageList.SetFocus()
 
@@ -94,12 +107,14 @@ class GeneralSettingsDialog(SettingsDialog):
 			for k in self.CheckBox_settings.keys():
 				self.Access8MathConfig["settings"][k] = getattr(self, k +"CheckBox").IsChecked()
 			self.Access8MathConfig["settings"]["HTML_display"] = list(self.HTML_displayChoices.keys())[self.HTML_displayList.GetSelection()]
+			self.Access8MathConfig["settings"]["LaTeX_delimiter"] = list(self.LaTeX_delimiterChoices.keys())[self.LaTeX_delimiterList.GetSelection()]
 		except:
 			self.Access8MathConfig["settings"]["language"] = "en"
 			self.Access8MathConfig["settings"]["item_interval_time"] = 50
 			for k in self.CheckBox_settings.keys():
 				self.Access8MathConfig["settings"][k] = True
 			self.Access8MathConfig["settings"]["HTML_display"] = "block	"
+			self.Access8MathConfig["settings"]["LaTeX_delimiter"] = "bracket"
 			tones.beep(100, 100)
 
 		# _config.save()

@@ -208,6 +208,7 @@ github： https://github.com/tsengwoody/Access8Math
 *	更新 alt+m 在当前所选文字前后（未选择文字时在光标处）插入「\(」、「\)」 LaTeX 标记
 *	在一般设定中可选择汇出的 HTML 中数学内容是否独立一行呈现
 *	汇出 HTML 时将原始文本文件一并存到压缩包内
+*	在一般設定中可選擇用括號或錢字號作為 LaTeX 分隔符
 
 # Access8Math v3.0 更新日志
 

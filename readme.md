@@ -144,6 +144,7 @@ Please report any bugs or comments, thank you!
 *	Update alt+m to insert "\(", "\)" LaTeX marks before and after the currently selected text (when there is no selected text, it is the current cursor position)
 *	In the General settings, you can choose whether the math content in the exported HTML is presented on a separate line(block/inline)
 *	When exporting HTML, save the original text file in the compressed file
+*	In the general settings, you can choose to use bracket or money symbol as the LaTeX delimiter
 
 # Access8Math v3.0 Update
 

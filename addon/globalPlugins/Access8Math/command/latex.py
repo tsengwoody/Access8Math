@@ -356,6 +356,22 @@ latexMenuData = [
 		"id": "logarithm",
 		"name": _("logarithm"),
 	},
+	{
+		"id": "infty",
+		"name": _("infty"),
+	},
+	{
+		"id": "forall",
+		"name": _("forall"),
+	},
+	{
+		"id": "exists",
+		"name": _("exists"),
+	},
+	{
+		"id": "repeating-decimal",
+		"name": _("repeating decimal"),
+	},
 ]
 latexAll = []
 latexShortcut = {}

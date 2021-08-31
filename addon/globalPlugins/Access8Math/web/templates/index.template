@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Access8Math</title>
-		<meta name="description" content="Access8Math" />
-		<meta name="keywords" content="Access8Math" />
+		<title>{|{ title }|}</title>
+		<meta name="description" content="{|{ title }|}" />
+		<meta name="keywords" content="{|{ title }|}" />
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<script src="modules/vue.js"></script>
 		<script src="modules/mathProcess.js"></script>
@@ -52,22 +52,36 @@
 			</span>
 		</div>
 		<script>
+			const {createApp, computed, ref} = Vue;
 			const Content = {
-				data() {
+				setup() {
+					const data = ref([
+						{% for item in data %}
+							{
+								type: `{|{ item.type }|}`,
+								data: `{|{ item.data }|}`,
+							},
+						{% endfor %}
+					])
+
+					const handelContent = {
+						"text-content": (content) => content,
+						"latex-content": (content) => latex2mml(content),
+					};
+					const content = computed(() =>
+						data.value
+							.map((item) => handelContent[item.type](item.data))
+							.join("")
+					);
 					return {
-						asciimath2mml, latex2mml, mml2svg,
-						data: [
-							{% for item in data %}
-								{
-									type: `{|{ item.type }|}`,
-									data: `{|{ item.data }|}`,
-								},
-							{% endfor %}
-						]
+						asciimath2mml: asciimath2mml({inline: ("{|{ display }|}" === "inline")}),
+						latex2mml: latex2mml({inline: ("{|{ display }|}" === "inline")}),
+						mml2svg,
+						data, content,
 					}
 				},
 			}
-			const app = Vue.createApp(Content).mount('#app');
+			const app = createApp(Content).mount('#app');
 		</script>
 	</body>
 </html>

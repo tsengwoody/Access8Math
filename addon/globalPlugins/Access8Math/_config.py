@@ -20,6 +20,7 @@ dictionary_generate = boolean(default=true)
 no_move_beep = boolean(default=true)
 edit_NVDA_gesture = boolean(default=true)
 HTML_display = string(default=block)
+LaTeX_delimiter = string(default=bracket)
 
 [rules]
 SingleMsubsupType = boolean(default=true)

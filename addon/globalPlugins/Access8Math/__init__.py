@@ -147,7 +147,7 @@ def text2template(value, output):
 	for line in value.split('\n'):
 		line = line.replace('\r', '').replace(r'`', r'\`')
 		if line != '':
-			raw.extend(textmath2laObj(line))
+			raw.extend(textmath2laObj(LaTeX_delimiter=_config.Access8MathConfig["settings"]["LaTeX_delimiter"])(line))
 		raw.append({'type': 'text-content', 'data': ''})
 
 	data = raw
@@ -608,7 +608,7 @@ class TextMathEditField(NVDAObject):
 	def script_mark(self, gesture):
 		with SectionManager() as manager:
 			if manager.pointer and manager.pointer['type'] == 'text':
-				A8MMarkCommandView(selection=manager.selection.text).setFocus()
+				A8MMarkCommandView(selection=manager.selection.text, mark=_config.Access8MathConfig["settings"]["LaTeX_delimiter"]).setFocus()
 			else:
 				ui.message(_("In math section. Please leave math section first and try again."))
 
@@ -692,9 +692,20 @@ class TextMathEditField(NVDAObject):
 		category=ADDON_SUMMARY,
 	)
 	def script_interacte(self, gesture):
+		LaTeX_delimiter = _config.Access8MathConfig["settings"]["LaTeX_delimiter"]
+		if LaTeX_delimiter == "bracket":
+			delimiter_start_length = 2
+			delimiter_end_length = 2
+		elif LaTeX_delimiter == "dollar":
+			delimiter_start_length = 1
+			delimiter_end_length = 1
+		else:
+			delimiter_start_length = 2
+			delimiter_end_length = 2
+
 		with SectionManager() as manager:
 			if manager.pointer and manager.pointer['type'] == 'math':
-				data = manager.pointer['data'][2:-2]
+				data = manager.pointer['data'][delimiter_start_length:-delimiter_end_length]
 				mathMl = latex2mathml(data)
 				mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
 				mathcontent = MathContent(_config.Access8MathConfig["settings"]["language"], mathMl)
@@ -732,7 +743,7 @@ class SectionManager:
 		self.selection = focus.makeTextInfo(textInfos.POSITION_SELECTION)
 		self.reset()
 		document = focus.makeTextInfo(textInfos.POSITION_ALL)
-		self.points = textmath2laObjEdit(document.text)
+		self.points = textmath2laObjEdit(LaTeX_delimiter=_config.Access8MathConfig["settings"]["LaTeX_delimiter"])(document.text)
 		for index, point in enumerate(self.points):
 			if self.caret._startOffset >= point['start'] and self.caret._startOffset < point['end']:
 				self.all_index = index
