@@ -133,9 +133,10 @@ class GeneralSettingsDialog(SettingsDialog):
 				# Translators: The title of the dialog
 				_("NVDA+gesture Configuration Change"),wx.OK|wx.CANCEL|wx.ICON_WARNING,self
 			)==wx.OK:
+				gui.mainFrame.onSaveConfigurationCommand(None)
 				queueHandler.queueFunction(queueHandler.eventQueue,core.restart)
 
-		return super(GeneralSettingsDialog, self).onOk(evt)
+		return super().onOk(evt)
 
 class RuleSettingsDialog(SettingsDialog):
 	# Translators: Title of the Access8MathDialog.
@@ -189,13 +190,12 @@ class RuleSettingsDialog(SettingsDialog):
 		except:
 			pass
 
-		return 		super(RuleSettingsDialog, self).onOk(evt)
+		return 		super().onOk(evt)
 
 class AddSymbolDialog(wx.Dialog):
-
 	def __init__(self, parent):
 		# Translators: This is the label for the add symbol dialog.
-		super(AddSymbolDialog,self).__init__(parent, title=_("Add Symbol"))
+		super().__init__(parent, title=_("Add Symbol"))
 		mainSizer=wx.BoxSizer(wx.VERTICAL)
 		sHelper = guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
@@ -209,7 +209,7 @@ class AddSymbolDialog(wx.Dialog):
 		mainSizer.Fit(self)
 		self.SetSizer(mainSizer)
 		self.identifierTextCtrl.SetFocus()
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.CentreOnScreen()
 
 class UnicodeDicDialog(SettingsDialog):
 	def __init__(self,parent, Access8MathConfig, language):
@@ -431,7 +431,7 @@ class UnicodeDicDialog(SettingsDialog):
 
 class RuleEntryDialog(wx.Dialog):
 	def __init__(self, parent, mathrule, title=_("Edit Math Rule Entry")):
-		super(RuleEntryDialog,self).__init__(parent,title=title)
+		super().__init__(parent,title=title)
 		self.mathrule = mathrule
 		self.mathrule_child_count = len(self.mathrule[1].role)
 		childChoices = [str(i) for i in range(self.mathrule_child_count)]
@@ -650,7 +650,7 @@ class MathRuleDialog(SettingsDialog):
 
 	def OnExampleClick(self, evt):
 		import copy
-		from __init__ import A8MInteraction
+		from interaction import A8MInteraction
 		index = self.mathrulesList.GetFirstSelected()
 		mathrule = copy.deepcopy(self.mathrules[index])
 		mathMl = mathrule[1].example
@@ -710,7 +710,7 @@ class MathRuleDialog(SettingsDialog):
 
 class NewLanguageAddingDialog(wx.Dialog):
 	def __init__(self, parent):
-		super(NewLanguageAddingDialog,self).__init__(parent, title=_("New language adding"))
+		super().__init__(parent, title=_("New language adding"))
 		import languageHandler
 		self.mainSizer=wx.BoxSizer(wx.VERTICAL)
 		self.sHelper = guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
@@ -719,7 +719,6 @@ class NewLanguageAddingDialog(wx.Dialog):
 		self.languageNames = languageHandler.getAvailableLanguages()[:-1]
 		self.languageNames = [x for x in self.languageNames if not x[0] in exist_languages]
 		languageChoices = [x[1] for x in self.languageNames]
-		print(languageChoices)
 		# Translators: The label for a setting in general settings to select NVDA's interface language (once selected, NVDA must be restarted; the option user default means the user's Windows language will be used).
 		languageLabelText = _("&Language:")
 		self.languageList=self.sHelper.addLabeledControl(languageLabelText, wx.Choice, choices=languageChoices)
@@ -817,10 +816,10 @@ class NewLanguageAddingDialog(wx.Dialog):
 		self.SetSizer(self.mainSizer)
 
 	def OnUnicodeDicClick(self, evt):
-		gui.mainFrame._popupSettingsDialog(UnicodeDicDialog, self.certainLanguage)
+		gui.mainFrame._popupSettingsDialog(UnicodeDicDialog, config.conf["Access8Math"], self.certainLanguage)
 
 	def OnMathRuleClick(self, evt):
-		gui.mainFrame._popupSettingsDialog(MathRuleDialog, self.certainLanguage)
+		gui.mainFrame._popupSettingsDialog(MathRuleDialog, config.conf["Access8Math"], self.certainLanguage)
 
 	def OnCloseWindow(self, evt):
 		if self.certainLanguage:

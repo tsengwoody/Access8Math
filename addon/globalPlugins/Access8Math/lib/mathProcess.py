@@ -1,4 +1,5 @@
-﻿import html
+﻿from functools import wraps
+import html
 import re
 import sys
 
@@ -9,85 +10,108 @@ def latex2mathml(latex):
 	mathml = html.unescape(mathml)
 	return mathml
 
-def textmath2laObjEdit(input):
-	reTexMath = re.compile(r"\\\(.*?\\\)")
-	point = []
-	maths = reTexMath.finditer(input)
-	previous = None
-	index = 0
-	for index, item in enumerate(maths):
-		if not previous:
-			start = 0
-			end = item.start(0)
-		else:
-			start = previous.end(0)
-			end = item.start(0)
+translate_dict = {
+	ord("$"): r"\$",
+	ord("("): r"\(",
+	ord(")"): r"\)",
+	ord("\\"): r"\\",
+}
 
-		if start != end:
+def textmath2laObjEdit(LaTeX_delimiter):
+	def wrapper(input):
+		restring = r"{delimiter_start}.*?{delimiter_end}".format(
+			delimiter_start=LaTeX_delimiter["start"].translate(translate_dict),
+			delimiter_end=LaTeX_delimiter["end"].translate(translate_dict),
+		)
+		reTexMath = re.compile(restring)
+		delimiter_start_length = len(LaTeX_delimiter["start"])
+		delimiter_end_length = len(LaTeX_delimiter["end"])
+
+		point = []
+		maths = reTexMath.finditer(input)
+		previous = None
+		index = 0
+		for index, item in enumerate(maths):
+			if not previous:
+				start = 0
+				end = item.start(0)
+			else:
+				start = previous.end(0)
+				end = item.start(0)
+
+			if start != end:
+				point.append({
+					"start": start,
+					"end": end,
+					"type": "text",
+					"data": input[start:end],
+					"index": index,
+				})
+
+			start = item.start(0)
+			end = item.end(0)
 			point.append({
 				"start": start,
 				"end": end,
-				"type": "text",
+				"type": "math",
 				"data": input[start:end],
 				"index": index,
 			})
+			previous = item
 
-		start = item.start(0)
-		end = item.end(0)
+		start = previous.end(0) if previous else 0
+		end = len(input)
 		point.append({
 			"start": start,
 			"end": end,
-			"type": "math",
+			"type": "text",
 			"data": input[start:end],
-			"index": index,
+			"index": index+1 if previous else 0,
 		})
-		previous = item
 
+		return point
+	return wrapper
 
-	start = previous.end(0) if previous else 0
-	end = len(input)
-	point.append({
-		"start": start,
-		"end": end,
-		"type": "text",
-		"data": input[start:end],
-		"index": index+1 if previous else 0,
-	})
+def textmath2laObj(LaTeX_delimiter):
+	def wrapper(input):
+		backslash_pattern = re.compile(r"\\[^`]")
+		restring = r"{delimiter_start}.*?{delimiter_end}".format(
+			delimiter_start=LaTeX_delimiter["start"].translate(translate_dict),
+			delimiter_end=LaTeX_delimiter["end"].translate(translate_dict),
+		)
+		reTexMath = re.compile(restring)
+		delimiter_start_length = len(LaTeX_delimiter["start"])
+		delimiter_end_length = len(LaTeX_delimiter["end"])
+		text = reTexMath.split(input)
+		math = reTexMath.findall(input)
+		length = len(math)
+		datas = []
 
-	return point
+		for i in range(length):
+			raw = text[i].replace('\r\n', '\n').strip('\n')
+			raw = backslash_pattern.sub(lambda m:m.group(0).replace('\\', '\\\\'), raw)
+			if raw != '':
+				datas.append({
+					'type': 'text-content',
+					'data': raw,
+				})
+			raw = math[i][delimiter_start_length: len(math[i])-delimiter_end_length]
+			raw = backslash_pattern.sub(lambda m:m.group(0).replace('\\', '\\\\'), raw)
+			datas.append({
+				'type': 'latex-content',
+				'data': raw,
+			})
 
-def textmath2laObj(input):
-	backslash_pattern = re.compile(r"\\[^`]")
-	reTexMath = re.compile(r"\\\(.*?\\\)")
-	text = reTexMath.split(input)
-	math = reTexMath.findall(input)
-	length = len(math)
-	datas = []
-
-	for i in range(length):
-		raw = text[i].replace('\r\n', '\n').strip('\n')
+		raw = text[length].replace('\n', '').strip('\n')
 		raw = backslash_pattern.sub(lambda m:m.group(0).replace('\\', '\\\\'), raw)
 		if raw != '':
 			datas.append({
 				'type': 'text-content',
-				'data': raw,
+					'data': raw,
 			})
-		raw = math[i][2: len(math[i])-2]
-		raw = backslash_pattern.sub(lambda m:m.group(0).replace('\\', '\\\\'), raw)
-		datas.append({
-			'type': 'latex-content',
-			'data': raw,
-		})
 
-	raw = text[length].replace('\n', '').strip('\n')
-	raw = backslash_pattern.sub(lambda m:m.group(0).replace('\\', '\\\\'), raw)
-	if raw != '':
-		datas.append({
-			'type': 'text-content',
-				'data': raw,
-		})
-
-	return datas
+		return datas
+	return wrapper
 
 def laObj2mathObj(input):
 	result = []
@@ -129,8 +153,3 @@ def obj2html(data):
 		"content": content,
 		"htmls": htmls,
 	}
-
-if __name__ == '__main__':
-	i = '一元二次方程式\(ax^2+bx+c=0\)的解為'
-	result = textmath2laObj(i)
-	print(result)

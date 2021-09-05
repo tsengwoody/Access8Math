@@ -13,17 +13,9 @@ from .views import MenuView, MenuViewTextInfo
 
 addonHandler.initTranslation()
 
-def markLaTeX(selection, mark):
-	LaTeX_delimiter = mark
-	if LaTeX_delimiter == "bracket":
-		delimiter_start = "\\("
-		delimiter_end = "\\)"
-	elif LaTeX_delimiter == "dollar":
-		delimiter_start = "$"
-		delimiter_end = "$"
-	else:
-		delimiter_start = "\\("
-		delimiter_end = "\\)"
+def markLaTeX(selection, delimiter):
+	delimiter_start = delimiter["start"]
+	delimiter_end = delimiter["end"]
 
 	try:
 		temp = api.getClipData()
@@ -61,10 +53,10 @@ class A8MMarkCommandModel(MenuModel):
 
 class A8MMarkCommandView(MenuView):
 	name = _("mark command")
-	def __init__(self, selection, mark):
+	def __init__(self, selection, delimiter):
 		super().__init__(MenuModel=A8MMarkCommandModel, TextInfo=A8MMarkCommandViewTextInfo)
 		self._selection = selection
-		self.mark = mark
+		self.delimiter = delimiter
 
 	@script(
 		gestures=["kb:enter"]
@@ -74,7 +66,7 @@ class A8MMarkCommandView(MenuView):
 
 	def markLaTeX(self):
 		eventHandler.executeEvent("gainFocus", self.parent)
-		markLaTeX(self._selection, self.mark)
+		markLaTeX(self._selection, self.delimiter)
 
 
 class A8MMarkCommandViewTextInfo(MenuViewTextInfo):

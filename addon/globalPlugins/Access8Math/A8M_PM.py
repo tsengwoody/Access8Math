@@ -1,4 +1,4 @@
-# coding=utf-8
+﻿# coding=utf-8
 # Copyright (C) 2017-2021 Tseng Woody <tsengwoody.tw@gmail.com>
 
 import xml

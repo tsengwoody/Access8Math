@@ -54,3 +54,6 @@ natural-number,\mathbb{N},0,set,-1
 real-number,\mathbb{R},0,set,-1
 logarithm,\log_{},0,common,-1
 approx,\approx ,0,relation,-1
+infty,\infty ,0,other,-1
+forall,\forall ,0,set,-1
+exists,\exists ,0,set,-1
