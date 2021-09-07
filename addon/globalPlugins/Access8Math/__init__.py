@@ -50,6 +50,16 @@ from writer import TextMathEditField
 addonHandler.initTranslation()
 ADDON_SUMMARY = addonHandler.getCodeAddon().manifest["summary"]
 
+aboutMessage = _("""Access8Math
+Version: 3.1
+URL: https://addons.nvda-project.org/addons/access8math.en.html
+Copyright (C) 2017-2021 Access8Math Contributors
+Access8Math is covered by the GNU General Public License (Version 2). You are free to share or change this software in any way you like as long as it is accompanied by the license and you make all source code available to anyone who wants it. This applies to both original and modified copies of this software, plus any derivative works.
+It can be viewed online at: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+Access8Math has been sponsored by "Taiwan Visually Impaired People Association"(accessibility@twvip.org) in 2018~2019, hereby express our sincere appreciation.
+If you feel this add-on is helpful, please don't hesitate to give support to "Taiwan Visually Impaired People Association" and authors.""")
+
+
 provider_list = [
 	A8MProvider,
 ]
@@ -267,7 +277,4 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				show_main_frame(mathcontent)
 
 	def onAbout(self, evt):
-		path = os.path.join(PATH, "locale", self.language, "about.txt")
-		with open(path, 'r', encoding='utf8') as f:
-			aboutMessage = f.read()
 		gui.messageBox(aboutMessage, _("About Access8Math"), wx.OK)
