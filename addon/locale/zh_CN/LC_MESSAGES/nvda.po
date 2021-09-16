@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Access8Math - 3.1\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2021-09-08 06:27+0800\n"
-"PO-Revision-Date: 2021-09-08 06:29+0800\n"
+"POT-Creation-Date: 2021-09-16 16:12+0800\n"
+"PO-Revision-Date: 2021-09-16 16:15+0800\n"
 "Last-Translator: \n"
 "Language-Team: cary-rowen <manchen_0528@outlook.com>\n"
 "Language: zh_CN\n"
@@ -165,29 +165,27 @@ msgstr "项与项之间间隔时长(&I)"
 
 #: addon\globalPlugins\Access8Math\dialogs.py:73
 msgid "&HTML display:"
-msgstr ""
+msgstr "&HTML 显示(&H)"
 
 #: addon\globalPlugins\Access8Math\dialogs.py:75
 msgid "block"
-msgstr ""
+msgstr "块级"
 
 #: addon\globalPlugins\Access8Math\dialogs.py:76
-#, fuzzy
-#| msgid "line"
 msgid "inline"
-msgstr "直线"
+msgstr "行间"
 
 #: addon\globalPlugins\Access8Math\dialogs.py:86
 msgid "&LaTeX delimiter:"
-msgstr ""
+msgstr "LaTeX 分隔符(&L)"
 
 #: addon\globalPlugins\Access8Math\dialogs.py:88
 msgid "bracket"
-msgstr ""
+msgstr "括号"
 
 #: addon\globalPlugins\Access8Math\dialogs.py:89
 msgid "dollar"
-msgstr ""
+msgstr "钱号"
 
 #. Translators: The message displayed
 #: addon\globalPlugins\Access8Math\dialogs.py:132
@@ -824,19 +822,19 @@ msgstr "对数"
 
 #: addon\globalPlugins\Access8Math\command\latex.py:361
 msgid "infty"
-msgstr ""
+msgstr "无限"
 
 #: addon\globalPlugins\Access8Math\command\latex.py:365
-msgid "forall"
-msgstr ""
+msgid "for all"
+msgstr "对任意"
 
 #: addon\globalPlugins\Access8Math\command\latex.py:369
 msgid "exists"
-msgstr ""
+msgstr "存在"
 
 #: addon\globalPlugins\Access8Math\command\latex.py:373
 msgid "repeating decimal"
-msgstr ""
+msgstr "循环小数"
 
 #: addon\globalPlugins\Access8Math\command\latex.py:407
 msgid "shortcut"
@@ -918,7 +916,7 @@ msgstr "Access8Math HTML"
 
 #: addon\globalPlugins\Access8Math\command\review.py:59
 msgid "Save file..."
-msgstr "保存文件"
+msgstr "保存文件..."
 
 #: addon\globalPlugins\Access8Math\command\views.py:13
 msgid "command"

@@ -86,10 +86,16 @@ def clean_allnode(node):
 				clean_child.append(node.child[index])
 		node.child = clean_child'''
 
+	if isinstance(node, Mphantom):
+		# remove node
+		parent_new_child = node.parent.child[0:node.index_in_parent()]
+		if node.index_in_parent() + 1 < len(node.parent.child):
+			parent_new_child = parent_new_child + node.parent.child[node.index_in_parent() + 1:]
+		node.parent.child = parent_new_child
+		return node
+
 	if node.parent and isinstance(node, BlockNode):
-
 		if len(node.child) == 1 or (isinstance(node.parent, AlterNode) and len(node.child) > 0):
-
 			# remove node
 			parent_new_child = node.parent.child[0:node.index_in_parent()] + node.child
 			if node.index_in_parent() + 1 < len(node.parent.child):
@@ -101,6 +107,7 @@ def clean_allnode(node):
 		elif isinstance(node.parent, AlterNode) and len(node.child) == 0:
 			index = node.index_in_parent()
 			node.parent.child[index].child = []
+		return node
 
 	return node
 
@@ -644,7 +651,11 @@ class Mpadded(AlterNode):
 
 
 class Mphantom(AlterNode):
-	pass
+	def set_rule(self):
+		return []
+
+	def set_braillerule(self):
+		pass
 
 
 class Mfenced(AlterNode):

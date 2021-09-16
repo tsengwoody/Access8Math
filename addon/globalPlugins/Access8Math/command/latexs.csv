@@ -36,7 +36,7 @@ matrix2X2,\left [ \begin{matrix} {} &{} \\ {} &{} \end{matrix} \right ],-37,2-di
 matrix3X3,\left [ \begin{matrix} {} &{} &{} \\ {} &{} &{} \\ {} &{} &{} \end{matrix} \right ],-59,2-dimension,-1
 determinant2X2,\left | \begin{array} {cc} {} &{} \\ {} &{} \end{array} \right |,-36,2-dimension,-1
 determinant3X3,\left | \begin{array} {ccc} {} &{} &{} \\ {} &{} &{} \\ {} &{} &{} \end{array} \right |,-58,2-dimension,-1
-simultaneous-equations,\begin{cases} {} &{} \\ {} &{} \end{cases},-27,2-dimension,-1
+simultaneous-equations,\begin{cases} {} &{} \\ {} &{} \end{cases},-27,other,-1
 in,\in ,0,set,-1
 notin,\not\in ,0,set,-1
 subset,\subset ,0,set,-1

@@ -362,7 +362,7 @@ latexMenuData = [
 	},
 	{
 		"id": "forall",
-		"name": _("forall"),
+		"name": _("for all"),
 	},
 	{
 		"id": "exists",

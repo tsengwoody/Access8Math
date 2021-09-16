@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Access8Math - 3.1\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2021-09-08 06:27+0800\n"
-"PO-Revision-Date: 2021-09-08 06:27+0800\n"
+"POT-Creation-Date: 2021-09-16 16:12+0800\n"
+"PO-Revision-Date: 2021-09-16 16:12+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_TW\n"
@@ -823,7 +823,7 @@ msgid "infty"
 msgstr "無限"
 
 #: addon\globalPlugins\Access8Math\command\latex.py:365
-msgid "forall"
+msgid "for all"
 msgstr "對任意"
 
 #: addon\globalPlugins\Access8Math\command\latex.py:369
@@ -944,6 +944,9 @@ msgid ""
 "Allows access math content written by MathML ; Allows write math content by "
 "LaTeX"
 msgstr "允許閱讀 MathML 編寫的數學內容；允許通過 LaTeX 書寫數學內容"
+
+#~ msgid "forall"
+#~ msgstr "對任意"
 
 #~ msgid "&text-math..."
 #~ msgstr "&text-math..."
