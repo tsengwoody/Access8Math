@@ -205,6 +205,9 @@ github： https://github.com/tsengwoody/Access8Math
 *	在一般設定中可選擇匯出的 HTML 中數學內容是否獨立一行呈現
 *	匯出 HTML 時將原始文字檔一併存到壓縮包內
 *	在一般設定中可選擇用括號或錢字號作為 LaTeX 分隔符
+*	在一般設定中可選擇語音、點字、互動的來源（Access8Math 或 Math Player）
+*	動態綁定書寫手勢、區塊導航手勢、快捷手勢
+*	透過手勢啟用或停用書寫手勢、區塊導航手勢、快捷手勢
 
 # Access8Math v3.0 更新日誌
 

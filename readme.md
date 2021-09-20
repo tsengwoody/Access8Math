@@ -1,4 +1,4 @@
-# Access8Math ReadMe
+﻿# Access8Math ReadMe
 
 This NVDA addon provides the function of reading math content. Although the original NVDA already equipped this feature by applying MathPlayer, some functions still needed to be improved, such as not providing or incomplete specific language translation, not providing specific language navigation and browsing and many more.
 
@@ -53,7 +53,7 @@ In edit field and the cursor is in the LaTeX block, press alt+i to enter navigat
 
 alt+h, alt+i, alt+l, alt+m are write gesture groups. Press alt+w edit field to activate or deactivate write gestures.
 
-Edit cursor navigation move(toggle:alt+n)
+Edit cursor block navigation move(toggle:alt+n)
 
 *	In edit field, press alt+left arrow key to move to the start point of the previous data block
 *	In edit field, press alt+down key without moving, but only read the content of the current data block
@@ -144,6 +144,9 @@ Please report any bugs or comments, thank you!
 *	In the General settings, you can choose whether the math content in the exported HTML is presented on a separate line(block/inline)
 *	When exporting HTML, save the original text file in the compressed file
 *	In the general settings, you can choose to use bracket or money symbol as the LaTeX delimiter
+*	In the general settings, , you can choose the source of speech, braille, and interaction(Access8Math/Math Player)
+*	Dynamic gesture binding write/block navigate/shortcut gesture
+*	Activate/deactivate write/block navigate/shortcut gesture by gesture
 
 # Access8Math v3.0 Update
 
