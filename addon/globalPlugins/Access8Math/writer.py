@@ -28,7 +28,6 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 TEMPLATES_PATH = os.path.join(PATH, 'web', 'templates')
 env = Environment(loader=FileSystemLoader(TEMPLATES_PATH), variable_start_string='{|{', variable_end_string='}|}')
 
-active = config.conf["Access8Math"]["settings"]["edit_NVDA_gesture"]
 write_mode = config.conf["Access8Math"]["settings"]["write_mode"]
 navigate_mode = config.conf["Access8Math"]["settings"]["navigate_mode"]
 shortcut_mode = config.conf["Access8Math"]["settings"]["shortcut_mode"]
@@ -98,14 +97,14 @@ class TextMathEditField(NVDAObject):
 	def unbindNavigateGestures(self):
 		import inputCore
 		gestures = [
-			"kb:NVDA+alt+downArrow" if active else "kb:alt+downArrow",
-			"kb:NVDA+alt+leftArrow" if active else "kb:alt+leftArrow",
-			"kb:NVDA+alt+rightArrow" if active else "kb:alt+rightArrow",
-			"kb:NVDA+alt+shift+downArrow" if active else "kb:alt+shift+downArrow",
-			"kb:NVDA+alt+shift+leftArrow" if active else "kb:alt+shift+leftArrow",
-			"kb:NVDA+alt+shift+rightArrow" if active else "kb:alt+shift+rightArrow",
-			"kb:NVDA+alt+home" if active else "kb:alt+home",
-			"kb:NVDA+alt+end" if active else "kb:alt+end",
+			"kb:alt+downArrow",
+			"kb:alt+leftArrow",
+			"kb:alt+rightArrow",
+			"kb:alt+shift+downArrow",
+			"kb:alt+shift+leftArrow",
+			"kb:alt+shift+rightArrow",
+			"kb:alt+home",
+			"kb:alt+end",
 		]
 		for key in gestures:
 			try:
@@ -174,7 +173,7 @@ class TextMathEditField(NVDAObject):
 				self._gestureMap[key] = self._originGestureMap[key]
 
 	@script(
-		gestures=["kb:NVDA+alt+w" if active else "kb:alt+w"],
+		gestures=["kb:alt+w"],
 		description=_("write gesture toggle"),
 		category=ADDON_SUMMARY,
 	)
@@ -189,7 +188,7 @@ class TextMathEditField(NVDAObject):
 			ui.message(_("deactivate write gesture"))
 
 	@script(
-		gestures=["kb:NVDA+alt+n" if active else "kb:alt+n"],
+		gestures=["kb:alt+n"],
 		description=_("block navigate gesture toggle"),
 		category=ADDON_SUMMARY,
 	)
@@ -204,7 +203,7 @@ class TextMathEditField(NVDAObject):
 			ui.message(_("deactivate block navigate gesture"))
 
 	@script(
-		gestures=["kb:NVDA+alt+s" if active else "kb:alt+s"],
+		gestures=["kb:alt+s"],
 		description=_("shortcut gesture toggle"),
 		category=ADDON_SUMMARY,
 	)

@@ -1,4 +1,4 @@
-﻿# Access8Math ReadMe
+# Access8Math ReadMe
 
 This NVDA addon provides the function of reading math content. Although the original NVDA already equipped this feature by applying MathPlayer, some functions still needed to be improved, such as not providing or incomplete specific language translation, not providing specific language navigation and browsing and many more.
 
@@ -89,7 +89,6 @@ All Access8Math menus are centralized in tools -> Access8Math
 	*	Reading pre-defined meaning in dictionary when navigating in interactive mode: When the pattern is definied in the dictionary, use dictionary to read the meaning of subpart in the upper layer part.
 	*	Reading of auto-generated meaning when navigating in interactive mode: When the pattern is not difined or incomplete in dictionary, use automatic generation function to read the meaning of subpart in the upper layer part.
 	*	Using a beep to alert no move: When navigating in interactive mode, It will hint by beep. If it is not checked, it will hint by speaking "no move".
-	*	Using NVDA+alt+letter to toggle command gesture: Whether shortcut needs to be added with NVDA key when toggle command gesture in edit field
 *	Rule Settings dialog box: select whether rules are actived.
 
 ### localization
@@ -135,7 +134,6 @@ Please report any bugs or comments, thank you!
 
 # Access8Math v3.1 Update
 
-*	NVDA+ gestures enable option adjustment and can modify the shortcut keys in the input gesture
 *	HTML windows are now presented as virtual menu
 *	Fixed an issue where the HTML view cannot be converted when text include "`" character
 *	When the number of words in the document is greater than 4096, the content will not be converted to HTML view
@@ -144,9 +142,9 @@ Please report any bugs or comments, thank you!
 *	In the General settings, you can choose whether the math content in the exported HTML is presented on a separate line(block/inline)
 *	When exporting HTML, save the original text file in the compressed file
 *	In the general settings, you can choose to use bracket or money symbol as the LaTeX delimiter
-*	In the general settings, , you can choose the source of speech, braille, and interaction(Access8Math/Math Player)
-*	Dynamic gesture binding write/block navigate/shortcut gesture
+*	In the general settings, you can choose the source of speech, braille, and interaction(Access8Math or Math Player)
 *	Activate/deactivate write/block navigate/shortcut gesture by gesture
+*	switch the source of speech/braille/interact source by gesture(Access8Math or Math Player)
 
 # Access8Math v3.0 Update
 

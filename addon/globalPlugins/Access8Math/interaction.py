@@ -275,7 +275,7 @@ class A8MProvider(mathPres.MathPresentationProvider):
 				vw.setFocus()
 		else:
 			if mathPlayer:
-				MathPlayer().interactWithMathMl(mathMl)
+				mathPlayer.interactWithMathMl(mathMl)
 
 
 class A8MInteraction(Window):

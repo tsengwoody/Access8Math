@@ -32,7 +32,6 @@ class GeneralSettingsDialog(SettingsDialog):
 		("dictionary_generate", _("Reading pre-defined meaning in dictionary when navigating in interactive mode")),
 		("auto_generate", _("Reading of auto-generated meaning when navigating in interactive mode")),
 		("no_move_beep", _("Using a beep to alert no move")),
-		("edit_NVDA_gesture", _("Using NVDA+alt+letter to toggle command gesture")),
 		("write_mode", _("Activate write gesture by default")),
 		("navigate_mode", _("Activate block navigate gesture by default")),
 		("shortcut_mode", _("Activate shortcut gesture by default")),
@@ -70,8 +69,6 @@ class GeneralSettingsDialog(SettingsDialog):
 			setattr(self, k +"CheckBox", sHelper.addItem(wx.CheckBox(self, label=v)))
 			value = self.Access8MathConfig["settings"][k]
 			getattr(self, k +"CheckBox").SetValue(value)
-
-		self.edit_NVDA_gesture = self.Access8MathConfig["settings"]["edit_NVDA_gesture"]
 
 		HTML_displayLabel = _("&HTML display:")
 		self.HTML_displayChoices = {
@@ -167,21 +164,6 @@ class GeneralSettingsDialog(SettingsDialog):
 
 		A8M_PM.initialize(self.Access8MathConfig)
 
-		try:
-			api.setReviewPosition(MathMlTextInfo(globalVars.math_obj, textInfos.POSITION_FIRST), False)
-		except:
-			pass
-
-		if self.edit_NVDA_gesture != self.Access8MathConfig["settings"]["edit_NVDA_gesture"]:
-			if gui.messageBox(
-				# Translators: The message displayed
-				_("For the NVDA+gesture configuration to apply, NVDA must be restarted. Do you want to restart NVDA now?"),
-				# Translators: The title of the dialog
-				_("NVDA+gesture Configuration Change"),wx.OK|wx.CANCEL|wx.ICON_WARNING,self
-			)==wx.OK:
-				gui.mainFrame.onSaveConfigurationCommand(None)
-				queueHandler.queueFunction(queueHandler.eventQueue,core.restart)
-
 		return super().onOk(evt)
 
 class RuleSettingsDialog(SettingsDialog):
@@ -230,11 +212,6 @@ class RuleSettingsDialog(SettingsDialog):
 				tones.beep(100, 100)
 
 		A8M_PM.initialize(self.Access8MathConfig)
-
-		try:
-			api.setReviewPosition(MathMlTextInfo(globalVars.math_obj, textInfos.POSITION_FIRST), False)
-		except:
-			pass
 
 		return 		super().onOk(evt)
 

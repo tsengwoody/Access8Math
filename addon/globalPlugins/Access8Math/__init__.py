@@ -35,7 +35,6 @@ import mathPres
 from mathPres.mathPlayer import MathPlayer
 from NVDAObjects.IAccessible import IAccessible
 from scriptHandler import script
-import speech
 import tones
 import ui
 
@@ -44,7 +43,7 @@ import wx
 import A8M_PM
 from A8M_PM import MathContent
 
-from interaction import *
+from interaction import A8MProvider, A8MInteraction, show_main_frame, main_frame
 from writer import TextMathEditField
 
 addonHandler.initTranslation()
@@ -59,33 +58,17 @@ It can be viewed online at: https://www.gnu.org/licenses/old-licenses/gpl-2.0.ht
 Access8Math has been sponsored by "Taiwan Visually Impaired People Association"(accessibility@twvip.org) in 2018~2019, hereby express our sincere appreciation.
 If you feel this add-on is helpful, please don't hesitate to give support to "Taiwan Visually Impaired People Association" and authors.""")
 
-
-provider_list = [
-	A8MProvider,
-]
-
+mathPlayer = None
 try:
-	reader = MathPlayer()
-	provider_list.append(MathPlayer)
+	mathPlayer = MathPlayer()
 except:
+	config.conf["Access8Math"]["settings"]["speech_source"] = "Access8Math"
+	config.conf["Access8Math"]["settings"]["braille_source"] = "Access8Math"
+	config.conf["Access8Math"]["settings"]["interact_source"] = "Access8Math"
 	log.warning("MathPlayer 4 not available")
 
-try:
-	if config.conf["Access8Math"]["settings"]["provider"] == "Access8Math":
-		provider = A8MProvider
-	elif config.conf["Access8Math"]["settings"]["provider"] == "MathPlayer":
-		provider = MathPlayer
-	else:
-		config.conf["Access8Math"]["settings"]["provider"] = "Access8Math"
-		provider = A8MProvider
-	reader = provider()
-except:
-	config.conf["Access8Math"]["settings"]["provider"] = "Access8Math"
-	provider = A8MProvider
-	reader = provider()
-
+reader = A8MProvider()
 mathPres.registerProvider(reader, speech=True, braille=True, interaction=True)
-
 
 class AppWindowRoot(IAccessible):
 	def event_focusEntered(self):
@@ -194,34 +177,43 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.Access8Math_item = self.toolsMenu.AppendSubMenu(self.menu, _("Access8Math"), _("Access8Math"))
 
 	@script(
-		description=_("switch MathML provider"),
+		description=_("speech source switch"),
 		category=ADDON_SUMMARY,
 	)
-	def script_switch_provider(self, gesture):
-		if config.conf["Access8Math"]["settings"]["provider"] == "Access8Math":
-			config.conf["Access8Math"]["settings"]["provider"] = "MathPlayer"
-		elif config.conf["Access8Math"]["settings"]["provider"] == "MathPlayer":
-			config.conf["Access8Math"]["settings"]["provider"] = "Access8Math"
+	def script_speech_source_switch(self, gesture):
+		if config.conf["Access8Math"]["settings"]["speech_source"] == "Access8Math" and mathPlayer:
+			config.conf["Access8Math"]["settings"]["speech_source"] = "MathPlayer"
+		elif config.conf["Access8Math"]["settings"]["speech_source"] == "MathPlayer":
+			config.conf["Access8Math"]["settings"]["speech_source"] = "Access8Math"
 		else:
-			config.conf["Access8Math"]["settings"]["provider"] = "Access8Math"
+			config.conf["Access8Math"]["settings"]["speech_source"] = "Access8Math"
+		ui.message(_("MathML speech source switch to %s")%config.conf["Access8Math"]["settings"]["speech_source"])
 
-		try:
-			if config.conf["Access8Math"]["settings"]["provider"] == "Access8Math":
-				provider = A8MProvider
-			elif config.conf["Access8Math"]["settings"]["provider"] == "MathPlayer":
-				provider = MathPlayer
-			else:
-				config.conf["Access8Math"]["settings"]["provider"] = "Access8Math"
-				provider = A8MProvider
-			reader = provider()
-		except:
-			config.conf["Access8Math"]["settings"]["provider"] = "Access8Math"
-			provider = A8MProvider
-			reader = provider()
+	@script(
+		description=_("braille source switch"),
+		category=ADDON_SUMMARY,
+	)
+	def script_braille_source_switch(self, gesture):
+		if config.conf["Access8Math"]["settings"]["braille_source"] == "Access8Math" and mathPlayer:
+			config.conf["Access8Math"]["settings"]["braille_source"] = "MathPlayer"
+		elif config.conf["Access8Math"]["settings"]["braille_source"] == "MathPlayer":
+			config.conf["Access8Math"]["settings"]["braille_source"] = "Access8Math"
+		else:
+			config.conf["Access8Math"]["settings"]["braille_source"] = "Access8Math"
+		ui.message(_("MathML braille source switch to %s")%config.conf["Access8Math"]["settings"]["braille_source"])
 
-		mathPres.registerProvider(reader, speech=True, braille=True, interaction=True)
-
-		ui.message(_("mathml provider change to %s")%config.conf["Access8Math"]["settings"]["provider"])
+	@script(
+		description=_("interact source switch"),
+		category=ADDON_SUMMARY,
+	)
+	def script_interact_source_switch(self, gesture):
+		if config.conf["Access8Math"]["settings"]["interact_source"] == "Access8Math" and mathPlayer:
+			config.conf["Access8Math"]["settings"]["interact_source"] = "MathPlayer"
+		elif config.conf["Access8Math"]["settings"]["interact_source"] == "MathPlayer":
+			config.conf["Access8Math"]["settings"]["interact_source"] = "Access8Math"
+		else:
+			config.conf["Access8Math"]["settings"]["interact_source"] = "Access8Math"
+		ui.message(_("MathML interact source switch to %s")%config.conf["Access8Math"]["settings"]["interact_source"])
 
 	def onGeneralSettings(self, evt):
 		from dialogs import GeneralSettingsDialog

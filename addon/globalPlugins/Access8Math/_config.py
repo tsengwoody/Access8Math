@@ -9,7 +9,6 @@ analyze_math_meaning = boolean(default=true)
 auto_generate = boolean(default=false)
 dictionary_generate = boolean(default=true)
 no_move_beep = boolean(default=true)
-edit_NVDA_gesture = boolean(default=false)
 write_mode = boolean(default=false)
 navigate_mode = boolean(default=false)
 shortcut_mode = boolean(default=false)
@@ -48,7 +47,6 @@ config.conf.spec["Access8Math"] = {
 		"auto_generate": "boolean(default=false)",
 		"dictionary_generate": "boolean(default=true)",
 		"no_move_beep": "boolean(default=true)",
-		"edit_NVDA_gesture": "boolean(default=false)",
 		"write_mode": "boolean(default=true)",
 		"navigate_mode": "boolean(default=false)",
 		"shortcut_mode": "boolean(default=true)",
