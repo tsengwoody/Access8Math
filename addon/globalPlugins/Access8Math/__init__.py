@@ -67,7 +67,6 @@ provider_list = [
 try:
 	reader = MathPlayer()
 	provider_list.append(MathPlayer)
-	mathPres.registerProvider(reader, speech=True, braille=True, interaction=True)
 except:
 	log.warning("MathPlayer 4 not available")
 
@@ -85,7 +84,7 @@ except:
 	provider = A8MProvider
 	reader = provider()
 
-mathPres.registerProvider(reader, speech=True, braille=False, interaction=True)
+mathPres.registerProvider(reader, speech=True, braille=True, interaction=True)
 
 
 class AppWindowRoot(IAccessible):

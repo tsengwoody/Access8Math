@@ -1,4 +1,4 @@
-﻿# Access8Math ReadMe
+# Access8Math ReadMe
 
 This NVDA addon provides the function of reading math content. Although the original NVDA already equipped this feature by applying MathPlayer, some functions still needed to be improved, such as not providing or incomplete specific language translation, not providing specific language navigation and browsing and many more.
 
@@ -49,23 +49,22 @@ LaTeX command window
 * Select the LaTeX command item and press d to remove the shortcut that has been set
 * Select the LaTeX command item and press enter to add the corresponding LaTeX syntax at the current cursor
 
-Edit cursor navigation move
+In edit field and the cursor is in the LaTeX block, press alt+i to enter navigation interactive mode
+
+alt+h, alt+i, alt+l, alt+m are write gesture groups. Press alt+w edit field to activate or deactivate write gestures.
+
+Edit cursor navigation move(toggle:alt+n)
 
 *	In edit field, press alt+left arrow key to move to the start point of the previous data block
 *	In edit field, press alt+down key without moving, but only read the content of the current data block
 *	In edit field, press alt+right arrow key to move to the start point of the next data block
 *	In edit field, press alt+home to move to the start point of the current data block
 *	In edit field, press alt+end to move to the end point of the current data block
-
-Edit cursor navigation move and select
-
 * In the editing area, press alt+shift+left arrow key to move to the previous data block and select
 * In the editing area, press alt+shift+down key to move to the current data block and select
 * In the editing area, press alt+shift+right arrow to move to the next data block and select
 
 Press alt+s in edit field to turn on or off the shortcut mode. When the shortcut mode is on, press f1~f12 to quickly insert LaTeX syntax. When the shortcut mode is on, press shift+f1~f12 to read out the LaTeX commands currently bound to the shortcut.
-
-In edit field and the cursor is in the LaTeX block, press alt+i to enter navigation interactive mode
 
 Press NVDA+shift+space in edit field to turn on or off the edit single letter navigation mode. When the edit single letter navigation mode is turned on, you can move the edit cursor with single letter navigation
 
@@ -90,7 +89,7 @@ All Access8Math menus are centralized in tools -> Access8Math
 	*	Reading pre-defined meaning in dictionary when navigating in interactive mode: When the pattern is definied in the dictionary, use dictionary to read the meaning of subpart in the upper layer part.
 	*	Reading of auto-generated meaning when navigating in interactive mode: When the pattern is not difined or incomplete in dictionary, use automatic generation function to read the meaning of subpart in the upper layer part.
 	*	Using a beep to alert no move: When navigating in interactive mode, It will hint by beep. If it is not checked, it will hint by speaking "no move".
-	*	Using NVDA+gesture to active action: Whether shortcut key needs to be added with NVDA key when write mixed content in edit field
+	*	Using NVDA+alt+letter to toggle command gesture: Whether shortcut needs to be added with NVDA key when toggle command gesture in edit field
 *	Rule Settings dialog box: select whether rules are actived.
 
 ### localization

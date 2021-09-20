@@ -138,238 +138,297 @@ latexData = []
 latexMenuData = [
 	{
 		"id": "frac",
+		# Translators: LaTeX command - fractions
 		"name": _("fractions"),
 	},
 	{
 		"id": "sqrt",
+		# Translators: LaTeX command - square root
 		"name": _("square root"),
 	},
 	{
 		"id": "root",
+		# Translators: LaTeX command - root
 		"name": _("root"),
 	},
 	{
 		"id": "sumupdown",
+		# Translators: LaTeX command - summation
 		"name": _("summation"),
 	},
 	{
 		"id": "vector",
+		# Translators: LaTeX command - vector
 		"name": _("vector"),
 	},
 	{
 		"id": "limit",
+		# Translators: LaTeX command - limit
 		"name": _("limit"),
 	},
 	{
 		"id": "times",
+		# Translators: LaTeX command - times
 		"name": _("times"),
 	},
 	{
 		"id": "div",
+		# Translators: LaTeX command - divide
 		"name": _("divide"),
 	},
 	{
 		"id": "pm",
+		# Translators: LaTeX command - plus-minus sign
 		"name": _("plus-minus sign"),
 	},
 	{
 		"id": "ge",
+		# Translators: LaTeX command - greater than or equal to
 		"name": _("greater than or equal to"),
 	},
 	{
 		"id": "le",
+		# Translators: LaTeX command - less than or equal to
 		"name": _("less than or equal to"),
 	},
 	{
 		"id": "ne",
+		# Translators: LaTeX command - not equal to
 		"name": _("not equal to"),
 	},
 	{
 		"id": "approx",
+		# Translators: LaTeX command - approximate
 		"name": _("approximate"),
 	},
 	{
 		"id": "parallel",
+		# Translators: LaTeX command - parallel
 		"name": _("parallel"),
 	},
 	{
 		"id": "perp",
+		# Translators: LaTeX command - perpendicular
 		"name": _("perpendicular"),
 	},
 	{
 		"id": "cong",
+		# Translators: LaTeX command - full equal
 		"name": _("full equal"),
 	},
 	{
 		"id": "sim",
+		# Translators: LaTeX command - similar
 		"name": _("similar"),
 	},
 	{
 		"id": "because",
+		# Translators: LaTeX command - because
 		"name": _("because"),
 	},
 	{
 		"id": "therefore",
+		# Translators: LaTeX command - therefore
 		"name": _("therefore"),
 	},
 	{
 		"id": "leftarrow",
+		# Translators: LaTeX command - left arrow
 		"name": _("left arrow"),
 	},
 	{
 		"id": "rightarrow",
+		# Translators: LaTeX command - right arrow
 		"name": _("right arrow"),
 	},
 	{
 		"id": "leftrightarrow",
+		# Translators: LaTeX command - left right arrow
 		"name": _("left right arrow"),
 	},
 	{
 		"id": "uparrow",
+		# Translators: LaTeX command - up arrow
 		"name": _("up arrow"),
 	},
 	{
 		"id": "downarrow",
+		# Translators: LaTeX command - down arrow
 		"name": _("down arrow"),
 	},
 	{
 		"id": "updownarrow",
+		# Translators: LaTeX command - up down arrow
 		"name": _("up down arrow"),
 	},
 	{
 		"id": "overline",
+		# Translators: LaTeX command - line segment
 		"name": _("line segment"),
 	},
 	{
 		"id": "overleftrightarrow",
+		# Translators: LaTeX command - line
 		"name": _("line"),
 	},
 	{
 		"id": "overrightarrow",
+		# Translators: LaTeX command - ray
 		"name": _("ray"),
 	},
 	{
 		"id": "arc",
+		# Translators: LaTeX command - arc
 		"name": _("arc"),
 	},
 	{
 		"id": "triangle",
+		# Translators: LaTeX command - triangle
 		"name": _("triangle"),
 	},
 	{
 		"id": "angle",
+		# Translators: LaTeX command - angle
 		"name": _("angle"),
 	},
 	{
 		"id": "degree",
+		# Translators: LaTeX command - degree
 		"name": _("degree"),
 	},
 	{
 		"id": "circ",
+		# Translators: LaTeX command - circle
 		"name": _("circle"),
 	},
 	{
 		"id": "binom",
+		# Translators: LaTeX command - binomial coefficient
 		"name": _("binomial coefficient"),
 	},
 	{
 		"id": "matrix2X2",
+		# Translators: LaTeX command - matrix (2X2)
 		"name": _("matrix (2X2)"),
 	},
 	{
 		"id": "matrix3X3",
+		# Translators: LaTeX command - matrix (3X3)
 		"name": _("matrix (3X3)"),
 	},
 	{
 		"id": "determinant2X2",
+		# Translators: LaTeX command - determinant (2X2)
 		"name": _("determinant (2X2)"),
 	},
 	{
 		"id": "determinant3X3",
+		# Translators: LaTeX command - determinant (3X3)
 		"name": _("determinant (3X3)"),
 	},
 	{
 		"id": "simultaneous-equations",
+		# Translators: LaTeX command - simultaneous equations
 		"name": _("simultaneous equations"),
 	},
 	{
 		"id": "in",
+		# Translators: LaTeX command - belong to
 		"name": _("belong to"),
 	},
 	{
 		"id": "notin",
+		# Translators: LaTeX command - not belong to
 		"name": _("not belong to"),
 	},
 	{
 		"id": "subset",
+		# Translators: LaTeX command - lie in
 		"name": _("lie in"),
 	},
 	{
 		"id": "subsetneqq",
+		# Translators: LaTeX command - properly lie in
 		"name": _("properly lie in"),
 	},
 	{
 		"id": "not-subset",
+		# Translators: LaTeX command - not lie in
 		"name": _("not lie in"),
 	},
 	{
 		"id": "supset",
+		# Translators: LaTeX command - include
 		"name": _("include"),
 	},
 	{
 		"id": "supsetneqq",
+		# Translators: LaTeX command - properly include
 		"name": _("properly include"),
 	},
 	{
 		"id": "not-supset",
+		# Translators: LaTeX command - not include
 		"name": _("not include"),
 	},
 	{
 		"id": "cap",
+		# Translators: LaTeX command - intersection set
 		"name": _("intersection set"),
 	},
 	{
 		"id": "cup",
+		# Translators: LaTeX command - union set
 		"name": _("union set"),
 	},
 	{
 		"id": "setminus",
+		# Translators: LaTeX command - difference set
 		"name": _("difference set"),
 	},
 	{
 		"id": "complement",
+		# Translators: LaTeX command - complement
 		"name": _("complement"),
 	},
 	{
 		"id": "emptyset",
+		# Translators: LaTeX command - empty set
 		"name": _("empty set"),
 	},
 	{
 		"id": "natural-number",
+		# Translators: LaTeX command - natural number
 		"name": _("natural number"),
 	},
 	{
 		"id": "real-number",
+		# Translators: LaTeX command - real number
 		"name": _("real number"),
 	},
 	{
 		"id": "logarithm",
+		# Translators: LaTeX command - logarithm
 		"name": _("logarithm"),
 	},
 	{
 		"id": "infty",
+		# Translators: LaTeX command - infty
 		"name": _("infty"),
 	},
 	{
 		"id": "forall",
+		# Translators: LaTeX command - for all
 		"name": _("for all"),
 	},
 	{
 		"id": "exists",
+		# Translators: LaTeX command - exists
 		"name": _("exists"),
 	},
 	{
 		"id": "repeating-decimal",
+		# Translators: LaTeX command - repeating decimal
 		"name": _("repeating decimal"),
 	},
 ]
@@ -404,48 +463,56 @@ class A8MLaTeXCommandModel(MenuModel):
 		self.data = [
 			{
 				"id": "shortcut",
+				# Translators: LaTeX command category - shortcut
 				"name": _("shortcut"),
 				"type": "menu",
 				"items": [latexShortcut[str(k)] for k in range(1,13) if str(k) in latexShortcut],
 			},
 			{
 				"id": "common",
+				# Translators: LaTeX command category - common
 				"name": _("common"),
 				"type": "menu",
 				"items": latexMenu['common'],
 			},
 			{
 				"id": "operator",
+				# Translators: LaTeX command category - operator
 				"name": _("operator"),
 				"type": "menu",
 				"items": latexMenu['operator'],
 			},
 			{
 				"id": "relation",
+				# Translators: LaTeX command category - relation
 				"name": _("relation"),
 				"type": "menu",
 				"items": latexMenu['relation'],
 			},
 			{
 				"id": "arrow",
+				# Translators: LaTeX command category - arrow
 				"name": _("arrow"),
 				"type": "menu",
 				"items": latexMenu['arrow'],
 			},
 			{
 				"id": "2-dimension",
+				# Translators: LaTeX command category - 2-dimension
 				"name": _("2-dimension"),
 				"type": "menu",
 				"items": latexMenu['2-dimension'],
 			},
 			{
 				"id": "set",
+				# Translators: LaTeX command category - set
 				"name": _("set"),
 				"type": "menu",
 				"items": latexMenu['set'],
 			},
 			{
 				"id": "other",
+				# Translators: LaTeX command category - other
 				"name": _("other"),
 				"type": "menu",
 				"items": latexMenu['other'],
@@ -454,6 +521,7 @@ class A8MLaTeXCommandModel(MenuModel):
 		self.shortcut = latexShortcut
 
 class A8MLaTeXCommandView(MenuView):
+	# Translators: alt+l window
 	name = _("LaTeX command")
 	def __init__(self, selection):
 		super().__init__(MenuModel=A8MLaTeXCommandModel, TextInfo=A8MLaTeXCommandViewTextInfo)

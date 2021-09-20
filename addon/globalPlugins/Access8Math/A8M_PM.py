@@ -13,6 +13,10 @@ import re
 import sys
 import weakref
 
+import brailleTables
+import config
+import louisHelper
+
 AUTO_GENERATE = 0
 DIC_GENERATE = 1
 
@@ -392,10 +396,9 @@ class Node(object):
 		return string
 
 	def braillesymbol_translate(self, string):
-		symbol_order = sorted(list(self.mathcontent.braillesymbol.items()), key=lambda i: -len(i[0]))
-		for key, value in symbol_order:
-			string = string.replace(key, value)
-		return string
+		BRAILLE_UNICODE_PATTERNS_START = 0x2800
+		brailleCells, brailleToRawPos, rawToBraillePos, brailleCursorPos = louisHelper.translate([os.path.join(brailleTables.TABLES_DIR, config.conf["braille"]["translationTable"]), "braille-patterns.cti"], string, mode=4)
+		return "".join([chr(BRAILLE_UNICODE_PATTERNS_START + cell) for cell in brailleCells])
 
 	def get_mathml(self):
 		mathml = ''
@@ -524,10 +527,10 @@ class NonTerminalNode(Node):
 			self.rule = range(len(self.child))
 
 	def set_braillerule(self):
-		try:
+		# try:
 			super().set_braillerule()
-		except:
-			self.braillerule = range(len(self.child))
+		# except:
+			# self.braillerule = range(len(self.child))
 
 	def set_braillerole(self):
 		try:
@@ -655,7 +658,7 @@ class Mphantom(AlterNode):
 		return []
 
 	def set_braillerule(self):
-		pass
+		return []
 
 
 class Mfenced(AlterNode):
@@ -889,6 +892,8 @@ class NodeType(object):
 		self.mathrule = {}
 		self.rule = []
 		self.role = []
+		self.braillerule = []
+		self.braillerole = []
 
 	@classmethod
 	def check(cls, obj):

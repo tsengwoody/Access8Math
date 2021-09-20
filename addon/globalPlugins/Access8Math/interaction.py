@@ -10,6 +10,7 @@ import globalVars
 from keyboardHandler import KeyboardInputGesture
 from NVDAObjects.window import Window
 import mathPres
+from mathPres.mathPlayer import MathPlayer
 from scriptHandler import script
 import speech
 import textInfos
@@ -25,6 +26,12 @@ import A8M_PM
 from A8M_PM import MathContent
 
 addonHandler.initTranslation()
+
+mathPlayer = None
+try:
+	mathPlayer = MathPlayer()
+except:
+	log.warning("MathPlayer 4 not available")
 
 def flatten(lines):
 	"""
@@ -218,8 +225,20 @@ class A8MProvider(mathPres.MathPresentationProvider):
 		self.mathcontent = None
 
 	def getSpeechForMathMl(self, mathMl):
-		self.mathcontent = MathContent(config.conf["Access8Math"]["settings"]["language"], mathMl)
-		return translate_SpeechCommand(self.mathcontent.pointer.serialized())
+		"""Get speech output for specified MathML markup.
+		@param mathMl: The MathML markup.
+		@type mathMl: str
+		@return: A speech sequence.
+		@rtype: List[str, SpeechCommand]
+		"""
+		speechSequence = []
+		if config.conf["Access8Math"]["settings"]["speech_source"] == "Access8Math":
+			self.mathcontent = MathContent(config.conf["Access8Math"]["settings"]["language"], mathMl)
+			speechSequence = translate_SpeechCommand(self.mathcontent.pointer.serialized())
+		else:
+			if mathPlayer:
+				speechSequence = mathPlayer.getSpeechForMathMl(mathMl)
+		return speechSequence
 
 	def getBrailleForMathMl(self, mathMl):
 		"""Get braille output for specified MathML markup.
@@ -228,18 +247,35 @@ class A8MProvider(mathPres.MathPresentationProvider):
 		@return: A string of Unicode braille.
 		@rtype: unicode
 		"""
-		raise SystemError
-		# raise NotImplementedError
+		cells = ""
+		if config.conf["Access8Math"]["settings"]["braille_source"] == "Access8Math":
+			cells = list(flatten(self.mathcontent.root.brailleserialized()))
+			cells = "".join(cells)
+		else:
+			if mathPlayer:
+				cells = mathPlayer.getBrailleForMathMl(mathMl)
+
+		BRAILLE_UNICODE_PATTERNS_START = 0x2800
+		inrange = lambda cell: ord(cell) >= BRAILLE_UNICODE_PATTERNS_START and ord(cell) < BRAILLE_UNICODE_PATTERNS_START + 256
+		cells = [cell if inrange(cell) else chr(BRAILLE_UNICODE_PATTERNS_START) for cell in cells]
+		return "".join(cells)
 
 	def interactWithMathMl(self, mathMl):
-		mathcontent = MathContent(config.conf["Access8Math"]["settings"]["language"], mathMl)
-		if config.conf["Access8Math"]["settings"]["interaction_frame_show"]:
-			show_main_frame(mathcontent)
+		"""Begin interaction with specified MathML markup.
+		@param mathMl: The MathML markup.
+		"""
+		if config.conf["Access8Math"]["settings"]["interact_source"] == "Access8Math":
+			mathcontent = MathContent(config.conf["Access8Math"]["settings"]["language"], mathMl)
+			if config.conf["Access8Math"]["settings"]["interaction_frame_show"]:
+				show_main_frame(mathcontent)
+			else:
+				parent = api.getFocusObject()
+				vw = A8MInteraction(parent=parent)
+				vw.set(data=mathcontent, name="")
+				vw.setFocus()
 		else:
-			parent = api.getFocusObject()
-			vw = A8MInteraction(parent=parent)
-			vw.set(data=mathcontent, name="")
-			vw.setFocus()
+			if mathPlayer:
+				MathPlayer().interactWithMathMl(mathMl)
 
 
 class A8MInteraction(Window):

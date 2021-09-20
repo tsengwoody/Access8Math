@@ -28,71 +28,211 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 TEMPLATES_PATH = os.path.join(PATH, 'web', 'templates')
 env = Environment(loader=FileSystemLoader(TEMPLATES_PATH), variable_start_string='{|{', variable_end_string='}|}')
 
-shortcut_mode = False
-sln_mode = False
 active = config.conf["Access8Math"]["settings"]["edit_NVDA_gesture"]
+write_mode = config.conf["Access8Math"]["settings"]["write_mode"]
+navigate_mode = config.conf["Access8Math"]["settings"]["navigate_mode"]
+shortcut_mode = config.conf["Access8Math"]["settings"]["shortcut_mode"]
+singleLetterNav_mode = False
 
 class TextMathEditField(NVDAObject):
-	def getScript(self, gesture):
-		global sln_mode
-		if isinstance(gesture, KeyboardInputGesture):
-			if (
-				(len(gesture.modifierNames) == 0 or (len(gesture.modifierNames) == 1 and "shift" in gesture.modifierNames)) \
-				and (
-					gesture.mainKeyName in set("abcdefghijklmnopqrstuvwxyz1234567890") 
-				) \
-				and sln_mode
-			):
-				return self.script_sln
-		return super().getScript(gesture)
+	initial = True
+	write_mode = False
+	navigate_mode = False
+	shortcut_mode = False
+	singleLetterNav_mode = False
+	_originGestureMap = {}
+
+	def event_gainFocus(self):
+		if self.initial:
+			self._originGestureMap = self._gestureMap.copy()
+			self.initial = False
+
+		global write_mode, navigate_mode, shortcut_mode
+		try:
+			if write_mode:
+				self.bindWriteGestures()
+			if navigate_mode:
+				self.bindNavigateGestures()
+			if shortcut_mode:
+				self.bindShortcutGestures()
+			if self.singleLetterNav_mode:
+				self.bindSingleLetterNavGestures()
+		except WindowsError:
+			pass
+
+		super().event_gainFocus()
+
+	def bindWriteGestures(self):
+		self.bindGesture("kb:alt+h", "view_math")
+		self.bindGesture("kb:alt+i", "interact")
+		self.bindGesture("kb:alt+l", "latex_command")
+		self.bindGesture("kb:alt+m", "mark")
+
+	def unbindWriteGestures(self):
+		import inputCore
+		for key in ["alt+h", "alt+i", "alt+l", "alt+m"]:
+			key = "kb:{}".format(key)
+			try:
+				self.removeGestureBinding(key)
+			except KeyError as e:
+				pass
+
+			if key in self._originGestureMap:
+				key = inputCore.normalizeGestureIdentifier(key)
+				self._gestureMap[key] = self._originGestureMap[key]
+
+	def bindNavigateGestures(self):
+		gestures = [
+			"kb:alt+downArrow",
+			"kb:alt+leftArrow",
+			"kb:alt+rightArrow",
+			"kb:alt+shift+downArrow",
+			"kb:alt+shift+leftArrow",
+			"kb:alt+shift+rightArrow",
+			"kb:alt+home",
+			"kb:alt+end",
+		]
+		for key in gestures:
+			self.bindGesture(key, "navigate")
+
+	def unbindNavigateGestures(self):
+		import inputCore
+		gestures = [
+			"kb:NVDA+alt+downArrow" if active else "kb:alt+downArrow",
+			"kb:NVDA+alt+leftArrow" if active else "kb:alt+leftArrow",
+			"kb:NVDA+alt+rightArrow" if active else "kb:alt+rightArrow",
+			"kb:NVDA+alt+shift+downArrow" if active else "kb:alt+shift+downArrow",
+			"kb:NVDA+alt+shift+leftArrow" if active else "kb:alt+shift+leftArrow",
+			"kb:NVDA+alt+shift+rightArrow" if active else "kb:alt+shift+rightArrow",
+			"kb:NVDA+alt+home" if active else "kb:alt+home",
+			"kb:NVDA+alt+end" if active else "kb:alt+end",
+		]
+		for key in gestures:
+			try:
+				self.removeGestureBinding(key)
+			except KeyError as e:
+				pass
+
+			if key in self._originGestureMap:
+				key = inputCore.normalizeGestureIdentifier(key)
+				self._gestureMap[key] = self._originGestureMap[key]
+
+	def bindShortcutGestures(self):
+		for i in range(1, 13):
+			key = "kb:f{}".format(i)
+			self.bindGesture(key, "shortcut")
+			key = "kb:shift+f{}".format(i)
+			self.bindGesture(key, "shortcut_help")
+
+	def unbindShortcutGestures(self):
+		import inputCore
+		for i in range(1, 13):
+			key = "kb:f{}".format(i)
+			try:
+				self.removeGestureBinding(key)
+			except KeyError:
+				pass
+			if key in self._originGestureMap:
+				key = inputCore.normalizeGestureIdentifier(key)
+				self._gestureMap[key] = self._originGestureMap[key]
+
+			key = "kb:shift+f{}".format(i)
+			try:
+				self.removeGestureBinding(key)
+			except KeyError:
+				pass
+			if key in self._originGestureMap:
+				key = inputCore.normalizeGestureIdentifier(key)
+				self._gestureMap[key] = self._originGestureMap[key]
+
+	def bindSingleLetterNavGestures(self):
+		for c in [c for c in "abcdefghijklmnopqrstuvwxyz1234567890"] + ["upArrow", "downArrow", "leftArrow", "rightArrow", "home", "end"]:
+			key = "kb:{}".format(c)
+			self.bindGesture("kb:{}".format(c), "singleLetterNav")
+			key = "kb:shift+{}".format(c)
+			self.bindGesture("kb:shift+{}".format(c), "singleLetterNav")
+
+	def unbindSingleLetterNavGestures(self):
+		import inputCore
+		for c in [c for c in "abcdefghijklmnopqrstuvwxyz1234567890"] + ["upArrow", "downArrow", "leftArrow", "rightArrow", "home", "end"]:
+			key = "kb:{}".format(c)
+			try:
+				self.removeGestureBinding(key)
+			except KeyError:
+				pass
+			if key in self._originGestureMap:
+				key = inputCore.normalizeGestureIdentifier(key)
+				self._gestureMap[key] = self._originGestureMap[key]
+
+			key = "kb:shift+{}".format(c)
+			try:
+				self.removeGestureBinding(key)
+			except KeyError:
+				pass
+			if key in self._originGestureMap:
+				key = inputCore.normalizeGestureIdentifier(key)
+				self._gestureMap[key] = self._originGestureMap[key]
 
 	@script(
-		gestures=["kb:NVDA+alt+h" if active else "kb:alt+h"],
-		description=_("view math"),
+		gestures=["kb:NVDA+alt+w" if active else "kb:alt+w"],
+		description=_("write gesture toggle"),
 		category=ADDON_SUMMARY,
 	)
-	def script_view_math(self, gesture):
-		document = self.makeTextInfo(textInfos.POSITION_ALL)
-		html_file = text2template(document.text, os.path.join(PATH, 'web', 'review', 'index.html'))
-		raw_file = os.path.join(PATH, 'web', 'review', 'raw.txt')
-		with open(raw_file, "w", encoding="utf-8") as f:
-			f.write(document.text)
-		A8MHTMLCommandView(file=html_file).setFocus()
+	def script_command_toggle(self, gesture):
+		global write_mode
+		write_mode = not write_mode
+		if write_mode:
+			self.bindWriteGestures()
+			ui.message(_("activate write gesture"))
+		else:
+			self.unbindWriteGestures()
+			ui.message(_("deactivate write gesture"))
+
+	@script(
+		gestures=["kb:NVDA+alt+n" if active else "kb:alt+n"],
+		description=_("block navigate gesture toggle"),
+		category=ADDON_SUMMARY,
+	)
+	def script_navigate_toggle(self, gesture):
+		global navigate_mode
+		navigate_mode = not navigate_mode
+		if navigate_mode:
+			self.bindNavigateGestures()
+			ui.message(_("activate block navigate gesture"))
+		else:
+			self.unbindNavigateGestures()
+			ui.message(_("deactivate block navigate gesture"))
 
 	@script(
 		gestures=["kb:NVDA+alt+s" if active else "kb:alt+s"],
-		description=_("shortcut switch"),
+		description=_("shortcut gesture toggle"),
 		category=ADDON_SUMMARY,
 	)
-	def script_shortcut_switch(self, gesture):
+	def script_shortcut_toggle(self, gesture):
 		global shortcut_mode
 		shortcut_mode = not shortcut_mode
 		if shortcut_mode:
-			ui.message(_("shortcut mode on"))
+			self.bindShortcutGestures()
+			ui.message(_("activate shortcut gesture"))
 		else:
-			ui.message(_("shortcut mode off"))
+			self.unbindShortcutGestures()
+			ui.message(_("deactivate shortcut gesture"))
 
-	@script(gestures=["kb:NVDA+shift+space"])
-	def script_sln_switch(self, gesture):
-		global sln_mode
-		sln_mode = not sln_mode
-		if sln_mode:
+	@script(
+		gestures=["kb:NVDA+shift+space"],
+		description=_("single letter navigate mode toggle"),
+		category=ADDON_SUMMARY,
+	)
+	def script_singleLetterNav_toggle(self, gesture):
+		self.singleLetterNav_mode = not self.singleLetterNav_mode
+		if self.singleLetterNav_mode:
+			self.bindSingleLetterNavGestures()
 			ui.message(_("single letter navigation mode on"))
 		else:
+			self.unbindSingleLetterNavGestures()
 			ui.message(_("single letter navigation mode off"))
 
-	def script_sln(self, gesture):
-		if not (gesture.mainKeyName == "t" or gesture.mainKeyName == "l"):
-			tones.beep(100, 50)
-			return
-		self.script_navigate(gesture)
-
-	@script(gestures=["kb:f{}".format(i) for i in range(1, 13)])
 	def script_shortcut(self, gesture):
-		global shortcut_mode
-		if not shortcut_mode:
-			gesture.send()
-			return
 		with SectionManager() as manager:
 			if manager.pointer and manager.pointer['type'] == 'math':
 				view = A8MLaTeXCommandView(selection=manager.selection.text)
@@ -106,12 +246,7 @@ class TextMathEditField(NVDAObject):
 			else:
 				ui.message(_("Not in math section. Please insert LaTeX mark first and try again."))
 
-	@script(gestures=["kb:shift+f{}".format(i) for i in range(1, 13)])
 	def script_shortcut_help(self, gesture):
-		global shortcut_mode
-		if not shortcut_mode:
-			gesture.send()
-			return
 		with SectionManager() as manager:
 			view = A8MLaTeXCommandView(selection=manager.selection.text)
 		slot = gesture.mainKeyName[1:]
@@ -122,11 +257,17 @@ class TextMathEditField(NVDAObject):
 				shortcut=slot,
 			))
 
-	@script(
-		gestures=["kb:NVDA+alt+m" if active else "kb:alt+m"],
-		description=_("popup mark command menu window"),
-		category=ADDON_SUMMARY,
-	)
+	def script_singleLetterNav(self, gesture):
+		self.script_navigate(gesture)
+
+	def script_view_math(self, gesture):
+		document = self.makeTextInfo(textInfos.POSITION_ALL)
+		html_file = text2template(document.text, os.path.join(PATH, 'web', 'review', 'index.html'))
+		raw_file = os.path.join(PATH, 'web', 'review', 'raw.txt')
+		with open(raw_file, "w", encoding="utf-8") as f:
+			f.write(document.text)
+		A8MHTMLCommandView(file=html_file).setFocus()
+
 	def script_mark(self, gesture):
 		with SectionManager() as manager:
 			if manager.pointer and manager.pointer['type'] == 'text':
@@ -134,11 +275,6 @@ class TextMathEditField(NVDAObject):
 			else:
 				ui.message(_("In math section. Please leave math section first and try again."))
 
-	@script(
-		gestures=["kb:NVDA+alt+l" if active else "kb:alt+l"],
-		description=_("popup LaTeX command menu window"),
-		category=ADDON_SUMMARY,
-	)
 	def script_latex_command(self, gesture):
 		with SectionManager() as manager:
 			if manager.pointer and manager.pointer['type'] == 'math':
@@ -146,74 +282,7 @@ class TextMathEditField(NVDAObject):
 			else:
 				ui.message(_("Not in math section. Please insert LaTeX mark first and try again."))
 
-	@script(
-		gestures=[
-			"kb:NVDA+alt+downArrow" if active else "kb:alt+downArrow",
-			"kb:NVDA+alt+leftArrow" if active else "kb:alt+leftArrow",
-			"kb:NVDA+alt+rightArrow" if active else "kb:alt+rightArrow",
-			"kb:NVDA+alt+shift+downArrow" if active else "kb:alt+shift+downArrow",
-			"kb:NVDA+alt+shift+leftArrow" if active else "kb:alt+shift+leftArrow",
-			"kb:NVDA+alt+shift+rightArrow" if active else "kb:alt+shift+rightArrow"
-		],
-		description=_("move cursor by block unit"),
-		category=ADDON_SUMMARY,
-	)
-	def script_navigate(self, gesture):
-		with SectionManager() as manager:
-			selected = False
-			if gesture.mainKeyName == "downArrow":
-				result = manager.move(type='any', step=0)
-				if "shift" in gesture.modifierNames:
-					selected = True
-			elif gesture.mainKeyName == "leftArrow":
-				result = manager.move(type='any', step=-1)
-				if "shift" in gesture.modifierNames:
-					selected = True
-			elif gesture.mainKeyName == "rightArrow":
-				result = manager.move(type='any', step=1)
-				if "shift" in gesture.modifierNames:
-					selected = True
-			if gesture.mainKeyName == "t":
-				if "shift" in gesture.modifierNames:
-					result = manager.move(type='text', step=-1)
-				else:
-					result = manager.move(type='text', step=1)
-			elif gesture.mainKeyName == "l":
-				if "shift" in gesture.modifierNames:
-					result = manager.move(type='math', step=-1)
-				else:
-					result = manager.move(type='math', step=1)
-			if result:
-				tones.beep(500, 50)
-				if selected:
-					manager.caret.updateSelection()
-				else:
-					ui.message(result['data'])
-			else:
-				tones.beep(100, 50)
-
-	@script(
-		gestures=[
-			"kb:NVDA+alt+home" if active else "kb:alt+home",
-			"kb:NVDA+alt+end" if active else "kb:alt+end",
-		],
-		description=_("move cursor to block start point or block end point"),
-		category=ADDON_SUMMARY,
-	)
-	def script_startend(self, gesture):
-		with SectionManager() as manager:
-			if gesture.mainKeyName == "home":
-				manager.start()
-			elif gesture.mainKeyName == "end":
-				manager.end()
-		tones.beep(500, 20)
-
-	@script(
-		gestures=["kb:NVDA+alt+i" if active else "kb:alt+i"],
-		description=_("interacte with LaTeX"),
-		category=ADDON_SUMMARY,
-	)
-	def script_interacte(self, gesture):
+	def script_interact(self, gesture):
 		delimiter = LaTeX_delimiter[config.conf["Access8Math"]["settings"]["LaTeX_delimiter"]]
 		delimiter_start_length = len(delimiter["start"])
 		delimiter_end_length = len(delimiter["end"])
@@ -232,6 +301,44 @@ class TextMathEditField(NVDAObject):
 					vw.setFocus()
 			else:
 				ui.message(_("This block cannot be interacted"))
+
+	def script_navigate(self, gesture):
+		with SectionManager() as manager:
+			selected = False
+			if gesture.mainKeyName == "downArrow":
+				result = manager.move(type='any', step=0)
+				if "shift" in gesture.modifierNames:
+					selected = True
+			elif gesture.mainKeyName == "leftArrow":
+				result = manager.move(type='any', step=-1)
+				if "shift" in gesture.modifierNames:
+					selected = True
+			elif gesture.mainKeyName == "rightArrow":
+				result = manager.move(type='any', step=1)
+				if "shift" in gesture.modifierNames:
+					selected = True
+			elif gesture.mainKeyName == "t":
+				if "shift" in gesture.modifierNames:
+					result = manager.move(type='text', step=-1)
+				else:
+					result = manager.move(type='text', step=1)
+			elif gesture.mainKeyName == "l":
+				if "shift" in gesture.modifierNames:
+					result = manager.move(type='math', step=-1)
+				else:
+					result = manager.move(type='math', step=1)
+			elif gesture.mainKeyName == "home":
+				result = manager.start()
+			elif gesture.mainKeyName == "end":
+				result = manager.end()
+			if result:
+				tones.beep(500, 50)
+				if selected:
+					manager.caret.updateSelection()
+				else:
+					ui.message(result['data'])
+			else:
+				tones.beep(100, 50)
 
 
 class SectionManager:
@@ -319,8 +426,8 @@ class SectionManager:
 				self.caret._startOffset = self.pointer['start']
 				self.caret._endOffset = self.pointer['start']
 			self.caret.updateCaret()
-			return True
-		return False
+			return self.pointer
+		return None
 
 	def end(self):
 		if self.pointer:
@@ -332,8 +439,8 @@ class SectionManager:
 				self.caret._endOffset = self.pointer['end'] - 1
 
 			self.caret.updateCaret()
-			return True
-		return False
+			return self.pointer
+		return None
 
 def text2template(value, output):
 	raw = []

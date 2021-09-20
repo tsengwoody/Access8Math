@@ -45,6 +45,7 @@ class A8MMarkCommandModel(MenuModel):
 		self.data = [
 			{
 				"id": "LaTeX",
+				# Translators: mark command category - 
 				"name": _("LaTeX"),
 				"type": "item",
 			},
@@ -52,6 +53,7 @@ class A8MMarkCommandModel(MenuModel):
 
 
 class A8MMarkCommandView(MenuView):
+	# Translators: alt+m window
 	name = _("mark command")
 	def __init__(self, selection, delimiter):
 		super().__init__(MenuModel=A8MMarkCommandModel, TextInfo=A8MMarkCommandViewTextInfo)

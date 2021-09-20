@@ -27,12 +27,15 @@ class GeneralSettingsDialog(SettingsDialog):
 	# Translators: Title of the Access8MathDialog.
 	title = _("General Settings")
 	CheckBox_settings = OrderedDict([
-		("interaction_frame_show", _("showing Access8Math interaction window when entering interaction mode")),
+		("interaction_frame_show", _("Showing Access8Math interaction window when entering interaction mode")),
 		("analyze_math_meaning", _("Analyze mathematical meaning of content")),
 		("dictionary_generate", _("Reading pre-defined meaning in dictionary when navigating in interactive mode")),
 		("auto_generate", _("Reading of auto-generated meaning when navigating in interactive mode")),
 		("no_move_beep", _("Using a beep to alert no move")),
-		("edit_NVDA_gesture", _("Using NVDA+gesture to active action")),
+		("edit_NVDA_gesture", _("Using NVDA+alt+letter to toggle command gesture")),
+		("write_mode", _("Activate write gesture by default")),
+		("navigate_mode", _("Activate block navigate gesture by default")),
+		("shortcut_mode", _("Activate shortcut gesture by default")),
 	])
 
 	def __init__(self, parent, Access8MathConfig):
@@ -96,11 +99,49 @@ class GeneralSettingsDialog(SettingsDialog):
 			tones.beep(100, 100)
 		self.LaTeX_delimiterList.Selection = index
 
+		speech_sourceLabel = _("&Speech source:")
+		self.speech_sourceChoices = {
+			"Access8Math": _("Access8Math"),
+			"MathPlayer": _("Math Player"),
+		}
+		self.speech_sourceList = sHelper.addLabeledControl(speech_sourceLabel, wx.Choice, choices=list(self.speech_sourceChoices.values()))
+		try:
+			index = list(self.speech_sourceChoices.keys()).index(str(self.Access8MathConfig["settings"]["speech_source"]))
+		except BaseException as e:
+			index = 0
+			tones.beep(100, 100)
+		self.speech_sourceList.Selection = index
+
+		braille_sourceLabel = _("&Braille source:")
+		self.braille_sourceChoices = {
+			"Access8Math": _("Access8Math"),
+			"MathPlayer": _("Math Player"),
+		}
+		self.braille_sourceList = sHelper.addLabeledControl(braille_sourceLabel, wx.Choice, choices=list(self.braille_sourceChoices.values()))
+		try:
+			index = list(self.braille_sourceChoices.keys()).index(str(self.Access8MathConfig["settings"]["braille_source"]))
+		except BaseException as e:
+			index = 0
+			tones.beep(100, 100)
+		self.braille_sourceList.Selection = index
+
+		interact_sourceLabel = _("Inter&act source:")
+		self.interact_sourceChoices = {
+			"Access8Math": _("Access8Math"),
+			"MathPlayer": _("Math Player"),
+		}
+		self.interact_sourceList = sHelper.addLabeledControl(interact_sourceLabel, wx.Choice, choices=list(self.interact_sourceChoices.values()))
+		try:
+			index = list(self.interact_sourceChoices.keys()).index(str(self.Access8MathConfig["settings"]["interact_source"]))
+		except BaseException as e:
+			index = 0
+			tones.beep(100, 100)
+		self.interact_sourceList.Selection = index
+
 	def postInit(self):
 		self.languageList.SetFocus()
 
 	def onOk(self,evt):
-
 		try:
 			self.Access8MathConfig["settings"]["language"] = list(available_languages_dict.keys())[self.languageList.GetSelection()]
 			self.Access8MathConfig["settings"]["item_interval_time"] = self.item_interval_timeChoices[self.item_interval_timeList.GetSelection()]
@@ -108,13 +149,18 @@ class GeneralSettingsDialog(SettingsDialog):
 				self.Access8MathConfig["settings"][k] = getattr(self, k +"CheckBox").IsChecked()
 			self.Access8MathConfig["settings"]["HTML_display"] = list(self.HTML_displayChoices.keys())[self.HTML_displayList.GetSelection()]
 			self.Access8MathConfig["settings"]["LaTeX_delimiter"] = list(self.LaTeX_delimiterChoices.keys())[self.LaTeX_delimiterList.GetSelection()]
+			self.Access8MathConfig["settings"]["speech_source"] = list(self.speech_sourceChoices.keys())[self.speech_sourceList.GetSelection()]
+			self.Access8MathConfig["settings"]["braille_source"] = list(self.braille_sourceChoices.keys())[self.braille_sourceList.GetSelection()]
+			self.Access8MathConfig["settings"]["interact_source"] = list(self.interact_sourceChoices.keys())[self.interact_sourceList.GetSelection()]
 		except:
 			self.Access8MathConfig["settings"]["language"] = "en"
 			self.Access8MathConfig["settings"]["item_interval_time"] = 50
 			for k in self.CheckBox_settings.keys():
 				self.Access8MathConfig["settings"][k] = True
 			self.Access8MathConfig["settings"]["HTML_display"] = "block	"
-			self.Access8MathConfig["settings"]["LaTeX_delimiter"] = "bracket"
+			self.Access8MathConfig["settings"]["speech_source"] = "Access8Math"
+			self.Access8MathConfig["settings"]["braille_source"] = "Access8Math"
+			self.Access8MathConfig["settings"]["interact_source"] = "Access8Math"
 			tones.beep(100, 100)
 
 		# _config.save()
