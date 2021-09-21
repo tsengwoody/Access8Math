@@ -8,6 +8,7 @@ import config
 import eventHandler
 import globalVars
 from keyboardHandler import KeyboardInputGesture
+from logHandler import log
 from NVDAObjects.window import Window
 import mathPres
 from mathPres.mathPlayer import MathPlayer
