@@ -13,6 +13,7 @@ from gui import nvdaControls
 from gui import guiHelper
 from gui.settingsDialogs import SettingsDialog
 from logHandler import log
+from mathPres.mathPlayer import MathPlayer
 import queueHandler
 import tones
 
@@ -22,6 +23,12 @@ from A8M_PM import MathContent
 addonHandler.initTranslation()
 
 base_path = os.path.dirname(os.path.abspath(__file__))
+
+mathPlayer = None
+try:
+	mathPlayer = MathPlayer()
+except:
+	log.warning("MathPlayer 4 not available")
 
 class GeneralSettingsDialog(SettingsDialog):
 	# Translators: Title of the Access8MathDialog.
@@ -99,8 +106,9 @@ class GeneralSettingsDialog(SettingsDialog):
 		speech_sourceLabel = _("&Speech source:")
 		self.speech_sourceChoices = {
 			"Access8Math": _("Access8Math"),
-			"MathPlayer": _("Math Player"),
 		}
+		if mathPlayer:
+			self.speech_sourceChoices["MathPlayer"] = _("Math Player"),
 		self.speech_sourceList = sHelper.addLabeledControl(speech_sourceLabel, wx.Choice, choices=list(self.speech_sourceChoices.values()))
 		try:
 			index = list(self.speech_sourceChoices.keys()).index(str(self.Access8MathConfig["settings"]["speech_source"]))
@@ -112,8 +120,9 @@ class GeneralSettingsDialog(SettingsDialog):
 		braille_sourceLabel = _("&Braille source:")
 		self.braille_sourceChoices = {
 			"Access8Math": _("Access8Math"),
-			"MathPlayer": _("Math Player"),
 		}
+		if mathPlayer:
+			self.braille_sourceChoices["MathPlayer"] = _("Math Player"),
 		self.braille_sourceList = sHelper.addLabeledControl(braille_sourceLabel, wx.Choice, choices=list(self.braille_sourceChoices.values()))
 		try:
 			index = list(self.braille_sourceChoices.keys()).index(str(self.Access8MathConfig["settings"]["braille_source"]))
@@ -125,8 +134,9 @@ class GeneralSettingsDialog(SettingsDialog):
 		interact_sourceLabel = _("Inter&act source:")
 		self.interact_sourceChoices = {
 			"Access8Math": _("Access8Math"),
-			"MathPlayer": _("Math Player"),
 		}
+		if mathPlayer:
+			self.interact_sourceChoices["MathPlayer"] = _("Math Player"),
 		self.interact_sourceList = sHelper.addLabeledControl(interact_sourceLabel, wx.Choice, choices=list(self.interact_sourceChoices.values()))
 		try:
 			index = list(self.interact_sourceChoices.keys()).index(str(self.Access8MathConfig["settings"]["interact_source"]))
