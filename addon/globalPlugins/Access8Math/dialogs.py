@@ -108,7 +108,7 @@ class GeneralSettingsDialog(SettingsDialog):
 			"Access8Math": _("Access8Math"),
 		}
 		if mathPlayer:
-			self.speech_sourceChoices["MathPlayer"] = _("Math Player"),
+			self.speech_sourceChoices["MathPlayer"] = _("Math Player")
 		self.speech_sourceList = sHelper.addLabeledControl(speech_sourceLabel, wx.Choice, choices=list(self.speech_sourceChoices.values()))
 		try:
 			index = list(self.speech_sourceChoices.keys()).index(str(self.Access8MathConfig["settings"]["speech_source"]))
@@ -122,7 +122,7 @@ class GeneralSettingsDialog(SettingsDialog):
 			"Access8Math": _("Access8Math"),
 		}
 		if mathPlayer:
-			self.braille_sourceChoices["MathPlayer"] = _("Math Player"),
+			self.braille_sourceChoices["MathPlayer"] = _("Math Player")
 		self.braille_sourceList = sHelper.addLabeledControl(braille_sourceLabel, wx.Choice, choices=list(self.braille_sourceChoices.values()))
 		try:
 			index = list(self.braille_sourceChoices.keys()).index(str(self.Access8MathConfig["settings"]["braille_source"]))
@@ -136,7 +136,7 @@ class GeneralSettingsDialog(SettingsDialog):
 			"Access8Math": _("Access8Math"),
 		}
 		if mathPlayer:
-			self.interact_sourceChoices["MathPlayer"] = _("Math Player"),
+			self.interact_sourceChoices["MathPlayer"] = _("Math Player")
 		self.interact_sourceList = sHelper.addLabeledControl(interact_sourceLabel, wx.Choice, choices=list(self.interact_sourceChoices.values()))
 		try:
 			index = list(self.interact_sourceChoices.keys()).index(str(self.Access8MathConfig["settings"]["interact_source"]))
