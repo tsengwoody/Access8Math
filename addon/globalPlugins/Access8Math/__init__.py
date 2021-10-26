@@ -21,11 +21,10 @@ import globalPlugins.Access8Math.python.xml as xml
 xml_NVDA = sys.modules['xml']
 sys.modules['xml'] = xml
 
-import _config
-
 import addonHandler
 import api
 import config
+import buildVersion
 import controlTypes
 import globalPluginHandler
 import globalVars
@@ -43,20 +42,27 @@ import wx
 import A8M_PM
 from A8M_PM import MathContent
 
-from interaction import A8MProvider, A8MInteraction, show_main_frame, main_frame
+from interaction import A8MProvider, A8MInteraction, show_main_frame
 from writer import TextMathEditField
 
 addonHandler.initTranslation()
 ADDON_SUMMARY = addonHandler.getCodeAddon().manifest["summary"]
 
 aboutMessage = _("""Access8Math
-Version: 3.1
+Version: 3.2
 URL: https://addons.nvda-project.org/addons/access8math.en.html
 Copyright (C) 2017-2021 Access8Math Contributors
 Access8Math is covered by the GNU General Public License (Version 2). You are free to share or change this software in any way you like as long as it is accompanied by the license and you make all source code available to anyone who wants it. This applies to both original and modified copies of this software, plus any derivative works.
 It can be viewed online at: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 Access8Math has been sponsored by "Taiwan Visually Impaired People Association"(accessibility@twvip.org) in 2018~2019, hereby express our sincere appreciation.
 If you feel this add-on is helpful, please don't hesitate to give support to "Taiwan Visually Impaired People Association" and authors.""")
+
+if buildVersion.version_year >= 2022:
+	ROLE_WINDOW = controlTypes.Role.WINDOW
+	ROLE_EDITABLETEXT = controlTypes.Role.EDITABLETEXT
+else:
+	ROLE_WINDOW = controlTypes.ROLE_WINDOW
+	ROLE_EDITABLETEXT = controlTypes.ROLE_EDITABLETEXT
 
 mathPlayer = None
 try:
@@ -69,6 +75,7 @@ except:
 
 reader = A8MProvider()
 mathPres.registerProvider(reader, speech=True, braille=True, interaction=True)
+
 
 class AppWindowRoot(IAccessible):
 	def event_focusEntered(self):
@@ -103,9 +110,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			pass
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
-		if obj.windowClassName == "wxWindowNR" and obj.role == controlTypes.ROLE_WINDOW and obj.name == _("Access8Math interaction window"):
+		if obj.windowClassName == "wxWindowNR" and obj.role == ROLE_WINDOW and obj.name == _("Access8Math interaction window"):
 			clsList.insert(0, AppWindowRoot)
-		if (obj.windowClassName == "Edit"  and obj.role == controlTypes.ROLE_EDITABLETEXT) or (obj.windowClassName == "_WwG" and obj.role == controlTypes.ROLE_PANE):
+		if (obj.windowClassName == "Edit" or obj.windowClassName == "DirectUIHWND") and obj.role == ROLE_EDITABLETEXT:
 			clsList.insert(0, TextMathEditField)
 
 	def create_menu(self):
@@ -137,24 +144,36 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onAsciiMathAdd, self.asciiMath)
 
-		self.menu.AppendMenu(
-			wx.ID_ANY,
+		self.menu.AppendSubMenu(
+			writeMenu,
 			_("&Write..."),
-			writeMenu
 		)
 
 		l10nMenu = wx.Menu()
-		self.unicodeDictionary = l10nMenu.Append(
-			wx.ID_ANY,
-			_("&unicode dictionary...")
-		)
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onUnicodeDictionary, self.unicodeDictionary)
 
-		self.mathRule = l10nMenu.Append(
+		self.speechUnicodeDictionary = l10nMenu.Append(
 			wx.ID_ANY,
-			_("&math rule...")
+			_("speech &unicode dictionary...")
 		)
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onMathRule, self.mathRule)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onSpeechUnicodeDictionary, self.speechUnicodeDictionary)
+
+		self.speechMathRule = l10nMenu.Append(
+			wx.ID_ANY,
+			_("speech &math rule...")
+		)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onSpeechMathRule, self.speechMathRule)
+
+		self.brailleUnicodeDictionary = l10nMenu.Append(
+			wx.ID_ANY,
+			_("braille &unicode dictionary...")
+		)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onBrailleUnicodeDictionary, self.brailleUnicodeDictionary)
+
+		self.brailleMathRule = l10nMenu.Append(
+			wx.ID_ANY,
+			_("braille &math rule...")
+		)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onBrailleMathRule, self.brailleMathRule)
 
 		self.newLanguageAdding = l10nMenu.Append(
 			wx.ID_ANY,
@@ -162,10 +181,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onNewLanguageAdding, self.newLanguageAdding)
 
-		self.menu.AppendMenu(
-			wx.ID_ANY,
+		self.menu.AppendSubMenu(
+			l10nMenu,
 			_("&Localization..."),
-			l10nMenu
 		)
 
 		self.about = self.menu.Append(
@@ -187,7 +205,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			config.conf["Access8Math"]["settings"]["speech_source"] = "Access8Math"
 		else:
 			config.conf["Access8Math"]["settings"]["speech_source"] = "Access8Math"
-		ui.message(_("MathML speech source switch to %s")%config.conf["Access8Math"]["settings"]["speech_source"])
+		ui.message(_("MathML speech source switch to %s") % config.conf["Access8Math"]["settings"]["speech_source"])
 
 	@script(
 		description=_("braille source switch"),
@@ -200,7 +218,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			config.conf["Access8Math"]["settings"]["braille_source"] = "Access8Math"
 		else:
 			config.conf["Access8Math"]["settings"]["braille_source"] = "Access8Math"
-		ui.message(_("MathML braille source switch to %s")%config.conf["Access8Math"]["settings"]["braille_source"])
+		ui.message(_("MathML braille source switch to %s") % config.conf["Access8Math"]["settings"]["braille_source"])
 
 	@script(
 		description=_("interact source switch"),
@@ -213,7 +231,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			config.conf["Access8Math"]["settings"]["interact_source"] = "Access8Math"
 		else:
 			config.conf["Access8Math"]["settings"]["interact_source"] = "Access8Math"
-		ui.message(_("MathML interact source switch to %s")%config.conf["Access8Math"]["settings"]["interact_source"])
+		ui.message(_("MathML interact source switch to %s") % config.conf["Access8Math"]["settings"]["interact_source"])
 
 	def onGeneralSettings(self, evt):
 		from dialogs import GeneralSettingsDialog
@@ -227,15 +245,21 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		from dialogs import NewLanguageAddingDialog
 		NewLanguageAddingDialog(gui.mainFrame).Show()
 
-	def onUnicodeDictionary(self, evt):
-		self.language = config.conf["Access8Math"]["settings"]["language"]
+	def onSpeechUnicodeDictionary(self, evt):
 		from dialogs import UnicodeDicDialog
-		gui.mainFrame._popupSettingsDialog(UnicodeDicDialog, config.conf["Access8Math"], self.language)
+		gui.mainFrame._popupSettingsDialog(UnicodeDicDialog, config.conf["Access8Math"], language=config.conf["Access8Math"]["settings"]["language"], category='speech')
 
-	def onMathRule(self, evt):
-		self.language = config.conf["Access8Math"]["settings"]["language"]
+	def onSpeechMathRule(self, evt):
 		from dialogs import MathRuleDialog
-		gui.mainFrame._popupSettingsDialog(MathRuleDialog, config.conf["Access8Math"], self.language)
+		gui.mainFrame._popupSettingsDialog(MathRuleDialog, config.conf["Access8Math"], language=config.conf["Access8Math"]["settings"]["language"], category='speech')
+
+	def onBrailleUnicodeDictionary(self, evt):
+		from dialogs import UnicodeDicDialog
+		gui.mainFrame._popupSettingsDialog(UnicodeDicDialog, config.conf["Access8Math"], language=config.conf["Access8Math"]["settings"]["language"], category='braille')
+
+	def onBrailleMathRule(self, evt):
+		from dialogs import MathRuleDialog
+		gui.mainFrame._popupSettingsDialog(MathRuleDialog, config.conf["Access8Math"], language=config.conf["Access8Math"]["settings"]["language"], category='braille')
 
 	def onAsciiMathAdd(self, evt):
 		# asciimath to mathml
@@ -250,12 +274,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				mathml = tostring(data)
 				mathml = mathml.decode("utf-8")
 				mathml = mathml.replace('math>', 'mrow>')
-				mathcontent = MathContent(config.conf["Access8Math"]["settings"]["language"], mathMl)
+				mathcontent = MathContent(config.conf["Access8Math"]["settings"]["language"], mathml)
 				show_main_frame(mathcontent)
 
 	def onLatexAdd(self, evt):
 		# latex to mathml
-		from xml.etree.ElementTree import tostring
 		import latex2mathml.converter
 		global main_frame
 		parent = main_frame if main_frame else gui.mainFrame
@@ -264,7 +287,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				data = dialog.GetValue()
 				data = latex2mathml.converter.convert(data)
 				mathml = data
-				mathcontent = MathContent(config.conf["Access8Math"]["settings"]["language"], mathMl)
+				mathcontent = MathContent(config.conf["Access8Math"]["settings"]["language"], mathml)
 				show_main_frame(mathcontent)
 
 	def onAbout(self, evt):

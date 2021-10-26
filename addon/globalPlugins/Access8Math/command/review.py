@@ -2,12 +2,8 @@ import os
 import shutil
 
 import addonHandler
-import api
-import eventHandler
 import gui
 from scriptHandler import script
-import tones
-import ui
 import wx
 
 from .models import MenuModel
@@ -16,6 +12,7 @@ from .views import MenuView, MenuViewTextInfo
 PATH = os.path.dirname(os.path.dirname(__file__))
 
 addonHandler.initTranslation()
+
 
 class A8MHTMLCommandModel(MenuModel):
 	def __init__(self):
@@ -36,6 +33,7 @@ class A8MHTMLCommandModel(MenuModel):
 
 class A8MHTMLCommandView(MenuView):
 	name = _("Access8Math HTML")
+
 	def __init__(self, file):
 		super().__init__(MenuModel=A8MHTMLCommandModel, TextInfo=A8MHTMLCommandViewTextInfo)
 		self.file = file

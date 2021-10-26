@@ -3,9 +3,10 @@ import api
 import eventHandler
 from keyboardHandler import KeyboardInputGesture
 from scriptHandler import script
-import tones
-import ui
 import wx
+
+from delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter, delimiter as delimiter_setting
+delimiter_dict = {**AsciiMath_delimiter, **LaTeX_delimiter}
 
 from .clipboard import clearClipboard
 from .models import MenuModel
@@ -13,7 +14,9 @@ from .views import MenuView, MenuViewTextInfo
 
 addonHandler.initTranslation()
 
-def markLaTeX(selection, delimiter):
+
+def mark(section, type_):
+	delimiter = delimiter_dict[delimiter_setting[type_]]
 	delimiter_start = delimiter["start"]
 	delimiter_end = delimiter["end"]
 
@@ -22,10 +25,10 @@ def markLaTeX(selection, delimiter):
 	except:
 		temp = ''
 	api.copyToClip(r'{delimiter_start}{selection}{delimiter_end}'.format(
-		selection=selection,
+		selection=section.selection.text,
 		delimiter_start=delimiter_start,
 		delimiter_end=delimiter_end,
-		))
+	))
 
 	KeyboardInputGesture.fromName("control+v").send()
 
@@ -44,9 +47,15 @@ class A8MMarkCommandModel(MenuModel):
 		super().__init__()
 		self.data = [
 			{
-				"id": "LaTeX",
-				# Translators: mark command category - 
+				"id": "latex",
+				# Translators: mark command category - LaTeX
 				"name": _("LaTeX"),
+				"type": "item",
+			},
+			{
+				"id": "asciimath",
+				# Translators: mark command category - AsciiMath
+				"name": _("AsciiMath"),
 				"type": "item",
 			},
 		]
@@ -55,21 +64,14 @@ class A8MMarkCommandModel(MenuModel):
 class A8MMarkCommandView(MenuView):
 	# Translators: alt+m window
 	name = _("mark command")
-	def __init__(self, selection, delimiter):
-		super().__init__(MenuModel=A8MMarkCommandModel, TextInfo=A8MMarkCommandViewTextInfo)
-		self._selection = selection
-		self.delimiter = delimiter
+
+	def __init__(self, section):
+		super().__init__(MenuModel=A8MMarkCommandModel, TextInfo=MenuViewTextInfo)
+		self._section = section
 
 	@script(
 		gestures=["kb:enter"]
 	)
 	def script_enter(self, gesture):
-		self.markLaTeX()
-
-	def markLaTeX(self):
+		mark(self._section, type_=self.data.pointer['id'])
 		eventHandler.executeEvent("gainFocus", self.parent)
-		markLaTeX(self._selection, self.delimiter)
-
-
-class A8MMarkCommandViewTextInfo(MenuViewTextInfo):
-	pass

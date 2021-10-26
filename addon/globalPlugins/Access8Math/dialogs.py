@@ -1,5 +1,4 @@
 from collections import OrderedDict
-import io
 import os
 import shutil
 import wx
@@ -30,6 +29,7 @@ try:
 except:
 	log.warning("MathPlayer 4 not available")
 
+
 class GeneralSettingsDialog(SettingsDialog):
 	# Translators: Title of the Access8MathDialog.
 	title = _("General Settings")
@@ -39,9 +39,10 @@ class GeneralSettingsDialog(SettingsDialog):
 		("dictionary_generate", _("Reading pre-defined meaning in dictionary when navigating in interactive mode")),
 		("auto_generate", _("Reading of auto-generated meaning when navigating in interactive mode")),
 		("no_move_beep", _("Using a beep to alert no move")),
-		("write_mode", _("Activate write gesture by default")),
-		("navigate_mode", _("Activate block navigate gesture by default")),
-		("shortcut_mode", _("Activate shortcut gesture by default")),
+		("command_mode", _("Activate command gesture at startup")),
+		("navigate_mode", _("Activate block navigate gesture at startup")),
+		("shortcut_mode", _("Activate shortcut gesture at startup")),
+		("writeNavAudioIndication", _("Use audio indicate to switching of write navigation mode")),
 	])
 
 	def __init__(self, parent, Access8MathConfig):
@@ -61,7 +62,6 @@ class GeneralSettingsDialog(SettingsDialog):
 			tones.beep(100, 100)
 		self.languageList.Selection = index
 
-		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 		item_interval_timeLabel = _("&Item interval time:")
 		self.item_interval_timeChoices = [str(i) for i in range(1, 101)]
 		self.item_interval_timeList = sHelper.addLabeledControl(item_interval_timeLabel, wx.Choice, choices=self.item_interval_timeChoices)
@@ -72,10 +72,10 @@ class GeneralSettingsDialog(SettingsDialog):
 			tones.beep(100, 100)
 		self.item_interval_timeList.Selection = index
 
-		for k,v in self.CheckBox_settings.items():
-			setattr(self, k +"CheckBox", sHelper.addItem(wx.CheckBox(self, label=v)))
+		for k, v in self.CheckBox_settings.items():
+			setattr(self, k + "CheckBox", sHelper.addItem(wx.CheckBox(self, label=v)))
 			value = self.Access8MathConfig["settings"][k]
-			getattr(self, k +"CheckBox").SetValue(value)
+			getattr(self, k + "CheckBox").SetValue(value)
 
 		HTML_displayLabel = _("&HTML display:")
 		self.HTML_displayChoices = {
@@ -112,7 +112,7 @@ class GeneralSettingsDialog(SettingsDialog):
 		self.speech_sourceList = sHelper.addLabeledControl(speech_sourceLabel, wx.Choice, choices=list(self.speech_sourceChoices.values()))
 		try:
 			index = list(self.speech_sourceChoices.keys()).index(str(self.Access8MathConfig["settings"]["speech_source"]))
-		except BaseException as e:
+		except:
 			index = 0
 			tones.beep(100, 100)
 		self.speech_sourceList.Selection = index
@@ -126,7 +126,7 @@ class GeneralSettingsDialog(SettingsDialog):
 		self.braille_sourceList = sHelper.addLabeledControl(braille_sourceLabel, wx.Choice, choices=list(self.braille_sourceChoices.values()))
 		try:
 			index = list(self.braille_sourceChoices.keys()).index(str(self.Access8MathConfig["settings"]["braille_source"]))
-		except BaseException as e:
+		except:
 			index = 0
 			tones.beep(100, 100)
 		self.braille_sourceList.Selection = index
@@ -140,7 +140,7 @@ class GeneralSettingsDialog(SettingsDialog):
 		self.interact_sourceList = sHelper.addLabeledControl(interact_sourceLabel, wx.Choice, choices=list(self.interact_sourceChoices.values()))
 		try:
 			index = list(self.interact_sourceChoices.keys()).index(str(self.Access8MathConfig["settings"]["interact_source"]))
-		except BaseException as e:
+		except:
 			index = 0
 			tones.beep(100, 100)
 		self.interact_sourceList.Selection = index
@@ -148,12 +148,12 @@ class GeneralSettingsDialog(SettingsDialog):
 	def postInit(self):
 		self.languageList.SetFocus()
 
-	def onOk(self,evt):
+	def onOk(self, evt):
 		try:
 			self.Access8MathConfig["settings"]["language"] = list(available_languages_dict.keys())[self.languageList.GetSelection()]
 			self.Access8MathConfig["settings"]["item_interval_time"] = self.item_interval_timeChoices[self.item_interval_timeList.GetSelection()]
 			for k in self.CheckBox_settings.keys():
-				self.Access8MathConfig["settings"][k] = getattr(self, k +"CheckBox").IsChecked()
+				self.Access8MathConfig["settings"][k] = getattr(self, k + "CheckBox").IsChecked()
 			self.Access8MathConfig["settings"]["HTML_display"] = list(self.HTML_displayChoices.keys())[self.HTML_displayList.GetSelection()]
 			self.Access8MathConfig["settings"]["LaTeX_delimiter"] = list(self.LaTeX_delimiterChoices.keys())[self.LaTeX_delimiterList.GetSelection()]
 			self.Access8MathConfig["settings"]["speech_source"] = list(self.speech_sourceChoices.keys())[self.speech_sourceList.GetSelection()]
@@ -170,11 +170,10 @@ class GeneralSettingsDialog(SettingsDialog):
 			self.Access8MathConfig["settings"]["interact_source"] = "Access8Math"
 			tones.beep(100, 100)
 
-		# _config.save()
-
 		A8M_PM.initialize(self.Access8MathConfig)
 
 		return super().onOk(evt)
+
 
 class RuleSettingsDialog(SettingsDialog):
 	# Translators: Title of the Access8MathDialog.
@@ -204,18 +203,18 @@ class RuleSettingsDialog(SettingsDialog):
 
 	def makeSettings(self, settingsSizer):
 		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
-		for k,v in self.CheckBox_settings.items():
-			setattr(self, k +"CheckBox", sHelper.addItem(wx.CheckBox(self, label=v)))
+		for k, v in self.CheckBox_settings.items():
+			setattr(self, k + "CheckBox", sHelper.addItem(wx.CheckBox(self, label=v)))
 			value = self.Access8MathConfig["rules"][k]
-			getattr(self, k +"CheckBox").SetValue(value)
+			getattr(self, k + "CheckBox").SetValue(value)
 
 	def postInit(self):
-		getattr(self, list(self.CheckBox_settings.keys())[0] +"CheckBox").SetFocus()
+		getattr(self, list(self.CheckBox_settings.keys())[0] + "CheckBox").SetFocus()
 
-	def onOk(self,evt):
+	def onOk(self, evt):
 		try:
 			for k in self.CheckBox_settings.keys():
-				self.Access8MathConfig["rules"][k] = getattr(self, k +"CheckBox").IsChecked()
+				self.Access8MathConfig["rules"][k] = getattr(self, k + "CheckBox").IsChecked()
 		except:
 			for k in self.CheckBox_settings.keys():
 				self.Access8MathConfig["rules"][k] = True
@@ -223,13 +222,14 @@ class RuleSettingsDialog(SettingsDialog):
 
 		A8M_PM.initialize(self.Access8MathConfig)
 
-		return 		super().onOk(evt)
+		return super().onOk(evt)
+
 
 class AddSymbolDialog(wx.Dialog):
 	def __init__(self, parent):
 		# Translators: This is the label for the add symbol dialog.
 		super().__init__(parent, title=_("Add Symbol"))
-		mainSizer=wx.BoxSizer(wx.VERTICAL)
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		sHelper = guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
 		# Translators: This is the label for the edit field in the add symbol dialog.
@@ -244,18 +244,19 @@ class AddSymbolDialog(wx.Dialog):
 		self.identifierTextCtrl.SetFocus()
 		self.CentreOnScreen()
 
+
 class UnicodeDicDialog(SettingsDialog):
-	def __init__(self,parent, Access8MathConfig, language):
+	def __init__(self, parent, Access8MathConfig, language, category='speech'):
 		self.Access8MathConfig = Access8MathConfig
 		self.language = language
+		self.category = category
 		try:
-			symbol = A8M_PM.load_unicode_dic(language=self.language)
+			symbol = A8M_PM.load_unicode_dic(language=self.language, category=category)
 		except LookupError:
-			symbol = A8M_PM.load_unicode_dic(language='Windows')
+			symbol = A8M_PM.load_unicode_dic(language='Windows', category=category)
 		self.A8M_symbol = symbol
-		# Translators: This is the label for the symbol pronunciation dialog.
-		# %s is replaced by the language for which symbol pronunciation is being edited.
-		self.title = _("unicode dictionary (%s)")%self.language
+		# Translators: This is the label for the unicode dictionary dialog.
+		self.title = _("{category} unicode dictionary ({language})").format(language=self.language, category=category)
 		super().__init__(parent)
 
 	def makeSettings(self, settingsSizer):
@@ -265,10 +266,10 @@ class UnicodeDicDialog(SettingsDialog):
 		# Translators: The label for symbols list in symbol pronunciation dialog.
 		symbolsText = _("&Symbols")
 		try:
-			#NVDA version >= 2019.2 syntax with autoSizeColumn keyword
+			# NVDA version >= 2019.2 syntax with autoSizeColumn keyword
 			self.symbolsList = sHelper.addLabeledControl(symbolsText, nvdaControls.AutoWidthColumnListCtrl, autoSizeColumn=0, style=wx.LC_REPORT | wx.LC_SINGLE_SEL)
 		except TypeError:
-			#NVDA version <= 2019.1.1 syntax with autoSizeColumnIndex keyword
+			# NVDA version <= 2019.1.1 syntax with autoSizeColumnIndex keyword
 			self.symbolsList = sHelper.addLabeledControl(symbolsText, nvdaControls.AutoWidthColumnListCtrl, autoSizeColumnIndex=0, style=wx.LC_REPORT | wx.LC_SINGLE_SEL)
 		# Translators: The label for a column in symbols list used to identify a symbol.
 		self.symbolsList.InsertColumn(0, _("Symbol"))
@@ -283,9 +284,9 @@ class UnicodeDicDialog(SettingsDialog):
 		changeSymbolText = _("Change selected symbol")
 		changeSymbolHelper = sHelper.addItem(guiHelper.BoxSizerHelper(self, sizer=wx.StaticBoxSizer(wx.StaticBox(self, label=changeSymbolText), wx.VERTICAL)))
 
-		# Used to ensure that event handlers call Skip(). Not calling skip can cause focus problems for controls. More 
+		# Used to ensure that event handlers call Skip(). Not calling skip can cause focus problems for controls. More
 		# generally the advice on the wx documentation is: "In general, it is recommended to skip all non-command events
-		# to allow the default handling to take place. The command events are, however, normally not skipped as usually 
+		# to allow the default handling to take place. The command events are, however, normally not skipped as usually
 		# a single command such as a button click or menu item selection must only be processed by one handler."
 		def skipEventAndCall(handler):
 			def wrapWithEventSkip(event):
@@ -294,7 +295,6 @@ class UnicodeDicDialog(SettingsDialog):
 				return handler()
 			return wrapWithEventSkip
 
-		
 		# Translators: The label for the edit field in symbol pronunciation dialog to change the replacement text of a symbol.
 		replacementText = _("&Replacement")
 		self.replacementEdit = changeSymbolHelper.addLabeledControl(replacementText, wx.TextCtrl)
@@ -332,13 +332,11 @@ class UnicodeDicDialog(SettingsDialog):
 		self.symbolsList.SetFocus()
 
 	def load(self, path):
-		symbol = self.A8M_symbol = A8M_PM.load_unicode_dic(path)
-
+		self.A8M_symbol = A8M_PM.load_unicode_dic(path)
 		symbols = self.symbols = [list(i) for i in self.A8M_symbol.items()]
 		for origin, replacement in symbols:
 			item = self.symbolsList.Append((origin, replacement, ))
 			self.updateListItem(item, replacement)
-
 		return True
 
 	def save(self, path, symbol):
@@ -372,7 +370,7 @@ class UnicodeDicDialog(SettingsDialog):
 		self.editingItem = item
 		# ChangeValue and Selection property used because they do not cause EVNT_CHANGED to be fired.
 		self.replacementEdit.ChangeValue(symbol[1])
-		#self.removeButton.Enabled = not self.symbolProcessor.isBuiltin(symbol.identifier)
+		# self.removeButton.Enabled = not self.symbolProcessor.isBuiltin(symbol.identifier)
 		self.removeButton.Enable()
 		self.replacementEdit.Enable()
 		evt.Skip()
@@ -387,8 +385,10 @@ class UnicodeDicDialog(SettingsDialog):
 		for index, symbol in enumerate(self.symbols):
 			if identifier == symbol[0]:
 				# Translators: An error reported in the Symbol Pronunciation dialog when adding a symbol that is already present.
-				gui.messageBox(_('Symbol "%s" is already present.') % identifier,
-					_("Error"), wx.OK | wx.ICON_ERROR)
+				gui.messageBox(
+					_('Symbol "%s" is already present.') % identifier,
+					_("Error"), wx.OK | wx.ICON_ERROR
+				)
 				self.symbolsList.Select(index)
 				self.symbolsList.Focus(index)
 				self.symbolsList.SetFocus()
@@ -403,7 +403,7 @@ class UnicodeDicDialog(SettingsDialog):
 
 	def OnRemoveClick(self, evt):
 		index = self.symbolsList.GetFirstSelected()
-		symbol = self.symbols[index]
+		self.symbols[index]
 		# Deleting from self.symbolsList focuses the next item before deleting,
 		# so it must be done *before* we delete from self.symbols.
 		self.symbolsList.DeleteItem(index)
@@ -418,11 +418,10 @@ class UnicodeDicDialog(SettingsDialog):
 	def OnRecoverDefaultClick(self, evt):
 		path = base_path
 		if not self.language == 'Windows':
-			path = base_path +'/locale/{0}'.format(self.language)
-		pathname = os.path.join(path, 'unicode.dic')
+			path = os.path.join(base_path, 'locale', self.language, 'unicode.dic')
 
 		self.clear()
-		self.load(pathname)
+		self.load(path)
 
 	def OnImportClick(self, evt):
 		with wx.FileDialog(self, message=_("Import file..."), defaultDir=base_path, wildcard="dictionary files (*.dic)|*.dic") as entryDialog:
@@ -454,7 +453,7 @@ class UnicodeDicDialog(SettingsDialog):
 			self.A8M_symbol[symbol[0]] = symbol[1]
 
 		try:
-			A8M_PM.save_unicode_dic(self.A8M_symbol, language=self.language)
+			A8M_PM.save_unicode_dic(self.A8M_symbol, language=self.language, category=self.category)
 		except IOError as e:
 			log.error("Error saving user unicode dictionary: %s" % e)
 
@@ -462,13 +461,14 @@ class UnicodeDicDialog(SettingsDialog):
 
 		super().onOk(evt)
 
+
 class RuleEntryDialog(wx.Dialog):
 	def __init__(self, parent, mathrule, title=_("Edit Math Rule Entry")):
-		super().__init__(parent,title=title)
+		super().__init__(parent, title=title)
 		self.mathrule = mathrule
 		self.mathrule_child_count = len(self.mathrule[1].role)
 		childChoices = [str(i) for i in range(self.mathrule_child_count)]
-		mainSizer=wx.BoxSizer(wx.VERTICAL)
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		sHelper = guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
 		labelText = _("&description")
@@ -485,7 +485,7 @@ class RuleEntryDialog(wx.Dialog):
 		groupLabelText = _("Serialized ordering")
 		serializedOrderingGroup = guiHelper.BoxSizerHelper(self, sizer=wx.StaticBoxSizer(wx.StaticBox(self, label=groupLabelText), wx.VERTICAL))
 		for index, item in enumerate(self.mathrule[1].serialized_order):
-			groupLabelText = _("Ordering %d")%(index)
+			groupLabelText = _("Ordering %d") % (index)
 			itemGroup = guiHelper.BoxSizerHelper(self, sizer=wx.StaticBoxSizer(wx.StaticBox(self, label=groupLabelText), wx.HORIZONTAL))
 			if isinstance(item, int):
 				labelText = _("Child")
@@ -494,22 +494,22 @@ class RuleEntryDialog(wx.Dialog):
 				self.so_widgets.append(widget)
 			elif isinstance(item, tuple):
 				# before item
-				labelText = _("Before item text &%d")%(index)
+				labelText = _("Before item text &%d") % (index)
 				widget = itemGroup.addLabeledControl(labelText, wx.TextCtrl)
 				widget.SetValue(item[0])
 				self.so_widgets.append(widget)
 				# after item
-				labelText = _("After item text &%d")%(index)
+				labelText = _("After item text &%d") % (index)
 				widget = itemGroup.addLabeledControl(labelText, wx.TextCtrl)
 				widget.SetValue(item[1])
 				self.so_widgets.append(widget)
 			else:
-				if index==0:
-					labelText = _("Start text &%d")%(index)
-				elif index == len(self.mathrule[1].serialized_order)-1:
-					labelText = _("End text &%d")%(index)
+				if index == 0:
+					labelText = _("Start text &%d") % (index)
+				elif index == len(self.mathrule[1].serialized_order) - 1:
+					labelText = _("End text &%d") % (index)
 				else:
-					labelText = _("&Interval text &%d")%(index)
+					labelText = _("&Interval text &%d") % (index)
 				widget = itemGroup.addLabeledControl(labelText, wx.TextCtrl)
 				widget.SetValue(str(item))
 				self.so_widgets.append(widget)
@@ -520,15 +520,15 @@ class RuleEntryDialog(wx.Dialog):
 		groupLabelText = _("Child role")
 		childRoleGroup = guiHelper.BoxSizerHelper(self, sizer=wx.StaticBoxSizer(wx.StaticBox(self, label=groupLabelText), wx.VERTICAL))
 		for index, item in enumerate(self.mathrule[1].role):
-			labelText = _("&Child %d meaning")%(index)
+			labelText = _("&Child %d meaning") % (index)
 			widget = childRoleGroup.addLabeledControl(labelText, wx.TextCtrl)
 			widget.SetValue(str(item))
 			self.role_widgets.append(widget)
 		sHelper.addItem(childRoleGroup)
 
-		sHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK|wx.CANCEL))
+		sHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 
-		mainSizer.Add(sHelper.sizer,border=20,flag=wx.ALL)
+		mainSizer.Add(sHelper.sizer, border=20, flag=wx.ALL)
 		mainSizer.Fit(self)
 		self.SetSizer(mainSizer)
 
@@ -537,9 +537,9 @@ class RuleEntryDialog(wx.Dialog):
 		except:
 			pass
 
-		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
+		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 
-	def onOk(self,evt):
+	def onOk(self, evt):
 
 		self.mathrule[1].description = self.descriptionWidget.GetValue()
 
@@ -559,25 +559,26 @@ class RuleEntryDialog(wx.Dialog):
 		except Exception as e:
 			log.debugWarning("Could not add dictionary entry due to (regex error) : %s" % e)
 			# Translators: This is an error message to let the user know that the dictionary entry is not valid.
-			gui.messageBox(_("Regular Expression error: \"%s\".")%e, _("Dictionary Entry Error"), wx.OK|wx.ICON_WARNING, self)
-			return 
+			gui.messageBox(_("Regular Expression error: \"%s\".") % e, _("Dictionary Entry Error"), wx.OK | wx.ICON_WARNING, self)
+			return
 		evt.Skip()
 
+
 class MathRuleDialog(SettingsDialog):
-	def __init__(self,parent, Access8MathConfig, language):
+	def __init__(self, parent, Access8MathConfig, language, category):
 		self.Access8MathConfig = Access8MathConfig
 		self.language = language
+		self.category = category
 		try:
-				mathrule = A8M_PM.load_math_rule(language=self.language)
+				mathrule = A8M_PM.load_math_rule(language=self.language, category=category)
 		except LookupError:
-				mathrule = A8M_PM.load_math_rule(language='Windows')
+				mathrule = A8M_PM.load_math_rule(language='Windows', category=category)
 
 		self.A8M_mathrule = mathrule
-		# Translators: This is the label for the symbol pronunciation dialog.
-		# %s is replaced by the language for which symbol pronunciation is being edited.
-		self.title = _("math rule (%s)")%self.language
-		#self.mathrules = list(self.A8M_mathrule.items())
-		self.mathrules = [(k, v) for k, v in self.A8M_mathrule.items() if k not in ['node', 'none'] ]
+		# Translators: This is the label for the math rule dialog.
+		self.title = _("{category} math rule ({language})").format(language=self.language, category=category)
+		# self.mathrules = list(self.A8M_mathrule.items())
+		self.mathrules = [(k, v) for k, v in self.A8M_mathrule.items() if k not in ['node', 'none']]
 		super().__init__(parent)
 
 	def makeSettings(self, settingsSizer):
@@ -585,10 +586,10 @@ class MathRuleDialog(SettingsDialog):
 		# Translators: The label for symbols list in symbol pronunciation dialog.
 		mathrulesText = _("&Mathrules")
 		try:
-			#NVDA version >= 2019.2 syntax with autoSizeColumn keyword
+			# NVDA version >= 2019.2 syntax with autoSizeColumn keyword
 			self.mathrulesList = sHelper.addLabeledControl(mathrulesText, nvdaControls.AutoWidthColumnListCtrl, autoSizeColumn=0, style=wx.LC_REPORT | wx.LC_SINGLE_SEL)
 		except TypeError:
-			#NVDA version <= 2019.1.1 syntax with autoSizeColumnIndex keyword
+			# NVDA version <= 2019.1.1 syntax with autoSizeColumnIndex keyword
 			self.mathrulesList = sHelper.addLabeledControl(mathrulesText, nvdaControls.AutoWidthColumnListCtrl, autoSizeColumnIndex=0, style=wx.LC_REPORT | wx.LC_SINGLE_SEL)
 		# Translators: The label for a column in symbols list used to identify a symbol.
 		self.mathrulesList.InsertColumn(0, _("Rule"))
@@ -598,9 +599,9 @@ class MathRuleDialog(SettingsDialog):
 
 		self.mathrulesList.Bind(wx.EVT_LIST_ITEM_FOCUSED, self.onListItemFocused)
 
-		# Used to ensure that event handlers call Skip(). Not calling skip can cause focus problems for controls. More 
+		# Used to ensure that event handlers call Skip(). Not calling skip can cause focus problems for controls. More
 		# generally the advice on the wx documentation is: "In general, it is recommended to skip all non-command events
-		# to allow the default handling to take place. The command events are, however, normally not skipped as usually 
+		# to allow the default handling to take place. The command events are, however, normally not skipped as usually
 		# a single command such as a button click or menu item selection must only be processed by one handler."
 		def skipEventAndCall(handler):
 			def wrapWithEventSkip(event):
@@ -638,9 +639,9 @@ class MathRuleDialog(SettingsDialog):
 		self.mathrulesList.SetFocus()
 
 	def load(self, path):
-		mathrule = self.A8M_mathrule = A8M_PM.load_math_rule(path)
+		self.A8M_mathrule = A8M_PM.load_math_rule(path)
 
-		self.mathrules = [(k, v) for k, v in self.A8M_mathrule.items() if k not in ['node', 'none'] ]
+		self.mathrules = [(k, v) for k, v in self.A8M_mathrule.items() if k not in ['node', 'none']]
 		self.refresh()
 
 		return True
@@ -669,7 +670,7 @@ class MathRuleDialog(SettingsDialog):
 		index = self.mathrulesList.GetFirstSelected()
 		mathrule = copy.deepcopy(self.mathrules[index])
 		entryDialog = RuleEntryDialog(self, mathrule)
-		if entryDialog.ShowModal()==wx.ID_OK:
+		if entryDialog.ShowModal() == wx.ID_OK:
 			self.mathrules[index] = copy.deepcopy(entryDialog.mathrule)
 
 			for key, mathrule in self.mathrules:
@@ -696,11 +697,10 @@ class MathRuleDialog(SettingsDialog):
 	def OnRecoverDefaultClick(self, evt):
 		path = base_path
 		if not self.language == 'Windows':
-			path = base_path +'/locale/{0}'.format(self.language)
-		pathname = os.path.join(path, 'math.rule')
+			path = os.path.join(base_path, 'locale', self.language, 'math.rule')
 
 		self.clear()
-		self.load(pathname)
+		self.load(path)
 
 	def OnImportClick(self, evt):
 		with wx.FileDialog(self, message=_("Import file..."), defaultDir=base_path, wildcard="rule files (*.rule)|*.rule") as entryDialog:
@@ -733,7 +733,7 @@ class MathRuleDialog(SettingsDialog):
 			self.A8M_mathrule[key] = mathrule
 
 		try:
-			A8M_PM.save_math_rule(self.A8M_mathrule, language=self.language)
+			A8M_PM.save_math_rule(self.A8M_mathrule, language=self.language, category=self.category)
 		except IOError as e:
 			log.error("Error saving user unicode dictionary: %s" % e)
 
@@ -741,25 +741,26 @@ class MathRuleDialog(SettingsDialog):
 
 		super().onOk(evt)
 
+
 class NewLanguageAddingDialog(wx.Dialog):
 	def __init__(self, parent):
 		super().__init__(parent, title=_("New language adding"))
 		import languageHandler
-		self.mainSizer=wx.BoxSizer(wx.VERTICAL)
+		self.mainSizer = wx.BoxSizer(wx.VERTICAL)
 		self.sHelper = guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 
-		exist_languages = os.listdir(os.path.join(base_path, 'locale'))
+		exist_languages = os.listdir(os.path.join(base_path, 'locale', 'speech'))
 		self.languageNames = languageHandler.getAvailableLanguages()[:-1]
 		self.languageNames = [x for x in self.languageNames if not x[0] in exist_languages]
 		languageChoices = [x[1] for x in self.languageNames]
 		# Translators: The label for a setting in general settings to select NVDA's interface language (once selected, NVDA must be restarted; the option user default means the user's Windows language will be used).
 		languageLabelText = _("&Language:")
-		self.languageList=self.sHelper.addLabeledControl(languageLabelText, wx.Choice, choices=languageChoices)
+		self.languageList = self.sHelper.addLabeledControl(languageLabelText, wx.Choice, choices=languageChoices)
 		self.languageIndex = self.languageList.Selection = 0
 
 		languageListSize = self.languageList.GetSize()
 		self.certainLanguageList = self.sHelper.addItem(wx.Choice(self, size=languageListSize))
-		#self.certainLanguageList=self.sHelper.addLabeledControl(languageLabelText, wx.Choice, choices=[], size=languageListSize)
+		# self.certainLanguageList=self.sHelper.addLabeledControl(languageLabelText, wx.Choice, choices=[], size=languageListSize)
 		self.certainLanguageList.Hide()
 
 		self.certainButton = self.sHelper.addItem(wx.Button(self, label=_("&Select")))
@@ -770,7 +771,7 @@ class NewLanguageAddingDialog(wx.Dialog):
 		self.uncertainButton.Bind(wx.EVT_BUTTON, self.OnUncertainClick)
 		self.uncertainButton.Hide()
 
-		#bHelper = sHelper.addItem(guiHelper.ButtonHelper(orientation=wx.HORIZONTAL))
+		# bHelper = sHelper.addItem(guiHelper.ButtonHelper(orientation=wx.HORIZONTAL))
 		self.bHelper = guiHelper.ButtonHelper(orientation=wx.HORIZONTAL)
 
 		# Add button
@@ -799,8 +800,14 @@ class NewLanguageAddingDialog(wx.Dialog):
 	def OnCertainClick(self, evt):
 		self.languageIndex = self.languageList.Selection
 		self.certainLanguage = self.languageNames[self.languageIndex][0]
-		src = os.path.join(base_path, 'locale', 'en')
-		dst = os.path.join(base_path, 'locale', self.certainLanguage)
+		src = os.path.join(base_path, 'locale', 'speech', 'en')
+		dst = os.path.join(base_path, 'locale', 'speech', self.certainLanguage)
+		try:
+			shutil.copytree(src, dst, ignore=shutil.ignore_patterns('*_user.*'))
+		except:
+			return
+		src = os.path.join(base_path, 'locale', 'braille', 'en')
+		dst = os.path.join(base_path, 'locale', 'braille', self.certainLanguage)
 		try:
 			shutil.copytree(src, dst, ignore=shutil.ignore_patterns('*_user.*'))
 		except:
@@ -819,7 +826,7 @@ class NewLanguageAddingDialog(wx.Dialog):
 		self.uncertainButton.SetFocus()
 
 		self.mainSizer.Fit(self)
-		#self.mainSizer.Layout()
+		# self.mainSizer.Layout()
 		self.SetSizer(self.mainSizer)
 
 	def OnUncertainClick(self, evt):
@@ -845,7 +852,7 @@ class NewLanguageAddingDialog(wx.Dialog):
 		self.certainButton.SetFocus()
 
 		self.mainSizer.Fit(self)
-		#self.mainSizer.Layout()
+		# self.mainSizer.Layout()
 		self.SetSizer(self.mainSizer)
 
 	def OnUnicodeDicClick(self, evt):
@@ -869,9 +876,9 @@ class NewLanguageAddingDialog(wx.Dialog):
 			# Translators: The message displayed
 			_("For the new language to add, NVDA must be restarted. Press enter to restart NVDA, or cancel to exit at a later time."),
 			# Translators: The title of the dialog
-			_("New language add"),wx.OK|wx.CANCEL|wx.ICON_WARNING,self
-		)==wx.OK:
-			queueHandler.queueFunction(queueHandler.eventQueue,core.restart)
+			_("New language add"), wx.OK | wx.CANCEL | wx.ICON_WARNING, self
+		) == wx.OK:
+			queueHandler.queueFunction(queueHandler.eventQueue, core.restart)
 		self.Destroy()
 
 
@@ -881,8 +888,7 @@ try:
 	available_languages = getAvailableLanguages(path)
 	available_languages = [i for i in available_languages if i[0] != "braille"]
 	available_languages = available_languages[:-1]
-except BaseException as e:
+except:
 	available_languages = []
 
-# available_languages.append(("Windows", _("build-in")))
 available_languages_dict = {k: v for k, v in available_languages}

@@ -1,7 +1,6 @@
 # coding=utf-8
 # Copyright (C) 2017-2021 Tseng Woody <tsengwoody.tw@gmail.com>
 
-import xml
 from xml.etree import ElementTree as ET
 
 import collections
@@ -10,15 +9,11 @@ import inspect
 import io
 import os
 import re
-import sys
 import weakref
-
-import brailleTables
-import config
-import louisHelper
 
 AUTO_GENERATE = 0
 DIC_GENERATE = 1
+
 
 def mathml2etree(mathml):
 	"""
@@ -30,12 +25,12 @@ def mathml2etree(mathml):
 
 	gtlt_pattern = re.compile(r"([\>])(.*?)([\<])")
 	mathml = gtlt_pattern.sub(
-					lambda m: m.group(1) +html.escape(html.unescape(m.group(2))) +m.group(3),
-					mathml
+		lambda m: m.group(1) + html.escape(html.unescape(m.group(2))) + m.group(3),
+		mathml
 	)
 
 	quote_pattern = re.compile(r"=([\"\'])(.*?)\1")
-	mathml = quote_pattern.sub(lambda m: '=' +m.group(1) +html.escape(m.group(2)) +m.group(1), mathml)
+	mathml = quote_pattern.sub(lambda m: '=' + m.group(1) + html.escape(m.group(2)) + m.group(1), mathml)
 
 	parser = ET.XMLParser()
 
@@ -44,6 +39,7 @@ def mathml2etree(mathml):
 	except BaseException as error:
 		raise SystemError(error)
 	return tree
+
 
 def create_node(et):
 	p_tag = re.compile(r"[\{].*[\}](?P<mp_type>.+)")
@@ -115,11 +111,13 @@ def clean_allnode(node):
 
 	return node
 
+
 def set_mathcontent_allnode(node, mathcontent):
 	for child in node.child:
 		set_mathcontent_allnode(child, mathcontent)
 	node.mathcontent = mathcontent
 	return node
+
 
 def set_mathrule_allnode(node, mathrule):
 	for child in node.child:
@@ -133,6 +131,7 @@ def set_braillemathrule_allnode(node, braillemathrule):
 		set_braillemathrule_allnode(child, braillemathrule)
 	node.set_braillemathrule(braillemathrule)
 	return node
+
 
 def clear_type_allnode(node):
 	for child in node.child:
@@ -161,6 +160,7 @@ def check_in_allnode(node, check_node):
 
 class MathContent(object):
 	def __init__(self, language, mathMl):
+		self.raw_mathMl = mathMl
 		et = mathml2etree(mathMl)
 		self.root = self.pointer = create_node(et)
 		set_mathcontent_allnode(self.root, self)
@@ -172,8 +172,8 @@ class MathContent(object):
 		mathrule = load_math_rule(language=language)
 		self.set_mathrule(mathrule)
 
-		self.braillesymbol = load_unicode_dic(language="braille")
-		braillemathrule = load_math_rule(language="braille")
+		self.braillesymbol = load_unicode_dic(language=language, category="braille")
+		braillemathrule = load_math_rule(language=language, category="braille")
 		self.set_braillemathrule(braillemathrule)
 
 	def set_mathrule(self, mathrule):
@@ -396,9 +396,10 @@ class Node(object):
 		return string
 
 	def braillesymbol_translate(self, string):
-		BRAILLE_UNICODE_PATTERNS_START = 0x2800
-		brailleCells, brailleToRawPos, rawToBraillePos, brailleCursorPos = louisHelper.translate([os.path.join(brailleTables.TABLES_DIR, config.conf["braille"]["translationTable"]), "braille-patterns.cti"], string, mode=4)
-		return "".join([chr(BRAILLE_UNICODE_PATTERNS_START + cell) for cell in brailleCells])
+		symbol_order = sorted(list(self.mathcontent.braillesymbol.items()), key=lambda i: -len(i[0]))
+		for key, value in symbol_order:
+			string = string.replace(key, value)
+		return string
 
 	def get_mathml(self):
 		mathml = ''
@@ -543,13 +544,13 @@ class TerminalNode(Node):
 	def set_rule(self):
 		try:
 			super().set_rule()
-		except BaseException as e:
+		except:
 			self.rule = [str(self.symbol_translate(self.data))]
 
 	def set_braillerule(self):
 		try:
 			super().set_braillerule()
-		except BaseException as e:
+		except:
 			self.braillerule = [str(self.braillesymbol_translate(self.data))]
 
 	def get_mathml(self):
@@ -715,7 +716,11 @@ class Mtable(AlterNode):
 		row_count = len(self.child)
 		column_count_list = [len(i.child) for i in self.child]
 		column_count = max(column_count_list)
-		table_head = [rule[0] + '{0}{1}{2}{3}{4}'.format(self.symbol_translate('has'), row_count, self.symbol_translate('row'), column_count, self.symbol_translate('column'))]
+		table_head = [rule[0] + '{0}{1}{2}{3}{4}'.format(
+			self.symbol_translate('has'),
+			row_count, self.symbol_translate('row'),
+			column_count, self.symbol_translate('column')
+		)]
 		cell = rule[1:-1]
 		table_tail = rule[-1:]
 		self.rule = table_head + cell + table_tail
@@ -734,9 +739,6 @@ class Mtr(AlterNode):
 		rule = self.rule
 		cell = rule[1:-1]
 		self.rule = rule[:1] + cell + rule[-1:]
-
-class Mlabeledtr(AlterNode):
-	pass
 
 
 class Mtd(AlterNode):
@@ -793,10 +795,9 @@ class Mtext(TerminalNode):
 
 class Mspace(TerminalNode):
 	def set_rule(self):
-		self.rule = [str(self.symbol_translate(self.data)) if not self.data == '' else str(self.symbol_translate("empty"))]
-
-class Mlabeledtr(AlterNode):
-	pass
+		self.rule = [
+			str(self.symbol_translate(self.data)) if not self.data == '' else str(self.symbol_translate("empty"))
+		]
 
 
 class Ms(TerminalNode):
@@ -1413,17 +1414,15 @@ class MathRule(object):
 		self.example = example
 
 
-def load_unicode_dic(path=None, language=''):
+def load_unicode_dic(path=None, language='', category='speech'):
 	if not path and language:
 		path = os.path.dirname(os.path.abspath(__file__))
-		if language != 'Windows' and language != 'braille':
-			path = path + '/locale/{0}'.format(language)
-		elif language == 'braille':
-			path = path + '/locale/braille'
+		if language != 'Windows':
+			path = os.path.join(path, 'locale', category, language)
 		else:
-			path = path + '/locale/default'
-
+			path = os.path.join(path, 'locale', category, 'default')
 	frp = os.path.join(path, 'unicode.dic')
+
 	frp_user = os.path.join(path, 'unicode_user.dic')
 	if not os.path.exists(frp_user):
 		with io.open(frp, 'r', encoding='utf-8') as fr, io.open(frp_user, 'w', encoding='utf-8') as fr_user:
@@ -1442,18 +1441,17 @@ def load_unicode_dic(path=None, language=''):
 	return symbol
 
 
-def load_math_rule(path=None, language=''):
+def load_math_rule(path=None, language='', category='speech'):
 	math_example_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'math.example')
+
 	if not path and language:
 		path = os.path.dirname(os.path.abspath(__file__))
-		if language != 'Windows' and language != 'braille':
-			path = path + '/locale/{0}'.format(language)
-		elif language == 'braille':
-			path = path + '/locale/braille'
+		if language != 'Windows':
+			path = os.path.join(path, 'locale', category, language)
 		else:
-			path = path + '/locale/default'
-
+			path = os.path.join(path, 'locale', category, 'default')
 	frp = os.path.join(path, 'math.rule')
+
 	frp_user = os.path.join(path, 'math_user.rule')
 	if not os.path.exists(frp_user):
 		with io.open(frp, 'r', encoding='utf-8') as fr, io.open(frp_user, 'w', encoding='utf-8') as fr_user:
@@ -1504,13 +1502,13 @@ def load_math_rule(path=None, language=''):
 	return mathrule
 
 
-def save_unicode_dic(symbol, path=None, language=''):
+def save_unicode_dic(symbol, path=None, language='', category='speech'):
 	if not path and language:
 		path = os.path.dirname(os.path.abspath(__file__))
 		if language != 'Windows':
-			path = path + '/locale/{0}'.format(language)
+			path = os.path.join(path, 'locale', category, language)
 		else:
-			path = path + '/locale/default'
+			path = os.path.join(path, 'locale', category, 'default')
 		path = os.path.join(path, 'unicode_user.dic')
 
 	with io.open(path, 'w', encoding='utf-8') as f:
@@ -1524,13 +1522,13 @@ def save_unicode_dic(symbol, path=None, language=''):
 	return True
 
 
-def save_math_rule(mathrule, path=None, language=''):
+def save_math_rule(mathrule, path=None, language='', category='speech'):
 	if not path and language:
 		path = os.path.dirname(os.path.abspath(__file__))
 		if language != 'Windows':
-			path = path + '/locale/{0}'.format(language)
+			path = os.path.join(path, 'locale', category, language)
 		else:
-			path = path + '/locale/default'
+			path = os.path.join(path, 'locale', category, 'default')
 		path = os.path.join(path, 'math_user.rule')
 
 	mathrule_unicode = {}
@@ -1550,13 +1548,6 @@ def save_math_rule(mathrule, path=None, language=''):
 	return True
 
 
-def symbol_translate(u):
-	symbol_order = sorted(list(symbol.items()), key=lambda i: -len(i[0]))
-	for key, value in symbol_order:
-		u = u.replace(key, value)
-	return u
-
-
 def initialize(Access8MathConfig):
 	global nodetypes_check
 	nodetypes_check = []
@@ -1571,18 +1562,12 @@ def initialize(Access8MathConfig):
 		if not Access8MathConfig["settings"]["analyze_math_meaning"]:
 			nodetypes_check = []
 
-		# SNT_check = []
-		# for i in SNT:
-			# if i.__name__ in Access8MathConfig["rules"]:
-				# if Access8MathConfig["rules"][i.__name__]:
-					# SNT_check.append(globals()[i.__name__])
-			# else:
-				# SNT_check.append(globals()[i.__name__])
 
 def ComplementMethod(method):
 	def decorator(cls, obj):
 		return not method(obj)
 	return decorator
+
 
 # get class which is Node subclass
 nodes = {i.__name__: i for i in locals().values() if inspect.isclass(i) and issubclass(i, Node)}
@@ -1767,6 +1752,7 @@ mathrule_order = {
 	],
 }
 
+
 def mathrule_validate(mathrule, validator):
 	result = True
 	if not len(mathrule.serialized_order) == validator[0]:
@@ -1791,6 +1777,7 @@ def mathrule_validate(mathrule, validator):
 	else:
 		pass
 	return result
+
 
 initialize(None)
 

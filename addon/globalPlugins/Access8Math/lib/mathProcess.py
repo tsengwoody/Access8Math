@@ -1,14 +1,22 @@
 ﻿from functools import wraps
 import html
 import re
-import sys
 
+from regularExpression import delimiterRegularExpression
+
+from xml.etree.ElementTree import tostring
 from latex2mathml import converter
+from asciimathml import parse
+from py_asciimath.translator.translator import (
+	ASCIIMath2MathML,
+	ASCIIMath2Tex,
+	MathML2Tex,
+	Tex2ASCIIMath
+)
 
-def latex2mathml(latex):
-	mathml = converter.convert(latex)
-	mathml = html.unescape(mathml)
-	return mathml
+asciimath2mathmlObj = None
+latex2asciimathObj = None
+asciimath2latexObj = None
 
 translate_dict = {
 	ord("$"): r"\$",
@@ -17,20 +25,86 @@ translate_dict = {
 	ord("\\"): r"\\",
 }
 
-def textmath2laObjEdit(LaTeX_delimiter):
+LaTeX_delimiter = {
+	"latex": {
+		"start": r"\l",
+		"end": r"\l",
+		"type": "latex",
+	},
+	"bracket": {
+		"start": r"\(",
+		"end": r"\)",
+		"type": "latex",
+	},
+	"dollar": {
+		"start": "$",
+		"end": "$",
+		"type": "latex",
+	},
+}
+
+AsciiMath_delimiter = {
+	"asciimath": {
+		"start": r"\a",
+		"end": r"\a",
+		"type": "asciimath",
+	},
+	"graveaccent": {
+		"start": "`",
+		"end": "`",
+		"type": "asciimath",
+	},
+}
+
+delimiter_dict = {**AsciiMath_delimiter, **LaTeX_delimiter}
+
+def latex2mathml(data):
+	mathml = converter.convert(data)
+	mathml = html.unescape(mathml)
+	return mathml
+
+def asciimath2mathml(data):
+	global asciimath2mathmlObj
+	if not asciimath2mathmlObj:
+		asciimath2mathmlObj = ASCIIMath2MathML()
+	return asciimath2mathmlObj.translate(
+		data,
+		dtd="mathml3",
+		xml_pprint=False,
+	)
+
+def latex2asciimath(data):
+	global latex2asciimathObj
+	if not latex2asciimathObj:
+		latex2asciimathObj = Tex2ASCIIMath()
+	return latex2asciimathObj.translate(data)
+
+def asciimath2latex(data):
+	global asciimath2latexObj
+	if not asciimath2latexObj:
+		asciimath2latexObj = ASCIIMath2Tex()
+	return asciimath2latexObj.translate(data)
+
+def asciimath2mathmlO(asciimath):
+	return tostring(parse(asciimath)).decode("utf-8")
+
+def textmath2laObjFactory(delimiter):
 	def wrapper(input):
-		restring = r"{delimiter_start}.*?{delimiter_end}".format(
-			delimiter_start=LaTeX_delimiter["start"].translate(translate_dict),
-			delimiter_end=LaTeX_delimiter["end"].translate(translate_dict),
-		)
+		delimiter_regular_expression = delimiterRegularExpression(delimiter)
+		restring = "|".join(list(delimiter_regular_expression.values()))
 		reTexMath = re.compile(restring)
-		delimiter_start_length = len(LaTeX_delimiter["start"])
-		delimiter_end_length = len(LaTeX_delimiter["end"])
 
 		point = []
 		maths = reTexMath.finditer(input)
 		previous = None
 		index = 0
+		count = {
+			"all": 0,
+			"text": 0,
+			"latex": 0,
+			"asciimath": 0,
+			"line": 0,
+		}
 		for index, item in enumerate(maths):
 			if not previous:
 				start = 0
@@ -40,116 +114,84 @@ def textmath2laObjEdit(LaTeX_delimiter):
 				end = item.start(0)
 
 			if start != end:
-				point.append({
-					"start": start,
-					"end": end,
-					"type": "text",
-					"data": input[start:end],
-					"index": index,
-				})
+				raw = data = input[start:end]
+				offset = 0
+				first = True
+				lines = raw.split("\n")
+				for line in lines:
+					if not first:
+						count['line'] += 1
+					first = False
+					start_index = start + offset
+					end_index = start + offset + len(line) + 1
+					point.append({
+						"start": start_index,
+						"end": end_index,
+						"type": "text",
+						"raw": raw[offset:offset + len(line) + 1],
+						"data": data[offset:offset + len(line)],
+						"index": count['all'],
+						"line": count['line'],
+					})
+					offset = offset + len(line) + 1
+					count['all'] += 1
+				point[-1]["end"] -= 1
 
 			start = item.start(0)
 			end = item.end(0)
+			raw = item.group(0)
+			# delimiterObj = list(filter(lambda item: raw.startswith(item["start"]), delimiter_dict.values()))[0]
+			# data = raw[len(delimiterObj["start"]):-len(delimiterObj["end"])]
+			data = item.group("latex") or item.group("latex_start") or item.group("asciimath") or item.group("asciimath_start") or item.group("mathml")
+			if not data:
+				data = ''
+
+			if item.group("ld_start") or item.group("lsd_start"):
+				type_ = "latex"
+			elif item.group("ad_start") or item.group("asd_start"):
+				type_ = "asciimath"
+			elif item.group("mathml"):
+				type_ = "mathml"
+			else:
+				raise TypeError(item.group(0))
+
 			point.append({
 				"start": start,
 				"end": end,
-				"type": "math",
-				"data": input[start:end],
-				"index": index,
+				"type": type_,
+				"raw": raw,
+				"data": data,
+				"index": count['all'],
+				"line": count['line'],
 			})
+			count['all'] += 1
 			previous = item
 
 		start = previous.end(0) if previous else 0
 		end = len(input)
-		point.append({
-			"start": start,
-			"end": end,
-			"type": "text",
-			"data": input[start:end],
-			"index": index+1 if previous else 0,
-		})
+		raw = data = input[start:end]
+		offset = 0
+
+		first = True
+		lines = raw.split("\n")
+		for line in lines:
+			if not first:
+				count['line'] += 1
+			first = False
+			start_index = start + offset
+			end_index = start + offset + len(line) + 1
+			point.append({
+				"start": start_index,
+				"end": end_index,
+				"type": "text",
+				"raw": raw[offset:offset + len(line)],
+				"data": data[offset:offset + len(line)],
+				"index": count['all'],
+				"line": count['line'],
+			})
+			offset = offset + len(line) + 1
+			count['all'] += 1
+		point[-1]["end"] -= 1
 
 		return point
 	return wrapper
-
-def textmath2laObj(LaTeX_delimiter):
-	def wrapper(input):
-		backslash_pattern = re.compile(r"\\[^`]")
-		restring = r"{delimiter_start}.*?{delimiter_end}".format(
-			delimiter_start=LaTeX_delimiter["start"].translate(translate_dict),
-			delimiter_end=LaTeX_delimiter["end"].translate(translate_dict),
-		)
-		reTexMath = re.compile(restring)
-		delimiter_start_length = len(LaTeX_delimiter["start"])
-		delimiter_end_length = len(LaTeX_delimiter["end"])
-		text = reTexMath.split(input)
-		math = reTexMath.findall(input)
-		length = len(math)
-		datas = []
-
-		for i in range(length):
-			raw = text[i].replace('\r\n', '\n').strip('\n')
-			raw = backslash_pattern.sub(lambda m:m.group(0).replace('\\', '\\\\'), raw)
-			if raw != '':
-				datas.append({
-					'type': 'text-content',
-					'data': raw,
-				})
-			raw = math[i][delimiter_start_length: len(math[i])-delimiter_end_length]
-			raw = backslash_pattern.sub(lambda m:m.group(0).replace('\\', '\\\\'), raw)
-			datas.append({
-				'type': 'latex-content',
-				'data': raw,
-			})
-
-		raw = text[length].replace('\n', '').strip('\n')
-		raw = backslash_pattern.sub(lambda m:m.group(0).replace('\\', '\\\\'), raw)
-		if raw != '':
-			datas.append({
-				'type': 'text-content',
-					'data': raw,
-			})
-
-		return datas
-	return wrapper
-
-def laObj2mathObj(input):
-	result = []
-	for item in input:
-		if item['type'] == 'latex-content':
-			result.append({
-				'type': 'math-content',
-				'data': latex2mathml(item['data']),
-			})
-		else:
-			result.append({
-				'type': item['type'],
-				'data': item['data'],
-			})
-
-	return result
-
-def obj2html(data):
-	content = ''
-	result = ''
-	htmls = []
-	for item in data:
-		result = ''
-		if item['type'] == 'text-content':
-			temp = ''
-			for index, line in enumerate(item['data'].split("\n")):
-				if index != 0:
-					temp += '<br />'
-				temp += '{}'.format(line)
-			result = '{}'.format(temp)
-			content += result
-			htmls.append(result)
-		elif item['type'] == 'math-content':
-			result = '<div>{}</div>'.format(item['data'])
-			content += result
-			htmls.append(result)
-
-	return {
-		"content": content,
-		"htmls": htmls,
-	}

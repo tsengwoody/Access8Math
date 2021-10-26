@@ -25,9 +25,9 @@ class MenuModel:
 		result = False
 		if direction == "up" or direction == "down":
 			if direction == "up":
-				index = (self.path[-1] - 1)%self.count
+				index = (self.path[-1] - 1) % self.count
 			elif direction == "down":
-				index = (self.path[-1] + 1)%self.count
+				index = (self.path[-1] + 1) % self.count
 			if index >= 0 and index < self.count:
 				self.path[-1] = index
 				result = True

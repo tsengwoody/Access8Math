@@ -35,49 +35,51 @@
 	</head>
 	<body>
 		<div id="app">
-			<span v-for="(item, key) in data" :key="key">
-				<span v-if="item.type === 'text-content'">
-					<span v-if="item.data === ''"><br /></span>
-					<span v-else>{{ item.data }}</span>
-				</span>
-				<span
-					v-if="item.type === 'math-content' || item.type === 'html-content'"
-				>
-					<span v-html="item.data"></span>
-				</span>
-				<span v-if="item.type === 'latex-content'">
-					<span v-html="latex2mml(item.data)" class="sr-only"></span>
-					<span v-html="mml2svg(latex2mml(item.data))" aria-hidden="true"></span>
-				</span>
+			<span>
+				<span v-html="marked(raw)"/>
 			</span>
+			<!--<template v-for="(line, key) in content" :key="key">
+				<span><span v-html="line" /></span><br />
+			</template>-->
 		</div>
 		<script>
 			const {createApp, computed, ref} = Vue;
 			const Content = {
 				setup() {
-					const data = ref([
-						{% for item in data %}
-							{
-								type: `{|{ item.type }|}`,
-								data: `{|{ item.data }|}`,
-							},
-						{% endfor %}
-					])
+					textmath2laObj = textmath2laObj({
+						latex_delimiter: "{|{ LaTeX_delimiter }|}",
+						asciimath_delimiter: "graveaccent",
+					});
+					latex2mml = latex2mml({display: "{|{ display }|}"});
+					asciimath2mml = asciimath2mml({display: "{|{ display }|}"});
+					marked = marked({
+						latex_delimiter: "{|{ LaTeX_delimiter }|}",
+						asciimath_delimiter: "graveaccent",
+						display: "{|{ display }|}",
+					});
 
-					const handelContent = {
-						"text-content": (content) => content,
-						"latex-content": (content) => latex2mml(content),
-					};
-					const content = computed(() =>
-						data.value
-							.map((item) => handelContent[item.type](item.data))
-							.join("")
-					);
+					const raw = ref(`{|{ data }|}`);
+					const data = ref(textmath2laObj(`{|{ data }|}`));
+					const content = computed(() => {
+						return raw.value.replaceAll("\n\n", "\n").split("\n")
+						.map(line => {
+							return textmath2laObj(line)
+							.reduce((a, b) => {
+								let result;
+								if(b.type === "latex-content"){
+									result = `<span class="sr-only">${latex2mml(b.data)}</span><span aria-hidden="true">${mml2svg(latex2mml(b.data))}</span>`;
+								} else if (b.type === "asciimath-content"){
+									result = `<span class="sr-only">${asciimath2mml(b.data)}</span><span aria-hidden="true">${mml2svg(asciimath2mml(b.data))}</span>`;
+								} else {
+									result = `<span>${b.data}</span>`;
+								}
+								return a + result;
+							}, "")
+						})
+					})
 					return {
-						asciimath2mml: asciimath2mml({inline: ("{|{ display }|}" === "inline")}),
-						latex2mml: latex2mml({inline: ("{|{ display }|}" === "inline")}),
-						mml2svg,
-						data, content,
+						asciimath2mml, latex2mml, mml2svg, marked,
+						data, content, raw
 					}
 				},
 			}

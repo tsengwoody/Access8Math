@@ -11,6 +11,7 @@ import ui
 
 class MenuView(Window):
 	name = _("command")
+
 	def __init__(self, MenuModel, TextInfo):
 		self.parent = api.getFocusObject()
 		self.data = MenuModel()
@@ -21,7 +22,7 @@ class MenuView(Window):
 		if isinstance(gesture, KeyboardInputGesture):
 			if (gesture.mainKeyName in ["NVDA", "enter", "escape", "leftArrow", "rightArrow", "upArrow", "downArrow", "home", "end"] or "NVDA" in gesture.modifierNames):
 				return super().getScript(gesture)
-			elif gesture.mainKeyName in ["numpad{}".format(i) for i in range(1,10)] + ["numLock"]:
+			elif gesture.mainKeyName in ["numpad{}".format(i) for i in range(1, 10)] + ["numLock"]:
 				return super().getScript(gesture)
 		return lambda s: None
 
@@ -42,7 +43,7 @@ class MenuView(Window):
 		if self.data.pointer["type"] == "menu":
 			ui.message(_("subMenu"))
 		ui.message(_("{number} of {total}").format(
-			number=self.data.path[-1]+1,
+			number=self.data.path[-1] + 1,
 			total=self.data.count,
 		))
 
@@ -70,17 +71,20 @@ class MenuView(Window):
 			result = self.data.move(gesture.mainKeyName[:-5])
 		elif gesture.mainKeyName in ["home", "end"]:
 			result = self.data.move(gesture.mainKeyName)
-		if not result == True:
+		if result is not True:
 			tones.beep(100, 100)
 
 		self.syncTextInfoPosition()
 		ui.message(self.data.pointer["name"])
 		if "shortcut" in self.data.pointer and self.data.pointer["shortcut"] != "-1":
-			ui.message(_("f{shortcut}").format(shortcut=self.data.pointer["shortcut"]))
+			if self.data.pointer["shortcut"] in [str(i) for i in range(1, 13)]:
+				ui.message(_("f{shortcut}").format(shortcut=self.data.pointer["shortcut"]))
+			else:
+				ui.message(_("{shortcut}").format(shortcut=self.data.pointer["shortcut"]))
 		if self.data.pointer["type"] == "menu":
 			ui.message(_("subMenu"))
 		ui.message(_("{number} of {total}").format(
-			number=self.data.path[-1]+1,
+			number=self.data.path[-1] + 1,
 			total=self.data.count,
 		))
 

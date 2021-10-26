@@ -7,6 +7,9 @@ import tones
 import ui
 import wx
 
+from delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter, delimiter as delimiter_setting
+delimiter_dict = {**AsciiMath_delimiter, **LaTeX_delimiter}
+
 from .clipboard import clearClipboard
 from .models import MenuModel
 from .views import MenuView, MenuViewTextInfo
@@ -18,9 +21,8 @@ addonHandler.initTranslation()
 import os
 from python.csv import DictReader, DictWriter
 
-def load():
-	BASE_DIR = os.path.dirname(__file__)
-	path = os.path.join(BASE_DIR, 'latexs.csv')
+
+def load(path):
 	data = []
 	with open(path, 'r', encoding='utf-8') as src_file:
 		src_dict_csv = DictReader(src_file)
@@ -40,10 +42,8 @@ def load():
 
 	return data
 
-def save(latexAll):
-	print("YA")
-	BASE_DIR = os.path.dirname(__file__)
-	path = os.path.join(BASE_DIR, 'latexs.csv')
+
+def save(path, latexAll):
 	src_rows = []
 	with open(path, 'r', encoding='utf-8') as src_file:
 		src_dict_csv = DictReader(src_file)
@@ -67,13 +67,9 @@ def save(latexAll):
 		row.pop('shortcut')
 		old_rows.append(row)
 
-	for row in latexAll:
-		print(row)
-
 	shortcuts = [{"id": row["id"], "shortcut": row["shortcut"]} for row in latexAll]
 	rows = joinObjectArray(shortcuts, old_rows, "id")
 
-	path = os.path.join(BASE_DIR, 'latexs.csv')
 	with open(path, 'w', encoding='utf-8', newline='') as dst_file:
 		dst_dict_csv = DictWriter(dst_file, fieldnames=fields)
 		dst_dict_csv.writeheader()
@@ -82,7 +78,8 @@ def save(latexAll):
 
 	return rows
 
-def data2command(latexAll):
+
+def data2commandMap(latexAll):
 	data = {}
 	for row in latexAll:
 		id_ = row['id']
@@ -95,11 +92,12 @@ def data2command(latexAll):
 
 	return data
 
-def data2shortcut(latexAll):
+
+def data2shortcutMap(latexAll):
 	data = {}
 	for row in latexAll:
 		shortcut = row['shortcut']
-		if int(shortcut) >= 0:
+		if shortcut != -1:
 			id_ = row['id']
 			name = row['name']
 			data[shortcut] = {
@@ -110,6 +108,7 @@ def data2shortcut(latexAll):
 			}
 
 	return data
+
 
 def command(text, offset):
 	try:
@@ -134,7 +133,7 @@ def command(text, offset):
 	else:
 		wx.CallLater(100, clearClipboard)
 
-latexData = []
+
 latexMenuData = [
 	{
 		"id": "frac",
@@ -432,29 +431,175 @@ latexMenuData = [
 		"name": _("repeating decimal"),
 	},
 ]
+latexData = []
 latexAll = []
 latexShortcut = {}
 latexCommand = {}
 latexMenu = {}
 
+greekAlphabetMenuData = [
+	{
+		"id": "alpha",
+		# Translators: greek alphabet command - alpha
+		"name": _("alpha"),
+	},
+	{
+		"id": "beta",
+		# Translators: greek alphabet command - beta
+		"name": _("beta"),
+	},
+	{
+		"id": "gamma",
+		# Translators: greek alphabet command - gamma
+		"name": _("gamma"),
+	},
+	{
+		"id": "delta",
+		# Translators: greek alphabet command - delta
+		"name": _("delta"),
+	},
+	{
+		"id": "epsilon",
+		# Translators: greek alphabet command - epsilon
+		"name": _("epsilon"),
+	},
+	{
+		"id": "zeta",
+		# Translators: greek alphabet command - zeta
+		"name": _("zeta"),
+	},
+	{
+		"id": "eta",
+		# Translators: greek alphabet command - eta
+		"name": _("eta"),
+	},
+	{
+		"id": "theta",
+		# Translators: greek alphabet command - theta
+		"name": _("theta"),
+	},
+	{
+		"id": "iota",
+		# Translators: greek alphabet command - iota
+		"name": _("iota"),
+	},
+	{
+		"id": "kappa",
+		# Translators: greek alphabet command - kappa
+		"name": _("kappa"),
+	},
+	{
+		"id": "lambda",
+		# Translators: greek alphabet command - lambda
+		"name": _("lambda"),
+	},
+	{
+		"id": "mu",
+		# Translators: greek alphabet command - mu
+		"name": _("mu"),
+	},
+	{
+		"id": "nu",
+		# Translators: greek alphabet command - nu
+		"name": _("nu"),
+	},
+	{
+		"id": "xi",
+		# Translators: greek alphabet command - xi
+		"name": _("xi"),
+	},
+	{
+		"id": "o",
+		# Translators: greek alphabet command - o
+		"name": _("o"),
+	},
+	{
+		"id": "pi",
+		# Translators: greek alphabet command - pi
+		"name": _("pi"),
+	},
+	{
+		"id": "rho",
+		# Translators: greek alphabet command - rho
+		"name": _("rho"),
+	},
+	{
+		"id": "sigma",
+		# Translators: greek alphabet command - sigma
+		"name": _("sigma"),
+	},
+	{
+		"id": "tau",
+		# Translators: greek alphabet command - tau
+		"name": _("tau"),
+	},
+	{
+		"id": "upsilon",
+		# Translators: greek alphabet command - upsilon
+		"name": _("upsilon"),
+	},
+	{
+		"id": "phi",
+		# Translators: greek alphabet command - phi
+		"name": _("phi"),
+	},
+	{
+		"id": "chi",
+		# Translators: greek alphabet command - chi
+		"name": _("chi"),
+	},
+	{
+		"id": "psi",
+		# Translators: greek alphabet command - psi
+		"name": _("psi"),
+	},
+	{
+		"id": "omega",
+		# Translators: greek alphabet command - down omega
+		"name": _("omega"),
+	},
+]
+greekAlphabetData = []
+greekAlphabetAll = []
+greekAlphabetShortcut = {}
+greekAlphabetCommand = {}
+greekAlphabetMenu = {}
+
+
 def initialize():
 	global latexData, latexAll, latexCommand, latexShortcut, latexMenu
-	latexData = load()
+	BASE_DIR = os.path.dirname(__file__)
+	path = os.path.join(BASE_DIR, 'latexs.csv')
+	latexData = load(path)
 	latexAll = joinObjectArray(latexData, latexMenuData, key="id")
 	latexMenu = [{
 		**i, **{
 			"type": "item",
 		}
 	} for i in latexAll]
-	latexMenu = groupByField(latexMenu, 'category', lambda i:i, lambda i:i)
+	latexMenu = groupByField(latexMenu, 'category', lambda i: i, lambda i: i)
+	latexCommand = data2commandMap(latexAll)
+	latexShortcut = data2shortcutMap(latexAll)
 
-	latexCommand = data2command(latexAll)
-	latexShortcut = data2shortcut(latexAll)
+	global greekAlphabetData, greekAlphabetAll, greekAlphabetCommand, greekAlphabetShortcut, greekAlphabetMenu
+	BASE_DIR = os.path.dirname(__file__)
+	path = os.path.join(BASE_DIR, 'GreekAlphabets.csv')
+	greekAlphabetData = load(path)
+	greekAlphabetAll = joinObjectArray(greekAlphabetData, greekAlphabetMenuData, key="id")
+	greekAlphabetMenu = [{
+		**i, **{
+			"type": "item",
+		}
+	} for i in greekAlphabetAll]
+	greekAlphabetMenu = groupByField(greekAlphabetMenu, 'category', lambda i: i, lambda i: i)
+	greekAlphabetCommand = data2commandMap(greekAlphabetAll)
+	greekAlphabetShortcut = data2shortcutMap(greekAlphabetAll)
+
 
 def terminate():
-	save(latexAll)
-
-# initialize()
+	BASE_DIR = os.path.dirname(__file__)
+	path = os.path.join(BASE_DIR, 'latexs.csv')
+	save(path, latexAll)
 
 
 class A8MLaTeXCommandModel(MenuModel):
@@ -466,7 +611,7 @@ class A8MLaTeXCommandModel(MenuModel):
 				# Translators: LaTeX command category - shortcut
 				"name": _("shortcut"),
 				"type": "menu",
-				"items": [latexShortcut[str(k)] for k in range(1,13) if str(k) in latexShortcut],
+				"items": [latexShortcut[str(k)] for k in range(1, 13) if str(k) in latexShortcut],
 			},
 			{
 				"id": "common",
@@ -519,13 +664,17 @@ class A8MLaTeXCommandModel(MenuModel):
 			},
 		]
 		self.shortcut = latexShortcut
+		self.greekAlphabet = greekAlphabetShortcut
+
 
 class A8MLaTeXCommandView(MenuView):
 	# Translators: alt+l window
 	name = _("LaTeX command")
-	def __init__(self, selection):
+
+	def __init__(self, selection, inSection=True):
 		super().__init__(MenuModel=A8MLaTeXCommandModel, TextInfo=A8MLaTeXCommandViewTextInfo)
 		self._selection = selection
+		self.inSection = inSection
 
 	def update_menu(self):
 		global latexMenu, latexShortcut
@@ -534,21 +683,21 @@ class A8MLaTeXCommandView(MenuView):
 				"type": "item",
 			}
 		} for i in latexAll]
-		latexMenu = groupByField(latexMenu, 'category', lambda i:i, lambda i:i)
+		latexMenu = groupByField(latexMenu, 'category', lambda i: i, lambda i: i)
 
-		latexShortcut = data2shortcut(latexAll)
+		latexShortcut = data2shortcutMap(latexAll)
 
 	def getScript(self, gesture):
 		if isinstance(gesture, KeyboardInputGesture):
-			if len(gesture.modifierNames) == 0 and gesture.mainKeyName in ["f{}".format(i) for i in range(1, 13)]:
+			if len(gesture.modifierNames) == 0 and gesture.mainKeyName in ["f{}".format(i) for i in range(1, 13)] + ["{}".format(c) for c in "abcdefghijklmnopqrstuvwxyz"]:
 				return self.script_set_shortcut
-			elif len(gesture.modifierNames) == 0 and gesture.mainKeyName in ["d"]:
+			elif len(gesture.modifierNames) == 0 and gesture.mainKeyName in ["delete", "backspace"]:
 				return self.script_reset_shortcut
 
 		return super().getScript(gesture)
 
 	@script(
-		gestures=["kb:f{}".format(i) for i in range(1, 13)]
+		gestures=["kb:f{}".format(i) for i in range(1, 13)] + ["kb:f{}".format(c) for c in "abcdefghijklmnopqrstuvwxyz"]
 	)
 	def script_set_shortcut(self, gesture):
 		if self.data.pointer['type'] == 'menu':
@@ -556,7 +705,7 @@ class A8MLaTeXCommandView(MenuView):
 			return
 
 		id_ = self.data.pointer['id']
-		slot = gesture.mainKeyName[1:]
+		slot = gesture.mainKeyName[1:] if len(gesture.mainKeyName) > 1 else gesture.mainKeyName
 
 		for item in latexAll:
 			if item["id"] == id_:
@@ -572,7 +721,7 @@ class A8MLaTeXCommandView(MenuView):
 		eventHandler.executeEvent("gainFocus", self.parent)
 
 	@script(
-		gestures=["kb:d"]
+		gestures=["kb:delete", "kb:backspace"]
 	)
 	def script_reset_shortcut(self, gesture):
 		if self.data.pointer['type'] == 'menu':
@@ -603,7 +752,28 @@ class A8MLaTeXCommandView(MenuView):
 	def command(self, id_):
 		try:
 			kwargs = latexCommand[id_]
-			command(**kwargs)
+			if not self.inSection:
+				delimiter = delimiter_dict[delimiter_setting["latex"]]
+				offset = kwargs["offset"] - len(delimiter["end"])
+				text = r"\({}\)".format(kwargs["text"])
+				command(text=text, offset=offset)
+			else:
+				command(**kwargs)
+		except:
+			tones.beep(100, 100)
+			return
+		eventHandler.executeEvent("gainFocus", self.parent)
+
+	def greekAlphabetCommand(self, id_):
+		try:
+			kwargs = greekAlphabetCommand[id_]
+			if not self.inSection:
+				delimiter = delimiter_dict[self.delimiter["latex"]]
+				offset = kwargs["offset"] - len(delimiter["end"])
+				text = r"\({}\)".format(kwargs["text"])
+				command(text=text, offset=offset)
+			else:
+				command(**kwargs)
 		except:
 			tones.beep(100, 100)
 			return

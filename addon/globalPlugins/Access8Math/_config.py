@@ -1,17 +1,18 @@
 import config
 
 _configSpec = u"""[settings]
-provider = string(default=Access8Math)
 language = string(default=en)
+braille_language = string(default=en)
 item_interval_time = integer(default=50,min=0,max=100)
 interaction_frame_show = boolean(default=false)
 analyze_math_meaning = boolean(default=true)
 auto_generate = boolean(default=false)
 dictionary_generate = boolean(default=true)
 no_move_beep = boolean(default=true)
-write_mode = boolean(default=false)
+command_mode = boolean(default=false)
 navigate_mode = boolean(default=false)
 shortcut_mode = boolean(default=false)
+writeNavAudioIndication = boolean(default=true)
 HTML_display = string(default=block)
 LaTeX_delimiter = string(default=bracket)
 speech_source = string(default=Access8Math)
@@ -39,17 +40,18 @@ AddIntegerFractionType = boolean(default=true)
 
 config.conf.spec["Access8Math"] = {
 	"settings": {
-		"provider": "string(default=Access8Math)",
 		"language": "string(default=en)",
+		"braille_language": "string(default=en)",
 		"item_interval_time": "integer(default=50,min=0,max=100)",
 		"interaction_frame_show": "boolean(default=false)",
 		"analyze_math_meaning": "boolean(default=true)",
 		"auto_generate": "boolean(default=false)",
 		"dictionary_generate": "boolean(default=true)",
 		"no_move_beep": "boolean(default=true)",
-		"write_mode": "boolean(default=false)",
+		"command_mode": "boolean(default=false)",
 		"navigate_mode": "boolean(default=false)",
 		"shortcut_mode": "boolean(default=false)",
+		"writeNavAudioIndication": "boolean(default=true)",
 		"HTML_display": "string(default=block)",
 		"LaTeX_delimiter": "string(default=bracket)",
 		"speech_source": "string(default=Access8Math)",

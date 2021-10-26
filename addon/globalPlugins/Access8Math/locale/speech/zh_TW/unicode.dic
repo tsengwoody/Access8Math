@@ -1,0 +1,467 @@
+symbols:
+# ASCII
+!	階層	none
+"	雙引號	none
+'	單引號	none
+(	左小括	none
+)	右小括	none
+*	乘以	none
++	加	none
+-	減	none
+/	除以	none
+:	冒號	none
+<	小於	none
+=	等於	none
+>	大於	none
+[	左中括	none
+]	右中括	none
+{	左大括	none
+|	豎線	none
+}	右大括	none
+¯	橫線	none
+±	加減	none
+·	圓點	none
+×	乘以	none
+÷	除以	none
+
+#0370~03FF
+Ͱ	Heta	none
+ͱ	Heta	none
+Ͳ	Archaic Sampi	none
+ͳ	Archaic Sampi	none
+ʹ	Numeral Sign	none
+͵	Lower Numeral Sign	none
+Ͷ	Pamphylian Digamma	none
+ͷ	Pamphylian Digamma	none
+ͺ	Ypogegrammeni	none
+ͻ	Reversed Lunate Sigma 	none
+ͼ	Dotted Lunate Sigma 	none
+ͽ	Reversed Dotted Lunate Sigma 	none
+;	Question Mark	none
+Ϳ	Yot	none
+΄	Tonos	none
+΅	Dialytika Tonos	none
+Ά	Alpha with Tonos	none
+·	Ano Teleia	none
+Έ	Epsilon with Tonos	none
+Ή	Eta with Tonos	none
+Ί	Iota with Tonos	none
+Ό	Omicron with Tonos	none
+Ύ	Upsilon with Tonos	none
+Ώ	Omega with Tonos	none
+ΐ	Iota with Dialytika and Tonos	none
+Α	Alpha	none
+Β	Beta	none
+Γ	Gamma	none
+Δ	Delta	none
+Ε	Epsilon	none
+Ζ	Zeta	none
+Η	Eta	none
+Θ	Theta	none
+Ι	Lota	none
+Κ	Kappa	none
+Λ	Lamda	none
+Μ	Mu	none
+Ν	Nu	none
+Ξ	Xi	none
+Ο	Omicron	none
+Π	Pi	none
+Ρ	Rho	none
+Σ	Sigma	none
+Τ	Tau	none
+Υ	Upsilon	none
+Φ	Phi	none
+Χ	Chi	none
+Ψ	Psi	none
+Ω	Omega	none
+Ϊ	Iota with Dialytika	none
+Ϋ	Upsilon with Dialytika	none
+ά	Alpha with Tonos	none
+έ	Epsilon with Tonos	none
+ή	Eta with Tonos	none
+ί	Iota with Tonos	none
+ΰ	Upsilon with Dialytika and Tonos	none
+α	Alpha	none
+β	Beta	none
+γ	Gamma	none
+δ	Delta	none
+ε	Epsilon	none
+ζ	Zeta	none
+η	Eta	none
+θ	Theta	none
+ι	Lota	none
+κ	Kappa	none
+λ	Lamda	none
+μ	Mu	none
+ν	Nu	none
+ξ	Xi	none
+ο	Omicron	none
+π	Pi	none
+ρ	Rho	none
+ς	Final Sigma	none
+σ	Sigma	none
+τ	Tau	none
+υ	Upsilon	none
+φ	Phi	none
+χ	Chi	none
+ψ	Psi	none
+ω	Omega	none
+ϊ	Iota with Dialytika	none
+ϋ	Upsilon with Dialytika	none
+ό	Omicron with Tonos	none
+ύ	Upsilon with Tonos	none
+ώ	Omega with Tonos	none
+Ϗ	Kai 	none
+ϐ	Beta	none
+ϑ	Theta	none
+ϒ	Upsilon with Hook 	none
+ϓ	Upsilon with Acute and Hook 	none
+ϔ	Upsilon with Diaeresis and Hook 	none
+ϕ	Phi	none
+ϖ	Pi	none
+ϗ	Kai	none
+Ϙ	Koppa	none
+ϙ	Koppa	none
+Ϛ	Stigma	none
+ϛ	Stigma	none
+Ϝ	Diggmma	none
+ϝ	Diggmma	none
+Ϟ	Koppa	none
+ϟ	Koppa	none
+Ϡ	Sampi	none
+ϡ	Sampi	none
+Ϣ	Shei	none
+ϣ	Shei	none
+Ϥ	Fei	none
+ϥ	Fei	none
+Ϧ	Khei	none
+ϧ	Khei	none
+Ϩ	Hori	none
+ϩ	Hori	none
+Ϫ	Gangia	none
+ϫ	Gangia	none
+Ϭ	Shima	none
+ϭ	Shima	none
+Ϯ	Dei	none
+ϯ	Dei	none
+ϰ	Kappa	none
+ϱ	Rho	none
+ϲ	Lunate Sigma	none
+ϳ	Yot	none
+ϴ	Theta	none
+ϵ	Lunate Epsilon	none
+϶	Reversed Lunate Epsilon 	none
+Ϸ	Sho	none
+ϸ	Sho	none
+Ϲ	Lunate Sigma	none
+Ϻ	San	none
+ϻ	San	none
+ϼ	Rho with Stroke	none
+Ͻ	Reversed Lunate Sigma 	none
+Ͼ	Dotted Lunate Sigma 	none
+Ͽ	Reversed Dotted Lunate Sigma	none
+
+∀	對任意的,所有的	none
+∁	補集	none
+∂	偏微分	none
+∃	存在	none
+∄	不存在	none
+∅	空集合	none
+∆	變化量	none
+∇	梯度	none
+∈	屬於	none
+∉	不屬於	none
+∊	屬於	none
+∋	包含	none
+∌	不包含	none
+∍	小型包含	none
+∎	結束證明	none
+∏	N元乘積,從…到…的積,求積	none
+∐	N元余積	none
+∑	和,求和,sigma,從…到…的和	none
+−	減,負號	none
+∓	正負號	none
+∔	點正號	none
+∕	正斜線	none
+∖	差集	none
+∗		none
+∘	合成	none
+∙	點	none
+√	開根號	none
+∛	開立方根	none
+∜	開四次根	none
+∝	正比於	none
+∞	無限	none
+∟	直角	none
+∠	角	none
+∡	測量角	none
+∢	球面角	none
+∣	除	none
+∤	不除	none
+∥	平行	none
+∦	不平行	none
+∧	邏輯與	none
+∨	邏輯或	none
+∩	交集	none
+∪	聯集	none
+∫	積分	none
+∬	雙重積分	none
+∭	三重積分	none
+∮	圍道積分	none
+∯	曲面積分	none
+∰	體積積分	none
+∱	順時針積分	none
+∲	順時針圍道積分	none
+∳	逆時針圍道積分	none
+∴	所以	none
+∵	因為	none
+∶	比	none
+∷	比例	none
+∸	點負號	none
+∹	超出	none
+∺	幾何比例	none
+∻	同位	none
+∼	波浪符	none
+∽	反波浪符	none
+∾	豎翻躺倒S	none
+∿	正弦波型	none
+≀	環積	none
+≁	不波浪符	none
+≂	負號波浪符	none
+≃	漸近等於	none
+≄	不漸近等於	none
+≅	全等於	none
+≆	近似但不真實等於	none
+≇	不近似但不真實等於	none
+≈	約等於	none
+≉	不約等於	none
+≊	約等於或等於	none
+≋	三重波浪符	none
+≌	全等於	none
+≍	等於	none
+≎	幾何等於	none
+≏	相差	none
+≐	接近極限	none
+≑	幾何等於	none
+≒	近似於或像	none
+≓	像或近似於	none
+≔	冒號等號	none
+≕	等號冒號	none
+≖	圓圈在等於中	none
+≗	圓圈等於	none
+≘	對應	none
+≙	估計	none
+≚	等角於	none
+≛	星等號	none
+≜	delta等於	none
+≝	按定義等於	none
+≞	按測量	none
+≟	問號等於	none
+≠	不等於	none
+≡	恆等於	none
+≢	不恆等於	none
+≣	完全等於	none
+≤	小於或等於	none
+≥	大於或等於	none
+≦	小於等於	none
+≧	大於等於	none
+≨	小於但不等於	none
+≩	大於但不等於	none
+≪	遠小於	none
+≫	遠大於	none
+≬	介於	none
+≭	不等價於	none
+≮	不少於	none
+≯	不大於	none
+≰	不少於或等於	none
+≱	不大於或等於	none
+≲	小於或等價於	none
+≳	大於或等價於	none
+≴	不小於也不等價於	none
+≵	不大於也不等價於	none
+≶	小於或大於	none
+≷	大於或小於	none
+≸	不小於也不大於	none
+≹	不大於也不小於	none
+≺	先於	none
+≻	後於	none
+≼	先於或等於	none
+≽	後於或等於	none
+≾	先於或等價於	none
+≿	後於或等價於	none
+⊀	不先於	none
+⊁	不後於	none
+⊂	包含於	none
+⊃	包含	none
+⊄	不包含於	none
+⊅	不包含	none
+⊆	包含於或等於	none
+⊇	包含或等於	none
+⊈	不包含於也不等於	none
+⊉	不包含也不等於	none
+⊊	真包含	none
+⊋	真包含於	none
+⊌	多重集	none
+⊍	多重集乘積	none
+⊎	多重集連集	none
+⊏	方形像	none
+⊐	方形原	none
+⊑	方形像或等於	none
+⊒	方形原或等於	none
+⊓	方形帽	none
+⊔	方形杯	none
+⊕	帶圓圈正號	none
+⊖	帶圓圈負號	none
+⊗	帶圓圈乘號	none
+⊘	帶圓圈除號斜線號	none
+⊙	帶圓圈點運算符	none
+⊚	帶圓圈圓圈運算符	none
+⊛	帶圓圈星號運算符	none
+⊜	帶圓圈點等號	none
+⊝	帶圓圈點長劃	none
+⊞	帶圓圈點正號	none
+⊟	帶圓圈點負號	none
+⊠	帶圓圈點乘號	none
+⊡	帶方框點運算符	none
+⊢	右丁字	none
+⊣	左丁字	none
+⊤	下丁字	none
+⊥	垂直	none
+⊦	斷定	none
+⊧	模型	none
+⊨	真	none
+⊩	強制	none
+⊪	三豎條右轉門	none
+⊫	二豎條右轉門	none
+⊬	不證明	none
+⊭	不真	none
+⊮	不強制	none
+⊯	不二豎條右轉門	none
+⊰	先於下關係	none
+⊱	超於下關係	none
+⊲	正規子群	none
+⊳	屬於正規子群	none
+⊴	正規子群或等於	none
+⊵	屬於正規子群或等於	none
+⊶	原	none
+⊷	像	none
+⊸	多重映射	none
+⊹	厄密共軛矩阵	none
+⊺	插入	none
+⊻	異或	none
+⊼	與非	none
+⊽	或非	none
+⊾	帶有弧的右角	none
+⊿	右三角形	none
+⋀	N元邏輯和	none
+⋁	N元邏輯或	none
+⋂	N元交集	none
+⋃	N元連集	none
+⋄	菱形運算符	none
+⋅	點運算符	none
+⋆	星號運算符	none
+⋇	乘除號	none
+⋈	蝴蝶結	none
+⋉	左正規因子半直積	none
+⋊	右正規因子半直積	none
+⋋	左半直積	none
+⋌	右半直積	none
+⋍	横翻颚化符等號	none
+⋎	波形邏輯或	none
+⋏	波形邏輯和	none
+⋐	雙子集	none
+⋑	雙超集	none
+⋒	雙交集	none
+⋓	雙連集	none
+⋔	草耙	none
+⋕	等於和平行	none
+⋖	帶點小於	none
+⋗	帶點大於	none
+⋘	極小於	none
+⋙	極大於	none
+⋚	小於等於或大於	none
+⋛	大於等於或小於	none
+⋜	等於或小於	none
+⋝	等於或大於	none
+⋞	等於或先於	none
+⋟	等於或超於	none
+⋠	不先於或等於	none
+⋡	不先於或超於	none
+⋢	不方形像或等於	none
+⋣	不方形原或等於	none
+⋤	方形像或不等於	none
+⋥	方形原或不等於	none
+⋦	小於但不等價於	none
+⋧	大於但不等價於	none
+⋨	先於但不等價於	none
+⋩	超於但不等價於	none
+⋪	不正規子群	none
+⋫	不屬於正規子群	none
+⋬	不正規子群或等於	none
+⋭	不屬於正規子群或等於	none
+⋮	豎省略號	none
+⋯	中線水平省略號	none
+⋰	上右省略號	none
+⋱	下右省略號	none
+⋲	有長劃水平划的元素	none
+⋳	在水平划末尾有豎條的元素	none
+⋴	在水平划末尾有豎條的小型元素	none
+⋵	上面带點的元素	none
+⋶	有頂線的元素	none
+⋷	有頂線的小型元素	none
+⋸	有底線的元素	none
+⋹	有两个水平划的元素	none
+⋺	包含有長水平划	none
+⋻	在水平划末尾包含有豎條	none
+⋼	在水平划末尾小型包含有豎條	none
+⋽	包含有頂線	none
+⋾	小型包含有頂線	none
+⋿	Z 符號包成员	none
+
+# special case
+′	prime	none
+″	double prime	none
+‴	triple prime	none
+→	右箭頭	none
+↔	左右雙向箭頭	none
+⇀	向量	none
+⌢	弧	none
+〈	左尖括	none
+〉	右尖括	none
+
+̸	不	none
+⧵	差集	none
+⫋	真包含於	none
+⫌	真包含	none
+
+# FF00~FFFF
+＋	加號	none
+－	減號	none
+＜	小於	none
+＝	等於	none
+＞	大於	none
+
+# math
+
+sin	sine	none
+cos	cosine	None
+tan	tan gent	None
+cot	cotangent	None
+sec	secant	None
+csc	cosecant	None
+lim	limit	None
+
+# constant
+math	數學	none
+item	項	none
+has	有	none
+row	列	none
+column	欄	none
+order	第	none
+rightdownmark	右下標	none
+rightupmark	右上標	none
+leftdownmark	左下標	none
+leftupmark	左上標	none
+main	主符號	none
+mprescripts_index	左定點	none
+empty	空白

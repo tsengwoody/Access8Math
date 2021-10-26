@@ -1,4 +1,4 @@
-# Access8Math ReadMe
+﻿# Access8Math ReadMe
 
 This NVDA addon provides the function of reading math content. Although the original NVDA already equipped this feature by applying MathPlayer, some functions still needed to be improved, such as not providing or incomplete specific language translation, not providing specific language navigation and browsing and many more.
 
@@ -125,7 +125,8 @@ Math contents in Wiki are all written by MathML.
 
 Quadratic equation
 
-*	LaTeX: \(ax^2+bx+c=0\)
+*	LaTeX: \(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)
+*	AsciiMath: `x=(-b+- \sqrt(b^2-4ac))/(2a)`
 *	MathML: <math xmlns="http://www.w3.org/1998/Math/MathML"><mfrac><mrow><mo>-</mo><mi>b</mi><mo>&#xB1;</mo><msqrt><msup><mi>b</mi><mn>2</mn></msup><mo>-</mo><mn>4</mn><mi>a</mi><mi>c</mi></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></math>
 
 github: https://github.com/tsengwoody/Access8Math

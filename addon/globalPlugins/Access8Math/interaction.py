@@ -1,14 +1,19 @@
-from collections import Iterable
+from collections.abc import Iterable
 import re
+import os
 import wx
 
 import addonHandler
 import api
+import braille
+import brailleTables
 import config
 import eventHandler
 import globalVars
+import gui
 from keyboardHandler import KeyboardInputGesture
 from logHandler import log
+import louisHelper
 from NVDAObjects.window import Window
 import mathPres
 from mathPres.mathPlayer import MathPlayer
@@ -34,6 +39,9 @@ try:
 except:
 	log.warning("MathPlayer 4 not available")
 
+BRAILLE_UNICODE_PATTERNS_START = 0x2800
+
+
 def flatten(lines):
 	"""
 	convert tree to linear using generator
@@ -48,6 +56,7 @@ def flatten(lines):
 		else:
 			yield line
 
+
 def translate_SpeechCommand(serializes):
 	"""
 	convert Access8Math serialize object to SpeechCommand
@@ -61,32 +70,29 @@ def translate_SpeechCommand(serializes):
 		time_search = pattern.search(r)
 		try:
 			time = time_search.group('time')
-			command = BreakCommand(time=int(time) +int(config.conf["Access8Math"]["settings"]["item_interval_time"]))
+			command = BreakCommand(time=int(time) + int(config.conf["Access8Math"]["settings"]["item_interval_time"]))
 			speechSequence.append(command)
 		except:
 			speechSequence.append(r)
 
 	return speechSequence
 
+
 def translate_Unicode(serializes):
 	"""
 	convert Access8Math serialize object to unicode
 	@param lines: source serializes
 	@type list
-	@rtype unicode
+	@rtype str
 	"""
 	pattern = re.compile(r'[@](?P<time>[\d]*)[@]')
 	sequence = ''
 
 	for c in serializes:
-		sequence = sequence +u'\n'
+		sequence = sequence + '\n'
 		for r in flatten(c):
-			time_search = pattern.search(r)
-			try:
-				time = time_search.group('time')
-			except:
-				sequence = sequence +str(r)
-			sequence = sequence +' '
+			sequence = sequence + str(r)
+			sequence = sequence + ' '
 
 	# replace mutiple blank to single blank
 	pattern = re.compile(r'[ ]+')
@@ -99,23 +105,38 @@ def translate_Unicode(serializes):
 	# strip blank at start and end line
 	temp = ''
 	for i in sequence.split('\n'):
-		temp = temp +i.strip() +'\n'
+		temp = temp + i.strip() + '\n'
 	sequence = temp
 
 	return sequence.strip()
+
+
+def translate_Braille(serializes):
+	"""
+	convert Access8Math serialize object to braille
+	@param lines: source serializes
+	@type list
+	@rtype str
+	"""
+	temp = ''
+	for string in flatten(serializes):
+		brailleCells, brailleToRawPos, rawToBraillePos, brailleCursorPos = louisHelper.translate([os.path.join(brailleTables.TABLES_DIR, config.conf["braille"]["translationTable"]), "braille-patterns.cti"], string, mode=4)
+		temp += "".join([chr(BRAILLE_UNICODE_PATTERNS_START + cell) for cell in brailleCells])
+	return "".join(temp)
+
 
 class GenericFrame(wx.Frame):
 	def __init__(self, *args, **kwargs):
 		super(GenericFrame, self).__init__(*args, **kwargs)
 		self.buttons = []
 
-		self.CreateStatusBar() # A StatusBar in the bottom of the window
+		self.CreateStatusBar()  # A StatusBar in the bottom of the window
 		self.createMenuBar()
 
 		self.panel = wx.Panel(self, -1)
 		self.createButtonBar(self.panel)
 
-		mainSizer=wx.BoxSizer(wx.HORIZONTAL)
+		mainSizer = wx.BoxSizer(wx.HORIZONTAL)
 		for button in self.buttons:
 			mainSizer.Add(button)
 
@@ -158,15 +179,15 @@ class GenericFrame(wx.Frame):
 		return [
 		]
 
-	def createButtonBar(self, panel, yPos = 0):
+	def createButtonBar(self, panel, yPos=0):
 		xPos = 0
 		for eachLabel, eachHandler in self.buttonData():
 			pos = (xPos, yPos)
-			button = self.buildOneButton(panel, eachLabel,eachHandler, pos)
+			button = self.buildOneButton(panel, eachLabel, eachHandler, pos)
 			self.buttons.append(button)
 			xPos += button.GetSize().width
 
-	def buildOneButton(self, parent, label, handler, pos=(0,0)):
+	def buildOneButton(self, parent, label, handler, pos=(0, 0)):
 		button = wx.Button(parent, -1, label, pos)
 		self.Bind(wx.EVT_BUTTON, handler, button)
 		return button
@@ -181,7 +202,7 @@ class A8MInteractionFrame(GenericFrame):
 	def menuData(self):
 		return [
 			(_("&Menu"), (
-				(_("&Exit"),_("Terminate the program"), self.OnExit),
+				(_("&Exit"), _("Terminate the program"), self.OnExit),
 			))
 		]
 
@@ -203,7 +224,7 @@ class A8MInteractionFrame(GenericFrame):
 			global main_frame
 			main_frame = None
 			# self.Close()
-		event.Skip() 
+		event.Skip()
 
 	def set_mathcontent(self, mathcontent):
 		self.mathcontent = mathcontent
@@ -250,14 +271,14 @@ class A8MProvider(mathPres.MathPresentationProvider):
 		"""
 		cells = ""
 		if config.conf["Access8Math"]["settings"]["braille_source"] == "Access8Math":
-			cells = list(flatten(self.mathcontent.root.brailleserialized()))
-			cells = "".join(cells)
+			cells = translate_Braille(self.mathcontent.root.brailleserialized())
 		else:
 			if mathPlayer:
 				cells = mathPlayer.getBrailleForMathMl(mathMl)
 
-		BRAILLE_UNICODE_PATTERNS_START = 0x2800
-		inrange = lambda cell: ord(cell) >= BRAILLE_UNICODE_PATTERNS_START and ord(cell) < BRAILLE_UNICODE_PATTERNS_START + 256
+		def inrange(cell):
+			return ord(cell) >= BRAILLE_UNICODE_PATTERNS_START and ord(cell) < BRAILLE_UNICODE_PATTERNS_START + 256
+
 		cells = [cell if inrange(cell) else chr(BRAILLE_UNICODE_PATTERNS_START) for cell in cells]
 		return "".join(cells)
 
@@ -294,7 +315,6 @@ class A8MInteraction(Window):
 	def set(self, name, data, *args, **kwargs):
 		# self.name = name + " - math window"
 		self.mathcontent = self.data = data
-		# BrailleHandler.message()
 
 	def setFocus(self):
 		eventHandler.executeEvent("gainFocus", self)
@@ -307,7 +327,7 @@ class A8MInteraction(Window):
 
 	def _get_mathMl(self):
 		return self.mathcontent.root.get_mathml()
-		#return self.raw_data
+		# return self.raw_data
 
 	def makeTextInfo(self, position=textInfos.POSITION_FIRST):
 		return A8MInteractionTextInfo(self, position)
@@ -320,14 +340,32 @@ class A8MInteraction(Window):
 	def reportFocus(self):
 		speech.speak(translate_SpeechCommand(self.mathcontent.root.serialized()))
 
+	def getBrailleRegions(self, review=False):
+		yield braille.NVDAObjectRegion(self, appendText=" ")
+		region = braille.Region()
+		region.focusToHardLeft = True
+		cells = ""
+		if config.conf["Access8Math"]["settings"]["braille_source"] == "Access8Math":
+			cells = translate_Braille(self.mathcontent.root.brailleserialized())
+		else:
+			if mathPlayer:
+				cells = mathPlayer.getBrailleForMathMl(self.mathcontent.raw_mathMl)
+
+		def inrange(cell):
+			return ord(cell) >= BRAILLE_UNICODE_PATTERNS_START and ord(cell) < BRAILLE_UNICODE_PATTERNS_START + 256
+
+		cells = [cell if inrange(cell) else chr(BRAILLE_UNICODE_PATTERNS_START) for cell in cells]
+		region.rawText = "".join(cells)
+		yield region
+
 	def getScript(self, gesture):
 		if isinstance(gesture, KeyboardInputGesture) and "NVDA" not in gesture.modifierNames and (
-						gesture.mainKeyName in {
-							"leftArrow", "rightArrow", "upArrow", "downArrow",
-							"home", "end",
-							"space", "backspace", "enter",
-						}
-						#or len(gesture.mainKeyName)  ==  1
+			gesture.mainKeyName in {
+				"leftArrow", "rightArrow", "upArrow", "downArrow",
+				"home", "end",
+				"space", "backspace", "enter",
+			}
+			# or len(gesture.mainKeyName)  ==  1
 		):
 			return self.script_navigate
 		return super().getScript(gesture)
@@ -343,7 +381,7 @@ class A8MInteraction(Window):
 			else:
 				speech.speak([_("no move")])
 
-		api.setReviewPosition(self.makeTextInfo(), False)
+		api.setReviewPosition(self.makeTextInfo(), clearNavigatorObject=False, isCaret=True)
 		if self.mathcontent.pointer.parent:
 			if config.conf["Access8Math"]["settings"]["auto_generate"] and self.mathcontent.pointer.parent.role_level == A8M_PM.AUTO_GENERATE:
 				speech.speak([self.mathcontent.pointer.des])
@@ -357,7 +395,7 @@ class A8MInteraction(Window):
 		gesture="kb:control+c",
 	)
 	def script_rawdataToClip(self, gesture):
-		#api.copyToClip(self.raw_data)
+		# api.copyToClip(self.raw_data)
 		api.copyToClip(self.mathcontent.root.get_mathml())
 		ui.message(_("copy"))
 
@@ -395,7 +433,6 @@ class A8MInteraction(Window):
 	def script_latex_insert(self, gesture):
 		def show(event):
 			# latex to mathml
-			from xml.etree.ElementTree import tostring
 			import latex2mathml.converter
 			global main_frame
 			parent = main_frame if main_frame else gui.mainFrame
@@ -433,6 +470,7 @@ class A8MInteractionTextInfo(textInfos.offsets.OffsetsTextInfo):
 		text = self._getStoryText()
 		return text[start:end] if text else u""
 
+
 def show_main_frame(mathcontent):
 	global main_frame
 	if not main_frame:
@@ -440,5 +478,6 @@ def show_main_frame(mathcontent):
 	main_frame.set_mathcontent(mathcontent=mathcontent)
 	main_frame.Show()
 	main_frame.Raise()
+
 
 main_frame = None
