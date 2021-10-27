@@ -667,10 +667,13 @@ class SectionManager:
 
 	@property
 	def inSection(self):
+		delimiter_start_length = len(self.delimiter["start"])
+		delimiter_end_length = len(self.delimiter["end"])
+
 		focus = api.getFocusObject()
 		self.caret = focus.makeTextInfo(textInfos.POSITION_CARET)
 
-		if self.caret._startOffset >= self.pointer['start'] + self.delimiter_start_length and self.caret._endOffset <= self.pointer['end'] - self.delimiter_end_length:
+		if self.caret._startOffset >= self.pointer['start'] + delimiter_start_length and self.caret._endOffset <= self.pointer['end'] - delimiter_end_length:
 			return True
 		else:
 			return False
