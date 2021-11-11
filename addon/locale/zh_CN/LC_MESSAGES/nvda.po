@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: Access8Math - 3.1\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2021-09-20 15:26+0800\n"
-"PO-Revision-Date: 2021-09-20 15:31+0800\n"
+"PO-Revision-Date: 2021-11-11 16:58+0800\n"
 "Last-Translator: \n"
 "Language-Team: cary-rowen <manchen_0528@outlook.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 2.4.3\n"
 "X-Poedit-Basepath: ../../../globalPlugins/MathMlReader\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-SearchPath-0: __init__.py\n"
@@ -126,15 +126,13 @@ msgid "MathML braille source switch to %s"
 msgstr "MathML 点字来源切换为 %s"
 
 #: addon\globalPlugins\Access8Math\__init__.py:196
-#, fuzzy
-#| msgid "Inter&act source:"
 msgid "interact source switch"
-msgstr "互动来源(&I)"
+msgstr "交互来源(&I)"
 
 #: addon\globalPlugins\Access8Math\__init__.py:206
 #, python-format
 msgid "MathML interact source switch to %s"
-msgstr "MathML 互动来源切换为 %s"
+msgstr "MathML 交互来源切换为 %s"
 
 #: addon\globalPlugins\Access8Math\__init__.py:236
 #: addon\globalPlugins\Access8Math\interaction.py:380
@@ -182,7 +180,7 @@ msgstr "默认启用书写手势"
 
 #: addon\globalPlugins\Access8Math\dialogs.py:36
 msgid "Activate block navigate gesture by default"
-msgstr "启用区块导航手势"
+msgstr "默认启用区域导航手势"
 
 #: addon\globalPlugins\Access8Math\dialogs.py:37
 msgid "Activate shortcut gesture by default"
@@ -200,15 +198,15 @@ msgstr "项与项之间间隔时长(&I)"
 
 #: addon\globalPlugins\Access8Math\dialogs.py:73
 msgid "&HTML display:"
-msgstr "&HTML 显示(&H)"
+msgstr "HTML 公式呈现(&H)"
 
 #: addon\globalPlugins\Access8Math\dialogs.py:75
 msgid "block"
-msgstr "块级"
+msgstr "独立一行"
 
 #: addon\globalPlugins\Access8Math\dialogs.py:76
 msgid "inline"
-msgstr "行间"
+msgstr "行内"
 
 #: addon\globalPlugins\Access8Math\dialogs.py:86
 msgid "&LaTeX delimiter:"
@@ -220,7 +218,7 @@ msgstr "括号"
 
 #: addon\globalPlugins\Access8Math\dialogs.py:89
 msgid "dollar"
-msgstr "钱号"
+msgstr "美元符号"
 
 #: addon\globalPlugins\Access8Math\dialogs.py:99
 msgid "&Speech source:"
@@ -238,7 +236,7 @@ msgstr "盲文来源(&B)"
 
 #: addon\globalPlugins\Access8Math\dialogs.py:125
 msgid "Inter&act source:"
-msgstr "互动来源(&I)"
+msgstr "交互来源(&I)"
 
 #. Translators: Title of the Access8MathDialog.
 #: addon\globalPlugins\Access8Math\dialogs.py:171
@@ -591,15 +589,15 @@ msgstr "停用书写手势"
 
 #: addon\globalPlugins\Access8Math\writer.py:192
 msgid "block navigate gesture toggle"
-msgstr "区块导航开关"
+msgstr "区域导航开关"
 
 #: addon\globalPlugins\Access8Math\writer.py:200
 msgid "activate block navigate gesture"
-msgstr "启用区块导航开关"
+msgstr "启用区域导航开关"
 
 #: addon\globalPlugins\Access8Math\writer.py:203
 msgid "deactivate block navigate gesture"
-msgstr "停用区块导航开关"
+msgstr "停用区域导航开关"
 
 #: addon\globalPlugins\Access8Math\writer.py:207
 msgid "shortcut gesture toggle"
