@@ -20,7 +20,6 @@ def getAvailableLanguages(path, category="speech"):
 		desc = getLanguageDescription(i)
 		label = "%s, %s" % (desc, i) if desc else i
 		descriptions.append(label)
-	# include a 'user default, windows' language, which just represents the default language for this user account
 	languages.append("Windows")
 	# Translators: the label for the Windows default NVDA interface language.
 	descriptions.append(_("User default"))

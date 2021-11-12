@@ -18,10 +18,20 @@ import tones
 
 import A8M_PM
 from A8M_PM import MathContent
+from languageHandler_custom import getAvailableLanguages
+
 
 addonHandler.initTranslation()
 
 base_path = os.path.dirname(os.path.abspath(__file__))
+
+try:
+	available_languages = getAvailableLanguages(base_path)
+	available_languages = available_languages[:-1]
+except:
+	available_languages = []
+
+available_languages_dict = {k: v for k, v in available_languages}
 
 mathPlayer = None
 try:
@@ -30,20 +40,48 @@ except:
 	log.warning("MathPlayer 4 not available")
 
 
-class GeneralSettingsDialog(SettingsDialog):
+class ReadingSettingsDialog(SettingsDialog):
 	# Translators: Title of the Access8MathDialog.
-	title = _("General Settings")
-	CheckBox_settings = OrderedDict([
-		("interaction_frame_show", _("Showing Access8Math interaction window when entering interaction mode")),
-		("analyze_math_meaning", _("Analyze mathematical meaning of content")),
-		("dictionary_generate", _("Reading pre-defined meaning in dictionary when navigating in interactive mode")),
-		("auto_generate", _("Reading of auto-generated meaning when navigating in interactive mode")),
-		("no_move_beep", _("Using a beep to alert no move")),
-		("command_mode", _("Activate command gesture at startup")),
-		("navigate_mode", _("Activate block navigate gesture at startup")),
-		("shortcut_mode", _("Activate shortcut gesture at startup")),
-		("writeNavAudioIndication", _("Use audio indicate to switching of write navigation mode")),
-	])
+	title = _("Reading Settings")
+	settings = OrderedDict({
+		"language": {
+			"label": _("&Language:"),
+			"options": available_languages_dict
+		},
+		"speech_source": {
+			"label": _("&Speech source:"),
+			"options": {
+				"Access8Math": _("Access8Math"),
+			}
+		},
+		"braille_source": {
+			"label": _("&Braille source:"),
+			"options": {
+				"Access8Math": _("Access8Math"),
+			}
+		},
+		"interact_source": {
+			"label": _("Inter&act source:"),
+			"options": {
+				"Access8Math": _("Access8Math"),
+			}
+		},
+		"analyze_math_meaning": {
+			"label": _("Analyze mathematical meaning of content")
+		},
+		"interaction_frame_show": {
+			"label": _("show interaction window when entering interaction navigation mode")
+		},
+		"dictionary_generate": {
+			"label": _("Reading pre-defined meaning in dictionary in interaction navigation mode")
+		},
+		"auto_generate": {
+			"label": _("Reading of auto-generated meaning in interaction navigation mode")
+		},
+		"no_move_beep": {
+			"label": _("use tone indicate to no move in interaction navigation mode")
+		},
+	})
 
 	def __init__(self, parent, Access8MathConfig):
 		self.Access8MathConfig = Access8MathConfig
@@ -51,16 +89,24 @@ class GeneralSettingsDialog(SettingsDialog):
 
 	def makeSettings(self, settingsSizer):
 		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
-		self.language = self.Access8MathConfig["settings"]["language"]
-		languageLabel = _("&Language:")
-		self.languageChoices = list(available_languages_dict.values())
-		self.languageList = sHelper.addLabeledControl(languageLabel, wx.Choice, choices=self.languageChoices)
-		try:
-			index = list(available_languages_dict.keys()).index(self.language)
-		except:
-			index = 0
-			tones.beep(100, 100)
-		self.languageList.Selection = index
+		for k, v in self.settings.items():
+			if "options" in v:
+				attr = k + "Selection"
+				options = v["options"]
+				if mathPlayer and "Access8Math" in v["options"]:
+					v["options"]["MathPlayer"] = _("Math Player")
+				widget = sHelper.addLabeledControl(v["label"], wx.Choice, choices=list(options.values()))
+				setattr(self, attr, widget)
+				try:
+					index = list(v["options"].keys()).index(str(self.Access8MathConfig["settings"][k]))
+				except:
+					index = 0
+					tones.beep(100, 100)
+				widget.Selection = index
+			else:
+				setattr(self, k + "CheckBox", sHelper.addItem(wx.CheckBox(self, label=v["label"])))
+				value = self.Access8MathConfig["settings"][k]
+				getattr(self, k + "CheckBox").SetValue(value)
 
 		item_interval_timeLabel = _("&Item interval time:")
 		self.item_interval_timeChoices = [str(i) for i in range(1, 101)]
@@ -72,102 +118,118 @@ class GeneralSettingsDialog(SettingsDialog):
 			tones.beep(100, 100)
 		self.item_interval_timeList.Selection = index
 
-		for k, v in self.CheckBox_settings.items():
-			setattr(self, k + "CheckBox", sHelper.addItem(wx.CheckBox(self, label=v)))
-			value = self.Access8MathConfig["settings"][k]
-			getattr(self, k + "CheckBox").SetValue(value)
-
-		HTML_displayLabel = _("&HTML display:")
-		self.HTML_displayChoices = {
-			"block": _("block"),
-			"inline": _("inline"),
-		}
-		self.HTML_displayList = sHelper.addLabeledControl(HTML_displayLabel, wx.Choice, choices=list(self.HTML_displayChoices.values()))
-		try:
-			index = list(self.HTML_displayChoices.keys()).index(str(self.Access8MathConfig["settings"]["HTML_display"]))
-		except:
-			index = 0
-			tones.beep(100, 100)
-		self.HTML_displayList.Selection = index
-
-		LaTeX_delimiterLabel = _("&LaTeX delimiter:")
-		self.LaTeX_delimiterChoices = {
-			"bracket": _("bracket"),
-			"dollar": _("dollar"),
-		}
-		self.LaTeX_delimiterList = sHelper.addLabeledControl(LaTeX_delimiterLabel, wx.Choice, choices=list(self.LaTeX_delimiterChoices.values()))
-		try:
-			index = list(self.LaTeX_delimiterChoices.keys()).index(str(self.Access8MathConfig["settings"]["LaTeX_delimiter"]))
-		except:
-			index = 0
-			tones.beep(100, 100)
-		self.LaTeX_delimiterList.Selection = index
-
-		speech_sourceLabel = _("&Speech source:")
-		self.speech_sourceChoices = {
-			"Access8Math": _("Access8Math"),
-		}
-		if mathPlayer:
-			self.speech_sourceChoices["MathPlayer"] = _("Math Player")
-		self.speech_sourceList = sHelper.addLabeledControl(speech_sourceLabel, wx.Choice, choices=list(self.speech_sourceChoices.values()))
-		try:
-			index = list(self.speech_sourceChoices.keys()).index(str(self.Access8MathConfig["settings"]["speech_source"]))
-		except:
-			index = 0
-			tones.beep(100, 100)
-		self.speech_sourceList.Selection = index
-
-		braille_sourceLabel = _("&Braille source:")
-		self.braille_sourceChoices = {
-			"Access8Math": _("Access8Math"),
-		}
-		if mathPlayer:
-			self.braille_sourceChoices["MathPlayer"] = _("Math Player")
-		self.braille_sourceList = sHelper.addLabeledControl(braille_sourceLabel, wx.Choice, choices=list(self.braille_sourceChoices.values()))
-		try:
-			index = list(self.braille_sourceChoices.keys()).index(str(self.Access8MathConfig["settings"]["braille_source"]))
-		except:
-			index = 0
-			tones.beep(100, 100)
-		self.braille_sourceList.Selection = index
-
-		interact_sourceLabel = _("Inter&act source:")
-		self.interact_sourceChoices = {
-			"Access8Math": _("Access8Math"),
-		}
-		if mathPlayer:
-			self.interact_sourceChoices["MathPlayer"] = _("Math Player")
-		self.interact_sourceList = sHelper.addLabeledControl(interact_sourceLabel, wx.Choice, choices=list(self.interact_sourceChoices.values()))
-		try:
-			index = list(self.interact_sourceChoices.keys()).index(str(self.Access8MathConfig["settings"]["interact_source"]))
-		except:
-			index = 0
-			tones.beep(100, 100)
-		self.interact_sourceList.Selection = index
-
 	def postInit(self):
-		self.languageList.SetFocus()
+		self.languageSelection.SetFocus()
 
 	def onOk(self, evt):
 		try:
-			self.Access8MathConfig["settings"]["language"] = list(available_languages_dict.keys())[self.languageList.GetSelection()]
 			self.Access8MathConfig["settings"]["item_interval_time"] = self.item_interval_timeChoices[self.item_interval_timeList.GetSelection()]
-			for k in self.CheckBox_settings.keys():
-				self.Access8MathConfig["settings"][k] = getattr(self, k + "CheckBox").IsChecked()
-			self.Access8MathConfig["settings"]["HTML_display"] = list(self.HTML_displayChoices.keys())[self.HTML_displayList.GetSelection()]
-			self.Access8MathConfig["settings"]["LaTeX_delimiter"] = list(self.LaTeX_delimiterChoices.keys())[self.LaTeX_delimiterList.GetSelection()]
-			self.Access8MathConfig["settings"]["speech_source"] = list(self.speech_sourceChoices.keys())[self.speech_sourceList.GetSelection()]
-			self.Access8MathConfig["settings"]["braille_source"] = list(self.braille_sourceChoices.keys())[self.braille_sourceList.GetSelection()]
-			self.Access8MathConfig["settings"]["interact_source"] = list(self.interact_sourceChoices.keys())[self.interact_sourceList.GetSelection()]
 		except:
-			self.Access8MathConfig["settings"]["language"] = "en"
 			self.Access8MathConfig["settings"]["item_interval_time"] = 50
-			for k in self.CheckBox_settings.keys():
-				self.Access8MathConfig["settings"][k] = True
-			self.Access8MathConfig["settings"]["HTML_display"] = "block	"
-			self.Access8MathConfig["settings"]["speech_source"] = "Access8Math"
-			self.Access8MathConfig["settings"]["braille_source"] = "Access8Math"
-			self.Access8MathConfig["settings"]["interact_source"] = "Access8Math"
+
+		try:
+			for k, v in self.settings.items():
+				if "options" in v:
+					attr = k + "Selection"
+					widget = getattr(self, attr)
+					self.Access8MathConfig["settings"][k] = list(v["options"].keys())[widget.GetSelection()]
+				else:
+					self.Access8MathConfig["settings"][k] = getattr(self, k + "CheckBox").IsChecked()
+		except:
+			for k, v in self.Selection_settings.items():
+				if "options" in v:
+					self.Access8MathConfig["settings"][k] = list(v["options"].keys())[0]
+				else:
+					self.Access8MathConfig["settings"][k] = True
+			tones.beep(100, 100)
+
+		A8M_PM.initialize(self.Access8MathConfig)
+
+		return super().onOk(evt)
+
+
+class WritingSettingsDialog(SettingsDialog):
+	# Translators: Title of the Access8MathDialog.
+	title = _("Writing Settings")
+	settings = OrderedDict({
+		"command_mode": {
+			"label": _("Activate command gesture at startup")
+		},
+		"navigate_mode": {
+			"label": _("Activate block navigate gesture at startup")
+		},
+		"shortcut_mode": {
+			"label": _("Activate shortcut gesture at startup")
+		},
+		"writeNavAudioIndication": {
+			"label": _("Use audio indicate to switching of browse navigation mode")
+		},
+		"HTML_document_display": {
+			"label": _("HTML &document display:"),
+			"options": {
+				"markdown": _("Markdown"),
+				"text": _("text"),
+			}
+		},
+		"HTML_math_display": {
+			"label": _("HTML &math display:"),
+			"options": {
+				"block": _("block"),
+				"inline": _("inline"),
+			}
+		},
+		"LaTeX_delimiter": {
+			"label": _("&LaTeX delimiter:"),
+			"options": {
+				"bracket": _("bracket"),
+				"dollar": _("dollar"),
+			}
+		},
+	})
+
+	def __init__(self, parent, Access8MathConfig):
+		self.Access8MathConfig = Access8MathConfig
+		super().__init__(parent)
+
+	def makeSettings(self, settingsSizer):
+		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+		for k, v in self.settings.items():
+			if "options" in v:
+				attr = k + "Selection"
+				options = v["options"]
+				if mathPlayer and "Access8Math" in v["options"]:
+					v["options"]["MathPlayer"] = _("Math Player")
+				widget = sHelper.addLabeledControl(v["label"], wx.Choice, choices=list(options.values()))
+				setattr(self, attr, widget)
+				try:
+					index = list(v["options"].keys()).index(str(self.Access8MathConfig["settings"][k]))
+				except:
+					index = 0
+					tones.beep(100, 100)
+				widget.Selection = index
+			else:
+				setattr(self, k + "CheckBox", sHelper.addItem(wx.CheckBox(self, label=v["label"])))
+				value = self.Access8MathConfig["settings"][k]
+				getattr(self, k + "CheckBox").SetValue(value)
+
+	def postInit(self):
+		self.LaTeX_delimiterSelection.SetFocus()
+
+	def onOk(self, evt):
+		try:
+			for k, v in self.settings.items():
+				if "options" in v:
+					attr = k + "Selection"
+					widget = getattr(self, attr)
+					self.Access8MathConfig["settings"][k] = list(v["options"].keys())[widget.GetSelection()]
+				else:
+					self.Access8MathConfig["settings"][k] = getattr(self, k + "CheckBox").IsChecked()
+		except:
+			for k, v in self.Selection_settings.items():
+				if "options" in v:
+					self.Access8MathConfig["settings"][k] = list(v["options"].keys())[0]
+				else:
+					self.Access8MathConfig["settings"][k] = True
 			tones.beep(100, 100)
 
 		A8M_PM.initialize(self.Access8MathConfig)
@@ -178,24 +240,56 @@ class GeneralSettingsDialog(SettingsDialog):
 class RuleSettingsDialog(SettingsDialog):
 	# Translators: Title of the Access8MathDialog.
 	title = _("Rule Settings")
-	CheckBox_settings = OrderedDict([
-		("SingleMsubsupType", _("Simplified subscript and superscript")),
-		("SingleMsubType", _("Simplified subscript")),
-		("SingleMsupType", _("Simplified superscript")),
-		("SingleMunderoverType", _("Simplified underscript and overscript")),
-		("SingleMunderType", _("Simplified underscript")),
-		("SingleMoverType", _("Simplified overscript")),
-		("SingleFractionType", _("Simplified fraction")),
-		("SingleSqrtType", _("Simplified square root")),
-		("PowerType", _("Power")),
-		("SquarePowerType", _("Square power")),
-		("CubePowerType", _("Cube power")),
-		("SetType", _("Set")),
-		("AbsoluteType", _("Absolute value")),
-		("MatrixType", _("Matrix")),
-		("DeterminantType", _("Determinant")),
-		("AddIntegerFractionType", _("Integer and fraction")),
-	])
+	settings = OrderedDict({
+		"SingleMsubsupType": {
+			"label": _("Simplified subscript and superscript")
+		},
+		"SingleMsubType": {
+			"label": _("Simplified subscript")
+		},
+		"SingleMsupType": {
+			"label": _("Simplified superscript")
+		},
+		"SingleMunderoverType": {
+			"label": _("Simplified underscript and overscript")
+		},
+		"SingleMunderType": {
+			"label": _("Simplified underscript")
+		},
+		"SingleMoverType": {
+			"label": _("Simplified overscript")
+		},
+		"SingleFractionType": {
+			"label": _("Simplified fraction")
+		},
+		"SingleSqrtType": {
+			"label": _("Simplified square root")
+		},
+		"PowerType": {
+			"label": _("Power")
+		},
+		"SquarePowerType": {
+			"label": _("Square power")
+		},
+		"CubePowerType": {
+			"label": _("Cube power")
+		},
+		"SetType": {
+			"label": _("Set")
+		},
+		"AbsoluteType": {
+			"label": _("Absolute value")
+		},
+		"MatrixType": {
+			"label": _("Matrix")
+		},
+		"DeterminantType": {
+			"label": _("Determinant")
+		},
+		"AddIntegerFractionType": {
+			"label": _("Integer and fraction")
+		},
+	})
 
 	def __init__(self, parent, Access8MathConfig):
 		self.Access8MathConfig = Access8MathConfig
@@ -203,22 +297,44 @@ class RuleSettingsDialog(SettingsDialog):
 
 	def makeSettings(self, settingsSizer):
 		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
-		for k, v in self.CheckBox_settings.items():
-			setattr(self, k + "CheckBox", sHelper.addItem(wx.CheckBox(self, label=v)))
-			value = self.Access8MathConfig["rules"][k]
-			getattr(self, k + "CheckBox").SetValue(value)
+		for k, v in self.settings.items():
+			if "options" in v:
+				attr = k + "Selection"
+				options = v["options"]
+				if mathPlayer and "Access8Math" in v["options"]:
+					v["options"]["MathPlayer"] = _("Math Player")
+				widget = sHelper.addLabeledControl(v["label"], wx.Choice, choices=list(options.values()))
+				setattr(self, attr, widget)
+				try:
+					index = list(v["options"].keys()).index(str(self.Access8MathConfig["rules"][k]))
+				except:
+					index = 0
+					tones.beep(100, 100)
+				widget.Selection = index
+			else:
+				setattr(self, k + "CheckBox", sHelper.addItem(wx.CheckBox(self, label=v["label"])))
+				value = self.Access8MathConfig["rules"][k]
+				getattr(self, k + "CheckBox").SetValue(value)
 
 	def postInit(self):
-		getattr(self, list(self.CheckBox_settings.keys())[0] + "CheckBox").SetFocus()
+		pass
 
 	def onOk(self, evt):
 		try:
-			for k in self.CheckBox_settings.keys():
-				self.Access8MathConfig["rules"][k] = getattr(self, k + "CheckBox").IsChecked()
+			for k, v in self.settings.items():
+				if "options" in v:
+					attr = k + "Selection"
+					widget = getattr(self, attr)
+					self.Access8MathConfig["rules"][k] = list(v["options"].keys())[widget.GetSelection()]
+				else:
+					self.Access8MathConfig["rules"][k] = getattr(self, k + "CheckBox").IsChecked()
 		except:
-			for k in self.CheckBox_settings.keys():
-				self.Access8MathConfig["rules"][k] = True
-				tones.beep(100, 100)
+			for k, v in self.Selection_settings.items():
+				if "options" in v:
+					self.Access8MathConfig["rules"][k] = list(v["options"].keys())[0]
+				else:
+					self.Access8MathConfig["rules"][k] = True
+			tones.beep(100, 100)
 
 		A8M_PM.initialize(self.Access8MathConfig)
 
@@ -284,10 +400,11 @@ class UnicodeDicDialog(SettingsDialog):
 		changeSymbolText = _("Change selected symbol")
 		changeSymbolHelper = sHelper.addItem(guiHelper.BoxSizerHelper(self, sizer=wx.StaticBoxSizer(wx.StaticBox(self, label=changeSymbolText), wx.VERTICAL)))
 
-		# Used to ensure that event handlers call Skip(). Not calling skip can cause focus problems for controls. More
-		# generally the advice on the wx documentation is: "In general, it is recommended to skip all non-command events
-		# to allow the default handling to take place. The command events are, however, normally not skipped as usually
-		# a single command such as a button click or menu item selection must only be processed by one handler."
+		# Used to ensure that event handlers call Skip(). Not calling skip can cause focus problems for controls.
+		# More generally the advice on the wx documentation is: "In general, it is recommended to skip all
+		# non-command events to allow the default handling to take place. The command events are, however, normally
+		# not skipped as usually a single command such as a button click or menu item selection must only be
+		# processed by one handler."
 		def skipEventAndCall(handler):
 			def wrapWithEventSkip(event):
 				if event:
@@ -295,7 +412,6 @@ class UnicodeDicDialog(SettingsDialog):
 				return handler()
 			return wrapWithEventSkip
 
-		# Translators: The label for the edit field in symbol pronunciation dialog to change the replacement text of a symbol.
 		replacementText = _("&Replacement")
 		self.replacementEdit = changeSymbolHelper.addLabeledControl(replacementText, wx.TextCtrl)
 		self.replacementEdit.Bind(wx.EVT_TEXT, skipEventAndCall(self.onSymbolEdited))
@@ -384,7 +500,6 @@ class UnicodeDicDialog(SettingsDialog):
 				return
 		for index, symbol in enumerate(self.symbols):
 			if identifier == symbol[0]:
-				# Translators: An error reported in the Symbol Pronunciation dialog when adding a symbol that is already present.
 				gui.messageBox(
 					_('Symbol "%s" is already present.') % identifier,
 					_("Error"), wx.OK | wx.ICON_ERROR
@@ -424,7 +539,10 @@ class UnicodeDicDialog(SettingsDialog):
 		self.load(path)
 
 	def OnImportClick(self, evt):
-		with wx.FileDialog(self, message=_("Import file..."), defaultDir=base_path, wildcard="dictionary files (*.dic)|*.dic") as entryDialog:
+		with wx.FileDialog(
+			self, message=_("Import file..."),
+			defaultDir=base_path, wildcard="dictionary files (*.dic)|*.dic"
+		) as entryDialog:
 			if entryDialog.ShowModal() != wx.ID_OK:
 				return
 			pathname = entryDialog.GetPath()
@@ -433,7 +551,11 @@ class UnicodeDicDialog(SettingsDialog):
 		self.load(pathname)
 
 	def OnExportClick(self, evt):
-		with wx.FileDialog(self, message=_("Export file..."), defaultDir=base_path, defaultFile="export.dic", wildcard="dictionary files (*.dic)|*.dic", style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT) as entryDialog:
+		with wx.FileDialog(
+			self, message=_("Export file..."),
+			defaultDir=base_path, defaultFile="export.dic", wildcard="dictionary files (*.dic)|*.dic",
+			style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT
+		) as entryDialog:
 			if entryDialog.ShowModal() != wx.ID_OK:
 				return
 			pathname = entryDialog.GetPath()
@@ -599,10 +721,11 @@ class MathRuleDialog(SettingsDialog):
 
 		self.mathrulesList.Bind(wx.EVT_LIST_ITEM_FOCUSED, self.onListItemFocused)
 
-		# Used to ensure that event handlers call Skip(). Not calling skip can cause focus problems for controls. More
-		# generally the advice on the wx documentation is: "In general, it is recommended to skip all non-command events
-		# to allow the default handling to take place. The command events are, however, normally not skipped as usually
-		# a single command such as a button click or menu item selection must only be processed by one handler."
+		# Used to ensure that event handlers call Skip(). Not calling skip can cause focus problems for controls.
+		# More generally the advice on the wx documentation is: "In general, it is recommended to skip all
+		# non-command events to allow the default handling to take place. The command events are, however, normally
+		# not skipped as usually a single command such as a button click or menu item selection must only be
+		# processed by one handler."
 		def skipEventAndCall(handler):
 			def wrapWithEventSkip(event):
 				if event:
@@ -703,7 +826,10 @@ class MathRuleDialog(SettingsDialog):
 		self.load(path)
 
 	def OnImportClick(self, evt):
-		with wx.FileDialog(self, message=_("Import file..."), defaultDir=base_path, wildcard="rule files (*.rule)|*.rule") as entryDialog:
+		with wx.FileDialog(
+			self, message=_("Import file..."),
+			defaultDir=base_path, wildcard="rule files (*.rule)|*.rule"
+		) as entryDialog:
 			if entryDialog.ShowModal() != wx.ID_OK:
 				return
 			pathname = entryDialog.GetPath()
@@ -712,7 +838,11 @@ class MathRuleDialog(SettingsDialog):
 		self.load(pathname)
 
 	def OnExportClick(self, evt):
-		with wx.FileDialog(self, message=_("Export file..."), defaultDir=base_path, defaultFile="export.rule", wildcard="rule files (*.rule)|*.rule", style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT) as entryDialog:
+		with wx.FileDialog(
+			self, message=_("Export file..."),
+			defaultDir=base_path, defaultFile="export.rule", wildcard="rule files (*.rule)|*.rule",
+			style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT
+		) as entryDialog:
 			if entryDialog.ShowModal() != wx.ID_OK:
 				return
 			pathname = entryDialog.GetPath()
@@ -760,7 +890,6 @@ class NewLanguageAddingDialog(wx.Dialog):
 
 		languageListSize = self.languageList.GetSize()
 		self.certainLanguageList = self.sHelper.addItem(wx.Choice(self, size=languageListSize))
-		# self.certainLanguageList=self.sHelper.addLabeledControl(languageLabelText, wx.Choice, choices=[], size=languageListSize)
 		self.certainLanguageList.Hide()
 
 		self.certainButton = self.sHelper.addItem(wx.Button(self, label=_("&Select")))
@@ -880,15 +1009,3 @@ class NewLanguageAddingDialog(wx.Dialog):
 		) == wx.OK:
 			queueHandler.queueFunction(queueHandler.eventQueue, core.restart)
 		self.Destroy()
-
-
-from languageHandler_custom import getAvailableLanguages
-path = os.path.dirname(os.path.abspath(__file__))
-try:
-	available_languages = getAvailableLanguages(path)
-	available_languages = [i for i in available_languages if i[0] != "braille"]
-	available_languages = available_languages[:-1]
-except:
-	available_languages = []
-
-available_languages_dict = {k: v for k, v in available_languages}

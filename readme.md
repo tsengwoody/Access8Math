@@ -1,8 +1,29 @@
-﻿# Access8Math ReadMe
+# Access8Math feature
 
-This NVDA addon provides the function of reading math content. Although the original NVDA already equipped this feature by applying MathPlayer, some functions still needed to be improved, such as not providing or incomplete specific language translation, not providing specific language navigation and browsing and many more.
+## reading feature
 
-Navigation interactive mode can segment a math content into smaller partial fragments for speaking, and select the read fragment and method through a series of keyboard key operations. This function can better understand the structure and items of long math content. The hierarchical relationship with the item.
+*	Read whole line included text and mathematics content
+*	Interactive navigation move and zoom snippet mathematics content
+*	Interactive navigation reviewing text
+*	Simplified speech rules
+*	Break speech between item and item in mathematics content
+
+## writing feature
+
+*	Write mathematical content by LaTeX/AsciiMath
+*	Command menu input LaTeX/AsciiMath
+*	Shortcut gesture input LaTeX/AsciiMath
+*	Navigation cursor movement editing
+*	Directly read document containing LaTeX/AsciiMath data
+*	Review HTML document
+
+# Access8Math ReadMe
+
+This NVDA addon provides the feature for reading of mathematical content. Although the original NVDA already equipped this feature by applying MathPlayer, some functions still needed to be improved, such as not providing or incomplete specific language translation, not providing specific language interactive navigation and many more.
+
+interactive navigation can segment a math content into smaller partial snippet for speaking, and select the read fragment and method through a series of keyboard key operations. This function can better understand the structure and items of long math content. The hierarchical relationship with the item.
+
+This NVDA addon provides the feature for writing of mathematical content. Through the command menu, the input task can be completed without memorizing when entering LaTeX/AsciiMath. After the content is completed, the document can be convert to visually readable HTML document through the view and export feature. Through HTML document, you can facilitate interactive discussions with other people.
 
 ## Reading feature
 
@@ -15,7 +36,7 @@ Navigation interactive mode can segment a math content into smaller partial frag
 * Analyze the overall mathematical meaning of the content: analyze the structure of MathML, and when it meets a specific rule, read it aloud in the mathematical meaning of the rule
 * Analyze the mathematical meaning of the content item: When navigating and browsing, it will prompt the meaning of the content under its upper content. For example, there are two score items, and moving between them will enroll the item as the denominator or numerator
 
-## navigation interactive mode command：
+### navigation interactive mode command：
 
 *	"Down Arrow": Zoom in on a smaller subpart of the math content.
 *	"Up Arrow": Zoom out to  a larger subpartthe of the math content .
@@ -71,27 +92,50 @@ Press NVDA+shift+space in edit field to turn on or off the edit single letter na
 The following keys by themselves jump edit cursor to the next available block, while adding the shift key causes them to jump edit cursor to the previous block:
 
 *	l: move to the next LaTeX block
+*	a: move to the next AsciiMath block
+*	m: move to the next MathML block
 *	t: move to the next text block
+*	tab: move to the next interactable block
 
-mixed content example: The solution of the quadratic equation in one variable \(ax^2+bx+c=0\) is \(\frac{-b\pm\sqrt{b^2-4ac}}{2a}\).
+content example:
+
+*	LaTeX(by bracket separator): The solution of the quadratic equation in one variable \(ax^2+bx+c=0\) is \(\frac{-b\pm\sqrt{b^2-4ac}}{2a}\) .
+*	LaTeX(by dollar separator): The solution of the quadratic equation in one variable $ax^2+bx+c=0$ is $\frac{-b\pm\sqrt{b^2-4ac}}{2a}$ .
+*	AsciiMath: The solution of the quadratic equation in one variable `ax^2+bx+c=0` is `x=(-b+- \sqrt(b^2-4ac))/(2a)` .
+*	MathML: The solution of the quadratic equation in one variable <math display="inline"><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi><mo>=</mo><mn>0</mn></math> is <math display="inline"><mfrac><mrow><mo>−</mo><mi>b</mi><mi>±</mi><msqrt><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></math> .
 
 ## settings
 
-All Access8Math menus are centralized in tools -> Access8Math
+All Access8Math menus are centralized in tools -> Access8Math->Settings
 
-### read feature settings
+### Reading Settings
 
-*	General Settings dialog:
-	*	Language: Access8Math speaking language
-	*	Item interval time: Setting pause time between items. Values from 1 to 100, the smaller the value, the shorter the pause time, and the greater the value, the longer the pause time.
-	*	Showing Access8Math interaction window when entering interaction mode: Whether to show "Access8Math interaction window" when pressing the space key on the math object.
-	*	Analyze the mathematical meaning of the content: perform semantic analysis on the mathematical content, and when it meets a specific rule, using that rule to speak.
-	*	Reading pre-defined meaning in dictionary when navigating in interactive mode: When the pattern is definied in the dictionary, use dictionary to read the meaning of subpart in the upper layer part.
-	*	Reading of auto-generated meaning when navigating in interactive mode: When the pattern is not difined or incomplete in dictionary, use automatic generation function to read the meaning of subpart in the upper layer part.
-	*	Using a beep to alert no move: When navigating in interactive mode, It will hint by beep. If it is not checked, it will hint by speaking "no move".
-*	Rule Settings dialog box: select whether rules are actived.
+*	Language: Access8Math read language
+*	Speech source:
+*	Braille source:
+*	Interact source:
+*	Analyze mathematical meaning of content: perform semantic analysis on the mathematical content, and when it meets a specific rule, using that rule to speak.
+*	show interaction window when entering interaction navigation mode: Whether to show "Access8Math interaction window" when active event entering interaction navigation mode on math object
+*	Reading pre-defined meaning in dictionary in interaction navigation mode: When the pattern is definied in the dictionary, use dictionary to read the meaning of subpart in the upper layer part.
+*	Reading of auto-generated meaning in interaction navigation mode: When the pattern is not difined or incomplete in dictionary, use automatic generation function to read the meaning of subpart in the upper layer part.
+*	use tone indicate to no move in interaction navigation mode
+*	Item interval time: Setting break time between items. Values from 1 to 100, the smaller the value, the shorter the break time, and the greater the value, the longer the break time.
 
-### localization
+### Writing Settings
+
+*	Activate command gesture at startup
+*	Activate block navigate gesture at startup
+*	Activate shortcut gesture at startup
+*	Use audio indicate to switching of browse navigation mode
+*	HTML document display:
+*	HTML math display:
+*	LaTeX delimiter:
+
+
+
+### Rule setting: Setting whether rules are actived
+
+## localization
 
 *	"Unicode dictionary" allows customizing the reading method for each symbol text.
 *	"Mathematics Rules" allows customizing the reading method for each type of mathematics.
@@ -133,7 +177,26 @@ github: https://github.com/tsengwoody/Access8Math
 
 Please report any bugs or comments, thank you!
 
-# Access8Math v3.1 Update
+## Access8Math v3.2 Update
+
+*	New feature "`" to separate data blocks, the blocks enclosed by "`" are AsciiMath data
+*	New feature editing-shortcut for browse navigation mode cut (ctrl+x), copy (ctrl+c), paste (ctrl+v), delete (delete/back space)
+*	New feature moving-shortcut for browse navigation mode move between interactive data blocks (tab), move between AsciiMath data blocks (a)
+*	Change move cursor way in browse navigation mode - move cursor way with up, down, left and right arrow keys and read out the contents of the data block after the movement.
+*	When the cursor moves in the browse navigation mode, the math data block will read the serialized textual content of math instead of the source code
+*	When the cursor is in the math data block in the browse navigation mode, press the space or enter key to interact with the math data block.
+*	New feature English letters as shortcut keys that can be setted
+*	New feature greek alphabet shortcut gesture
+*	Shortcut key input is only apply in the LaTeX area
+*	set using audio or speech indicate to switching of browse navigation mode
+*	The LaTeX command menu can be opened in the text area and insert LaTeX separators when LaTeX command inserting
+*	New feature translation menu, which can convert the LaTeX/AsciiMath data format of the block where the cursor is located. It belongs to the command gesture group. When the cursor is in the LaTeX/AsciiMath block, press alt+t to open the translation menu (in the browse navigation mode, ctrl+t)
+*	New feature batch menu, which can convert the entire document LaTeX/AsciiMath data format to each other, and can convert the LaTeX separator between brackets and dollar. It belongs to the command gesture group. Press alt+b to open the batch menu
+* Added MathML block type, support alt+i, single letter navigation "m", tab movement in browse navigation mode
+*	New feature braille custom-defined math rules and unicode dictionary, which are the same as speech
+*	The exported HTML can show with markdown
+
+## Access8Math v3.1 Update
 
 *	HTML windows are now presented as virtual menu
 *	Fixed an issue where the HTML view cannot be converted when text include "`" character
@@ -147,7 +210,7 @@ Please report any bugs or comments, thank you!
 *	Activate/deactivate write/block navigate/shortcut gesture by gesture
 *	switch the source of speech/braille/interact source by gesture(Access8Math or Math Player)
 
-# Access8Math v3.0 Update
+## Access8Math v3.0 Update
 
 *	Write mathematical content in AsciiMath
 *	Write mathematical content in LaTeX
@@ -157,29 +220,29 @@ Please report any bugs or comments, thank you!
 *	Set shortcuts in the LaTeX command menu
 *	Review and export content in edit field to HTML
 
-# Access8Math v2.6 Update
+## Access8Math v2.6 Update
 
 *	Auto entering interactive mode when showing Access8Math interaction window.
 *	You can choose how to hint no movement in interactive mode: beep or speech 'no move' two way.
 *	The content of the current item will be repeated again When there is no movement.
 
-# Access8Math v2.5 Update
+## Access8Math v2.5 Update
 
 *	Adding Russian translation of rules and UI. Thanks to the translation work of Futyn-Maker.
 *	Fixing compound symbol translation failed bug.
 *	Removing duplicates of lowercase letters and added general uppercases in en unicode.dic(0370~03FF).
 
-# Access8Math v2.3 Update
+## Access8Math v2.3 Update
 
 *	Fix bug.
 
-# Access8Math v2.3 Update
+## Access8Math v2.3 Update
 
 *	Compatibility with Python3
 *	refactoring module and fix code style
 *	Adding one symbol vector rule
 
-# Access8Math v2.2 Update
+## Access8Math v2.2 Update
 
 *fix bug incorrect speech when a single node has more characters.
 *	Fix compatibility issue in NVDA 2019.2, thanks to pull requests of CyrilleB79.
@@ -187,8 +250,7 @@ Please report any bugs or comments, thank you!
 * Add translations in French, thanks to the translation work of CyrilleB79.
 *	Adjust keyboard shortcut.
 
-
-# Access8Math v2.1 Update
+## Access8Math v2.1 Update
 
 *	In "General Settings", you can set whether "Access8Math interaction window" is automatically displayed when entering interactive mode.
 *	In interactive mode, "interaction window" can be displayed manually via ctrl+m when "interaction window" are not showed.
@@ -197,7 +259,7 @@ Please report any bugs or comments, thank you!
 *	Compatibility update for nvda 2019.1 check for add-on`s manifest.ini flag.
 *	Refactoring dialog window source code.
 
-# Access8Math v2.0 Update
+## Access8Math v2.0 Update
 
 *	Add multi-language new-adding and customizing settings,and add three windows of "unicode dictionary", "math rule", "New language adding"
 *	The "unicode dictionary" can customize the reading way of each math symbolic text.
@@ -205,12 +267,12 @@ Please report any bugs or comments, thank you!
 *	"New language adding" allows adding language not provided in the built-in system. The newly language will be added to the general settings, and multi-language customization can be achieved through reading definition of "unicode dictionary" and "mathematical rules".
 *	improved in interactive mode, you can use the number keys 7~9 to read sequence text in the unit of line.
 
-# Access8Math v1.5 update log
+## Access8Math v1.5 update log
 
 *	In "general setting" dialog box add setting pause time between items. Values from 1 to 100, the smaller the value, the shorter the pause time, and the greater the value, the longer the pause time.
 *	Fix setting dialog box can't save configure in NVDA 2018.2.
 
-# Access8Math v1.4 update log
+## Access8Math v1.4 update log
 
 *	Adjust settings dialog box which divided into "general setting" and "rules setting" dialog box. "General Settings" is the original "Access8Math Settings" dialog box, and "Rule Settings" dialog box is for selecting whether specific rules are enabled.
 *	New rules
@@ -218,7 +280,7 @@ Please report any bugs or comments, thank you!
 	*	frown rule：When there is a " ⌢ " right above two Identifier, the item is read as "frown...".
 *	Fix bug.
 
-	# Access8Math v1.3 update log
+#	# Access8Math v1.3 update log
 
 *	New rule
 	*	positive rule: Read "positive" rather than "plus" when plus sign in first item or its previous item is certain operator.
@@ -234,7 +296,7 @@ Please report any bugs or comments, thank you!
 *	Adjust inheritance relationship between rules to ensure proper use of the appropriate rules in conflict.
 *	Fix bug.
 
-# Access8Math v1.2 update log
+## Access8Math v1.2 update log
 
 *	New rule
 	*	negative number rule: Read 'negative' rather than 'minus sign' when minus sign in first item or its previous item is certain operator.
@@ -244,7 +306,7 @@ Please report any bugs or comments, thank you!
 	*	add dynamic generate Complement class
 *	Fix bug
 
-# Access8Math v1.1 update log
+## Access8Math v1.1 update log
 
 *	In navigation mode command, "Ctrl+c" copy object MathML source code.
 *	Settings dialog box in Preferences:

@@ -7,20 +7,6 @@
 import os
 import sys
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-sys.path.insert(0, BASE_DIR)
-PATH = os.path.dirname(__file__)
-PYTHON_PATH = os.path.join(PATH, 'python')
-sys.path.insert(0, PYTHON_PATH)
-PACKAGE_PATH = os.path.join(PATH, 'package')
-sys.path.insert(0, PACKAGE_PATH)
-sys.path.insert(0, PATH)
-
-# python xml import
-import globalPlugins.Access8Math.python.xml as xml
-xml_NVDA = sys.modules['xml']
-sys.modules['xml'] = xml
-
 import addonHandler
 import api
 import config
@@ -37,6 +23,22 @@ from scriptHandler import script
 import tones
 import ui
 
+import wx
+
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+sys.path.insert(0, BASE_DIR)
+PATH = os.path.dirname(__file__)
+PYTHON_PATH = os.path.join(PATH, 'python')
+sys.path.insert(0, PYTHON_PATH)
+PACKAGE_PATH = os.path.join(PATH, 'package')
+sys.path.insert(0, PACKAGE_PATH)
+sys.path.insert(0, PATH)
+
+# python xml import
+import globalPlugins.Access8Math.python.xml as xml
+xml_NVDA = sys.modules['xml']
+sys.modules['xml'] = xml
+
 config.conf.spec["Access8Math"] = {
 	"settings": {
 		"language": "string(default=en)",
@@ -51,7 +53,8 @@ config.conf.spec["Access8Math"] = {
 		"navigate_mode": "boolean(default=false)",
 		"shortcut_mode": "boolean(default=false)",
 		"writeNavAudioIndication": "boolean(default=true)",
-		"HTML_display": "string(default=block)",
+		"HTML_document_display": "string(default=markdown)",
+		"HTML_math_display": "string(default=block)",
 		"LaTeX_delimiter": "string(default=bracket)",
 		"speech_source": "string(default=Access8Math)",
 		"braille_source": "string(default=Access8Math)",
@@ -77,12 +80,9 @@ config.conf.spec["Access8Math"] = {
 	}
 }
 
-import wx
-
 import A8M_PM
-from A8M_PM import MathContent
-
-from interaction import A8MProvider, A8MInteraction, show_main_frame
+from dialogs import ReadingSettingsDialog, WritingSettingsDialog, RuleSettingsDialog, NewLanguageAddingDialog, UnicodeDicDialog, MathRuleDialog
+from interaction import A8MProvider, A8MInteraction
 from writer import TextMathEditField
 
 addonHandler.initTranslation()
@@ -159,34 +159,29 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.toolsMenu = gui.mainFrame.sysTrayIcon.toolsMenu
 		self.menu = wx.Menu()
 
-		self.generalSettings = self.menu.Append(
-			wx.ID_ANY,
-			_("&General settings...")
-		)
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onGeneralSettings, self.generalSettings)
+		settingsMenu = wx.Menu()
 
-		self.ruleSettings = self.menu.Append(
+		self.readingSettings = settingsMenu.Append(
 			wx.ID_ANY,
-			_("&Rule settings...")
+			_("&Reading settings...")
+		)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onReadingSettings, self.readingSettings)
+
+		self.writingSettings = settingsMenu.Append(
+			wx.ID_ANY,
+			_("&Writing settings...")
+		)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onWritingSettings, self.writingSettings)
+
+		self.ruleSettings = settingsMenu.Append(
+			wx.ID_ANY,
+			_("Ru&le settings...")
 		)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onRuleSettings, self.ruleSettings)
 
-		writeMenu = wx.Menu()
-		self.latex = writeMenu.Append(
-			wx.ID_ANY,
-			_("&latex...")
-		)
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onLatexAdd, self.latex)
-
-		self.asciiMath = writeMenu.Append(
-			wx.ID_ANY,
-			_("&asciimath...")
-		)
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onAsciiMathAdd, self.asciiMath)
-
 		self.menu.AppendSubMenu(
-			writeMenu,
-			_("&Write..."),
+			settingsMenu,
+			_("&Settings..."),
 		)
 
 		l10nMenu = wx.Menu()
@@ -273,62 +268,41 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			config.conf["Access8Math"]["settings"]["interact_source"] = "Access8Math"
 		ui.message(_("MathML interact source switch to %s") % config.conf["Access8Math"]["settings"]["interact_source"])
 
-	def onGeneralSettings(self, evt):
-		from dialogs import GeneralSettingsDialog
-		gui.mainFrame._popupSettingsDialog(GeneralSettingsDialog, config.conf["Access8Math"])
+	def onReadingSettings(self, evt):
+		gui.mainFrame._popupSettingsDialog(ReadingSettingsDialog, config.conf["Access8Math"])
+
+	def onWritingSettings(self, evt):
+		gui.mainFrame._popupSettingsDialog(WritingSettingsDialog, config.conf["Access8Math"])
 
 	def onRuleSettings(self, evt):
-		from dialogs import RuleSettingsDialog
 		gui.mainFrame._popupSettingsDialog(RuleSettingsDialog, config.conf["Access8Math"])
 
 	def onNewLanguageAdding(self, evt):
-		from dialogs import NewLanguageAddingDialog
 		NewLanguageAddingDialog(gui.mainFrame).Show()
 
 	def onSpeechUnicodeDictionary(self, evt):
-		from dialogs import UnicodeDicDialog
-		gui.mainFrame._popupSettingsDialog(UnicodeDicDialog, config.conf["Access8Math"], language=config.conf["Access8Math"]["settings"]["language"], category='speech')
+		gui.mainFrame._popupSettingsDialog(
+			UnicodeDicDialog, config.conf["Access8Math"],
+			language=config.conf["Access8Math"]["settings"]["language"], category='speech'
+		)
 
 	def onSpeechMathRule(self, evt):
-		from dialogs import MathRuleDialog
-		gui.mainFrame._popupSettingsDialog(MathRuleDialog, config.conf["Access8Math"], language=config.conf["Access8Math"]["settings"]["language"], category='speech')
+		gui.mainFrame._popupSettingsDialog(
+			MathRuleDialog, config.conf["Access8Math"],
+			language=config.conf["Access8Math"]["settings"]["language"], category='speech'
+		)
 
 	def onBrailleUnicodeDictionary(self, evt):
-		from dialogs import UnicodeDicDialog
-		gui.mainFrame._popupSettingsDialog(UnicodeDicDialog, config.conf["Access8Math"], language=config.conf["Access8Math"]["settings"]["language"], category='braille')
+		gui.mainFrame._popupSettingsDialog(
+			UnicodeDicDialog, config.conf["Access8Math"],
+			language=config.conf["Access8Math"]["settings"]["language"], category='braille'
+		)
 
 	def onBrailleMathRule(self, evt):
-		from dialogs import MathRuleDialog
-		gui.mainFrame._popupSettingsDialog(MathRuleDialog, config.conf["Access8Math"], language=config.conf["Access8Math"]["settings"]["language"], category='braille')
-
-	def onAsciiMathAdd(self, evt):
-		# asciimath to mathml
-		from xml.etree.ElementTree import tostring
-		import asciimathml
-		global main_frame
-		parent = main_frame if main_frame else gui.mainFrame
-		with wx.TextEntryDialog(parent=parent, message=_("Write AsciiMath Content")) as dialog:
-			if dialog.ShowModal() == wx.ID_OK:
-				data = dialog.GetValue()
-				data = asciimathml.parse(data)
-				mathml = tostring(data)
-				mathml = mathml.decode("utf-8")
-				mathml = mathml.replace('math>', 'mrow>')
-				mathcontent = MathContent(config.conf["Access8Math"]["settings"]["language"], mathml)
-				show_main_frame(mathcontent)
-
-	def onLatexAdd(self, evt):
-		# latex to mathml
-		import latex2mathml.converter
-		global main_frame
-		parent = main_frame if main_frame else gui.mainFrame
-		with wx.TextEntryDialog(parent=parent, message=_("Write LaTeX Content")) as dialog:
-			if dialog.ShowModal() == wx.ID_OK:
-				data = dialog.GetValue()
-				data = latex2mathml.converter.convert(data)
-				mathml = data
-				mathcontent = MathContent(config.conf["Access8Math"]["settings"]["language"], mathml)
-				show_main_frame(mathcontent)
+		gui.mainFrame._popupSettingsDialog(
+			MathRuleDialog, config.conf["Access8Math"],
+			language=config.conf["Access8Math"]["settings"]["language"], category='braille'
+		)
 
 	def onAbout(self, evt):
 		gui.messageBox(aboutMessage, _("About Access8Math"), wx.OK)

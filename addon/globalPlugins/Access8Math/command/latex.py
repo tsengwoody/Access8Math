@@ -509,9 +509,9 @@ greekAlphabetMenuData = [
 		"name": _("xi"),
 	},
 	{
-		"id": "o",
+		"id": "omicron",
 		# Translators: greek alphabet command - o
-		"name": _("o"),
+		"name": _("omicron"),
 	},
 	{
 		"id": "pi",

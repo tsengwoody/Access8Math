@@ -1,14 +1,13 @@
 import os
 import re
 
-PATH = os.path.dirname(__file__)
-
 import addonHandler
 import api
 import config
 import globalVars
 from keyboardHandler import KeyboardInputGesture
 from NVDAObjects import NVDAObject
+import mathPres
 import nvwave
 from scriptHandler import script
 import speech
@@ -25,13 +24,18 @@ from delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter
 from lib.mathProcess import textmath2laObjFactory, latex2mathml, asciimath2mathml, latex2asciimath, asciimath2latex
 from regularExpression import delimiterRegularExpression, latex_bracket_dollar
 
+from jinja2 import Environment, FileSystemLoader
 
 addonHandler.initTranslation()
 ADDON_SUMMARY = addonHandler.getCodeAddon().manifest["summary"]
 
-from jinja2 import Environment, FileSystemLoader
+PATH = os.path.dirname(__file__)
 TEMPLATES_PATH = os.path.join(PATH, 'web', 'templates')
-env = Environment(loader=FileSystemLoader(TEMPLATES_PATH), variable_start_string='{|{', variable_end_string='}|}')
+env = Environment(
+	loader=FileSystemLoader(TEMPLATES_PATH),
+	variable_start_string='{|{',
+	variable_end_string='}|}'
+)
 
 command_mode = config.conf["Access8Math"]["settings"]["command_mode"]
 navigate_mode = config.conf["Access8Math"]["settings"]["navigate_mode"]
@@ -275,7 +279,7 @@ class TextMathEditField(NVDAObject):
 
 	@script(
 		gestures=["kb:nvda+alt+n"],
-		description=_("block navigate gesture toggle"),
+		description=_("block navigation gesture toggle"),
 		category=ADDON_SUMMARY,
 	)
 	def script_navigate_toggle(self, gesture):
@@ -283,10 +287,10 @@ class TextMathEditField(NVDAObject):
 		navigate_mode = not navigate_mode
 		if navigate_mode:
 			self.bindNavigateGestures()
-			ui.message(_("activate block navigate gesture"))
+			ui.message(_("activate block navigation gesture"))
 		else:
 			self.unbindNavigateGestures()
-			ui.message(_("deactivate block navigate gesture"))
+			ui.message(_("deactivate block navigation gesture"))
 
 	@script(
 		gestures=["kb:nvda+alt+s"],
@@ -295,7 +299,7 @@ class TextMathEditField(NVDAObject):
 	)
 	def script_shortcut_toggle(self, gesture):
 		if self.writeNav_mode:
-			ui.message(_("cannot activate shortcut gesture in write navigate mode"))
+			ui.message(_("cannot activate shortcut gesture in browse navigation mode"))
 			return
 		global shortcut_mode
 		if not shortcut_mode:
@@ -315,7 +319,7 @@ class TextMathEditField(NVDAObject):
 	)
 	def script_greekAlphabet_toggle(self, gesture):
 		if self.writeNav_mode:
-			ui.message(_("cannot activate greek alphabet gesture in write navigate mode"))
+			ui.message(_("cannot activate greek alphabet gesture in browse navigation mode"))
 			return
 		global greekAlphabet_mode
 		if not greekAlphabet_mode:
@@ -330,7 +334,7 @@ class TextMathEditField(NVDAObject):
 
 	@script(
 		gestures=["kb:NVDA+space"],
-		description=_("write navigate mode toggle"),
+		description=_("browse navigation mode toggle"),
 		category=ADDON_SUMMARY,
 	)
 	def script_writeNav_toggle(self, gesture):
@@ -342,14 +346,14 @@ class TextMathEditField(NVDAObject):
 				sound = "browseMode.wav"
 				nvwave.playWaveFile(os.path.join(globalVars.appDir, "waves", sound))
 			else:
-				ui.message(_("write navigation mode on"))
+				ui.message(_("browse navigation mode on"))
 		else:
 			self.unbindWriteNavGestures()
 			if config.conf["Access8Math"]["settings"]["writeNavAudioIndication"]:
 				sound = "focusMode.wav"
 				nvwave.playWaveFile(os.path.join(globalVars.appDir, "waves", sound))
 			else:
-				ui.message(_("write navigation mode off"))
+				ui.message(_("browse navigation mode off"))
 
 	def script_writeNav_exit(self, gesture):
 		if not self.writeNav_mode:
@@ -359,7 +363,7 @@ class TextMathEditField(NVDAObject):
 				sound = "browseMode.wav"
 				nvwave.playWaveFile(os.path.join(globalVars.appDir, "waves", sound))
 			else:
-				ui.message(_("write navigation mode on"))
+				ui.message(_("browse navigation mode on"))
 		else:
 			gesture.send()
 
@@ -534,18 +538,24 @@ class TextMathEditField(NVDAObject):
 				if selected:
 					manager.caret.updateSelection()
 
-				from mathPres import speechProvider
 				if "alt" not in gesture.modifierNames and result['type'] == "latex":
-					mathMl = latex2mathml(result['data'])
-					mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
-					speech.speak(speechProvider.getSpeechForMathMl(mathMl))
+					try:
+						mathMl = latex2mathml(result['data'])
+						mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
+						speech.speak(mathPres.speechProvider.getSpeechForMathMl(mathMl))
+					except BaseException as e:
+						print(e)
+						ui.message(result['data'])
 				elif "alt" not in gesture.modifierNames and result['type'] == "asciimath":
-					mathMl = asciimath2mathml(result['data'])
-					mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
-					speech.speak(speechProvider.getSpeechForMathMl(mathMl))
+					try:
+						mathMl = asciimath2mathml(result['data'])
+						mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
+						speech.speak(mathPres.speechProvider.getSpeechForMathMl(mathMl))
+					except:
+						ui.message(result['data'])
 				elif "alt" not in gesture.modifierNames and result['type'] == "mathml":
 					mathMl = result['data']
-					speech.speak(speechProvider.getSpeechForMathMl(mathMl))
+					speech.speak(mathPres.speechProvider.getSpeechForMathMl(mathMl))
 				elif not selected:
 					ui.message(result['data'])
 
@@ -592,22 +602,27 @@ class TextMathEditField(NVDAObject):
 				if selected:
 					manager.caret.updateSelection()
 
-				from mathPres import speechProvider
 				for result in results:
 					if result['data'] == "":
 						continue
 					if result['type'] == "latex":
-						mathMl = latex2mathml(result['data'])
-						mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
-						speech.speak(speechProvider.getSpeechForMathMl(mathMl))
+						try:
+							mathMl = latex2mathml(result['data'])
+							mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
+							speech.speak(mathPres.speechProvider.getSpeechForMathMl(mathMl))
+						except:
+							ui.message(result['data'])
 					elif result['type'] == "asciimath":
-						mathMl = asciimath2mathml(result['data'])
-						mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
-						speech.speak(speechProvider.getSpeechForMathMl(mathMl))
+						try:
+							mathMl = asciimath2mathml(result['data'])
+							mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
+							speech.speak(mathPres.speechProvider.getSpeechForMathMl(mathMl))
+						except:
+							ui.message(result['data'])
 					elif result['type'] == "mathml":
 						mathMl = result['data']
 						mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
-						speech.speak(speechProvider.getSpeechForMathMl(mathMl))
+						speech.speak(mathPres.speechProvider.getSpeechForMathMl(mathMl))
 					else:
 						ui.message(result['data'])
 
@@ -959,7 +974,8 @@ def text2template(value, output):
 		'data': data,
 		'raw': raw,
 		'LaTeX_delimiter': config.conf["Access8Math"]["settings"]["LaTeX_delimiter"],
-		'display': config.conf["Access8Math"]["settings"]["HTML_display"],
+		'document_display': config.conf["Access8Math"]["settings"]["HTML_document_display"],
+		'math_display': config.conf["Access8Math"]["settings"]["HTML_math_display"],
 	})
 	with open(output, "w", encoding="utf8", newline="") as f:
 		f.write(content)

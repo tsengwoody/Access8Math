@@ -91,8 +91,12 @@ def translate_Unicode(serializes):
 	for c in serializes:
 		sequence = sequence + '\n'
 		for r in flatten(c):
-			sequence = sequence + str(r)
-			sequence = sequence + ' '
+			time_search = pattern.search(r)
+			try:
+				time = time_search.group('time')
+			except:
+				sequence = sequence +str(r)
+			sequence = sequence +' '
 
 	# replace mutiple blank to single blank
 	pattern = re.compile(r'[ ]+')
