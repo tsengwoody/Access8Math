@@ -434,12 +434,32 @@ class TextMathEditField(NVDAObject):
 			self.script_navigate(gesture)
 
 	def script_view_math(self, gesture):
+		obj=api.getForegroundObject()
 		document = self.makeTextInfo(textInfos.POSITION_ALL)
-		html_file = text2template(document.text, os.path.join(PATH, 'web', 'review', 'index.html'))
-		raw_file = os.path.join(PATH, 'web', 'review', 'raw.txt')
+
+		title=obj.name
+		if not isinstance(title,str) or not title or title.isspace():
+			title = obj.appModule.appName if obj.appModule else None
+			if not isinstance(title,str) or not title or title.isspace():
+				title = ""
+		try:
+			file = title.split("-")[0].strip('* ')
+			name = file.split('.')[0]
+			ext = file.split('.')[1]
+		except:
+			name = 'index'
+			ext = 'txt'
+
+		html_file = text2template(document.text, os.path.join(PATH, 'web', 'review', '{}.html'.format(name)))
+		raw_file = os.path.join(PATH, 'web', 'review', '{}.{}'.format(name, ext))
+
 		with open(raw_file, "w", encoding="utf8", newline="") as f:
 			f.write(document.text)
-		A8MHTMLCommandView(file=html_file).setFocus()
+
+		A8MHTMLCommandView(file={
+			"HTML": html_file,
+			"raw": raw_file,
+		}).setFocus()
 
 	def script_mark(self, gesture):
 		with SectionManager() as manager:
@@ -964,13 +984,17 @@ class SectionManager:
 
 
 def text2template(value, output):
+	try:
+		title = os.path.basename(output).split('.')[0]
+	except:
+		title = 'Access8Math'
 	backslash_pattern = re.compile(r"\\")
 	data = backslash_pattern.sub(lambda m: m.group(0).replace('\\', '\\\\'), value)
 	data = data.replace(r'`', r'\`')
 	raw = data
 	template = env.get_template("index.template")
 	content = template.render({
-		'title': 'Access8Math',
+		'title': title,
 		'data': data,
 		'raw': raw,
 		'LaTeX_delimiter': config.conf["Access8Math"]["settings"]["LaTeX_delimiter"],

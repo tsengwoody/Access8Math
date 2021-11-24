@@ -49,55 +49,129 @@ This NVDA addon provides the feature for writing of mathematical content. Throug
 
 ## Writing feature
 
-Writing mixed content (text content and mathematical content):
+Writing comprehensive content (text content and mathematical content):
 
-### write mixed content
+### write comprehensive content (shortcut key is available in editing area, it is recommended to use in Notepad)
 
-Use delimiter(start delimiter "\(" and end delimiter "\)", LaTeX block) to determine the area between the text content and the mathematical content, that is, the data in LaTeX block is mathematical content (LaTeX), and the data outside LaTeX block is text content.
+Use LaTeX or AsciiMath separate markers to frame the math area to distinguish text content and mathematical content. That is, the data in math marker area is mathematical content of LaTeX/AsciiMath content, and text content outside math marker area.
 
-Press alt+h in edit field to convert an HTML document with mixed text data and mathematical data and can be reviewed or exported. The data in the LaTeX block will be converted to MathML for presentation with normal text.
+*	LaTeX delimiter mark: (can choose to use brackets or money number in the reading setting)
+*	Start delimiter: "\(" or "$"
+*	End delimiter: "\)" or "$"
+*	AsciiMath delimiter:
+*	Start delimiter: "`"
+*	End delimiter: "`"
 
-*	review: Open the converted HTML document through a program that opens the .HTML extension by default.
-*	export: Pack the converted HTML document into a zip file.
+### Command gesture (toggle: NVDA+alt+c)
 
-Press alt+m key in edit field to pop up the markup command window, select "LaTeX" and press enter, the LaTeX mark will be insert into before and after the currently selected text (the current cursor when there is no text selected) and the cursor will be automatically moved into it for quick input the content.
+alt+m: The mark command window pops up, select LaTeX/AsciiMath and press enter to add LaTeX/AsciiMath marks before and after the currently selected text (the current cursor when no text is selected) and automatically move the cursor into it. Enter content quickly.
 
-Press alt+l key in edit field to pop up the LaTeX command window, select the LaTeX command item to be added and press enter to add the corresponding LaTeX syntax at the current cursor and automatically move the cursor to the appropriate input point for quick Enter the content.
+alt+l: Pop up the LaTeX command window, select the LaTeX command item to be added and press the enter key to add the corresponding LaTeX syntax at the current cursor and automatically move the cursor to the appropriate input point for quick input.
 
 LaTeX command window
 
-* Select the LaTeX command item and press f1~f12 to set the shortcut
-* Select the LaTeX command item and press d to remove the shortcut that has been set
-* Select the LaTeX command item and press enter to add the corresponding LaTeX syntax at the current cursor
+*	Move to any LaTeX command item and press English letters (a~z) or f1~f12 to set shortcuts
+*	Move any LaTeX command item and press delete/back space to remove the shortcut that has been set
+*	Move to any LaTeX command item and press enter to add the corresponding LaTeX syntax at the current cursor
 
-In edit field and the cursor is in the LaTeX block, press alt+i to enter navigation interactive mode
+alt+i: When the cursor stops on the math block, you can interact with the math block for navigation
 
-alt+h, alt+i, alt+l, alt+m are write gesture groups. Press alt+w edit field to activate or deactivate write gestures.
+alt+h: HTML documents that can convert text data and mathematical data can be viewed or exported. The content of the math block is converted into MathML and presented side by side with the text to facilitate visual reading.
 
-Edit cursor block navigation move(toggle:alt+n)
+* View: Open the converted HTML document through the default .HTML extension application set by the system.
+* Export: Pack the converted HTML file and the original text file into a compressed file.
 
-*	In edit field, press alt+left arrow key to move to the start point of the previous data block
-*	In edit field, press alt+down key without moving, but only read the content of the current data block
-*	In edit field, press alt+right arrow key to move to the start point of the next data block
-*	In edit field, press alt+home to move to the start point of the current data block
-*	In edit field, press alt+end to move to the end point of the current data block
-* In the editing area, press alt+shift+left arrow key to move to the previous data block and select
-* In the editing area, press alt+shift+down key to move to the current data block and select
-* In the editing area, press alt+shift+right arrow to move to the next data block and select
+alt+t: The data of the block where the cursor is located can be converted between LaTeX and AsciiMath (the cursor needs to be in the LaTeX or AsciiMath block)
 
-Press alt+s in edit field to turn on or off the shortcut mode. When the shortcut mode is on, press f1~f12 to quickly insert LaTeX syntax. When the shortcut mode is on, press shift+f1~f12 to read out the LaTeX commands currently bound to the shortcut.
+In the writing settings, you can choose whether to enable command gestures at startup. Press NVDA+alt+c in the editing area to enable or disable command gestures, which can be changed in input gestures.
 
-Press NVDA+shift+space in edit field to turn on or off the edit single letter navigation mode. When the edit single letter navigation mode is turned on, you can move the edit cursor with single letter navigation
+### Writing block navigation gestures (toggle: NVDA+alt+n)
 
-The following keys by themselves jump edit cursor to the next available block, while adding the shift key causes them to jump edit cursor to the previous block:
+*	alt+Left arrow key: move to the start point of the previous data block
+*	alt+Down arrow key: Only read the content of the current data block without moving
+*	alt+right arrow: move to the start point of the next data block
+*	alt+home: move to the starting point of the current data block
+*	alt+end: move to the end point of the current data block
+*	alt+shift+left arrow: move to the previous data block and select
+*	alt+shift+down key: do not move, only select the content of the current data block
+*	alt+shift+right arrow: move to the next data block and select
 
-*	l: move to the next LaTeX block
-*	a: move to the next AsciiMath block
-*	m: move to the next MathML block
-*	t: move to the next text block
-*	tab: move to the next interactable block
+In the writing settings, you can choose whether to enable the block navigation gestures when starting. Press NVDA+alt+n in the editing area to enable or disable the block navigation gestures, which can be changed in the input gestures.
 
-content example:
+### Shortcut gestures (toggle: NVDA+alt+s)
+
+When the cursor is in the LaTeX block, press the letter, f1~f12 to quickly insert the bound LaTeX. Press shift+letter, shift+f1~f12 to read out the LaTeX currently bound to the shortcut. (Need to set the shortcut key in the command menu first)
+
+In the writing settings, you can choose whether to enable the quick navigation gestures at startup. Press NVDA+alt+s in the editing area to enable or disable the quick navigation gestures, which can be changed in the input gestures.
+
+### Greek letter gestures (toggle: NVDA+alt+g)
+
+When the cursor is in the LaTeX block, press the letter to quickly insert the corresponding Greek letter LaTeX.
+
+Mapping table
+
+|English letter|Greek letter|LaTeX|
+|-|-|-|
+|a|α|\alpha|
+|b|β|\beta|
+|c|θ|\theta|
+|d|δ|\delta|
+|e|ε|\epsilon|
+|f|φ|\phi|
+|g|γ|\gamma|
+|h|η|\eta|
+|i|ι|\iota|
+|k|κ|\kappa|
+|l|λ|\lambda|
+|m|μ|\mu|
+|n|ν|\nu|
+|o|ο|\omicron|
+|p|π|\pi|
+|r|ρ|\rho|
+|s|σ|\sigma|
+|t|τ|\tau|
+|u|υ|\upsilon|
+|v|φ|\psi|
+|w|ω|\omega|
+|y|ξ|\xi|
+|x|χ|\chi|
+|z|ζ|\zeta|
+
+### Browse navigation mode (toggle: NVDA+space)
+
+When the navigation mode is turned on, the mathematical data block read by the cursor mobile report will read the mathematical text content instead of the original grammatical data
+
+You can use the following key gestures to move the editing cursor and interactive navigation
+
+* Left key: move to the starting point of the previous data block and read it out
+* Right arrow: move to the start point of the next data block and read it out
+* Up key: move to the previous line and read out the contents of all data blocks in this line
+* Down key: move to the next line and read out the contents of all data blocks in this line
+* pageUp: move up ten lines and read out the content of all data blocks in that line
+* pageDown: move down ten lines and read out the content of all data blocks in that line
+* home: move to the first block of the line where the cursor is located
+* end: move to the last block of the line where the cursor is located
+
+Use the cursor to move the key plus the shift key to select the text together
+
+space/enter: When the cursor stops on a math block, it can interact with the math content of the data block to navigate
+
+For the following keys, if you only press the single key, the editing cursor will jump to the next data block position, if you press shift + the single key at the same time, the editing cursor will jump to the previous data block position:
+
+* l: Move to the next LaTeX data block and read it out
+* a: Move to the next AsciiMath data block and read it out
+* m: move to the next MathML data block and read
+* t: move to the next text block and read it
+* tab: move to the next interactive block (math block) and read it out
+
+The following key gestures can be used to edit contents
+
+* ctrl+x: cut the current cursor block
+* ctrl+c: copy the current cursor block
+* ctrl+v: Paste content after the current cursor block
+* delete/back space: delete the current cursor block
+
+### content example:
 
 *	LaTeX(by bracket separator): The solution of the quadratic equation in one variable \(ax^2+bx+c=0\) is \(\frac{-b\pm\sqrt{b^2-4ac}}{2a}\) .
 *	LaTeX(by dollar separator): The solution of the quadratic equation in one variable $ax^2+bx+c=0$ is $\frac{-b\pm\sqrt{b^2-4ac}}{2a}$ .
