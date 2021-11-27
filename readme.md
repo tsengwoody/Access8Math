@@ -251,6 +251,8 @@ github: https://github.com/tsengwoody/Access8Math
 
 Please report any bugs or comments, thank you!
 
+# Access8Math update log
+
 ## Access8Math v3.2 Update
 
 *	New feature "`" to separate data blocks, the blocks enclosed by "`" are AsciiMath data
@@ -269,6 +271,7 @@ Please report any bugs or comments, thank you!
 * Added MathML block type, support alt+i, single letter navigation "m", tab movement in browse navigation mode
 *	New feature braille custom-defined math rules and unicode dictionary, which are the same as speech
 *	The exported HTML can show with markdown
+*	The exported HTML is added page title and file name by notepad window title.
 
 ## Access8Math v3.1 Update
 
@@ -354,7 +357,7 @@ Please report any bugs or comments, thank you!
 	*	frown rule：When there is a " ⌢ " right above two Identifier, the item is read as "frown...".
 *	Fix bug.
 
-#	# Access8Math v1.3 update log
+## Access8Math v1.3 update log
 
 *	New rule
 	*	positive rule: Read "positive" rather than "plus" when plus sign in first item or its previous item is certain operator.

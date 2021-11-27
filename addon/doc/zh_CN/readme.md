@@ -301,6 +301,7 @@ github： https://github.com/tsengwoody/Access8Math
 *	新增 MathML 区块类型，支持 alt+i，书写导航模式下直接报读与单键 m, tab 移动
 *	新增点字自定义义数学规则与 unicode 字典，与语音相同
 *	导出的 HTML 可呈现 markdown 语法
+*	导出的 HTML 依据记事本窗口标题加入页面标题与文件名
 
 ## Access8Math v3.1 更新日誌
 

@@ -1,4 +1,4 @@
-﻿# Access8Math 功能
+# Access8Math 功能
 
 ## 閱讀功能
 
@@ -304,6 +304,7 @@ github： https://github.com/tsengwoody/Access8Math
 *	新增 MathML 區塊類型，支援 alt+i，書寫導航模式下直接報讀與單鍵 m, tab 移動
 *	新增點字自訂義數學規則與 unicode 字典，與語音相同
 *	匯出的 HTML 可呈現 markdown 語法
+*	匯出的 HTML 依據記事本視窗標題加入頁面標題與檔案名稱
 
 ## Access8Math v3.1 更新日誌
 
