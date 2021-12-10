@@ -1,735 +1,413 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Access8Math - 2.1\n"
-"Report-Msgid-Bugs-To: 'nvda-translations@freelists.org'\n"
-"POT-Creation-Date: 2021-06-01 10:04+0300\n"
-"PO-Revision-Date: 2021-06-01 10:23+0300\n"
-"Last-Translator: \n"
+"Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
+"POT-Creation-Date: 2021-09-20 15:26+0800\n"
+"PO-Revision-Date: 2021-12-07 11:50+0300\n"
+"Last-Translator: Çağrı Doğan <cagrid@hotmail.com>\n"
 "Language-Team: cagrid@hotmail.com\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.3\n"
-"X-Poedit-Basepath: ../../../globalPlugins/Access8Math\n"
+"X-Generator: Poedit 3.0\n"
+"X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: __init__.py:228
-msgid "Access8Math HTML window"
-msgstr "Access8Math HTML penceresi"
+msgid ""
+"Access8Math\n"
+"Version: 3.1\n"
+"URL: https://addons.nvda-project.org/addons/access8math.en.html\n"
+"Copyright (C) 2017-2021 Access8Math Contributors\n"
+"Access8Math is covered by the GNU General Public License (Version 2). You "
+"are free to share or change this software in any way you like as long as it "
+"is accompanied by the license and you make all source code available to "
+"anyone who wants it. This applies to both original and modified copies of "
+"this software, plus any derivative works.\n"
+"It can be viewed online at: https://www.gnu.org/licenses/old-licenses/"
+"gpl-2.0.html\n"
+"Access8Math has been sponsored by \"Taiwan Visually Impaired People "
+"Association\"(accessibility@twvip.org) in 2018~2019, hereby express our "
+"sincere appreciation.\n"
+"If you feel this add-on is helpful, please don't hesitate to give support to "
+"\"Taiwan Visually Impaired People Association\" and authors."
+msgstr ""
+"Access8Math\n"
+"Sürüm: 3.1\n"
+"URL: https://addons.nvda-project.org/addons/access8math.en.html\n"
+"Telif hakkı (C) 2017-2021 Access8Math Katkıda Bulunanlar\n"
+"Access8Math, GNU Genel Kamu Lisansı (Sürüm 2) kapsamındadır. Lisansla "
+"birlikte verildiği ve tüm kaynak kodunu isteyen herkesin kullanımına "
+"açtığınız sürece, bu yazılımı istediğiniz şekilde paylaşmakta veya "
+"değiştirmekte özgürsünüz. Bu, bu yazılımın hem orijinal hem de değiştirilmiş "
+"kopyaları ile tüm türevleri için geçerlidir.\n"
+"Şu adresten çevrimiçi olarak görüntülenebilir: https://www.gnu.org/licenses/"
+"old-licenses/gpl-2.0.html\n"
+"Access8Math, 2018~2019 yıllarında \"Tayvan Görme Engelliler Derneği"
+"\" (accessibility@twvip.org) tarafından desteklenmiştir, bu vesileyle içten "
+"takdirlerimizi ifade ederiz.\n"
+"Bu eklentinin faydalı olduğunu düşünüyorsanız, lütfen \"Tayvan Görme "
+"Engelliler Derneği\" ve yazarlarına destek vermekten çekinmeyin."
 
-#: __init__.py:238 __init__.py:286
-msgid "&Menu"
-msgstr "&Menü"
-
-#: __init__.py:239 __init__.py:287
-msgid "&Exit"
-msgstr "Çı&kış"
-
-#: __init__.py:239 __init__.py:287
-msgid "Terminate the program"
-msgstr "Programı sonlandır"
-
-#: __init__.py:245
-msgid "review"
-msgstr "İncele"
-
-#: __init__.py:246
-#| msgid "&Export"
-msgid "export"
-msgstr "Dışa aktar"
-
-#: __init__.py:270
-#| msgid "Import file..."
-msgid "Save file..."
-msgstr "Dosyayı kaydet..."
-
-#: __init__.py:280 __init__.py:853
 msgid "Access8Math interaction window"
 msgstr "Access8Math etkileşim penceresi"
 
-#: __init__.py:293
-msgid "interaction"
-msgstr "etkileşim"
-
-#: __init__.py:294 __init__.py:323 __init__.py:421
-msgid "copy"
-msgstr "kopyala"
-
-#: __init__.py:401
-#| msgid "not move"
-msgid "no move"
-msgstr "hareket yok"
-
-#: __init__.py:415
-msgid "copy mathml"
-msgstr "matmlml kopyala"
-
-#: __init__.py:425 __init__.py:429
-msgid "snapshot"
-msgstr "snapshot"
-
-#: __init__.py:433
-#| msgid "Insert math object"
-msgid "Insert math object by asciimath"
-msgstr "asciimath ile matematik nesnesi ekle"
-
-#: __init__.py:443 __init__.py:990
-#| msgid "Write AsciiMath Entry"
-msgid "Write AsciiMath Content"
-msgstr "AsciiMath İçeriği Yaz"
-
-#: __init__.py:456
-#| msgid "Insert math object"
-msgid "Insert math object by latex"
-msgstr "Lateks ile matematik nesnesi ekle"
-
-#: __init__.py:466 __init__.py:1006
-msgid "Write LaTeX Content"
-msgstr "Latex Girişi Yaz"
-
-#: __init__.py:478
-msgid "Delete math object"
-msgstr "Matematik nesnesini sil"
-
-#: __init__.py:577
-msgid "shortcut mode on"
-msgstr "kısayol modu açık"
-
-#: __init__.py:579
-msgid "shortcut mode off"
-msgstr "kısayol modu kapalı"
-
-#: __init__.py:586
-msgid "single letter navigation mode on"
-msgstr "tek harfle navigasyon açık"
-
-#: __init__.py:588
-msgid "single letter navigation mode off"
-msgstr "tek harfle navigasyon kapalı"
-
-#: __init__.py:610 __init__.py:627
-#, python-brace-format
-msgid "shortcut {shortcut} is not set"
-msgstr "Kısayol {shortcut} ayarlanmadı"
-
-#: __init__.py:614 __init__.py:645
-msgid "Not in math section. Please insert LaTeX mark first and try again."
-msgstr ""
-"matematik bölümünde değil. Lütfen önce LaTeX işaretini girin ve tekrar "
-"deneyin."
-
-#: __init__.py:637
-msgid "In math section. Please leave math section first and try again."
-msgstr ""
-"Matematik bölümünde. Lütfen önce matematik bölümünden çıkın ve tekrar "
-"deneyin."
-
-#: __init__.py:711
-msgid "This block cannot be interacted"
-msgstr "Bu blokla etkileşim kurulamaz"
-
-#: __init__.py:864
 msgid "&General settings..."
 msgstr "&Genel Ayarlar..."
 
-#: __init__.py:870
 msgid "&Rule settings..."
 msgstr "&Kural ayarları..."
 
-#: __init__.py:877
 msgid "&latex..."
 msgstr "&latex..."
 
-#: __init__.py:883
-#| msgid "&math rule..."
 msgid "&asciimath..."
 msgstr "&asciimath..."
 
-#: __init__.py:889
-#| msgid "&math rule..."
-msgid "&text-math..."
-msgstr "&metin-matematik..."
-
-#: __init__.py:895
 msgid "&Write..."
 msgstr "&Yazım..."
 
-#: __init__.py:902
 msgid "&unicode dictionary..."
 msgstr "&unicode sözlüğü..."
 
-#: __init__.py:908
 msgid "&math rule..."
 msgstr "&matematik kuralı..."
 
-#: __init__.py:914
 msgid "&New language adding..."
 msgstr "&Yeni dil ekleme..."
 
-#: __init__.py:920
 msgid "&Localization..."
 msgstr "&Yerelleştirme..."
 
-#: __init__.py:926
 msgid "&About..."
 msgstr "H&akkında"
 
-#: __init__.py:930
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on
+#. to be shown on installation and add-on information found in Add-ons Manager.
 msgid "Access8Math"
 msgstr "Access8Math"
 
-#: __init__.py:933
-msgid "Change mathml provider"
-msgstr "mathml sağlayıcıyı değiştir"
+msgid "speech source switch"
+msgstr "konuşma kaynağını değiştir"
 
-#: __init__.py:960
 #, python-format
-msgid "mathml provider change to %s"
-msgstr "mathml sağlayıcı: %s"
+msgid "MathML speech source switch to %s"
+msgstr "MathML konuşma kaynağı %s"
 
-#: __init__.py:1017
-#| msgid "Write AsciiMath Entry"
-msgid "Write TextMath Content"
-msgstr "Metin Matematik İçeriği Yaz"
+msgid "braille source switch"
+msgstr "braille kaynağını değiştir"
 
-#: __init__.py:1027
+#, python-format
+msgid "MathML braille source switch to %s"
+msgstr "MathML braille kaynağı %s"
+
+msgid "interact source switch"
+msgstr "Etkileşim kaynağını değiştir"
+
+#, python-format
+msgid "MathML interact source switch to %s"
+msgstr "MathML etkileşim kaynağı %s"
+
+msgid "Write AsciiMath Content"
+msgstr "AsciiMath İçeriği Yaz"
+
+msgid "Write LaTeX Content"
+msgstr "Latex Girişi Yaz"
+
 msgid "About Access8Math"
 msgstr "Access8Math hakkında"
 
-#: command/latex.py:141
-#| msgid "interaction"
-msgid "fractions"
-msgstr "kesirler"
-
-#: command/latex.py:145
-#| msgid "Simplified square root"
-msgid "square root"
-msgstr "kare kök"
-
-#: command/latex.py:149
-msgid "root"
-msgstr "kök"
-
-#: command/latex.py:153
-msgid "summation"
-msgstr "toplama"
-
-#: command/latex.py:157
-msgid "vector"
-msgstr "vektör"
-
-#: command/latex.py:161
-msgid "limit"
-msgstr "limit"
-
-#: command/latex.py:165
-msgid "times"
-msgstr "çarpma"
-
-#: command/latex.py:169
-msgid "divide"
-msgstr "bölme"
-
-#: command/latex.py:173
-msgid "plus-minus sign"
-msgstr "artı eksi işareti"
-
-#: command/latex.py:177
-msgid "greater than or equal to"
-msgstr "büyük veya eşit"
-
-#: command/latex.py:181
-msgid "less than or equal to"
-msgstr "küçük veya eşit"
-
-#: command/latex.py:185
-msgid "not equal to"
-msgstr "eşit değil"
-
-#: command/latex.py:189
-msgid "parallel"
-msgstr "paralel"
-
-#: command/latex.py:193
-msgid "perpendicular"
-msgstr "dik"
-
-#: command/latex.py:197
-msgid "full equal"
-msgstr "tam eşit"
-
-#: command/latex.py:201
-msgid "similar"
-msgstr "benzer"
-
-#: command/latex.py:205
-msgid "because"
-msgstr "Çünkü"
-
-#: command/latex.py:209
-msgid "therefore"
-msgstr "O halde"
-
-#: command/latex.py:213
-msgid "left arrow"
-msgstr "sol ok"
-
-#: command/latex.py:217
-msgid "right arrow"
-msgstr "sağ ok"
-
-#: command/latex.py:221
-msgid "left right arrow"
-msgstr "sol sağ ok"
-
-#: command/latex.py:225
-msgid "up arrow"
-msgstr "yukarı ok"
-
-#: command/latex.py:229
-msgid "down arrow"
-msgstr "aşağı ok"
-
-#: command/latex.py:233
-msgid "up down arrow"
-msgstr "yukarı aşağı ok"
-
-#: command/latex.py:237
-msgid "line segment"
-msgstr "Doğru parçası"
-
-#: command/latex.py:241
-msgid "line"
-msgstr "doğru"
-
-#: command/latex.py:245
-msgid "ray"
-msgstr "ışın"
-
-#: command/latex.py:249
-msgid "arc"
-msgstr "yay"
-
-#: command/latex.py:253
-msgid "triangle"
-msgstr "üçgen"
-
-#: command/latex.py:257
-msgid "angle"
-msgstr "açı"
-
-#: command/latex.py:261
-msgid "degree"
-msgstr "derece"
-
-#: command/latex.py:265
-msgid "circle"
-msgstr "daire"
-
-#: command/latex.py:269
-msgid "binomial coefficient"
-msgstr "binom katsayısı"
-
-#: command/latex.py:273
-msgid "matrix (2X2)"
-msgstr "matris (2X2)"
-
-#: command/latex.py:277
-msgid "matrix (3X3)"
-msgstr "matris (3X3)"
-
-#: command/latex.py:281
-#| msgid "Determinant"
-msgid "determinant (2X2)"
-msgstr "determinant (2X2)"
-
-#: command/latex.py:285
-#| msgid "Determinant"
-msgid "determinant (3X3)"
-msgstr "determinant (3X3)"
-
-#: command/latex.py:289
-msgid "simultaneous equations"
-msgstr "eşzamanlı denklemler"
-
-#: command/latex.py:323
-msgid "shortcut"
-msgstr "kısayol"
-
-#: command/latex.py:329
-msgid "common"
-msgstr "Yaygın"
-
-#: command/latex.py:335
-msgid "operator"
-msgstr "operatör"
-
-#: command/latex.py:341
-#| msgid "interaction"
-msgid "relation"
-msgstr "ilişki"
-
-#: command/latex.py:347
-msgid "arrow"
-msgstr "ok"
-
-#: command/latex.py:353
-msgid "2-dimension"
-msgstr "2 boyutlu"
-
-#: command/latex.py:359
-msgid "other"
-msgstr "diğer"
-
-#: command/latex.py:367
-msgid "LaTeX command"
-msgstr "LaTeX komutu"
-
-#: command/latex.py:395
-msgid "menu can not set shortcut"
-msgstr "menü kısayolu ayarlayamıyor"
-
-#: command/latex.py:411
-#, python-brace-format
-msgid "set shortcut {slot}"
-msgstr "kısayol ayarla {slot}"
-
-#: command/latex.py:419
-msgid "sub menu no shortcut"
-msgstr "alt menü kısayol yok"
-
-#: command/latex.py:425
-msgid "no set shortcut"
-msgstr "ayarlanmış kısayol yok"
-
-#: command/latex.py:434
-#, python-brace-format
-msgid "clear shortcut {slot}"
-msgstr "{slot} kısayolu temizle"
-
-#: command/mark.py:40
-msgid "LaTeX"
-msgstr "LaTeX"
-
-#: command/mark.py:47
-msgid "mark command"
-msgstr "işaret komutu"
-
-#: command/views.py:13
-msgid "command"
-msgstr "komut"
-
-#: command/views.py:41 command/views.py:79
-#, python-brace-format
-msgid "f{shortcut}"
-msgstr "{shortcut}f"
-
-#: command/views.py:43 command/views.py:81
-#| msgid "&Menu"
-msgid "subMenu"
-msgstr "alt menü"
-
-#: command/views.py:44 command/views.py:82
-#, python-brace-format
-msgid "{number} of {total}"
-msgstr "{number} bölü {total}"
-
-#: dialogs.py:28
+#. Translators: Title of the Access8MathDialog.
 msgid "General Settings"
 msgstr "Genel Ayarlar"
 
-#: dialogs.py:30
-msgid "showing Access8Math interaction window when entering interaction mode"
+msgid "Showing Access8Math interaction window when entering interaction mode"
 msgstr "Etkileşim moduna girildiğinde Access8Math etkileşim penceresini göster"
 
-#: dialogs.py:31
 msgid "Analyze mathematical meaning of content"
 msgstr "İçeriğin matematiksel anlamını analiz et"
 
-#: dialogs.py:32
-#| msgid "Read defined meaning in dictionary"
 msgid ""
 "Reading pre-defined meaning in dictionary when navigating in interactive mode"
 msgstr "Etkileşimli modda gezinirken sözlükte önceden tanımlanmış anlamı oku"
 
-#: dialogs.py:33
-#| msgid "Read of auto-generated meaning"
 msgid "Reading of auto-generated meaning when navigating in interactive mode"
 msgstr "Etkileşimli modda gezinirken otomatik oluşturulan anlamı oku"
 
-#: dialogs.py:34
 msgid "Using a beep to alert no move"
 msgstr "Hareket yok uyarısı için bir bip sesi kullan"
 
-#: dialogs.py:44 dialogs.py:682
+msgid "Activate write gesture by default"
+msgstr "Yazım hareketini varsayılan olarak etkinleştir"
+
+msgid "Activate block navigate gesture by default"
+msgstr "Blok navigasyon hareketini varsayılan olarak etkinleştir"
+
+msgid "Activate shortcut gesture by default"
+msgstr "Kısayol hareketini varsayılan olarak etkinleştir"
+
+#. Translators: The label for a setting in general settings to select NVDA's interface language (once selected, NVDA must be restarted; the option user default means the user's Windows language will be used).
 msgid "&Language:"
 msgstr "Di&l:"
 
-#: dialogs.py:55
 msgid "&Item interval time:"
 msgstr "&Öğe zaman aralığı:"
 
-#: dialogs.py:100
+msgid "&HTML display:"
+msgstr "&HTML görünümü:"
+
+msgid "block"
+msgstr "blok"
+
+msgid "inline"
+msgstr ""
+
+msgid "&LaTeX delimiter:"
+msgstr "&LaTeX sınırlayıcı:"
+
+msgid "bracket"
+msgstr "parantez"
+
+msgid "dollar"
+msgstr "dolar"
+
+msgid "&Speech source:"
+msgstr "&Konuşma kaynağı:"
+
+msgid "Math Player"
+msgstr "Math Player"
+
+msgid "&Braille source:"
+msgstr "&Braille kaynağı:"
+
+msgid "Inter&act source:"
+msgstr "&Etkileşim kaynağı:"
+
+#. Translators: Title of the Access8MathDialog.
 msgid "Rule Settings"
 msgstr "Rule Settings"
 
-#: dialogs.py:102
 msgid "Simplified subscript and superscript"
 msgstr "basitleştirilmiş  alt ve üst indis"
 
-#: dialogs.py:103
 msgid "Simplified subscript"
 msgstr "basitleştirilmiş  alt indis"
 
-#: dialogs.py:104
 msgid "Simplified superscript"
 msgstr "basitleştirilmiş üst indis"
 
-#: dialogs.py:105
 msgid "Simplified underscript and overscript"
 msgstr "basitleştirilmiş alt ve üst yazı"
 
-#: dialogs.py:106
 msgid "Simplified underscript"
 msgstr "basitleştirilmiş  alt yazı"
 
-#: dialogs.py:107
 msgid "Simplified overscript"
 msgstr "basitleştirilmiş üst yazı"
 
-#: dialogs.py:108
 msgid "Simplified fraction"
 msgstr "Basitleştirilmiş kesir"
 
-#: dialogs.py:109
 msgid "Simplified square root"
 msgstr "basitleştirilmiş kare kök "
 
-#: dialogs.py:110
 msgid "Power"
 msgstr "Kuvvet"
 
-#: dialogs.py:111
 msgid "Square power"
 msgstr "Kare kuvvet"
 
-#: dialogs.py:112
 msgid "Cube power"
 msgstr "Küp kuvvet"
 
-#: dialogs.py:113
 msgid "Set"
 msgstr "Küme"
 
-#: dialogs.py:114
 msgid "Absolute value"
 msgstr "Mutlak değer"
 
-#: dialogs.py:115
 msgid "Matrix"
 msgstr "Matris"
 
-#: dialogs.py:116
 msgid "Determinant"
 msgstr "Determinant"
 
-#: dialogs.py:117
 msgid "Integer and fraction"
 msgstr "Tamsayı ve kesir"
 
-#: dialogs.py:156
+#. Translators: This is the label for the add symbol dialog.
 msgid "Add Symbol"
 msgstr "Sembol Ekle"
 
-#: dialogs.py:161
+#. Translators: This is the label for the edit field in the add symbol dialog.
 msgid "Symbol:"
 msgstr "Sembol:"
 
-#: dialogs.py:183
+#. Translators: This is the label for the symbol pronunciation dialog.
+#. %s is replaced by the language for which symbol pronunciation is being edited.
 #, python-format
 msgid "unicode dictionary (%s)"
 msgstr "unicode sözlüğü (%s)"
 
-#: dialogs.py:191
+#. Translators: The label for symbols list in symbol pronunciation dialog.
 msgid "&Symbols"
 msgstr "&Semboller"
 
-#: dialogs.py:199
+#. Translators: The label for a column in symbols list used to identify a symbol.
 msgid "Symbol"
 msgstr "Sembol"
 
-#: dialogs.py:200
 msgid "Replacement"
 msgstr "Yerine"
 
-#: dialogs.py:208
+#. Translators: The label for the group of controls in symbol pronunciation dialog to change the pronunciation of a symbol.
 msgid "Change selected symbol"
 msgstr "Seçilen sembolü değiştir"
 
-#: dialogs.py:224
+#. Translators: The label for the edit field in symbol pronunciation dialog to change the replacement text of a symbol.
 msgid "&Replacement"
 msgstr "Ye&rine"
 
-#: dialogs.py:233
+#. Translators: The label for a button in the Symbol Pronunciation dialog to add a new symbol.
 msgid "&Add"
 msgstr "&ekle"
 
-#: dialogs.py:236
+#. Translators: The label for a button in the Symbol Pronunciation dialog to remove a symbol.
 msgid "Re&move"
 msgstr "Kaldı&r"
 
-#: dialogs.py:240 dialogs.py:548
+#. Translators: The label for a button to recover default value.
 msgid "&Recover default"
 msgstr "Kullanıcı varsayılanını yükle"
 
-#: dialogs.py:243 dialogs.py:551
+#. Translators: The label for a button to import unicode.dic.
+#. Translators: The label for a button to import math.rule.
 msgid "&Import"
 msgstr "&İçe aktar"
 
-#: dialogs.py:246 dialogs.py:554
+#. Translators: The label for a button to export unicode.dic.
+#. Translators: The label for a button to export math.rule.
 msgid "Exp&ort"
 msgstr "&Dışa aktar"
 
-#: dialogs.py:315
+#. Translators: An error reported in the Symbol Pronunciation dialog when adding a symbol that is already present.
 #, python-format
 msgid "Symbol \"%s\" is already present."
 msgstr "\"%s\" sembolü zaten var."
 
-#: dialogs.py:316
 msgid "Error"
 msgstr "Hata"
 
-#: dialogs.py:353 dialogs.py:631
 msgid "Import file..."
 msgstr "Dosyayı içe aktar..."
 
-#: dialogs.py:362 dialogs.py:640
 msgid "Export file..."
 msgstr "Dosyayı dışa aktar..."
 
-#: dialogs.py:391
 msgid "Edit Math Rule Entry"
 msgstr "Matematik Kuralı Girişini düzenle"
 
-#: dialogs.py:399 dialogs.py:404
 msgid "&description"
 msgstr "&açıklama"
 
-#: dialogs.py:401
 msgid "description"
 msgstr "açıklama"
 
-#: dialogs.py:410
 msgid "Serialized ordering"
 msgstr "Seri sıralama "
 
-#: dialogs.py:413
 #, python-format
 msgid "Ordering %d"
 msgstr "%d sıralanıyor"
 
-#: dialogs.py:416
 msgid "Child"
 msgstr "Çocuk"
 
-#: dialogs.py:422
+#. before item
 #, python-format
-#| msgid "Prefix text &%d"
 msgid "Before item text &%d"
 msgstr "Öğe öncesi metin &%d"
 
-#: dialogs.py:427
+#. after item
 #, python-format
-#| msgid "Start text &%d"
 msgid "After item text &%d"
 msgstr "öge sonrası metin &%d"
 
-#: dialogs.py:433
 #, python-format
 msgid "Start text &%d"
 msgstr "Metni Başlat &%d"
 
-#: dialogs.py:435
 #, python-format
 msgid "End text &%d"
 msgstr "Metni sonlandır &%d"
 
-#: dialogs.py:437
 #, python-format
 msgid "&Interval text &%d"
 msgstr "&Metin aralığı &%d"
 
-#: dialogs.py:445
 msgid "Child role"
 msgstr "Çocuk rolü"
 
-#: dialogs.py:448
 #, python-format
 msgid "&Child %d meaning"
 msgstr "&çocuk %d anlamı"
 
-#: dialogs.py:487
+#. Translators: This is an error message to let the user know that the dictionary entry is not valid.
 #, python-format
 msgid "Regular Expression error: \"%s\"."
 msgstr "Düzenli İfade hatası: \"%s\"."
 
-#: dialogs.py:487
 msgid "Dictionary Entry Error"
 msgstr "Sözlük Giriş Hatası"
 
-#: dialogs.py:503
+#. Translators: This is the label for the symbol pronunciation dialog.
+#. %s is replaced by the language for which symbol pronunciation is being edited.
 #, python-format
 msgid "math rule (%s)"
 msgstr "matematik kuralı (%s)"
 
-#: dialogs.py:511
+#. Translators: The label for symbols list in symbol pronunciation dialog.
 msgid "&Mathrules"
 msgstr "&MathKuralları"
 
-#: dialogs.py:519
+#. Translators: The label for a column in symbols list used to identify a symbol.
 msgid "Rule"
 msgstr "Kural"
 
-#: dialogs.py:520
 msgid "Description"
 msgstr "Tarif"
 
-#: dialogs.py:540
+#. Translators: The label for a button to edit math rule.
 msgid "&Edit"
 msgstr "Düz&enle"
 
-#: dialogs.py:544
+#. Translators: The label for a button to example math rule.
 msgid "E&xample"
 msgstr "&Örnek"
 
-#: dialogs.py:671
 msgid "New language adding"
 msgstr "Yeni dil ekleme"
 
-#: dialogs.py:691
 msgid "&Select"
 msgstr "&Seeç"
 
-#: dialogs.py:695
 msgid "&Unselect"
 msgstr "Seçimi kaldı&r"
 
-#: dialogs.py:703
+#. Add button
 msgid "unicode dictionary"
 msgstr "unicode sözlüğü"
 
-#: dialogs.py:704
 msgid "math rule"
 msgstr "matematik kuralı"
 
-#: dialogs.py:705
 msgid "OK"
 msgstr "OK"
 
-#: dialogs.py:796
+#. Translators: The message displayed
 msgid ""
 "For the new language to add, NVDA must be restarted. Press enter to restart "
 "NVDA, or cancel to exit at a later time."
@@ -738,93 +416,416 @@ msgstr ""
 "yeniden başlatmak için enter tuşuna basın, ya da bunu daha sonra yapmak için "
 "iptal edin."
 
-#: dialogs.py:798
+#. Translators: The title of the dialog
 msgid "New language add"
 msgstr "Yeni dil ekle"
 
-#: languageHandler_custom.py:24
+msgid "&Menu"
+msgstr "&Menü"
+
+msgid "&Exit"
+msgstr "Çı&kış"
+
+msgid "Terminate the program"
+msgstr "Programı sonlandır"
+
+msgid "interaction"
+msgstr "etkileşim"
+
+msgid "copy"
+msgstr "kopyala"
+
+msgid "no move"
+msgstr "hareket yok"
+
+msgid "snapshot"
+msgstr "snapshot"
+
+#. Translators: the label for the Windows default NVDA interface language.
 msgid "User default"
 msgstr "Kullanıcı varsayılanı"
 
-#~ msgid "enter interaction mode"
-#~ msgstr "etkileşime moduna geç"
+msgid "write gesture toggle"
+msgstr "Yazım hareketini aç kapa"
 
-#~ msgid "Show Access8Math interaction window"
-#~ msgstr "Access8Math etkileşim penceresini göster"
+msgid "activate write gesture"
+msgstr "yazım hareketini etkinleştir"
 
-#~ msgid "Access8Math interaction window already showed"
-#~ msgstr "Access8Math etkileşim penceresi halihazırda açık"
+msgid "deactivate write gesture"
+msgstr "yazım hareketini devre dışı bırak"
 
-#~ msgid "Shows the Access8Math settings dialog."
-#~ msgstr "Access8Math Ayarları iletişim kutusunu gösterir."
+msgid "block navigate gesture toggle"
+msgstr "blok navigasyon hareketini aç kapa"
 
-#~ msgid ""
-#~ "Access8Math\n"
-#~ "Version: 2.3\n"
-#~ "URL: https://addons.nvda-project.org/addons/access8math.en.html\n"
-#~ "Copyright (C) 2017-2018 Access8Math Contributors\n"
-#~ "Access8Math is covered by the GNU General Public License (Version 2). You "
-#~ "are free to share or change this software in any way you like as long as "
-#~ "it is accompanied by the license and you make all source code available "
-#~ "to anyone who wants it. This applies to both original and modified copies "
-#~ "of this software, plus any derivative works.\n"
-#~ "It can be viewed online at: https://www.gnu.org/licenses/old-licenses/"
-#~ "gpl-2.0.html\n"
-#~ "Access8Math has been sponsored by \"Taiwan Visually Impaired People "
-#~ "Association\"(vipastaiwan@gmail.com) in 2018, hereby express our sincere "
-#~ "appreciation.\n"
-#~ "If you feel this add-on is helpful, please don't hesitate to give support "
-#~ "to \"Taiwan Visually Impaired People Association\" and authors."
-#~ msgstr ""
-#~ "Access8Math\n"
-#~ "Sürüm: 2.3\n"
-#~ "URL: https://addons.nvda-project.org/addons/access8math.en.html\n"
-#~ "Telif Hakkı (C) 2017-2018 Access8Mathi gelişimine  Katkıda bulunanlar\n"
-#~ "Access8Math, GNU Genel Kamu Lisansı (Sürüm 2) kapsamındadır. Bu yazılımı "
-#~ "lisansa eşlik ettiği sürece dilediğiniz herhangi bir şekilde paylaşmakta "
-#~ "veya değiştirmekte özgürsünüz ve tüm kaynak kodlarını isteyenler için "
-#~ "kullanılabilir hale getiriyorsunuz. Bu, bu yazılımın hem orijinal hem de "
-#~ "değiştirilmiş kopyaları ve ayrıca türev çalışmalar için geçerlidir.\n"
-#~ "Çevrimiçi görüntülemek için: https://www.gnu.org/licenses/old-licenses/"
-#~ "gpl-2.0.html\n"
-#~ "Access8Math 2018 yılında \"Tayvan Görme Engelliler Derneği\" tarafından "
-#~ "desteklenmiştir (vipastaiwan@gmail.com), burada içten teşekkürlerimizi "
-#~ "ifade ediyoruz.\n"
-#~ "Bu eklentinin yararlı olduğunu düşünüyorsanız, lütfen \"Tayvan Görme "
-#~ "Engelliler Derneği\" ve yazarlara destek vermekten çekinmeyin."
+msgid "activate block navigate gesture"
+msgstr "Blok navigasyon hareketini etkinleştir"
 
-#~ msgid "build-in"
-#~ msgstr "build-in"
+msgid "deactivate block navigate gesture"
+msgstr "Blok navigasyon hareketini devre dışı bırak"
 
-#~ msgid "Export(&O)"
-#~ msgstr "Dışa aktar(D)"
+msgid "shortcut gesture toggle"
+msgstr "kısayol hareketi aç kapa"
 
-#~ msgid "Allows access math content written by MathML"
-#~ msgstr "MathML ile yazılan matematik içeriğine erişime izin verir"
+msgid "activate shortcut gesture"
+msgstr "Kısayol hareketini etkinleştir"
 
-#~ msgid "show menu"
-#~ msgstr "menüyü göster"
+msgid "deactivate shortcut gesture"
+msgstr "Kısayol hareketini devre dışı bırak"
 
-#~ msgid "&Certain"
-#~ msgstr "&Belli"
+msgid "single letter navigate mode toggle"
+msgstr "tek harfle navigasyon aç kapa"
 
-#~ msgid "&Uncertain"
-#~ msgstr "&Belirsiz"
+msgid "single letter navigation mode on"
+msgstr "tek harfle navigasyon açık"
 
-#~ msgid "Information about this program"
-#~ msgstr "Bu program hakkında bilgi"
+msgid "single letter navigation mode off"
+msgstr "tek harfle navigasyon kapalı"
 
-#~ msgid "Access8Math language change to %s"
-#~ msgstr "Access8Math dili %s olarak değiştirildi"
+#, python-brace-format
+msgid "shortcut {shortcut} is not set"
+msgstr "Kısayol {shortcut} ayarlanmadı"
 
-#~ msgid "Change next language"
-#~ msgstr "Sonraki dili değiştir"
+msgid "Not in math section. Please insert LaTeX mark first and try again."
+msgstr ""
+"matematik bölümünde değil. Lütfen önce LaTeX işaretini girin ve tekrar "
+"deneyin."
 
-#~ msgid "Change previous language"
-#~ msgstr "Önceki dili değiştir"
+msgid "In math section. Please leave math section first and try again."
+msgstr ""
+"Matematik bölümünde. Lütfen önce matematik bölümünden çıkın ve tekrar "
+"deneyin."
 
-#~ msgid "Read the meaning of auto-generated"
-#~ msgstr "讀出自動生成的意義"
+msgid "This block cannot be interacted"
+msgstr "Bu blokla etkileşim kurulamaz"
 
-#~ msgid "Report dictionary defination meaning"
-#~ msgstr "讀出已字典定義的意義"
+#. Translators: LaTeX command - fractions
+msgid "fractions"
+msgstr "kesirler"
+
+#. Translators: LaTeX command - square root
+msgid "square root"
+msgstr "kare kök"
+
+#. Translators: LaTeX command - root
+msgid "root"
+msgstr "kök"
+
+#. Translators: LaTeX command - summation
+msgid "summation"
+msgstr "toplama"
+
+#. Translators: LaTeX command - vector
+msgid "vector"
+msgstr "vektör"
+
+#. Translators: LaTeX command - limit
+msgid "limit"
+msgstr "limit"
+
+#. Translators: LaTeX command - times
+msgid "times"
+msgstr "çarpma"
+
+#. Translators: LaTeX command - divide
+msgid "divide"
+msgstr "bölme"
+
+#. Translators: LaTeX command - plus-minus sign
+msgid "plus-minus sign"
+msgstr "artı eksi işareti"
+
+#. Translators: LaTeX command - greater than or equal to
+msgid "greater than or equal to"
+msgstr "büyük veya eşit"
+
+#. Translators: LaTeX command - less than or equal to
+msgid "less than or equal to"
+msgstr "küçük veya eşit"
+
+#. Translators: LaTeX command - not equal to
+msgid "not equal to"
+msgstr "eşit değil"
+
+#. Translators: LaTeX command - approximate
+msgid "approximate"
+msgstr "yaklaşık"
+
+#. Translators: LaTeX command - parallel
+msgid "parallel"
+msgstr "paralel"
+
+#. Translators: LaTeX command - perpendicular
+msgid "perpendicular"
+msgstr "dik"
+
+#. Translators: LaTeX command - full equal
+msgid "full equal"
+msgstr "tam eşit"
+
+#. Translators: LaTeX command - similar
+msgid "similar"
+msgstr "benzer"
+
+#. Translators: LaTeX command - because
+msgid "because"
+msgstr "Çünkü"
+
+#. Translators: LaTeX command - therefore
+msgid "therefore"
+msgstr "O halde"
+
+#. Translators: LaTeX command - left arrow
+msgid "left arrow"
+msgstr "sol ok"
+
+#. Translators: LaTeX command - right arrow
+msgid "right arrow"
+msgstr "sağ ok"
+
+#. Translators: LaTeX command - left right arrow
+msgid "left right arrow"
+msgstr "sol sağ ok"
+
+#. Translators: LaTeX command - up arrow
+msgid "up arrow"
+msgstr "yukarı ok"
+
+#. Translators: LaTeX command - down arrow
+msgid "down arrow"
+msgstr "aşağı ok"
+
+#. Translators: LaTeX command - up down arrow
+msgid "up down arrow"
+msgstr "yukarı aşağı ok"
+
+#. Translators: LaTeX command - line segment
+msgid "line segment"
+msgstr "Doğru parçası"
+
+#. Translators: LaTeX command - line
+msgid "line"
+msgstr "doğru"
+
+#. Translators: LaTeX command - ray
+msgid "ray"
+msgstr "ışın"
+
+#. Translators: LaTeX command - arc
+msgid "arc"
+msgstr "yay"
+
+#. Translators: LaTeX command - triangle
+msgid "triangle"
+msgstr "üçgen"
+
+#. Translators: LaTeX command - angle
+msgid "angle"
+msgstr "açı"
+
+#. Translators: LaTeX command - degree
+msgid "degree"
+msgstr "derece"
+
+#. Translators: LaTeX command - circle
+msgid "circle"
+msgstr "daire"
+
+#. Translators: LaTeX command - binomial coefficient
+msgid "binomial coefficient"
+msgstr "binom katsayısı"
+
+#. Translators: LaTeX command - matrix (2X2)
+msgid "matrix (2X2)"
+msgstr "matris (2X2)"
+
+#. Translators: LaTeX command - matrix (3X3)
+msgid "matrix (3X3)"
+msgstr "matris (3X3)"
+
+#. Translators: LaTeX command - determinant (2X2)
+msgid "determinant (2X2)"
+msgstr "determinant (2X2)"
+
+#. Translators: LaTeX command - determinant (3X3)
+msgid "determinant (3X3)"
+msgstr "determinant (3X3)"
+
+#. Translators: LaTeX command - simultaneous equations
+msgid "simultaneous equations"
+msgstr "eşzamanlı denklemler"
+
+#. Translators: LaTeX command - belong to
+msgid "belong to"
+msgstr "ait"
+
+#. Translators: LaTeX command - not belong to
+msgid "not belong to"
+msgstr "ait değil"
+
+#. Translators: LaTeX command - lie in
+msgid "lie in"
+msgstr ""
+
+#. Translators: LaTeX command - properly lie in
+msgid "properly lie in"
+msgstr ""
+
+#. Translators: LaTeX command - not lie in
+msgid "not lie in"
+msgstr ""
+
+#. Translators: LaTeX command - include
+msgid "include"
+msgstr ""
+
+#. Translators: LaTeX command - properly include
+msgid "properly include"
+msgstr ""
+
+#. Translators: LaTeX command - not include
+msgid "not include"
+msgstr ""
+
+#. Translators: LaTeX command - intersection set
+msgid "intersection set"
+msgstr "Kesişim kümesi"
+
+#. Translators: LaTeX command - union set
+msgid "union set"
+msgstr "birleşim kümesi"
+
+#. Translators: LaTeX command - difference set
+msgid "difference set"
+msgstr "fark kümesi"
+
+#. Translators: LaTeX command - complement
+msgid "complement"
+msgstr ""
+
+#. Translators: LaTeX command - empty set
+msgid "empty set"
+msgstr "Boş küme"
+
+#. Translators: LaTeX command - natural number
+msgid "natural number"
+msgstr "Doğal sayı"
+
+#. Translators: LaTeX command - real number
+msgid "real number"
+msgstr "Gerçek sayı"
+
+#. Translators: LaTeX command - logarithm
+msgid "logarithm"
+msgstr "logaritma"
+
+#. Translators: LaTeX command - infty
+msgid "infty"
+msgstr ""
+
+#. Translators: LaTeX command - for all
+msgid "for all"
+msgstr ""
+
+#. Translators: LaTeX command - exists
+msgid "exists"
+msgstr "vardır"
+
+#. Translators: LaTeX command - repeating decimal
+msgid "repeating decimal"
+msgstr ""
+
+#. Translators: LaTeX command category - shortcut
+msgid "shortcut"
+msgstr "kısayol"
+
+#. Translators: LaTeX command category - common
+msgid "common"
+msgstr "Yaygın"
+
+#. Translators: LaTeX command category - operator
+msgid "operator"
+msgstr "operatör"
+
+#. Translators: LaTeX command category - relation
+msgid "relation"
+msgstr "ilişki"
+
+#. Translators: LaTeX command category - arrow
+msgid "arrow"
+msgstr "ok"
+
+#. Translators: LaTeX command category - 2-dimension
+msgid "2-dimension"
+msgstr "2 boyutlu"
+
+#. Translators: LaTeX command category - set
+msgid "set"
+msgstr "Küme"
+
+#. Translators: LaTeX command category - other
+msgid "other"
+msgstr "diğer"
+
+#. Translators: alt+l window
+msgid "LaTeX command"
+msgstr "LaTeX komutu"
+
+msgid "menu can not set shortcut"
+msgstr "menü kısayolu ayarlayamıyor"
+
+#, python-brace-format
+msgid "set shortcut {slot}"
+msgstr "kısayol ayarla {slot}"
+
+msgid "sub menu no shortcut"
+msgstr "alt menü kısayol yok"
+
+msgid "no set shortcut"
+msgstr "ayarlanmış kısayol yok"
+
+#, python-brace-format
+msgid "clear shortcut {slot}"
+msgstr "{slot} kısayolu temizle"
+
+#. Translators: mark command category -
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#. Translators: alt+m window
+msgid "mark command"
+msgstr "işaret komutu"
+
+msgid "review"
+msgstr "İncele"
+
+msgid "export"
+msgstr "Dışa aktar"
+
+msgid "Access8Math HTML"
+msgstr "Access8Math HTML"
+
+msgid "Save file..."
+msgstr "Dosyayı kaydet..."
+
+msgid "command"
+msgstr "komut"
+
+#, python-brace-format
+msgid "f{shortcut}"
+msgstr "{shortcut}f"
+
+msgid "subMenu"
+msgstr "alt menü"
+
+#, python-brace-format
+msgid "{number} of {total}"
+msgstr "{number} bölü {total}"
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+msgid ""
+"Allows access math content written by MathML ; Allows write math content by "
+"LaTeX"
+msgstr ""
+"MathML ile yazılan matematik içeriğine erişime sağlar ve LaTeX ile matematik "
+"içeriği oluşturmaya izin verir"
