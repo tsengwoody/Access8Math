@@ -341,15 +341,28 @@ class RuleSettingsDialog(SettingsDialog):
 		return super().onOk(evt)
 
 
-class AddSymbolDialog(wx.Dialog):
+class Symbol:
+	def __init__(self, identifier, displayName="", replacement=""):
+		self.identifier = identifier
+		self.displayName = displayName
+		self.replacement = replacement
+
+
+class AddSymbolDialog(
+		gui.contextHelp.ContextHelpMixin,
+		wx.Dialog  # wxPython does not seem to call base class initializer, put last in MRO
+):
+
+	helpId = "SymbolPronunciation"
+	
 	def __init__(self, parent):
 		# Translators: This is the label for the add symbol dialog.
 		super().__init__(parent, title=_("Add Symbol"))
-		mainSizer = wx.BoxSizer(wx.VERTICAL)
+		mainSizer=wx.BoxSizer(wx.VERTICAL)
 		sHelper = guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
 		# Translators: This is the label for the edit field in the add symbol dialog.
-		symbolText = _("Symbol:")
+		symbolText = _("&Symbol:")
 		self.identifierTextCtrl = sHelper.addLabeledControl(symbolText, wx.TextCtrl)
 
 		sHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
@@ -361,7 +374,10 @@ class AddSymbolDialog(wx.Dialog):
 		self.CentreOnScreen()
 
 
+# class SpeechSymbolsDialog(SettingsDialog):
 class UnicodeDicDialog(SettingsDialog):
+	helpId = "SymbolPronunciation"
+
 	def __init__(self, parent, Access8MathConfig, language, category='speech'):
 		self.Access8MathConfig = Access8MathConfig
 		self.language = language
@@ -373,51 +389,66 @@ class UnicodeDicDialog(SettingsDialog):
 		self.A8M_symbol = symbol
 		# Translators: This is the label for the unicode dictionary dialog.
 		self.title = _("{category} unicode dictionary ({language})").format(language=self.language, category=category)
-		super().__init__(parent)
+		super().__init__(
+			parent,
+			resizeable=True,
+		)
 
 	def makeSettings(self, settingsSizer):
-		symbols = self.symbols = [list(i) for i in self.A8M_symbol.items()]
+		self.filteredSymbols = self.symbols = [Symbol(k, k, v) for k, v in self.A8M_symbol.items()]
+		self.pendingRemovals = {}
 
 		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+		# Translators: The label of a text field to search for symbols in the speech symbols dialog.
+		filterText = pgettext("speechSymbols", "&Filter by:")
+		self.filterEdit = sHelper.addLabeledControl(
+			labelText = filterText,
+			wxCtrlClass=wx.TextCtrl,
+			size=(self.scaleSize(310), -1),
+		)
+		self.filterEdit.Bind(wx.EVT_TEXT, self.onFilterEditTextChange)
+
 		# Translators: The label for symbols list in symbol pronunciation dialog.
 		symbolsText = _("&Symbols")
-		try:
-			# NVDA version >= 2019.2 syntax with autoSizeColumn keyword
-			self.symbolsList = sHelper.addLabeledControl(symbolsText, nvdaControls.AutoWidthColumnListCtrl, autoSizeColumn=0, style=wx.LC_REPORT | wx.LC_SINGLE_SEL)
-		except TypeError:
-			# NVDA version <= 2019.1.1 syntax with autoSizeColumnIndex keyword
-			self.symbolsList = sHelper.addLabeledControl(symbolsText, nvdaControls.AutoWidthColumnListCtrl, autoSizeColumnIndex=0, style=wx.LC_REPORT | wx.LC_SINGLE_SEL)
-		# Translators: The label for a column in symbols list used to identify a symbol.
-		self.symbolsList.InsertColumn(0, _("Symbol"))
-		self.symbolsList.InsertColumn(1, _("Replacement"))
-		for origin, replacement in symbols:
-			item = self.symbolsList.Append((origin, replacement, ))
-			self.updateListItem(item, replacement)
+		self.symbolsList = sHelper.addLabeledControl(
+			symbolsText,
+			nvdaControls.AutoWidthColumnListCtrl,
+			autoSizeColumn=2,  # The replacement column is likely to need the most space
+			itemTextCallable=self.getItemTextForList,
+			style=wx.LC_REPORT | wx.LC_SINGLE_SEL | wx.LC_VIRTUAL
+		)
 
+		# Translators: The label for a column in symbols list used to identify a symbol.
+		self.symbolsList.InsertColumn(0, _("Symbol"), width=self.scaleSize(150))
+		# Translators: The label for a column in symbols list used to identify a replacement.
+		self.symbolsList.InsertColumn(1, _("Replacement"))
 		self.symbolsList.Bind(wx.EVT_LIST_ITEM_FOCUSED, self.onListItemFocused)
 
 		# Translators: The label for the group of controls in symbol pronunciation dialog to change the pronunciation of a symbol.
 		changeSymbolText = _("Change selected symbol")
-		changeSymbolHelper = sHelper.addItem(guiHelper.BoxSizerHelper(self, sizer=wx.StaticBoxSizer(wx.StaticBox(self, label=changeSymbolText), wx.VERTICAL)))
+		changeSymbolSizer = wx.StaticBoxSizer(wx.VERTICAL, self, label=changeSymbolText)
+		changeSymbolGroup = guiHelper.BoxSizerHelper(self, sizer=changeSymbolSizer)
+		changeSymbolHelper = sHelper.addItem(changeSymbolGroup)
 
-		# Used to ensure that event handlers call Skip(). Not calling skip can cause focus problems for controls.
-		# More generally the advice on the wx documentation is: "In general, it is recommended to skip all
-		# non-command events to allow the default handling to take place. The command events are, however, normally
-		# not skipped as usually a single command such as a button click or menu item selection must only be
-		# processed by one handler."
-		def skipEventAndCall(handler):
+		# Used to ensure that event handlers call Skip(). Not calling skip can cause focus problems for controls. More
+		# generally the advice on the wx documentation is: "In general, it is recommended to skip all non-command events
+		# to allow the default handling to take place. The command events are, however, normally not skipped as usually
+		# a single command such as a button click or menu item selection must only be processed by one handler."
+		def skipEventAndCall(handler):	
 			def wrapWithEventSkip(event):
 				if event:
 					event.Skip()
 				return handler()
 			return wrapWithEventSkip
 
+		# Translators: The label for the edit field in symbol pronunciation dialog to change the replacement text of a symbol.
 		replacementText = _("&Replacement")
-		self.replacementEdit = changeSymbolHelper.addLabeledControl(replacementText, wx.TextCtrl)
+		self.replacementEdit = changeSymbolHelper.addLabeledControl(
+			labelText=replacementText,
+			wxCtrlClass=wx.TextCtrl,
+			size=(self.scaleSize(300), -1),
+		)
 		self.replacementEdit.Bind(wx.EVT_TEXT, skipEventAndCall(self.onSymbolEdited))
-
-		# disable the "change symbol" controls until a valid item is selected.
-		self.replacementEdit.Disable()
 
 		bHelper = sHelper.addItem(guiHelper.ButtonHelper(orientation=wx.HORIZONTAL))
 		# Translators: The label for a button in the Symbol Pronunciation dialog to add a new symbol.
@@ -442,51 +473,78 @@ class UnicodeDicDialog(SettingsDialog):
 		importButton.Bind(wx.EVT_BUTTON, self.OnImportClick)
 		exportButton.Bind(wx.EVT_BUTTON, self.OnExportClick)
 
-		self.editingItem = None
+		# Populate the unfiltered list with symbols.
+		self.filter()
 
 	def postInit(self):
 		self.symbolsList.SetFocus()
 
-	def load(self, path):
-		self.A8M_symbol = A8M_PM.load_unicode_dic(path)
-		symbols = self.symbols = [list(i) for i in self.A8M_symbol.items()]
-		for origin, replacement in symbols:
-			item = self.symbolsList.Append((origin, replacement, ))
-			self.updateListItem(item, replacement)
-		return True
+	def filter(self, filterText=''):
+		NONE_SELECTED = -1
+		previousSelectionValue = None
+		previousIndex = self.symbolsList.GetFirstSelected()  # may return NONE_SELECTED
+		if previousIndex != NONE_SELECTED:
+			previousSelectionValue = self.filteredSymbols[previousIndex]
 
-	def save(self, path, symbol):
-		A8M_PM.save_unicode_dic(symbol, path=path)
-		return True
+		if not filterText:
+			self.filteredSymbols = self.symbols
+		else:
+			# Do case-insensitive matching by lowering both filterText and each symbols's text.
+			filterText = filterText.lower()
+			self.filteredSymbols = [
+				symbol for symbol in self.symbols
+				if filterText in symbol.displayName.lower()
+				or filterText in symbol.replacement.lower()
+			]
+		self.symbolsList.ItemCount = len(self.filteredSymbols)
 
-	def clear(self):
-		self.symbolsList.DeleteAllItems()
-		self.symbols = []
-		self.editingItem = None
+		# sometimes filtering may result in an empty list.
+		if not self.symbolsList.ItemCount:
+			self.editingItem = None
+			# disable the "change symbol" controls, since there are no items in the list.
+			self.replacementEdit.Disable()
+			self.levelList.Disable()
+			self.preserveList.Disable()
+			self.removeButton.Disable()
+			return  # exit early, no need to select an item.
 
-		self.replacementEdit.SetValue("")
-		self.replacementEdit.Disable()
-		self.removeButton.Disable()
+		# If there was a selection before filtering, try to preserve it
+		newIndex = 0  # select first item by default.
+		if previousSelectionValue:
+			try:
+				newIndex = self.filteredSymbols.index(previousSelectionValue)
+			except ValueError:
+				pass
 
-	def updateListItem(self, item, replacement):
-		self.symbolsList.SetStringItem(item, 1, replacement)
+		# Change the selection
+		self.symbolsList.Select(newIndex)
+		self.symbolsList.Focus(newIndex)
+		# We don't get a new focus event with the new index.
+		self.symbolsList.sendListItemFocusedEvent(newIndex)
+
+	def getItemTextForList(self, item, column):
+		symbol = self.filteredSymbols[item]
+		if column == 0:
+			return symbol.displayName
+		elif column == 1:
+			return symbol.replacement
+		else:
+			raise ValueError("Unknown column: %d" % column)
 
 	def onSymbolEdited(self):
 		if self.editingItem is not None:
 			# Update the symbol the user was just editing.
 			item = self.editingItem
-			symbol = self.symbols[item]
-			symbol[1] = self.replacementEdit.Value
-			self.updateListItem(item, symbol[1])
+			symbol = self.filteredSymbols[item]
+			symbol.replacement = self.replacementEdit.Value
 
 	def onListItemFocused(self, evt):
 		# Update the editing controls to reflect the newly selected symbol.
 		item = evt.GetIndex()
-		symbol = self.symbols[item]
+		symbol = self.filteredSymbols[item]
 		self.editingItem = item
 		# ChangeValue and Selection property used because they do not cause EVNT_CHANGED to be fired.
-		self.replacementEdit.ChangeValue(symbol[1])
-		# self.removeButton.Enabled = not self.symbolProcessor.isBuiltin(symbol.identifier)
+		self.replacementEdit.ChangeValue(symbol.replacement)
 		self.removeButton.Enable()
 		self.replacementEdit.Enable()
 		evt.Skip()
@@ -498,47 +556,115 @@ class UnicodeDicDialog(SettingsDialog):
 			identifier = entryDialog.identifierTextCtrl.GetValue()
 			if not identifier:
 				return
+		# Clean the filter, so we can select the new entry.
+		self.filterEdit.Value=""
+		self.filter()
 		for index, symbol in enumerate(self.symbols):
-			if identifier == symbol[0]:
-				gui.messageBox(
-					_('Symbol "%s" is already present.') % identifier,
-					_("Error"), wx.OK | wx.ICON_ERROR
-				)
+			if identifier == symbol.identifier:
+				# Translators: An error reported in the Symbol Pronunciation dialog when adding a symbol that is already present.
+				gui.messageBox(_('Symbol "%s" is already present.') % identifier,
+					_("Error"), wx.OK | wx.ICON_ERROR)
 				self.symbolsList.Select(index)
 				self.symbolsList.Focus(index)
 				self.symbolsList.SetFocus()
 				return
-		addedSymbol = [identifier, '']
+		addedSymbol = Symbol(identifier)
+		try:
+			del self.pendingRemovals[identifier]
+		except KeyError:
+			pass
+		addedSymbol.displayName = identifier
+		addedSymbol.replacement = ""
 		self.symbols.append(addedSymbol)
-		item = self.symbolsList.Append((addedSymbol[0], addedSymbol[1],))
-		self.updateListItem(item, addedSymbol[1])
-		self.symbolsList.Select(item)
-		self.symbolsList.Focus(item)
+		self.symbolsList.ItemCount = len(self.symbols)
+		index = self.symbolsList.ItemCount - 1
+		self.symbolsList.Select(index)
+		self.symbolsList.Focus(index)
+		# We don't get a new focus event with the new index.
+		self.symbolsList.sendListItemFocusedEvent(index)
 		self.symbolsList.SetFocus()
 
 	def OnRemoveClick(self, evt):
 		index = self.symbolsList.GetFirstSelected()
-		self.symbols[index]
-		# Deleting from self.symbolsList focuses the next item before deleting,
-		# so it must be done *before* we delete from self.symbols.
-		self.symbolsList.DeleteItem(index)
-		del self.symbols[index]
-		index = min(index, self.symbolsList.ItemCount - 1)
-		self.symbolsList.Select(index)
-		self.symbolsList.Focus(index)
-		# We don't get a new focus event with the new index, so set editingItem.
-		self.editingItem = index
+		symbol = self.filteredSymbols[index]
+		self.pendingRemovals[symbol.identifier] = symbol
+		del self.filteredSymbols[index]
+		if self.filteredSymbols is not self.symbols:
+			self.symbols.remove(symbol)
+		self.symbolsList.ItemCount = len(self.filteredSymbols)
+		# sometimes removing may result in an empty list.
+		if not self.symbolsList.ItemCount:
+			self.editingItem = None
+			# disable the "change symbol" controls, since there are no items in the list.
+			self.replacementEdit.Disable()
+			self.levelList.Disable()
+			self.preserveList.Disable()
+			self.removeButton.Disable()
+		else:
+			index = min(index, self.symbolsList.ItemCount - 1)
+			self.symbolsList.Select(index)
+			self.symbolsList.Focus(index)
+			# We don't get a new focus event with the new index.
+			self.symbolsList.sendListItemFocusedEvent(index)
 		self.symbolsList.SetFocus()
 
-	def OnRecoverDefaultClick(self, evt):
-		path = base_path
-		if not self.language == 'Windows':
-			path = os.path.join(base_path, 'locale', self.language, 'unicode.dic')
+	def onOk(self, evt):
+		self.onSymbolEdited()
+		self.editingItem = None
+		# for symbol in self.pendingRemovals.values():
+			# self.symbolProcessor.deleteSymbol(symbol)
+		for symbol in self.symbols:
+			if not symbol.replacement:
+				continue
 
-		self.clear()
-		self.load(path)
+		self.A8M_symbol = {}
+		for symbol in self.symbols:
+			if not symbol.replacement:
+				continue
+			self.A8M_symbol[symbol.displayName] = symbol.replacement
+
+		try:
+			A8M_PM.save_unicode_dic(self.A8M_symbol, language=self.language, category=self.category)
+		except IOError as e:
+			log.error("Error saving user unicode dictionary: %s" % e)
+
+		A8M_PM.initialize(self.Access8MathConfig)
+
+		super().onOk(evt)
+
+	def _refreshVisibleItems(self):
+		count = self.symbolsList.GetCountPerPage()
+		first = self.symbolsList.GetTopItem()
+		self.symbolsList.RefreshItems(first, first+count)
+
+	def onFilterEditTextChange(self, evt):
+		self.filter(self.filterEdit.Value)
+		self._refreshVisibleItems()
+		evt.Skip()
+
+	def load(self, path):
+		self.A8M_symbol = A8M_PM.load_unicode_dic(path=path)
+		self.filteredSymbols = self.symbols = [Symbol(k, k, v) for k, v in self.A8M_symbol.items()]
+		self.pendingRemovals = {}
+
+	def save(self, path, symbol):
+		A8M_PM.save_unicode_dic(symbol, path=path)
+
+	def OnRecoverDefaultClick(self, evt):
+		self.onSymbolEdited()
+		self.editingItem = None
+		category = self.category
+		language = self.language
+		path = os.path.dirname(os.path.abspath(__file__))
+		if language != 'Windows':
+			path = os.path.join(path, 'locale', category, language)
+		else:
+			path = os.path.join(path, 'locale', category, 'default')
+		self.load(os.path.join(path, "unicode.dic"))
 
 	def OnImportClick(self, evt):
+		self.onSymbolEdited()
+		self.editingItem = None
 		with wx.FileDialog(
 			self, message=_("Import file..."),
 			defaultDir=base_path, wildcard="dictionary files (*.dic)|*.dic"
@@ -547,8 +673,7 @@ class UnicodeDicDialog(SettingsDialog):
 				return
 			pathname = entryDialog.GetPath()
 
-		self.clear()
-		self.load(pathname)
+		self.load(path=pathname)
 
 	def OnExportClick(self, evt):
 		with wx.FileDialog(
@@ -562,27 +687,9 @@ class UnicodeDicDialog(SettingsDialog):
 
 		self.A8M_symbol = {}
 		for symbol in self.symbols:
-			self.A8M_symbol[symbol[0]] = symbol[1]
+			self.A8M_symbol[symbol.displayName] = symbol.replacement
 
 		self.save(pathname, self.A8M_symbol)
-
-	def onOk(self, evt):
-		self.onSymbolEdited()
-		self.editingItem = None
-
-		self.A8M_symbol = {}
-		for symbol in self.symbols:
-			self.A8M_symbol[symbol[0]] = symbol[1]
-
-		try:
-			A8M_PM.save_unicode_dic(self.A8M_symbol, language=self.language, category=self.category)
-		except IOError as e:
-			log.error("Error saving user unicode dictionary: %s" % e)
-
-		A8M_PM.initialize(self.Access8MathConfig)
-
-		super().onOk(evt)
-
 
 class RuleEntryDialog(wx.Dialog):
 	def __init__(self, parent, mathrule, title=_("Edit Math Rule Entry")):

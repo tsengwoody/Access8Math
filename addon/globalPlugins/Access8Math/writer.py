@@ -190,8 +190,8 @@ class TextMathEditField(NVDAObject):
 
 	def unbindGreekAlphabetGestures(self):
 		import inputCore
-		for i in range(1, 13):
-			key = "kb:f{}".format(i)
+		for i in [c for c in "abcdefghijklmnopqrstuvwxyz"]:
+			key = "kb:{}".format(i)
 			try:
 				self.removeGestureBinding(key)
 			except KeyError:
@@ -388,7 +388,7 @@ class TextMathEditField(NVDAObject):
 		with SectionManager() as manager:
 			if manager.inMath:
 				view = A8MLaTeXCommandView(selection=manager.selection.text, inSection=manager.inMath)
-				slot = gesture.mainKeyName[1:]
+				slot = gesture.mainKeyName[1:] if len(gesture.mainKeyName) > 1 else gesture.mainKeyName
 				if slot in view.data.shortcut:
 					ui.message(view.data.shortcut[slot]["name"])
 				else:

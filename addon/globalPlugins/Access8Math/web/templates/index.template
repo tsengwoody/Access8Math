@@ -35,12 +35,16 @@
 	</head>
 	<body>
 		<div id="app">
-			<span>
-				<span v-html="marked(raw)"/>
-			</span>
-			<!--<template v-for="(line, key) in content" :key="key">
-				<span><span v-html="line" /></span><br />
-			</template>-->
+			<div v-if="document_display === 'markdown'">
+				<span>
+					<span v-html="marked(raw)"/>
+				</span>
+			</div>
+			<div v-else>
+				<template v-for="(line, key) in content" :key="key">
+					<span><span v-html="line" /></span><br />
+				</template>
+			</div>
 		</div>
 		<script>
 			const {createApp, computed, ref} = Vue;
@@ -77,9 +81,11 @@
 							}, "")
 						})
 					})
+					const document_display = ref(`{|{ document_display }|}`);
+
 					return {
 						asciimath2mml, latex2mml, mml2svg, marked,
-						data, content, raw
+						data, content, raw, document_display
 					}
 				},
 			}

@@ -1421,13 +1421,12 @@ def load_unicode_dic(path=None, language='', category='speech'):
 			path = os.path.join(path, 'locale', category, language)
 		else:
 			path = os.path.join(path, 'locale', category, 'default')
-	frp = os.path.join(path, 'unicode.dic')
-
-	frp_user = os.path.join(path, 'unicode_user.dic')
-	if not os.path.exists(frp_user):
-		with io.open(frp, 'r', encoding='utf-8') as fr, io.open(frp_user, 'w', encoding='utf-8') as fr_user:
-			fr_user.write(fr.read())
-	path = frp_user
+		frp = os.path.join(path, 'unicode.dic')
+		frp_user = os.path.join(path, 'unicode_user.dic')
+		if not os.path.exists(frp_user):
+			with io.open(frp, 'r', encoding='utf-8') as fr, io.open(frp_user, 'w', encoding='utf-8') as fr_user:
+				fr_user.write(fr.read())
+		path = frp_user
 
 	symbol = {}
 	try:
@@ -1450,13 +1449,12 @@ def load_math_rule(path=None, language='', category='speech'):
 			path = os.path.join(path, 'locale', category, language)
 		else:
 			path = os.path.join(path, 'locale', category, 'default')
-	frp = os.path.join(path, 'math.rule')
-
-	frp_user = os.path.join(path, 'math_user.rule')
-	if not os.path.exists(frp_user):
-		with io.open(frp, 'r', encoding='utf-8') as fr, io.open(frp_user, 'w', encoding='utf-8') as fr_user:
-			fr_user.write(fr.read())
-	path = frp_user
+		frp = os.path.join(path, 'math.rule')
+		frp_user = os.path.join(path, 'math_user.rule')
+		if not os.path.exists(frp_user):
+			with io.open(frp, 'r', encoding='utf-8') as fr, io.open(frp_user, 'w', encoding='utf-8') as fr_user:
+				fr_user.write(fr.read())
+		path = frp_user
 
 	mathrule = collections.OrderedDict({})
 	for category_key in mathrule_category_order:

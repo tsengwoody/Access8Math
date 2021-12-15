@@ -611,7 +611,7 @@ class A8MLaTeXCommandModel(MenuModel):
 				# Translators: LaTeX command category - shortcut
 				"name": _("shortcut"),
 				"type": "menu",
-				"items": [latexShortcut[str(k)] for k in range(1, 13) if str(k) in latexShortcut],
+				"items": [latexShortcut[str(k)] for k in range(1, 13) if str(k) in latexShortcut] + [latexShortcut[k] for k in "abcdefghijklmnopqrstuvwxyz" if k in latexShortcut],
 			},
 			{
 				"id": "common",
