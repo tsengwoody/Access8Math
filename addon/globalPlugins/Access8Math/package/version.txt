@@ -1,5 +1,5 @@
 Jinja2==3.0.3
 lark==0.12.0
 latex2mathml==3.61.0
-lxml==4.6.3
+lxml==4.7.1
 MarkupSafe==2.0.1

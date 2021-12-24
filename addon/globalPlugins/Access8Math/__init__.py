@@ -53,6 +53,7 @@ config.conf.spec["Access8Math"] = {
 		"navigate_mode": "boolean(default=false)",
 		"shortcut_mode": "boolean(default=false)",
 		"writeNavAudioIndication": "boolean(default=true)",
+		"writeNavAcrossLine": "boolean(default=true)",
 		"HTML_document_display": "string(default=markdown)",
 		"HTML_math_display": "string(default=block)",
 		"LaTeX_delimiter": "string(default=bracket)",

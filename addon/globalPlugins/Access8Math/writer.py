@@ -1,5 +1,6 @@
 import os
 import re
+import shutil
 
 import addonHandler
 import api
@@ -450,7 +451,16 @@ class TextMathEditField(NVDAObject):
 			name = 'index'
 			ext = 'txt'
 
-		html_file = text2template(document.text, os.path.join(PATH, 'web', 'review', '{}.html'.format(name)))
+		review_folder = os.path.join(PATH, 'web', 'review')
+		for basename in os.listdir(review_folder):
+			path = os.path.join(review_folder, basename)
+			if os.path.isfile(path):
+				try:
+					os.remove(path)
+				except:
+					pass
+
+		html_file = text2template(document.text, os.path.join(review_folder, '{}.html'.format(name)))
 		raw_file = os.path.join(PATH, 'web', 'review', '{}.{}'.format(name, ext))
 
 		with open(raw_file, "w", encoding="utf8", newline="") as f:
@@ -505,42 +515,48 @@ class TextMathEditField(NVDAObject):
 		with SectionManager() as manager:
 			selected = False
 			if gesture.mainKeyName == "downArrow":
-				result = manager.move(type='any', step=0)
+				result = manager.move(type_='any', step=0)
 				if "shift" in gesture.modifierNames:
 					selected = True
 			elif gesture.mainKeyName == "leftArrow":
-				result = manager.move(type='any', step=-1)
+				if "alt" in gesture.modifierNames or config.conf["Access8Math"]["settings"]["writeNavAcrossLine"]:
+					result = manager.move(type_='any', step=-1)
+				else:
+					result = manager.move(type_='notacrossline', step=-1)
 				if "shift" in gesture.modifierNames:
 					selected = True
 			elif gesture.mainKeyName == "rightArrow":
-				result = manager.move(type='any', step=1)
+				if "alt" in gesture.modifierNames or config.conf["Access8Math"]["settings"]["writeNavAcrossLine"]:
+					result = manager.move(type_='any', step=1)
+				else:
+					result = manager.move(type_='notacrossline', step=1)
 				if "shift" in gesture.modifierNames:
 					selected = True
 			elif gesture.mainKeyName == "tab":
 				if "shift" in gesture.modifierNames:
-					result = manager.move(type='interactivable', step=-1)
+					result = manager.move(type_='interactivable', step=-1)
 				else:
-					result = manager.move(type='interactivable', step=1)
+					result = manager.move(type_='interactivable', step=1)
 			elif gesture.mainKeyName == "t":
 				if "shift" in gesture.modifierNames:
-					result = manager.move(type='text', step=-1)
+					result = manager.move(type_='text', step=-1)
 				else:
-					result = manager.move(type='text', step=1)
+					result = manager.move(type_='text', step=1)
 			elif gesture.mainKeyName == "l":
 				if "shift" in gesture.modifierNames:
-					result = manager.move(type='latex', step=-1)
+					result = manager.move(type_='latex', step=-1)
 				else:
-					result = manager.move(type='latex', step=1)
+					result = manager.move(type_='latex', step=1)
 			elif gesture.mainKeyName == "a":
 				if "shift" in gesture.modifierNames:
-					result = manager.move(type='asciimath', step=-1)
+					result = manager.move(type_='asciimath', step=-1)
 				else:
-					result = manager.move(type='asciimath', step=1)
+					result = manager.move(type_='asciimath', step=1)
 			elif gesture.mainKeyName == "m":
 				if "shift" in gesture.modifierNames:
-					result = manager.move(type='mathml', step=-1)
+					result = manager.move(type_='mathml', step=-1)
 				else:
-					result = manager.move(type='mathml', step=1)
+					result = manager.move(type_='mathml', step=1)
 			elif gesture.mainKeyName == "home":
 				result = manager.start()
 			elif gesture.mainKeyName == "end":
@@ -550,9 +566,7 @@ class TextMathEditField(NVDAObject):
 
 			if not result:
 				tones.beep(100, 50)
-				result = manager.move(type='any', step=0)
-				if "shift" in gesture.modifierNames:
-					selected = True
+				result = manager.move(type_='any', step=0)
 
 			if result:
 				if selected:
@@ -563,8 +577,7 @@ class TextMathEditField(NVDAObject):
 						mathMl = latex2mathml(result['data'])
 						mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
 						speech.speak(mathPres.speechProvider.getSpeechForMathMl(mathMl))
-					except BaseException as e:
-						print(e)
+					except:
 						ui.message(result['data'])
 				elif "alt" not in gesture.modifierNames and result['type'] == "asciimath":
 					try:
@@ -579,8 +592,8 @@ class TextMathEditField(NVDAObject):
 				elif not selected:
 					ui.message(result['data'])
 
-				if "alt" in gesture.modifierNames:
-					tones.beep(500, 50)
+				# if "alt" in gesture.modifierNames:
+					# tones.beep(500, 50)
 
 	def script_navigateLine(self, gesture):
 		with SectionManager() as manager:
@@ -648,7 +661,7 @@ class TextMathEditField(NVDAObject):
 
 	def script_navigateCopy(self, gesture):
 		with SectionManager() as manager:
-			result = manager.move(type='any', step=0)
+			result = manager.move(type_='any', step=0)
 			api.copyToClip(result["raw"])
 			ui.message(_("{data} copy to clipboard").format(data=result["raw"]))
 
@@ -660,14 +673,14 @@ class TextMathEditField(NVDAObject):
 
 	def script_navigateCut(self, gesture):
 		with SectionManager() as manager:
-			result = manager.move(type='any', step=0)
+			result = manager.move(type_='any', step=0)
 			manager.caret.updateSelection()
 			KeyboardInputGesture.fromName("control+x").send()
 			ui.message(_("{data} cut from document").format(data=result["raw"]))
 
 	def script_navigateDelete(self, gesture):
 		with SectionManager() as manager:
-			result = manager.move(type='any', step=0)
+			result = manager.move(type_='any', step=0)
 			manager.caret.updateSelection()
 			KeyboardInputGesture.fromName("delete").send()
 			ui.message(_("{data} delete from document").format(data=result["raw"]))
@@ -773,71 +786,56 @@ class SectionManager:
 		self.selection = focus.makeTextInfo(textInfos.POSITION_SELECTION)
 		self.reset()
 		self.document = focus.makeTextInfo(textInfos.POSITION_ALL)
-		self.points = textmath2laObjFactory(
+		points = textmath2laObjFactory(
 			delimiter={
 				"latex": config.conf["Access8Math"]["settings"]["LaTeX_delimiter"],
 				"asciimath": "graveaccent",
 			}
 		)(self.document.text)
+		self.points = list(filter(lambda point: point['start'] < point['end'], points))
+		temp = []
+		for point in self.points:
+			del point['index']
+			temp.append(point)
+		self.points = temp
 		for index, point in enumerate(self.points):
 			if self.caret._startOffset >= point['start'] and self.caret._startOffset < point['end']:
 				self.all_index = index
-				break
+				# break
 
-		if self.caret._startOffset >= point['start'] and self.caret._startOffset <= point['end']:
-			self.all_index = index
+		# print("start", self.caret._startOffset)
+		# print("end", self.caret._endOffset)
+		# if self.caret._startOffset >= point['start'] and self.caret._startOffset <= point['end']:
+			# self.all_index = index
 
 		return self
 
 	def __exit__(self, exc_type, exc_val, exc_tb):
 		pass
 
-	def move(self, step=0, type="any", all_index=None):
-		if all_index:
-			type = self.points[all_index]['type']
-			index = self.points[all_index]['index']
-		else:
-			index = -1
-			if type == 'any':
-				if self.all_index != -1 and self.all_index + step >= 0 and self.all_index + step < len(self.points):
-					type = self.points[self.all_index + step]['type']
-					index = self.points[self.all_index + step]['index']
-			elif type == 'interactivable':
-				if step > 0:
-					for point in self.points[self.all_index + 1:]:
-						if point['type'] == "latex" or point['type'] == "asciimath" or point['type'] == "mathml":
-							index = point['index']
-							break
-				elif step < 0:
-					for point in self.points[0:self.all_index]:
-						if point['type'] == "latex" or point['type'] == "asciimath" or point['type'] == "mathml":
-							index = point['index']
-			else:
-				if step > 0:
-					for point in self.points[self.all_index + 1:]:
-						if point['type'] == type:
-							index = point['index']
-							break
-				elif step < 0:
-					for point in self.points[0:self.all_index]:
-						if point['type'] == type:
-							index = point['index']
+	def move(self, step=0, type_="any"):
+		if step >= 0:
+			filte_points = self.points[self.all_index:]
+		elif step < 0:
+			filte_points = self.points[:self.all_index]
 
-		pointer = None
-		for all_index, point in enumerate(self.points):
-			type_match = point['type'] == type
-			if type == "interactivable":
-				type_match |= point['type'] == "latex"
-				type_match |= point['type'] == "asciimath"
-				type_match |= point['type'] == "mathml"
-			if type_match and point['index'] == index:
-				self.all_index = all_index
-				pointer = point
-				break
+		if type_ in ["latex", "asciimath", "mathml", "text"]:
+			filte_points = list(filter(lambda i: i['type'] == type_, filte_points))
+		elif type_ == 'interactivable':
+			filte_points = list(filter(lambda i: i['type'] == "latex" or i['type'] == "asciimath" or i['type'] == "mathml", filte_points))
+		try:
+			pointer = filte_points[step]
+		except:
+			pointer = None
 
 		if not pointer:
 			return None
 
+		if type_ == 'notacrossline':
+			if self.pointer['line'] != pointer['line']:
+				return None
+
+		self.all_index = self.points.index(pointer)
 		delimiter_start_length = len(self.delimiter["start"])
 		self.caret._startOffset = self.caret._endOffset = pointer['start'] + delimiter_start_length
 		self.caret.updateCaret()
@@ -912,7 +910,6 @@ class SectionManager:
 				data = delimiter["start"] + latex2asciimath(data) + delimiter["end"]
 			except:
 				data = m.group(0)
-				print(data)
 			return data
 
 		def a2l(m):
@@ -922,7 +919,6 @@ class SectionManager:
 				data = delimiter["start"] + asciimath2latex(data)[1:-1] + delimiter["end"]
 			except:
 				data = m.group(0)
-				print(data)
 			return data
 
 		def reverse(m):

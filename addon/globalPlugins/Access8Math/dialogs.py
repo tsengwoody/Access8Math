@@ -164,6 +164,9 @@ class WritingSettingsDialog(SettingsDialog):
 		"writeNavAudioIndication": {
 			"label": _("Use audio indicate to switching of browse navigation mode")
 		},
+		"writeNavAcrossLine": {
+			"label": _("Left/Right arrow key allow of moving across line in browse navigation mode")
+		},
 		"HTML_document_display": {
 			"label": _("HTML &document display:"),
 			"options": {
