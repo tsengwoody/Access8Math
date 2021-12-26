@@ -2,11 +2,11 @@
 
 from copy import copy
 
-from .. import Token
-from ..exceptions import UnexpectedToken
+from lark.exceptions import UnexpectedToken
+from lark.lexer import Token
 
 
-class InteractiveParser(object):
+class InteractiveParser:
     """InteractiveParser gives you advanced control over parsing and error handling when parsing with LALR.
 
     For a simpler interface, see the ``on_error`` argument to ``Lark.parse()``.
@@ -126,7 +126,3 @@ class ImmutableInteractiveParser(InteractiveParser):
         p = copy(self)
         return InteractiveParser(p.parser, p.parser_state, p.lexer_state)
 
-
-# Deprecated class names for the interactive parser
-ParserPuppet = InteractiveParser
-ImmutableParserPuppet = ImmutableInteractiveParser

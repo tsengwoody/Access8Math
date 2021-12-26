@@ -813,25 +813,28 @@ class SectionManager:
 	def __exit__(self, exc_type, exc_val, exc_tb):
 		pass
 
-	def move(self, step=0, type_="any"):
-		if step >= 0:
-			filte_points = self.points[self.all_index:]
-		elif step < 0:
-			filte_points = self.points[:self.all_index]
+	def move(self, step=0, type_="any", all_index=None):
+		if all_index != None:
+			pointer = self.points[all_index]
+		else:
+			if step >= 0:
+				filte_points = self.points[self.all_index:]
+			elif step < 0:
+				filte_points = self.points[:self.all_index]
 
-		if type_ in ["latex", "asciimath", "mathml", "text"]:
-			filte_points = list(filter(lambda i: i['type'] == type_, filte_points))
-		elif type_ == 'interactivable':
-			filte_points = list(filter(lambda i: i['type'] == "latex" or i['type'] == "asciimath" or i['type'] == "mathml", filte_points))
-		try:
-			pointer = filte_points[step]
-		except:
-			pointer = None
+			if type_ in ["latex", "asciimath", "mathml", "text"]:
+				filte_points = list(filter(lambda i: i['type'] == type_, filte_points))
+			elif type_ == 'interactivable':
+				filte_points = list(filter(lambda i: i['type'] == "latex" or i['type'] == "asciimath" or i['type'] == "mathml", filte_points))
+			try:
+				pointer = filte_points[step]
+			except:
+				pointer = None
 
 		if not pointer:
 			return None
 
-		if type_ == 'notacrossline':
+		if type_ == 'notacrossline' and all_index != None:
 			if self.pointer['line'] != pointer['line']:
 				return None
 

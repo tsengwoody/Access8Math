@@ -6,7 +6,7 @@ import codecs
 import argparse
 
 
-from lark import Lark, InlineTransformer
+from lark import Lark, Transformer, v_args
 
 nearley_grammar = r"""
     start: (ruledef|directive)+
@@ -44,13 +44,14 @@ nearley_grammar = r"""
 
     """
 
-nearley_grammar_parser = Lark(nearley_grammar, parser='earley', lexer='standard')
+nearley_grammar_parser = Lark(nearley_grammar, parser='earley', lexer='basic')
 
 def _get_rulename(name):
     name = {'_': '_ws_maybe', '__':'_ws'}.get(name, name)
     return 'n_' + name.replace('$', '__DOLLAR__').lower()
 
-class NearleyToLark(InlineTransformer):
+@v_args(inline=True)
+class NearleyToLark(Transformer):
     def __init__(self):
         self._count = 0
         self.extra_rules = {}

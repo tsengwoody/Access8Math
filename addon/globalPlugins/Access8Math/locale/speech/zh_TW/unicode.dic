@@ -433,6 +433,9 @@ symbols:
 ⧵	差集	none
 ⫋	真包含於	none
 ⫌	真包含	none
+⟸	反推得	none
+⟹	推得	none
+⟺	若且唯若	none
 
 # FF00~FFFF
 ＋	加號	none

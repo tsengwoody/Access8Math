@@ -21,8 +21,13 @@ addonHandler.initTranslation()
 import os
 from python.csv import DictReader, DictWriter
 
+def load(patho):
+	BASE_DIR = os.path.dirname(__file__)
+	if not os.path.isfile(patho):
+		path = os.path.join(BASE_DIR, 'latexs.csv')
+	else:
+		path = patho
 
-def load(path):
 	data = []
 	with open(path, 'r', encoding='utf-8') as src_file:
 		src_dict_csv = DictReader(src_file)
@@ -32,18 +37,26 @@ def load(path):
 			offset = int(row.pop('offset'))
 			shortcut = row.pop('shortcut')
 			category = row.pop('category')
+			order = int(row.pop('order'))
 			data.append({
 				"id": id_,
 				"latex": latex,
 				"offset": offset,
 				"shortcut": shortcut,
 				"category": category,
+				"order": order,
 			})
 
 	return data
 
 
-def save(path, latexAll):
+def save(patho, latexAll):
+	BASE_DIR = os.path.dirname(__file__)
+	if not os.path.isfile(patho):
+		path = os.path.join(BASE_DIR, 'latexs.csv')
+	else:
+		path = patho
+
 	src_rows = []
 	with open(path, 'r', encoding='utf-8') as src_file:
 		src_dict_csv = DictReader(src_file)
@@ -54,12 +67,14 @@ def save(path, latexAll):
 			offset = int(row.pop('offset'))
 			shortcut = row.pop('shortcut')
 			category = row.pop('category')
+			order = int(row.pop('order'))
 			src_rows.append({
 				"id": id_,
 				"latex": latex,
 				"offset": offset,
 				"shortcut": shortcut,
 				"category": category,
+				"order": order,
 			})
 
 	old_rows = []
@@ -70,6 +85,7 @@ def save(path, latexAll):
 	shortcuts = [{"id": row["id"], "shortcut": row["shortcut"]} for row in latexAll]
 	rows = joinObjectArray(shortcuts, old_rows, "id")
 
+	path = patho
 	with open(path, 'w', encoding='utf-8', newline='') as dst_file:
 		dst_dict_csv = DictWriter(dst_file, fieldnames=fields)
 		dst_dict_csv.writeheader()
@@ -229,6 +245,21 @@ latexMenuData = [
 		"id": "therefore",
 		# Translators: LaTeX command - therefore
 		"name": _("therefore"),
+	},
+	{
+		"id": "iff",
+		# Translators: LaTeX command - because
+		"name": _("if and only if"),
+	},
+	{
+		"id": "implies",
+		# Translators: LaTeX command - because
+		"name": _("implies"),
+	},
+	{
+		"id": "impliedby",
+		# Translators: LaTeX command - because
+		"name": _("implied by"),
 	},
 	{
 		"id": "leftarrow",
@@ -569,7 +600,7 @@ greekAlphabetMenu = {}
 def initialize():
 	global latexData, latexAll, latexCommand, latexShortcut, latexMenu
 	BASE_DIR = os.path.dirname(__file__)
-	path = os.path.join(BASE_DIR, 'latexs.csv')
+	path = os.path.join(BASE_DIR, 'latexs_user.csv')
 	latexData = load(path)
 	latexAll = joinObjectArray(latexData, latexMenuData, key="id")
 	latexMenu = [{
@@ -578,6 +609,8 @@ def initialize():
 		}
 	} for i in latexAll]
 	latexMenu = groupByField(latexMenu, 'category', lambda i: i, lambda i: i)
+	for key, value in latexMenu.items():
+		latexMenu[key] = sorted(value, key=lambda i: i['order'])
 	latexCommand = data2commandMap(latexAll)
 	latexShortcut = data2shortcutMap(latexAll)
 
@@ -592,13 +625,15 @@ def initialize():
 		}
 	} for i in greekAlphabetAll]
 	greekAlphabetMenu = groupByField(greekAlphabetMenu, 'category', lambda i: i, lambda i: i)
+	for key, value in greekAlphabetMenu.items():
+		greekAlphabetMenu[key] = sorted(value, key=lambda i: i['order'])
 	greekAlphabetCommand = data2commandMap(greekAlphabetAll)
 	greekAlphabetShortcut = data2shortcutMap(greekAlphabetAll)
 
 
 def terminate():
 	BASE_DIR = os.path.dirname(__file__)
-	path = os.path.join(BASE_DIR, 'latexs.csv')
+	path = os.path.join(BASE_DIR, 'latexs_user.csv')
 	save(path, latexAll)
 
 
@@ -633,6 +668,13 @@ class A8MLaTeXCommandModel(MenuModel):
 				"name": _("relation"),
 				"type": "menu",
 				"items": latexMenu['relation'],
+			},
+			{
+				"id": "logic",
+				# Translators: LaTeX command category - relation
+				"name": _("logic"),
+				"type": "menu",
+				"items": latexMenu['logic'],
 			},
 			{
 				"id": "arrow",

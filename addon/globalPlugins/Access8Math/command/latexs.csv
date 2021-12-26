@@ -1,59 +1,62 @@
 id,latex,offset,category,shortcut,order
-frac,\frac{}{},-3,common,1,
-sqrt,\sqrt{},-1,common,-1,
-root,\sqrt[]{},-3,common,-1,
-times,\times ,0,operator,-1,
-div,\div ,0,operator,-1,
-circ,\circ ,0,other,-1,
-degree,^{\circ},-8,other,-1,
-angle,\angle{},-1,other,-1,
-cong,\cong ,0,relation,-1,
-sim,\sim,0,relation,-1,
-triangle,\triangle{},-1,other,-1,
-parallel,\parallel ,0,relation,-1,
-perp,\perp ,0,relation,-1,
-overline,\overline{},-1,other,-1,
-overleftrightarrow,\overleftrightarrow{},-1,other,-1,
-overrightarrow,\overrightarrow{},-1,other,-1,
-arc,\overset{\frown}{},-1,other,-1,
-leftarrow,\leftarrow ,0,arrow,-1,
-rightarrow,\rightarrow ,0,arrow,-1,
-leftrightarrow,\leftrightarrow ,0,arrow,-1,
-uparrow,\uparrow ,0,arrow,-1,
-downarrow,\downarrow ,0,arrow,-1,
-updownarrow,\updownarrow ,0,arrow,-1,
-sumupdown,\sum_{}^{},-4,common,-1,
-vector,\vec{},-1,common,-1,
-binom,\binom{}{},-3,other,-1,
-pm,\pm ,0,operator,-1,
-le,\le ,0,relation,-1,
-ge,\ge ,0,relation,-1,
-ne,\ne ,0,relation,-1,
-because,\because ,0,relation,-1,
-therefore,\therefore ,0,relation,-1,
-limit,\lim_{{} \to {}},-9,common,-1,
-matrix2X2,\left [ \begin{matrix} {} &{} \\ {} &{} \end{matrix} \right ],-37,2-dimension,-1,
-matrix3X3,\left [ \begin{matrix} {} &{} &{} \\ {} &{} &{} \\ {} &{} &{} \end{matrix} \right ],-59,2-dimension,-1,
-determinant2X2,\left | \begin{array} {cc} {} &{} \\ {} &{} \end{array} \right |,-36,2-dimension,-1,
-determinant3X3,\left | \begin{array} {ccc} {} &{} &{} \\ {} &{} &{} \\ {} &{} &{} \end{array} \right |,-58,2-dimension,-1,
-simultaneous-equations,\begin{cases} {} &{} \\ {} &{} \end{cases},-27,other,-1,
-in,\in ,0,set,-1,
-notin,\not\in ,0,set,-1,
-subset,\subset ,0,set,-1,
-subsetneqq,\subsetneqq ,0,set,-1,
-not-subset,\not\subset ,0,set,-1,
-supset,\supset ,0,set,-1,
-supsetneqq,\supsetneqq ,0,set,-1,
-not-supset,\not\supset ,0,set,-1,
-cap,\cap ,0,set,-1,
-cup,\cup ,0,set,-1,
-setminus,\setminus ,0,set,-1,
-complement,\complement_{},0,set,-1,
-emptyset,\emptyset ,0,set,-1,
-natural-number,\mathbb{N},0,set,-1,
-real-number,\mathbb{R},0,set,-1,
-logarithm,\log_{},0,common,-1,
-approx,\approx ,0,relation,-1,
-infty,\infty ,0,other,-1,
-forall,\forall ,0,set,-1,
-exists,\exists ,0,set,-1,
+frac,\frac{}{},-3,common,1,0
+sqrt,\sqrt{},-1,common,-1,1
+root,\sqrt[]{},-3,common,-1,2
+times,\times ,0,operator,-1,0
+div,\div ,0,operator,-1,1
+circ,\circ ,0,other,-1,7
+degree,^{\circ},-8,other,-1,6
+angle,\angle{},-1,other,-1,5
+cong,\cong ,0,relation,-1,7
+sim,\sim,0,relation,-1,8
+triangle,\triangle{},-1,other,-1,4
+parallel,\parallel ,0,relation,-1,5
+perp,\perp ,0,relation,-1,6
+overline,\overline{},-1,other,-1,0
+overleftrightarrow,\overleftrightarrow{},-1,other,-1,1
+overrightarrow,\overrightarrow{},-1,other,-1,2
+arc,\overset{\frown}{},-1,other,-1,3
+leftarrow,\leftarrow ,0,arrow,-1,0
+rightarrow,\rightarrow ,0,arrow,-1,1
+leftrightarrow,\leftrightarrow ,0,arrow,-1,2
+uparrow,\uparrow ,0,arrow,-1,3
+downarrow,\downarrow ,0,arrow,-1,4
+updownarrow,\updownarrow ,0,arrow,-1,5
+sumupdown,\sum_{}^{},-4,common,-1,3
+vector,\vec{},-1,common,-1,4
+binom,\binom{}{},-3,other,-1,8
+pm,\pm ,0,operator,-1,2
+le,\le ,0,relation,-1,2
+ge,\ge ,0,relation,-1,1
+ne,\ne ,0,relation,-1,3
+because,\because ,0,logic,-1,0
+therefore,\therefore ,0,logic,-1,1
+limit,\lim_{{} \to {}},-9,common,-1,5
+matrix2X2,\left [ \begin{matrix} {} &{} \\ {} &{} \end{matrix} \right ],-37,2-dimension,-1,0
+matrix3X3,\left [ \begin{matrix} {} &{} &{} \\ {} &{} &{} \\ {} &{} &{} \end{matrix} \right ],-59,2-dimension,-1,1
+determinant2X2,\left | \begin{array} {cc} {} &{} \\ {} &{} \end{array} \right |,-36,2-dimension,-1,2
+determinant3X3,\left | \begin{array} {ccc} {} &{} &{} \\ {} &{} &{} \\ {} &{} &{} \end{array} \right |,-58,2-dimension,-1,3
+simultaneous-equations,\begin{cases} {} &{} \\ {} &{} \end{cases},-27,other,-1,9
+in,\in ,0,set,-1,0
+notin,\not\in ,0,set,-1,1
+subset,\subset ,0,set,-1,2
+subsetneqq,\subsetneqq ,0,set,-1,3
+not-subset,\not\subset ,0,set,-1,4
+supset,\supset ,0,set,-1,5
+supsetneqq,\supsetneqq ,0,set,-1,6
+not-supset,\not\supset ,0,set,-1,7
+cap,\cap ,0,set,-1,8
+cup,\cup ,0,set,-1,9
+setminus,\setminus ,0,set,-1,10
+complement,\complement_{},0,set,-1,11
+emptyset,\emptyset ,0,set,-1,12
+natural-number,\mathbb{N},0,set,-1,13
+real-number,\mathbb{R},0,set,-1,14
+logarithm,\log_{},0,common,-1,6
+approx,\approx ,0,relation,-1,4
+infty,\infty ,0,other,-1,10
+forall,\forall ,0,set,-1,15
+exists,\exists ,0,set,-1,16
+iff,\iff ,0,logic,-1,2
+implies,\implies ,0,logic,-1,3
+impliedby,\impliedby ,0,logic,-1,4
