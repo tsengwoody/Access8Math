@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Access8Math - 3.2\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2021-11-27 09:08+0800\n"
-"PO-Revision-Date: 2021-11-27 09:12+0800\n"
+"POT-Creation-Date: 2021-12-30 16:10+0800\n"
+"PO-Revision-Date: 2021-12-30 16:11+0800\n"
 "Last-Translator: \n"
 "Language-Team: cary-rowen <manchen_0528@outlook.com>\n"
 "Language: zh_CN\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: __init__.py\n"
 "X-Poedit-SearchPath-1: dialogs.py\n"
 
-#: addon\globalPlugins\Access8Math\__init__.py:91
+#: addon\globalPlugins\Access8Math\__init__.py:92
 #, fuzzy
 #| msgid ""
 #| "Access8Math\n"
@@ -66,113 +66,113 @@ msgstr ""
 "特此深表感谢。\n"
 "若您觉得此项附加组件有所帮助，请不吝给予我们与台湾视障协会支持。"
 
-#: addon\globalPlugins\Access8Math\__init__.py:153
+#: addon\globalPlugins\Access8Math\__init__.py:154
 #: addon\globalPlugins\Access8Math\interaction.py:202
 msgid "Access8Math interaction window"
 msgstr "Access8Math 交互窗口"
 
-#: addon\globalPlugins\Access8Math\__init__.py:166
+#: addon\globalPlugins\Access8Math\__init__.py:167
 #, fuzzy
 #| msgid "&Rule settings..."
 msgid "&Reading settings..."
 msgstr "规则设置(&R)"
 
-#: addon\globalPlugins\Access8Math\__init__.py:172
+#: addon\globalPlugins\Access8Math\__init__.py:173
 #, fuzzy
 #| msgid "&Rule settings..."
 msgid "&Writing settings..."
 msgstr "规则设置(&R)"
 
-#: addon\globalPlugins\Access8Math\__init__.py:178
+#: addon\globalPlugins\Access8Math\__init__.py:179
 #, fuzzy
 #| msgid "&Rule settings..."
 msgid "Ru&le settings..."
 msgstr "规则设置(&R)"
 
-#: addon\globalPlugins\Access8Math\__init__.py:184
+#: addon\globalPlugins\Access8Math\__init__.py:185
 #, fuzzy
 #| msgid "&Rule settings..."
 msgid "&Settings..."
 msgstr "规则设置(&R)"
 
-#: addon\globalPlugins\Access8Math\__init__.py:191
+#: addon\globalPlugins\Access8Math\__init__.py:192
 #, fuzzy
 #| msgid "&unicode dictionary..."
 msgid "speech &unicode dictionary..."
 msgstr "&unicode 朗读字典..."
 
-#: addon\globalPlugins\Access8Math\__init__.py:197
+#: addon\globalPlugins\Access8Math\__init__.py:198
 #, fuzzy
 #| msgid "&math rule..."
 msgid "speech &math rule..."
 msgstr "腧穴规则(&M)"
 
-#: addon\globalPlugins\Access8Math\__init__.py:203
+#: addon\globalPlugins\Access8Math\__init__.py:204
 #, fuzzy
 #| msgid "&unicode dictionary..."
 msgid "braille &unicode dictionary..."
 msgstr "&unicode 朗读字典..."
 
-#: addon\globalPlugins\Access8Math\__init__.py:209
+#: addon\globalPlugins\Access8Math\__init__.py:210
 #, fuzzy
 #| msgid "&math rule..."
 msgid "braille &math rule..."
 msgstr "腧穴规则(&M)"
 
-#: addon\globalPlugins\Access8Math\__init__.py:215
+#: addon\globalPlugins\Access8Math\__init__.py:216
 msgid "&New language adding..."
 msgstr "添加新语言(&N)"
 
-#: addon\globalPlugins\Access8Math\__init__.py:221
+#: addon\globalPlugins\Access8Math\__init__.py:222
 msgid "&Localization..."
 msgstr "本地化(&L)"
 
-#: addon\globalPlugins\Access8Math\__init__.py:226
+#: addon\globalPlugins\Access8Math\__init__.py:227
 msgid "&About..."
 msgstr "关于(&A)"
 
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on
 #. to be shown on installation and add-on information found in Add-ons Manager.
-#: addon\globalPlugins\Access8Math\__init__.py:230
+#: addon\globalPlugins\Access8Math\__init__.py:231
 #: addon\globalPlugins\Access8Math\dialogs.py:54
 #: addon\globalPlugins\Access8Math\dialogs.py:60
 #: addon\globalPlugins\Access8Math\dialogs.py:66 buildVars.py:23
 msgid "Access8Math"
 msgstr "Access8Math"
 
-#: addon\globalPlugins\Access8Math\__init__.py:233
+#: addon\globalPlugins\Access8Math\__init__.py:234
 #, fuzzy
 #| msgid "&Speech source:"
 msgid "speech source switch"
 msgstr "语音来源(&S)"
 
-#: addon\globalPlugins\Access8Math\__init__.py:243
+#: addon\globalPlugins\Access8Math\__init__.py:244
 #, python-format
 msgid "MathML speech source switch to %s"
 msgstr "MathML 语音来源切换为 %s"
 
-#: addon\globalPlugins\Access8Math\__init__.py:246
+#: addon\globalPlugins\Access8Math\__init__.py:247
 #, fuzzy
 #| msgid "&Braille source:"
 msgid "braille source switch"
 msgstr "盲文来源(&B)"
 
-#: addon\globalPlugins\Access8Math\__init__.py:256
+#: addon\globalPlugins\Access8Math\__init__.py:257
 #, python-format
 msgid "MathML braille source switch to %s"
 msgstr "MathML 点字来源切换为 %s"
 
-#: addon\globalPlugins\Access8Math\__init__.py:259
+#: addon\globalPlugins\Access8Math\__init__.py:260
 msgid "interact source switch"
 msgstr "交互来源(&I)"
 
-#: addon\globalPlugins\Access8Math\__init__.py:269
+#: addon\globalPlugins\Access8Math\__init__.py:270
 #, python-format
 msgid "MathML interact source switch to %s"
 msgstr "MathML 交互来源切换为 %s"
 
-#: addon\globalPlugins\Access8Math\__init__.py:308
+#: addon\globalPlugins\Access8Math\__init__.py:309
 msgid "About Access8Math"
 msgstr "关于 Access8Math"
 
@@ -185,7 +185,7 @@ msgstr "规则设置"
 
 #. Translators: The label for a setting in general settings to select NVDA's interface language (once selected, NVDA must be restarted; the option user default means the user's Windows language will be used).
 #: addon\globalPlugins\Access8Math\dialogs.py:48
-#: addon\globalPlugins\Access8Math\dialogs.py:887
+#: addon\globalPlugins\Access8Math\dialogs.py:997
 msgid "&Language:"
 msgstr "语言(&L)"
 
@@ -230,11 +230,11 @@ msgstr "在交互模式下导航时读出自动生成的含义"
 
 #: addon\globalPlugins\Access8Math\dialogs.py:82
 msgid "use tone indicate to no move in interaction navigation mode"
-msgstr ""
+msgstr "在互动导航模式下使用音效来提示无法移动"
 
 #: addon\globalPlugins\Access8Math\dialogs.py:97
-#: addon\globalPlugins\Access8Math\dialogs.py:201
-#: addon\globalPlugins\Access8Math\dialogs.py:305
+#: addon\globalPlugins\Access8Math\dialogs.py:204
+#: addon\globalPlugins\Access8Math\dialogs.py:308
 msgid "Math Player"
 msgstr "Math Player"
 
@@ -269,335 +269,351 @@ msgstr "默认启用快捷手势"
 
 #: addon\globalPlugins\Access8Math\dialogs.py:165
 msgid "Use audio indicate to switching of browse navigation mode"
-msgstr ""
+msgstr "以音效提示浏览导航模式的切换"
 
 #: addon\globalPlugins\Access8Math\dialogs.py:168
+msgid ""
+"Left/Right arrow key allow of moving across line in browse navigation mode"
+msgstr "在浏览导航模式下左/右箭头键允许跨行移动"
+
+#: addon\globalPlugins\Access8Math\dialogs.py:171
 #, fuzzy
 #| msgid "&HTML display:"
 msgid "HTML &document display:"
 msgstr "HTML 公式呈现(&H)"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:170
+#: addon\globalPlugins\Access8Math\dialogs.py:173
 msgid "Markdown"
-msgstr ""
+msgstr "Markdown"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:171
+#: addon\globalPlugins\Access8Math\dialogs.py:174
 msgid "text"
-msgstr ""
+msgstr "文字"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:175
+#: addon\globalPlugins\Access8Math\dialogs.py:178
 #, fuzzy
 #| msgid "&HTML display:"
 msgid "HTML &math display:"
 msgstr "HTML 公式呈现(&H)"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:177
+#: addon\globalPlugins\Access8Math\dialogs.py:180
 msgid "block"
 msgstr "独立一行"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:178
+#: addon\globalPlugins\Access8Math\dialogs.py:181
 msgid "inline"
 msgstr "行内"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:182
+#: addon\globalPlugins\Access8Math\dialogs.py:185
 msgid "&LaTeX delimiter:"
 msgstr "LaTeX 分隔符(&L)"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:184
+#: addon\globalPlugins\Access8Math\dialogs.py:187
 msgid "bracket"
 msgstr "括号"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:185
+#: addon\globalPlugins\Access8Math\dialogs.py:188
 msgid "dollar"
 msgstr "美元符号"
 
 #. Translators: Title of the Access8MathDialog.
-#: addon\globalPlugins\Access8Math\dialogs.py:242
+#: addon\globalPlugins\Access8Math\dialogs.py:245
 msgid "Rule Settings"
 msgstr "规则设置"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:245
+#: addon\globalPlugins\Access8Math\dialogs.py:248
 msgid "Simplified subscript and superscript"
 msgstr "简化下标与上标"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:248
+#: addon\globalPlugins\Access8Math\dialogs.py:251
 msgid "Simplified subscript"
 msgstr "简化下标"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:251
+#: addon\globalPlugins\Access8Math\dialogs.py:254
 msgid "Simplified superscript"
 msgstr "简化上标"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:254
+#: addon\globalPlugins\Access8Math\dialogs.py:257
 msgid "Simplified underscript and overscript"
 msgstr "简化正下标与正上标"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:257
+#: addon\globalPlugins\Access8Math\dialogs.py:260
 msgid "Simplified underscript"
 msgstr "简化正下标"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:260
+#: addon\globalPlugins\Access8Math\dialogs.py:263
 msgid "Simplified overscript"
 msgstr "简化正上标"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:263
+#: addon\globalPlugins\Access8Math\dialogs.py:266
 msgid "Simplified fraction"
 msgstr "简化分数"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:266
+#: addon\globalPlugins\Access8Math\dialogs.py:269
 msgid "Simplified square root"
 msgstr "简化平方根"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:269
+#: addon\globalPlugins\Access8Math\dialogs.py:272
 msgid "Power"
 msgstr "指数"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:272
+#: addon\globalPlugins\Access8Math\dialogs.py:275
 msgid "Square power"
 msgstr "平方指数"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:275
+#: addon\globalPlugins\Access8Math\dialogs.py:278
 msgid "Cube power"
 msgstr "立方指数"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:278
+#: addon\globalPlugins\Access8Math\dialogs.py:281
 msgid "Set"
 msgstr "集合"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:281
+#: addon\globalPlugins\Access8Math\dialogs.py:284
 msgid "Absolute value"
 msgstr "绝对值"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:284
+#: addon\globalPlugins\Access8Math\dialogs.py:287
 msgid "Matrix"
 msgstr "矩阵"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:287
+#: addon\globalPlugins\Access8Math\dialogs.py:290
 msgid "Determinant"
 msgstr "行列式"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:290
+#: addon\globalPlugins\Access8Math\dialogs.py:293
 msgid "Integer and fraction"
 msgstr "带分数"
 
 #. Translators: This is the label for the add symbol dialog.
-#: addon\globalPlugins\Access8Math\dialogs.py:347
+#: addon\globalPlugins\Access8Math\dialogs.py:363
 msgid "Add Symbol"
 msgstr "添加符号"
 
 #. Translators: This is the label for the edit field in the add symbol dialog.
-#: addon\globalPlugins\Access8Math\dialogs.py:352
-msgid "Symbol:"
+#: addon\globalPlugins\Access8Math\dialogs.py:368
+#, fuzzy
+#| msgid "Symbol:"
+msgid "&Symbol:"
 msgstr "符号:"
 
 #. Translators: This is the label for the unicode dictionary dialog.
-#: addon\globalPlugins\Access8Math\dialogs.py:375
+#: addon\globalPlugins\Access8Math\dialogs.py:394
 #, fuzzy, python-brace-format
 #| msgid "unicode dictionary (%s)"
 msgid "{category} unicode dictionary ({language})"
 msgstr "unicode 朗读字典 (%s)"
 
+#. Translators: The label of a text field to search for symbols in the speech symbols dialog.
+#: addon\globalPlugins\Access8Math\dialogs.py:406
+msgctxt "speechSymbols"
+msgid "&Filter by:"
+msgstr "筛选(&F):"
+
 #. Translators: The label for symbols list in symbol pronunciation dialog.
-#: addon\globalPlugins\Access8Math\dialogs.py:383
+#: addon\globalPlugins\Access8Math\dialogs.py:415
 msgid "&Symbols"
 msgstr "符号(&S)"
 
 #. Translators: The label for a column in symbols list used to identify a symbol.
-#: addon\globalPlugins\Access8Math\dialogs.py:391
+#: addon\globalPlugins\Access8Math\dialogs.py:425
 msgid "Symbol"
 msgstr "符号"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:392
+#. Translators: The label for a column in symbols list used to identify a replacement.
+#: addon\globalPlugins\Access8Math\dialogs.py:427
 msgid "Replacement"
 msgstr "替换文本"
 
 #. Translators: The label for the group of controls in symbol pronunciation dialog to change the pronunciation of a symbol.
-#: addon\globalPlugins\Access8Math\dialogs.py:400
+#: addon\globalPlugins\Access8Math\dialogs.py:431
 msgid "Change selected symbol"
 msgstr "修改当前符号"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:415
+#. Translators: The label for the edit field in symbol pronunciation dialog to change the replacement text of a symbol.
+#: addon\globalPlugins\Access8Math\dialogs.py:448
 msgid "&Replacement"
 msgstr "替换文本(&R)"
 
 #. Translators: The label for a button in the Symbol Pronunciation dialog to add a new symbol.
-#: addon\globalPlugins\Access8Math\dialogs.py:424
+#: addon\globalPlugins\Access8Math\dialogs.py:458
 msgid "&Add"
 msgstr "添加(&A)"
 
 #. Translators: The label for a button in the Symbol Pronunciation dialog to remove a symbol.
-#: addon\globalPlugins\Access8Math\dialogs.py:427
+#: addon\globalPlugins\Access8Math\dialogs.py:461
 msgid "Re&move"
 msgstr "移除(&M)"
 
 #. Translators: The label for a button to recover default value.
-#: addon\globalPlugins\Access8Math\dialogs.py:431
-#: addon\globalPlugins\Access8Math\dialogs.py:747
+#: addon\globalPlugins\Access8Math\dialogs.py:465
+#: addon\globalPlugins\Access8Math\dialogs.py:857
 msgid "&Recover default"
 msgstr "恢复默认值(&R)"
 
 #. Translators: The label for a button to import unicode.dic.
 #. Translators: The label for a button to import math.rule.
-#: addon\globalPlugins\Access8Math\dialogs.py:434
-#: addon\globalPlugins\Access8Math\dialogs.py:750
+#: addon\globalPlugins\Access8Math\dialogs.py:468
+#: addon\globalPlugins\Access8Math\dialogs.py:860
 msgid "&Import"
 msgstr "导入(&I)"
 
 #. Translators: The label for a button to export unicode.dic.
 #. Translators: The label for a button to export math.rule.
-#: addon\globalPlugins\Access8Math\dialogs.py:437
-#: addon\globalPlugins\Access8Math\dialogs.py:753
+#: addon\globalPlugins\Access8Math\dialogs.py:471
+#: addon\globalPlugins\Access8Math\dialogs.py:863
 msgid "Exp&ort"
 msgstr "导出(&o)"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:504
+#. Translators: An error reported in the Symbol Pronunciation dialog when adding a symbol that is already present.
+#: addon\globalPlugins\Access8Math\dialogs.py:568
 #, python-format
 msgid "Symbol \"%s\" is already present."
 msgstr "符号 \"%s\" 已存在。"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:505
+#: addon\globalPlugins\Access8Math\dialogs.py:569
 msgid "Error"
 msgstr "错误"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:543
-#: addon\globalPlugins\Access8Math\dialogs.py:830
+#: addon\globalPlugins\Access8Math\dialogs.py:672
+#: addon\globalPlugins\Access8Math\dialogs.py:940
 msgid "Import file..."
 msgstr "导入文件..."
 
-#: addon\globalPlugins\Access8Math\dialogs.py:555
-#: addon\globalPlugins\Access8Math\dialogs.py:842
+#: addon\globalPlugins\Access8Math\dialogs.py:683
+#: addon\globalPlugins\Access8Math\dialogs.py:952
 msgid "Export file..."
 msgstr "导出文件..."
 
-#: addon\globalPlugins\Access8Math\dialogs.py:588
+#: addon\globalPlugins\Access8Math\dialogs.py:698
 msgid "Edit Math Rule Entry"
 msgstr "编辑数学规则"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:596
-#: addon\globalPlugins\Access8Math\dialogs.py:601
+#: addon\globalPlugins\Access8Math\dialogs.py:706
+#: addon\globalPlugins\Access8Math\dialogs.py:711
 msgid "&description"
 msgstr "描述(&d)"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:598
+#: addon\globalPlugins\Access8Math\dialogs.py:708
 msgid "description"
 msgstr "描述"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:607
+#: addon\globalPlugins\Access8Math\dialogs.py:717
 msgid "Serialized ordering"
 msgstr "序列化顺序"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:610
+#: addon\globalPlugins\Access8Math\dialogs.py:720
 #, python-format
 msgid "Ordering %d"
 msgstr "顺序 %d"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:613
+#: addon\globalPlugins\Access8Math\dialogs.py:723
 msgid "Child"
 msgstr "子节点"
 
 #. before item
-#: addon\globalPlugins\Access8Math\dialogs.py:619
+#: addon\globalPlugins\Access8Math\dialogs.py:729
 #, python-format
 msgid "Before item text &%d"
 msgstr "项目前文本 &%d"
 
 #. after item
-#: addon\globalPlugins\Access8Math\dialogs.py:624
+#: addon\globalPlugins\Access8Math\dialogs.py:734
 #, python-format
 msgid "After item text &%d"
 msgstr "项目後文本 &%d"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:630
+#: addon\globalPlugins\Access8Math\dialogs.py:740
 #, python-format
 msgid "Start text &%d"
 msgstr "開始文本 &%d"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:632
+#: addon\globalPlugins\Access8Math\dialogs.py:742
 #, python-format
 msgid "End text &%d"
 msgstr "结束文本 &%d"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:634
+#: addon\globalPlugins\Access8Math\dialogs.py:744
 #, python-format
 msgid "&Interval text &%d"
 msgstr "项目间文本 &%d"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:642
+#: addon\globalPlugins\Access8Math\dialogs.py:752
 msgid "Child role"
 msgstr "子节点角色"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:645
+#: addon\globalPlugins\Access8Math\dialogs.py:755
 #, python-format
 msgid "&Child %d meaning"
 msgstr "子节点 %d 意义(&C)"
 
 #. Translators: This is an error message to let the user know that the dictionary entry is not valid.
-#: addon\globalPlugins\Access8Math\dialogs.py:684
+#: addon\globalPlugins\Access8Math\dialogs.py:794
 #, python-format
 msgid "Regular Expression error: \"%s\"."
 msgstr "正则表达式错误： \"%s\"。"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:684
+#: addon\globalPlugins\Access8Math\dialogs.py:794
 msgid "Dictionary Entry Error"
 msgstr "字典条目错误"
 
 #. Translators: This is the label for the math rule dialog.
-#: addon\globalPlugins\Access8Math\dialogs.py:701
+#: addon\globalPlugins\Access8Math\dialogs.py:811
 #, python-brace-format
 msgid "{category} math rule ({language})"
-msgstr ""
+msgstr "{category} 数学规则 ({language})"
 
 #. Translators: The label for symbols list in symbol pronunciation dialog.
-#: addon\globalPlugins\Access8Math\dialogs.py:709
+#: addon\globalPlugins\Access8Math\dialogs.py:819
 msgid "&Mathrules"
 msgstr "数学规则(&M)"
 
 #. Translators: The label for a column in symbols list used to identify a symbol.
-#: addon\globalPlugins\Access8Math\dialogs.py:717
+#: addon\globalPlugins\Access8Math\dialogs.py:827
 msgid "Rule"
 msgstr "规则"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:718
+#: addon\globalPlugins\Access8Math\dialogs.py:828
 msgid "Description"
 msgstr "描述"
 
 #. Translators: The label for a button to edit math rule.
-#: addon\globalPlugins\Access8Math\dialogs.py:739
+#: addon\globalPlugins\Access8Math\dialogs.py:849
 msgid "&Edit"
 msgstr "编辑(&E)"
 
 #. Translators: The label for a button to example math rule.
-#: addon\globalPlugins\Access8Math\dialogs.py:743
+#: addon\globalPlugins\Access8Math\dialogs.py:853
 msgid "E&xample"
 msgstr "范例"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:877
+#: addon\globalPlugins\Access8Math\dialogs.py:987
 msgid "New language adding"
 msgstr "添加新语言"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:895
+#: addon\globalPlugins\Access8Math\dialogs.py:1005
 msgid "&Select"
 msgstr "选中(&S)"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:899
+#: addon\globalPlugins\Access8Math\dialogs.py:1009
 msgid "&Unselect"
 msgstr "取消选中(&U)"
 
 #. Add button
-#: addon\globalPlugins\Access8Math\dialogs.py:907
+#: addon\globalPlugins\Access8Math\dialogs.py:1017
 msgid "unicode dictionary"
 msgstr "unicode 朗读字典"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:908
+#: addon\globalPlugins\Access8Math\dialogs.py:1018
 msgid "math rule"
 msgstr "数学规则"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:909
+#: addon\globalPlugins\Access8Math\dialogs.py:1019
 msgid "OK"
 msgstr "确定"
 
 #. Translators: The message displayed
-#: addon\globalPlugins\Access8Math\dialogs.py:1006
+#: addon\globalPlugins\Access8Math\dialogs.py:1116
 msgid ""
 "For the new language to add, NVDA must be restarted. Press enter to restart "
 "NVDA, or cancel to exit at a later time."
@@ -606,7 +622,7 @@ msgstr ""
 "Esc 键稍后重启。"
 
 #. Translators: The title of the dialog
-#: addon\globalPlugins\Access8Math\dialogs.py:1008
+#: addon\globalPlugins\Access8Math\dialogs.py:1118
 msgid "New language add"
 msgstr "添加新语言"
 
@@ -653,149 +669,149 @@ msgstr "书写 LaTeX 内容"
 msgid "User default"
 msgstr "用户默认"
 
-#: addon\globalPlugins\Access8Math\writer.py:267
+#: addon\globalPlugins\Access8Math\writer.py:268
 #, fuzzy
 #| msgid "write gesture toggle"
 msgid "command gesture toggle"
 msgstr "书写手势开关"
 
-#: addon\globalPlugins\Access8Math\writer.py:275
+#: addon\globalPlugins\Access8Math\writer.py:276
 #, fuzzy
 #| msgid "activate write gesture"
 msgid "activate command gesture"
 msgstr "启用书写手势"
 
-#: addon\globalPlugins\Access8Math\writer.py:278
+#: addon\globalPlugins\Access8Math\writer.py:279
 #, fuzzy
 #| msgid "deactivate write gesture"
 msgid "deactivate command gesture"
 msgstr "停用书写手势"
 
-#: addon\globalPlugins\Access8Math\writer.py:282
+#: addon\globalPlugins\Access8Math\writer.py:283
 #, fuzzy
 #| msgid "block navigate gesture toggle"
 msgid "block navigation gesture toggle"
 msgstr "区域导航开关"
 
-#: addon\globalPlugins\Access8Math\writer.py:290
+#: addon\globalPlugins\Access8Math\writer.py:291
 #, fuzzy
 #| msgid "activate block navigate gesture"
 msgid "activate block navigation gesture"
 msgstr "启用区域导航开关"
 
-#: addon\globalPlugins\Access8Math\writer.py:293
+#: addon\globalPlugins\Access8Math\writer.py:294
 #, fuzzy
 #| msgid "deactivate block navigate gesture"
 msgid "deactivate block navigation gesture"
 msgstr "停用区域导航开关"
 
-#: addon\globalPlugins\Access8Math\writer.py:297
+#: addon\globalPlugins\Access8Math\writer.py:298
 msgid "shortcut gesture toggle"
 msgstr "快捷手势开关"
 
-#: addon\globalPlugins\Access8Math\writer.py:302
+#: addon\globalPlugins\Access8Math\writer.py:303
 #, fuzzy
 #| msgid "Activate shortcut gesture by default"
 msgid "cannot activate shortcut gesture in browse navigation mode"
 msgstr "默认启用快捷手势"
 
-#: addon\globalPlugins\Access8Math\writer.py:309
+#: addon\globalPlugins\Access8Math\writer.py:310
 msgid "activate shortcut gesture"
 msgstr "启用快捷手势"
 
-#: addon\globalPlugins\Access8Math\writer.py:313
+#: addon\globalPlugins\Access8Math\writer.py:314
 msgid "deactivate shortcut gesture"
 msgstr "停用快捷手势"
 
-#: addon\globalPlugins\Access8Math\writer.py:317
+#: addon\globalPlugins\Access8Math\writer.py:318
 #, fuzzy
 #| msgid "write gesture toggle"
 msgid "greek alphabet gesture toggle"
 msgstr "书写手势开关"
 
-#: addon\globalPlugins\Access8Math\writer.py:322
+#: addon\globalPlugins\Access8Math\writer.py:323
 msgid "cannot activate greek alphabet gesture in browse navigation mode"
-msgstr ""
+msgstr "无法在浏览导航模式下启用希腊字母手势"
 
-#: addon\globalPlugins\Access8Math\writer.py:329
+#: addon\globalPlugins\Access8Math\writer.py:330
 #, fuzzy
 #| msgid "activate write gesture"
 msgid "activate greek alphabet gesture"
 msgstr "启用书写手势"
 
-#: addon\globalPlugins\Access8Math\writer.py:333
+#: addon\globalPlugins\Access8Math\writer.py:334
 #, fuzzy
 #| msgid "deactivate write gesture"
 msgid "deactivate greek alphabet gesture"
 msgstr "停用书写手势"
 
-#: addon\globalPlugins\Access8Math\writer.py:337
+#: addon\globalPlugins\Access8Math\writer.py:338
 #, fuzzy
 #| msgid "single letter navigate mode toggle"
 msgid "browse navigation mode toggle"
 msgstr "单键导航模式开关"
 
-#: addon\globalPlugins\Access8Math\writer.py:349
-#: addon\globalPlugins\Access8Math\writer.py:366
+#: addon\globalPlugins\Access8Math\writer.py:350
+#: addon\globalPlugins\Access8Math\writer.py:367
 #, fuzzy
 #| msgid "single letter navigation mode on"
 msgid "browse navigation mode on"
 msgstr "开启单键导航模式"
 
-#: addon\globalPlugins\Access8Math\writer.py:356
+#: addon\globalPlugins\Access8Math\writer.py:357
 #, fuzzy
 #| msgid "single letter navigation mode off"
 msgid "browse navigation mode off"
 msgstr "关闭单键导航模式"
 
-#: addon\globalPlugins\Access8Math\writer.py:381
-#: addon\globalPlugins\Access8Math\writer.py:398
+#: addon\globalPlugins\Access8Math\writer.py:382
+#: addon\globalPlugins\Access8Math\writer.py:399
 #, python-brace-format
 msgid "shortcut {shortcut} is not set"
 msgstr "快捷键{shortcut}未设置"
 
-#: addon\globalPlugins\Access8Math\writer.py:412
+#: addon\globalPlugins\Access8Math\writer.py:413
 #, python-brace-format
 msgid "GreekAlphabet {GreekAlphabet} is not set"
-msgstr ""
+msgstr "希腊字母 {GreekAlphabet} 未设定"
 
-#: addon\globalPlugins\Access8Math\writer.py:469
+#: addon\globalPlugins\Access8Math\writer.py:479
 msgid "In math section. Please leave math section first and try again."
 msgstr "在数学区域内。请先退出数学区域，然后重试。"
 
-#: addon\globalPlugins\Access8Math\writer.py:476
+#: addon\globalPlugins\Access8Math\writer.py:486
 msgid "Not in LaTeX block or text block. cannot use LaTeX command"
-msgstr ""
+msgstr "非在 LaTeX 区或文字区内，无法使用 LaTeX 指令"
 
-#: addon\globalPlugins\Access8Math\writer.py:491
+#: addon\globalPlugins\Access8Math\writer.py:501
 msgid "This block cannot be interacted"
 msgstr "此区域无法交互"
 
-#: addon\globalPlugins\Access8Math\writer.py:498
+#: addon\globalPlugins\Access8Math\writer.py:508
 #, fuzzy
 #| msgid "This block cannot be interacted"
 msgid "This block cannot be translated"
 msgstr "此区域无法交互"
 
-#: addon\globalPlugins\Access8Math\writer.py:653
-#, python-brace-format
-msgid "{data} copy to clipboard"
-msgstr ""
-
-#: addon\globalPlugins\Access8Math\writer.py:659
-#, python-brace-format
-msgid "{data} insert to document"
-msgstr ""
-
 #: addon\globalPlugins\Access8Math\writer.py:666
 #, python-brace-format
-msgid "{data} cut from document"
-msgstr ""
+msgid "{data} copy to clipboard"
+msgstr "{data} 已复制到剪贴簿"
 
-#: addon\globalPlugins\Access8Math\writer.py:673
+#: addon\globalPlugins\Access8Math\writer.py:672
+#, python-brace-format
+msgid "{data} insert to document"
+msgstr "{data} 已插入到文件"
+
+#: addon\globalPlugins\Access8Math\writer.py:679
+#, python-brace-format
+msgid "{data} cut from document"
+msgstr "{data} 已从文件中剪下"
+
+#: addon\globalPlugins\Access8Math\writer.py:686
 #, python-brace-format
 msgid "{data} delete from document"
-msgstr ""
+msgstr "{data} 已从文件中删除"
 
 #. Translators: batch menu
 #: addon\globalPlugins\Access8Math\command\batch.py:51
@@ -807,17 +823,17 @@ msgstr "独立一行"
 #. Translators: batch menu
 #: addon\globalPlugins\Access8Math\command\batch.py:57
 msgid "LaTeX to AsciiMath"
-msgstr ""
+msgstr "LaTeX 转 AsciiMath"
 
 #. Translators: batch menu
 #: addon\globalPlugins\Access8Math\command\batch.py:63
 msgid "AsciiMath to LaTeX"
-msgstr ""
+msgstr "AsciiMath 转 LaTeX"
 
 #. Translators: batch menu
 #: addon\globalPlugins\Access8Math\command\batch.py:69
 msgid "LaTeX and AsciiMath reverse translate"
-msgstr ""
+msgstr "LaTeX 与 AsciiMath 反相转换"
 
 #. Translators: batch menu
 #: addon\globalPlugins\Access8Math\command\batch.py:77
@@ -829,12 +845,12 @@ msgstr "LaTeX 分隔符(&L)"
 #. Translators: batch menu
 #: addon\globalPlugins\Access8Math\command\batch.py:83
 msgid "bracket to dollar"
-msgstr ""
+msgstr "括号转钱号"
 
 #. Translators: batch menu
 #: addon\globalPlugins\Access8Math\command\batch.py:89
 msgid "dollar to bracket"
-msgstr ""
+msgstr "钱号转括号"
 
 #. Translators: alt+m window
 #: addon\globalPlugins\Access8Math\command\batch.py:99
@@ -844,485 +860,505 @@ msgid "batch command"
 msgstr "标记命令"
 
 #. Translators: LaTeX command - fractions
-#: addon\globalPlugins\Access8Math\command\latex.py:141
+#: addon\globalPlugins\Access8Math\command\latex.py:157
 msgid "fractions"
 msgstr "分数"
 
 #. Translators: LaTeX command - square root
-#: addon\globalPlugins\Access8Math\command\latex.py:146
+#: addon\globalPlugins\Access8Math\command\latex.py:162
 msgid "square root"
 msgstr "平方根"
 
 #. Translators: LaTeX command - root
-#: addon\globalPlugins\Access8Math\command\latex.py:151
+#: addon\globalPlugins\Access8Math\command\latex.py:167
 msgid "root"
 msgstr "多次根"
 
 #. Translators: LaTeX command - summation
-#: addon\globalPlugins\Access8Math\command\latex.py:156
+#: addon\globalPlugins\Access8Math\command\latex.py:172
 msgid "summation"
 msgstr "求和"
 
 #. Translators: LaTeX command - vector
-#: addon\globalPlugins\Access8Math\command\latex.py:161
+#: addon\globalPlugins\Access8Math\command\latex.py:177
 msgid "vector"
 msgstr "向量"
 
 #. Translators: LaTeX command - limit
-#: addon\globalPlugins\Access8Math\command\latex.py:166
+#: addon\globalPlugins\Access8Math\command\latex.py:182
 msgid "limit"
 msgstr "极限"
 
 #. Translators: LaTeX command - times
-#: addon\globalPlugins\Access8Math\command\latex.py:171
+#: addon\globalPlugins\Access8Math\command\latex.py:187
 msgid "times"
 msgstr "乘号"
 
 #. Translators: LaTeX command - divide
-#: addon\globalPlugins\Access8Math\command\latex.py:176
+#: addon\globalPlugins\Access8Math\command\latex.py:192
 msgid "divide"
 msgstr "除号"
 
 #. Translators: LaTeX command - plus-minus sign
-#: addon\globalPlugins\Access8Math\command\latex.py:181
+#: addon\globalPlugins\Access8Math\command\latex.py:197
 msgid "plus-minus sign"
 msgstr "正负号"
 
 #. Translators: LaTeX command - greater than or equal to
-#: addon\globalPlugins\Access8Math\command\latex.py:186
+#: addon\globalPlugins\Access8Math\command\latex.py:202
 msgid "greater than or equal to"
 msgstr "大于等于"
 
 #. Translators: LaTeX command - less than or equal to
-#: addon\globalPlugins\Access8Math\command\latex.py:191
+#: addon\globalPlugins\Access8Math\command\latex.py:207
 msgid "less than or equal to"
 msgstr "小于等于"
 
 #. Translators: LaTeX command - not equal to
-#: addon\globalPlugins\Access8Math\command\latex.py:196
+#: addon\globalPlugins\Access8Math\command\latex.py:212
 msgid "not equal to"
 msgstr "不等于"
 
 #. Translators: LaTeX command - approximate
-#: addon\globalPlugins\Access8Math\command\latex.py:201
+#: addon\globalPlugins\Access8Math\command\latex.py:217
 msgid "approximate"
 msgstr "约等于"
 
 #. Translators: LaTeX command - parallel
-#: addon\globalPlugins\Access8Math\command\latex.py:206
+#: addon\globalPlugins\Access8Math\command\latex.py:222
 msgid "parallel"
 msgstr "平行"
 
 #. Translators: LaTeX command - perpendicular
-#: addon\globalPlugins\Access8Math\command\latex.py:211
+#: addon\globalPlugins\Access8Math\command\latex.py:227
 msgid "perpendicular"
 msgstr "垂直"
 
 #. Translators: LaTeX command - full equal
-#: addon\globalPlugins\Access8Math\command\latex.py:216
+#: addon\globalPlugins\Access8Math\command\latex.py:232
 msgid "full equal"
 msgstr "全等于"
 
 #. Translators: LaTeX command - similar
-#: addon\globalPlugins\Access8Math\command\latex.py:221
+#: addon\globalPlugins\Access8Math\command\latex.py:237
 msgid "similar"
 msgstr "相似于"
 
 #. Translators: LaTeX command - because
-#: addon\globalPlugins\Access8Math\command\latex.py:226
+#: addon\globalPlugins\Access8Math\command\latex.py:242
 msgid "because"
 msgstr "因为"
 
 #. Translators: LaTeX command - therefore
-#: addon\globalPlugins\Access8Math\command\latex.py:231
+#: addon\globalPlugins\Access8Math\command\latex.py:247
 msgid "therefore"
 msgstr "所以"
 
+#. Translators: LaTeX command - because
+#: addon\globalPlugins\Access8Math\command\latex.py:252
+msgid "if and only if"
+msgstr "若且为若"
+
+#. Translators: LaTeX command - because
+#: addon\globalPlugins\Access8Math\command\latex.py:257
+msgid "implies"
+msgstr "推得"
+
+#. Translators: LaTeX command - because
+#: addon\globalPlugins\Access8Math\command\latex.py:262
+msgid "implied by"
+msgstr "反推得"
+
 #. Translators: LaTeX command - left arrow
-#: addon\globalPlugins\Access8Math\command\latex.py:236
+#: addon\globalPlugins\Access8Math\command\latex.py:267
 msgid "left arrow"
 msgstr "左箭头"
 
 #. Translators: LaTeX command - right arrow
-#: addon\globalPlugins\Access8Math\command\latex.py:241
+#: addon\globalPlugins\Access8Math\command\latex.py:272
 msgid "right arrow"
 msgstr "右箭头"
 
 #. Translators: LaTeX command - left right arrow
-#: addon\globalPlugins\Access8Math\command\latex.py:246
+#: addon\globalPlugins\Access8Math\command\latex.py:277
 msgid "left right arrow"
 msgstr "左右箭头"
 
 #. Translators: LaTeX command - up arrow
-#: addon\globalPlugins\Access8Math\command\latex.py:251
+#: addon\globalPlugins\Access8Math\command\latex.py:282
 msgid "up arrow"
 msgstr "上箭头"
 
 #. Translators: LaTeX command - down arrow
-#: addon\globalPlugins\Access8Math\command\latex.py:256
+#: addon\globalPlugins\Access8Math\command\latex.py:287
 msgid "down arrow"
 msgstr "下箭头"
 
 #. Translators: LaTeX command - up down arrow
-#: addon\globalPlugins\Access8Math\command\latex.py:261
+#: addon\globalPlugins\Access8Math\command\latex.py:292
 msgid "up down arrow"
 msgstr "上下箭头"
 
 #. Translators: LaTeX command - line segment
-#: addon\globalPlugins\Access8Math\command\latex.py:266
+#: addon\globalPlugins\Access8Math\command\latex.py:297
 msgid "line segment"
 msgstr "线段"
 
 #. Translators: LaTeX command - line
-#: addon\globalPlugins\Access8Math\command\latex.py:271
+#: addon\globalPlugins\Access8Math\command\latex.py:302
 msgid "line"
 msgstr "直线"
 
 #. Translators: LaTeX command - ray
-#: addon\globalPlugins\Access8Math\command\latex.py:276
+#: addon\globalPlugins\Access8Math\command\latex.py:307
 msgid "ray"
 msgstr "射线"
 
 #. Translators: LaTeX command - arc
-#: addon\globalPlugins\Access8Math\command\latex.py:281
+#: addon\globalPlugins\Access8Math\command\latex.py:312
 msgid "arc"
 msgstr "弧"
 
 #. Translators: LaTeX command - triangle
-#: addon\globalPlugins\Access8Math\command\latex.py:286
+#: addon\globalPlugins\Access8Math\command\latex.py:317
 msgid "triangle"
 msgstr "三角形"
 
 #. Translators: LaTeX command - angle
-#: addon\globalPlugins\Access8Math\command\latex.py:291
+#: addon\globalPlugins\Access8Math\command\latex.py:322
 msgid "angle"
 msgstr "角"
 
 #. Translators: LaTeX command - degree
-#: addon\globalPlugins\Access8Math\command\latex.py:296
+#: addon\globalPlugins\Access8Math\command\latex.py:327
 msgid "degree"
 msgstr "度"
 
 #. Translators: LaTeX command - circle
-#: addon\globalPlugins\Access8Math\command\latex.py:301
+#: addon\globalPlugins\Access8Math\command\latex.py:332
 msgid "circle"
 msgstr "圆"
 
 #. Translators: LaTeX command - binomial coefficient
-#: addon\globalPlugins\Access8Math\command\latex.py:306
+#: addon\globalPlugins\Access8Math\command\latex.py:337
 msgid "binomial coefficient"
 msgstr "二项式系数"
 
 #. Translators: LaTeX command - matrix (2X2)
-#: addon\globalPlugins\Access8Math\command\latex.py:311
+#: addon\globalPlugins\Access8Math\command\latex.py:342
 msgid "matrix (2X2)"
 msgstr "矩阵 (2X2)"
 
 #. Translators: LaTeX command - matrix (3X3)
-#: addon\globalPlugins\Access8Math\command\latex.py:316
+#: addon\globalPlugins\Access8Math\command\latex.py:347
 msgid "matrix (3X3)"
 msgstr "矩阵 (3X3)"
 
 #. Translators: LaTeX command - determinant (2X2)
-#: addon\globalPlugins\Access8Math\command\latex.py:321
+#: addon\globalPlugins\Access8Math\command\latex.py:352
 msgid "determinant (2X2)"
 msgstr "行列式 (2X2)"
 
 #. Translators: LaTeX command - determinant (3X3)
-#: addon\globalPlugins\Access8Math\command\latex.py:326
+#: addon\globalPlugins\Access8Math\command\latex.py:357
 msgid "determinant (3X3)"
 msgstr "行列式 (3X3)"
 
 #. Translators: LaTeX command - simultaneous equations
-#: addon\globalPlugins\Access8Math\command\latex.py:331
+#: addon\globalPlugins\Access8Math\command\latex.py:362
 msgid "simultaneous equations"
 msgstr "联立方程"
 
 #. Translators: LaTeX command - belong to
-#: addon\globalPlugins\Access8Math\command\latex.py:336
+#: addon\globalPlugins\Access8Math\command\latex.py:367
 msgid "belong to"
 msgstr "属于"
 
 #. Translators: LaTeX command - not belong to
-#: addon\globalPlugins\Access8Math\command\latex.py:341
+#: addon\globalPlugins\Access8Math\command\latex.py:372
 msgid "not belong to"
 msgstr "不属于"
 
 #. Translators: LaTeX command - lie in
-#: addon\globalPlugins\Access8Math\command\latex.py:346
+#: addon\globalPlugins\Access8Math\command\latex.py:377
 msgid "lie in"
 msgstr "包含于"
 
 #. Translators: LaTeX command - properly lie in
-#: addon\globalPlugins\Access8Math\command\latex.py:351
+#: addon\globalPlugins\Access8Math\command\latex.py:382
 msgid "properly lie in"
 msgstr "真包含于"
 
 #. Translators: LaTeX command - not lie in
-#: addon\globalPlugins\Access8Math\command\latex.py:356
+#: addon\globalPlugins\Access8Math\command\latex.py:387
 msgid "not lie in"
 msgstr "不包含于"
 
 #. Translators: LaTeX command - include
-#: addon\globalPlugins\Access8Math\command\latex.py:361
+#: addon\globalPlugins\Access8Math\command\latex.py:392
 msgid "include"
 msgstr "包含"
 
 #. Translators: LaTeX command - properly include
-#: addon\globalPlugins\Access8Math\command\latex.py:366
+#: addon\globalPlugins\Access8Math\command\latex.py:397
 msgid "properly include"
 msgstr "真包含"
 
 #. Translators: LaTeX command - not include
-#: addon\globalPlugins\Access8Math\command\latex.py:371
+#: addon\globalPlugins\Access8Math\command\latex.py:402
 msgid "not include"
 msgstr "不包含"
 
 #. Translators: LaTeX command - intersection set
-#: addon\globalPlugins\Access8Math\command\latex.py:376
+#: addon\globalPlugins\Access8Math\command\latex.py:407
 msgid "intersection set"
 msgstr "交集"
 
 #. Translators: LaTeX command - union set
-#: addon\globalPlugins\Access8Math\command\latex.py:381
+#: addon\globalPlugins\Access8Math\command\latex.py:412
 msgid "union set"
 msgstr "并集"
 
 #. Translators: LaTeX command - difference set
-#: addon\globalPlugins\Access8Math\command\latex.py:386
+#: addon\globalPlugins\Access8Math\command\latex.py:417
 msgid "difference set"
 msgstr "差集"
 
 #. Translators: LaTeX command - complement
-#: addon\globalPlugins\Access8Math\command\latex.py:391
+#: addon\globalPlugins\Access8Math\command\latex.py:422
 msgid "complement"
 msgstr "补集"
 
 #. Translators: LaTeX command - empty set
-#: addon\globalPlugins\Access8Math\command\latex.py:396
+#: addon\globalPlugins\Access8Math\command\latex.py:427
 msgid "empty set"
 msgstr "空集"
 
 #. Translators: LaTeX command - natural number
-#: addon\globalPlugins\Access8Math\command\latex.py:401
+#: addon\globalPlugins\Access8Math\command\latex.py:432
 msgid "natural number"
 msgstr "自然数集"
 
 #. Translators: LaTeX command - real number
-#: addon\globalPlugins\Access8Math\command\latex.py:406
+#: addon\globalPlugins\Access8Math\command\latex.py:437
 msgid "real number"
 msgstr "实数集"
 
 #. Translators: LaTeX command - logarithm
-#: addon\globalPlugins\Access8Math\command\latex.py:411
+#: addon\globalPlugins\Access8Math\command\latex.py:442
 msgid "logarithm"
 msgstr "对数"
 
 #. Translators: LaTeX command - infty
-#: addon\globalPlugins\Access8Math\command\latex.py:416
+#: addon\globalPlugins\Access8Math\command\latex.py:447
 msgid "infty"
 msgstr "无限"
 
 #. Translators: LaTeX command - for all
-#: addon\globalPlugins\Access8Math\command\latex.py:421
+#: addon\globalPlugins\Access8Math\command\latex.py:452
 msgid "for all"
 msgstr "对任意"
 
 #. Translators: LaTeX command - exists
-#: addon\globalPlugins\Access8Math\command\latex.py:426
+#: addon\globalPlugins\Access8Math\command\latex.py:457
 msgid "exists"
 msgstr "存在"
 
 #. Translators: LaTeX command - repeating decimal
-#: addon\globalPlugins\Access8Math\command\latex.py:431
+#: addon\globalPlugins\Access8Math\command\latex.py:462
 msgid "repeating decimal"
 msgstr "循环小数"
 
 #. Translators: greek alphabet command - alpha
-#: addon\globalPlugins\Access8Math\command\latex.py:444
+#: addon\globalPlugins\Access8Math\command\latex.py:475
 msgid "alpha"
-msgstr ""
+msgstr "alpha"
 
 #. Translators: greek alphabet command - beta
-#: addon\globalPlugins\Access8Math\command\latex.py:449
+#: addon\globalPlugins\Access8Math\command\latex.py:480
 msgid "beta"
-msgstr ""
+msgstr "beta"
 
 #. Translators: greek alphabet command - gamma
-#: addon\globalPlugins\Access8Math\command\latex.py:454
+#: addon\globalPlugins\Access8Math\command\latex.py:485
 msgid "gamma"
-msgstr ""
+msgstr "gamma"
 
 #. Translators: greek alphabet command - delta
-#: addon\globalPlugins\Access8Math\command\latex.py:459
+#: addon\globalPlugins\Access8Math\command\latex.py:490
 msgid "delta"
-msgstr ""
+msgstr "delta"
 
 #. Translators: greek alphabet command - epsilon
-#: addon\globalPlugins\Access8Math\command\latex.py:464
+#: addon\globalPlugins\Access8Math\command\latex.py:495
 msgid "epsilon"
-msgstr ""
+msgstr "epsilon"
 
 #. Translators: greek alphabet command - zeta
-#: addon\globalPlugins\Access8Math\command\latex.py:469
+#: addon\globalPlugins\Access8Math\command\latex.py:500
 msgid "zeta"
-msgstr ""
+msgstr "zeta"
 
 #. Translators: greek alphabet command - eta
-#: addon\globalPlugins\Access8Math\command\latex.py:474
+#: addon\globalPlugins\Access8Math\command\latex.py:505
 #, fuzzy
 #| msgid "Set"
 msgid "eta"
 msgstr "集合"
 
 #. Translators: greek alphabet command - theta
-#: addon\globalPlugins\Access8Math\command\latex.py:479
+#: addon\globalPlugins\Access8Math\command\latex.py:510
 msgid "theta"
-msgstr ""
+msgstr "theta"
 
 #. Translators: greek alphabet command - iota
-#: addon\globalPlugins\Access8Math\command\latex.py:484
+#: addon\globalPlugins\Access8Math\command\latex.py:515
 msgid "iota"
-msgstr ""
+msgstr "iota"
 
 #. Translators: greek alphabet command - kappa
-#: addon\globalPlugins\Access8Math\command\latex.py:489
+#: addon\globalPlugins\Access8Math\command\latex.py:520
 msgid "kappa"
-msgstr ""
+msgstr "kappa"
 
 #. Translators: greek alphabet command - lambda
-#: addon\globalPlugins\Access8Math\command\latex.py:494
+#: addon\globalPlugins\Access8Math\command\latex.py:525
 msgid "lambda"
-msgstr ""
+msgstr "lambda"
 
 #. Translators: greek alphabet command - mu
-#: addon\globalPlugins\Access8Math\command\latex.py:499
+#: addon\globalPlugins\Access8Math\command\latex.py:530
 msgid "mu"
-msgstr ""
+msgstr "mu"
 
 #. Translators: greek alphabet command - nu
-#: addon\globalPlugins\Access8Math\command\latex.py:504
+#: addon\globalPlugins\Access8Math\command\latex.py:535
 msgid "nu"
-msgstr ""
+msgstr "nu"
 
 #. Translators: greek alphabet command - xi
-#: addon\globalPlugins\Access8Math\command\latex.py:509
+#: addon\globalPlugins\Access8Math\command\latex.py:540
 msgid "xi"
-msgstr ""
+msgstr "xi"
 
 #. Translators: greek alphabet command - o
-#: addon\globalPlugins\Access8Math\command\latex.py:514
+#: addon\globalPlugins\Access8Math\command\latex.py:545
 msgid "omicron"
-msgstr ""
+msgstr "omicron"
 
 #. Translators: greek alphabet command - pi
-#: addon\globalPlugins\Access8Math\command\latex.py:519
+#: addon\globalPlugins\Access8Math\command\latex.py:550
 msgid "pi"
-msgstr ""
+msgstr "pi"
 
 #. Translators: greek alphabet command - rho
-#: addon\globalPlugins\Access8Math\command\latex.py:524
+#: addon\globalPlugins\Access8Math\command\latex.py:555
 msgid "rho"
-msgstr ""
+msgstr "rho"
 
 #. Translators: greek alphabet command - sigma
-#: addon\globalPlugins\Access8Math\command\latex.py:529
+#: addon\globalPlugins\Access8Math\command\latex.py:560
 msgid "sigma"
-msgstr ""
+msgstr "sigma"
 
 #. Translators: greek alphabet command - tau
-#: addon\globalPlugins\Access8Math\command\latex.py:534
+#: addon\globalPlugins\Access8Math\command\latex.py:565
 msgid "tau"
-msgstr ""
+msgstr "tau"
 
 #. Translators: greek alphabet command - upsilon
-#: addon\globalPlugins\Access8Math\command\latex.py:539
+#: addon\globalPlugins\Access8Math\command\latex.py:570
 msgid "upsilon"
-msgstr ""
+msgstr "upsilon"
 
 #. Translators: greek alphabet command - phi
-#: addon\globalPlugins\Access8Math\command\latex.py:544
+#: addon\globalPlugins\Access8Math\command\latex.py:575
 msgid "phi"
-msgstr ""
+msgstr "phi"
 
 #. Translators: greek alphabet command - chi
-#: addon\globalPlugins\Access8Math\command\latex.py:549
+#: addon\globalPlugins\Access8Math\command\latex.py:580
 msgid "chi"
-msgstr ""
+msgstr "chi"
 
 #. Translators: greek alphabet command - psi
-#: addon\globalPlugins\Access8Math\command\latex.py:554
+#: addon\globalPlugins\Access8Math\command\latex.py:585
 msgid "psi"
-msgstr ""
+msgstr "psi"
 
 #. Translators: greek alphabet command - down omega
-#: addon\globalPlugins\Access8Math\command\latex.py:559
+#: addon\globalPlugins\Access8Math\command\latex.py:590
 msgid "omega"
-msgstr ""
+msgstr "omega"
 
 #. Translators: LaTeX command category - shortcut
-#: addon\globalPlugins\Access8Math\command\latex.py:612
+#: addon\globalPlugins\Access8Math\command\latex.py:647
 msgid "shortcut"
 msgstr "快捷"
 
 #. Translators: LaTeX command category - common
-#: addon\globalPlugins\Access8Math\command\latex.py:619
+#: addon\globalPlugins\Access8Math\command\latex.py:654
 msgid "common"
 msgstr "常用"
 
 #. Translators: LaTeX command category - operator
-#: addon\globalPlugins\Access8Math\command\latex.py:626
+#: addon\globalPlugins\Access8Math\command\latex.py:661
 msgid "operator"
 msgstr "运算"
 
 #. Translators: LaTeX command category - relation
-#: addon\globalPlugins\Access8Math\command\latex.py:633
+#: addon\globalPlugins\Access8Math\command\latex.py:668
 msgid "relation"
 msgstr "关系"
 
+#. Translators: LaTeX command category - relation
+#: addon\globalPlugins\Access8Math\command\latex.py:675
+msgid "logic"
+msgstr "逻辑"
+
 #. Translators: LaTeX command category - arrow
-#: addon\globalPlugins\Access8Math\command\latex.py:640
+#: addon\globalPlugins\Access8Math\command\latex.py:682
 msgid "arrow"
 msgstr "箭头"
 
 #. Translators: LaTeX command category - 2-dimension
-#: addon\globalPlugins\Access8Math\command\latex.py:647
+#: addon\globalPlugins\Access8Math\command\latex.py:689
 msgid "2-dimension"
 msgstr "二维"
 
 #. Translators: LaTeX command category - set
-#: addon\globalPlugins\Access8Math\command\latex.py:654
+#: addon\globalPlugins\Access8Math\command\latex.py:696
 msgid "set"
 msgstr "集合"
 
 #. Translators: LaTeX command category - other
-#: addon\globalPlugins\Access8Math\command\latex.py:661
+#: addon\globalPlugins\Access8Math\command\latex.py:703
 msgid "other"
 msgstr "其他"
 
 #. Translators: alt+l window
-#: addon\globalPlugins\Access8Math\command\latex.py:672
+#: addon\globalPlugins\Access8Math\command\latex.py:714
 msgid "LaTeX command"
 msgstr "LaTeX 命令"
 
-#: addon\globalPlugins\Access8Math\command\latex.py:704
+#: addon\globalPlugins\Access8Math\command\latex.py:746
 msgid "menu can not set shortcut"
 msgstr "无法为菜单设置快捷键"
 
-#: addon\globalPlugins\Access8Math\command\latex.py:720
+#: addon\globalPlugins\Access8Math\command\latex.py:762
 #, python-brace-format
 msgid "set shortcut {slot}"
 msgstr "设置快捷键 {slot}"
 
-#: addon\globalPlugins\Access8Math\command\latex.py:728
+#: addon\globalPlugins\Access8Math\command\latex.py:770
 msgid "sub menu no shortcut"
 msgstr "子菜单无快捷键"
 
-#: addon\globalPlugins\Access8Math\command\latex.py:734
+#: addon\globalPlugins\Access8Math\command\latex.py:776
 msgid "no set shortcut"
 msgstr "未设置快捷键"
 
-#: addon\globalPlugins\Access8Math\command\latex.py:743
+#: addon\globalPlugins\Access8Math\command\latex.py:785
 #, python-brace-format
 msgid "clear shortcut {slot}"
 msgstr "清除快捷键 {slot}"

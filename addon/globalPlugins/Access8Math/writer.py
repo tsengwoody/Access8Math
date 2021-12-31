@@ -715,6 +715,9 @@ class SectionManager:
 
 	@property
 	def inSection(self):
+		if self.pointer == None:
+			return True
+
 		delimiter_start_length = len(self.delimiter["start"])
 		delimiter_end_length = len(self.delimiter["end"])
 
@@ -728,6 +731,9 @@ class SectionManager:
 
 	@property
 	def inMath(self):
+		if self.pointer == None:
+			return False
+
 		focus = api.getFocusObject()
 		self.caret = focus.makeTextInfo(textInfos.POSITION_CARET)
 
@@ -738,6 +744,9 @@ class SectionManager:
 
 	@property
 	def inText(self):
+		if self.pointer == None:
+			return True
+
 		focus = api.getFocusObject()
 		self.caret = focus.makeTextInfo(textInfos.POSITION_CARET)
 
@@ -748,6 +757,9 @@ class SectionManager:
 
 	@property
 	def inLaTeX(self):
+		if self.pointer == None:
+			return False
+
 		focus = api.getFocusObject()
 		self.caret = focus.makeTextInfo(textInfos.POSITION_CARET)
 
@@ -758,6 +770,9 @@ class SectionManager:
 
 	@property
 	def inAsciiMath(self):
+		if self.pointer == None:
+			return False
+
 		focus = api.getFocusObject()
 		self.caret = focus.makeTextInfo(textInfos.POSITION_CARET)
 
@@ -768,6 +783,9 @@ class SectionManager:
 
 	@property
 	def inMathML(self):
+		if self.pointer == None:
+			return False
+
 		focus = api.getFocusObject()
 		self.caret = focus.makeTextInfo(textInfos.POSITION_CARET)
 

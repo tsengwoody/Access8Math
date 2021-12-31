@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Access8Math - 3.2\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2021-12-26 10:07+0800\n"
-"PO-Revision-Date: 2021-12-26 10:10+0800\n"
+"POT-Creation-Date: 2021-12-30 16:10+0800\n"
+"PO-Revision-Date: 2021-12-30 16:10+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_TW\n"
@@ -1189,73 +1189,73 @@ msgid "omega"
 msgstr "omega"
 
 #. Translators: LaTeX command category - shortcut
-#: addon\globalPlugins\Access8Math\command\latex.py:646
+#: addon\globalPlugins\Access8Math\command\latex.py:647
 msgid "shortcut"
 msgstr "快捷"
 
 #. Translators: LaTeX command category - common
-#: addon\globalPlugins\Access8Math\command\latex.py:653
+#: addon\globalPlugins\Access8Math\command\latex.py:654
 msgid "common"
 msgstr "常見"
 
 #. Translators: LaTeX command category - operator
-#: addon\globalPlugins\Access8Math\command\latex.py:660
+#: addon\globalPlugins\Access8Math\command\latex.py:661
 msgid "operator"
 msgstr "運算子"
 
 #. Translators: LaTeX command category - relation
-#: addon\globalPlugins\Access8Math\command\latex.py:667
+#: addon\globalPlugins\Access8Math\command\latex.py:668
 msgid "relation"
 msgstr "關係"
 
 #. Translators: LaTeX command category - relation
-#: addon\globalPlugins\Access8Math\command\latex.py:674
+#: addon\globalPlugins\Access8Math\command\latex.py:675
 msgid "logic"
 msgstr "邏輯"
 
 #. Translators: LaTeX command category - arrow
-#: addon\globalPlugins\Access8Math\command\latex.py:681
+#: addon\globalPlugins\Access8Math\command\latex.py:682
 msgid "arrow"
 msgstr "箭頭"
 
 #. Translators: LaTeX command category - 2-dimension
-#: addon\globalPlugins\Access8Math\command\latex.py:688
+#: addon\globalPlugins\Access8Math\command\latex.py:689
 msgid "2-dimension"
 msgstr "二維"
 
 #. Translators: LaTeX command category - set
-#: addon\globalPlugins\Access8Math\command\latex.py:695
+#: addon\globalPlugins\Access8Math\command\latex.py:696
 msgid "set"
 msgstr "集合"
 
 #. Translators: LaTeX command category - other
-#: addon\globalPlugins\Access8Math\command\latex.py:702
+#: addon\globalPlugins\Access8Math\command\latex.py:703
 msgid "other"
 msgstr "其他"
 
 #. Translators: alt+l window
-#: addon\globalPlugins\Access8Math\command\latex.py:713
+#: addon\globalPlugins\Access8Math\command\latex.py:714
 msgid "LaTeX command"
 msgstr "LaTeX 指令"
 
-#: addon\globalPlugins\Access8Math\command\latex.py:745
+#: addon\globalPlugins\Access8Math\command\latex.py:746
 msgid "menu can not set shortcut"
 msgstr "功能表無法設定快捷"
 
-#: addon\globalPlugins\Access8Math\command\latex.py:761
+#: addon\globalPlugins\Access8Math\command\latex.py:762
 #, python-brace-format
 msgid "set shortcut {slot}"
 msgstr "設定快捷鍵{slot}"
 
-#: addon\globalPlugins\Access8Math\command\latex.py:769
+#: addon\globalPlugins\Access8Math\command\latex.py:770
 msgid "sub menu no shortcut"
 msgstr "子功能表無快捷鍵"
 
-#: addon\globalPlugins\Access8Math\command\latex.py:775
+#: addon\globalPlugins\Access8Math\command\latex.py:776
 msgid "no set shortcut"
 msgstr "無設定快捷"
 
-#: addon\globalPlugins\Access8Math\command\latex.py:784
+#: addon\globalPlugins\Access8Math\command\latex.py:785
 #, python-brace-format
 msgid "clear shortcut {slot}"
 msgstr "清除快捷鍵 {slot}"
