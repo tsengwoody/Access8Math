@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Access8Math 2.1\n"
-"Report-Msgid-Bugs-To: 'nvda-translations@freelists.org'\n"
-"POT-Creation-Date: 2019-03-07 16:06+0100\n"
-"PO-Revision-Date: 2019-03-14 09:22+0100\n"
-"Last-Translator: Cyrille Boutot <cyrille.bougot2@laposte.net>\n"
+"Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
+"POT-Creation-Date: 2021-09-08 06:33+0800\n"
+"PO-Revision-Date: 2021-11-09 12:12+0100\n"
+"Last-Translator: Cyrille Bougot <cyrille.bougot2@laposte.net>\n"
 "Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -16,95 +16,11 @@ msgstr ""
 "X-Poedit-SearchPath-0: __init__.py\n"
 "X-Poedit-SearchPath-1: dialogs.py\n"
 
-#: addon\globalPlugins\MathMlReader\__init__.py:117
-msgid "Access8Math interaction window"
-msgstr "Fenêtre d'interaction Access8Math"
-
-#: addon\globalPlugins\MathMlReader\__init__.py:121
-msgid "&Menu"
-msgstr "&Menu"
-
-#: addon\globalPlugins\MathMlReader\__init__.py:122
-msgid "&Exit"
-msgstr "&Quitter"
-
-#: addon\globalPlugins\MathMlReader\__init__.py:122
-msgid "Terminate the program"
-msgstr "Quitte le programme"
-
-#: addon\globalPlugins\MathMlReader\__init__.py:128
-msgid "interaction"
-msgstr "interaction"
-
-#: addon\globalPlugins\MathMlReader\__init__.py:129
-#: addon\globalPlugins\MathMlReader\__init__.py:156
-#: addon\globalPlugins\MathMlReader\__init__.py:287
-msgid "copy"
-msgstr "copier"
-
-#: addon\globalPlugins\MathMlReader\__init__.py:243
-msgid "enter interaction mode"
-msgstr "entrer dans le mode interaction"
-
-#: addon\globalPlugins\MathMlReader\__init__.py:282
-msgid "not move"
-msgstr "pas de mouvement"
-
-#: addon\globalPlugins\MathMlReader\__init__.py:291
-msgid "snapshot"
-msgstr "instantané"
-
-#: addon\globalPlugins\MathMlReader\__init__.py:303
-msgid "Access8Math interaction window already showed"
-msgstr "Fenêtre d'interaction Access8Math déjà affichée"
-
-#. Add-on summary, usually the user visible name of the addon.
-#. Translators: Summary for this add-on to be shown on installation and add-on information.
-#: addon\globalPlugins\MathMlReader\__init__.py:345
-#: addon\globalPlugins\MathMlReader\__init__.py:417 buildVars.py:17
-msgid "Access8Math"
-msgstr "Access8Math"
-
-#: addon\globalPlugins\MathMlReader\__init__.py:364
-msgid "&General settings..."
-msgstr "Paramètres &généraux..."
-
-#: addon\globalPlugins\MathMlReader\__init__.py:371
-msgid "&Rule settings..."
-msgstr "Paramètres des &règles..."
-
-#: addon\globalPlugins\MathMlReader\__init__.py:378
-msgid "&unicode dictionary..."
-msgstr "Dictionnaire &unicode..."
-
-#: addon\globalPlugins\MathMlReader\__init__.py:385
-msgid "&math rule..."
-msgstr "Règles &mathématiques..."
-
-#: addon\globalPlugins\MathMlReader\__init__.py:392
-msgid "&New language adding..."
-msgstr "Ajout d'une &nouvelle langue..."
-
-#: addon\globalPlugins\MathMlReader\__init__.py:413
-msgid "&About..."
-msgstr "À &propos"
-
-#: addon\globalPlugins\MathMlReader\__init__.py:440
-#, python-format
-msgid "mathml provider change to %s"
-msgstr "fournisseur mathml changé pour %s"
-
-#. Translators: message presented in input mode.
-#: addon\globalPlugins\MathMlReader\__init__.py:443
-msgid "Change mathml provider"
-msgstr "Change le fournisseur mathml"
-
-#: addon\globalPlugins\MathMlReader\__init__.py:471
 msgid ""
 "Access8Math\n"
-"Version: 2.1\n"
+"Version: 3.1\n"
 "URL: https://addons.nvda-project.org/addons/access8math.en.html\n"
-"Copyright (C) 2017-2018 Access8Math Contributors\n"
+"Copyright (C) 2017-2021 Access8Math Contributors\n"
 "Access8Math is covered by the GNU General Public License (Version 2). You "
 "are free to share or change this software in any way you like as long as it "
 "is accompanied by the license and you make all source code available to "
@@ -113,15 +29,15 @@ msgid ""
 "It can be viewed online at: https://www.gnu.org/licenses/old-licenses/"
 "gpl-2.0.html\n"
 "Access8Math has been sponsored by \"Taiwan Visually Impaired People "
-"Association\"(vipastaiwan@gmail.com) in 2018, hereby express our sincere "
-"appreciation.\n"
+"Association\"(accessibility@twvip.org) in 2018~2019, hereby express our "
+"sincere appreciation.\n"
 "If you feel this add-on is helpful, please don't hesitate to give support to "
 "\"Taiwan Visually Impaired People Association\" and authors."
 msgstr ""
 "Access8Math\n"
-"Version: 2.1\n"
+"Version: 3.1\n"
 "URL: https://addons.nvda-project.org/addons/access8math.fr.html\n"
-"Copyright (C) 2017-2018 Access8Math Contributeurs\n"
+"Copyright (C) 2017-2021 Access8Math Contributeurs\n"
 "Access8Math est couvert par la GNU General Public License (Version 2). Vous "
 "êtes libre de partager ou modifier ce logiciel de quelque façon que vous le "
 "souhaitez tant qu'il est accompagnée de la licence et de rendre le code "
@@ -131,336 +47,373 @@ msgstr ""
 "Elle peut être consultée en ligne sur: https://www.gnu.org/licenses/old-"
 "licenses/gpl-2.0.html\n"
 "Access8Math a été financé par la \"Taiwan Visually Impaired People "
-"Association\"(vipastaiwan@gmail.com) en 2018, envers qui nous exprimons nos "
-"sincères remerciements.\n"
-"Si vous trouvez ce module complémentaire utile, n'hésitez pas à offrir un "
-"support à la \"Taiwan Visually Impaired People Association\" et aux auteurs."
+"Association\"(vipastaiwan@gmail.com) en 2018~2019, envers qui nous exprimons "
+"nos sincères remerciements.\n"
+"Si vous trouvez cette extension utile, n'hésitez pas à apporter votre "
+"soutien à la \"Taiwan Visually Impaired People Association\" et aux auteurs."
 
-#: addon\globalPlugins\MathMlReader\__init__.py:480
+msgid "Access8Math interaction window"
+msgstr "Fenêtre d'interaction Access8Math"
+
+msgid "&General settings..."
+msgstr "Paramètres &généraux..."
+
+msgid "&Rule settings..."
+msgstr "Paramètres des &règles..."
+
+msgid "&latex..."
+msgstr "&latex..."
+
+msgid "&asciimath..."
+msgstr "&asciimath..."
+
+msgid "&Write..."
+msgstr "&Écrire"
+
+msgid "&unicode dictionary..."
+msgstr "Dictionnaire &unicode..."
+
+msgid "&math rule..."
+msgstr "Règles &mathématiques..."
+
+msgid "&New language adding..."
+msgstr "Ajout d'une &nouvelle langue..."
+
+msgid "&Localization..."
+msgstr "&Localisation..."
+
+msgid "&About..."
+msgstr "À &propos"
+
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on
+#. to be shown on installation and add-on information found in Add-ons Manager.
+msgid "Access8Math"
+msgstr "Access8Math"
+
+msgid "speech source switch"
+msgstr "basculer la source vocale"
+
+#, python-format
+msgid "MathML speech source switch to %s"
+msgstr "source vocale MathML basculée sur %s"
+
+msgid "braille source switch"
+msgstr "basculer la source braille"
+
+#, python-format
+msgid "MathML braille source switch to %s"
+msgstr "source braille MathML basculée sur %s"
+
+msgid "interact source switch"
+msgstr "basculer la source interaction"
+
+#, python-format
+msgid "MathML interact source switch to %s"
+msgstr "source interactive MathML basculée sur %s"
+
+msgid "Write AsciiMath Content"
+msgstr "Écrire du contenu AsciiMath"
+
+msgid "Write LaTeX Content"
+msgstr "Écrire du contenu Latex "
+
 msgid "About Access8Math"
 msgstr "À propos d'Access8Math"
 
-#. Translators: message presented in input mode.
-#: addon\globalPlugins\MathMlReader\__init__.py:509
-msgid "Shows the Access8Math settings dialog."
-msgstr "Affiche la fenêtre des paramètres d'Access8Math."
-
 #. Translators: Title of the Access8MathDialog.
-#: addon\globalPlugins\MathMlReader\dialogs.py:31
 msgid "General Settings"
 msgstr "Paramètres généraux"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:33
-msgid "showing Access8Math interaction window when entering interaction mode"
+msgid "Showing Access8Math interaction window when entering interaction mode"
 msgstr ""
 "Afficher la fenêtre d'interaction Access8Math lors de l'entrée en mode "
 "interaction"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:34
 msgid "Analyze mathematical meaning of content"
 msgstr "Analyser la signification mathématique du contenu"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:35
-msgid "Read defined meaning in dictionary"
-msgstr "Lire la signification définie dans le dictionnaire"
+msgid ""
+"Reading pre-defined meaning in dictionary when navigating in interactive mode"
+msgstr ""
+"Lire la signification définie dans le dictionnaire lors de la navigation en "
+"mode interactif"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:36
-msgid "Read of auto-generated meaning"
-msgstr "Lire la signification auto-générée"
+msgid "Reading of auto-generated meaning when navigating in interactive mode"
+msgstr ""
+"Lire la signification auto-générée lors de la navigation en mode interactif"
+
+msgid "Using a beep to alert no move"
+msgstr "Utiliser un bip pour alerter de l'absence de mouvement"
+
+msgid "Activate write gesture by default"
+msgstr "Activer les gestes pour l'écriture par défaut"
+
+msgid "Activate block navigate gesture by default"
+msgstr "Activer les gestes pour naviguer par bloc par défaut"
+
+msgid "Activate shortcut gesture by default"
+msgstr "Activer les gestes pour les raccourcis par défaut"
 
 #. Translators: The label for a setting in general settings to select NVDA's interface language (once selected, NVDA must be restarted; the option user default means the user's Windows language will be used).
-#: addon\globalPlugins\MathMlReader\dialogs.py:41
-#: addon\globalPlugins\MathMlReader\dialogs.py:652
 msgid "&Language:"
 msgstr "&Langue:"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:53
 msgid "&Item interval time:"
 msgstr "&Intervalle de temps entre éléments:"
 
+msgid "&HTML display:"
+msgstr "Affichage &HTML :"
+
+msgid "block"
+msgstr "bloc"
+
+msgid "inline"
+msgstr "inline"
+
+msgid "&LaTeX delimiter:"
+msgstr "Délimiteur &LaTeX :"
+
+msgid "bracket"
+msgstr "parenthèses"
+
+msgid "dollar"
+msgstr "dollar"
+
+msgid "&Speech source:"
+msgstr "&Source vocale :"
+
+msgid "Math Player"
+msgstr "Math Player"
+
+msgid "&Braille source:"
+msgstr "Source &braille :"
+
+msgid "Inter&act source:"
+msgstr "Source d'inter&action :"
+
 #. Translators: Title of the Access8MathDialog.
-#: addon\globalPlugins\MathMlReader\dialogs.py:96
 msgid "Rule Settings"
 msgstr "Paramètres des règles"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:98
 msgid "Simplified subscript and superscript"
 msgstr "Indice et exposant simplifiés"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:99
 msgid "Simplified subscript"
 msgstr "Indice simplifié"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:100
 msgid "Simplified superscript"
 msgstr "Exposant simplifié"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:101
 msgid "Simplified underscript and overscript"
 msgstr "Notation souscrite et suscrite simplifiée"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:102
 msgid "Simplified underscript"
 msgstr "Notation souscrite simplifiée"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:103
 msgid "Simplified overscript"
 msgstr "Notation suscrite simplifiée"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:104
 msgid "Simplified fraction"
 msgstr "Fraction simplifiée"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:105
 msgid "Simplified square root"
 msgstr "Racine carrée simplifiée"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:106
 msgid "Power"
 msgstr "Puissance"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:107
 msgid "Square power"
 msgstr "Au carré"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:108
 msgid "Cube power"
 msgstr "Au cube"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:109
 msgid "Set"
 msgstr "Ensemble"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:110
 msgid "Absolute value"
 msgstr "Valeur absolue"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:111
 msgid "Matrix"
 msgstr "Matrice"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:112
 msgid "Determinant"
 msgstr "Déterminant"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:113
 msgid "Integer and fraction"
 msgstr "Entier et fraction"
 
 #. Translators: This is the label for the add symbol dialog.
-#: addon\globalPlugins\MathMlReader\dialogs.py:148
 msgid "Add Symbol"
 msgstr "Ajout d'un symbole"
 
 #. Translators: This is the label for the edit field in the add symbol dialog.
-#: addon\globalPlugins\MathMlReader\dialogs.py:153
 msgid "Symbol:"
 msgstr "Symbole:"
 
 #. Translators: This is the label for the symbol pronunciation dialog.
 #. %s is replaced by the language for which symbol pronunciation is being edited.
-#: addon\globalPlugins\MathMlReader\dialogs.py:175
 #, python-format
 msgid "unicode dictionary (%s)"
 msgstr "Dictionnaire unicode (%s)"
 
 #. Translators: The label for symbols list in symbol pronunciation dialog.
-#: addon\globalPlugins\MathMlReader\dialogs.py:183
 msgid "&Symbols"
 msgstr "&Symboles"
 
 #. Translators: The label for a column in symbols list used to identify a symbol.
-#: addon\globalPlugins\MathMlReader\dialogs.py:186
 msgid "Symbol"
 msgstr "Symbole"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:187
 msgid "Replacement"
 msgstr "Remplacement"
 
 #. Translators: The label for the group of controls in symbol pronunciation dialog to change the pronunciation of a symbol.
-#: addon\globalPlugins\MathMlReader\dialogs.py:195
 msgid "Change selected symbol"
 msgstr "Modifier le symbole sélectionné"
 
 #. Translators: The label for the edit field in symbol pronunciation dialog to change the replacement text of a symbol.
-#: addon\globalPlugins\MathMlReader\dialogs.py:211
 msgid "&Replacement"
 msgstr "&Remplacement"
 
 #. Translators: The label for a button in the Symbol Pronunciation dialog to add a new symbol.
-#: addon\globalPlugins\MathMlReader\dialogs.py:220
 msgid "&Add"
 msgstr "&Ajouter"
 
 #. Translators: The label for a button in the Symbol Pronunciation dialog to remove a symbol.
-#: addon\globalPlugins\MathMlReader\dialogs.py:223
 msgid "Re&move"
 msgstr "Suppri&mer"
 
 #. Translators: The label for a button to recover default value.
-#: addon\globalPlugins\MathMlReader\dialogs.py:227
-#: addon\globalPlugins\MathMlReader\dialogs.py:524
 msgid "&Recover default"
 msgstr "&Réinitialiser par défaut"
 
 #. Translators: The label for a button to import unicode.dic.
 #. Translators: The label for a button to import math.rule.
-#: addon\globalPlugins\MathMlReader\dialogs.py:230
-#: addon\globalPlugins\MathMlReader\dialogs.py:527
 msgid "&Import"
 msgstr "&Importer"
 
 #. Translators: The label for a button to export unicode.dic.
 #. Translators: The label for a button to export math.rule.
-#: addon\globalPlugins\MathMlReader\dialogs.py:233
-#: addon\globalPlugins\MathMlReader\dialogs.py:530
-msgid "Export(&O)"
-msgstr "&Exporter"
+msgid "Exp&ort"
+msgstr "Exp&orter"
 
 #. Translators: An error reported in the Symbol Pronunciation dialog when adding a symbol that is already present.
-#: addon\globalPlugins\MathMlReader\dialogs.py:302
 #, python-format
 msgid "Symbol \"%s\" is already present."
 msgstr "Le symbol \"%s\" est déjà présent."
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:303
 msgid "Error"
 msgstr "Erreur"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:340
-#: addon\globalPlugins\MathMlReader\dialogs.py:602
 msgid "Import file..."
 msgstr "Importer un fichier..."
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:349
-#: addon\globalPlugins\MathMlReader\dialogs.py:611
 msgid "Export file..."
 msgstr "Exporter un fichier..."
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:378
 msgid "Edit Math Rule Entry"
 msgstr "Éditer les entrées des règles mathématiques"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:386
-#: addon\globalPlugins\MathMlReader\dialogs.py:391
 msgid "&description"
 msgstr "&description"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:388
 msgid "description"
 msgstr "description"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:397
 msgid "Serialized ordering"
 msgstr "Ordre sérialisé"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:400
 #, python-format
 msgid "Ordering %d"
 msgstr "Ordre %d"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:403
 msgid "Child"
 msgstr "Enfant"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:408
+#. before item
 #, python-format
-msgid "Prefix text &%d"
-msgstr "Texte préfixe &%d"
+msgid "Before item text &%d"
+msgstr "Avant le texte de l'élément &%d"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:414
+#. after item
+#, python-format
+msgid "After item text &%d"
+msgstr "Après le texte de l'élément &%d"
+
 #, python-format
 msgid "Start text &%d"
 msgstr "Texte initial &%d"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:416
 #, python-format
 msgid "End text &%d"
 msgstr "Texte final &%d"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:418
 #, python-format
 msgid "&Interval text &%d"
 msgstr "Texte &intermédiaire &%d"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:426
 msgid "Child role"
 msgstr "Rôle des enfants"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:429
 #, python-format
 msgid "&Child %d meaning"
 msgstr "Signification &enfant %d"
 
 #. Translators: This is an error message to let the user know that the dictionary entry is not valid.
-#: addon\globalPlugins\MathMlReader\dialogs.py:468
 #, python-format
 msgid "Regular Expression error: \"%s\"."
 msgstr "Erreur d'expression rationnelle: \"%s\"."
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:468
 msgid "Dictionary Entry Error"
 msgstr "Erreur d'entrée de dictionnaire"
 
 #. Translators: This is the label for the symbol pronunciation dialog.
 #. %s is replaced by the language for which symbol pronunciation is being edited.
-#: addon\globalPlugins\MathMlReader\dialogs.py:484
 #, python-format
 msgid "math rule (%s)"
 msgstr "Règles mathématiques (%s)"
 
 #. Translators: The label for symbols list in symbol pronunciation dialog.
-#: addon\globalPlugins\MathMlReader\dialogs.py:492
 msgid "&Mathrules"
 msgstr "Règles &mathématiques"
 
 #. Translators: The label for a column in symbols list used to identify a symbol.
-#: addon\globalPlugins\MathMlReader\dialogs.py:495
 msgid "Rule"
 msgstr "Règle"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:496
 msgid "Description"
 msgstr "Description"
 
 #. Translators: The label for a button to edit math rule.
-#: addon\globalPlugins\MathMlReader\dialogs.py:516
 msgid "&Edit"
 msgstr "É&diter"
 
 #. Translators: The label for a button to example math rule.
-#: addon\globalPlugins\MathMlReader\dialogs.py:520
-msgid "Example"
+msgid "E&xample"
 msgstr "E&xemple"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:642
 msgid "New language adding"
 msgstr "Ajout d'une nouvelle langue"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:661
 msgid "&Select"
 msgstr "&Sélectionner"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:665
 msgid "&Unselect"
 msgstr "&Désélectionner"
 
 #. Add button
-#: addon\globalPlugins\MathMlReader\dialogs.py:673
 msgid "unicode dictionary"
 msgstr "dictionnaire unicode"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:674
 msgid "math rule"
 msgstr "règle mathématique"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:675
 msgid "OK"
 msgstr "OK"
 
 #. Translators: The message displayed
-#: addon\globalPlugins\MathMlReader\dialogs.py:766
 msgid ""
 "For the new language to add, NVDA must be restarted. Press enter to restart "
 "NVDA, or cancel to exit at a later time."
@@ -469,29 +422,446 @@ msgstr ""
 "Entrée pour redémarrer NVDA, ou Annuler pour quitter plus tard."
 
 #. Translators: The title of the dialog
-#: addon\globalPlugins\MathMlReader\dialogs.py:768
 msgid "New language add"
 msgstr "Ajout d'une nouvelle langue"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:774
-msgid "Write AsciiMath Entry"
-msgstr "Écrire une entrée AsciiMath"
+msgid "&Menu"
+msgstr "&Menu"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:778
-msgid "Write Latex Entry"
-msgstr "Écrire une entrée Latex "
+msgid "&Exit"
+msgstr "&Quitter"
 
-#: addon\globalPlugins\MathMlReader\dialogs.py:798
-msgid "build-in"
-msgstr "build-in"
+msgid "Terminate the program"
+msgstr "Quitte le programme"
+
+msgid "interaction"
+msgstr "interaction"
+
+msgid "copy"
+msgstr "copier"
+
+msgid "no move"
+msgstr "pas de mouvement"
+
+msgid "snapshot"
+msgstr "instantané"
 
 #. Translators: the label for the Windows default NVDA interface language.
-#: addon\globalPlugins\MathMlReader\languageHandler_custom.py:103
 msgid "User default"
 msgstr "Utilisateur par défaut"
 
+msgid "write gesture toggle"
+msgstr "Activer ou désactiver les gestes pour l'écriture"
+
+msgid "activate write gesture"
+msgstr "Activer les gestes pour l'écriture"
+
+msgid "deactivate write gesture"
+msgstr "Désactiver les gestes pour l'écriture"
+
+msgid "block navigate gesture toggle"
+msgstr "Activer ou désactiver les gestes pour naviguer par bloc"
+
+msgid "activate block navigate gesture"
+msgstr "Activer les gestes pour naviguer par bloc"
+
+msgid "deactivate block navigate gesture"
+msgstr "Désactiver les gestes pour naviguer par bloc"
+
+msgid "shortcut gesture toggle"
+msgstr "Activer ou désactiver les gestes pour les raccourcis"
+
+msgid "activate shortcut gesture"
+msgstr "Activer les gestes pour les raccourcis"
+
+msgid "deactivate shortcut gesture"
+msgstr "Désactiver les gestes pour les raccourcis"
+
+msgid "single letter navigate mode toggle"
+msgstr "Activer ou désactiver la navigation par une seule lettre"
+
+msgid "single letter navigation mode on"
+msgstr "Navigation par une seule lettre activée"
+
+msgid "single letter navigation mode off"
+msgstr "Navigation par une seule lettre désactivée"
+
+#, python-brace-format
+msgid "shortcut {shortcut} is not set"
+msgstr "le raccourci {shortcut} n'est pas défini"
+
+msgid "Not in math section. Please insert LaTeX mark first and try again."
+msgstr ""
+"Pas dans une section math. Veuillez d'abord insérer un marqueur LaTeX et "
+"réessayer."
+
+msgid "In math section. Please leave math section first and try again."
+msgstr ""
+"Vous êtes dans une section math. Veuillez d'abord quitter la section math et "
+"réessayer."
+
+msgid "This block cannot be interacted"
+msgstr "Vous ne pouvez pas interagir avec ce bloc"
+
+#. Translators: LaTeX command - fractions
+msgid "fractions"
+msgstr "fractions"
+
+#. Translators: LaTeX command - square root
+msgid "square root"
+msgstr "Racine carrée"
+
+#. Translators: LaTeX command - root
+msgid "root"
+msgstr "racine"
+
+#. Translators: LaTeX command - summation
+msgid "summation"
+msgstr "somme"
+
+#. Translators: LaTeX command - vector
+msgid "vector"
+msgstr "vecteur"
+
+#. Translators: LaTeX command - limit
+msgid "limit"
+msgstr "limite"
+
+#. Translators: LaTeX command - times
+msgid "times"
+msgstr "multiplié par"
+
+#. Translators: LaTeX command - divide
+msgid "divide"
+msgstr "divisé par"
+
+#. Translators: LaTeX command - plus-minus sign
+msgid "plus-minus sign"
+msgstr "signe plus ou moins"
+
+#. Translators: LaTeX command - greater than or equal to
+msgid "greater than or equal to"
+msgstr "supérieur ou égal"
+
+#. Translators: LaTeX command - less than or equal to
+msgid "less than or equal to"
+msgstr "inférieur ou égal"
+
+#. Translators: LaTeX command - not equal to
+msgid "not equal to"
+msgstr "pas égal à"
+
+#. Translators: LaTeX command - approximate
+msgid "approximate"
+msgstr "environ égal à"
+
+#. Translators: LaTeX command - parallel
+msgid "parallel"
+msgstr "parallèle à"
+
+#. Translators: LaTeX command - perpendicular
+msgid "perpendicular"
+msgstr "perpendiculaire à"
+
+#. Translators: LaTeX command - full equal
+msgid "full equal"
+msgstr "approximativement égal à"
+
+#. Translators: LaTeX command - similar
+msgid "similar"
+msgstr "similaire à"
+
+#. Translators: LaTeX command - because
+msgid "because"
+msgstr "car"
+
+#. Translators: LaTeX command - therefore
+msgid "therefore"
+msgstr "donc"
+
+#. Translators: LaTeX command - left arrow
+msgid "left arrow"
+msgstr "flèche gauche"
+
+#. Translators: LaTeX command - right arrow
+msgid "right arrow"
+msgstr "flèche droite"
+
+#. Translators: LaTeX command - left right arrow
+msgid "left right arrow"
+msgstr "flèche gauche droite"
+
+#. Translators: LaTeX command - up arrow
+msgid "up arrow"
+msgstr "flèche haut"
+
+#. Translators: LaTeX command - down arrow
+msgid "down arrow"
+msgstr "flèche bas"
+
+#. Translators: LaTeX command - up down arrow
+msgid "up down arrow"
+msgstr "flèche haut bas"
+
+#. Translators: LaTeX command - line segment
+msgid "line segment"
+msgstr "segment"
+
+#. Translators: LaTeX command - line
+msgid "line"
+msgstr "droite"
+
+#. Translators: LaTeX command - ray
+msgid "ray"
+msgstr "demi-droite"
+
+#. Translators: LaTeX command - arc
+msgid "arc"
+msgstr "arc"
+
+#. Translators: LaTeX command - triangle
+msgid "triangle"
+msgstr "triangle"
+
+#. Translators: LaTeX command - angle
+msgid "angle"
+msgstr "angle"
+
+#. Translators: LaTeX command - degree
+msgid "degree"
+msgstr "degré"
+
+#. Translators: LaTeX command - circle
+msgid "circle"
+msgstr "cercle"
+
+#. Translators: LaTeX command - binomial coefficient
+msgid "binomial coefficient"
+msgstr "coefficient binomial"
+
+#. Translators: LaTeX command - matrix (2X2)
+msgid "matrix (2X2)"
+msgstr "matrice (2X2)"
+
+#. Translators: LaTeX command - matrix (3X3)
+msgid "matrix (3X3)"
+msgstr "matrice (3X3)"
+
+#. Translators: LaTeX command - determinant (2X2)
+msgid "determinant (2X2)"
+msgstr "déterminant (2X2)"
+
+#. Translators: LaTeX command - determinant (3X3)
+msgid "determinant (3X3)"
+msgstr "déterminant (3X3)"
+
+#. Translators: LaTeX command - simultaneous equations
+msgid "simultaneous equations"
+msgstr "équations simultanées"
+
+#. Translators: LaTeX command - belong to
+msgid "belong to"
+msgstr "appartient à"
+
+#. Translators: LaTeX command - not belong to
+msgid "not belong to"
+msgstr "n'appartient pas à"
+
+#. Translators: LaTeX command - lie in
+msgid "lie in"
+msgstr "sous-ensemble de"
+
+#. Translators: LaTeX command - properly lie in
+msgid "properly lie in"
+msgstr "sous-ensemble non égal à"
+
+#. Translators: LaTeX command - not lie in
+msgid "not lie in"
+msgstr "pas un sous ensemble de"
+
+#. Translators: LaTeX command - include
+msgid "include"
+msgstr "sur-ensemble de"
+
+#. Translators: LaTeX command - properly include
+msgid "properly include"
+msgstr "sur-ensemble non égal à"
+
+#. Translators: LaTeX command - not include
+msgid "not include"
+msgstr "pas un sur-ensemble de"
+
+#. Translators: LaTeX command - intersection set
+msgid "intersection set"
+msgstr "intersection"
+
+#. Translators: LaTeX command - union set
+msgid "union set"
+msgstr "union"
+
+#. Translators: LaTeX command - difference set
+msgid "difference set"
+msgstr "différence d'ensemble"
+
+#. Translators: LaTeX command - complement
+msgid "complement"
+msgstr "complément"
+
+#. Translators: LaTeX command - empty set
+msgid "empty set"
+msgstr "ensemble vide"
+
+#. Translators: LaTeX command - natural number
+msgid "natural number"
+msgstr "entiers naturels"
+
+#. Translators: LaTeX command - real number
+msgid "real number"
+msgstr "nombre réels"
+
+#. Translators: LaTeX command - logarithm
+msgid "logarithm"
+msgstr "logarithme"
+
+#. Translators: LaTeX command - infty
+msgid "infty"
+msgstr "l'infiini"
+
+#. Translators: LaTeX command - for all
+msgid "for all"
+msgstr "pour tout"
+
+#. Translators: LaTeX command - exists
+msgid "exists"
+msgstr "il esiste"
+
+#. Translators: LaTeX command - repeating decimal
+msgid "repeating decimal"
+msgstr "décimale répétée"
+
+#. Translators: LaTeX command category - shortcut
+msgid "shortcut"
+msgstr "raccourcis"
+
+#. Translators: LaTeX command category - common
+msgid "common"
+msgstr "commun"
+
+#. Translators: LaTeX command category - operator
+msgid "operator"
+msgstr "opérateur"
+
+#. Translators: LaTeX command category - relation
+msgid "relation"
+msgstr "relation"
+
+#. Translators: LaTeX command category - arrow
+msgid "arrow"
+msgstr "flèche"
+
+#. Translators: LaTeX command category - 2-dimension
+msgid "2-dimension"
+msgstr "en 2 dimensions"
+
+#. Translators: LaTeX command category - set
+msgid "set"
+msgstr "Ensemble"
+
+#. Translators: LaTeX command category - other
+msgid "other"
+msgstr "autre"
+
+#. Translators: alt+l window
+msgid "LaTeX command"
+msgstr "commande LaTeX"
+
+msgid "menu can not set shortcut"
+msgstr "le menu ne peut pas définir de raccourci"
+
+#, python-brace-format
+msgid "set shortcut {slot}"
+msgstr "définir le raccourci {slot}"
+
+msgid "sub menu no shortcut"
+msgstr "sous-menu pas de raccourci"
+
+msgid "no set shortcut"
+msgstr "pas de raccourci défini"
+
+#, python-brace-format
+msgid "clear shortcut {slot}"
+msgstr "effacer le raccourci {slot}"
+
+#. Translators: mark command category -
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#. Translators: alt+m window
+msgid "mark command"
+msgstr "marquer la commande"
+
+msgid "review"
+msgstr "revue"
+
+msgid "export"
+msgstr "exporter"
+
+msgid "Access8Math HTML"
+msgstr "Access8Math HTML"
+
+msgid "Save file..."
+msgstr "Enregistrer dans un fichier..."
+
+msgid "command"
+msgstr "commande"
+
+#, python-brace-format
+msgid "f{shortcut}"
+msgstr "f{shortcut}"
+
+msgid "subMenu"
+msgstr "sousMenu"
+
+#, python-brace-format
+msgid "{number} of {total}"
+msgstr "{number} de {total}"
+
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
-#: buildVars.py:20
-msgid "Allows access math content written by MathML"
-msgstr "Permet l'accès au contenu mathématique écrit en MathML"
+msgid ""
+"Allows access math content written by MathML ; Allows write math content by "
+"LaTeX"
+msgstr ""
+"Permet l'accès au contenu mathématique écrit en MathML ; Permet d'écrire du "
+"contenu mathématique en LaTeX"
+
+#, fuzzy
+#~| msgid "Change mathml provider"
+#~ msgid "switch MathML provider"
+#~ msgstr "Change le fournisseur mathml"
+
+#~ msgid "mathml provider change to %s"
+#~ msgstr "fournisseur mathml changé pour %s"
+
+#, fuzzy
+#~| msgid ""
+#~| "For the new language to add, NVDA must be restarted. Press enter to "
+#~| "restart NVDA, or cancel to exit at a later time."
+#~ msgid ""
+#~ "For the NVDA+gesture configuration to apply, NVDA must be restarted. Do "
+#~ "you want to restart NVDA now?"
+#~ msgstr ""
+#~ "Pour ajouter la nouvelle langue, NVDA doit être redémarrer. Appuyez sur "
+#~ "Entrée pour redémarrer NVDA, ou Annuler pour quitter plus tard."
+
+#~ msgid "enter interaction mode"
+#~ msgstr "entrer dans le mode interaction"
+
+#~ msgid "Access8Math interaction window already showed"
+#~ msgstr "Fenêtre d'interaction Access8Math déjà affichée"
+
+#~ msgid "Shows the Access8Math settings dialog."
+#~ msgstr "Affiche la fenêtre des paramètres d'Access8Math."
+
+#~ msgid "build-in"
+#~ msgstr "build-in"
