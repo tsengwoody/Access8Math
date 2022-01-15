@@ -19,6 +19,7 @@ import tones
 import A8M_PM
 from A8M_PM import MathContent
 from languageHandler_custom import getAvailableLanguages
+from contextHelp import ContextHelpMixin
 
 
 addonHandler.initTranslation()
@@ -352,7 +353,7 @@ class Symbol:
 
 
 class AddSymbolDialog(
-		gui.contextHelp.ContextHelpMixin,
+		ContextHelpMixin,
 		wx.Dialog  # wxPython does not seem to call base class initializer, put last in MRO
 ):
 

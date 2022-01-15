@@ -345,14 +345,14 @@ class TextMathEditField(NVDAObject):
 			self.bindWriteNavGestures()
 			if config.conf["Access8Math"]["settings"]["writeNavAudioIndication"]:
 				sound = "browseMode.wav"
-				nvwave.playWaveFile(os.path.join(globalVars.appDir, "waves", sound))
+				nvwave.playWaveFile(os.path.join("waves", sound))
 			else:
 				ui.message(_("browse navigation mode on"))
 		else:
 			self.unbindWriteNavGestures()
 			if config.conf["Access8Math"]["settings"]["writeNavAudioIndication"]:
 				sound = "focusMode.wav"
-				nvwave.playWaveFile(os.path.join(globalVars.appDir, "waves", sound))
+				nvwave.playWaveFile(os.path.join("waves", sound))
 			else:
 				ui.message(_("browse navigation mode off"))
 
@@ -362,7 +362,7 @@ class TextMathEditField(NVDAObject):
 			self.bindWriteNavGestures()
 			if config.conf["Access8Math"]["settings"]["writeNavAudioIndication"]:
 				sound = "browseMode.wav"
-				nvwave.playWaveFile(os.path.join(globalVars.appDir, "waves", sound))
+				nvwave.playWaveFile(os.path.join("waves", sound))
 			else:
 				ui.message(_("browse navigation mode on"))
 		else:
