@@ -473,7 +473,7 @@ class TextMathEditField(NVDAObject):
 
 	def script_mark(self, gesture):
 		with SectionManager() as manager:
-			if manager.pointer and manager.pointer['type'] == 'text':
+			if (manager.pointer and manager.pointer['type'] == 'text') or len(manager.points) == 0:
 				A8MMarkCommandView(section=manager).setFocus()
 			else:
 				ui.message(_("In math section. Please leave math section first and try again."))
@@ -819,12 +819,6 @@ class SectionManager:
 		for index, point in enumerate(self.points):
 			if self.caret._startOffset >= point['start'] and self.caret._startOffset < point['end']:
 				self.all_index = index
-				# break
-
-		# print("start", self.caret._startOffset)
-		# print("end", self.caret._endOffset)
-		# if self.caret._startOffset >= point['start'] and self.caret._startOffset <= point['end']:
-			# self.all_index = index
 
 		return self
 
