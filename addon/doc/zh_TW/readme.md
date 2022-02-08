@@ -126,32 +126,33 @@ alt+t：可將游標所在的區塊資料在 LaTeX 與 AsciiMath 間轉換（游
 
 對照表：
 
-|英文字母|希臘字母|LaTeX|
-|-|-|-|
-|a|α|\alpha|
-|b|β|\beta|
-|c|θ|\theta|
-|d|δ|\delta|
-|e|ε|\epsilon|
-|f|φ|\phi|
-|g|γ|\gamma|
-|h|η|\eta|
-|i|ι|\iota|
-|k|κ|\kappa|
-|l|λ|\lambda|
-|m|μ|\mu|
-|n|ν|\nu|
-|o|ο|\omicron|
-|p|π|\pi|
-|r|ρ|\rho|
-|s|σ|\sigma|
-|t|τ|\tau|
-|u|υ|\upsilon|
-|v|φ|\psi|
-|w|ω|\omega|
-|y|ξ|\xi|
-|x|χ|\chi|
-|z|ζ|\zeta|
+| 英文字母 | 希臘字母 | LaTeX |
+| --- | --- | --- |
+| a | α | \alpha |
+| b | β | \beta |
+| c | θ | \theta |
+| d | δ | \delta |
+| e | ε | \epsilon |
+| f | φ | \phi |
+| g | γ | \gamma |
+| h | η | \eta |
+| i | ι | \iota |
+| k | κ | \kappa |
+| l | λ | \lambda |
+| m | μ | \mu |
+| n | ν | \nu |
+| o | ο | \omicron |
+| p | π | \pi |
+| r | ρ | \rho |
+| s | σ | \sigma |
+| t | τ | \tau |
+| u | υ | \upsilon |
+| v | φ | \psi |
+| w | ω | \omega |
+| x | χ | \chi |
+| y | ξ | \xi |
+| z | ζ | \zeta |
+
 
 ### 瀏覽導航模式（開關：NVDA+space）
 
