@@ -929,9 +929,10 @@ class MathRuleDialog(SettingsDialog):
 		vw.setFocus()
 
 	def OnRecoverDefaultClick(self, evt):
+		category = self.category
 		path = base_path
 		if not self.language == 'Windows':
-			path = os.path.join(base_path, 'locale', self.language, 'math.rule')
+			path = os.path.join(base_path, 'locale', category, self.language, 'math.rule')
 
 		self.clear()
 		self.load(path)
