@@ -1,11 +1,12 @@
 """# Access8Math: Allows access math content written by MathML and write math as MathML
-# Copyright (C) 2017-2021 Tseng Woody <tsengwoody.tw@gmail.com>
+# Copyright (C) 2017-2022 Tseng Woody <tsengwoody.tw@gmail.com>
 # This file is covered by the GNU General Public License.
 # See the file COPYING.txt for more details."""
 # coding: utf-8
 
 import os
 import sys
+import shutil
 
 import addonHandler
 import api
@@ -20,6 +21,7 @@ import mathPres
 from mathPres.mathPlayer import MathPlayer
 from NVDAObjects.IAccessible import IAccessible
 from scriptHandler import script
+import textInfos
 import tones
 import ui
 
@@ -82,7 +84,7 @@ config.conf.spec["Access8Math"] = {
 }
 
 import A8M_PM
-from dialogs import ReadingSettingsDialog, WritingSettingsDialog, RuleSettingsDialog, NewLanguageAddingDialog, UnicodeDicDialog, MathRuleDialog
+from dialogs import ReadingSettingsDialog, WritingSettingsDialog, RuleSettingsDialog, NewLanguageAddingDialog, UnicodeDicDialog, MathRuleDialog, EditorDialog
 from interaction import A8MProvider, A8MInteraction
 from writer import TextMathEditField
 
@@ -131,6 +133,9 @@ class AppWindowRoot(IAccessible):
 		wx.CallLater(100, run)
 
 
+editor_content = ''
+editor_dialog = None
+
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self, *args, **kwargs):
 		from command.latex import initialize
@@ -159,6 +164,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def create_menu(self):
 		self.toolsMenu = gui.mainFrame.sysTrayIcon.toolsMenu
 		self.menu = wx.Menu()
+
+		self.editor = self.menu.Append(
+			wx.ID_ANY,
+			_("&Editor...")
+		)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onEditor, self.editor)
 
 		settingsMenu = wx.Menu()
 
@@ -222,6 +233,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			_("&Localization..."),
 		)
 
+		self.cleanWorkspace = self.menu.Append(
+			wx.ID_ANY,
+			_("&Clean Workspace...")
+		)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onCleanWorkspace, self.cleanWorkspace)
+
 		self.about = self.menu.Append(
 			wx.ID_ANY,
 			_("&About...")
@@ -269,6 +286,32 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			config.conf["Access8Math"]["settings"]["interact_source"] = "Access8Math"
 		ui.message(_("MathML interact source switch to %s") % config.conf["Access8Math"]["settings"]["interact_source"])
 
+	@script(
+		description=_("editor popup"),
+		category=ADDON_SUMMARY,
+		gesture="kb:NVDA+alt+e",
+	)
+	def script_editor_popup(self, gesture):
+		def show():
+			obj = api.getFocusObject()
+			document = obj.makeTextInfo(textInfos.POSITION_ALL)
+			editor_content = document.text
+			self.editor_popup(editor_content)
+		wx.CallAfter(show)
+
+	def editor_popup(self, editor_content):
+		global editor_dialog
+		if editor_dialog:
+			editor_dialog.Raise()
+			return
+
+		parent = gui.mainFrame
+		with EditorDialog(parent=parent, value=editor_content) as dialog:
+			editor_dialog = dialog
+			print(dialog.Size)
+			dialog.ShowModal()
+			editor_open = None
+
 	def onReadingSettings(self, evt):
 		gui.mainFrame._popupSettingsDialog(ReadingSettingsDialog, config.conf["Access8Math"])
 
@@ -304,6 +347,37 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			MathRuleDialog, config.conf["Access8Math"],
 			language=config.conf["Access8Math"]["settings"]["language"], category='braille'
 		)
+
+	def onEditor(self, editor_content):
+		self.editor_popup("")
+
+	def onCleanWorkspace(self, evt):
+		export = os.path.join(PATH, 'web', 'export')
+		try:
+			shutil.rmtree(export)
+		except:
+			pass
+
+		review = os.path.join(PATH, 'web', 'review')
+		for item in os.listdir(review):
+			item = os.path.join(review, item)
+			try:
+				if os.path.isfile(item):
+					os.remove(item)
+			except:
+				pass
+
+		locale = os.path.join(PATH, 'locale')
+		for dirPath, dirNames, fileNames in os.walk(locale):
+			for item in fileNames:
+				item = os.path.join(dirPath, item)
+				try:
+					if os.path.isfile(item) and ('_user.dic' in item or '_user.rule' in item):
+						os.remove(item)
+				except:
+					pass
+
+		gui.messageBox(_("Workspace has already been cleaned"), _("Clean Workspace"), wx.OK)
 
 	def onAbout(self, evt):
 		gui.messageBox(aboutMessage, _("About Access8Math"), wx.OK)

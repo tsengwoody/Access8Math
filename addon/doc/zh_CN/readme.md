@@ -288,6 +288,14 @@ github： https://github.com/tsengwoody/Access8Math
 
 **本插件简体中文本地化由 Eureka <manchen_0528@outlook.com> 维护，有任何与简体中文本地化相关的问题可通过该邮件联系。**
 
+# Access8Math 日誌
+
+## Access8Math v3.3 更新日志
+
+*	修正当文件为空时无法开启标记指令选单
+*	新增内建传统编辑区的编辑器，因应 windows 11 的 UIA 编辑区
+*	相容于 NVDA 2022.1
+
 ## Access8Math v3.2 更新日志
 
 *	新增使用‘`’分隔区域，两‘`’之间为 AsciiMath 数学内容
@@ -308,7 +316,7 @@ github： https://github.com/tsengwoody/Access8Math
 *	导出的 HTML 可以用 markdown 语法呈现
 *	导出的 HTML 根据记事本的标题增加页标题与文档名称
 
-# Access8Math v3.1 更新日志
+## Access8Math v3.1 更新日志
 
 *	HTML 窗口改成以虚拟菜单形式呈现
 *	修正当文件中包含「`」无法正常转 HTML 预览
@@ -322,7 +330,7 @@ github： https://github.com/tsengwoody/Access8Math
 *	使用手势开关书写手势、区域导航手势、快捷手势、
 *	使用手势切换语音、盲文、交互的来源（Access8Math 或 Math Player）
 
-# Access8Math v3.0 更新日志
+## Access8Math v3.0 更新日志
 
 *	以 LaTeX 书写数学内容
 *	以 AsciiMath 书写数学内容
@@ -332,29 +340,29 @@ github： https://github.com/tsengwoody/Access8Math
 *	在 LaTeX 命令菜单设置快捷键
 *	在编辑区内预览和导出内容为 HTML
 
-# Access8Math v2.6 更新日志
+## Access8Math v2.6 更新日志
 
 *	开启互动窗口后会自动进入互动模式
 *	可以选择在互动模式下如何提示「无移动」的方式：提示音或语音「无移动」两种，在一般设定内有多一个「使用提示音来警告无移动」的选项
 *	无移动时会再重复报读一次当前项的内容
 
-# Access8Math v2.5 更新日志
+## Access8Math v2.5 更新日志
 
 *	加入俄语的翻译，感谢 Futyn-Maker 的翻译工作
 *	修正复合符号翻译失败的问题
 *	移除在 en unicode.dic 内重复的小写字母并加入大写字母(0370~03FF)
 
-# Access8Math v2.4 更新日志
+## Access8Math v2.4 更新日志
 
 *	修正已知问题
 
-# Access8Math v2.3 更新日志
+## Access8Math v2.3 更新日志
 
 *	相容于 Python3
 *	重构模块与修正程序代码风格
 *	加入单符号向量规则
 
-# Access8Math v2.2 更新日志
+## Access8Math v2.2 更新日志
 
 *	修政单一节点有多字符时无法正确报读
 *	修政设定窗口的兼容性问题，可兼容 NVDA 2019.2，感谢 CyrilleB79 的 pull requests 
@@ -362,7 +370,7 @@ github： https://github.com/tsengwoody/Access8Math
 *	加入法语的翻译，感谢 CyrilleB79 的翻译工作
 *	新增与修政部份接口快捷键设定
 
-# Access8Math v2.1 更新日志
+## Access8Math v2.1 更新日志
 
 *	在「一般设定」中，可设定进入互动模式时，是否一并自动显示「Access8Math 互动窗口」
 *	在互动模式中，当无显示互动窗口时，可透过 ctrl+m 来手动显示互动窗口
@@ -371,7 +379,7 @@ github： https://github.com/tsengwoody/Access8Math
 *	兼容性更新，针对 NVDA 2019.1 对附加组件 manifest 标示的检查
 *	重构对话窗口原始码
 
-# Access8Math v2.0 更新日志
+## Access8Math v2.0 更新日志
 
 *	加入多国语系新增与客制化设定功能，新增三个窗口「unicode 字典」、「数学规则」、「加入新语言」
 *	unicode 字典可客制设定各项符号文字的报读方式。
@@ -379,12 +387,12 @@ github： https://github.com/tsengwoody/Access8Math
 *	加入新语言可加入原先于内建未提供的语言，加入后于一般设定内会多出刚新增的语系并可再透过「unicode 字典」与「数学规则」定义读法达到多国语言客制化设定
 *	优化在互动模式下，可使用数字键7~9以行为单位阅读序列文字
 
-# Access8Math v1.5 更新日志
+## Access8Math v1.5 更新日志
 
 *	在「一般设定」新增项与项间停顿时间设定。数值从1到100，数值愈小表示停顿时间愈短，反之数值愈大表示停顿时间愈长。
 *	更新 unicode.dic
 
-# Access8Math v1.4 更新日志
+## Access8Math v1.4 更新日志
 
 *	调整设定选项对话框，分为「一般设定」、「规则设定」对话框。「一般设定」为原先「Access8Math 设定」对话框，「规则设定」对话框则为可选择特定规则是否启用的设定。
 *	新规则
@@ -392,7 +400,7 @@ github： https://github.com/tsengwoody/Access8Math
 	*	弧度规则：当两个Identifier的正上方有「⌢」时，将其项读为「弧……」
 *	修正已知问题
 
-# Access8Math v1.3 更新日志
+## Access8Math v1.3 更新日志
 
 *	新规则
 	*	正规则：当「+」在首项或其前项为<mo></mo>标记时，将「+」读为「正」而非「加」
@@ -408,7 +416,7 @@ github： https://github.com/tsengwoody/Access8Math
 *	调整规则间继承关系，确保规则冲突时，能正确使用适合的规则
 *	修正已知问题
 
-# Access8Math v1.2 更新日志
+## Access8Math v1.2 更新日志
 
 *	新规则
 	*	负规则：当「-」在首项或其前项为<mo></mo>标记时，将「-」读为「负」而非「减」
@@ -418,7 +426,7 @@ github： https://github.com/tsengwoody/Access8Math
 	*	加入动态产生「反向」 nodetype的类别
 *	修正已知问题
 
-# Access8Math v1.1 更新日志
+## Access8Math v1.1 更新日志
 
 *	在导航浏览时按"Ctrl+c"复制对象MathML原始码
 *	再偏好设定内增加 Access8Math 设定的项目，设定选项对话框，可设定：

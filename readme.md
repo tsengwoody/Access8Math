@@ -254,6 +254,12 @@ Please report any bugs or comments, thank you!
 
 # Access8Math update log
 
+## Access8Math v3.3 Update
+
+*	Fixed marked menu cannot open when document is empty
+*	Add built-in editor using traditional editing area because of windows 11 changed to UIA editing area
+*	Compatibility with NVDA 2022.1
+
 ## Access8Math v3.2 Update
 
 *	New feature "`" to separate data blocks, the blocks enclosed by "`" are AsciiMath data

@@ -1,6 +1,5 @@
 import os
 import re
-import shutil
 
 import addonHandler
 import api

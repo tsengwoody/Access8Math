@@ -287,6 +287,12 @@ github： https://github.com/tsengwoody/Access8Math
 
 # Access8Math 日誌
 
+## Access8Math v3.3 更新日誌
+
+*	修正當文件為空時無法開啟標記指令選單
+*	新增內建傳統編輯區的編輯器，因應 windows 11 的 UIA 編輯區
+*	相容於 NVDA 2022.1
+
 ## Access8Math v3.2 更新日誌
 
 *	新增可使用「`」來分隔資料區塊，「`」括起來的區塊為 AsciiMath 資料
