@@ -85,6 +85,7 @@ config.conf.spec["Access8Math"] = {
 
 import A8M_PM
 from dialogs import ReadingSettingsDialog, WritingSettingsDialog, RuleSettingsDialog, NewLanguageAddingDialog, UnicodeDicDialog, MathRuleDialog, EditorDialog
+from editor import EditorFrame
 from interaction import A8MProvider, A8MInteraction
 from writer import TextMathEditField
 
@@ -159,6 +160,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if obj.windowClassName == "wxWindowNR" and obj.role == ROLE_WINDOW and obj.name == _("Access8Math interaction window"):
 			clsList.insert(0, AppWindowRoot)
 		if (obj.windowClassName == "Edit" or obj.windowClassName == "DirectUIHWND") and obj.role == ROLE_EDITABLETEXT:
+		# if obj.windowClassName == 'wxWindowNR':
 			clsList.insert(0, TextMathEditField)
 
 	def create_menu(self):
@@ -300,17 +302,20 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		wx.CallAfter(show)
 
 	def editor_popup(self, editor_content):
-		global editor_dialog
+		"""global editor_dialog
 		if editor_dialog:
 			editor_dialog.Raise()
-			return
+			return"""
 
 		parent = gui.mainFrame
-		with EditorDialog(parent=parent, value=editor_content) as dialog:
+		frame = EditorFrame(parent=parent)
+		frame.control.SetValue(editor_content)
+		frame.Show(True)
+
+		"""with EditorDialog(parent=parent, value=editor_content) as dialog:
 			editor_dialog = dialog
-			print(dialog.Size)
 			dialog.ShowModal()
-			editor_open = None
+			editor_dialog = None"""
 
 	def onReadingSettings(self, evt):
 		gui.mainFrame._popupSettingsDialog(ReadingSettingsDialog, config.conf["Access8Math"])

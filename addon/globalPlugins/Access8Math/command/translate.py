@@ -30,7 +30,7 @@ def translate(section, type_):
 	else:
 		return
 
-	result = section.move(type='any', step=0)
+	result = section.move(type_='any', step=0)
 	if result:
 		section.caret.updateSelection()
 
