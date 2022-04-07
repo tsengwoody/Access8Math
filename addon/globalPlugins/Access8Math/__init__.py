@@ -16,6 +16,7 @@ import controlTypes
 import globalPluginHandler
 import globalVars
 import gui
+from languageHandler import getWindowsLanguage
 from logHandler import log
 import mathPres
 from mathPres.mathPlayer import MathPlayer
@@ -43,7 +44,7 @@ sys.modules['xml'] = xml
 
 config.conf.spec["Access8Math"] = {
 	"settings": {
-		"language": "string(default=en)",
+		"language": "string(default=Windows)",
 		"braille_language": "string(default=en)",
 		"item_interval_time": "integer(default=50,min=0,max=100)",
 		"interaction_frame_show": "boolean(default=false)",
@@ -84,7 +85,7 @@ config.conf.spec["Access8Math"] = {
 }
 
 import A8M_PM
-from dialogs import ReadingSettingsDialog, WritingSettingsDialog, RuleSettingsDialog, NewLanguageAddingDialog, UnicodeDicDialog, MathRuleDialog, EditorDialog
+from dialogs import ReadingSettingsDialog, WritingSettingsDialog, RuleSettingsDialog, NewLanguageAddingDialog, UnicodeDicDialog, MathRuleDialog
 from editor import EditorFrame
 from interaction import A8MProvider, A8MInteraction
 from writer import TextMathEditField
@@ -139,6 +140,8 @@ editor_dialog = None
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self, *args, **kwargs):
+		if config.conf["Access8Math"]["settings"]["language"] == "Windows":
+			config.conf["Access8Math"]["settings"]["language"] = getWindowsLanguage()
 		from command.latex import initialize
 		initialize()
 		super().__init__(*args, **kwargs)

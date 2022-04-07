@@ -256,9 +256,12 @@ Please report any bugs or comments, thank you!
 
 ## Access8Math v3.3 Update
 
-*	Fixed marked menu cannot open when document is empty
 *	Add built-in editor using traditional editing area because of windows 11 changed to UIA editing area
+*	built-in editor new/open/save feature
+*	Access8Math language initial setting is based on NVDA language setting
 *	Compatibility with NVDA 2022.1
+*	Fixed marked menu cannot open when document is empty
+*	Fixed translate LaTeX/AsciiMath feature
 
 ## Access8Math v3.2 Update
 

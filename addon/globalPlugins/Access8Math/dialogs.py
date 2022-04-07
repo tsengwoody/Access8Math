@@ -28,7 +28,6 @@ base_path = os.path.dirname(os.path.abspath(__file__))
 
 try:
 	available_languages = getAvailableLanguages(base_path)
-	available_languages = available_languages[:-1]
 except:
 	available_languages = []
 
@@ -1120,8 +1119,3 @@ class NewLanguageAddingDialog(wx.Dialog):
 		) == wx.OK:
 			queueHandler.queueFunction(queueHandler.eventQueue, core.restart)
 		self.Destroy()
-
-
-class EditorDialog(wx.TextEntryDialog):
-	def __init__(self, parent, value):
-		super().__init__(parent=parent, caption=_("Editor"), message=_("Content"), value=value, style=wx.TE_MULTILINE)

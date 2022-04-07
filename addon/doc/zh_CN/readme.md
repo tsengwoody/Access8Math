@@ -292,9 +292,12 @@ github： https://github.com/tsengwoody/Access8Math
 
 ## Access8Math v3.3 更新日志
 
-*	修正当文件为空时无法开启标记指令选单
 *	新增内建传统编辑区的编辑器，因应 windows 11 的 UIA 编辑区
+*	内建编辑器新增、开启旧文件、储存功能
+*	Access8Math 语言初始设定根据 NVDA 语言设定
 *	相容于 NVDA 2022.1
+*	修正当文件为空时无法开启标记指令选单
+*	修政转换 LaTeX/AsciiMath 功能
 
 ## Access8Math v3.2 更新日志
 

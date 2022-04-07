@@ -1,41 +1,30 @@
-import tones
-
-import sys
+import json
 import os
+import shutil
 import wx
 
 import addonHandler
 import gui
 
+from lib.viewHTML import raw2review
+
 addonHandler.initTranslation()
+
+PATH = os.path.dirname(__file__)
 
 wildcard = \
 	"Text (*.txt)|*.txt|"\
 	"All (*.*)|*.*"
 
 class EditorFrame(wx.Frame):
-	_instances = []
-	@classmethod
-	def closeAll(cls):
-		for item in cls._instances:
-			try:
-				item.Destroy()
-			except:
-				pass
-
-	"""def __new__(cls, *args, **kwargs):
-		obj = super().__new__(cls, *args, **kwargs)
-		cls._instances.append(obj)
-		return obj"""
-
 	def __init__(self, parent, filename=_("new document")):
 		style = wx.DEFAULT_FRAME_STYLE & (~wx.CLOSE_BOX)
 		super(EditorFrame, self).__init__(parent, size=(400, 300), style=style)
-		# cls._instances.append(self)
 
 		self.parent = parent
 		self.dirname  = "."
 		self.filename = filename
+		self.review_folder = os.path.join(PATH, 'web', 'review')
 		self.modify = False
 
 		# Simplified init method.	   
@@ -89,6 +78,24 @@ class EditorFrame(wx.Frame):
 		# Add the fileMenu to the menuBar.
 		menuBar.Append(fileMenu, _("&File"))
 
+		viewMenu = wx.Menu()
+
+		for id, label, helpText, handler in \
+			[
+			(wx.ID_ANY, _("preview"), _("preview HTML file"), self.OnPreview),
+			(wx.ID_ANY, _("export"), _("export HTML file"), self.OnExport),
+		]:
+			if id == None:
+				viewMenu.AppendSeparator()
+			else:
+				item = viewMenu.Append(id, label, helpText)
+
+				# Bind some events to an events handler.
+				self.Bind(wx.EVT_MENU, handler, item)
+
+		# Add the fileMenu to the menuBar.
+		menuBar.Append(viewMenu, _("&View"))
+
 		# Add the menuBar to the frame.
 		self.SetMenuBar(menuBar)
 
@@ -126,7 +133,7 @@ class EditorFrame(wx.Frame):
 			self.modify = False
 
 	def OnSave(self, event):
-		if self.dirname  == "." or self.filename == _("new document"):
+		if self.filename == _("new document"):
 			if self.AskUserForFilename(message=_("Save file"), style=wx.FD_SAVE, **self.DefaultFileDialogOptions()):
 				with open(os.path.join(self.dirname, self.filename), 'w', encoding='utf-8') as file:
 					file.write(self.control.GetValue())
@@ -143,7 +150,7 @@ class EditorFrame(wx.Frame):
 			self.modify = False
 
 	def OnReload(self, event):
-		if self.dirname  == "." or self.filename == _("new document"):
+		if self.filename == _("new document"):
 			pass
 		else:
 			with open(os.path.join(self.dirname, self.filename), 'r', encoding='utf-8') as file:
@@ -152,7 +159,7 @@ class EditorFrame(wx.Frame):
 
 	def OnExit(self, event):
 		if self.modify:
-			if self.dirname  == "." or self.filename == _("new document"):
+			if self.filename == _("new document"):
 				path = ' "' + self.filename + '"'
 			else:
 				path = ' "' + os.path.join(self.dirname, self.filename) + '"'
@@ -172,13 +179,62 @@ class EditorFrame(wx.Frame):
 		else:
 			self.Destroy()
 
+	def OnPreview(self, event):
+		if self.filename == _("new document"):
+			self.OnSave(event)
+		if self.modify:
+			val = gui.messageBox(
+				# Translators: The message displayed
+				_("Preview will only include the saved content. The content in the editor has been modified since the last save, do you want to save and preview it?"),
+				# Translators: The title of the dialog
+				_("Preview"),
+				wx.YES_NO | wx.YES_DEFAULT | wx.CANCEL | wx.ICON_QUESTION, self
+			)
+			if val == wx.YES:
+				self.OnSave(event)
+			if val == wx.CANCEL:
+				return
+		raw2review(self.dirname, self.filename, self.review_folder)
+		dst = os.path.join(self.review_folder, 'Access8Math.json')
+		with open(dst, 'r', encoding='utf8') as f:
+			metadata = json.load(f)
+		entry_file = metadata['entry']
+		os.startfile(os.path.join(self.review_folder, entry_file))
+
+	def OnExport(self, event):
+		if self.filename == _("new document"):
+			self.OnSave(event)
+		if self.modify:
+			val = gui.messageBox(
+				# Translators: The message displayed
+				_("Export will only include the saved content. The content in the editor has been modified since the last save, do you want to save and export it?"),
+				# Translators: The title of the dialog
+				_("Export"),
+				wx.YES_NO | wx.YES_DEFAULT | wx.CANCEL | wx.ICON_QUESTION, self
+			)
+			if val == wx.YES:
+				self.OnSave(event)
+			if val == wx.CANCEL:
+				return
+
+		raw2review(self.dirname, self.filename, self.review_folder)
+
+		with wx.FileDialog(
+			self, message=_("Export file..."),
+			defaultDir=self.dirname, wildcard="zip files (*.zip)|*.zip"
+		) as entryDialog:
+			if entryDialog.ShowModal() != wx.ID_OK:
+				return
+			dst = entryDialog.GetPath()
+		dst = dst[:-4]
+		shutil.make_archive(dst, 'zip', self.review_folder)
+
 	def OnCloseWindow(self, event):
 		pass
 		# self.Destroy()
 
 	def Destroy(self):
 		super().Destroy()
-		# self.__class__._instances.remove(self)
 
 	def OnTextChanged(self, event):
 		self.modify = True

@@ -1,3 +1,4 @@
+import json
 import os
 import shutil
 
@@ -9,8 +10,6 @@ import wx
 from .models import MenuModel
 from .views import MenuView, MenuViewTextInfo
 
-PATH = os.path.dirname(os.path.dirname(__file__))
-
 addonHandler.initTranslation()
 
 
@@ -19,8 +18,8 @@ class A8MHTMLCommandModel(MenuModel):
 		super().__init__()
 		self.data = [
 			{
-				"id": "review",
-				"name": _("review"),
+				"id": "preview",
+				"name": _("preview"),
 				"type": "item",
 			},
 			{
@@ -32,24 +31,28 @@ class A8MHTMLCommandModel(MenuModel):
 
 
 class A8MHTMLCommandView(MenuView):
-	name = _("Access8Math HTML")
+	name = _("view command")
 
-	def __init__(self, file):
+	def __init__(self, review_folder):
 		super().__init__(MenuModel=A8MHTMLCommandModel, TextInfo=A8MHTMLCommandViewTextInfo)
-		self.file = file
+		self.review_folder = review_folder
+		dst = os.path.join(review_folder, 'Access8Math.json')
+		with open(dst, 'r', encoding='utf8') as f:
+			metadata = json.load(f)
+		self.entry_file = metadata['entry']
 
 	@script(
 		gestures=["kb:enter"]
 	)
 	def script_enter(self, gesture):
-		if self.data.pointer['id'] == 'review':
-			self.OnReview()
+		if self.data.pointer['id'] == 'preview':
+			self.OnPreview()
 		elif self.data.pointer['id'] == 'export':
 			self.OnExport()
 
-	def OnReview(self):
+	def OnPreview(self):
 		def openfile():
-			os.startfile(self.file["HTML"])
+			os.startfile(os.path.join(self.review_folder, self.entry_file))
 		wx.CallAfter(openfile)
 
 	def OnExport(self):
@@ -57,20 +60,8 @@ class A8MHTMLCommandView(MenuView):
 			with wx.FileDialog(gui.mainFrame, message=_("Save file..."), wildcard="zip files (*.zip)|*.zip", style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT) as dialog:
 				if dialog.ShowModal() != wx.ID_OK:
 					return
-				review = os.path.join(PATH, 'web', 'review')
-				export = os.path.join(PATH, 'web', 'export')
-
-				try:
-					shutil.rmtree(export)
-				except:
-					pass
-
-				shutil.copytree(os.path.join(review, 'modules'), os.path.join(export, 'modules'))
-				shutil.move(self.file['HTML'], export)
-				shutil.move(self.file['raw'], export)
 				dst = dialog.GetPath()[:-4]
-				shutil.make_archive(dst, 'zip', export)
-				shutil.rmtree(export)
+				shutil.make_archive(dst, 'zip', self.review_folder)
 		wx.CallAfter(show)
 
 

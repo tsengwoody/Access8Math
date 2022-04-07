@@ -1,5 +1,6 @@
 import os
 import re
+import shutil
 
 import addonHandler
 import api
@@ -22,20 +23,13 @@ from command.translate import A8MTranslateCommandView
 from command.batch import A8MBatchCommandView
 from delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter
 from lib.mathProcess import textmath2laObjFactory, latex2mathml, asciimath2mathml, latex2asciimath, asciimath2latex
+from lib.viewHTML import raw2review
 from regularExpression import delimiterRegularExpression, latex_bracket_dollar
-
-from jinja2 import Environment, FileSystemLoader
 
 addonHandler.initTranslation()
 ADDON_SUMMARY = addonHandler.getCodeAddon().manifest["summary"]
 
 PATH = os.path.dirname(__file__)
-TEMPLATES_PATH = os.path.join(PATH, 'web', 'templates')
-env = Environment(
-	loader=FileSystemLoader(TEMPLATES_PATH),
-	variable_start_string='{|{',
-	variable_end_string='}|}'
-)
 
 command_mode = config.conf["Access8Math"]["settings"]["command_mode"]
 navigate_mode = config.conf["Access8Math"]["settings"]["navigate_mode"]
@@ -434,9 +428,9 @@ class TextMathEditField(NVDAObject):
 			self.script_navigate(gesture)
 
 	def script_view_math(self, gesture):
-		obj=api.getForegroundObject()
 		document = self.makeTextInfo(textInfos.POSITION_ALL)
 
+		obj=api.getForegroundObject()
 		title=obj.name
 		if not isinstance(title,str) or not title or title.isspace():
 			title = obj.appModule.appName if obj.appModule else None
@@ -444,31 +438,29 @@ class TextMathEditField(NVDAObject):
 				title = ""
 		try:
 			file = title.split("-")[0].strip('* ')
-			name = file.split('.')[0]
-			ext = file.split('.')[1]
+			name, ext = file.split('.')
 		except:
 			name = 'index'
 			ext = 'txt'
 
+		data_folder = os.path.join(PATH, 'web', 'data')
+		entry_file = '{}.{}'.format(name, ext)
 		review_folder = os.path.join(PATH, 'web', 'review')
-		for basename in os.listdir(review_folder):
-			path = os.path.join(review_folder, basename)
-			if os.path.isfile(path):
-				try:
-					os.remove(path)
-				except:
-					pass
 
-		html_file = text2template(document.text, os.path.join(review_folder, '{}.html'.format(name)))
-		raw_file = os.path.join(PATH, 'web', 'review', '{}.{}'.format(name, ext))
-
-		with open(raw_file, "w", encoding="utf8", newline="") as f:
+		try:
+			shutil.rmtree(data_folder)
+		except:
+			pass
+		if not os.path.exists(data_folder):
+			os.mkdir(data_folder)
+		with open(os.path.join(data_folder, entry_file), "w", encoding="utf8", newline="") as f:
 			f.write(document.text)
 
-		A8MHTMLCommandView(file={
-			"HTML": html_file,
-			"raw": raw_file,
-		}).setFocus()
+		raw2review(data_folder, entry_file, review_folder)
+
+		A8MHTMLCommandView(
+			review_folder=os.path.join(PATH, 'web', 'review')
+		).setFocus()
 
 	def script_mark(self, gesture):
 		with SectionManager() as manager:
@@ -993,24 +985,3 @@ class SectionManager:
 		return text
 
 
-def text2template(value, output):
-	try:
-		title = os.path.basename(output).split('.')[0]
-	except:
-		title = 'Access8Math'
-	backslash_pattern = re.compile(r"\\")
-	data = backslash_pattern.sub(lambda m: m.group(0).replace('\\', '\\\\'), value)
-	data = data.replace(r'`', r'\`')
-	raw = data
-	template = env.get_template("index.template")
-	content = template.render({
-		'title': title,
-		'data': data,
-		'raw': raw,
-		'LaTeX_delimiter': config.conf["Access8Math"]["settings"]["LaTeX_delimiter"],
-		'document_display': config.conf["Access8Math"]["settings"]["HTML_document_display"],
-		'math_display': config.conf["Access8Math"]["settings"]["HTML_math_display"],
-	})
-	with open(output, "w", encoding="utf8", newline="") as f:
-		f.write(content)
-	return output
