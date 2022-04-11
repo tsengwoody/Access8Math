@@ -92,15 +92,20 @@ from writer import TextMathEditField
 
 addonHandler.initTranslation()
 ADDON_SUMMARY = addonHandler.getCodeAddon().manifest["summary"]
+ADDON_VERSION = addonHandler.getCodeAddon().manifest["version"]
 
 aboutMessage = _("""Access8Math
-Version: 3.2
+Version: {addonVersion}
 URL: https://addons.nvda-project.org/addons/access8math.en.html
-Copyright (C) 2017-2021 Access8Math Contributors
+Copyright (C) {copyrightFirstYear}-{copyrightLastYear} Access8Math Contributors
 Access8Math is covered by the GNU General Public License (Version 2). You are free to share or change this software in any way you like as long as it is accompanied by the license and you make all source code available to anyone who wants it. This applies to both original and modified copies of this software, plus any derivative works.
 It can be viewed online at: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 Access8Math has been sponsored by "Taiwan Visually Impaired People Association"(accessibility@twvip.org) in 2018~2019, hereby express our sincere appreciation.
-If you feel this add-on is helpful, please don't hesitate to give support to "Taiwan Visually Impaired People Association" and authors.""")
+If you feel this add-on is helpful, please don't hesitate to give support to "Taiwan Visually Impaired People Association" and authors.""").format(
+	addonVersion=ADDON_VERSION,
+	copyrightFirstYear=2017,
+	copyrightLastYear=2022,
+)
 
 if buildVersion.version_year >= 2022:
 	ROLE_WINDOW = controlTypes.Role.WINDOW
@@ -198,32 +203,32 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 		self.menu.AppendSubMenu(
 			settingsMenu,
-			_("&Settings..."),
+			_("&Settings"),
 		)
 
 		l10nMenu = wx.Menu()
 
 		self.speechUnicodeDictionary = l10nMenu.Append(
 			wx.ID_ANY,
-			_("speech &unicode dictionary...")
+			_("Speech &unicode dictionary...")
 		)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onSpeechUnicodeDictionary, self.speechUnicodeDictionary)
 
 		self.speechMathRule = l10nMenu.Append(
 			wx.ID_ANY,
-			_("speech &math rule...")
+			_("Speech &math rule...")
 		)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onSpeechMathRule, self.speechMathRule)
 
 		self.brailleUnicodeDictionary = l10nMenu.Append(
 			wx.ID_ANY,
-			_("braille &unicode dictionary...")
+			_("Braille &unicode dictionary...")
 		)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onBrailleUnicodeDictionary, self.brailleUnicodeDictionary)
 
 		self.brailleMathRule = l10nMenu.Append(
 			wx.ID_ANY,
-			_("braille &math rule...")
+			_("Braille &math rule...")
 		)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onBrailleMathRule, self.brailleMathRule)
 
@@ -235,7 +240,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 		self.menu.AppendSubMenu(
 			l10nMenu,
-			_("&Localization..."),
+			_("&Localization"),
 		)
 
 		self.cleanWorkspace = self.menu.Append(
@@ -253,7 +258,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.Access8Math_item = self.toolsMenu.AppendSubMenu(self.menu, _("Access8Math"), _("Access8Math"))
 
 	@script(
-		description=_("speech source switch"),
+		description=_("Speech source switch"),
 		category=ADDON_SUMMARY,
 	)
 	def script_speech_source_switch(self, gesture):
@@ -266,7 +271,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		ui.message(_("MathML speech source switch to %s") % config.conf["Access8Math"]["settings"]["speech_source"])
 
 	@script(
-		description=_("braille source switch"),
+		description=_("Braille source switch"),
 		category=ADDON_SUMMARY,
 	)
 	def script_braille_source_switch(self, gesture):
@@ -279,7 +284,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		ui.message(_("MathML braille source switch to %s") % config.conf["Access8Math"]["settings"]["braille_source"])
 
 	@script(
-		description=_("interact source switch"),
+		description=_("Interact source switch"),
 		category=ADDON_SUMMARY,
 	)
 	def script_interact_source_switch(self, gesture):
@@ -292,7 +297,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		ui.message(_("MathML interact source switch to %s") % config.conf["Access8Math"]["settings"]["interact_source"])
 
 	@script(
-		description=_("editor popup"),
+		description=_("Pop up the editor"),
 		category=ADDON_SUMMARY,
 		gesture="kb:NVDA+alt+e",
 	)

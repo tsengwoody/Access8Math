@@ -17,7 +17,8 @@ wildcard = \
 	"All (*.*)|*.*"
 
 class EditorFrame(wx.Frame):
-	def __init__(self, parent, filename=_("new document")):
+	# Translators: The name of the document in the Editor when it has never been saved to a file
+	def __init__(self, parent, filename=_("New document")):
 		style = wx.DEFAULT_FRAME_STYLE & (~wx.CLOSE_BOX)
 		super(EditorFrame, self).__init__(parent, size=(400, 300), style=style)
 
@@ -35,6 +36,7 @@ class EditorFrame(wx.Frame):
 		Hotkey(self)
 
 	def SetTitle(self):
+		# Translators: The title of the Editor window
 		super(EditorFrame, self).SetTitle(_("%s - Access8Math Editor") % self.filename)
 
 	def CreateInteriorWindowComponents(self):
@@ -58,14 +60,50 @@ class EditorFrame(wx.Frame):
 
 		fileMenu = wx.Menu()
 
-		for id, label, helpText, handler in \
-			[
-			(wx.ID_NEW, _("&New"), _("Open a new editor."), self.OnNew),
-			(wx.ID_OPEN, _("&Open..."), _("Open a new file."), self.OnOpen),
-			(wx.ID_SAVE, _("&Save"), _("Save the current file."), self.OnSave),
-			(wx.ID_SAVEAS, _("Save &As..."), _("Save the file under a different name."), self.OnSaveAs),
-			(wx.ID_ANY, _("Re&load from Disk"), _("Reload the file from disk."), self.OnReload),
-			(wx.ID_EXIT, _("E&xit"), _("Terminate the program."), self.OnExit)
+		for id, label, helpText, handler in [
+			(
+				wx.ID_NEW,
+				# Translators: A menu item in the Editor window
+				_("&New"),
+				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+				_("Open a new editor."),
+				self.OnNew
+			), (
+				wx.ID_OPEN,
+				# Translators: A menu item in the Editor window
+				_("&Open..."),
+				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+				_("Open a new file."),
+				self.OnOpen
+			), (
+				wx.ID_SAVE,
+				# Translators: A menu item in the Editor window
+				_("&Save"),
+				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+				_("Save the current file."),
+				self.OnSave
+			), (
+				wx.ID_SAVEAS,
+				# Translators: A menu item in the Editor window
+				_("Save &as..."),
+				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+				_("Save the file under a different name."),
+				self.OnSaveAs
+			), (
+				wx.ID_ANY,
+				# Translators: A menu item in the Editor window
+				_("Re&load from disk"),
+				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+				_("Reload the file from disk."),
+				self.OnReload
+			), (
+				wx.ID_EXIT,
+				# Translators: A menu item in the Editor window
+				_("E&xit"),
+				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+				_("Terminate the program."),
+				self.OnExit
+			)
 		]:
 			if id == None:
 				fileMenu.AppendSeparator()
@@ -76,14 +114,27 @@ class EditorFrame(wx.Frame):
 				self.Bind(wx.EVT_MENU, handler, item)
 
 		# Add the fileMenu to the menuBar.
+		# Translators: A menu item in the Editor window
 		menuBar.Append(fileMenu, _("&File"))
 
 		viewMenu = wx.Menu()
 
-		for id, label, helpText, handler in \
-			[
-			(wx.ID_ANY, _("preview"), _("preview HTML file"), self.OnPreview),
-			(wx.ID_ANY, _("export"), _("export HTML file"), self.OnExport),
+		for id, label, helpText, handler in [
+			(
+				wx.ID_ANY,
+				# Translators: A menu item in the Editor window
+				_("Preview"),
+				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+				_("Preview HTML file"),
+				self.OnPreview
+			), (
+				wx.ID_ANY,
+				# Translators: A menu item in the Editor window
+				_("Export..."),
+				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+				_("Export HTML file"),
+				self.OnExport
+			),
 		]:
 			if id == None:
 				viewMenu.AppendSeparator()
@@ -94,6 +145,7 @@ class EditorFrame(wx.Frame):
 				self.Bind(wx.EVT_MENU, handler, item)
 
 		# Add the fileMenu to the menuBar.
+		# Translators: A menu item in the Editor window
 		menuBar.Append(viewMenu, _("&View"))
 
 		# Add the menuBar to the frame.
@@ -127,13 +179,16 @@ class EditorFrame(wx.Frame):
 		frame.Show(True)
 
 	def OnOpen(self, event):
+		# Translators: The title of the Editor's Open file window
 		if self.AskUserForFilename(message=_("Open file"), style=wx.FD_OPEN, **self.DefaultFileDialogOptions()):
 			with open(os.path.join(self.dirname, self.filename), 'r', encoding='utf-8') as file:
 				self.control.SetValue(file.read())
 			self.modify = False
 
 	def OnSave(self, event):
-		if self.filename == _("new document"):
+		# Translators: The name of the document in the Editor when it has never been saved to a file
+		if self.filename == _("New document"):
+			# Translators: The title of the Editor's Save file window
 			if self.AskUserForFilename(message=_("Save file"), style=wx.FD_SAVE, **self.DefaultFileDialogOptions()):
 				with open(os.path.join(self.dirname, self.filename), 'w', encoding='utf-8') as file:
 					file.write(self.control.GetValue())
@@ -144,13 +199,15 @@ class EditorFrame(wx.Frame):
 			self.modify = False
 
 	def OnSaveAs(self, event):
+		# Translators: The title of the Editor's Save as file window
 		if self.AskUserForFilename(message=_("Save file"), style=wx.FD_SAVE, **self.DefaultFileDialogOptions()):
 			with open(os.path.join(self.dirname, self.filename), 'w', encoding='utf-8') as file:
 				file.write(self.control.GetValue())
 			self.modify = False
 
 	def OnReload(self, event):
-		if self.filename == _("new document"):
+		# Translators: The name of the document in the Editor when it has never been saved to a file
+		if self.filename == _("New document"):
 			pass
 		else:
 			with open(os.path.join(self.dirname, self.filename), 'r', encoding='utf-8') as file:
@@ -159,13 +216,14 @@ class EditorFrame(wx.Frame):
 
 	def OnExit(self, event):
 		if self.modify:
-			if self.filename == _("new document"):
+			# Translators: The name of the document in the Editor when it has never been saved to a file
+			if self.filename == _("New document"):
 				path = ' "' + self.filename + '"'
 			else:
 				path = ' "' + os.path.join(self.dirname, self.filename) + '"'
 			val = gui.messageBox(
 				# Translators: The message displayed
-				_("Save file{path} ?").format(path=path),
+				_("Save file{path}?").format(path=path),
 				# Translators: The title of the dialog
 				_("Save"),
 				wx.YES_NO | wx.YES_DEFAULT | wx.CANCEL | wx.ICON_QUESTION, self
@@ -180,7 +238,8 @@ class EditorFrame(wx.Frame):
 			self.Destroy()
 
 	def OnPreview(self, event):
-		if self.filename == _("new document"):
+		# Translators: The name of the document in the Editor when it has never been saved to a file
+		if self.filename == _("New document"):
 			self.OnSave(event)
 		if self.modify:
 			val = gui.messageBox(
@@ -202,7 +261,8 @@ class EditorFrame(wx.Frame):
 		os.startfile(os.path.join(self.review_folder, entry_file))
 
 	def OnExport(self, event):
-		if self.filename == _("new document"):
+		# Translators: The name of the document in the Editor when it has never been saved to a file
+		if self.filename == _("New document"):
 			self.OnSave(event)
 		if self.modify:
 			val = gui.messageBox(
@@ -220,6 +280,7 @@ class EditorFrame(wx.Frame):
 		raw2review(self.dirname, self.filename, self.review_folder)
 
 		with wx.FileDialog(
+			# Translators: The title of the Editor's Export file window
 			self, message=_("Export file..."),
 			defaultDir=self.dirname, wildcard="zip files (*.zip)|*.zip"
 		) as entryDialog:

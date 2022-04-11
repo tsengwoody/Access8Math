@@ -258,7 +258,8 @@ class TextMathEditField(NVDAObject):
 
 	@script(
 		gestures=["kb:nvda+alt+c"],
-		description=_("command gesture toggle"),
+		# Translators: The description of a command in input help mode and in the Input gesture dialog
+		description=_("Toggle command gestures"),
 		category=ADDON_SUMMARY,
 	)
 	def script_command_toggle(self, gesture):
@@ -266,14 +267,15 @@ class TextMathEditField(NVDAObject):
 		command_mode = not command_mode
 		if command_mode:
 			self.bindCommandGestures()
-			ui.message(_("activate command gesture"))
+			ui.message(_("Command gestures activated"))
 		else:
 			self.unbindCommandGestures()
-			ui.message(_("deactivate command gesture"))
+			ui.message(_("Command gestures deactivated"))
 
 	@script(
 		gestures=["kb:nvda+alt+n"],
-		description=_("block navigation gesture toggle"),
+		# Translators: The description of a command in input help mode and in the Input gesture dialog
+		description=_("Toggle block navigation gestures"),
 		category=ADDON_SUMMARY,
 	)
 	def script_navigate_toggle(self, gesture):
@@ -281,54 +283,57 @@ class TextMathEditField(NVDAObject):
 		navigate_mode = not navigate_mode
 		if navigate_mode:
 			self.bindNavigateGestures()
-			ui.message(_("activate block navigation gesture"))
+			ui.message(_("Block navigation gestures activated"))
 		else:
 			self.unbindNavigateGestures()
-			ui.message(_("deactivate block navigation gesture"))
+			ui.message(_("Block navigation gestures deactivated"))
 
 	@script(
 		gestures=["kb:nvda+alt+s"],
-		description=_("shortcut gesture toggle"),
+		# Translators: The description of a command in input help mode and in the Input gesture dialog
+		description=_("Toggle shortcut gestures"),
 		category=ADDON_SUMMARY,
 	)
 	def script_shortcut_toggle(self, gesture):
 		if self.writeNav_mode:
-			ui.message(_("cannot activate shortcut gesture in browse navigation mode"))
+			ui.message(_("Cannot activate shortcut gesture in browse navigation mode"))
 			return
 		global shortcut_mode
 		if not shortcut_mode:
 			self.gesture_not_concurrent()
 			shortcut_mode = not shortcut_mode
 			self.bindShortcutGestures()
-			ui.message(_("activate shortcut gesture"))
+			ui.message(_("Shortcut gestures activated"))
 		else:
 			shortcut_mode = not shortcut_mode
 			self.unbindShortcutGestures()
-			ui.message(_("deactivate shortcut gesture"))
+			ui.message(_("Shortcut gestures activated"))
 
 	@script(
 		gestures=["kb:nvda+alt+g"],
-		description=_("greek alphabet gesture toggle"),
+		# Translators: The description of a command in input help mode and in the Input gesture dialog
+		description=_("Toggme Greek alphabet gesture"),
 		category=ADDON_SUMMARY,
 	)
 	def script_greekAlphabet_toggle(self, gesture):
 		if self.writeNav_mode:
-			ui.message(_("cannot activate greek alphabet gesture in browse navigation mode"))
+			ui.message(_("Cannot activate Greek alphabet gestures in browse navigation mode"))
 			return
 		global greekAlphabet_mode
 		if not greekAlphabet_mode:
 			self.gesture_not_concurrent()
 			greekAlphabet_mode = not greekAlphabet_mode
 			self.bindGreekAlphabetGestures()
-			ui.message(_("activate greek alphabet gesture"))
+			ui.message(_("Greek alphabet gestures activated"))
 		else:
 			greekAlphabet_mode = not greekAlphabet_mode
 			self.unbindGreekAlphabetGestures()
-			ui.message(_("deactivate greek alphabet gesture"))
+			ui.message(_("Greek alphabet gestures deactivated"))
 
 	@script(
 		gestures=["kb:NVDA+space"],
-		description=_("browse navigation mode toggle"),
+		# Translators: The description of a command in input help mode and in the Input gesture dialog
+		description=_("Toggle browse navigation mode"),
 		category=ADDON_SUMMARY,
 	)
 	def script_writeNav_toggle(self, gesture):
@@ -340,14 +345,14 @@ class TextMathEditField(NVDAObject):
 				sound = "browseMode.wav"
 				nvwave.playWaveFile(os.path.join("waves", sound))
 			else:
-				ui.message(_("browse navigation mode on"))
+				ui.message(_("Browse navigation mode on"))
 		else:
 			self.unbindWriteNavGestures()
 			if config.conf["Access8Math"]["settings"]["writeNavAudioIndication"]:
 				sound = "focusMode.wav"
 				nvwave.playWaveFile(os.path.join("waves", sound))
 			else:
-				ui.message(_("browse navigation mode off"))
+				ui.message(_("Browse navigation mode off"))
 
 	def script_writeNav_exit(self, gesture):
 		if not self.writeNav_mode:
@@ -357,7 +362,7 @@ class TextMathEditField(NVDAObject):
 				sound = "browseMode.wav"
 				nvwave.playWaveFile(os.path.join("waves", sound))
 			else:
-				ui.message(_("browse navigation mode on"))
+				ui.message(_("Browse navigation mode on"))
 		else:
 			gesture.send()
 
@@ -372,7 +377,7 @@ class TextMathEditField(NVDAObject):
 					if True:
 						gesture.send()
 					else:
-						ui.message(_("shortcut {shortcut} is not set").format(
+						ui.message(_("Shortcut {shortcut} is not set").format(
 							shortcut=slot,
 						))
 			else:
@@ -389,7 +394,7 @@ class TextMathEditField(NVDAObject):
 					if True:
 						gesture.send()
 					else:
-						ui.message(_("shortcut {shortcut} is not set").format(
+						ui.message(_("Shortcut {shortcut} is not set").format(
 							shortcut=slot,
 						))
 			else:
@@ -403,7 +408,7 @@ class TextMathEditField(NVDAObject):
 				if slot in view.data.greekAlphabet:
 					view.greekAlphabetCommand(view.data.greekAlphabet[slot]["id"])
 				else:
-					ui.message(_("GreekAlphabet {GreekAlphabet} is not set").format(
+					ui.message(_("Greek alphabet {GreekAlphabet} is not set").format(
 						GreekAlphabet=slot,
 					))
 			else:
@@ -654,13 +659,13 @@ class TextMathEditField(NVDAObject):
 		with SectionManager() as manager:
 			result = manager.move(type_='any', step=0)
 			api.copyToClip(result["raw"])
-			ui.message(_("{data} copy to clipboard").format(data=result["raw"]))
+			ui.message(_("{data} copied to clipboard").format(data=result["raw"]))
 
 	def script_navigatePaste(self, gesture):
 		with SectionManager() as manager:
 			manager.endMargin()
 			KeyboardInputGesture.fromName("control+v").send()
-			ui.message(_("{data} insert to document").format(data=api.getClipData()))
+			ui.message(_("{data} inserted to document").format(data=api.getClipData()))
 
 	def script_navigateCut(self, gesture):
 		with SectionManager() as manager:
@@ -674,7 +679,7 @@ class TextMathEditField(NVDAObject):
 			result = manager.move(type_='any', step=0)
 			manager.caret.updateSelection()
 			KeyboardInputGesture.fromName("delete").send()
-			ui.message(_("{data} delete from document").format(data=result["raw"]))
+			ui.message(_("{data} deleted from document").format(data=result["raw"]))
 
 
 class SectionManager:
