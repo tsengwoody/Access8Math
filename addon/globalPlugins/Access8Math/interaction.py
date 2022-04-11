@@ -246,9 +246,8 @@ class A8MInteractionFrame(GenericFrame):
 
 
 class A8MProvider(mathPres.MathPresentationProvider):
-	def __init__(self, *args, **kwargs):
-		super().__init__(*args, **kwargs)
-		self.mathcontent = None
+	# def __init__(self, *args, **kwargs):
+		# super().__init__(*args, **kwargs)
 
 	def getSpeechForMathMl(self, mathMl):
 		"""Get speech output for specified MathML markup.
@@ -259,8 +258,8 @@ class A8MProvider(mathPres.MathPresentationProvider):
 		"""
 		speechSequence = []
 		if config.conf["Access8Math"]["settings"]["speech_source"] == "Access8Math":
-			self.mathcontent = MathContent(config.conf["Access8Math"]["settings"]["language"], mathMl)
-			speechSequence = translate_SpeechCommand(self.mathcontent.pointer.serialized())
+			mathcontent = MathContent(config.conf["Access8Math"]["settings"]["language"], mathMl)
+			speechSequence = translate_SpeechCommand(mathcontent.pointer.serialized())
 		else:
 			if mathPlayer:
 				speechSequence = mathPlayer.getSpeechForMathMl(mathMl)
@@ -275,7 +274,8 @@ class A8MProvider(mathPres.MathPresentationProvider):
 		"""
 		cells = ""
 		if config.conf["Access8Math"]["settings"]["braille_source"] == "Access8Math":
-			cells = translate_Braille(self.mathcontent.root.brailleserialized())
+			mathcontent = MathContent(config.conf["Access8Math"]["settings"]["language"], mathMl)
+			cells = translate_Braille(mathcontent.root.brailleserialized())
 		else:
 			if mathPlayer:
 				cells = mathPlayer.getBrailleForMathMl(mathMl)

@@ -162,8 +162,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		if obj.windowClassName == "wxWindowNR" and obj.role == ROLE_WINDOW and obj.name == _("Access8Math interaction window"):
 			clsList.insert(0, AppWindowRoot)
-		if (obj.windowClassName == "Edit" or obj.windowClassName == "DirectUIHWND") and obj.role == ROLE_EDITABLETEXT:
-		# if obj.windowClassName == 'wxWindowNR':
+		if obj.windowClassName == "Edit" and obj.role == ROLE_EDITABLETEXT:
 			clsList.insert(0, TextMathEditField)
 
 	def create_menu(self):
@@ -360,18 +359,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.editor_popup("")
 
 	def onCleanWorkspace(self, evt):
-		export = os.path.join(PATH, 'web', 'export')
-		try:
-			shutil.rmtree(export)
-		except:
-			pass
-
-		review = os.path.join(PATH, 'web', 'review')
-		for item in os.listdir(review):
-			item = os.path.join(review, item)
+		for item in [
+			os.path.join(PATH, 'web', 'data'),
+			os.path.join(PATH, 'web', 'export'),
+			os.path.join(PATH, 'web', 'review'),
+		]:
 			try:
-				if os.path.isfile(item):
-					os.remove(item)
+				shutil.rmtree(item)
 			except:
 				pass
 
