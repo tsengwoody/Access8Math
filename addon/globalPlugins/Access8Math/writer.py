@@ -312,7 +312,7 @@ class TextMathEditField(NVDAObject):
 	@script(
 		gestures=["kb:nvda+alt+g"],
 		# Translators: The description of a command in input help mode and in the Input gesture dialog
-		description=_("Toggme Greek alphabet gesture"),
+		description=_("Toggle Greek alphabet gesture"),
 		category=ADDON_SUMMARY,
 	)
 	def script_greekAlphabet_toggle(self, gesture):
