@@ -743,7 +743,8 @@ class A8MLaTeXCommandView(MenuView):
 	)
 	def script_set_shortcut(self, gesture):
 		if self.data.pointer['type'] == 'menu':
-			ui.message(_("menu can not set shortcut"))
+			# Translators: A message reported when setting the shortcut on an element of the LaTeX commands menu
+			ui.message(_("Cannot set shortcut on menu"))
 			return
 
 		id_ = self.data.pointer['id']
@@ -759,7 +760,8 @@ class A8MLaTeXCommandView(MenuView):
 				item["shortcut"] = "-1"
 
 		self.update_menu()
-		ui.message(_("set shortcut {slot}").format(slot=slot))
+		# Translators: A message reported when setting the shortcut on an element of the LaTeX commands menu
+		ui.message(_("Shortcut {slot} set").format(slot=slot))
 		eventHandler.executeEvent("gainFocus", self.parent)
 
 	@script(
@@ -767,13 +769,15 @@ class A8MLaTeXCommandView(MenuView):
 	)
 	def script_reset_shortcut(self, gesture):
 		if self.data.pointer['type'] == 'menu':
-			ui.message(_("sub menu no shortcut"))
+			# Translators: A message reported when resetting the shortcut on an element of the LaTeX commands menu
+			ui.message(_("Cannot clear shortcut on a menu"))
 			return
 
 		id_ = self.data.pointer['id']
 		slot = self.data.pointer['shortcut']
 		if slot == "-1":
-			ui.message(_("no set shortcut"))
+			# Translators: A message reported when resetting the shortcut on an element of the LaTeX commands menu
+			ui.message(_("No shortcut set on this item"))
 			return
 
 		for item in latexAll:
@@ -782,7 +786,8 @@ class A8MLaTeXCommandView(MenuView):
 				break
 
 		self.update_menu()
-		ui.message(_("clear shortcut {slot}").format(slot=slot))
+		# Translators: A message reported when resetting the shortcut on an element of the LaTeX commands menu
+		ui.message(_("Shortcut {slot} cleared").format(slot=slot))
 		eventHandler.executeEvent("gainFocus", self.parent)
 
 	@script(

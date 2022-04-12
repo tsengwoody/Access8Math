@@ -41,45 +41,57 @@ except:
 
 
 class ReadingSettingsDialog(SettingsDialog):
-	# Translators: Title of the Access8MathDialog.
+	# Translators: Title of a setting dialog.
 	title = _("Reading Settings")
 	settings = OrderedDict({
+		# Translators: The label of an option in the reading settings dialog
 		"language": {
 			"label": _("&Language:"),
 			"options": available_languages_dict
 		},
 		"speech_source": {
+			# Translators: The label of an option in the reading settings dialog
 			"label": _("&Speech source:"),
 			"options": {
+				# Translators: A choice of a combobox in the reading settings dialog
 				"Access8Math": _("Access8Math"),
 			}
 		},
 		"braille_source": {
+			# Translators: The label of an option in the reading settings dialog
 			"label": _("&Braille source:"),
 			"options": {
+				# Translators: A choice of a combobox in the reading settings dialog
 				"Access8Math": _("Access8Math"),
 			}
 		},
 		"interact_source": {
+			# Translators: The label of an option in the reading settings dialog
 			"label": _("Inter&act source:"),
 			"options": {
+				# Translators: A choice of a combobox in the reading settings dialog
 				"Access8Math": _("Access8Math"),
 			}
 		},
 		"analyze_math_meaning": {
+			# Translators: The label of an option in the reading settings dialog
 			"label": _("Analyze mathematical meaning of content")
 		},
 		"interaction_frame_show": {
-			"label": _("show interaction window when entering interaction navigation mode")
+			# Translators: The label of an option in the reading settings dialog
+			"label": _("Show interaction window when entering interaction navigation mode")
 		},
 		"dictionary_generate": {
+			# Translators: The label of an option in the reading settings dialog
 			"label": _("Reading pre-defined meaning in dictionary in interaction navigation mode")
 		},
 		"auto_generate": {
+			# Translators: The label of an option in the reading settings dialog
 			"label": _("Reading of auto-generated meaning in interaction navigation mode")
 		},
 		"no_move_beep": {
-			"label": _("use tone indicate to no move in interaction navigation mode")
+			# Translators: The label of an option in the reading settings dialog
+			"label": _("Use tone indicate to no move in interaction navigation mode")
 		},
 	})
 
@@ -94,6 +106,7 @@ class ReadingSettingsDialog(SettingsDialog):
 				attr = k + "Selection"
 				options = v["options"]
 				if mathPlayer and "Access8Math" in v["options"]:
+					# Translators: A choice in a combobox of the reading settings dialog
 					v["options"]["MathPlayer"] = _("Math Player")
 				widget = sHelper.addLabeledControl(v["label"], wx.Choice, choices=list(options.values()))
 				setattr(self, attr, widget)
@@ -108,6 +121,7 @@ class ReadingSettingsDialog(SettingsDialog):
 				value = self.Access8MathConfig["settings"][k]
 				getattr(self, k + "CheckBox").SetValue(value)
 
+		# Translators: The label of an option in the reading settings dialog
 		item_interval_timeLabel = _("&Item interval time:")
 		self.item_interval_timeChoices = [str(i) for i in range(1, 101)]
 		self.item_interval_timeList = sHelper.addLabeledControl(item_interval_timeLabel, wx.Choice, choices=self.item_interval_timeChoices)
@@ -149,42 +163,56 @@ class ReadingSettingsDialog(SettingsDialog):
 
 
 class WritingSettingsDialog(SettingsDialog):
-	# Translators: Title of the Access8MathDialog.
+	# Translators: Title of a setting dialog.
 	title = _("Writing Settings")
 	settings = OrderedDict({
 		"command_mode": {
+			# Translators: The label of an option in the writing settings dialog
 			"label": _("Activate command gesture at startup")
 		},
 		"navigate_mode": {
+			# Translators: The label of an option in the writing settings dialog
 			"label": _("Activate block navigate gesture at startup")
 		},
 		"shortcut_mode": {
+			# Translators: The label of an option in the writing settings dialog
 			"label": _("Activate shortcut gesture at startup")
 		},
 		"writeNavAudioIndication": {
+			# Translators: The label of an option in the writing settings dialog
 			"label": _("Use audio indicate to switching of browse navigation mode")
 		},
 		"writeNavAcrossLine": {
+			# Translators: The label of an option in the writing settings dialog
 			"label": _("Left/Right arrow key allow of moving across line in browse navigation mode")
 		},
 		"HTML_document_display": {
+			# Translators: The label of an option in the writing settings dialog
 			"label": _("HTML &document display:"),
 			"options": {
+				# Translators: A choice of a combobox in the writing settings dialog
 				"markdown": _("Markdown"),
+				# Translators: A choice of a combobox in the writing settings dialog
 				"text": _("text"),
 			}
 		},
 		"HTML_math_display": {
+			# Translators: The label of an option in the writing settings dialog
 			"label": _("HTML &math display:"),
 			"options": {
+				# Translators: A choice of a combobox in the writing settings dialog
 				"block": _("block"),
+				# Translators: A choice of a combobox in the writing settings dialog
 				"inline": _("inline"),
 			}
 		},
 		"LaTeX_delimiter": {
+			# Translators: The label of an option in the writing settings dialog
 			"label": _("&LaTeX delimiter:"),
 			"options": {
+				# Translators: A choice of a combobox in the writing settings dialog
 				"bracket": _("bracket"),
+				# Translators: A choice of a combobox in the writing settings dialog
 				"dollar": _("dollar"),
 			}
 		},
@@ -201,6 +229,7 @@ class WritingSettingsDialog(SettingsDialog):
 				attr = k + "Selection"
 				options = v["options"]
 				if mathPlayer and "Access8Math" in v["options"]:
+					# Translators: A choice of a combobox in the writing settings dialog (not used)
 					v["options"]["MathPlayer"] = _("Math Player")
 				widget = sHelper.addLabeledControl(v["label"], wx.Choice, choices=list(options.values()))
 				setattr(self, attr, widget)
@@ -241,55 +270,72 @@ class WritingSettingsDialog(SettingsDialog):
 
 
 class RuleSettingsDialog(SettingsDialog):
-	# Translators: Title of the Access8MathDialog.
+	# Translators: Title of a setting dialog.
 	title = _("Rule Settings")
 	settings = OrderedDict({
 		"SingleMsubsupType": {
+			# Translators: The label of an option in the Rule settings dialog
 			"label": _("Simplified subscript and superscript")
 		},
 		"SingleMsubType": {
+			# Translators: The label of an option in the Rule settings dialog
 			"label": _("Simplified subscript")
 		},
 		"SingleMsupType": {
+			# Translators: The label of an option in the Rule settings dialog
 			"label": _("Simplified superscript")
 		},
 		"SingleMunderoverType": {
+			# Translators: The label of an option in the Rule settings dialog
 			"label": _("Simplified underscript and overscript")
 		},
 		"SingleMunderType": {
+			# Translators: The label of an option in the Rule settings dialog
 			"label": _("Simplified underscript")
 		},
 		"SingleMoverType": {
+			# Translators: The label of an option in the Rule settings dialog
 			"label": _("Simplified overscript")
 		},
 		"SingleFractionType": {
+			# Translators: The label of an option in the Rule settings dialog
 			"label": _("Simplified fraction")
 		},
 		"SingleSqrtType": {
+			# Translators: The label of an option in the Rule settings dialog
 			"label": _("Simplified square root")
 		},
 		"PowerType": {
-			"label": _("Power")
+			# Translators: The label of an option in the Rule settings dialog
+"label": _("Power")
 		},
 		"SquarePowerType": {
+			# Translators: The label of an option in the Rule settings dialog
 			"label": _("Square power")
 		},
 		"CubePowerType": {
+			# Translators: The label of an option in the Rule settings dialog
 			"label": _("Cube power")
 		},
 		"SetType": {
+			# Translators: The label of an option in the Rule settings dialog
 			"label": _("Set")
 		},
 		"AbsoluteType": {
+			# Translators: The label of an option in the Rule settings dialog
 			"label": _("Absolute value")
 		},
 		"MatrixType": {
-			"label": _("Matrix")
+			# Translators: The label of an option in the Rule settings dialog
+			
+"label": _("Matrix")
 		},
 		"DeterminantType": {
+			# Translators: The label of an option in the Rule settings dialog
 			"label": _("Determinant")
 		},
 		"AddIntegerFractionType": {
+			# Translators: The label of an option in the Rule settings dialog
 			"label": _("Integer and fraction")
 		},
 	})
@@ -305,6 +351,7 @@ class RuleSettingsDialog(SettingsDialog):
 				attr = k + "Selection"
 				options = v["options"]
 				if mathPlayer and "Access8Math" in v["options"]:
+					# Translators: A choice of a combobox in the rule settings dialog (not used)
 					v["options"]["MathPlayer"] = _("Math Player")
 				widget = sHelper.addLabeledControl(v["label"], wx.Choice, choices=list(options.values()))
 				setattr(self, attr, widget)
@@ -566,6 +613,7 @@ class UnicodeDicDialog(SettingsDialog):
 			if identifier == symbol.identifier:
 				# Translators: An error reported in the Symbol Pronunciation dialog when adding a symbol that is already present.
 				gui.messageBox(_('Symbol "%s" is already present.') % identifier,
+					# Translators: The title of the error message window showing up when adding a symbol that is already present in the Symbol Pronunciation dialog .
 					_("Error"), wx.OK | wx.ICON_ERROR)
 				self.symbolsList.Select(index)
 				self.symbolsList.Focus(index)
@@ -669,6 +717,7 @@ class UnicodeDicDialog(SettingsDialog):
 		self.onSymbolEdited()
 		self.editingItem = None
 		with wx.FileDialog(
+			# Translators: The title of the import file dialog accessible from the Symbol Pronunciation dialog.
 			self, message=_("Import file..."),
 			defaultDir=base_path, wildcard="dictionary files (*.dic)|*.dic"
 		) as entryDialog:
@@ -703,12 +752,12 @@ class RuleEntryDialog(wx.Dialog):
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		sHelper = guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
-		labelText = _("&description")
+		labelText = _("&Description")
 
-		groupLabelText = _("description")
+		groupLabelText = _("Description")
 		descriptionGroup = guiHelper.BoxSizerHelper(self, sizer=wx.StaticBoxSizer(wx.StaticBox(self, label=groupLabelText), wx.VERTICAL))
 
-		labelText = _("&description")
+		labelText = _("&Description")
 		self.descriptionWidget = descriptionGroup.addLabeledControl(labelText, wx.TextCtrl)
 		self.descriptionWidget.SetValue(self.mathrule[1].description)
 		sHelper.addItem(descriptionGroup)
@@ -807,7 +856,7 @@ class MathRuleDialog(SettingsDialog):
 				mathrule = A8M_PM.load_math_rule(language='Windows', category=category)
 
 		self.A8M_mathrule = mathrule
-		# Translators: This is the label for the math rule dialog.
+		# Translators: This is the title of the math rule dialog.
 		self.title = _("{category} math rule ({language})").format(language=self.language, category=category)
 		# self.mathrules = list(self.A8M_mathrule.items())
 		self.mathrules = [(k, v) for k, v in self.A8M_mathrule.items() if k not in ['node', 'none']]
@@ -815,7 +864,7 @@ class MathRuleDialog(SettingsDialog):
 
 	def makeSettings(self, settingsSizer):
 		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
-		# Translators: The label for symbols list in symbol pronunciation dialog.
+		# Translators: The label for math rule list in math rules dialog.
 		mathrulesText = _("&Mathrules")
 		try:
 			# NVDA version >= 2019.2 syntax with autoSizeColumn keyword
@@ -823,8 +872,9 @@ class MathRuleDialog(SettingsDialog):
 		except TypeError:
 			# NVDA version <= 2019.1.1 syntax with autoSizeColumnIndex keyword
 			self.mathrulesList = sHelper.addLabeledControl(mathrulesText, nvdaControls.AutoWidthColumnListCtrl, autoSizeColumnIndex=0, style=wx.LC_REPORT | wx.LC_SINGLE_SEL)
-		# Translators: The label for a column in symbols list used to identify a symbol.
+		# Translators: The label for a math rule list column header in the math rules dialog.
 		self.mathrulesList.InsertColumn(0, _("Rule"))
+		# Translators: The label for a math rule list column header in the math rules dialog.
 		self.mathrulesList.InsertColumn(1, _("Description"))
 
 		self.refresh()
@@ -937,6 +987,7 @@ class MathRuleDialog(SettingsDialog):
 
 	def OnImportClick(self, evt):
 		with wx.FileDialog(
+			# Translators: The title of the file selection dialog to import rules
 			self, message=_("Import file..."),
 			defaultDir=base_path, wildcard="rule files (*.rule)|*.rule"
 		) as entryDialog:
@@ -949,6 +1000,7 @@ class MathRuleDialog(SettingsDialog):
 
 	def OnExportClick(self, evt):
 		with wx.FileDialog(
+			# Translators: The title of the file selection dialog to export rules
 			self, message=_("Export file..."),
 			defaultDir=base_path, defaultFile="export.rule", wildcard="rule files (*.rule)|*.rule",
 			style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT
@@ -984,6 +1036,7 @@ class MathRuleDialog(SettingsDialog):
 
 class NewLanguageAddingDialog(wx.Dialog):
 	def __init__(self, parent):
+		# Translators: The title of the Add new language dialog
 		super().__init__(parent, title=_("New language adding"))
 		import languageHandler
 		self.mainSizer = wx.BoxSizer(wx.VERTICAL)
@@ -993,7 +1046,7 @@ class NewLanguageAddingDialog(wx.Dialog):
 		self.languageNames = languageHandler.getAvailableLanguages()[:-1]
 		self.languageNames = [x for x in self.languageNames if not x[0] in exist_languages]
 		languageChoices = [x[1] for x in self.languageNames]
-		# Translators: The label for a setting in general settings to select NVDA's interface language (once selected, NVDA must be restarted; the option user default means the user's Windows language will be used).
+		# Translators: The label of a setting in the Add new language dialog
 		languageLabelText = _("&Language:")
 		self.languageList = self.sHelper.addLabeledControl(languageLabelText, wx.Choice, choices=languageChoices)
 		self.languageIndex = self.languageList.Selection = 0
@@ -1002,10 +1055,12 @@ class NewLanguageAddingDialog(wx.Dialog):
 		self.certainLanguageList = self.sHelper.addItem(wx.Choice(self, size=languageListSize))
 		self.certainLanguageList.Hide()
 
+		# Translators: The label of a button in the Add new language dialog
 		self.certainButton = self.sHelper.addItem(wx.Button(self, label=_("&Select")))
 		self.certainButton.Bind(wx.EVT_BUTTON, self.OnCertainClick)
 		self.certainLanguage = None
 
+		# Translators: The label of a button in the Add new language dialog
 		self.uncertainButton = self.sHelper.addItem(wx.Button(self, label=_("&Unselect")))
 		self.uncertainButton.Bind(wx.EVT_BUTTON, self.OnUncertainClick)
 		self.uncertainButton.Hide()
@@ -1014,8 +1069,11 @@ class NewLanguageAddingDialog(wx.Dialog):
 		self.bHelper = guiHelper.ButtonHelper(orientation=wx.HORIZONTAL)
 
 		# Add button
-		self.unicodeDicButton = self.bHelper.addButton(self, label=_("unicode dictionary"))
-		self.mathRuleButton = self.bHelper.addButton(self, label=_("math rule"))
+		# Translators: The label of a button in the Add new language dialog
+		self.unicodeDicButton = self.bHelper.addButton(self, label=_("Unicode dictionary"))
+		# Translators: The label of a button in the Add new language dialog
+		self.mathRuleButton = self.bHelper.addButton(self, label=_("Math rule"))
+		# Translators: The label of a button in the Add new language dialog
 		self.OkButton = self.bHelper.addButton(self, label=_("OK"), id=wx.ID_OK)
 
 		# Bind button
@@ -1113,9 +1171,9 @@ class NewLanguageAddingDialog(wx.Dialog):
 	def onOk(self, evt):
 		if gui.messageBox(
 			# Translators: The message displayed
-			_("For the new language to add, NVDA must be restarted. Press enter to restart NVDA, or cancel to exit at a later time."),
+			_("For the new language to be added, NVDA must be restarted. Press enter to restart NVDA, or cancel to exit at a later time."),
 			# Translators: The title of the dialog
-			_("New language add"), wx.OK | wx.CANCEL | wx.ICON_WARNING, self
+			_("Add new language"), wx.OK | wx.CANCEL | wx.ICON_WARNING, self
 		) == wx.OK:
 			queueHandler.queueFunction(queueHandler.eventQueue, core.restart)
 		self.Destroy()

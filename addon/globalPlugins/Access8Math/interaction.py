@@ -199,21 +199,26 @@ class GenericFrame(wx.Frame):
 
 class A8MInteractionFrame(GenericFrame):
 	def __init__(self):
+		# Translators: The title of the interaction window
 		title = _("Access8Math interaction window")
 		super().__init__(wx.GetApp().TopWindow, title=title)
 		self.Bind(wx.EVT_CHAR_HOOK, self.OnChar)
 
 	def menuData(self):
 		return [
+			# Translators: A mmenu item in the Interaction window  
 			(_("&Menu"), (
+				# Translators: A mmenu item in the Interaction window
 				(_("&Exit"), _("Terminate the program"), self.OnExit),
 			))
 		]
 
 	def buttonData(self):
 		return (
-			(_("interaction"), self.OnInteraction),
-			(_("copy"), self.OnRawdataToClip),
+			# Translators: A button label in the Interaction window
+			(_("Interaction"), self.OnInteraction),
+			# Translators: A button label in the Interaction window
+			(_("Copy"), self.OnRawdataToClip),
 		)
 
 	def OnExit(self, event):
@@ -242,7 +247,8 @@ class A8MInteractionFrame(GenericFrame):
 
 	def OnRawdataToClip(self, event):
 		api.copyToClip(self.mathcontent.root.get_mathml())
-		ui.message(_("copy"))
+		# Translators: A message reported to the user when copying data from the interaction window
+		ui.message(_("Copied"))
 
 
 class A8MProvider(mathPres.MathPresentationProvider):
@@ -337,7 +343,8 @@ class A8MInteraction(Window):
 		return A8MInteractionTextInfo(self, position)
 
 	"""def event_gainFocus(self):
-		ui.message(_("enter interaction mode"))
+		# Translators: A message reported to the user when the interaction window takes the focus
+		ui.message(_("Entering interaction mode"))
 		super().event_gainFocus()
 		api.setReviewPosition(self.makeTextInfo(), False)"""
 
@@ -383,7 +390,8 @@ class A8MInteraction(Window):
 			if config.conf["Access8Math"]["settings"]["no_move_beep"]:
 				tones.beep(100, 100)
 			else:
-				speech.speak([_("no move")])
+				# Translators: A message reported to the user when navigating in the math expression of the interaction window
+				speech.speak([_("No move")])
 
 		api.setReviewPosition(self.makeTextInfo(), clearNavigatorObject=False, isCaret=True)
 		if self.mathcontent.pointer.parent:
@@ -401,12 +409,14 @@ class A8MInteraction(Window):
 	def script_rawdataToClip(self, gesture):
 		# api.copyToClip(self.raw_data)
 		api.copyToClip(self.mathcontent.root.get_mathml())
-		ui.message(_("copy"))
+		# Translators: A message reported to the user when copying data from the Interaction window
+		ui.message(_("Copied"))
 
 	@script(
 		gesture="kb:control+s",
 	)
 	def script_snapshot(self, gesture):
+		# Translators: A message reported to the user when taking a snapshot of math data in the Interaction window
 		ui.message(_("snapshot"))
 		globalVars.mathcontent = self.mathcontent
 
@@ -420,6 +430,7 @@ class A8MInteraction(Window):
 			import asciimathml
 			global main_frame
 			parent = main_frame if main_frame else gui.mainFrame
+			# Translators: A message in the ASCII Math input dialog of the Interaction window
 			with wx.TextEntryDialog(parent=parent, message=_("Write AsciiMath Content")) as dialog:
 				if dialog.ShowModal() == wx.ID_OK:
 					data = dialog.GetValue()
@@ -440,6 +451,7 @@ class A8MInteraction(Window):
 			import latex2mathml.converter
 			global main_frame
 			parent = main_frame if main_frame else gui.mainFrame
+			# Translators: A message in the LaTeX input dialog of the Interaction window
 			with wx.TextEntryDialog(parent=parent, message=_("Write LaTeX Content")) as dialog:
 				if dialog.ShowModal() == wx.ID_OK:
 					data = dialog.GetValue()
