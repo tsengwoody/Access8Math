@@ -28,17 +28,26 @@ import ui
 
 import wx
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-sys.path.insert(0, BASE_DIR)
+
+insert_path_count = 0
+# BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+# sys.path.insert(0, BASE_DIR)
+
 PATH = os.path.dirname(__file__)
+
 PYTHON_PATH = os.path.join(PATH, 'python')
 sys.path.insert(0, PYTHON_PATH)
+insert_path_count += 1
+
 PACKAGE_PATH = os.path.join(PATH, 'package')
 sys.path.insert(0, PACKAGE_PATH)
+insert_path_count += 1
+
 sys.path.insert(0, PATH)
+insert_path_count += 1
 
 # python xml import
-import globalPlugins.Access8Math.python.xml as xml
+import python.xml as xml
 xml_NVDA = sys.modules['xml']
 sys.modules['xml'] = xml
 
@@ -89,6 +98,9 @@ from dialogs import ReadingSettingsDialog, WritingSettingsDialog, RuleSettingsDi
 from editor import EditorFrame
 from interaction import A8MProvider, A8MInteraction
 from writer import TextMathEditField
+
+for i in range(insert_path_count):
+	del sys.path[0]
 
 addonHandler.initTranslation()
 ADDON_SUMMARY = addonHandler.getCodeAddon().manifest["summary"]

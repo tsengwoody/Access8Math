@@ -1,3 +1,4 @@
+import copy
 from collections import OrderedDict
 import os
 import shutil
@@ -949,7 +950,6 @@ class MathRuleDialog(SettingsDialog):
 		evt.Skip()
 
 	def OnEditClick(self, evt):
-		import copy
 		index = self.mathrulesList.GetFirstSelected()
 		mathrule = copy.deepcopy(self.mathrules[index])
 		entryDialog = RuleEntryDialog(self, mathrule)
@@ -966,7 +966,6 @@ class MathRuleDialog(SettingsDialog):
 		entryDialog.Destroy()
 
 	def OnExampleClick(self, evt):
-		import copy
 		from interaction import A8MInteraction
 		index = self.mathrulesList.GetFirstSelected()
 		mathrule = copy.deepcopy(self.mathrules[index])

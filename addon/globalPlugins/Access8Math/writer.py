@@ -484,7 +484,6 @@ class TextMathEditField(NVDAObject):
 	def script_interact(self, gesture):
 		with SectionManager() as manager:
 			if manager.inMath:
-				from mathPres import interactionProvider
 				if manager.pointer['type'] == 'latex':
 					mathMl = latex2mathml(manager.pointer['data'])
 				elif manager.pointer['type'] == 'asciimath':
@@ -492,7 +491,7 @@ class TextMathEditField(NVDAObject):
 				elif manager.pointer['type'] == 'mathml':
 					mathMl = manager.pointer['data']
 				mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
-				interactionProvider.interactWithMathMl(mathMl)
+				mathPres.interactionProvider.interactWithMathMl(mathMl)
 			else:
 				ui.message(_("This block cannot be interacted"))
 
