@@ -307,7 +307,7 @@ class TextMathEditField(NVDAObject):
 		else:
 			shortcut_mode = not shortcut_mode
 			self.unbindShortcutGestures()
-			ui.message(_("Shortcut gestures activated"))
+			ui.message(_("Shortcut gestures deactivated"))
 
 	@script(
 		gestures=["kb:nvda+alt+g"],
