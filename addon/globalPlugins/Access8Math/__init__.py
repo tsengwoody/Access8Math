@@ -48,7 +48,6 @@ insert_path_count += 1
 
 # python xml import
 import python.xml as xml
-xml_NVDA = sys.modules['xml']
 sys.modules['xml'] = xml
 
 config.conf.spec["Access8Math"] = {
@@ -99,8 +98,8 @@ from editor import EditorFrame
 from interaction import A8MProvider, A8MInteraction
 from writer import TextMathEditField
 
-for i in range(insert_path_count):
-	del sys.path[0]
+# for i in range(insert_path_count):
+	# del sys.path[0]
 
 addonHandler.initTranslation()
 ADDON_SUMMARY = addonHandler.getCodeAddon().manifest["summary"]

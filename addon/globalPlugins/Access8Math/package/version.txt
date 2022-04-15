@@ -1,5 +1,8 @@
+html5lib==1.1
 Jinja2==3.0.3
 lark==1.0.0
 latex2mathml==3.63.2
 lxml==4.7.1
+markdown2==2.4.2
 MarkupSafe==2.0.1
+webencodings==0.5.1

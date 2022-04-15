@@ -193,10 +193,14 @@ class EditorFrame(wx.Frame):
 				with open(os.path.join(self.dirname, self.filename), 'w', encoding='utf-8') as file:
 					file.write(self.control.GetValue())
 				self.modify = False
+				return True
+			else:
+				return False
 		else:
 			with open(os.path.join(self.dirname, self.filename), 'w', encoding='utf-8') as file:
 				file.write(self.control.GetValue())
 			self.modify = False
+			return True
 
 	def OnSaveAs(self, event):
 		# Translators: The title of the Editor's Save as file window
@@ -229,8 +233,8 @@ class EditorFrame(wx.Frame):
 				wx.YES_NO | wx.YES_DEFAULT | wx.CANCEL | wx.ICON_QUESTION, self
 			)
 			if val == wx.YES:
-				self.OnSave(event)
-				if not self.modify:
+				result = self.OnSave(event)
+				if result:
 					self.Destroy()
 			elif val == wx.NO:
 				self.Destroy()
@@ -238,21 +242,31 @@ class EditorFrame(wx.Frame):
 			self.Destroy()
 
 	def OnPreview(self, event):
+		save_result = False
 		# Translators: The name of the document in the Editor when it has never been saved to a file
 		if self.filename == _("New document"):
-			self.OnSave(event)
-		if self.modify:
-			val = gui.messageBox(
-				# Translators: The message displayed
-				_("Preview will only include the saved content. The content in the editor has been modified since the last save, do you want to save and preview it?"),
-				# Translators: The title of the dialog
-				_("Preview"),
-				wx.YES_NO | wx.YES_DEFAULT | wx.CANCEL | wx.ICON_QUESTION, self
-			)
-			if val == wx.YES:
-				self.OnSave(event)
-			if val == wx.CANCEL:
-				return
+			save_result = self.OnSave(event)
+		else:
+			if self.modify:
+				val = gui.messageBox(
+					# Translators: The message displayed
+					_("Preview will only include the saved content. The content in the editor has been modified since the last save, do you want to save and preview it?"),
+					# Translators: The title of the dialog
+					_("Preview"),
+					wx.YES_NO | wx.YES_DEFAULT | wx.CANCEL | wx.ICON_QUESTION, self
+				)
+				if val == wx.YES:
+					save_result = self.OnSave(event)
+				elif val == wx.NO:
+					save_result = True
+				elif val == wx.CANCEL:
+					return
+			else:
+				save_result = True
+
+		if not save_result:
+			return
+
 		raw2review(self.dirname, self.filename, self.review_folder)
 		dst = os.path.join(self.review_folder, 'Access8Math.json')
 		with open(dst, 'r', encoding='utf8') as f:
@@ -261,24 +275,32 @@ class EditorFrame(wx.Frame):
 		os.startfile(os.path.join(self.review_folder, entry_file))
 
 	def OnExport(self, event):
+		save_result = False
 		# Translators: The name of the document in the Editor when it has never been saved to a file
 		if self.filename == _("New document"):
-			self.OnSave(event)
-		if self.modify:
-			val = gui.messageBox(
-				# Translators: The message displayed
-				_("Export will only include the saved content. The content in the editor has been modified since the last save, do you want to save and export it?"),
-				# Translators: The title of the dialog
-				_("Export"),
-				wx.YES_NO | wx.YES_DEFAULT | wx.CANCEL | wx.ICON_QUESTION, self
-			)
-			if val == wx.YES:
-				self.OnSave(event)
-			if val == wx.CANCEL:
-				return
+			save_result = self.OnSave(event)
+		else:
+			if self.modify:
+				val = gui.messageBox(
+					# Translators: The message displayed
+					_("Export will only include the saved content. The content in the editor has been modified since the last save, do you want to save and export it?"),
+					# Translators: The title of the dialog
+					_("Export"),
+					wx.YES_NO | wx.YES_DEFAULT | wx.CANCEL | wx.ICON_QUESTION, self
+				)
+				if val == wx.YES:
+					save_result = self.OnSave(event)
+				elif val == wx.NO:
+					save_result = True
+				elif val == wx.CANCEL:
+					return
+			else:
+				save_result = True
+
+		if not save_result:
+			return
 
 		raw2review(self.dirname, self.filename, self.review_folder)
-
 		with wx.FileDialog(
 			# Translators: The title of the Editor's Export file window
 			self, message=_("Export file..."),
