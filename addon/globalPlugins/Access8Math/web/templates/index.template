@@ -31,10 +31,14 @@
 				max-width: 80%;
 				margin: 30px auto;
 			}
+			.theme {
+				background-color: {|{ bg_color }|};
+				color: {|{ color }|};
+			}
 		</style>
 	</head>
 	<body>
-		<div id="app">
+		<div id="app" class="theme">
 			<div v-if="document_display === 'markdown'">
 				<span>
 					<span v-html="marked(raw)"/>

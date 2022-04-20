@@ -207,6 +207,26 @@ class WritingSettingsDialog(SettingsDialog):
 				"inline": _("inline"),
 			}
 		},
+		"color": {
+			# Translators: The label of an option in the writing settings dialog
+			"label": _("HTML font color:"),
+			"options": {
+				# Translators: A choice of a combobox in the writing settings dialog
+				"#ffffff": _("white"),
+				# Translators: A choice of a combobox in the writing settings dialog
+				"#000000": _("black"),
+			}
+		},
+		"bg_color": {
+			# Translators: The label of an option in the writing settings dialog
+			"label": _("HTML background color:"),
+			"options": {
+				# Translators: A choice of a combobox in the writing settings dialog
+				"#ffffff": _("white"),
+				# Translators: A choice of a combobox in the writing settings dialog
+				"#000000": _("black"),
+			}
+		},
 		"LaTeX_delimiter": {
 			# Translators: The label of an option in the writing settings dialog
 			"label": _("&LaTeX delimiter:"),

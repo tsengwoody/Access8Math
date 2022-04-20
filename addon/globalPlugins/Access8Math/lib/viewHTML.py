@@ -87,7 +87,6 @@ def rawIntoReview(data_folder, review_folder, resources):
 		shutil.rmtree(review_folder)
 	except:
 		pass
-	# shutil.copytree(data_folder, review_folder)
 	try:
 		os.mkdir(review_folder)
 	except:
@@ -121,6 +120,8 @@ def text2template(value, output):
 		'LaTeX_delimiter': config.conf["Access8Math"]["settings"]["LaTeX_delimiter"],
 		'document_display': config.conf["Access8Math"]["settings"]["HTML_document_display"],
 		'display': config.conf["Access8Math"]["settings"]["HTML_math_display"],
+		'color': config.conf["Access8Math"]["settings"]["color"],
+		'bg_color': config.conf["Access8Math"]["settings"]["bg_color"],
 	})
 	with open(output, "w", encoding="utf8", newline="") as f:
 		f.write(content)
