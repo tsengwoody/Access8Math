@@ -29,7 +29,7 @@ base_path = os.path.dirname(os.path.abspath(__file__))
 
 try:
 	available_languages = getAvailableLanguages(base_path)
-except:
+except BaseException:
 	available_languages = []
 
 available_languages_dict = {k: v for k, v in available_languages}
@@ -37,7 +37,7 @@ available_languages_dict = {k: v for k, v in available_languages}
 mathPlayer = None
 try:
 	mathPlayer = MathPlayer()
-except:
+except BaseException:
 	log.warning("MathPlayer 4 not available")
 
 
@@ -113,7 +113,7 @@ class ReadingSettingsDialog(SettingsDialog):
 				setattr(self, attr, widget)
 				try:
 					index = list(v["options"].keys()).index(str(self.Access8MathConfig["settings"][k]))
-				except:
+				except BaseException:
 					index = 0
 					tones.beep(100, 100)
 				widget.Selection = index
@@ -128,7 +128,7 @@ class ReadingSettingsDialog(SettingsDialog):
 		self.item_interval_timeList = sHelper.addLabeledControl(item_interval_timeLabel, wx.Choice, choices=self.item_interval_timeChoices)
 		try:
 			index = self.item_interval_timeChoices.index(str(self.Access8MathConfig["settings"]["item_interval_time"]))
-		except:
+		except BaseException:
 			index = 0
 			tones.beep(100, 100)
 		self.item_interval_timeList.Selection = index
@@ -139,7 +139,7 @@ class ReadingSettingsDialog(SettingsDialog):
 	def onOk(self, evt):
 		try:
 			self.Access8MathConfig["settings"]["item_interval_time"] = self.item_interval_timeChoices[self.item_interval_timeList.GetSelection()]
-		except:
+		except BaseException:
 			self.Access8MathConfig["settings"]["item_interval_time"] = 50
 
 		try:
@@ -150,7 +150,7 @@ class ReadingSettingsDialog(SettingsDialog):
 					self.Access8MathConfig["settings"][k] = list(v["options"].keys())[widget.GetSelection()]
 				else:
 					self.Access8MathConfig["settings"][k] = getattr(self, k + "CheckBox").IsChecked()
-		except:
+		except BaseException:
 			for k, v in self.Selection_settings.items():
 				if "options" in v:
 					self.Access8MathConfig["settings"][k] = list(v["options"].keys())[0]
@@ -256,7 +256,7 @@ class WritingSettingsDialog(SettingsDialog):
 				setattr(self, attr, widget)
 				try:
 					index = list(v["options"].keys()).index(str(self.Access8MathConfig["settings"][k]))
-				except:
+				except BaseException:
 					index = 0
 					tones.beep(100, 100)
 				widget.Selection = index
@@ -277,7 +277,7 @@ class WritingSettingsDialog(SettingsDialog):
 					self.Access8MathConfig["settings"][k] = list(v["options"].keys())[widget.GetSelection()]
 				else:
 					self.Access8MathConfig["settings"][k] = getattr(self, k + "CheckBox").IsChecked()
-		except:
+		except BaseException:
 			for k, v in self.Selection_settings.items():
 				if "options" in v:
 					self.Access8MathConfig["settings"][k] = list(v["options"].keys())[0]
@@ -328,7 +328,7 @@ class RuleSettingsDialog(SettingsDialog):
 		},
 		"PowerType": {
 			# Translators: The label of an option in the Rule settings dialog
-"label": _("Power")
+			"label": _("Power")
 		},
 		"SquarePowerType": {
 			# Translators: The label of an option in the Rule settings dialog
@@ -348,8 +348,7 @@ class RuleSettingsDialog(SettingsDialog):
 		},
 		"MatrixType": {
 			# Translators: The label of an option in the Rule settings dialog
-			
-"label": _("Matrix")
+			"label": _("Matrix")
 		},
 		"DeterminantType": {
 			# Translators: The label of an option in the Rule settings dialog
@@ -378,7 +377,7 @@ class RuleSettingsDialog(SettingsDialog):
 				setattr(self, attr, widget)
 				try:
 					index = list(v["options"].keys()).index(str(self.Access8MathConfig["rules"][k]))
-				except:
+				except BaseException:
 					index = 0
 					tones.beep(100, 100)
 				widget.Selection = index
@@ -399,7 +398,7 @@ class RuleSettingsDialog(SettingsDialog):
 					self.Access8MathConfig["rules"][k] = list(v["options"].keys())[widget.GetSelection()]
 				else:
 					self.Access8MathConfig["rules"][k] = getattr(self, k + "CheckBox").IsChecked()
-		except:
+		except BaseException:
 			for k, v in self.Selection_settings.items():
 				if "options" in v:
 					self.Access8MathConfig["rules"][k] = list(v["options"].keys())[0]
@@ -429,7 +428,7 @@ class AddSymbolDialog(
 	def __init__(self, parent):
 		# Translators: This is the label for the add symbol dialog.
 		super().__init__(parent, title=_("Add Symbol"))
-		mainSizer=wx.BoxSizer(wx.VERTICAL)
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		sHelper = guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
 		# Translators: This is the label for the edit field in the add symbol dialog.
@@ -445,7 +444,6 @@ class AddSymbolDialog(
 		self.CentreOnScreen()
 
 
-# class SpeechSymbolsDialog(SettingsDialog):
 class UnicodeDicDialog(SettingsDialog):
 	helpId = "SymbolPronunciation"
 
@@ -473,7 +471,7 @@ class UnicodeDicDialog(SettingsDialog):
 		# Translators: The label of a text field to search for symbols in the speech symbols dialog.
 		filterText = pgettext("speechSymbols", "&Filter by:")
 		self.filterEdit = sHelper.addLabeledControl(
-			labelText = filterText,
+			labelText=filterText,
 			wxCtrlClass=wx.TextCtrl,
 			size=(self.scaleSize(310), -1),
 		)
@@ -505,7 +503,7 @@ class UnicodeDicDialog(SettingsDialog):
 		# generally the advice on the wx documentation is: "In general, it is recommended to skip all non-command events
 		# to allow the default handling to take place. The command events are, however, normally not skipped as usually
 		# a single command such as a button click or menu item selection must only be processed by one handler."
-		def skipEventAndCall(handler):	
+		def skipEventAndCall(handler):
 			def wrapWithEventSkip(event):
 				if event:
 					event.Skip()
@@ -628,14 +626,17 @@ class UnicodeDicDialog(SettingsDialog):
 			if not identifier:
 				return
 		# Clean the filter, so we can select the new entry.
-		self.filterEdit.Value=""
+		self.filterEdit.Value = ""
 		self.filter()
 		for index, symbol in enumerate(self.symbols):
 			if identifier == symbol.identifier:
-				# Translators: An error reported in the Symbol Pronunciation dialog when adding a symbol that is already present.
-				gui.messageBox(_('Symbol "%s" is already present.') % identifier,
+				gui.messageBox(
+					# Translators: An error reported in the Symbol Pronunciation dialog when adding a symbol that is already present.
+					_('Symbol "%s" is already present.') % identifier,
 					# Translators: The title of the error message window showing up when adding a symbol that is already present in the Symbol Pronunciation dialog .
-					_("Error"), wx.OK | wx.ICON_ERROR)
+					_("Error"),
+					wx.OK | wx.ICON_ERROR
+				)
 				self.symbolsList.Select(index)
 				self.symbolsList.Focus(index)
 				self.symbolsList.SetFocus()
@@ -683,8 +684,6 @@ class UnicodeDicDialog(SettingsDialog):
 	def onOk(self, evt):
 		self.onSymbolEdited()
 		self.editingItem = None
-		# for symbol in self.pendingRemovals.values():
-			# self.symbolProcessor.deleteSymbol(symbol)
 		for symbol in self.symbols:
 			if not symbol.replacement:
 				continue
@@ -707,7 +706,7 @@ class UnicodeDicDialog(SettingsDialog):
 	def _refreshVisibleItems(self):
 		count = self.symbolsList.GetCountPerPage()
 		first = self.symbolsList.GetTopItem()
-		self.symbolsList.RefreshItems(first, first+count)
+		self.symbolsList.RefreshItems(first, first + count)
 
 	def onFilterEditTextChange(self, evt):
 		self.filter(self.filterEdit.Value)
@@ -763,6 +762,7 @@ class UnicodeDicDialog(SettingsDialog):
 			self.A8M_symbol[symbol.displayName] = symbol.replacement
 
 		self.save(pathname, self.A8M_symbol)
+
 
 class RuleEntryDialog(wx.Dialog):
 	def __init__(self, parent, mathrule, title=_("Edit Math Rule Entry")):
@@ -836,7 +836,7 @@ class RuleEntryDialog(wx.Dialog):
 
 		try:
 			self.descriptionWidget.SetFocus()
-		except:
+		except BaseException:
 			pass
 
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
@@ -872,9 +872,9 @@ class MathRuleDialog(SettingsDialog):
 		self.language = language
 		self.category = category
 		try:
-				mathrule = A8M_PM.load_math_rule(language=self.language, category=category)
+			mathrule = A8M_PM.load_math_rule(language=self.language, category=category)
 		except LookupError:
-				mathrule = A8M_PM.load_math_rule(language='Windows', category=category)
+			mathrule = A8M_PM.load_math_rule(language='Windows', category=category)
 
 		self.A8M_mathrule = mathrule
 		# Translators: This is the title of the math rule dialog.
@@ -1120,13 +1120,13 @@ class NewLanguageAddingDialog(wx.Dialog):
 		dst = os.path.join(base_path, 'locale', 'speech', self.certainLanguage)
 		try:
 			shutil.copytree(src, dst, ignore=shutil.ignore_patterns('*_user.*'))
-		except:
+		except BaseException:
 			return
 		src = os.path.join(base_path, 'locale', 'braille', 'en')
 		dst = os.path.join(base_path, 'locale', 'braille', self.certainLanguage)
 		try:
 			shutil.copytree(src, dst, ignore=shutil.ignore_patterns('*_user.*'))
-		except:
+		except BaseException:
 			return
 
 		self.languageList.Clear()
@@ -1149,7 +1149,7 @@ class NewLanguageAddingDialog(wx.Dialog):
 		dst = os.path.join(base_path, 'locale', self.certainLanguage)
 		try:
 			shutil.rmtree(dst)
-		except:
+		except BaseException:
 			return
 
 		self.certainLanguage = None
@@ -1182,7 +1182,7 @@ class NewLanguageAddingDialog(wx.Dialog):
 			dst = os.path.join(base_path, 'locale', self.certainLanguage)
 			try:
 				shutil.rmtree(dst)
-			except:
+			except BaseException:
 				return
 			self.certainLanguage = None
 		self.Destroy()

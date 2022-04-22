@@ -22,7 +22,7 @@ def mark(section, type_):
 
 	try:
 		temp = api.getClipData()
-	except:
+	except BaseException:
 		temp = ''
 	api.copyToClip(r'{delimiter_start}{selection}{delimiter_end}'.format(
 		selection=section.selection.text,

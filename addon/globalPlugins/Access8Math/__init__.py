@@ -100,8 +100,8 @@ from editor import EditorFrame
 from interaction import A8MProvider, A8MInteraction
 from writer import TextMathEditField
 
-# for i in range(insert_path_count):
-	# del sys.path[0]
+for i in range(insert_path_count):
+	del sys.path[0]
 
 addonHandler.initTranslation()
 ADDON_SUMMARY = addonHandler.getCodeAddon().manifest["summary"]
@@ -130,7 +130,7 @@ else:
 mathPlayer = None
 try:
 	mathPlayer = MathPlayer()
-except:
+except BaseException:
 	config.conf["Access8Math"]["settings"]["speech_source"] = "Access8Math"
 	config.conf["Access8Math"]["settings"]["braille_source"] = "Access8Math"
 	config.conf["Access8Math"]["settings"]["interact_source"] = "Access8Math"
@@ -148,13 +148,14 @@ class AppWindowRoot(IAccessible):
 			vw.set(data=globalVars.mathcontent, name="")
 			try:
 				vw.setFocus()
-			except:
+			except BaseException:
 				tones.beep(100, 100)
 		wx.CallLater(100, run)
 
 
 editor_content = ''
 editor_dialog = None
+
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self, *args, **kwargs):
@@ -384,7 +385,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		]:
 			try:
 				shutil.rmtree(item)
-			except:
+			except BaseException:
 				pass
 
 		locale = os.path.join(PATH, 'locale')
@@ -394,7 +395,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				try:
 					if os.path.isfile(item) and ('_user.dic' in item or '_user.rule' in item):
 						os.remove(item)
-				except:
+				except BaseException:
 					pass
 
 		gui.messageBox(_("Workspace has already been cleaned"), _("Clean Workspace"), wx.OK)

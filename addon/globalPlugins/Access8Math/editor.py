@@ -13,8 +13,9 @@ addonHandler.initTranslation()
 PATH = os.path.dirname(__file__)
 
 wildcard = \
-	"Text (*.txt)|*.txt|"\
-	"All (*.*)|*.*"
+"Text (*.txt)|*.txt|"\
+"All (*.*)|*.*"
+
 
 class EditorFrame(wx.Frame):
 	# Translators: The name of the document in the Editor when it has never been saved to a file
@@ -23,12 +24,12 @@ class EditorFrame(wx.Frame):
 		super(EditorFrame, self).__init__(parent, size=(400, 300), style=style)
 
 		self.parent = parent
-		self.dirname  = "."
+		self.dirname = "."
 		self.filename = filename
 		self.review_folder = os.path.join(PATH, 'web', 'review')
 		self.modify = False
 
-		# Simplified init method.	   
+		# Simplified init method.
 		self.CreateInteriorWindowComponents()
 		self.CreateExteriorWindowComponents()
 		self.CenterOnScreen()
@@ -45,11 +46,6 @@ class EditorFrame(wx.Frame):
 
 	def CreateExteriorWindowComponents(self):
 		self.SetTitle()
-
-		# frameIcon = wx.Icon(os.path.join(self.icons_dir,
-			# "icon_wxWidgets.ico"),
-			# type=wx.BITMAP_TYPE_ICO)
-		# self.SetIcon(frameIcon)
 
 		self.CreateMenu()
 		self.CreateStatusBar()
@@ -68,35 +64,40 @@ class EditorFrame(wx.Frame):
 				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 				_("Open a new editor."),
 				self.OnNew
-			), (
+			),
+			(
 				wx.ID_OPEN,
 				# Translators: A menu item in the Editor window
 				_("&Open..."),
 				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 				_("Open a new file."),
 				self.OnOpen
-			), (
+			),
+			(
 				wx.ID_SAVE,
 				# Translators: A menu item in the Editor window
 				_("&Save"),
 				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 				_("Save the current file."),
 				self.OnSave
-			), (
+			),
+			(
 				wx.ID_SAVEAS,
 				# Translators: A menu item in the Editor window
 				_("Save &as..."),
 				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 				_("Save the file under a different name."),
 				self.OnSaveAs
-			), (
+			),
+			(
 				wx.ID_ANY,
 				# Translators: A menu item in the Editor window
 				_("Re&load from disk"),
 				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 				_("Reload the file from disk."),
 				self.OnReload
-			), (
+			),
+			(
 				wx.ID_EXIT,
 				# Translators: A menu item in the Editor window
 				_("E&xit"),
@@ -105,7 +106,7 @@ class EditorFrame(wx.Frame):
 				self.OnExit
 			)
 		]:
-			if id == None:
+			if id is None:
 				fileMenu.AppendSeparator()
 			else:
 				item = fileMenu.Append(id, label, helpText)
@@ -127,7 +128,8 @@ class EditorFrame(wx.Frame):
 				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 				_("Preview HTML file"),
 				self.OnPreview
-			), (
+			),
+			(
 				wx.ID_ANY,
 				# Translators: A menu item in the Editor window
 				_("Export..."),
@@ -136,7 +138,7 @@ class EditorFrame(wx.Frame):
 				self.OnExport
 			),
 		]:
-			if id == None:
+			if id is None:
 				viewMenu.AppendSeparator()
 			else:
 				item = viewMenu.Append(id, label, helpText)
@@ -160,7 +162,7 @@ class EditorFrame(wx.Frame):
 			defaultDir=self.dirname,
 			wildcard=wildcard,
 		)
-   
+
 	def AskUserForFilename(self, **dialogOptions):
 		with wx.FileDialog(self, **dialogOptions) as dialog:
 			if dialog.ShowModal() == wx.ID_OK:
@@ -168,7 +170,7 @@ class EditorFrame(wx.Frame):
 				self.filename = dialog.GetFilename()
 				self.dirname = dialog.GetDirectory()
 				# Update the window title with the new filename.
-				self.SetTitle() 
+				self.SetTitle()
 			else:
 				userProvidedFilename = False
 		# dialog.Destroy()
@@ -385,7 +387,7 @@ class Hotkey(object):
 			event.Skip()
 
 	def onKeyUp(self, event):
-		keycode = event.GetKeyCode()	
+		keycode = event.GetKeyCode()
 		try:
 			self.key_down.remove(keycode)
 		except KeyError:

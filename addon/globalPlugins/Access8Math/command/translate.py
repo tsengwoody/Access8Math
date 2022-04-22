@@ -36,7 +36,7 @@ def translate(section, type_):
 
 	try:
 		temp = api.getClipData()
-	except:
+	except BaseException:
 		temp = ''
 
 	api.copyToClip(r'{delimiter_start}{data}{delimiter_end}'.format(

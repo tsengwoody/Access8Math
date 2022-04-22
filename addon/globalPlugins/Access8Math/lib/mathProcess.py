@@ -1,5 +1,4 @@
-﻿from functools import wraps
-import html
+﻿import html
 import re
 
 from regularExpression import delimiterRegularExpression
@@ -10,7 +9,6 @@ from asciimathml import parse
 from py_asciimath.translator.translator import (
 	ASCIIMath2MathML,
 	ASCIIMath2Tex,
-	MathML2Tex,
 	Tex2ASCIIMath
 )
 
@@ -58,10 +56,12 @@ AsciiMath_delimiter = {
 
 delimiter_dict = {**AsciiMath_delimiter, **LaTeX_delimiter}
 
+
 def latex2mathml(data):
 	mathml = converter.convert(data)
 	mathml = html.unescape(mathml)
 	return mathml
+
 
 def asciimath2mathml(data):
 	global asciimath2mathmlObj
@@ -73,11 +73,13 @@ def asciimath2mathml(data):
 		xml_pprint=False,
 	)
 
+
 def latex2asciimath(data):
 	global latex2asciimathObj
 	if not latex2asciimathObj:
 		latex2asciimathObj = Tex2ASCIIMath()
 	return latex2asciimathObj.translate(data)
+
 
 def asciimath2latex(data):
 	global asciimath2latexObj
@@ -85,8 +87,10 @@ def asciimath2latex(data):
 		asciimath2latexObj = ASCIIMath2Tex()
 	return asciimath2latexObj.translate(data)
 
+
 def asciimath2mathmlO(asciimath):
 	return tostring(parse(asciimath)).decode("utf-8")
+
 
 def textmath2laObjFactory(delimiter):
 	def wrapper(input):

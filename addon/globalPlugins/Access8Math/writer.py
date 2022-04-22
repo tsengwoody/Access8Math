@@ -5,7 +5,6 @@ import shutil
 import addonHandler
 import api
 import config
-import globalVars
 from keyboardHandler import KeyboardInputGesture
 from NVDAObjects import NVDAObject
 import mathPres
@@ -81,7 +80,7 @@ class TextMathEditField(NVDAObject):
 			key = "kb:{}".format(key)
 			try:
 				self.removeGestureBinding(key)
-			except:
+			except BaseException:
 				pass
 
 			key = inputCore.normalizeGestureIdentifier(key)
@@ -117,7 +116,7 @@ class TextMathEditField(NVDAObject):
 		for key in gestures:
 			try:
 				self.removeGestureBinding(key)
-			except:
+			except BaseException:
 				pass
 
 			key = inputCore.normalizeGestureIdentifier(key)
@@ -197,15 +196,20 @@ class TextMathEditField(NVDAObject):
 	def bindWriteNavGestures(self):
 		for c in [
 			c for c in "abcdefghijklmnopqrstuvwxyz1234567890`-=[];',./\\"
-		] + [
+		] \
+		+ [
 			"upArrow", "downArrow", "leftarrow", "rightarrow", "home", "end", "pageUp", "pageDown", "space", "enter", "delete", "backspace", "tab"
-		] + [
+		] \
+		+ [
 			"control+c", "control+v", "control+x", "control+t",
-		] + [
+		] \
+		+ [
 			"numLockNumpad{number}".format(number=i) for i in range(10)
-		] + [
+		] \
+		+ [
 			"numpadPlus", "numpadMinus", "numpadMultiply", "numpadDivide", "numpadEnter", "numpadDecimal"
-		] + [
+		] \
+		+ [
 			"numLockNumpadPlus", "numLockNumpadMinus", "numLockNumpadMultiply", "numLockNumpadDivide", "numpadDelete"
 		]:
 			key = "kb:{}".format(c)
@@ -217,15 +221,20 @@ class TextMathEditField(NVDAObject):
 		import inputCore
 		for c in [
 			c for c in "abcdefghijklmnopqrstuvwxyz1234567890`-=[];',./\\"
-		] + [
+		] \
+		+ [
 			"upArrow", "downArrow", "leftarrow", "rightarrow", "home", "end", "pageUp", "pageDown", "space", "enter", "control+c", "control+v", "control+x", "delete", "backspace", "tab"
-		] + [
+		] \
+		+ [
 			"control+c", "control+v", "control+x", "control+t",
-		] + [
+		] \
+		+ [
 			"numLockNumpad{number}".format(number=i) for i in range(10)
-		] + [
+		] \
+		+ [
 			"numpadPlus", "numpadMinus", "numpadMultiply", "numpadDivide", "numpadEnter", "numpadDecimal"
-		] + [
+		] \
+		+ [
 			"numLockNumpadPlus", "numLockNumpadMinus", "numLockNumpadMultiply", "numLockNumpadDivide", "numpadDelete"
 		]:
 			key = "kb:{}".format(c)
@@ -435,16 +444,16 @@ class TextMathEditField(NVDAObject):
 	def script_view_math(self, gesture):
 		document = self.makeTextInfo(textInfos.POSITION_ALL)
 
-		obj=api.getForegroundObject()
-		title=obj.name
-		if not isinstance(title,str) or not title or title.isspace():
+		obj = api.getForegroundObject()
+		title = obj.name
+		if not isinstance(title, str) or not title or title.isspace():
 			title = obj.appModule.appName if obj.appModule else None
-			if not isinstance(title,str) or not title or title.isspace():
+			if not isinstance(title, str) or not title or title.isspace():
 				title = ""
 		try:
 			file = title.split("-")[0].strip('* ')
 			name, ext = file.split('.')
-		except:
+		except BaseException:
 			name = 'index'
 			ext = 'txt'
 
@@ -454,7 +463,7 @@ class TextMathEditField(NVDAObject):
 
 		try:
 			shutil.rmtree(data_folder)
-		except:
+		except BaseException:
 			pass
 		if not os.path.exists(data_folder):
 			os.mkdir(data_folder)
@@ -572,14 +581,14 @@ class TextMathEditField(NVDAObject):
 						mathMl = latex2mathml(result['data'])
 						mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
 						speech.speak(mathPres.speechProvider.getSpeechForMathMl(mathMl))
-					except:
+					except BaseException:
 						ui.message(result['data'])
 				elif "alt" not in gesture.modifierNames and result['type'] == "asciimath":
 					try:
 						mathMl = asciimath2mathml(result['data'])
 						mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
 						speech.speak(mathPres.speechProvider.getSpeechForMathMl(mathMl))
-					except:
+					except BaseException:
 						ui.message(result['data'])
 				elif "alt" not in gesture.modifierNames and result['type'] == "mathml":
 					mathMl = result['data']
@@ -638,14 +647,14 @@ class TextMathEditField(NVDAObject):
 							mathMl = latex2mathml(result['data'])
 							mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
 							speech.speak(mathPres.speechProvider.getSpeechForMathMl(mathMl))
-						except:
+						except BaseException:
 							ui.message(result['data'])
 					elif result['type'] == "asciimath":
 						try:
 							mathMl = asciimath2mathml(result['data'])
 							mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
 							speech.speak(mathPres.speechProvider.getSpeechForMathMl(mathMl))
-						except:
+						except BaseException:
 							ui.message(result['data'])
 					elif result['type'] == "mathml":
 						mathMl = result['data']
@@ -689,7 +698,7 @@ class SectionManager:
 	def pointer(self):
 		try:
 			pointer = self.points[self.all_index]
-		except:
+		except BaseException:
 			pointer = None
 
 		return pointer
@@ -710,7 +719,7 @@ class SectionManager:
 
 	@property
 	def inSection(self):
-		if self.pointer == None:
+		if self.pointer is None:
 			return True
 
 		delimiter_start_length = len(self.delimiter["start"])
@@ -726,7 +735,7 @@ class SectionManager:
 
 	@property
 	def inMath(self):
-		if self.pointer == None:
+		if self.pointer is None:
 			return False
 
 		focus = api.getFocusObject()
@@ -739,7 +748,7 @@ class SectionManager:
 
 	@property
 	def inText(self):
-		if self.pointer == None:
+		if self.pointer is None:
 			return True
 
 		focus = api.getFocusObject()
@@ -752,7 +761,7 @@ class SectionManager:
 
 	@property
 	def inLaTeX(self):
-		if self.pointer == None:
+		if self.pointer is None:
 			return False
 
 		focus = api.getFocusObject()
@@ -765,7 +774,7 @@ class SectionManager:
 
 	@property
 	def inAsciiMath(self):
-		if self.pointer == None:
+		if self.pointer is None:
 			return False
 
 		focus = api.getFocusObject()
@@ -778,7 +787,7 @@ class SectionManager:
 
 	@property
 	def inMathML(self):
-		if self.pointer == None:
+		if self.pointer is None:
 			return False
 
 		focus = api.getFocusObject()
@@ -821,7 +830,7 @@ class SectionManager:
 		pass
 
 	def move(self, step=0, type_="any", all_index=None):
-		if all_index != None:
+		if all_index is not None:
 			pointer = self.points[all_index]
 		else:
 			if step >= 0:
@@ -835,13 +844,13 @@ class SectionManager:
 				filte_points = list(filter(lambda i: i['type'] == "latex" or i['type'] == "asciimath" or i['type'] == "mathml", filte_points))
 			try:
 				pointer = filte_points[step]
-			except:
+			except BaseException:
 				pointer = None
 
 		if not pointer:
 			return None
 
-		if type_ == 'notacrossline' and all_index != None:
+		if type_ == 'notacrossline' and all_index is not None:
 			if self.pointer['line'] != pointer['line']:
 				return None
 
@@ -918,7 +927,7 @@ class SectionManager:
 			data = m.group('latex') or m.group('latex_start')
 			try:
 				data = delimiter["start"] + latex2asciimath(data) + delimiter["end"]
-			except:
+			except BaseException:
 				data = m.group(0)
 			return data
 
@@ -927,7 +936,7 @@ class SectionManager:
 			data = m.group('asciimath') or m.group('asciimath_start')
 			try:
 				data = delimiter["start"] + asciimath2latex(data)[1:-1] + delimiter["end"]
-			except:
+			except BaseException:
 				data = m.group(0)
 			return data
 
@@ -987,5 +996,3 @@ class SectionManager:
 		else:
 			text = ''
 		return text
-
-

@@ -22,7 +22,7 @@ def batch(section, mode):
 
 	try:
 		temp = api.getClipData()
-	except:
+	except BaseException:
 		temp = ''
 
 	api.copyToClip(text)

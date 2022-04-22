@@ -30,7 +30,7 @@ def raw2review(data_folder, entry_file, review_folder):
 	p = html5lib.HTMLParser(tb)
 	try:
 		contentxml = p.parse(contentmd)
-	except:
+	except BaseException:
 		contentxml = None
 
 	resources = []
@@ -56,10 +56,9 @@ def raw2review(data_folder, entry_file, review_folder):
 	)
 
 	try:
-		name, ext = entry_file.split('.')
-	except:
+		name = entry_file.split('.')[0]
+	except BaseException:
 		name = 'index'
-		ext = 'txt'
 	entry_html = "{}.html".format(name)
 	metadata = {
 		"entry": entry_html
@@ -74,22 +73,23 @@ def raw2review(data_folder, entry_file, review_folder):
 			try:
 				name = os.path.basename(item).split('.')[0]
 				extend = os.path.basename(item).split('.')[1]
-			except:
+			except BaseException:
 				name = ''
 				extend = ''
 			if os.path.isfile(item) and extend == 'txt':
 				with open(item, "r", encoding="utf8") as f:
 					text = f.read()
-				html_file = text2template(text, os.path.join(os.path.dirname(item), '{}.html'.format(name)))
+				text2template(text, os.path.join(os.path.dirname(item), '{}.html'.format(name)))
+
 
 def rawIntoReview(data_folder, review_folder, resources):
 	try:
 		shutil.rmtree(review_folder)
-	except:
+	except BaseException:
 		pass
 	try:
 		os.mkdir(review_folder)
-	except:
+	except BaseException:
 		pass
 	for resource in resources:
 		try:
@@ -100,13 +100,14 @@ def rawIntoReview(data_folder, review_folder, resources):
 				os.path.join(data_folder, resource),
 				os.path.join(review_folder, resource),
 			)
-		except:
+		except BaseException:
 			pass
+
 
 def text2template(value, output):
 	try:
 		title = os.path.basename(output).split('.')[0]
-	except:
+	except BaseException:
 		title = 'Access8Math'
 	backslash_pattern = re.compile(r"\\")
 	data = backslash_pattern.sub(lambda m: m.group(0).replace('\\', '\\\\'), value)

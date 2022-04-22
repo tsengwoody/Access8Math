@@ -21,6 +21,7 @@ addonHandler.initTranslation()
 import os
 from python.csv import DictReader, DictWriter
 
+
 def load(patho):
 	BASE_DIR = os.path.dirname(__file__)
 	if not os.path.isfile(patho):
@@ -129,7 +130,7 @@ def data2shortcutMap(latexAll):
 def command(text, offset):
 	try:
 		temp = api.getClipData()
-	except:
+	except BaseException:
 		temp = ''
 	api.copyToClip(text)
 
@@ -806,7 +807,7 @@ class A8MLaTeXCommandView(MenuView):
 				command(text=text, offset=offset)
 			else:
 				command(**kwargs)
-		except:
+		except BaseException:
 			tones.beep(100, 100)
 			return
 		eventHandler.executeEvent("gainFocus", self.parent)
@@ -821,7 +822,7 @@ class A8MLaTeXCommandView(MenuView):
 				command(text=text, offset=offset)
 			else:
 				command(**kwargs)
-		except:
+		except BaseException:
 			tones.beep(100, 100)
 			return
 		eventHandler.executeEvent("gainFocus", self.parent)

@@ -46,7 +46,7 @@ def create_node(et):
 	r = p_tag.search(et.tag)
 	try:
 		mp_tag = r.group('mp_type')
-	except:
+	except BaseException:
 		mp_tag = et.tag
 
 	node_class = nodes[mp_tag.capitalize()] if mp_tag.capitalize() in nodes.keys() else object
@@ -237,7 +237,7 @@ class MathContent(object):
 			self.pointer.parent.delete(self.pointer.index_in_parent())
 			try:
 				self.pointer = parent.child[index]
-			except:
+			except BaseException:
 				self.pointer = parent
 
 			# node refresh
@@ -448,7 +448,7 @@ class Node(object):
 	def index_in_parent(self):
 		try:
 			return self.parent.child.index(self)
-		except:
+		except BaseException:
 			return None
 
 	@property
@@ -457,12 +457,12 @@ class Node(object):
 			index = self.index_in_parent() + 1
 			if index < 0:
 				raise IndexError('index out of range')
-		except:
+		except BaseException:
 			index = None
 
 		try:
 			return self.parent.child[index]
-		except:
+		except BaseException:
 			return None
 
 	@property
@@ -471,12 +471,12 @@ class Node(object):
 			index = self.index_in_parent() - 1
 			if index < 0:
 				raise IndexError('index out of range')
-		except:
+		except BaseException:
 			index = None
 
 		try:
 			return self.parent.child[index]
-		except:
+		except BaseException:
 			return None
 
 	@property
@@ -504,13 +504,13 @@ class Node(object):
 	def down(self):
 		try:
 			return self.child[0]
-		except:
+		except BaseException:
 			return None
 
 	def up(self):
 		try:
 			return self.parent
-		except:
+		except BaseException:
 			return None
 
 
@@ -518,25 +518,25 @@ class NonTerminalNode(Node):
 	def set_rule(self):
 		try:
 			super().set_rule()
-		except:
+		except BaseException:
 			self.rule = range(len(self.child))
 
 	def set_role(self):
 		try:
 			super().set_role()
-		except:
+		except BaseException:
 			self.rule = range(len(self.child))
 
 	def set_braillerule(self):
-		# try:
+		try:
 			super().set_braillerule()
-		# except:
-			# self.braillerule = range(len(self.child))
+		except BaseException:
+			self.braillerule = range(len(self.child))
 
 	def set_braillerole(self):
 		try:
 			super().set_braillerole()
-		except:
+		except BaseException:
 			self.braillerule = range(len(self.child))
 
 
@@ -544,13 +544,13 @@ class TerminalNode(Node):
 	def set_rule(self):
 		try:
 			super().set_rule()
-		except:
+		except BaseException:
 			self.rule = [str(self.symbol_translate(self.data))]
 
 	def set_braillerule(self):
 		try:
 			super().set_braillerule()
-		except:
+		except BaseException:
 			self.braillerule = [str(self.braillesymbol_translate(self.data))]
 
 	def get_mathml(self):
@@ -616,13 +616,13 @@ class BlockNode(AlterNode):
 	def set_rule(self):
 		try:
 			super().set_rule()
-		except:
+		except BaseException:
 			self.rule = range(len(self.child))
 
 	def set_braillerule(self):
 		try:
 			super().set_braillerule()
-		except:
+		except BaseException:
 			self.braillerule = range(len(self.child))
 
 
@@ -910,7 +910,7 @@ class NodeType(object):
 	def set_rule(self):
 		try:
 			self.rule = self.mathrule[self.name].serialized_order
-		except:
+		except BaseException:
 			self.rule = None
 
 	def set_braillemathrule(self, braillemathrule):
@@ -920,7 +920,7 @@ class NodeType(object):
 	def set_braillerule(self):
 		try:
 			self.braillerule = self.braillemathrule[self.name].serialized_order
-		except:
+		except BaseException:
 			self.braillerule = None
 
 
@@ -942,7 +942,7 @@ class TerminalNodeType(NodeType):
 			try:
 				if not cls.data.search(obj.data) is not None:
 					return False
-			except:
+			except BaseException:
 				return False
 		return True
 
@@ -1435,7 +1435,7 @@ def load_unicode_dic(path=None, language='', category='speech'):
 				line = line.split('\t')
 				if len(line) >= 2:
 					symbol[line[0]] = line[1].split(',')[0].strip()
-	except:
+	except BaseException:
 		pass
 	return symbol
 
@@ -1477,7 +1477,7 @@ def load_math_rule(path=None, language='', category='speech'):
 
 						try:
 							rule.append(int(i))
-						except:
+						except BaseException:
 							rule.append(i)
 
 					role = []
@@ -1486,7 +1486,7 @@ def load_math_rule(path=None, language='', category='speech'):
 						role.append(i)
 
 					mathrule[line[0]] = MathRule(line[0], line[3].strip(), '', rule, role)
-			except:
+			except BaseException:
 				pass
 
 		for line in math_example:
@@ -1494,7 +1494,7 @@ def load_math_rule(path=None, language='', category='speech'):
 				line = line.split('\t')
 				if len(line) == 2:
 					mathrule[line[0]].example = line[1].strip()
-			except:
+			except BaseException:
 				pass
 
 	return mathrule

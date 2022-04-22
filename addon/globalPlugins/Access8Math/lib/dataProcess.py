@@ -2,15 +2,16 @@
 	mergeArr = []
 	for srcObj2 in srcArr2:
 		def exist(existObj):
-			mergeObj = {};
+			mergeObj = {}
 			if len(existObj) > 0:
 				mergeObj = {**existObj[0], **srcObj2}
-				mergeArr.append(mergeObj);
+				mergeArr.append(mergeObj)
 		exist(
 			list(filter(lambda srcObj1: srcObj1[key] == srcObj2[key], srcArr1))
 		)
 
-	return mergeArr;
+	return mergeArr
+
 
 def groupByField(arrSrc, field, applyKey, applyValue):
 	temp = {}

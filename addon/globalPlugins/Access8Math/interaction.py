@@ -25,7 +25,7 @@ import ui
 
 try:
 	from speech import BreakCommand
-except:
+except BaseException:
 	from speech.commands import BreakCommand
 
 import A8M_PM
@@ -36,7 +36,7 @@ addonHandler.initTranslation()
 mathPlayer = None
 try:
 	mathPlayer = MathPlayer()
-except:
+except BaseException:
 	log.warning("MathPlayer 4 not available")
 
 BRAILLE_UNICODE_PATTERNS_START = 0x2800
@@ -72,7 +72,7 @@ def translate_SpeechCommand(serializes):
 			time = time_search.group('time')
 			command = BreakCommand(time=int(time) + int(config.conf["Access8Math"]["settings"]["item_interval_time"]))
 			speechSequence.append(command)
-		except:
+		except BaseException:
 			speechSequence.append(r)
 
 	return speechSequence
@@ -93,10 +93,10 @@ def translate_Unicode(serializes):
 		for r in flatten(c):
 			time_search = pattern.search(r)
 			try:
-				time = time_search.group('time')
-			except:
-				sequence = sequence +str(r)
-			sequence = sequence +' '
+				time_search.group('time')
+			except BaseException:
+				sequence = sequence + str(r)
+			sequence = sequence + ' '
 
 	# replace mutiple blank to single blank
 	pattern = re.compile(r'[ ]+')
@@ -206,7 +206,7 @@ class A8MInteractionFrame(GenericFrame):
 
 	def menuData(self):
 		return [
-			# Translators: A mmenu item in the Interaction window  
+			# Translators: A mmenu item in the Interaction window
 			(_("&Menu"), (
 				# Translators: A mmenu item in the Interaction window
 				(_("&Exit"), _("Terminate the program"), self.OnExit),
@@ -252,9 +252,6 @@ class A8MInteractionFrame(GenericFrame):
 
 
 class A8MProvider(mathPres.MathPresentationProvider):
-	# def __init__(self, *args, **kwargs):
-		# super().__init__(*args, **kwargs)
-
 	def getSpeechForMathMl(self, mathMl):
 		"""Get speech output for specified MathML markup.
 		@param mathMl: The MathML markup.
