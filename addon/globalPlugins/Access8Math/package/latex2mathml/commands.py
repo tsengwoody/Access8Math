@@ -21,6 +21,7 @@ PRIME = r"\prime"
 DPRIME = r"\dprime"
 
 LEFT = r"\left"
+MIDDLE = r"\middle"
 RIGHT = r"\right"
 
 ABOVE = r"\above"
@@ -57,12 +58,14 @@ DDDDOT = r"\ddddot"
 GRAVE = r"\grave"
 HAT = r"\hat"
 MATHRING = r"\mathring"
+OVERBRACE = r"\overbrace"
 OVERLEFTARROW = r"\overleftarrow"
 OVERLEFTRIGHTARROW = r"\overleftrightarrow"
 OVERLINE = r"\overline"
 OVERPAREN = r"\overparen"
 OVERRIGHTARROW = r"\overrightarrow"
 TILDE = r"\tilde"
+UNDERBRACE = r"\underbrace"
 UNDERLEFTARROW = r"\underleftarrow"
 UNDERLINE = r"\underline"
 UNDERPAREN = r"\underparen"
@@ -71,6 +74,8 @@ UNDERLEFTRIGHTARROW = r"\underleftrightarrow"
 VEC = r"\vec"
 WIDEHAT = r"\widehat"
 WIDETILDE = r"\widetilde"
+XLEFTARROW = r"\xleftarrow"
+XRIGHTARROW = r"\xrightarrow"
 
 HREF = r"\href"
 TEXT = r"\text"
@@ -125,6 +130,7 @@ PR = r"\Pr"
 PROJLIM = r"\projlim"
 MOD = r"\mod"
 PMOD = r"\pmod"
+BMOD = r"\bmod"
 
 HDASHLINE = r"\hdashline"
 HLINE = r"\hline"
@@ -132,7 +138,10 @@ HFIL = r"\hfil"
 
 CASES = r"\cases"
 DISPLAYLINES = r"\displaylines"
+SMALLMATRIX = r"\smallmatrix"
 SUBSTACK = r"\substack"
+SPLIT = r"\split"
+ALIGN = r"\align*"
 MATRICES = (
     r"\matrix",
     r"\matrix*",
@@ -150,6 +159,9 @@ MATRICES = (
     SUBSTACK,
     CASES,
     DISPLAYLINES,
+    SMALLMATRIX,
+    SPLIT,
+    ALIGN,
 )
 
 BACKSLASH = "\\"
@@ -218,6 +230,7 @@ TEX = r"\TeX"
 SIDESET = r"\sideset"
 
 SKEW = r"\skew"
+NOT = r"\not"
 
 
 def font_factory(default: Optional[str], replacement: Dict[str, Optional[str]]) -> DefaultDict[str, Optional[str]]:
@@ -276,6 +289,7 @@ COMMANDS_WITH_ONE_PARAMETER = (
     MIT,
     MOD,
     OLDSTYLE,
+    OVERBRACE,
     OVERLEFTARROW,
     OVERLEFTRIGHTARROW,
     OVERLINE,
@@ -286,6 +300,7 @@ COMMANDS_WITH_ONE_PARAMETER = (
     SCR,
     TILDE,
     TT,
+    UNDERBRACE,
     UNDERLEFTARROW,
     UNDERLINE,
     UNDERPAREN,
@@ -316,6 +331,12 @@ BIG: Dict[str, Tuple[str, dict]] = {
     r"\big": ("mo", OrderedDict([("minsize", "1.2em"), ("maxsize", "1.2em")])),
 }
 
+BIG_OPEN_CLOSE = {
+    command + postfix: (tag, OrderedDict([("stretchy", "true"), ("fence", "true"), *attrib.items()]))
+    for command, (tag, attrib) in BIG.items()
+    for postfix in "lmr"
+}
+
 MSTYLE_SIZES: Dict[str, Tuple[str, dict]] = {
     # command: (mathml_equivalent, attributes)
     r"\Huge": ("mstyle", {"mathsize": "2.49em"}),
@@ -342,6 +363,15 @@ CONVERSION_MAP: Dict[str, Tuple[str, dict]] = {
     # tables
     **{matrix: ("mtable", {}) for matrix in MATRICES},
     DISPLAYLINES: ("mtable", {"rowspacing": "0.5em", "columnspacing": "1em", "displaystyle": "true"}),
+    SMALLMATRIX: ("mtable", {"rowspacing": "0.1em", "columnspacing": "0.2778em"}),
+    SPLIT: (
+        "mtable",
+        {"displaystyle": "true", "columnspacing": "0em", "rowspacing": "3pt"},
+    ),
+    ALIGN: (
+        "mtable",
+        {"displaystyle": "true", "rowspacing": "3pt"},
+    ),
     # subscripts/superscripts
     SUBSCRIPT: ("msub", {}),
     SUPERSCRIPT: ("msup", {}),
@@ -368,6 +398,7 @@ CONVERSION_MAP: Dict[str, Tuple[str, dict]] = {
     HAT: ("mover", {}),
     LIMITS: ("munderover", {}),
     MATHRING: ("mover", {}),
+    OVERBRACE: ("mover", {}),
     OVERLEFTARROW: ("mover", {}),
     OVERLEFTRIGHTARROW: ("mover", {}),
     OVERLINE: ("mover", {}),
@@ -375,6 +406,7 @@ CONVERSION_MAP: Dict[str, Tuple[str, dict]] = {
     OVERRIGHTARROW: ("mover", {}),
     TILDE: ("mover", {}),
     OVERSET: ("mover", {}),
+    UNDERBRACE: ("munder", {}),
     UNDERLEFTARROW: ("munder", {}),
     UNDERLINE: ("munder", {}),
     UNDERPAREN: ("munder", {}),
@@ -409,9 +441,11 @@ CONVERSION_MAP: Dict[str, Tuple[str, dict]] = {
     FBOX: ("menclose", {"notation": "box"}),
     # operators
     **BIG,
+    **BIG_OPEN_CLOSE,
     **MSTYLE_SIZES,
     **{limit: ("mo", {}) for limit in LIMIT},
     LEFT: ("mo", OrderedDict([("stretchy", "true"), ("fence", "true"), ("form", "prefix")])),
+    MIDDLE: ("mo", OrderedDict([("stretchy", "true"), ("fence", "true"), ("lspace", "0.05em"), ("rspace", "0.05em")])),
     RIGHT: ("mo", OrderedDict([("stretchy", "true"), ("fence", "true"), ("form", "postfix")])),
     # styles
     COLOR: ("mstyle", {}),
@@ -435,6 +469,9 @@ CONVERSION_MAP: Dict[str, Tuple[str, dict]] = {
     SKEW: ("mrow", {}),
     MOD: ("mi", {}),
     PMOD: ("mi", {}),
+    BMOD: ("mo", {}),
+    XLEFTARROW: ("mover", {}),
+    XRIGHTARROW: ("mover", {}),
 }
 
 
@@ -450,12 +487,14 @@ DIACRITICS: Dict[str, Tuple[str, Dict[str, str]]] = {
     GRAVE: ("&#x00060;", {}),
     HAT: ("&#x0005E;", {"stretchy": "false"}),
     MATHRING: ("&#x002DA;", {}),
+    OVERBRACE: ("&#x23DE;", {}),
     OVERLEFTARROW: ("&#x02190;", {}),
     OVERLEFTRIGHTARROW: ("&#x02194;", {}),
     OVERLINE: ("&#x02015;", {"accent": "true"}),
     OVERPAREN: ("&#x023DC;", {}),
     OVERRIGHTARROW: ("&#x02192;", {}),
     TILDE: ("&#x0007E;", {"stretchy": "false"}),
+    UNDERBRACE: ("&#x23DF;", {}),
     UNDERLEFTARROW: ("&#x02190;", {}),
     UNDERLEFTRIGHTARROW: ("&#x02194;", {}),
     UNDERLINE: ("&#x02015;", {"accent": "true"}),

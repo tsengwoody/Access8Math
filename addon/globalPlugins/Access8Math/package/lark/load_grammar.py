@@ -7,7 +7,7 @@ from copy import copy, deepcopy
 import pkgutil
 from ast import literal_eval
 from contextlib import suppress
-from typing import List, Tuple, Union, Callable, Dict, Optional
+from typing import List, Tuple, Union, Callable, Dict, Optional, Sequence
 
 from .utils import bfs, logger, classify_bool, is_id_continue, is_id_start, bfs_all_unique, small_factors
 from .lexer import Token, TerminalDef, PatternStr, PatternRE
@@ -193,6 +193,35 @@ SMALL_FACTOR_THRESHOLD = 5
 REPEAT_BREAK_THRESHOLD = 50
 
 
+class FindRuleSize(Transformer):
+    def __init__(self, keep_all_tokens):
+        self.keep_all_tokens = keep_all_tokens
+
+    def _will_not_get_removed(self, sym):
+        if isinstance(sym, NonTerminal):
+            return not sym.name.startswith('_')
+        if isinstance(sym, Terminal):
+            return self.keep_all_tokens or not sym.filter_out
+        if sym is _EMPTY:
+            return False
+        assert False, sym
+
+    def _args_as_int(self, args):
+        for a in args:
+            if isinstance(a, int):
+                yield a
+            elif isinstance(a, Symbol):
+                yield 1 if self._will_not_get_removed(a) else 0
+            else:
+                assert False
+
+    def expansion(self, args):
+        return sum(self._args_as_int(args))
+
+    def expansions(self, args):
+        return max(self._args_as_int(args))
+
+
 @inline_args
 class EBNF_to_BNF(Transformer_InPlace):
     def __init__(self):
@@ -344,18 +373,8 @@ class EBNF_to_BNF(Transformer_InPlace):
 
     def maybe(self, rule):
         keep_all_tokens = self.rule_options and self.rule_options.keep_all_tokens
-
-        def will_not_get_removed(sym):
-            if isinstance(sym, NonTerminal):
-                return not sym.name.startswith('_')
-            if isinstance(sym, Terminal):
-                return keep_all_tokens or not sym.filter_out
-            if sym is _EMPTY:
-                return False
-            assert False, sym
-
-        empty = ST('expansion', [_EMPTY] * len(list(rule.scan_values(will_not_get_removed))))
-
+        rule_size = FindRuleSize(keep_all_tokens).transform(rule)
+        empty = ST('expansion', [_EMPTY] * rule_size)
         return ST('expansions', [rule, empty])
 
 
@@ -804,9 +823,9 @@ class FromPackageLoader:
     """
 
     pkg_name: str
-    search_paths: Tuple[str, ...]
+    search_paths: Sequence[str]
 
-    def __init__(self, pkg_name: str, search_paths: Tuple[str, ...]=("", )) -> None:
+    def __init__(self, pkg_name: str, search_paths: Sequence[str]=("", )) -> None:
         self.pkg_name = pkg_name
         self.search_paths = search_paths
 
@@ -827,7 +846,7 @@ class FromPackageLoader:
         for path in to_try:
             full_path = os.path.join(path, grammar_path)
             try:
-                text: Optional[str] = pkgutil.get_data(self.pkg_name, full_path)
+                text: Optional[bytes] = pkgutil.get_data(self.pkg_name, full_path)
             except IOError as e:
                 err = e
                 continue
@@ -1062,13 +1081,16 @@ class GrammarBuilder:
     import_paths: List[Union[str, Callable]]
     used_files: Dict[str, str]
 
+    _definitions: Dict[str, Definition]
+    _ignore_names: List[str]
+
     def __init__(self, global_keep_all_tokens: bool=False, import_paths: Optional[List[Union[str, Callable]]]=None, used_files: Optional[Dict[str, str]]=None) -> None:
         self.global_keep_all_tokens = global_keep_all_tokens
         self.import_paths = import_paths or []
         self.used_files = used_files or {}
 
-        self._definitions = {}
-        self._ignore_names = []
+        self._definitions: Dict[str, Definition] = {}
+        self._ignore_names: List[str] = []
 
     def _grammar_error(self, is_term, msg, *names):
         args = {}
@@ -1095,7 +1117,7 @@ class GrammarBuilder:
         return options
 
 
-    def _define(self, name, is_term, exp, params=(), options=None, override=False):
+    def _define(self, name, is_term, exp, params=(), options=None, *, override=False):
         if name in self._definitions:
             if not override:
                 self._grammar_error(is_term, "{Type} '{name}' defined more than once", name)
@@ -1210,7 +1232,8 @@ class GrammarBuilder:
     def load_grammar(self, grammar_text: str, grammar_name: str="<?>", mangle: Optional[Callable[[str], str]]=None) -> None:
         tree = _parse_grammar(grammar_text, grammar_name)
 
-        imports = {}
+        imports: Dict[Tuple[str, ...], Tuple[Optional[str], Dict[str, str]]] = {}
+          
         for stmt in tree.children:
             if stmt.data == 'import':
                 dotted_path, base_path, aliases = self._unpack_import(stmt, grammar_name)

@@ -259,6 +259,7 @@ Please report any bugs or comments, thank you!
 *	Add built-in editor using traditional editing area because of windows 11 changed to UIA editing area
 *	built-in editor new/open/save feature
 *	Access8Math language initial setting is based on NVDA language setting
+*	Improved speech and braille display in virtual menus
 *	Compatibility with NVDA 2022.1
 *	Fixed marked menu cannot open when document is empty
 *	Fixed translate LaTeX/AsciiMath feature

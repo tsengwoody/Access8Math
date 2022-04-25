@@ -75,18 +75,32 @@ class MenuView(Window):
 			tones.beep(100, 100)
 
 		self.syncTextInfoPosition()
-		ui.message(self.data.pointer["name"])
+
+		text = ""
+		brailleText = ""
+
+		text += self.data.pointer["name"]
+		brailleText += self.data.pointer["name"]
+
 		if "shortcut" in self.data.pointer and self.data.pointer["shortcut"] != "-1":
 			if self.data.pointer["shortcut"] in [str(i) for i in range(1, 13)]:
-				ui.message(_("f{shortcut}").format(shortcut=self.data.pointer["shortcut"]))
+				shortcut = _("f{shortcut}").format(shortcut=self.data.pointer["shortcut"])
 			else:
-				ui.message(_("{shortcut}").format(shortcut=self.data.pointer["shortcut"]))
+				shortcut = _("{shortcut}").format(shortcut=self.data.pointer["shortcut"])
+			text += shortcut
+			brailleText += " " + shortcut
+
 		if self.data.pointer["type"] == "menu":
-			ui.message(_("subMenu"))
-		ui.message(_("{number} of {total}").format(
+			text += _("subMenu")
+
+		number = _("{number} of {total}").format(
 			number=self.data.path[-1] + 1,
 			total=self.data.count,
-		))
+		)
+		text += " " + number
+		brailleText += " " + number
+
+		ui.message(text=text, brailleText=brailleText)
 
 
 class MenuViewTextInfo(textInfos.offsets.OffsetsTextInfo):

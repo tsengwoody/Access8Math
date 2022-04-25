@@ -73,12 +73,14 @@ def _convert(tree: Element) -> str:
     return unescape(tostring(tree, encoding="unicode"))
 
 
-def _convert_matrix(nodes: Iterator[Node], parent: Element, alignment: Optional[str] = None) -> None:
+def _convert_matrix(nodes: Iterator[Node], parent: Element, command: str, alignment: Optional[str] = None) -> None:
     row = None
     cell = None
 
     col_index = 0
     col_alignment = None
+
+    max_col_size = 0
 
     row_index = 0
     row_lines = []
@@ -100,10 +102,14 @@ def _convert_matrix(nodes: Iterator[Node], parent: Element, alignment: Optional[
             hfil_indexes = []
             col_alignment, col_index = _get_column_alignment(alignment, col_alignment, col_index)
             cell = _make_matrix_cell(row, col_alignment)
+            if command in (commands.SPLIT, commands.ALIGN) and col_index % 2 == 0:
+                SubElement(cell, "mi")
         elif node.token in (commands.DOUBLEBACKSLASH, commands.CARRIAGE_RETURN):
             _set_cell_alignment(cell, hfil_indexes)
             hfil_indexes = []
             row_index += 1
+            if col_index > max_col_size:
+                max_col_size = col_index
             col_index = 0
             col_alignment, col_index = _get_column_alignment(alignment, col_alignment, col_index)
             row = SubElement(parent, "mtr")
@@ -120,12 +126,20 @@ def _convert_matrix(nodes: Iterator[Node], parent: Element, alignment: Optional[
             hfil_indexes.append(False)
             _convert_group(iter([node]), cell)
 
+    if col_index > max_col_size:
+        max_col_size = col_index
+
     if any(r == "solid" for r in row_lines):
         parent.set("rowlines", " ".join(row_lines))
 
     if row is not None and cell is not None and len(cell) == 0:
         # Remove last row if it does not contain anything
         parent.remove(row)
+
+    if max_col_size and command == commands.ALIGN:
+        spacing = ("0em", "2em")
+        multiplier = max_col_size // len(spacing)
+        parent.set("columnspacing", " ".join(spacing * multiplier))
 
 
 def _set_cell_alignment(cell: Element, hfil_indexes: List[bool]) -> None:
@@ -142,9 +156,9 @@ def _get_column_alignment(
     if alignment:
         try:
             column_alignment = COLUMN_ALIGNMENT_MAP.get(alignment[column_index])
-            column_index += 1
         except IndexError:
-            pass
+            column_alignment = COLUMN_ALIGNMENT_MAP.get(alignment[column_index % len(alignment)])
+        column_index += 1
     return column_alignment, column_index
 
 
@@ -211,8 +225,9 @@ def separate_by_mode(text: str) -> Iterator[Tuple[str, Mode]]:
 
 def _convert_command(node: Node, parent: Element, font: Optional[Dict[str, Optional[str]]] = None) -> None:
     command = node.token
+    modifier = node.modifier
 
-    if command == commands.SUBSTACK:
+    if command in (commands.SUBSTACK, commands.SMALLMATRIX):
         parent = SubElement(parent, "mstyle", scriptlevel="1")
     elif command == commands.CASES:
         lbrace = SubElement(parent, "mo", OrderedDict([("stretchy", "true"), ("fence", "true"), ("form", "prefix")]))
@@ -243,14 +258,17 @@ def _convert_command(node: Node, parent: Element, font: Optional[Dict[str, Optio
     if column_lines:
         attributes["columnlines"] = column_lines
 
-    if (
-        command == commands.SUBSCRIPT
-        and node.children is not None
-        and len(node.children[0])
-        and node.children[0].token in (*commands.LIMIT, commands.SUMMATION)
-    ):
+    if command == commands.SUBSUP and node.children is not None and node.children[0].token == commands.GCD:
+        tag = "munderover"
+    elif command == commands.SUPERSCRIPT and modifier in (commands.LIMITS, commands.OVERBRACE):
+        tag = "mover"
+    elif command == commands.SUBSCRIPT and modifier in (commands.LIMITS, commands.UNDERBRACE):
         tag = "munder"
-    elif command == commands.SUBSUP and node.children is not None and node.children[0].token == commands.GCD:
+    elif command == commands.SUBSUP and modifier in (commands.LIMITS, commands.OVERBRACE, commands.UNDERBRACE):
+        tag = "munderover"
+    elif (
+        command in (commands.XLEFTARROW, commands.XRIGHTARROW) and node.children is not None and len(node.children) == 2
+    ):
         tag = "munderover"
 
     element = SubElement(parent, tag, attributes)
@@ -260,8 +278,19 @@ def _convert_command(node: Node, parent: Element, font: Optional[Dict[str, Optio
     elif command in (commands.MOD, commands.PMOD):
         element.text = "mod"
         SubElement(parent, "mspace", width="0.333em")
+    elif command == commands.BMOD:
+        element.text = "mod"
+    elif command in (commands.XLEFTARROW, commands.XRIGHTARROW):
+        style = SubElement(element, "mstyle", scriptlevel="0")
+        arrow = SubElement(style, "mo")
+        if command == commands.XLEFTARROW:
+            arrow.text = "&#x2190;"
+        elif command == commands.XRIGHTARROW:
+            arrow.text = "&#x2192;"
     elif node.text is not None:
-        if command == commands.HBOX:
+        if command == commands.MIDDLE:
+            element.text = "&#x{};".format(convert_symbol(node.text))
+        elif command == commands.HBOX:
             mtext: Optional[Element] = element
             for text, mode in separate_by_mode(node.text):
                 if mode == Mode.TEXT:
@@ -290,7 +319,9 @@ def _convert_command(node: Node, parent: Element, font: Optional[Dict[str, Optio
         if command in commands.MATRICES:
             if command == commands.CASES:
                 alignment = "l"
-            _convert_matrix(iter(node.children), _parent, alignment=alignment)
+            elif command in (commands.SPLIT, commands.ALIGN):
+                alignment = "rl"
+            _convert_matrix(iter(node.children), _parent, command, alignment=alignment)
         elif command == commands.CFRAC:
             for child in node.children:
                 p = SubElement(_parent, "mstyle", displaystyle="false", scriptlevel="0")
@@ -318,6 +349,17 @@ def _convert_command(node: Node, parent: Element, font: Optional[Dict[str, Optio
                 ),
             )
             _convert_group(iter([new_node]), _parent, font)
+        elif command in (commands.XLEFTARROW, commands.XRIGHTARROW):
+            for child in node.children:
+                padded = SubElement(
+                    _parent,
+                    "mpadded",
+                    OrderedDict(
+                        [("width", "+0.833em"), ("lspace", "0.556em"), ("voffset", "-.2em"), ("height", "-.2em")]
+                    ),
+                )
+                _convert_group(iter([child]), padded, font)
+                SubElement(padded, "mspace", depth=".25em")
         else:
             _convert_group(iter(node.children), _parent, font)
 
@@ -418,6 +460,10 @@ def _convert_symbol(node: Node, parent: Element, font: Optional[Dict[str, Option
         element = SubElement(parent, "mtext", attrib=attributes)
         element.text = "&#x000A0;"
         _set_font(element, "mtext", font)
+    elif token == commands.NOT:
+        mpadded = SubElement(parent, "mpadded", width="0")
+        element = SubElement(mpadded, "mtext")
+        element.text = "&#x029F8;"
     elif token in (
         commands.DETERMINANT,
         commands.GCD,
@@ -470,14 +516,15 @@ def _convert_symbol(node: Node, parent: Element, font: Optional[Dict[str, Option
         _set_font(mi_t, mi_t.tag, font)
         _set_font(mi_e, mi_e.tag, font)
         _set_font(mi_x, mi_x.tag, font)
+    elif token.startswith(commands.OPERATORNAME):
+        element = SubElement(parent, "mo", attrib=attributes)
+        element.text = token[14:-1]
     elif token.startswith(commands.BACKSLASH):
         element = SubElement(parent, "mi", attrib=attributes)
         if symbol:
             element.text = "&#x{};".format(symbol)
         elif token in commands.FUNCTIONS:
             element.text = token[1:]
-        elif token.startswith(commands.OPERATORNAME):
-            element.text = token[14:-1]
         else:
             element.text = token
         _set_font(element, element.tag, font)

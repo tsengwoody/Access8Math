@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Access8Math - 3.3\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2022-04-18 08:25+0800\n"
-"PO-Revision-Date: 2022-04-18 08:27+0800\n"
+"PO-Revision-Date: 2022-04-25 10:36+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_TW\n"
@@ -884,11 +884,11 @@ msgstr "指令手勢開關"
 
 #: addon\globalPlugins\Access8Math\writer.py:270
 msgid "Command gestures activated"
-msgstr "已啟用指令手勢"
+msgstr "啟用指令手勢"
 
 #: addon\globalPlugins\Access8Math\writer.py:273
 msgid "Command gestures deactivated"
-msgstr "已停用指令手勢"
+msgstr "停用指令手勢"
 
 #. Translators: The description of a command in input help mode and in the Input gesture dialog
 #: addon\globalPlugins\Access8Math\writer.py:278
@@ -897,11 +897,11 @@ msgstr "區塊導航手勢開關"
 
 #: addon\globalPlugins\Access8Math\writer.py:286
 msgid "Block navigation gestures activated"
-msgstr "已啟用區塊導航手勢"
+msgstr "啟用區塊導航手勢"
 
 #: addon\globalPlugins\Access8Math\writer.py:289
 msgid "Block navigation gestures deactivated"
-msgstr "已停用區塊導航手勢"
+msgstr "停用區塊導航手勢"
 
 #. Translators: The description of a command in input help mode and in the Input gesture dialog
 #: addon\globalPlugins\Access8Math\writer.py:294
@@ -914,11 +914,11 @@ msgstr "無法在瀏覽導航模式下啟用快捷手勢"
 
 #: addon\globalPlugins\Access8Math\writer.py:306
 msgid "Shortcut gestures activated"
-msgstr "已啟用快捷手勢"
+msgstr "啟用快捷手勢"
 
 #: addon\globalPlugins\Access8Math\writer.py:310
 msgid "Shortcut gestures deactivated"
-msgstr "已停用快捷手勢"
+msgstr "停用快捷手勢"
 
 #. Translators: The description of a command in input help mode and in the Input gesture dialog
 #: addon\globalPlugins\Access8Math\writer.py:315
@@ -931,11 +931,11 @@ msgstr "無法在瀏覽導航模式下啟用希臘字母手勢"
 
 #: addon\globalPlugins\Access8Math\writer.py:327
 msgid "Greek alphabet gestures activated"
-msgstr "已啟用希臘字母手勢"
+msgstr "啟用希臘字母手勢"
 
 #: addon\globalPlugins\Access8Math\writer.py:331
 msgid "Greek alphabet gestures deactivated"
-msgstr "已停用希臘字母手勢"
+msgstr "停用希臘字母手勢"
 
 #. Translators: The description of a command in input help mode and in the Input gesture dialog
 #: addon\globalPlugins\Access8Math\writer.py:336
