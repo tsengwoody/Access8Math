@@ -300,6 +300,7 @@ github： https://github.com/tsengwoody/Access8Math
 *	相容於 NVDA 2022.1
 *	修正當文件為空時無法開啟標記指令選單
 *	修政轉換 LaTeX/AsciiMath 功能
+*	修正 HTML 文件顯示設定選「文字」選項時 HTML 文件渲染問題
 
 ## Access8Math v3.2 更新日誌
 

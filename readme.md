@@ -263,6 +263,7 @@ Please report any bugs or comments, thank you!
 *	Compatibility with NVDA 2022.1
 *	Fixed marked menu cannot open when document is empty
 *	Fixed translate LaTeX/AsciiMath feature
+*	Fixed HTML document rendering problem when HTML document display setting choice text option
 
 ## Access8Math v3.2 Update
 
