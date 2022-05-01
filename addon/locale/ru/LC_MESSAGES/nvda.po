@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 'Access8Math' '3.1'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2022-05-01 13:45+0300\n"
-"PO-Revision-Date: 2022-05-01 15:25+0300\n"
+"PO-Revision-Date: 2022-05-01 16:04+0300\n"
 "Last-Translator: Andrey yakuboy <andrewia2002@yandex.ru>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -115,7 +115,7 @@ msgstr "&Локализация"
 
 #: globalPlugins/Access8Math/__init__.py:261
 msgid "&Clean Workspace..."
-msgstr "&Очистить рабочее пространство..."
+msgstr "&Очистить рабочую область..."
 
 #: globalPlugins/Access8Math/__init__.py:267
 msgid "&About..."
@@ -161,11 +161,11 @@ msgstr "Открывает редактор Access8Math"
 
 #: globalPlugins/Access8Math/__init__.py:401
 msgid "Workspace has already been cleaned"
-msgstr "Рабочее пространство уже очищено"
+msgstr "Рабочая область уже очищена"
 
 #: globalPlugins/Access8Math/__init__.py:401
 msgid "Clean Workspace"
-msgstr "Очистить рабочее пространство"
+msgstr "Очистить рабочую область"
 
 #: globalPlugins/Access8Math/__init__.py:404
 msgid "About Access8Math"
