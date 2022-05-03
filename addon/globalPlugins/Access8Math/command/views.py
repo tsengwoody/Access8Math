@@ -87,11 +87,11 @@ class MenuView(Window):
 				shortcut = _("f{shortcut}").format(shortcut=self.data.pointer["shortcut"])
 			else:
 				shortcut = _("{shortcut}").format(shortcut=self.data.pointer["shortcut"])
-			text += shortcut
+			text += " " + shortcut
 			brailleText += " " + shortcut
 
 		if self.data.pointer["type"] == "menu":
-			text += _("subMenu")
+			text += " " + _("subMenu")
 
 		number = _("{number} of {total}").format(
 			number=self.data.path[-1] + 1,

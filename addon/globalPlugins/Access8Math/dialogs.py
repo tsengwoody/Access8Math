@@ -26,14 +26,6 @@ from contextHelp import ContextHelpMixin
 addonHandler.initTranslation()
 
 base_path = os.path.dirname(os.path.abspath(__file__))
-
-try:
-	available_languages = getAvailableLanguages(base_path)
-except BaseException:
-	available_languages = []
-
-available_languages_dict = {k: v for k, v in available_languages}
-
 mathPlayer = None
 try:
 	mathPlayer = MathPlayer()
@@ -48,7 +40,7 @@ class ReadingSettingsDialog(SettingsDialog):
 		# Translators: The label of an option in the reading settings dialog
 		"language": {
 			"label": _("&Language:"),
-			"options": available_languages_dict
+			"options": {}
 		},
 		"speech_source": {
 			# Translators: The label of an option in the reading settings dialog
@@ -101,6 +93,13 @@ class ReadingSettingsDialog(SettingsDialog):
 		super().__init__(parent)
 
 	def makeSettings(self, settingsSizer):
+		try:
+			available_languages = getAvailableLanguages(base_path)
+		except BaseException:
+			available_languages = []
+		available_languages_dict = {k: v for k, v in available_languages if k != 'default'}
+		self.settings["language"]["options"] = available_languages_dict
+
 		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 		for k, v in self.settings.items():
 			if "options" in v:
@@ -572,8 +571,6 @@ class UnicodeDicDialog(SettingsDialog):
 			self.editingItem = None
 			# disable the "change symbol" controls, since there are no items in the list.
 			self.replacementEdit.Disable()
-			self.levelList.Disable()
-			self.preserveList.Disable()
 			self.removeButton.Disable()
 			return  # exit early, no need to select an item.
 
@@ -670,8 +667,6 @@ class UnicodeDicDialog(SettingsDialog):
 			self.editingItem = None
 			# disable the "change symbol" controls, since there are no items in the list.
 			self.replacementEdit.Disable()
-			self.levelList.Disable()
-			self.preserveList.Disable()
 			self.removeButton.Disable()
 		else:
 			index = min(index, self.symbolsList.ItemCount - 1)
@@ -714,9 +709,13 @@ class UnicodeDicDialog(SettingsDialog):
 		evt.Skip()
 
 	def load(self, path):
-		self.A8M_symbol = A8M_PM.load_unicode_dic(path=path)
+		data = A8M_PM.load_unicode_dic(path=path)
+		if len(data) == 0:
+			return
+		self.A8M_symbol = data
 		self.filteredSymbols = self.symbols = [Symbol(k, k, v) for k, v in self.A8M_symbol.items()]
 		self.pendingRemovals = {}
+		self.filter()
 
 	def save(self, path, symbol):
 		A8M_PM.save_unicode_dic(symbol, path=path)
@@ -1116,18 +1115,12 @@ class NewLanguageAddingDialog(wx.Dialog):
 	def OnCertainClick(self, evt):
 		self.languageIndex = self.languageList.Selection
 		self.certainLanguage = self.languageNames[self.languageIndex][0]
-		src = os.path.join(base_path, 'locale', 'speech', 'en')
+		src = os.path.join(base_path, 'locale', 'speech', 'default')
 		dst = os.path.join(base_path, 'locale', 'speech', self.certainLanguage)
-		try:
-			shutil.copytree(src, dst, ignore=shutil.ignore_patterns('*_user.*'))
-		except BaseException:
-			return
-		src = os.path.join(base_path, 'locale', 'braille', 'en')
+		shutil.copytree(src, dst, ignore=shutil.ignore_patterns('*_user.*'))
+		src = os.path.join(base_path, 'locale', 'braille', 'default')
 		dst = os.path.join(base_path, 'locale', 'braille', self.certainLanguage)
-		try:
-			shutil.copytree(src, dst, ignore=shutil.ignore_patterns('*_user.*'))
-		except BaseException:
-			return
+		shutil.copytree(src, dst, ignore=shutil.ignore_patterns('*_user.*'))
 
 		self.languageList.Clear()
 		self.languageList.Append(self.languageNames[self.languageIndex][1])
@@ -1146,8 +1139,10 @@ class NewLanguageAddingDialog(wx.Dialog):
 		self.SetSizer(self.mainSizer)
 
 	def OnUncertainClick(self, evt):
-		dst = os.path.join(base_path, 'locale', self.certainLanguage)
 		try:
+			dst = os.path.join(base_path, 'locale', 'speech', self.certainLanguage)
+			shutil.rmtree(dst)
+			dst = os.path.join(base_path, 'locale', 'braille', self.certainLanguage)
 			shutil.rmtree(dst)
 		except BaseException:
 			return

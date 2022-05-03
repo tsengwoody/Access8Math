@@ -10,6 +10,9 @@ import io
 import os
 import re
 import weakref
+import shutil
+
+from languageHandler_custom import getAvailableLanguages
 
 AUTO_GENERATE = 0
 DIC_GENERATE = 1
@@ -1414,18 +1417,31 @@ class MathRule(object):
 		self.example = example
 
 
+def add_language(language):
+	base_path = os.path.dirname(os.path.abspath(__file__))
+	src = os.path.join(base_path, 'locale', 'speech', 'en')
+	dst = os.path.join(base_path, 'locale', 'speech', language)
+	shutil.copytree(src, dst, ignore=shutil.ignore_patterns('*_user.*'))
+
+	src = os.path.join(base_path, 'locale', 'braille', 'en')
+	dst = os.path.join(base_path, 'locale', 'braille', language)
+	shutil.copytree(src, dst, ignore=shutil.ignore_patterns('*_user.*'))
+
+
 def load_unicode_dic(path=None, language='', category='speech'):
 	if not path and language:
 		path = os.path.dirname(os.path.abspath(__file__))
-		if language != 'Windows':
-			path = os.path.join(path, 'locale', category, language)
-		else:
-			path = os.path.join(path, 'locale', category, 'default')
+		path = os.path.join(path, 'locale', category, language)
+		if not os.path.exists(path):
+			add_language(language)
+
 		frp = os.path.join(path, 'unicode.dic')
 		frp_user = os.path.join(path, 'unicode_user.dic')
+
 		if not os.path.exists(frp_user):
-			with io.open(frp, 'r', encoding='utf-8') as fr, io.open(frp_user, 'w', encoding='utf-8') as fr_user:
-				fr_user.write(fr.read())
+			with io.open(frp, 'r', encoding='utf-8') as src, io.open(frp_user, 'w', encoding='utf-8') as dst:
+				dst.write(src.read())
+
 		path = frp_user
 
 	symbol = {}
@@ -1445,15 +1461,17 @@ def load_math_rule(path=None, language='', category='speech'):
 
 	if not path and language:
 		path = os.path.dirname(os.path.abspath(__file__))
-		if language != 'Windows':
-			path = os.path.join(path, 'locale', category, language)
-		else:
-			path = os.path.join(path, 'locale', category, 'default')
+		path = os.path.join(path, 'locale', category, language)
+		if not os.path.exists(path):
+			add_language(language)
+
 		frp = os.path.join(path, 'math.rule')
 		frp_user = os.path.join(path, 'math_user.rule')
+
 		if not os.path.exists(frp_user):
-			with io.open(frp, 'r', encoding='utf-8') as fr, io.open(frp_user, 'w', encoding='utf-8') as fr_user:
-				fr_user.write(fr.read())
+			with io.open(frp, 'r', encoding='utf-8') as src, io.open(frp_user, 'w', encoding='utf-8') as dst:
+				dst.write(src.read())
+
 		path = frp_user
 
 	mathrule = collections.OrderedDict({})
@@ -1547,6 +1565,15 @@ def save_math_rule(mathrule, path=None, language='', category='speech'):
 
 
 def initialize(Access8MathConfig):
+	if Access8MathConfig:
+		base_path = os.path.dirname(os.path.abspath(__file__))
+		try:
+			available_languages = [i[0] for i in getAvailableLanguages(base_path)]
+		except BaseException:
+			available_languages = []
+		if Access8MathConfig["settings"]["language"] not in available_languages:
+			add_language(Access8MathConfig["settings"]["language"])
+
 	global nodetypes_check
 	nodetypes_check = []
 	if Access8MathConfig:

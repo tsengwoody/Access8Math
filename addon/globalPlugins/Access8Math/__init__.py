@@ -161,6 +161,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self, *args, **kwargs):
 		if config.conf["Access8Math"]["settings"]["language"] == "Windows":
 			config.conf["Access8Math"]["settings"]["language"] = getWindowsLanguage()
+
 		from command.latex import initialize
 		initialize()
 		super().__init__(*args, **kwargs)
