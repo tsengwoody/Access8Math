@@ -157,6 +157,13 @@ editor_content = ''
 editor_dialog = None
 
 
+def disableInSecureMode(decoratedCls):
+	if globalVars.appArgs.secure:
+		return globalPluginHandler.GlobalPlugin
+	return decoratedCls
+
+
+@disableInSecureMode
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self, *args, **kwargs):
 		if config.conf["Access8Math"]["settings"]["language"] == "Windows":
