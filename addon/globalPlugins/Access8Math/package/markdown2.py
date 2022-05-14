@@ -40,6 +40,7 @@ text-to-HTML conversion tool for web writers.
 Supported extra syntax options (see -x|--extras option below and
 see <https://github.com/trentm/python-markdown2/wiki/Extras> for details):
 
+* admonitions: Enable parsing of RST admonitions.
 * break-on-newline: Replace single new line characters with <br> when True
 * code-friendly: Disable _ and __ for em and strong.
 * cuddled-lists: Allow lists to be cuddled to the preceding paragraph.
@@ -97,7 +98,7 @@ see <https://github.com/trentm/python-markdown2/wiki/Extras> for details):
 #   not yet sure if there implications with this. Compare 'pydoc sre'
 #   and 'perldoc perlre'.
 
-__version_info__ = (2, 4, 2)
+__version_info__ = (2, 4, 3)
 __version__ = '.'.join(map(str, __version_info__))
 __author__ = "Trent Mick"
 
@@ -248,6 +249,12 @@ class Markdown(object):
                 self._toc_depth = self.extras["toc"].get("depth", 6)
         self._instance_extras = self.extras.copy()
 
+        if 'link-patterns' in self.extras:
+            if link_patterns is None:
+                # if you have specified that the link-patterns extra SHOULD
+                # be used (via self.extras) but you haven't provided anything
+                # via the link_patterns argument then an error is raised
+                raise MarkdownError("If the 'link-patterns' extra is used, an argument for 'link_patterns' is required")
         self.link_patterns = link_patterns
         self.footnote_title = footnote_title
         self.footnote_return_symbol = footnote_return_symbol
@@ -256,6 +263,7 @@ class Markdown(object):
         self.cli = cli
 
         self._escape_table = g_escape_table.copy()
+        self._code_table = {}
         if "smarty-pants" in self.extras:
             self._escape_table['"'] = _hash_text('"')
             self._escape_table["'"] = _hash_text("'")
@@ -361,6 +369,9 @@ class Markdown(object):
         if "fenced-code-blocks" in self.extras and self.safe_mode:
             text = self._do_fenced_code_blocks(text)
 
+        if 'admonitions' in self.extras:
+            text = self._do_admonitions(text)
+
         # Because numbering references aren't links (yet?) then we can do everything associated with counters
         # before we get started
         if "numbering" in self.extras:
@@ -443,14 +454,20 @@ class Markdown(object):
     #   another-var: blah blah
     #
     #   # header
-    _meta_data_pattern = re.compile(r'^(?:---[\ \t]*\n)?((?:[\S\w]+\s*:(?:\n+[ \t]+.*)+)|(?:.*:\s+>\n\s+[\S\s]+?)(?=\n\w+\s*:\s*\w+\n|\Z)|(?:\s*[\S\w]+\s*:(?! >)[ \t]*.*\n?))(?:---[\ \t]*\n)?', re.MULTILINE)
-    _key_val_pat = re.compile(r"[\S\w]+\s*:(?! >)[ \t]*.*\n?", re.MULTILINE)
-    # this allows key: >
-    #                   value
-    #                   conutiues over multiple lines
-    _key_val_block_pat = re.compile(
-        r"(.*:\s+>\n\s+[\S\s]+?)(?=\n\w+\s*:\s*\w+\n|\Z)", re.MULTILINE
+    _meta_data_pattern = re.compile(r'''
+        ^(?:---[\ \t]*\n)?(  # optional opening fence
+            (?:
+                [\S \t]*\w[\S \t]*\s*:(?:\n+[ \t]+.*)+  # indented lists
+            )|(?:
+                (?:[\S \t]*\w[\S \t]*\s*:\s+>(?:\n\s+.*)+?)  # multiline long descriptions
+                (?=\n[\S \t]*\w[\S \t]*\s*:\s*.*\n|\s*\Z)  # match up until the start of the next key:value definition or the end of the input text
+            )|(?:
+                [\S \t]*\w[\S \t]*\s*:(?! >).*\n?  # simple key:value pair, leading spaces allowed
+            )
+        )(?:---[\ \t]*\n)?  # optional closing fence
+        ''', re.MULTILINE | re.VERBOSE
     )
+
     _key_val_list_pat = re.compile(
         r"^-(?:[ \t]*([^\n]*)(?:[ \t]*[:-][ \t]*(\S+))?)(?:\n((?:[ \t]+[^\n]+\n?)+))?",
         re.MULTILINE,
@@ -516,7 +533,7 @@ class Markdown(object):
 
             # Multiline value
             if v[:3] == " >\n":
-                self.metadata[k.strip()] = v[3:].strip()
+                self.metadata[k.strip()] = _dedent(v[3:]).strip()
 
             # Empty value
             elif v == "\n":
@@ -986,11 +1003,14 @@ class Markdown(object):
             re.X | re.M)
         return footnote_def_re.sub(self._extract_footnote_def_sub, text)
 
-    _hr_re = re.compile(r'^[ ]{0,3}([-_*][ ]{0,2}){3,}$', re.M)
+    _hr_re = re.compile(r'^[ ]{0,3}([-_*])[ ]{0,2}(\1[ ]{0,2}){2,}$', re.M)
 
     def _run_block_gamut(self, text):
         # These are all the transformations that form block-level
         # tags like paragraphs, headers, and list items.
+
+        if 'admonitions' in self.extras:
+            text = self._do_admonitions(text)
 
         if "fenced-code-blocks" in self.extras:
             text = self._do_fenced_code_blocks(text)
@@ -1049,8 +1069,8 @@ class Markdown(object):
 
         less_than_tab = self.tab_width - 1
         _pyshell_block_re = re.compile(r"""
-            ^([ ]{0,%d})>>>[ ].*\n   # first line
-            ^(\1.*\S+.*\n)*         # any number of subsequent lines
+            ^([ ]{0,%d})>>>[ ].*\n  # first line
+            ^(\1[^\S\n]*\S.*\n)*    # any number of subsequent lines with at least one character
             ^\n                     # ends with a blank line
             """ % less_than_tab, re.M | re.X)
 
@@ -1059,7 +1079,7 @@ class Markdown(object):
     def _table_sub(self, match):
         trim_space_re = '^[ \t\n]+|[ \t\n]+$'
         trim_bar_re = r'^\||\|$'
-        split_bar_re = r'^\||(?<!\\)\|'
+        split_bar_re = r'^\||(?<![\`\\])\|'
         escape_bar_re = r'\\\|'
 
         head, underline, body = match.groups()
@@ -1219,7 +1239,7 @@ class Markdown(object):
 
         # Do hard breaks:
         if "break-on-newline" in self.extras:
-            text = re.sub(r" *\n", "<br%s\n" % self.empty_element_suffix, text)
+            text = re.sub(r" *\n(?!\<(?:\/?(ul|ol|li))\>)", "<br%s\n" % self.empty_element_suffix, text)
         else:
             text = re.sub(r" {2,}\n", " <br%s\n" % self.empty_element_suffix, text)
 
@@ -1833,9 +1853,14 @@ class Markdown(object):
                     yield tup
                 yield 0, "</code>"
 
-            def wrap(self, source, outfile):
+            def wrap(self, source, outfile=None):
                 """Return the source with a code, pre, and div."""
-                return self._wrap_div(self._wrap_pre(self._wrap_code(source)))
+                if outfile is None:
+                    # pygments >= 2.12
+                    return self._wrap_pre(self._wrap_code(source))
+                else:
+                    # pygments < 2.12
+                    return self._wrap_div(self._wrap_pre(self._wrap_code(source)))
 
         formatter_opts.setdefault("cssclass", "codehilite")
         formatter = HtmlCodeFormatter(**formatter_opts)
@@ -1844,10 +1869,10 @@ class Markdown(object):
     def _code_block_sub(self, match, is_fenced_code_block=False):
         lexer_name = None
         if is_fenced_code_block:
-            lexer_name = match.group(1)
+            lexer_name = match.group(2)
             if lexer_name:
                 formatter_opts = self.extras['fenced-code-blocks'] or {}
-            codeblock = match.group(2)
+            codeblock = match.group(3)
             codeblock = codeblock[:-1]  # drop one trailing newline
         else:
             codeblock = match.group(1)
@@ -1878,10 +1903,15 @@ class Markdown(object):
                 return codeblock
             lexer = self._get_pygments_lexer(lexer_name)
             if lexer:
+                # remove leading indent from code block
+                leading_indent, codeblock = self._uniform_outdent(codeblock)
+
                 codeblock = unhash_code( codeblock )
                 colored = self._color_with_pygments(codeblock, lexer,
                                                     **formatter_opts)
-                return "\n\n%s\n\n" % colored
+
+                # add back the indent to all lines
+                return "\n%s\n" % self._uniform_indent(colored, leading_indent, True)
 
         codeblock = self._encode_code(codeblock)
         pre_class_str = self._html_class_str_from_tag("pre")
@@ -1891,7 +1921,7 @@ class Markdown(object):
         else:
             code_class_str = self._html_class_str_from_tag("code")
 
-        return "\n\n<pre%s><code%s>%s\n</code></pre>\n\n" % (
+        return "\n<pre%s><code%s>%s\n</code></pre>\n" % (
             pre_class_str, code_class_str, codeblock)
 
     def _html_class_str_from_tag(self, tag):
@@ -1922,16 +1952,16 @@ class Markdown(object):
             ((?=^[ ]{0,%d}\S)|\Z)   # Lookahead for non-space at line-start, or end of doc
             # Lookahead to make sure this block isn't already in a code block.
             # Needed when syntax highlighting is being used.
-            (?![^<]*\</code\>)
+            (?!([^<]|<(/?)span)*\</code\>)
             ''' % (self.tab_width, self.tab_width),
             re.M | re.X)
         return code_block_re.sub(self._code_block_sub, text)
 
     _fenced_code_block_re = re.compile(r'''
-        (?:\n+|\A\n?)
-        ^```\s{0,99}?([\w+-]+)?\s{0,99}?\n  # opening fence, $1 = optional lang
-        (.*?)                             # $2 = code block content
-        ^```[ \t]*\n                      # closing fence
+        (?:\n+|\A\n?|(?<=\n))
+        (^[ \t]*`{3,})\s{0,99}?([\w+-]+)?\s{0,99}?\n  # $1 = opening fence (captured for back-referencing), $2 = optional lang
+        (.*?)                             # $3 = code block content
+        \1[ \t]*\n                      # closing fence
         ''', re.M | re.X | re.S)
 
     def _fenced_code_block_sub(self, match):
@@ -2005,8 +2035,46 @@ class Markdown(object):
         for before, after in replacements:
             text = text.replace(before, after)
         hashed = _hash_text(text)
-        self._escape_table[text] = hashed
+        self._code_table[text] = hashed
         return hashed
+
+    _admonitions = r'admonition|attention|caution|danger|error|hint|important|note|tip|warning'
+    _admonitions_re = re.compile(r'''
+        ^(\ *)\.\.\ (%s)::\ *                # $1 leading indent, $2 the admonition
+        (.*)?                                # $3 admonition title
+        ((?:\s*\n\1\ {3,}.*)+?)              # $4 admonition body (required)
+        (?=\s*(?:\Z|\n{4,}|\n\1?\ {0,2}\S))  # until EOF, 3 blank lines or something less indented
+        ''' % _admonitions,
+        re.IGNORECASE | re.MULTILINE | re.VERBOSE
+    )
+
+    def _do_admonitions_sub(self, match):
+        lead_indent, admonition_name, title, body = match.groups()
+
+        admonition_type = '<strong>%s</strong>' % admonition_name
+
+        # figure out the class names to assign the block
+        if admonition_name.lower() == 'admonition':
+            admonition_class = 'admonition'
+        else:
+            admonition_class = 'admonition %s' % admonition_name.lower()
+
+        # titles are generally optional
+        if title:
+            title = '<em>%s</em>' % title
+
+        # process the admonition body like regular markdown
+        body = self._run_block_gamut("\n%s\n" % self._uniform_outdent(body)[1])
+
+        # indent the body before placing inside the aside block
+        admonition = self._uniform_indent('%s\n%s\n\n%s\n' % (admonition_type, title, body), self.tab, False)
+        # wrap it in an aside
+        admonition = '<aside class="%s">\n%s</aside>' % (admonition_class, admonition)
+        # now indent the whole admonition back to where it started
+        return self._uniform_indent(admonition, lead_indent, False)
+
+    def _do_admonitions(self, text):
+        return self._admonitions_re.sub(self._do_admonitions_sub, text)
 
     _strike_re = re.compile(r"~~(?=\S)(.+?)(?<=\S)~~", re.S)
     def _do_strike(self, text):
@@ -2335,13 +2403,33 @@ class Markdown(object):
 
     def _unescape_special_chars(self, text):
         # Swap back in all the special characters we've hidden.
-        for ch, hash in list(self._escape_table.items()):
+        for ch, hash in list(self._escape_table.items()) + list(self._code_table.items()):
             text = text.replace(hash, ch)
         return text
 
     def _outdent(self, text):
         # Remove one level of line-leading tabs or spaces
         return self._outdent_re.sub('', text)
+
+    def _uniform_outdent(self, text):
+        # Removes the smallest common leading indentation from each line
+        # of `text` and returns said indent along with the outdented text.
+
+        # Find leading indentation of each line
+        ws = re.findall(r'(^[ \t]*)(?:[^ \t\n])', text, re.MULTILINE)
+        # Get smallest common leading indent
+        ws = sorted(ws)[0]
+        # Dedent every line by smallest common indent
+        return ws, ''.join(
+            (line.replace(ws, '', 1) if line.startswith(ws) else line)
+            for line in text.splitlines(True)
+        )
+
+    def _uniform_indent(self, text, indent, include_empty_lines=False):
+        return ''.join(
+            (indent + line if line.strip() or include_empty_lines else '')
+            for line in text.splitlines(True)
+        )
 
 
 class MarkdownWithExtras(Markdown):
