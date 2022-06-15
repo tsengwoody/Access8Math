@@ -95,10 +95,12 @@ config.conf.spec["Access8Math"] = {
 }
 
 import A8M_PM
-from dialogs import ReadingSettingsDialog, WritingSettingsDialog, RuleSettingsDialog, NewLanguageAddingDialog, UnicodeDicDialog, MathRuleDialog
-from editor import EditorFrame
-from interaction import A8MProvider, A8MInteraction
-from writer import TextMathEditField
+from .dialogs import NewLanguageAddingDialog, UnicodeDicDialog, MathRuleDialog, MathReaderSettingsPanel, Access8MathSettingsDialog
+from .editor import EditorFrame
+from .interaction import A8MProvider, A8MInteraction
+from .lib.storage import explorer
+from .writer import TextMathEditField
+import updater
 
 for i in range(insert_path_count):
 	del sys.path[0]
@@ -127,14 +129,29 @@ else:
 	ROLE_WINDOW = controlTypes.ROLE_WINDOW
 	ROLE_EDITABLETEXT = controlTypes.ROLE_EDITABLETEXT
 
+available_readers = []
+available_readers.append("Access8Math")
+
+mathCAT = None
+try:
+	from globalPlugins.MathCAT import MathCAT
+	mathCAT = MathCAT()
+	available_readers.append("MathCAT")
+except BaseException:
+	log.warning("MathCAT not available")
+	for item in ["speech_source", "braille_source", "interact_source"]:
+		if config.conf["Access8Math"]["settings"][item] == "MathCAT" and not mathCAT:
+			config.conf["Access8Math"]["settings"][item] = "Access8Math"
+
 mathPlayer = None
 try:
 	mathPlayer = MathPlayer()
+	available_readers.append("MathPlayer")
 except BaseException:
-	config.conf["Access8Math"]["settings"]["speech_source"] = "Access8Math"
-	config.conf["Access8Math"]["settings"]["braille_source"] = "Access8Math"
-	config.conf["Access8Math"]["settings"]["interact_source"] = "Access8Math"
 	log.warning("MathPlayer 4 not available")
+	for item in ["speech_source", "braille_source", "interact_source"]:
+		if config.conf["Access8Math"]["settings"][item] == "MathPlayer" and not mathPlayer:
+			config.conf["Access8Math"]["settings"][item] = "Access8Math"
 
 reader = A8MProvider()
 mathPres.registerProvider(reader, speech=True, braille=True, interaction=True)
@@ -153,7 +170,6 @@ class AppWindowRoot(IAccessible):
 		wx.CallLater(100, run)
 
 
-editor_content = ''
 editor_dialog = None
 
 
@@ -169,22 +185,51 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if config.conf["Access8Math"]["settings"]["language"] == "Windows":
 			config.conf["Access8Math"]["settings"]["language"] = getWindowsLanguage()
 
-		from command.latex import initialize
-		initialize()
+		from lib.latex import latexData
+		latexData.initialize()
 		super().__init__(*args, **kwargs)
 
 		A8M_PM.initialize(config.conf["Access8Math"])
 
 		self.language = config.conf["Access8Math"]["settings"]["language"]
 		self.create_menu()
+		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(MathReaderSettingsPanel)
+		self.initialize_updater()
 
 	def terminate(self):
-		from command.latex import terminate
-		terminate()
+		from lib.latex import latexData
+		latexData.terminate()
 		try:
 			self.toolsMenu.Remove(self.Access8Math_item)
 		except (AttributeError, RuntimeError):
 			pass
+		self.terminate_updater()
+
+	def initialize_updater(self):
+		# #4: warn and quit if this is a source code of NVDA.
+		if not updater.canUpdate:
+			log.info("nvda3208: update check not supported in source code version of NVDA")
+			return
+		updater.addonUtils.loadState()
+		config.post_configSave.register(updater.addonUtils.save)
+		config.post_configReset.register(updater.addonUtils.reload)
+
+		if updater.addonUtils.updateState["autoUpdate"]:
+			# But not when NVDA itself is updating.
+			if not (globalVars.appArgs.install and globalVars.appArgs.minimal):
+				wx.CallAfter(updater.autoUpdateCheck)
+
+	def terminate_updater(self):
+		# #4: no, do not go through all this if this is a source code copy of NVDA.
+		if not updater.canUpdate:
+			return
+		config.post_configSave.unregister(updater.addonUtils.save)
+		config.post_configReset.unregister(updater.addonUtils.reload)
+
+		if updater.updateChecker and updater.updateChecker.IsRunning():
+			updater.updateChecker.Stop()
+		updater.updateChecker = None
+		updater.addonUtils.saveState()
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		if obj.windowClassName == "wxWindowNR" and obj.role == ROLE_WINDOW and obj.name == _("Access8Math interaction window"):
@@ -194,6 +239,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def create_menu(self):
 		self.toolsMenu = gui.mainFrame.sysTrayIcon.toolsMenu
+
 		self.menu = wx.Menu()
 
 		self.editor = self.menu.Append(
@@ -202,30 +248,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onEditor, self.editor)
 
-		settingsMenu = wx.Menu()
-
-		self.readingSettings = settingsMenu.Append(
+		self.settings = self.menu.Append(
 			wx.ID_ANY,
-			_("&Reading settings...")
+			_("&Settings...")
 		)
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onReadingSettings, self.readingSettings)
-
-		self.writingSettings = settingsMenu.Append(
-			wx.ID_ANY,
-			_("&Writing settings...")
-		)
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onWritingSettings, self.writingSettings)
-
-		self.ruleSettings = settingsMenu.Append(
-			wx.ID_ANY,
-			_("Ru&le settings...")
-		)
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onRuleSettings, self.ruleSettings)
-
-		self.menu.AppendSubMenu(
-			settingsMenu,
-			_("&Settings"),
-		)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onSettings, self.settings)
 
 		l10nMenu = wx.Menu()
 
@@ -264,6 +291,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			_("&Localization"),
 		)
 
+		if updater.canUpdate:
+			self.checkUpdate = self.menu.Append(
+				wx.ID_ANY,
+				_("Check for &update...")
+			)
+			gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, updater.addonGuiEx.onAddonUpdateCheck, self.checkUpdate)
+
 		self.cleanWorkspace = self.menu.Append(
 			wx.ID_ANY,
 			_("&Clean Workspace...")
@@ -279,43 +313,47 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.Access8Math_item = self.toolsMenu.AppendSubMenu(self.menu, _("Access8Math"), _("Access8Math"))
 
 	@script(
-		description=_("Speech source switch"),
+		description=_("Switch math speech reader"),
 		category=ADDON_SUMMARY,
 	)
 	def script_speech_source_switch(self, gesture):
-		if config.conf["Access8Math"]["settings"]["speech_source"] == "Access8Math" and mathPlayer:
-			config.conf["Access8Math"]["settings"]["speech_source"] = "MathPlayer"
-		elif config.conf["Access8Math"]["settings"]["speech_source"] == "MathPlayer":
-			config.conf["Access8Math"]["settings"]["speech_source"] = "Access8Math"
-		else:
-			config.conf["Access8Math"]["settings"]["speech_source"] = "Access8Math"
-		ui.message(_("MathML speech source switch to %s") % config.conf["Access8Math"]["settings"]["speech_source"])
+		key = "speech_source"
+		print(available_readers)
+		try:
+			index = available_readers.index(str(config.conf["Access8Math"]["settings"][key]))
+		except BaseException:
+			index = 0
+		index = (index + 1) % len(available_readers)
+		config.conf["Access8Math"]["settings"][key] = available_readers[index]
+		ui.message(_("Math speech reader switch to %s") % config.conf["Access8Math"]["settings"][key])
 
 	@script(
-		description=_("Braille source switch"),
+		description=_("Switch math Braille reader"),
 		category=ADDON_SUMMARY,
 	)
 	def script_braille_source_switch(self, gesture):
-		if config.conf["Access8Math"]["settings"]["braille_source"] == "Access8Math" and mathPlayer:
-			config.conf["Access8Math"]["settings"]["braille_source"] = "MathPlayer"
-		elif config.conf["Access8Math"]["settings"]["braille_source"] == "MathPlayer":
-			config.conf["Access8Math"]["settings"]["braille_source"] = "Access8Math"
-		else:
-			config.conf["Access8Math"]["settings"]["braille_source"] = "Access8Math"
-		ui.message(_("MathML braille source switch to %s") % config.conf["Access8Math"]["settings"]["braille_source"])
+		key = "braille_source"
+		try:
+			index = available_readers.index(str(config.conf["Access8Math"]["settings"][key]))
+		except BaseException:
+			index = 0
+		index = (index + 1) % len(available_readers)
+		config.conf["Access8Math"]["settings"][key] = available_readers[index]
+		ui.message(_("Math braille reader switch to %s") % config.conf["Access8Math"]["settings"][key])
 
 	@script(
-		description=_("Interact source switch"),
+		description=_("Switch math interact reader"),
 		category=ADDON_SUMMARY,
 	)
 	def script_interact_source_switch(self, gesture):
-		if config.conf["Access8Math"]["settings"]["interact_source"] == "Access8Math" and mathPlayer:
-			config.conf["Access8Math"]["settings"]["interact_source"] = "MathPlayer"
-		elif config.conf["Access8Math"]["settings"]["interact_source"] == "MathPlayer":
-			config.conf["Access8Math"]["settings"]["interact_source"] = "Access8Math"
-		else:
-			config.conf["Access8Math"]["settings"]["interact_source"] = "Access8Math"
-		ui.message(_("MathML interact source switch to %s") % config.conf["Access8Math"]["settings"]["interact_source"])
+		key = "interact_source"
+		try:
+			index = available_readers.index(str(config.conf["Access8Math"]["settings"][key]))
+		except BaseException:
+			index = 0
+		index = (index + 1) % len(available_readers)
+		config.conf["Access8Math"]["settings"][key] = available_readers[index]
+		ui.message(_("Math interact reader switch to %s") % config.conf["Access8Math"]["settings"][key])
 
 	@script(
 		description=_("Pop up the editor"),
@@ -324,9 +362,22 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	def script_editor_popup(self, gesture):
 		def show():
-			obj = api.getFocusObject()
-			document = obj.makeTextInfo(textInfos.POSITION_ALL)
-			editor_content = document.text
+			try:
+				filename = explorer.get_selected_file()
+			except:
+				filename = None
+			if filename:
+				try:
+					with open(filename, "r", encoding="utf8") as f:
+						editor_content = f.read()
+				except:
+					obj = api.getFocusObject()
+					document = obj.makeTextInfo(textInfos.POSITION_ALL)
+					editor_content = document.text
+			else:
+				obj = api.getFocusObject()
+				document = obj.makeTextInfo(textInfos.POSITION_ALL)
+				editor_content = document.text
 			self.editor_popup(editor_content)
 		wx.CallAfter(show)
 
@@ -346,14 +397,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			dialog.ShowModal()
 			editor_dialog = None"""
 
-	def onReadingSettings(self, evt):
-		gui.mainFrame._popupSettingsDialog(ReadingSettingsDialog, config.conf["Access8Math"])
-
-	def onWritingSettings(self, evt):
-		gui.mainFrame._popupSettingsDialog(WritingSettingsDialog, config.conf["Access8Math"])
-
-	def onRuleSettings(self, evt):
-		gui.mainFrame._popupSettingsDialog(RuleSettingsDialog, config.conf["Access8Math"])
+	def onSettings(self, evt):
+		wx.CallAfter(gui.mainFrame._popupSettingsDialog, Access8MathSettingsDialog)
 
 	def onNewLanguageAdding(self, evt):
 		NewLanguageAddingDialog(gui.mainFrame).Show()

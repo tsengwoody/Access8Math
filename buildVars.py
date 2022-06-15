@@ -25,7 +25,7 @@ addon_info = {
 	# Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 	"addon_description" : _("""Allows access math content written by MathML ; Allows write math content by LaTeX"""),
 	# version
-	"addon_version": "3.3",
+	"addon_version": "dev.20220615",
 	# Author(s)
 	"addon_author": "Tseng Woody <tsengwoody.tw@gmail.com>",
 	# URL for the add-on documentation support
@@ -39,7 +39,7 @@ addon_info = {
 	# Add-on update channel (default is None, denoting stable releases,
 	# and for development releases, use "dev".)
 	# Do not change unless you know what you are doing!
-	"addon_updateChannel": None,
+	"addon_updateChannel": "dev",
 }
 
 # Define the python files that are the sources of your add-on.
@@ -53,6 +53,7 @@ addon_info = {
 pythonSources = [
 	'addon/globalPlugins/Access8Math/*.py',
 	'addon/globalPlugins/Access8Math/command/*.py',
+	'addon/globalPlugins/Access8Math/updater/*.py',
 ]
 
 # Files that contain strings for translation. Usually your python sources

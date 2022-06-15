@@ -5,7 +5,7 @@ from keyboardHandler import KeyboardInputGesture
 from scriptHandler import script
 import wx
 
-from delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter, delimiter as delimiter_setting
+from delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter
 delimiter_dict = {**AsciiMath_delimiter, **LaTeX_delimiter}
 
 from lib.mathProcess import latex2asciimath, asciimath2latex
@@ -18,7 +18,10 @@ addonHandler.initTranslation()
 
 
 def translate(section, type_):
-	delimiter = delimiter_dict[delimiter_setting[type_]]
+	if type_ == "latex":
+		delimiter = delimiter_dict[config.conf["Access8Math"]["settings"]["LaTeX_delimiter"]]
+	if type_ == "asciimath":
+		delimiter = delimiter_dict["graveaccent"]
 	delimiter_start = delimiter["start"]
 	delimiter_end = delimiter["end"]
 

@@ -9,9 +9,8 @@ import api
 import config
 import core
 import gui
-from gui import nvdaControls
-from gui import guiHelper
-from gui.settingsDialogs import SettingsDialog
+from gui import guiHelper, nvdaControls
+from gui.settingsDialogs import MultiCategorySettingsDialog, SettingsDialog, SettingsPanel
 from logHandler import log
 from mathPres.mathPlayer import MathPlayer
 import queueHandler
@@ -19,9 +18,9 @@ import tones
 
 import A8M_PM
 from A8M_PM import MathContent
-from languageHandler_custom import getAvailableLanguages
 from contextHelp import ContextHelpMixin
-
+from languageHandler_custom import getAvailableLanguages
+import updater
 
 addonHandler.initTranslation()
 
@@ -32,16 +31,69 @@ try:
 except BaseException:
 	log.warning("MathPlayer 4 not available")
 
+mathCAT = None
+try:
+	from globalPlugins.MathCAT import MathCAT
+	mathCAT = MathCAT()
+except BaseException:
+	log.warning("MathCAT not available")
 
-class ReadingSettingsDialog(SettingsDialog):
+
+class A8MSettingsPanel(SettingsPanel):
 	# Translators: Title of a setting dialog.
-	title = _("Reading Settings")
+	title = _("Access8Math")
+	settings = OrderedDict({})
+	field = "Access8Math"
+
+	def makeSettings(self, settingsSizer):
+		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+		for k, v in self.settings.items():
+			if "options" in v:
+				attr = k + "Selection"
+				options = v["options"]
+				if mathCAT and "Access8Math" in v["options"]:
+					# Translators: A choice of a combobox in the writing settings dialog (not used)
+					v["options"]["MathCAT"] = _("MathCAT")
+				if mathPlayer and "Access8Math" in v["options"]:
+					# Translators: A choice of a combobox in the writing settings dialog (not used)
+					v["options"]["MathPlayer"] = _("Math Player")
+				widget = sHelper.addLabeledControl(v["label"], wx.Choice, choices=list(options.values()))
+				setattr(self, attr, widget)
+				try:
+					index = list(v["options"].keys()).index(str(config.conf["Access8Math"][self.field][k]))
+				except BaseException:
+					index = 0
+					tones.beep(100, 100)
+				widget.Selection = index
+			else:
+				setattr(self, k + "CheckBox", sHelper.addItem(wx.CheckBox(self, label=v["label"])))
+				value = config.conf["Access8Math"][self.field][k]
+				getattr(self, k + "CheckBox").SetValue(value)
+
+	def onSave(self):
+		try:
+			for k, v in self.settings.items():
+				if "options" in v:
+					attr = k + "Selection"
+					widget = getattr(self, attr)
+					config.conf["Access8Math"][self.field][k] = list(v["options"].keys())[widget.GetSelection()]
+				else:
+					config.conf["Access8Math"][self.field][k] = getattr(self, k + "CheckBox").IsChecked()
+		except BaseException:
+			for k, v in self.settings.items():
+				if "options" in v:
+					config.conf["Access8Math"][self.field][k] = list(v["options"].keys())[0]
+				else:
+					config.conf["Access8Math"][self.field][k] = True
+			tones.beep(100, 100)
+
+		A8M_PM.initialize(config.conf["Access8Math"])
+
+
+class MathReaderSettingsPanel(A8MSettingsPanel):
+	# Translators: Title of a setting dialog.
+	title = _("Math Reader")
 	settings = OrderedDict({
-		# Translators: The label of an option in the reading settings dialog
-		"language": {
-			"label": _("&Language:"),
-			"options": {}
-		},
 		"speech_source": {
 			# Translators: The label of an option in the reading settings dialog
 			"label": _("&Speech source:"),
@@ -66,6 +118,19 @@ class ReadingSettingsDialog(SettingsDialog):
 				"Access8Math": _("Access8Math"),
 			}
 		},
+	})
+	field = "settings"
+
+
+class ReadingSettingsPanel(A8MSettingsPanel):
+	# Translators: Title of a setting dialog.
+	title = _("Reading")
+	settings = OrderedDict({
+		# Translators: The label of an option in the reading settings dialog
+		"language": {
+			"label": _("&Language:"),
+			"options": {}
+		},
 		"analyze_math_meaning": {
 			# Translators: The label of an option in the reading settings dialog
 			"label": _("Analyze mathematical meaning of content")
@@ -87,10 +152,7 @@ class ReadingSettingsDialog(SettingsDialog):
 			"label": _("Use tone indicate to no move in interaction navigation mode")
 		},
 	})
-
-	def __init__(self, parent, Access8MathConfig):
-		self.Access8MathConfig = Access8MathConfig
-		super().__init__(parent)
+	field = "settings"
 
 	def makeSettings(self, settingsSizer):
 		try:
@@ -105,20 +167,23 @@ class ReadingSettingsDialog(SettingsDialog):
 			if "options" in v:
 				attr = k + "Selection"
 				options = v["options"]
+				if mathCAT and "Access8Math" in v["options"]:
+					# Translators: A choice of a combobox in the writing settings dialog (not used)
+					v["options"]["MathCAT"] = _("MathCAT")
 				if mathPlayer and "Access8Math" in v["options"]:
-					# Translators: A choice in a combobox of the reading settings dialog
+					# Translators: A choice of a combobox in the writing settings dialog (not used)
 					v["options"]["MathPlayer"] = _("Math Player")
 				widget = sHelper.addLabeledControl(v["label"], wx.Choice, choices=list(options.values()))
 				setattr(self, attr, widget)
 				try:
-					index = list(v["options"].keys()).index(str(self.Access8MathConfig["settings"][k]))
+					index = list(v["options"].keys()).index(str(config.conf["Access8Math"][self.field][k]))
 				except BaseException:
 					index = 0
 					tones.beep(100, 100)
 				widget.Selection = index
 			else:
 				setattr(self, k + "CheckBox", sHelper.addItem(wx.CheckBox(self, label=v["label"])))
-				value = self.Access8MathConfig["settings"][k]
+				value = config.conf["Access8Math"][self.field][k]
 				getattr(self, k + "CheckBox").SetValue(value)
 
 		# Translators: The label of an option in the reading settings dialog
@@ -126,7 +191,318 @@ class ReadingSettingsDialog(SettingsDialog):
 		self.item_interval_timeChoices = [str(i) for i in range(1, 101)]
 		self.item_interval_timeList = sHelper.addLabeledControl(item_interval_timeLabel, wx.Choice, choices=self.item_interval_timeChoices)
 		try:
-			index = self.item_interval_timeChoices.index(str(self.Access8MathConfig["settings"]["item_interval_time"]))
+			index = self.item_interval_timeChoices.index(str(config.conf["Access8Math"][self.field]["item_interval_time"]))
+		except BaseException:
+			index = 0
+			tones.beep(100, 100)
+		self.item_interval_timeList.Selection = index
+
+	def onSave(self):
+		try:
+			config.conf["Access8Math"][self.field]["item_interval_time"] = self.item_interval_timeChoices[self.item_interval_timeList.GetSelection()]
+		except BaseException:
+			config.conf["Access8Math"][self.field]["item_interval_time"] = 50
+
+		try:
+			for k, v in self.settings.items():
+				if "options" in v:
+					attr = k + "Selection"
+					widget = getattr(self, attr)
+					config.conf["Access8Math"][self.field][k] = list(v["options"].keys())[widget.GetSelection()]
+				else:
+					config.conf["Access8Math"][self.field][k] = getattr(self, k + "CheckBox").IsChecked()
+		except BaseException:
+			for k, v in self.settings.items():
+				if "options" in v:
+					config.conf["Access8Math"][self.field][k] = list(v["options"].keys())[0]
+				else:
+					config.conf["Access8Math"][self.field][k] = True
+			tones.beep(100, 100)
+
+		A8M_PM.initialize(config.conf["Access8Math"])
+
+
+class WritingSettingsPanel(A8MSettingsPanel):
+	# Translators: Title of a setting dialog.
+	title = _("Writing")
+	settings = OrderedDict({
+		"command_mode": {
+			# Translators: The label of an option in the writing settings dialog
+			"label": _("Activate command gesture at startup")
+		},
+		"navigate_mode": {
+			# Translators: The label of an option in the writing settings dialog
+			"label": _("Activate block navigate gesture at startup")
+		},
+		"shortcut_mode": {
+			# Translators: The label of an option in the writing settings dialog
+			"label": _("Activate shortcut gesture at startup")
+		},
+		"writeNavAudioIndication": {
+			# Translators: The label of an option in the writing settings dialog
+			"label": _("Use audio indicate to switching of browse navigation mode")
+		},
+		"writeNavAcrossLine": {
+			# Translators: The label of an option in the writing settings dialog
+			"label": _("Left/Right arrow key allow of moving across line in browse navigation mode")
+		},
+	})
+	field = "settings"
+
+
+class DocumentSettingsPanel(A8MSettingsPanel):
+	# Translators: Title of a setting dialog.
+	title = _("Document")
+	settings = OrderedDict({
+		"LaTeX_delimiter": {
+			# Translators: The label of an option in the writing settings dialog
+			"label": _("&LaTeX delimiter:"),
+			"options": {
+				# Translators: A choice of a combobox in the writing settings dialog
+				"bracket": _("bracket"),
+				# Translators: A choice of a combobox in the writing settings dialog
+				"dollar": _("dollar"),
+			}
+		},
+		"HTML_document_display": {
+			# Translators: The label of an option in the writing settings dialog
+			"label": _("HTML &document display:"),
+			"options": {
+				# Translators: A choice of a combobox in the writing settings dialog
+				"markdown": _("Markdown"),
+				# Translators: A choice of a combobox in the writing settings dialog
+				"text": _("text"),
+			}
+		},
+		"HTML_math_display": {
+			# Translators: The label of an option in the writing settings dialog
+			"label": _("HTML &math display:"),
+			"options": {
+				# Translators: A choice of a combobox in the writing settings dialog
+				"block": _("block"),
+				# Translators: A choice of a combobox in the writing settings dialog
+				"inline": _("inline"),
+			}
+		},
+		"color": {
+			# Translators: The label of an option in the writing settings dialog
+			"label": _("HTML font color:"),
+			"options": {
+				# Translators: A choice of a combobox in the writing settings dialog
+				"#ffffff": _("white"),
+				# Translators: A choice of a combobox in the writing settings dialog
+				"#000000": _("black"),
+			}
+		},
+		"bg_color": {
+			# Translators: The label of an option in the writing settings dialog
+			"label": _("HTML background color:"),
+			"options": {
+				# Translators: A choice of a combobox in the writing settings dialog
+				"#ffffff": _("white"),
+				# Translators: A choice of a combobox in the writing settings dialog
+				"#000000": _("black"),
+			}
+		},
+	})
+	field = "settings"
+
+
+class RuleSettingsPanel(A8MSettingsPanel):
+	# Translators: Title of a setting dialog.
+	title = _("Rule")
+	settings = OrderedDict({
+		"SingleMsubsupType": {
+			# Translators: The label of an option in the Rule settings dialog
+			"label": _("Simplified subscript and superscript")
+		},
+		"SingleMsubType": {
+			# Translators: The label of an option in the Rule settings dialog
+			"label": _("Simplified subscript")
+		},
+		"SingleMsupType": {
+			# Translators: The label of an option in the Rule settings dialog
+			"label": _("Simplified superscript")
+		},
+		"SingleMunderoverType": {
+			# Translators: The label of an option in the Rule settings dialog
+			"label": _("Simplified underscript and overscript")
+		},
+		"SingleMunderType": {
+			# Translators: The label of an option in the Rule settings dialog
+			"label": _("Simplified underscript")
+		},
+		"SingleMoverType": {
+			# Translators: The label of an option in the Rule settings dialog
+			"label": _("Simplified overscript")
+		},
+		"SingleFractionType": {
+			# Translators: The label of an option in the Rule settings dialog
+			"label": _("Simplified fraction")
+		},
+		"SingleSqrtType": {
+			# Translators: The label of an option in the Rule settings dialog
+			"label": _("Simplified square root")
+		},
+		"PowerType": {
+			# Translators: The label of an option in the Rule settings dialog
+			"label": _("Power")
+		},
+		"SquarePowerType": {
+			# Translators: The label of an option in the Rule settings dialog
+			"label": _("Square power")
+		},
+		"CubePowerType": {
+			# Translators: The label of an option in the Rule settings dialog
+			"label": _("Cube power")
+		},
+		"SetType": {
+			# Translators: The label of an option in the Rule settings dialog
+			"label": _("Set")
+		},
+		"AbsoluteType": {
+			# Translators: The label of an option in the Rule settings dialog
+			"label": _("Absolute value")
+		},
+		"MatrixType": {
+			# Translators: The label of an option in the Rule settings dialog
+			"label": _("Matrix")
+		},
+		"DeterminantType": {
+			# Translators: The label of an option in the Rule settings dialog
+			"label": _("Determinant")
+		},
+		"AddIntegerFractionType": {
+			# Translators: The label of an option in the Rule settings dialog
+			"label": _("Integer and fraction")
+		},
+	})
+	field = "rules"
+
+
+class A8MSettingsDialog(SettingsDialog):
+	# Translators: Title of a setting dialog.
+	title = _("Access8Math Settings")
+	settings = OrderedDict({})
+	field = "Access8Math"
+
+	def makeSettings(self, settingsSizer):
+		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+		for k, v in self.settings.items():
+			if "options" in v:
+				attr = k + "Selection"
+				options = v["options"]
+				if mathCAT and "Access8Math" in v["options"]:
+					# Translators: A choice of a combobox in the writing settings dialog (not used)
+					v["options"]["MathCAT"] = _("MathCAT")
+				if mathPlayer and "Access8Math" in v["options"]:
+					# Translators: A choice of a combobox in the writing settings dialog (not used)
+					v["options"]["MathPlayer"] = _("Math Player")
+				widget = sHelper.addLabeledControl(v["label"], wx.Choice, choices=list(options.values()))
+				setattr(self, attr, widget)
+				try:
+					index = list(v["options"].keys()).index(str(config.conf["Access8Math"][self.field][k]))
+				except BaseException:
+					index = 0
+					tones.beep(100, 100)
+				widget.Selection = index
+			else:
+				setattr(self, k + "CheckBox", sHelper.addItem(wx.CheckBox(self, label=v["label"])))
+				value = config.conf["Access8Math"][self.field][k]
+				getattr(self, k + "CheckBox").SetValue(value)
+
+	def onOk(self, evt):
+		try:
+			for k, v in self.settings.items():
+				if "options" in v:
+					attr = k + "Selection"
+					widget = getattr(self, attr)
+					config.conf["Access8Math"][self.field][k] = list(v["options"].keys())[widget.GetSelection()]
+				else:
+					config.conf["Access8Math"][self.field][k] = getattr(self, k + "CheckBox").IsChecked()
+		except BaseException:
+			for k, v in self.settings.items():
+				if "options" in v:
+					config.conf["Access8Math"][self.field][k] = list(v["options"].keys())[0]
+				else:
+					config.conf["Access8Math"][self.field][k] = True
+			tones.beep(100, 100)
+
+		A8M_PM.initialize(config.conf["Access8Math"])
+
+		return super().onOk(evt)
+
+
+class ReadingSettingsDialog(SettingsDialog):
+	# Translators: Title of a setting dialog.
+	title = _("Reading Settings")
+	settings = OrderedDict({
+		# Translators: The label of an option in the reading settings dialog
+		"language": {
+			"label": _("&Language:"),
+			"options": {}
+		},
+		"analyze_math_meaning": {
+			# Translators: The label of an option in the reading settings dialog
+			"label": _("Analyze mathematical meaning of content")
+		},
+		"interaction_frame_show": {
+			# Translators: The label of an option in the reading settings dialog
+			"label": _("Show interaction window when entering interaction navigation mode")
+		},
+		"dictionary_generate": {
+			# Translators: The label of an option in the reading settings dialog
+			"label": _("Reading pre-defined meaning in dictionary in interaction navigation mode")
+		},
+		"auto_generate": {
+			# Translators: The label of an option in the reading settings dialog
+			"label": _("Reading of auto-generated meaning in interaction navigation mode")
+		},
+		"no_move_beep": {
+			# Translators: The label of an option in the reading settings dialog
+			"label": _("Use tone indicate to no move in interaction navigation mode")
+		},
+	})
+	field = "settings"
+
+	def makeSettings(self, settingsSizer):
+		try:
+			available_languages = getAvailableLanguages(base_path)
+		except BaseException:
+			available_languages = []
+		available_languages_dict = {k: v for k, v in available_languages if k != 'default'}
+		self.settings["language"]["options"] = available_languages_dict
+
+		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+		for k, v in self.settings.items():
+			if "options" in v:
+				attr = k + "Selection"
+				options = v["options"]
+				if mathCAT and "Access8Math" in v["options"]:
+					# Translators: A choice of a combobox in the writing settings dialog (not used)
+					v["options"]["MathCAT"] = _("MathCAT")
+				if mathPlayer and "Access8Math" in v["options"]:
+					# Translators: A choice of a combobox in the writing settings dialog (not used)
+					v["options"]["MathPlayer"] = _("Math Player")
+				widget = sHelper.addLabeledControl(v["label"], wx.Choice, choices=list(options.values()))
+				setattr(self, attr, widget)
+				try:
+					index = list(v["options"].keys()).index(str(config.conf["Access8Math"][self.field][k]))
+				except BaseException:
+					index = 0
+					tones.beep(100, 100)
+				widget.Selection = index
+			else:
+				setattr(self, k + "CheckBox", sHelper.addItem(wx.CheckBox(self, label=v["label"])))
+				value = config.conf["Access8Math"][self.field][k]
+				getattr(self, k + "CheckBox").SetValue(value)
+
+		# Translators: The label of an option in the reading settings dialog
+		item_interval_timeLabel = _("&Item interval time:")
+		self.item_interval_timeChoices = [str(i) for i in range(1, 101)]
+		self.item_interval_timeList = sHelper.addLabeledControl(item_interval_timeLabel, wx.Choice, choices=self.item_interval_timeChoices)
+		try:
+			index = self.item_interval_timeChoices.index(str(config.conf["Access8Math"][self.field]["item_interval_time"]))
 		except BaseException:
 			index = 0
 			tones.beep(100, 100)
@@ -137,32 +513,32 @@ class ReadingSettingsDialog(SettingsDialog):
 
 	def onOk(self, evt):
 		try:
-			self.Access8MathConfig["settings"]["item_interval_time"] = self.item_interval_timeChoices[self.item_interval_timeList.GetSelection()]
+			config.conf["Access8Math"][self.field]["item_interval_time"] = self.item_interval_timeChoices[self.item_interval_timeList.GetSelection()]
 		except BaseException:
-			self.Access8MathConfig["settings"]["item_interval_time"] = 50
+			config.conf["Access8Math"][self.field]["item_interval_time"] = 50
 
 		try:
 			for k, v in self.settings.items():
 				if "options" in v:
 					attr = k + "Selection"
 					widget = getattr(self, attr)
-					self.Access8MathConfig["settings"][k] = list(v["options"].keys())[widget.GetSelection()]
+					config.conf["Access8Math"][self.field][k] = list(v["options"].keys())[widget.GetSelection()]
 				else:
-					self.Access8MathConfig["settings"][k] = getattr(self, k + "CheckBox").IsChecked()
+					config.conf["Access8Math"][self.field][k] = getattr(self, k + "CheckBox").IsChecked()
 		except BaseException:
-			for k, v in self.Selection_settings.items():
+			for k, v in self.settings.items():
 				if "options" in v:
-					self.Access8MathConfig["settings"][k] = list(v["options"].keys())[0]
+					config.conf["Access8Math"][self.field][k] = list(v["options"].keys())[0]
 				else:
-					self.Access8MathConfig["settings"][k] = True
+					config.conf["Access8Math"][self.field][k] = True
 			tones.beep(100, 100)
 
-		A8M_PM.initialize(self.Access8MathConfig)
+		A8M_PM.initialize(config.conf["Access8Math"])
 
 		return super().onOk(evt)
 
 
-class WritingSettingsDialog(SettingsDialog):
+class WritingSettingsDialog(A8MSettingsDialog):
 	# Translators: Title of a setting dialog.
 	title = _("Writing Settings")
 	settings = OrderedDict({
@@ -237,177 +613,26 @@ class WritingSettingsDialog(SettingsDialog):
 			}
 		},
 	})
-
-	def __init__(self, parent, Access8MathConfig):
-		self.Access8MathConfig = Access8MathConfig
-		super().__init__(parent)
-
-	def makeSettings(self, settingsSizer):
-		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
-		for k, v in self.settings.items():
-			if "options" in v:
-				attr = k + "Selection"
-				options = v["options"]
-				if mathPlayer and "Access8Math" in v["options"]:
-					# Translators: A choice of a combobox in the writing settings dialog (not used)
-					v["options"]["MathPlayer"] = _("Math Player")
-				widget = sHelper.addLabeledControl(v["label"], wx.Choice, choices=list(options.values()))
-				setattr(self, attr, widget)
-				try:
-					index = list(v["options"].keys()).index(str(self.Access8MathConfig["settings"][k]))
-				except BaseException:
-					index = 0
-					tones.beep(100, 100)
-				widget.Selection = index
-			else:
-				setattr(self, k + "CheckBox", sHelper.addItem(wx.CheckBox(self, label=v["label"])))
-				value = self.Access8MathConfig["settings"][k]
-				getattr(self, k + "CheckBox").SetValue(value)
-
-	def postInit(self):
-		self.LaTeX_delimiterSelection.SetFocus()
-
-	def onOk(self, evt):
-		try:
-			for k, v in self.settings.items():
-				if "options" in v:
-					attr = k + "Selection"
-					widget = getattr(self, attr)
-					self.Access8MathConfig["settings"][k] = list(v["options"].keys())[widget.GetSelection()]
-				else:
-					self.Access8MathConfig["settings"][k] = getattr(self, k + "CheckBox").IsChecked()
-		except BaseException:
-			for k, v in self.Selection_settings.items():
-				if "options" in v:
-					self.Access8MathConfig["settings"][k] = list(v["options"].keys())[0]
-				else:
-					self.Access8MathConfig["settings"][k] = True
-			tones.beep(100, 100)
-
-		A8M_PM.initialize(self.Access8MathConfig)
-
-		return super().onOk(evt)
+	field = "settings"
 
 
-class RuleSettingsDialog(SettingsDialog):
-	# Translators: Title of a setting dialog.
-	title = _("Rule Settings")
-	settings = OrderedDict({
-		"SingleMsubsupType": {
-			# Translators: The label of an option in the Rule settings dialog
-			"label": _("Simplified subscript and superscript")
-		},
-		"SingleMsubType": {
-			# Translators: The label of an option in the Rule settings dialog
-			"label": _("Simplified subscript")
-		},
-		"SingleMsupType": {
-			# Translators: The label of an option in the Rule settings dialog
-			"label": _("Simplified superscript")
-		},
-		"SingleMunderoverType": {
-			# Translators: The label of an option in the Rule settings dialog
-			"label": _("Simplified underscript and overscript")
-		},
-		"SingleMunderType": {
-			# Translators: The label of an option in the Rule settings dialog
-			"label": _("Simplified underscript")
-		},
-		"SingleMoverType": {
-			# Translators: The label of an option in the Rule settings dialog
-			"label": _("Simplified overscript")
-		},
-		"SingleFractionType": {
-			# Translators: The label of an option in the Rule settings dialog
-			"label": _("Simplified fraction")
-		},
-		"SingleSqrtType": {
-			# Translators: The label of an option in the Rule settings dialog
-			"label": _("Simplified square root")
-		},
-		"PowerType": {
-			# Translators: The label of an option in the Rule settings dialog
-			"label": _("Power")
-		},
-		"SquarePowerType": {
-			# Translators: The label of an option in the Rule settings dialog
-			"label": _("Square power")
-		},
-		"CubePowerType": {
-			# Translators: The label of an option in the Rule settings dialog
-			"label": _("Cube power")
-		},
-		"SetType": {
-			# Translators: The label of an option in the Rule settings dialog
-			"label": _("Set")
-		},
-		"AbsoluteType": {
-			# Translators: The label of an option in the Rule settings dialog
-			"label": _("Absolute value")
-		},
-		"MatrixType": {
-			# Translators: The label of an option in the Rule settings dialog
-			"label": _("Matrix")
-		},
-		"DeterminantType": {
-			# Translators: The label of an option in the Rule settings dialog
-			"label": _("Determinant")
-		},
-		"AddIntegerFractionType": {
-			# Translators: The label of an option in the Rule settings dialog
-			"label": _("Integer and fraction")
-		},
-	})
+class Access8MathSettingsDialog(MultiCategorySettingsDialog):
+	# translators: title of the dialog.
+	dialogTitle = _("Settings")
+	title = "% s - %s" % (_("Access8Math"), dialogTitle)
+	INITIAL_SIZE = (1000, 480)
+	MIN_SIZE = (470, 240)
 
-	def __init__(self, parent, Access8MathConfig):
-		self.Access8MathConfig = Access8MathConfig
-		super().__init__(parent)
+	categoryClasses = [
+		ReadingSettingsPanel,
+		WritingSettingsPanel,
+		DocumentSettingsPanel,
+		RuleSettingsPanel,
+		updater.AddonUpdaterPanel,
+	]
 
-	def makeSettings(self, settingsSizer):
-		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
-		for k, v in self.settings.items():
-			if "options" in v:
-				attr = k + "Selection"
-				options = v["options"]
-				if mathPlayer and "Access8Math" in v["options"]:
-					# Translators: A choice of a combobox in the rule settings dialog (not used)
-					v["options"]["MathPlayer"] = _("Math Player")
-				widget = sHelper.addLabeledControl(v["label"], wx.Choice, choices=list(options.values()))
-				setattr(self, attr, widget)
-				try:
-					index = list(v["options"].keys()).index(str(self.Access8MathConfig["rules"][k]))
-				except BaseException:
-					index = 0
-					tones.beep(100, 100)
-				widget.Selection = index
-			else:
-				setattr(self, k + "CheckBox", sHelper.addItem(wx.CheckBox(self, label=v["label"])))
-				value = self.Access8MathConfig["rules"][k]
-				getattr(self, k + "CheckBox").SetValue(value)
-
-	def postInit(self):
-		pass
-
-	def onOk(self, evt):
-		try:
-			for k, v in self.settings.items():
-				if "options" in v:
-					attr = k + "Selection"
-					widget = getattr(self, attr)
-					self.Access8MathConfig["rules"][k] = list(v["options"].keys())[widget.GetSelection()]
-				else:
-					self.Access8MathConfig["rules"][k] = getattr(self, k + "CheckBox").IsChecked()
-		except BaseException:
-			for k, v in self.Selection_settings.items():
-				if "options" in v:
-					self.Access8MathConfig["rules"][k] = list(v["options"].keys())[0]
-				else:
-					self.Access8MathConfig["rules"][k] = True
-			tones.beep(100, 100)
-
-		A8M_PM.initialize(self.Access8MathConfig)
-
-		return super().onOk(evt)
+	def __init__(self, parent, initialCategory=None):
+		super().__init__(parent, initialCategory)
 
 
 class Symbol:

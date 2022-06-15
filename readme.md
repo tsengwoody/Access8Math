@@ -254,6 +254,14 @@ Please report any bugs or comments, thank you!
 
 # Access8Math update log
 
+## Access8Math v3.4 Update
+
+* Speech, Braille, and interactive source move to Preferences -> Settings -> Math Reader category.
+* Integrated MathCAT, you can choose what speech, braille, and interactive source(Access8Math/Math Player/MathCAT) you need in Math Reader settings panel when having already installed Math Player/MathCat.
+* Used MultiCategorySettingsDialog to collect settings dialog.
+* Added addon update check feature.
+* Press NVDA+alt+e open text file with the built-in editor in File Explore.
+
 ## Access8Math v3.3 Update
 
 *	Add built-in editor using traditional editing area because of windows 11 changed to UIA editing area

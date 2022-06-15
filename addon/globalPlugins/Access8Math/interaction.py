@@ -39,6 +39,13 @@ try:
 except BaseException:
 	log.warning("MathPlayer 4 not available")
 
+mathCAT = None
+try:
+	from globalPlugins.MathCAT import MathCAT
+	mathCAT = MathCAT()
+except BaseException:
+	log.warning("MathCAT not available")
+
 BRAILLE_UNICODE_PATTERNS_START = 0x2800
 
 
@@ -263,6 +270,9 @@ class A8MProvider(mathPres.MathPresentationProvider):
 		if config.conf["Access8Math"]["settings"]["speech_source"] == "Access8Math":
 			mathcontent = MathContent(config.conf["Access8Math"]["settings"]["language"], mathMl)
 			speechSequence = translate_SpeechCommand(mathcontent.pointer.serialized())
+		elif config.conf["Access8Math"]["settings"]["speech_source"] == "MathCAT":
+			if mathCAT:
+				speechSequence = mathCAT.getSpeechForMathMl(mathMl)
 		else:
 			if mathPlayer:
 				speechSequence = mathPlayer.getSpeechForMathMl(mathMl)
@@ -279,6 +289,9 @@ class A8MProvider(mathPres.MathPresentationProvider):
 		if config.conf["Access8Math"]["settings"]["braille_source"] == "Access8Math":
 			mathcontent = MathContent(config.conf["Access8Math"]["settings"]["language"], mathMl)
 			cells = translate_Braille(mathcontent.root.brailleserialized())
+		elif config.conf["Access8Math"]["settings"]["braille_source"] == "MathCAT":
+			if mathCAT:
+				cells = mathCAT.getBrailleForMathMl(mathMl)
 		else:
 			if mathPlayer:
 				cells = mathPlayer.getBrailleForMathMl(mathMl)
@@ -302,6 +315,9 @@ class A8MProvider(mathPres.MathPresentationProvider):
 				vw = A8MInteraction(parent=parent)
 				vw.set(data=mathcontent, name="")
 				vw.setFocus()
+		elif config.conf["Access8Math"]["settings"]["interact_source"] == "MathCAT":
+			if mathCAT:
+				mathCAT.interactWithMathMl(mathMl)
 		else:
 			if mathPlayer:
 				mathPlayer.interactWithMathMl(mathMl)

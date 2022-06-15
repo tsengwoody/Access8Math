@@ -30,5 +30,3 @@ AsciiMath = {
 		"type": "asciimath",
 	},
 }
-
-delimiter = {"latex": config.conf["Access8Math"]["settings"]["LaTeX_delimiter"], "asciimath": "graveaccent"}
