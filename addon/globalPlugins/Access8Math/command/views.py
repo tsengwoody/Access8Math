@@ -100,7 +100,10 @@ class MenuView(Window):
 		text += " " + number
 		brailleText += " " + number
 
-		ui.message(text=text, brailleText=brailleText)
+		try:
+			ui.message(text=text, brailleText=brailleText)
+		except TypeError:
+			ui.message(text=text)
 
 
 class MenuViewTextInfo(textInfos.offsets.OffsetsTextInfo):

@@ -46,7 +46,6 @@ def command(text, offset):
 
 class A8MLaTeXCommandModel(MenuModel):
 	def __init__(self):
-		print(latexData.latexMenu)
 		super().__init__()
 		self.data = [
 			{

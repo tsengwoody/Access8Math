@@ -161,6 +161,43 @@ symbols:
 Ͼ	Dotted Lunate Sigma 	none
 Ͽ	Reversed Dotted Lunate Sigma	none
 
+# Roman Numeral
+
+Ⅰ	羅馬數字一	none
+Ⅱ	羅馬數字二	none
+Ⅲ	羅馬數字三	none
+Ⅳ	羅馬數字四	none
+Ⅴ	羅馬數字五	none
+Ⅵ	羅馬數字六	none
+Ⅶ	羅馬數字七	none
+Ⅷ	羅馬數字八	none
+Ⅸ	羅馬數字九	none
+Ⅹ	羅馬數字十	none
+Ⅺ	羅馬數字十一	none
+Ⅻ	羅馬數字十二	none
+Ⅼ	羅馬數字五十	none
+Ⅽ	羅馬數字一百	none
+Ⅾ	羅馬數字五百	none
+Ⅿ	羅馬數字一千	none
+ↁ	羅馬數字五千	none
+ↂ	羅馬數字十千	none
+ⅰ	小写羅馬數字一	none
+ⅱ	小写羅馬數字二	none
+ⅲ	小写羅馬數字三	none
+ⅳ	小写羅馬數字四	none
+ⅴ	小写羅馬數字五	none
+ⅵ	小写羅馬數字六	none
+ⅶ	小写羅馬數字七	none
+ⅷ	小写羅馬數字八	none
+ⅸ	小写羅馬數字九	none
+ⅹ	小写羅馬數字十	none
+ⅺ	小写羅馬數字十一	none
+ⅻ	小写羅馬數字十二	none
+ⅼ	小写羅馬數字五十	none
+ⅽ	小写羅馬數字一百	none
+ⅾ	小写羅馬數字五百	none
+ⅿ	小写羅馬數字一千	none
+
 ∀	對任意的,所有的	none
 ∁	補集	none
 ∂	偏微分	none
