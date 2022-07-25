@@ -20,7 +20,7 @@ class MenuView(Window):
 
 	def getScript(self, gesture):
 		if isinstance(gesture, KeyboardInputGesture):
-			if (gesture.mainKeyName in ["NVDA", "enter", "escape", "leftArrow", "rightArrow", "upArrow", "downArrow", "home", "end"] or "NVDA" in gesture.modifierNames):
+			if (gesture.mainKeyName in ["NVDA", "enter", "escape", "leftArrow", "rightArrow", "upArrow", "downArrow", "home", "end", "numpadEnter"] or "NVDA" in gesture.modifierNames):
 				return super().getScript(gesture)
 			elif gesture.mainKeyName in ["numpad{}".format(i) for i in range(1, 10)] + ["numLock"]:
 				return super().getScript(gesture)
@@ -54,12 +54,6 @@ class MenuView(Window):
 		eventHandler.executeEvent("gainFocus", self.parent)
 
 	@script(
-		gestures=["kb:enter"]
-	)
-	def script_enter(self, gesture):
-		pass
-
-	@script(
 		gestures=[
 			"kb:leftArrow", "kb:rightArrow",
 			"kb:upArrow", "kb:downArrow",
@@ -75,7 +69,9 @@ class MenuView(Window):
 			tones.beep(100, 100)
 
 		self.syncTextInfoPosition()
+		self.message()
 
+	def message(self):
 		text = ""
 		brailleText = ""
 

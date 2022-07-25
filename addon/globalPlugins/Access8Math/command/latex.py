@@ -11,6 +11,8 @@ import wx
 from delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter
 delimiter_dict = {**AsciiMath_delimiter, **LaTeX_delimiter}
 
+from lib.dataProcess import groupByField
+
 from .clipboard import clearClipboard
 from .models import MenuModel
 from .views import MenuView, MenuViewTextInfo
@@ -133,7 +135,7 @@ class A8MLaTeXCommandView(MenuView):
 		} for i in latexData.latexAll]
 		latexData.latexMenu = groupByField(latexData.latexMenu, 'category', lambda i: i, lambda i: i)
 
-		latexData.latexShortcut = data2shortcutMap(latexAll)
+		latexData.latexShortcut = latexData.data2shortcutMap(latexData.latexAll)
 
 	def getScript(self, gesture):
 		if isinstance(gesture, KeyboardInputGesture):
@@ -156,12 +158,12 @@ class A8MLaTeXCommandView(MenuView):
 		id_ = self.data.pointer['id']
 		slot = gesture.mainKeyName[1:] if len(gesture.mainKeyName) > 1 else gesture.mainKeyName
 
-		for item in latexAll:
+		for item in latexData.latexAll:
 			if item["id"] == id_:
 				item["shortcut"] = slot
 				break
 
-		for item in latexAll:
+		for item in latexData.latexAll:
 			if item["id"] != id_ and item["shortcut"] == str(slot):
 				item["shortcut"] = "-1"
 
@@ -186,7 +188,7 @@ class A8MLaTeXCommandView(MenuView):
 			ui.message(_("No shortcut set on this item"))
 			return
 
-		for item in latexAll:
+		for item in latexData.latexAll:
 			if item["id"] == id_:
 				item["shortcut"] = "-1"
 				break
@@ -197,10 +199,17 @@ class A8MLaTeXCommandView(MenuView):
 		eventHandler.executeEvent("gainFocus", self.parent)
 
 	@script(
-		gestures=["kb:enter"]
+		gestures=["kb:enter", "kb:numpadEnter"]
 	)
 	def script_enter(self, gesture):
-		self.command(self.data.pointer['id'])
+		if self.data.pointer['type'] == 'menu':
+			result = self.data.move("right")
+			if result is not True:
+				tones.beep(100, 100)
+			self.syncTextInfoPosition()
+			self.message()
+		else:
+			self.command(self.data.pointer['id'])
 
 	def command(self, id_):
 		try:

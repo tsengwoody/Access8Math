@@ -100,7 +100,6 @@ from .editor import EditorFrame
 from .interaction import A8MProvider, A8MInteraction
 from .lib.storage import explorer
 from .writer import TextMathEditField
-import updater
 
 for i in range(insert_path_count):
 	del sys.path[0]
@@ -194,7 +193,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.language = config.conf["Access8Math"]["settings"]["language"]
 		self.create_menu()
 		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(MathReaderSettingsPanel)
-		self.initialize_updater()
 
 	def terminate(self):
 		from lib.latex import latexData
@@ -203,33 +201,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.toolsMenu.Remove(self.Access8Math_item)
 		except (AttributeError, RuntimeError):
 			pass
-		self.terminate_updater()
-
-	def initialize_updater(self):
-		# #4: warn and quit if this is a source code of NVDA.
-		if not updater.canUpdate:
-			log.info("nvda3208: update check not supported in source code version of NVDA")
-			return
-		updater.addonUtils.loadState()
-		config.post_configSave.register(updater.addonUtils.save)
-		config.post_configReset.register(updater.addonUtils.reload)
-
-		if updater.addonUtils.updateState["autoUpdate"]:
-			# But not when NVDA itself is updating.
-			if not (globalVars.appArgs.install and globalVars.appArgs.minimal):
-				wx.CallAfter(updater.autoUpdateCheck)
-
-	def terminate_updater(self):
-		# #4: no, do not go through all this if this is a source code copy of NVDA.
-		if not updater.canUpdate:
-			return
-		config.post_configSave.unregister(updater.addonUtils.save)
-		config.post_configReset.unregister(updater.addonUtils.reload)
-
-		if updater.updateChecker and updater.updateChecker.IsRunning():
-			updater.updateChecker.Stop()
-		updater.updateChecker = None
-		updater.addonUtils.saveState()
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		if obj.windowClassName == "wxWindowNR" and obj.role == ROLE_WINDOW and obj.name == _("Access8Math interaction window"):
@@ -290,13 +261,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			l10nMenu,
 			_("&Localization"),
 		)
-
-		if updater.canUpdate:
-			self.checkUpdate = self.menu.Append(
-				wx.ID_ANY,
-				_("Check for &update...")
-			)
-			gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, updater.addonGuiEx.onAddonUpdateCheck, self.checkUpdate)
 
 		self.cleanWorkspace = self.menu.Append(
 			wx.ID_ANY,
