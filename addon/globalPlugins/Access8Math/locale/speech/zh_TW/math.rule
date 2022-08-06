@@ -17,6 +17,7 @@ mtd	,(.),	項	二維表格儲存格
 mmultiscripts	左標記,(.),結束左標記	項	符號有左標記
 mprescripts			
 none			
+menclose	{start}圍繞, (.), 結束{end}圍繞	項	圍繞
 from_to	運算, 0, 從, 1, 到, 2, 對	運算符,從,到	從…到…運算
 from	運算, 0, 從, 1, 對	運算符,從	從…運算
 to	運算, 0, 到, 1, 對	運算符,到	到…運算

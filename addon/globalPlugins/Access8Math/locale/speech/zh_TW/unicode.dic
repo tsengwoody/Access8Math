@@ -468,3 +468,22 @@ leftupmark	左上標	none
 main	主符號	none
 mprescripts_index	左定點	none
 empty	空白
+
+# menclose notation
+notation:long division symbol	長除法符號
+notation:actuarial symbol	精算符號
+notation:radical	根號
+notation:box	方盒子
+notation:round box	圓盒字
+notation:circle	圓圈
+notation:line on left	左線
+notation:line on right	右線
+notation:line on top	頂線
+notation:line on bottom	底線
+notation:up diagonal cross out	上對角線橫跨
+notation:down diagonal cross out	下對角線橫跨
+notation:vertical cross out	垂直橫跨
+notation:horizontal cross out	水平橫跨
+notation:Arabic factorial symbol	阿拉伯階乘符號
+notation:diagonal arrow	對角箭頭
+notation:phasor angle	相角

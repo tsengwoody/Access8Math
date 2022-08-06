@@ -38,6 +38,7 @@ munder	, 0, altında, 1, ile, 	taban, altında	symbol have underscript
 munderover	, 0, altında, 1, , ve, üstünde, 2, ile	taban, altında, üstünde	symbol have underscript and overscript
 node	, (.), 	öğe	node
 none			
+menclose	{start} enclosing, (.), end {end} enclosure	item	enclosure
 power	, 0, üzeri, 1, 	taban, üs	power
 single_fraction	, , 0, bölü, 1, , 	pay, payda	single fraction
 single_square_root	kare kök, 0, 	kök içi	single square root

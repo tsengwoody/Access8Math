@@ -1,5 +1,5 @@
 # coding=utf-8
-# Copyright (C) 2017-2021 Tseng Woody <tsengwoody.tw@gmail.com>
+# Copyright (C) 2017-2022 Tseng Woody <tsengwoody.tw@gmail.com>
 
 from xml.etree import ElementTree as ET
 
@@ -684,7 +684,45 @@ class Mfenced(AlterNode):
 
 
 class Menclose(AlterNode):
-	pass
+	def set_rule(self):
+		super().set_rule()
+		rule = self.rule
+
+		value2description = {
+			"longdiv": "long division symbol",
+			"actuarial": "actuarial symbol",
+			"box": "box",
+			"roundedbox": "round box",
+			"circle": "circle",
+			"left": "line on left",
+			"right": "line on right",
+			"top": "line on top",
+			"bottom": "line on button",
+			"updiagonalstrike": "up diagonal cross out",
+			"downdiagonalstrike": "down diagonal cross out",
+			"verticalstrike": "vertical cross out",
+			"horizontalstrike": "horizontal cross out",
+			"madruwb": "Arabic factorial symbol",
+			"updiagonalarrow": "diagonal arrow",
+			"phasorangle": "phasor angle",
+		}
+		try:
+			notation = self.attrib["notation"]
+		except:
+			notation = "longdiv"
+
+		try:
+			description = self.symbol_translate("notation:{}".format(value2description[notation]))
+		except:
+			description = ""
+
+		head = rule[0].replace("{start}", description)
+		cell = rule[1:-1]
+		tail = rule[-1].replace("{end}", description)
+		self.rule = [head] + cell + [tail]
+
+	def set_braillerule(self):
+		pass
 
 
 class Msub(FixNode):
@@ -1691,6 +1729,7 @@ mathrule_info = {
 		"mmultiscripts": [0, 0, ".", ],
 		"mprescripts": [0, 0, ".", ],
 		"none": [0, 0, ".", ],
+		"menclose": [3, 1, "*", ],
 	},
 }
 
@@ -1774,6 +1813,7 @@ mathrule_order = {
 		"mmultiscripts",
 		"mprescripts",
 		"none",
+		"menclose",
 	],
 }
 

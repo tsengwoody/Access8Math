@@ -16,6 +16,7 @@ mtd	,(.),	項	table cell
 mmultiscripts	,(.),	項	symbol have left mark
 mprescripts			
 none			
+menclose	{start} enclosing, (.), end {end} enclosure	item	enclosure
 from_to	⠐, 0, ⠩, 1, ⠣, 2, ⠻	運算符,從,到	from ... to ... operator
 from	⠐, 0, ⠩, 1, ⠻	運算符,從	from ... operator
 to	⠐, 0, ⠣, 1, ⠻	運算符,到	to ... operator

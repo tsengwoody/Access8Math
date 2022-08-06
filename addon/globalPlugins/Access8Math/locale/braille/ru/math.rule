@@ -16,6 +16,7 @@ mtd	,(.),	⠪⠇⠍	ячейка таблицы
 mmultiscripts	,(.),	⠇⠲⠊⠝⠙	левый индекс
 mprescripts			
 none			
+menclose	{start} enclosing, (.), end {end} enclosure	item	enclosure
 from_to	, 0, ⠨⠡, 1, ⠨⠌, 2, ⠱	⠕⠏⠑⠗,⠕⠞,⠙⠕	оператор от ... до
 from	, 0, ⠨⠡, 1, ⠱	⠕⠏⠑⠗,⠕⠞	оператор от ...
 to	, 0, ⠨⠌, 1, ⠱	⠕⠏⠑⠗,⠙⠕	оператор до ...

@@ -407,3 +407,22 @@ leftdownmark	left down mark	none
 leftupmark	left up mark	none
 main	main	none
 mprescripts_index	mprescripts index	none
+
+# menclose notation
+notation:long division symbol	long division symbol
+notation:actuarial symbol	actuarial symbol
+notation:radical	radical
+notation:box	box
+notation:round box	round box
+notation:circle	circle
+notation:line on left	line on left
+notation:line on right	line on right
+notation:line on top	line on top
+notation:line on bottom	line on bottom
+notation:up diagonal cross out	up diagonal cross out
+notation:down diagonal cross out	down diagonal cross out
+notation:vertical cross out	vertical cross out
+notation:horizontal cross out	horizontal cross out
+notation:Arabic factorial symbol	Arabic factorial symbol
+notation:diagonal arrow	diagonal arrow
+notation:phasor angle	phasor angle

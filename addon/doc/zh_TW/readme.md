@@ -72,7 +72,7 @@
 
 書寫綜合內容（文字內容與數學內容）
 
-### 書寫綜合內容（建議使用附加元件內之編輯器，windows 11 必需使用附加元件所提供之編輯器；windows 10 以前版本可使用記事本）
+### 書寫綜合內容（快捷鍵可在編輯區使用，建議使用附加元件內之內建編輯器。windows 11 必需使用附加元件所提供之編輯器；windows 10 以前版本可使用記事本。）
 
 以 LaTeX/AsciiMath 分隔標記框出數學標記區，用以區分文字內容與數學內容，亦即在數學標記區內的資料為 LaTeX/AsciiMath 語法的數學內容，在數學標記區外的為文字內容。
 
@@ -307,8 +307,9 @@ github： https://github.com/tsengwoody/Access8Math
 * 語音、點字、互動來源設定選項移到偏號->設定->數學閱讀器內
 * 整合 MathCAT，當已安裝了 Math Player/MathCat 時，您可以在數學閱讀器設定中選擇您需要的語音、點字和交互來源（Access8Math/Math Player/MathCAT）。
 * 使用 MultiCategorySettingsDialog 蒐集設定對話框。
-* 加入了附加元件更新檢查功能。
 * 按 NVDA+alt+e 在檔案總管中使用內建編輯器打開文字文件。
+* 在虛擬選單中的子功能表可透過 enter 展開
+* 實做 MathML menclose tag 規則
 
 ## Access8Math v3.3 更新日誌
 

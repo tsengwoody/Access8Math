@@ -51,7 +51,7 @@ This NVDA addon provides the feature for writing of mathematical content. Throug
 
 Writing comprehensive content (text content and mathematical content):
 
-### write comprehensive content (shortcut key is available in editing area, it is recommended to use in Notepad)
+### write comprehensive content (Shortcut key is available use in editing area, it is recommended to use in the built-in editor. The built-in editor must be used for Windows 11; Notepad can be used for Windows 10 below version.)
 
 Use LaTeX or AsciiMath separate markers to frame the math area to distinguish text content and mathematical content. That is, the data in math marker area is mathematical content of LaTeX/AsciiMath content, and text content outside math marker area.
 
@@ -259,8 +259,9 @@ Please report any bugs or comments, thank you!
 * Speech, Braille, and interactive source move to Preferences -> Settings -> Math Reader category.
 * Integrated MathCAT, you can choose what speech, braille, and interactive source(Access8Math/Math Player/MathCAT) you need in Math Reader settings panel when having already installed Math Player/MathCat.
 * Used MultiCategorySettingsDialog to collect settings dialog.
-* Added addon update check feature.
 * Press NVDA+alt+e open text file with the built-in editor in File Explore.
+* In virtual menus, submenu can open by enter
+* Implenment MathML menclose tag rule
 
 ## Access8Math v3.3 Update
 

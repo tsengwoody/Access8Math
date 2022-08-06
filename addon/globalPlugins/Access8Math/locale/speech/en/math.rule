@@ -17,6 +17,7 @@ mtd	,(.),	item	table cell
 mmultiscripts	left script,(.),end script	item	symbol have left mark
 mprescripts			
 none			
+menclose	{start} enclosing, (.), end {end} enclosure	item	enclosure
 from_to	operator, 0, from, 1, to, 2, apply to	operator,from,to	from ... to ... operator
 from	operator, 0, from, 1, apply to	operator,from	from ... operator
 to	operator, 0, to, 1, apply to	operator,to	to ... operator

@@ -17,6 +17,7 @@ mtd	,(.),	项	二维表格单元格
 mmultiscripts	左标记,(.),结束左标记	项	符号有左标记
 mprescripts			
 none			
+menclose	{start}围绕, (.), 结束{end}围绕	项	围绕
 from_to	运算, 0, 从, 1, 到, 2, 对	运算符,从,到	从…到…运算
 from	运算, 0, 从, 1, 对	运算符,从	从…运算
 to	运算, 0, 到, 1, 对	运算符,到	到…运算
