@@ -455,19 +455,22 @@ csc	cosecant	None
 lim	limit	None
 
 # constant
-math	數學	none
-item	項	none
-has	有	none
-row	列	none
-column	欄	none
-order	第	none
-rightdownmark	右下標	none
-rightupmark	右上標	none
-leftdownmark	左下標	none
-leftupmark	左上標	none
-main	主符號	none
-mprescripts_index	左定點	none
+math	數學
+item	項
+has	有
+row	列
+column	欄
+main	主符號
 empty	空白
+none	空
+
+# mmultiscripts
+mmultiscripts:post-subscript	右下標
+mmultiscripts:post-superscript	右上標
+mmultiscripts:pre-subscript	左下標
+mmultiscripts:pre-superscript	左上標
+mmultiscripts:mprescripts	左右分隔定點
+mmultiscripts:order	第
 
 # menclose notation
 notation:long division symbol	長除法符號

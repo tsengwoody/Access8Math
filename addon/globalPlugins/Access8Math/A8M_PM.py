@@ -53,6 +53,8 @@ def create_node(et):
 		mp_tag = et.tag
 
 	node_class = nodes[mp_tag.capitalize()] if mp_tag.capitalize() in nodes.keys() else object
+	# if mp_tag == 'none':
+		# node_class = Node
 
 	if issubclass(node_class, NonTerminalNode) or issubclass(node_class, BlockNode):
 		child = []
@@ -196,9 +198,9 @@ class MathContent(object):
 	def navigate(self, action):
 		pointer = None
 		if action == "downArrow":
-			pointer = self.pointer.down()
+			pointer = self.pointer.down
 		elif action == "upArrow":
-			pointer = self.pointer.up()
+			pointer = self.pointer.up
 		elif action == "leftArrow":
 			pointer = self.pointer.previous_sibling
 		elif action == "rightArrow":
@@ -504,12 +506,14 @@ class Node(object):
 			previous = current.previous_sibling
 		return previous
 
+	@property
 	def down(self):
 		try:
 			return self.child[0]
 		except BaseException:
 			return None
 
+	@property
 	def up(self):
 		try:
 			return self.parent
@@ -691,13 +695,14 @@ class Menclose(AlterNode):
 		value2description = {
 			"longdiv": "long division symbol",
 			"actuarial": "actuarial symbol",
+			"radical": "radical",
 			"box": "box",
 			"roundedbox": "round box",
 			"circle": "circle",
 			"left": "line on left",
 			"right": "line on right",
 			"top": "line on top",
-			"bottom": "line on button",
+			"bottom": "line on bottom",
 			"updiagonalstrike": "up diagonal cross out",
 			"downdiagonalstrike": "down diagonal cross out",
 			"verticalstrike": "vertical cross out",
@@ -836,9 +841,7 @@ class Mtext(TerminalNode):
 
 class Mspace(TerminalNode):
 	def set_rule(self):
-		self.rule = [
-			str(self.symbol_translate(self.data)) if not self.data == '' else str(self.symbol_translate("empty"))
-		]
+		self.rule = []
 
 
 class Ms(TerminalNode):
@@ -846,47 +849,12 @@ class Ms(TerminalNode):
 
 
 class Mmultiscripts(AlterNode):
-	'''def __init__(self, *args, **kwargs):
-		super().__init__(*args, **kwargs)
-
-		role = [self.symbol_translate('main')]
-
-		index = range(1, self.mprescripts_index_in_child())
-		for count in range(len(index)/2):
-			temp = [
-				'{0}{1}{2}'.format(self.symbol_translate('order'), count, self.symbol_translate('rightdownmark')),
-				'{0}{1}{2}'.format(self.symbol_translate('order'), count, self.symbol_translate('rightupmark')),
-			]
-			role = role + temp
-
-		role = role + [self.symbol_translate('mprescripts_index')]
-
-		index = range(self.mprescripts_index_in_child() + 1, len(self.child))
-		for count in range(len(index)/2):
-			temp = [
-				'{0}{1}{2}'.format(self.symbol_translate('order'), count, self.symbol_translate('leftdownmark')),
-				'{0}{1}{2}'.format(self.symbol_translate('order'), count, self.symbol_translate('leftupmark')),
-			]
-			role = role + temp
-
-		self.role = role'''
-
 	def set_rule(self):
 		super().set_rule()
+		self.role_level = DIC_GENERATE
 		rule = self.rule
 
-		index = range(1, self.mprescripts_index_in_child())
-		index_odd = index[0::2]
-		index_even = index[1::2]
-		index_mix = zip(index_odd, index_even)
-		for count, item in enumerate(index_mix):
-			temp = [
-				'{0}{1}{2}'.format(self.symbol_translate('order'), count, self.symbol_translate('rightdownmark')),
-				item[0],
-				'{0}{1}{2}'.format(self.symbol_translate('order'), count, self.symbol_translate('rightupmark')),
-				item[1],
-			]
-			rule = rule[:1] + temp + rule[-1:]
+		mmrule = []
 
 		index = range(self.mprescripts_index_in_child() + 1, len(self.child))
 		index_odd = index[0::2]
@@ -894,18 +862,63 @@ class Mmultiscripts(AlterNode):
 		index_mix = zip(index_odd, index_even)
 		for count, item in enumerate(index_mix):
 			temp = [
-				'{0}{1}{2}'.format(self.symbol_translate('order'), count, self.symbol_translate('leftdownmark')),
+				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count+1, self.symbol_translate('mmultiscripts:pre-subscript')),
 				item[0],
-				'{0}{1}{2}'.format(self.symbol_translate('order'), count, self.symbol_translate('leftupmark')),
+				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count+1, self.symbol_translate('mmultiscripts:pre-superscript')),
 				item[1],
 			]
-			rule = rule[:1] + temp + rule[-1:]
+			mmrule.extend(temp)
 
-		rule.insert(1, 0)
+		index = range(1, self.mprescripts_index_in_child())
+		index_odd = index[0::2]
+		index_even = index[1::2]
+		index_mix = zip(index_odd, index_even)
+		for count, item in enumerate(index_mix):
+			temp = [
+				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count+1, self.symbol_translate('mmultiscripts:post-subscript')),
+				item[0],
+				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count+1, self.symbol_translate('mmultiscripts:post-superscript')),
+				item[1],
+			]
+			mmrule.extend(temp)
+
+		mmrule.insert(0, 0)
+
+		rule = rule[:1] + mmrule + rule[-1:]
 		self.rule = rule
 
 	def set_braillerule(self):
 		pass
+
+	def set_role(self):
+		super().set_role()
+		mmrole = [self.symbol_translate('main')]
+
+		index = range(1, self.mprescripts_index_in_child())
+		index_odd = index[0::2]
+		index_even = index[1::2]
+		index_mix = zip(index_odd, index_even)
+		for count, item in enumerate(index_mix):
+			temp = [
+				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count+1, self.symbol_translate('mmultiscripts:post-subscript')),
+				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count+1, self.symbol_translate('mmultiscripts:post-superscript')),
+			]
+			mmrole.extend(temp)
+
+		mmrole.append(self.symbol_translate('mmultiscripts:mprescripts'))
+
+		index = range(self.mprescripts_index_in_child() + 1, len(self.child))
+		index_odd = index[0::2]
+		index_even = index[1::2]
+		index_mix = zip(index_odd, index_even)
+		for count, item in enumerate(index_mix):
+			temp = [
+				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count+1, self.symbol_translate('mmultiscripts:pre-subscript')),
+				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count+1, self.symbol_translate('mmultiscripts:pre-superscript')),
+			]
+			mmrole.extend(temp)
+
+		self.role = mmrole
 
 	def mprescripts_index_in_child(self):
 		for c in self.child:
@@ -918,8 +931,9 @@ class Mprescripts(TerminalNode):
 	pass
 
 
-class Nones(Node):
-	pass
+class Nones(TerminalNode):
+	def set_rule(self):
+		self.rule = [self.symbol_translate('none')]
 
 
 class NodeType(object):

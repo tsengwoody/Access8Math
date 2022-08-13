@@ -400,13 +400,16 @@ item	item	none
 has	has	none
 row	row	none
 column	column	none
-order	order	none
-rightdownmark	right down mark	none
-rightupmark	right up mark	none
-leftdownmark	left down mark	none
-leftupmark	left up mark	none
 main	main	none
-mprescripts_index	mprescripts index	none
+none	empty
+
+# mmultiscripts
+mmultiscripts:post-subscript	post-subscript
+mmultiscripts:post-superscript	post-superscript
+mmultiscripts:pre-subscript	pre-subscript
+mmultiscripts:pre-superscript	pre-superscript
+mmultiscripts:mprescripts	pre-scripts post-scripts point
+mmultiscripts:order	
 
 # menclose notation
 notation:long division symbol	long division symbol

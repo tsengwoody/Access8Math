@@ -441,19 +441,22 @@ symbols:
 ＞	大於	none
 
 # constant
-math	数学	none
-item	项	none
-has	有	none
-row	行	none
-column	列	none
-order	第	none
-rightdownmark	右下标	none
-rightupmark	右上标	none
-leftdownmark	左下标	none
-leftupmark	左上标	none
-main	主符号	none
-mprescripts_index	左定点	none
+math	数学
+item	项
+has	有
+row	行
+column	列
+main	主符号
 empty	空白
+none	空
+
+# mmultiscripts
+mmultiscripts:post-subscript	右下标
+mmultiscripts:post-superscript	右上标
+mmultiscripts:pre-subscript	左下标
+mmultiscripts:pre-superscript	左上标
+mmultiscripts:mprescripts	左右分隔定点
+mmultiscripts:order	第
 
 # menclose notation
 notation:long division symbol	长除法符号

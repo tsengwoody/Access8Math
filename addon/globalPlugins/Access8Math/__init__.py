@@ -282,7 +282,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	def script_speech_source_switch(self, gesture):
 		key = "speech_source"
-		print(available_readers)
 		try:
 			index = available_readers.index(str(config.conf["Access8Math"]["settings"][key]))
 		except BaseException:
