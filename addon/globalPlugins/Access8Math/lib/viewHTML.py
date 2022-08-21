@@ -56,7 +56,7 @@ def raw2review(data_folder, entry_file, review_folder):
 	)
 
 	try:
-		name = entry_file.split('.')[0]
+		name = '.'.join(entry_file.split('.')[:-1])
 	except BaseException:
 		name = 'index'
 	entry_html = "{}.html".format(name)
@@ -71,8 +71,8 @@ def raw2review(data_folder, entry_file, review_folder):
 		for item in fileNames:
 			item = os.path.join(dirPath, item)
 			try:
-				name = os.path.basename(item).split('.')[0]
-				extend = os.path.basename(item).split('.')[1]
+				name = '.'.join(os.path.basename(item).split('.')[:-1])
+				extend = os.path.basename(item).split('.')[-1]
 			except BaseException:
 				name = ''
 				extend = ''
@@ -106,7 +106,7 @@ def rawIntoReview(data_folder, review_folder, resources):
 
 def text2template(value, output):
 	try:
-		title = os.path.basename(output).split('.')[0]
+		title = '.'.join(os.path.basename(output).split('.')[:-1])
 	except BaseException:
 		title = 'Access8Math'
 	backslash_pattern = re.compile(r"\\")
