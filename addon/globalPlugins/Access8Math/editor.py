@@ -6,7 +6,7 @@ import wx
 import addonHandler
 import gui
 
-from lib.viewHTML import raw2review
+from lib.viewHTML import Access8MathDocument
 
 addonHandler.initTranslation()
 
@@ -14,25 +14,37 @@ PATH = os.path.dirname(__file__)
 
 wildcard = \
 "Text (*.txt)|*.txt|"\
+"archive (*.zip)|*.zip|"\
 "All (*.*)|*.*"
 
 
 class EditorFrame(wx.Frame):
 	# Translators: The name of the document in the Editor when it has never been saved to a file
-	def __init__(self, parent, filename=_("New document")):
+	def __init__(self, path=None):
 		style = wx.DEFAULT_FRAME_STYLE & (~wx.CLOSE_BOX)
+		parent = gui.mainFrame
 		super(EditorFrame, self).__init__(parent, size=(400, 300), style=style)
 
 		self.parent = parent
-		self.dirname = "."
-		self.filename = filename
-		self.review_folder = os.path.join(PATH, 'web', 'review')
+
+		if not path:
+			self.ad = Access8MathDocument()
+		else:
+			self.ad = Access8MathDocument(path)
+
+		self.filename = os.path.basename(self.ad.raw_entry)
+		self.dirname = self.ad.raw_folder
+
 		self.modify = False
 
 		# Simplified init method.
 		self.CreateInteriorWindowComponents()
 		self.CreateExteriorWindowComponents()
 		self.CenterOnScreen()
+
+		with open(os.path.join(self.dirname, self.filename), 'r', encoding='utf-8') as file:
+			self.control.SetValue(file.read())
+		self.modify = False
 
 		Hotkey(self)
 
@@ -90,14 +102,6 @@ class EditorFrame(wx.Frame):
 				self.OnSaveAs
 			),
 			(
-				wx.ID_ANY,
-				# Translators: A menu item in the Editor window
-				_("Re&load from disk"),
-				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
-				_("Reload the file from disk."),
-				self.OnReload
-			),
-			(
 				wx.ID_EXIT,
 				# Translators: A menu item in the Editor window
 				_("E&xit"),
@@ -134,7 +138,7 @@ class EditorFrame(wx.Frame):
 				# Translators: A menu item in the Editor window
 				_("Export..."),
 				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
-				_("Export HTML file"),
+				_("Export archive file"),
 				self.OnExport
 			),
 		]:
@@ -167,8 +171,11 @@ class EditorFrame(wx.Frame):
 		with wx.FileDialog(self, **dialogOptions) as dialog:
 			if dialog.ShowModal() == wx.ID_OK:
 				userProvidedFilename = True
-				self.filename = dialog.GetFilename()
-				self.dirname = dialog.GetDirectory()
+
+				self.ad = Access8MathDocument(dialog.GetPath())
+				self.filename = os.path.basename(self.ad.raw_entry)
+				self.dirname = self.ad.raw_folder
+
 				# Update the window title with the new filename.
 				self.SetTitle()
 			else:
@@ -189,7 +196,7 @@ class EditorFrame(wx.Frame):
 
 	def OnSave(self, event):
 		# Translators: The name of the document in the Editor when it has never been saved to a file
-		if self.filename == _("New document"):
+		if self.ad.temp:
 			# Translators: The title of the Editor's Save file window
 			if self.AskUserForFilename(message=_("Save file"), style=wx.FD_SAVE, **self.DefaultFileDialogOptions()):
 				with open(os.path.join(self.dirname, self.filename), 'w', encoding='utf-8') as file:
@@ -211,19 +218,10 @@ class EditorFrame(wx.Frame):
 				file.write(self.control.GetValue())
 			self.modify = False
 
-	def OnReload(self, event):
-		# Translators: The name of the document in the Editor when it has never been saved to a file
-		if self.filename == _("New document"):
-			pass
-		else:
-			with open(os.path.join(self.dirname, self.filename), 'r', encoding='utf-8') as file:
-				self.control.SetValue(file.read())
-			self.modify = False
-
 	def OnExit(self, event):
 		if self.modify:
 			# Translators: The name of the document in the Editor when it has never been saved to a file
-			if self.filename == _("New document"):
+			if self.ad.temp:
 				path = ' "' + self.filename + '"'
 			else:
 				path = ' "' + os.path.join(self.dirname, self.filename) + '"'
@@ -246,7 +244,7 @@ class EditorFrame(wx.Frame):
 	def OnPreview(self, event):
 		save_result = False
 		# Translators: The name of the document in the Editor when it has never been saved to a file
-		if self.filename == _("New document"):
+		if self.ad.temp:
 			save_result = self.OnSave(event)
 		else:
 			if self.modify:
@@ -269,17 +267,13 @@ class EditorFrame(wx.Frame):
 		if not save_result:
 			return
 
-		raw2review(self.dirname, self.filename, self.review_folder)
-		dst = os.path.join(self.review_folder, 'Access8Math.json')
-		with open(dst, 'r', encoding='utf8') as f:
-			metadata = json.load(f)
-		entry_file = metadata['entry']
-		os.startfile(os.path.join(self.review_folder, entry_file))
+		self.ad.raw2review()
+		os.startfile(os.path.join(self.ad.review_entry))
 
 	def OnExport(self, event):
 		save_result = False
 		# Translators: The name of the document in the Editor when it has never been saved to a file
-		if self.filename == _("New document"):
+		if self.ad.temp:
 			save_result = self.OnSave(event)
 		else:
 			if self.modify:
@@ -302,7 +296,7 @@ class EditorFrame(wx.Frame):
 		if not save_result:
 			return
 
-		raw2review(self.dirname, self.filename, self.review_folder)
+		self.ad.raw2review()
 		with wx.FileDialog(
 			# Translators: The title of the Editor's Export file window
 			self, message=_("Export file..."),
@@ -312,7 +306,14 @@ class EditorFrame(wx.Frame):
 				return
 			dst = entryDialog.GetPath()
 		dst = dst[:-4]
-		shutil.make_archive(dst, 'zip', self.review_folder)
+		shutil.make_archive(dst, 'zip', self.ad.review_folder)
+
+	def OnImport(self, event):
+		# Translators: The title of the Editor's Open file window
+		if self.AskUserForFilename(message=_("Open file"), style=wx.FD_OPEN, **self.DefaultFileDialogOptions()):
+			with open(os.path.join(self.dirname, self.filename), 'r', encoding='utf-8') as file:
+				self.control.SetValue(file.read())
+			self.modify = False
 
 	def OnCloseWindow(self, event):
 		pass
@@ -320,6 +321,7 @@ class EditorFrame(wx.Frame):
 
 	def Destroy(self):
 		super().Destroy()
+		self.ad = None
 
 	def OnTextChanged(self, event):
 		self.modify = True

@@ -3,8 +3,13 @@ import json
 import os
 import re
 import shutil
+import uuid
+from zipfile import ZipFile
 
+import addonHandler
 import config
+
+addonHandler.initTranslation()
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -21,92 +26,163 @@ import markdown2
 import xml.etree.ElementTree as etree
 
 
-def raw2review(data_folder, entry_file, review_folder):
-	with io.open(os.path.join(data_folder, entry_file), 'r', encoding='utf8') as f:
-		content = f.read()
-	contentmd = markdown2.markdown(content)
+class Access8MathDocument:
+	def __init__(self, path=None, exist=True):
+		# path: folder/txt/zip
+		self.temp = False
+		if path and not os.path.exists(path):
+			if not exist:
+				raise OSError("path {} not exist".format(path))
+			else:
+				with open(path, 'w', encoding='utf8') as f:
+					f.write("")
+		if not path:
+			path = os.path.join(PATH, 'web', 'workspace', str(uuid.uuid4()))
+			self.temp = True
+			os.makedirs(path)
+			raw_entry = os.path.join(path, '{}.txt'.format(_("New document")))
+			review_entry = os.path.join(path, '{}.html'.format(_("New document")))
+			with open(raw_entry, 'w', encoding='utf8') as f:
+				f.write("")
+			metadata_file = os.path.join(path, 'Access8Math.json')
+			metadata = {
+				"raw_entry": os.path.basename(raw_entry),
+				"review_entry": os.path.basename(review_entry),
+			}
+			dst = os.path.join(path, 'Access8Math.json')
+			with open(dst, 'w', encoding='utf8') as f:
+				json.dump(metadata, f)
 
-	tb = html5lib.getTreeBuilder("etree", implementation=etree)
-	p = html5lib.HTMLParser(tb)
-	try:
-		contentxml = p.parse(contentmd)
-	except BaseException:
-		contentxml = None
+		if os.path.isdir(path):
+			self.raw_folder = path
+			metadata_file = os.path.join(self.raw_folder, 'Access8Math.json')
+			metadata = json.load(open(metadata_file))
+			self.raw_entry = os.path.join(self.raw_folder, metadata["raw_entry"])
+			# self.raw_entry = os.path.join(path, '{}.txt'.format(_("New document")))
+		elif os.path.isfile(path):
+			file = os.path.basename(path)
+			ext = file.split('.')[-1]
+			if ext == 'zip':
+				self.raw_folder = os.path.join(PATH, 'web', 'workspace', str(uuid.uuid4()))
+				self.temp = True
+				if not os.path.exists(self.raw_folder):
+					os.makedirs(self.raw_folder)
+				with ZipFile(path, 'r') as file:
+					file.extractall(self.raw_folder)
+				metadata_file = os.path.join(self.raw_folder, 'Access8Math.json')
+				metadata = json.load(open(metadata_file))
+				self.raw_entry = os.path.join(self.raw_folder, metadata["raw_entry"])
+			else:
+				self.raw_folder = os.path.dirname(path)
+				self.raw_entry = path
 
-	resources = []
-	if contentxml:
-		for item in contentxml.iter('{http://www.w3.org/1999/xhtml}a'):
-			resource = '\\'.join(item.attrib['href'].split('/'))
-			resources.append(resource)
-		for item in contentxml.iter('{http://www.w3.org/1999/xhtml}img'):
-			resource = '\\'.join(item.attrib['src'].split('/'))
-			resources.append(resource)
-	print(resources)
-	template_folder = os.path.join(PATH, 'web', 'templates')
+		with io.open(self.raw_entry, 'r', encoding='utf8') as f:
+			for line in f:
+				pass
 
-	rawIntoReview(data_folder, review_folder, resources)
+		self.review_folder = os.path.join(PATH, 'web', 'workspace', 'review')
 
-	shutil.copyfile(
-		os.path.join(data_folder, entry_file),
-		os.path.join(review_folder, entry_file),
-	)
-	shutil.copytree(
-		os.path.join(template_folder, 'modules'),
-		os.path.join(review_folder, 'modules')
-	)
-
-	try:
-		name = '.'.join(entry_file.split('.')[:-1])
-	except BaseException:
-		name = 'index'
-	entry_html = "{}.html".format(name)
-	metadata = {
-		"entry": entry_html
-	}
-	dst = os.path.join(review_folder, 'Access8Math.json')
-	with open(dst, 'w', encoding='utf8') as f:
-		json.dump(metadata, f)
-
-	for dirPath, dirNames, fileNames in os.walk(review_folder):
-		for item in fileNames:
-			item = os.path.join(dirPath, item)
+	def __del__(self):
+		if self.temp:
 			try:
-				name = '.'.join(os.path.basename(item).split('.')[:-1])
-				extend = os.path.basename(item).split('.')[-1]
+				shutil.rmtree(self.raw_folder)
 			except BaseException:
-				name = ''
-				extend = ''
-			if os.path.isfile(item) and extend == 'txt':
-				with open(item, "r", encoding="utf8") as f:
-					text = f.read()
-				text2template(text, os.path.join(os.path.dirname(item), '{}.html'.format(name)))
+				pass
+
+	@property
+	def review_entry(self):
+		try:
+			name = '.'.join(os.path.basename(self.raw_entry).split('.')[:-1])
+		except BaseException:
+			name = 'index'
+		return os.path.join(self.review_folder, "{}.html".format(name))
+
+	@property
+	def resources(self):
+		with io.open(self.raw_entry, 'r', encoding='utf8') as f:
+			content = f.read()
+		contentmd = markdown2.markdown(content)
+
+		tb = html5lib.getTreeBuilder("etree", implementation=etree)
+		p = html5lib.HTMLParser(tb)
+		try:
+			contentxml = p.parse(contentmd)
+		except BaseException:
+			contentxml = None
+
+		resources = []
+		if contentxml:
+			for item in contentxml.iter('{http://www.w3.org/1999/xhtml}a'):
+				resource = '\\'.join(item.attrib['href'].split('/'))
+				resources.append(resource)
+			for item in contentxml.iter('{http://www.w3.org/1999/xhtml}img'):
+				resource = '\\'.join(item.attrib['src'].split('/'))
+				resources.append(resource)
+
+		return resources
+
+	def raw2review(self):
+		rawIntoReview(self.raw_folder, self.review_folder, self.resources)
+
+		shutil.copyfile(
+			os.path.join(self.raw_folder, os.path.basename(self.raw_entry)),
+			os.path.join(self.review_folder, os.path.basename(self.raw_entry)),
+		)
+
+		template_folder = os.path.join(PATH, 'web', 'templates')
+		shutil.copytree(
+			os.path.join(template_folder, 'modules'),
+			os.path.join(self.review_folder, 'modules')
+		)
+
+		metadata = {
+			"raw_entry": os.path.basename(self.raw_entry),
+			"review_entry": os.path.basename(self.review_entry),
+		}
+		dst = os.path.join(self.review_folder, 'Access8Math.json')
+		with open(dst, 'w', encoding='utf8') as f:
+			json.dump(metadata, f)
+
+		for dirPath, dirNames, fileNames in os.walk(self.review_folder):
+			for item in fileNames:
+				item = os.path.join(dirPath, item)
+				try:
+					name = '.'.join(os.path.basename(item).split('.')[:-1])
+					extend = os.path.basename(item).split('.')[-1]
+				except BaseException:
+					name = ''
+					extend = ''
+				if os.path.isfile(item) and extend == 'txt':
+					text2template(src=item, dst=os.path.join(os.path.dirname(item), '{}.html'.format(name)))
 
 
-def rawIntoReview(data_folder, review_folder, resources):
+def rawIntoReview(raw_folder, review_folder, resources):
 	try:
 		shutil.rmtree(review_folder)
 	except BaseException:
 		pass
 	try:
-		os.mkdir(review_folder)
+		os.makedirs(review_folder)
 	except BaseException:
 		pass
 	for resource in resources:
 		try:
 			dir = os.path.dirname(os.path.join(review_folder, resource))
 			if not os.path.exists(dir):
-				os.mkdir(dir)
+				os.makedirs(dir)
 			shutil.copyfile(
-				os.path.join(data_folder, resource),
+				os.path.join(raw_folder, resource),
 				os.path.join(review_folder, resource),
 			)
 		except BaseException:
 			pass
 
 
-def text2template(value, output):
+def text2template(src, dst):
+	with open(src, "r", encoding="utf8") as f:
+		value = f.read()
 	try:
-		title = '.'.join(os.path.basename(output).split('.')[:-1])
+		title = '.'.join(os.path.basename(dst).split('.')[:-1])
 	except BaseException:
 		title = 'Access8Math'
 	backslash_pattern = re.compile(r"\\")
@@ -124,6 +200,6 @@ def text2template(value, output):
 		'color': config.conf["Access8Math"]["settings"]["color"],
 		'bg_color': config.conf["Access8Math"]["settings"]["bg_color"],
 	})
-	with open(output, "w", encoding="utf8", newline="") as f:
+	with open(dst, "w", encoding="utf8", newline="") as f:
 		f.write(content)
-	return output
+	return dst

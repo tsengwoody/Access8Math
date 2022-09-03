@@ -22,7 +22,7 @@ from command.translate import A8MTranslateCommandView
 from command.batch import A8MBatchCommandView
 from delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter
 from lib.mathProcess import textmath2laObjFactory, latex2mathml, asciimath2mathml, latex2asciimath, asciimath2latex
-from lib.viewHTML import raw2review
+from lib.viewHTML import Access8MathDocument
 from regularExpression import delimiterRegularExpression, latex_bracket_dollar
 
 addonHandler.initTranslation()
@@ -452,28 +452,29 @@ class TextMathEditField(NVDAObject):
 				title = ""
 		try:
 			file = title.split("-")[0].strip('* ')
-			name, ext = file.split('.')
+			name = '.'.join(file.split('.')[:-1])
+			ext = file.split('.')[-1]
 		except BaseException:
 			name = 'index'
 			ext = 'txt'
 
-		data_folder = os.path.join(PATH, 'web', 'data')
+		data_folder = os.path.join(PATH, 'web', 'workspace', 'default')
 		entry_file = '{}.{}'.format(name, ext)
-		review_folder = os.path.join(PATH, 'web', 'review')
+		review_folder = os.path.join(PATH, 'web', 'workspace', 'review')
 
 		try:
 			shutil.rmtree(data_folder)
 		except BaseException:
 			pass
 		if not os.path.exists(data_folder):
-			os.mkdir(data_folder)
+			os.makedirs(data_folder)
 		with open(os.path.join(data_folder, entry_file), "w", encoding="utf8", newline="") as f:
 			f.write(document.text)
 
-		raw2review(data_folder, entry_file, review_folder)
-
+		ad = Access8MathDocument(os.path.join(data_folder, entry_file))
+		ad.raw2review()
 		A8MHTMLCommandView(
-			review_folder=os.path.join(PATH, 'web', 'review')
+			ad=ad
 		).setFocus()
 
 	def script_mark(self, gesture):

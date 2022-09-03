@@ -72,7 +72,7 @@
 
 書寫綜合內容（文字內容與數學內容）
 
-### 書寫綜合內容（快捷鍵可在編輯區使用，建議使用附加元件內之內建編輯器。windows 11 必需使用附加元件所提供之編輯器；windows 10 以前版本可使用記事本。）
+### 書寫綜合內容（快捷鍵可在編輯區使用，建議使用附加元件內之內建編輯器下稱 Access8Math 編輯器。windows 11 必需使用 Access8Math 編輯器；windows 10 以前版本可使用記事本。）
 
 以 LaTeX/AsciiMath 分隔標記框出數學標記區，用以區分文字內容與數學內容，亦即在數學標記區內的資料為 LaTeX/AsciiMath 語法的數學內容，在數學標記區外的為文字內容。
 
@@ -195,13 +195,17 @@ space/enter：游標停在數學區塊上時可與該資料區塊數學內容互
 * ctrl+v：於當前游標區塊後貼上內容
 * delete/back space：刪除當前游標區塊
 
-### 內建編輯器
+### Access8Math 編輯器與 Access8Math Document
 
 windows 11 起記事本的編輯區為豐富文本區域非傳統編輯區，故在 windows 11 必需使用此編輯器方能使用書寫功能。此編輯器亦提供開啟舊檔、儲存檔案、預覽等功能。
 
-檢視功能表下的預覽、匯出功能與指令手勢下的檢視功能（alt+h）相同可產生 HTML 檔。
+使用 Access8Math 編輯器可書寫 markdown 文件且當有資源時可將資源至於編輯器工作空間內並進行引用。當點選編輯器的匯出功能，會將文件內有引用到的資源一併打包成壓縮檔
 
-在編輯器下產生的 HTML 檔會包括原始 txt 檔所在的資料夾內資料，可使 Markdown 語法有關聯資源資料時可正確顯示。
+檢視功能表下的預覽、匯出功能與指令手勢下的檢視功能（alt+h）相同可產生 Access8Math Document 檔，兩者唯一區別為 Access8Math 編輯器會將被引用的資源一併打包加入壓縮檔內
+
+為了讓 Access8Math 編輯器匯出的檔案可匯入再編輯，Access8Math 編輯器匯出時會寫入一個 Access8Math.json ，其為 meta 資料。我們稱含有此 meta 的壓縮檔/資料夾為 Access8Math Document
+
+在檔案總管內可按下 NVDA+快顯鍵，當選擇的路徑為 txt/Access8Math Document 時，會彈出虛擬路徑位置功能表，可快速開啟檢視或編輯該檔案
 
 ### 綜合內容範例：
 
@@ -310,6 +314,7 @@ github： https://github.com/tsengwoody/Access8Math
 * 按 NVDA+alt+e 在檔案總管中使用內建編輯器打開文字文件。
 * 在虛擬選單中的子功能表可透過 enter 展開
 * 實做 MathML menclose tag 規則
+* 新功能：在檔案總管中的虛擬路徑位置功能表。它可快速開啟檢視或編輯 Access8Math 文件。(請閱讀 Access8Math Document 章節以了解詳細信息)
 
 ## Access8Math v3.3 更新日誌
 

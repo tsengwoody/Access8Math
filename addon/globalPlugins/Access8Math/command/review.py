@@ -33,13 +33,9 @@ class A8MHTMLCommandModel(MenuModel):
 class A8MHTMLCommandView(MenuView):
 	name = _("view command")
 
-	def __init__(self, review_folder):
+	def __init__(self, ad):
 		super().__init__(MenuModel=A8MHTMLCommandModel, TextInfo=A8MHTMLCommandViewTextInfo)
-		self.review_folder = review_folder
-		dst = os.path.join(review_folder, 'Access8Math.json')
-		with open(dst, 'r', encoding='utf8') as f:
-			metadata = json.load(f)
-		self.entry_file = metadata['entry']
+		self.ad = ad
 
 	@script(
 		gestures=["kb:enter"]
@@ -52,7 +48,7 @@ class A8MHTMLCommandView(MenuView):
 
 	def OnPreview(self):
 		def openfile():
-			os.startfile(os.path.join(self.review_folder, self.entry_file))
+			os.startfile(self.ad.review_entry)
 		wx.CallAfter(openfile)
 
 	def OnExport(self):
@@ -61,7 +57,7 @@ class A8MHTMLCommandView(MenuView):
 				if dialog.ShowModal() != wx.ID_OK:
 					return
 				dst = dialog.GetPath()[:-4]
-				shutil.make_archive(dst, 'zip', self.review_folder)
+				shutil.make_archive(dst, 'zip', self.ad.review_folder)
 		wx.CallAfter(show)
 
 

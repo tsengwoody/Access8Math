@@ -51,7 +51,7 @@ This NVDA addon provides the feature for writing of mathematical content. Throug
 
 Writing comprehensive content (text content and mathematical content):
 
-### write comprehensive content (Shortcut key is available use in editing area, it is recommended to use in the built-in editor. The built-in editor must be used for Windows 11; Notepad can be used for Windows 10 below version.)
+### write comprehensive content (Shortcut key is available use in editing area, it is recommended to use built-in editor(Access8Math editor). Access8Math editor must be used for Windows 11; Notepad can be used for Windows 10 below version.)
 
 Use LaTeX or AsciiMath separate markers to frame the math area to distinguish text content and mathematical content. That is, the data in math marker area is mathematical content of LaTeX/AsciiMath content, and text content outside math marker area.
 
@@ -172,6 +172,18 @@ The following key gestures can be used to edit contents
 * ctrl+v: Paste content after the current cursor block
 * delete/back space: delete the current cursor block
 
+### Access8Math editor and Access8Math Document
+
+The edit area of Notepad in Windows 11 is rich editing area not traditional editing area, so Access8Math editor must be used in Windows 11 to use the writing feature. This editor provides such as opening old files, saving files, and view feature.
+
+Use the Access8Math editor to write markdown documents, and when document have some resource, the resources can put into workspace of editor and be referenced. When using export feature of the editor, the referenced resources in the document will be packaged into a Archive file by Access8Math editor.
+
+The preview and export feature under the view menu are the same as the command gesture view feature (alt+h), which can generate an Access8Math Document. The only difference between the two is that the Access8Math editor will package referenced resources into a archive file
+
+In order to allow the document exported by the Access8Math editor to be imported again and edited, the Access8Math editor will write a Access8Math.json when exporting, which is the meta data. We call the archive file/folder containing this meta is Access8Math Document
+
+In File Explorer, you can press the NVDA+application, if the selected path is txt/Access8Math Document, a virtual context menu will open, which can quickly open this file to view or edit it.
+
 ### content example:
 
 *	LaTeX(by bracket separator): The solution of the quadratic equation in one variable \(ax^2+bx+c=0\) is \(\frac{-b\pm\sqrt{b^2-4ac}}{2a}\) .
@@ -262,6 +274,7 @@ Please report any bugs or comments, thank you!
 * Press NVDA+alt+e open text file with the built-in editor in File Explore.
 * In virtual menus, submenu can open by enter
 * Implenment MathML menclose tag rule
+* new feature: virtual context menu in File Explorer. It can quickly open Access8Math Document to view or edit it(Please read "Access8Math editor and Access8Math Document" section to know detail information)
 
 ## Access8Math v3.3 Update
 

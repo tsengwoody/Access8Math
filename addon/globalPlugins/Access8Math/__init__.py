@@ -10,6 +10,7 @@ import shutil
 
 import addonHandler
 import api
+import appModules
 import config
 import buildVersion
 import controlTypes
@@ -27,7 +28,6 @@ import tones
 import ui
 
 import wx
-
 
 insert_path_count = 0
 # BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -95,11 +95,13 @@ config.conf.spec["Access8Math"] = {
 }
 
 import A8M_PM
+from .command.context import A8MFEVContextMenuView
 from .dialogs import NewLanguageAddingDialog, UnicodeDicDialog, MathRuleDialog, MathReaderSettingsPanel, Access8MathSettingsDialog
 from .editor import EditorFrame
 from .interaction import A8MProvider, A8MInteraction
 from .lib.storage import explorer
 from .writer import TextMathEditField
+from .lib.viewHTML import Access8MathDocument
 
 for i in range(insert_path_count):
 	del sys.path[0]
@@ -331,34 +333,48 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				filename = None
 			if filename:
 				try:
-					with open(filename, "r", encoding="utf8") as f:
-						editor_content = f.read()
+					self.edit(path=filename)
 				except:
 					obj = api.getFocusObject()
 					document = obj.makeTextInfo(textInfos.POSITION_ALL)
 					editor_content = document.text
+					self.edit(content=editor_content)
 			else:
 				obj = api.getFocusObject()
 				document = obj.makeTextInfo(textInfos.POSITION_ALL)
 				editor_content = document.text
-			self.editor_popup(editor_content)
+				self.edit(content=editor_content)
 		wx.CallAfter(show)
 
-	def editor_popup(self, editor_content):
-		"""global editor_dialog
-		if editor_dialog:
-			editor_dialog.Raise()
-			return"""
-
-		parent = gui.mainFrame
-		frame = EditorFrame(parent=parent)
-		frame.control.SetValue(editor_content)
+	def edit(self, content=None, path=None):
+		if path:
+			frame = EditorFrame(path)
+		if content or content == '':
+			frame = EditorFrame()
+			frame.control.SetValue(content)
 		frame.Show(True)
 
-		"""with EditorDialog(parent=parent, value=editor_content) as dialog:
-			editor_dialog = dialog
-			dialog.ShowModal()
-			editor_dialog = None"""
+	@script(
+		description=_("Open virtual context menu"),
+		category=ADDON_SUMMARY,
+		gesture="kb:NVDA+applications",
+	)
+	def script_open_virtual_context_menu(self, gesture):
+		obj = api.getFocusObject()
+		if isinstance(obj.appModule, appModules.explorer.AppModule):
+			try:
+				filename = explorer.get_selected_file()
+			except:
+				filename = None
+			if filename:
+				try:
+					A8MFEVContextMenuView(
+						path=filename
+					).setFocus()
+				except:
+					ui.message(_("open path failed"))
+			else:
+				ui.message(_("get path failed"))
 
 	def onSettings(self, evt):
 		wx.CallAfter(gui.mainFrame._popupSettingsDialog, Access8MathSettingsDialog)
@@ -391,13 +407,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		)
 
 	def onEditor(self, editor_content):
-		self.editor_popup("")
+		self.edit(content='')
 
 	def onCleanWorkspace(self, evt):
 		for item in [
-			os.path.join(PATH, 'web', 'data'),
 			os.path.join(PATH, 'web', 'export'),
-			os.path.join(PATH, 'web', 'review'),
+			os.path.join(PATH, 'web', 'workspace'),
 		]:
 			try:
 				shutil.rmtree(item)
