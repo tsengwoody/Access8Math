@@ -53,7 +53,7 @@ addon_info = {
 pythonSources = [
 	'addon/globalPlugins/Access8Math/*.py',
 	'addon/globalPlugins/Access8Math/command/*.py',
-	'addon/globalPlugins/Access8Math/updater/*.py',
+	'addon/globalPlugins/Access8Math/lib/latex/*.py',
 ]
 
 # Files that contain strings for translation. Usually your python sources
