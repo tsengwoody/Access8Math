@@ -1,5 +1,3 @@
-import config
-
 LaTeX = {
 	"latex": {
 		"start": r"\l",

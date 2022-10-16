@@ -1,10 +1,7 @@
-import json
 import os
-import shutil
 
 import addonHandler
 import eventHandler
-import gui
 from scriptHandler import script
 import ui
 import wx
@@ -60,10 +57,9 @@ class A8MFEVContextMenuView(MenuView):
 	def OnEdit(self):
 		def show():
 			try:
-				frame = EditorFrame(self.path).Show(True)
-			except BaseException as e:
+				EditorFrame(self.path).Show(True)
+			except BaseException:
 				ui.message(_("open path failed"))
-				print(e)
 		eventHandler.executeEvent("gainFocus", self.parent)
 		wx.CallAfter(show)
 

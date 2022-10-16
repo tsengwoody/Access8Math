@@ -1,5 +1,4 @@
 import addonHandler
-import wx
 
 from lib.dataProcess import joinObjectArray, groupByField
 
@@ -112,9 +111,6 @@ def data2shortcutMap(latexAll):
 			}
 
 	return data
-
-
-
 
 
 latexMenuData = [

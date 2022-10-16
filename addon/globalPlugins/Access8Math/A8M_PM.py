@@ -53,8 +53,8 @@ def create_node(et):
 		mp_tag = et.tag
 
 	node_class = nodes[mp_tag.capitalize()] if mp_tag.capitalize() in nodes.keys() else object
-	# if mp_tag == 'none':
-		# node_class = Node
+	if mp_tag == 'none':
+		node_class = Nones
 
 	if issubclass(node_class, NonTerminalNode) or issubclass(node_class, BlockNode):
 		child = []
@@ -713,12 +713,12 @@ class Menclose(AlterNode):
 		}
 		try:
 			notation = self.attrib["notation"]
-		except:
+		except BaseException:
 			notation = "longdiv"
 
 		try:
 			description = self.symbol_translate("notation:{}".format(value2description[notation]))
-		except:
+		except BaseException:
 			description = ""
 
 		head = rule[0].replace("{start}", description)
@@ -862,9 +862,9 @@ class Mmultiscripts(AlterNode):
 		index_mix = zip(index_odd, index_even)
 		for count, item in enumerate(index_mix):
 			temp = [
-				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count+1, self.symbol_translate('mmultiscripts:pre-subscript')),
+				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count + 1, self.symbol_translate('mmultiscripts:pre-subscript')),
 				item[0],
-				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count+1, self.symbol_translate('mmultiscripts:pre-superscript')),
+				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count + 1, self.symbol_translate('mmultiscripts:pre-superscript')),
 				item[1],
 			]
 			mmrule.extend(temp)
@@ -875,9 +875,9 @@ class Mmultiscripts(AlterNode):
 		index_mix = zip(index_odd, index_even)
 		for count, item in enumerate(index_mix):
 			temp = [
-				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count+1, self.symbol_translate('mmultiscripts:post-subscript')),
+				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count + 1, self.symbol_translate('mmultiscripts:post-subscript')),
 				item[0],
-				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count+1, self.symbol_translate('mmultiscripts:post-superscript')),
+				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count + 1, self.symbol_translate('mmultiscripts:post-superscript')),
 				item[1],
 			]
 			mmrule.extend(temp)
@@ -900,8 +900,8 @@ class Mmultiscripts(AlterNode):
 		index_mix = zip(index_odd, index_even)
 		for count, item in enumerate(index_mix):
 			temp = [
-				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count+1, self.symbol_translate('mmultiscripts:post-subscript')),
-				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count+1, self.symbol_translate('mmultiscripts:post-superscript')),
+				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count + 1, self.symbol_translate('mmultiscripts:post-subscript')),
+				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count + 1, self.symbol_translate('mmultiscripts:post-superscript')),
 			]
 			mmrole.extend(temp)
 
@@ -913,8 +913,8 @@ class Mmultiscripts(AlterNode):
 		index_mix = zip(index_odd, index_even)
 		for count, item in enumerate(index_mix):
 			temp = [
-				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count+1, self.symbol_translate('mmultiscripts:pre-subscript')),
-				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count+1, self.symbol_translate('mmultiscripts:pre-superscript')),
+				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count + 1, self.symbol_translate('mmultiscripts:pre-subscript')),
+				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count + 1, self.symbol_translate('mmultiscripts:pre-superscript')),
 			]
 			mmrole.extend(temp)
 

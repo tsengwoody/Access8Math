@@ -1,5 +1,6 @@
 import addonHandler
 import api
+import config
 import eventHandler
 from keyboardHandler import KeyboardInputGesture
 from scriptHandler import script

@@ -101,7 +101,6 @@ from .editor import EditorFrame
 from .interaction import A8MProvider, A8MInteraction
 from .lib.storage import explorer
 from .writer import TextMathEditField
-from .lib.viewHTML import Access8MathDocument
 
 for i in range(insert_path_count):
 	del sys.path[0]
@@ -329,12 +328,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		def show():
 			try:
 				filename = explorer.get_selected_file()
-			except:
+			except BaseException:
 				filename = None
 			if filename:
 				try:
 					self.edit(path=filename)
-				except:
+				except BaseException:
 					obj = api.getFocusObject()
 					document = obj.makeTextInfo(textInfos.POSITION_ALL)
 					editor_content = document.text
@@ -364,14 +363,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if isinstance(obj.appModule, appModules.explorer.AppModule):
 			try:
 				filename = explorer.get_selected_file()
-			except:
+			except BaseException:
 				filename = None
 			if filename:
 				try:
 					A8MFEVContextMenuView(
 						path=filename
 					).setFocus()
-				except:
+				except BaseException:
 					ui.message(_("open path failed"))
 			else:
 				ui.message(_("get path failed"))

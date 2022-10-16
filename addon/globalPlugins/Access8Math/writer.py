@@ -4,6 +4,7 @@ import shutil
 
 import addonHandler
 import api
+import braille
 import config
 from keyboardHandler import KeyboardInputGesture
 from NVDAObjects import NVDAObject
@@ -35,6 +36,22 @@ navigate_mode = config.conf["Access8Math"]["settings"]["navigate_mode"]
 shortcut_mode = config.conf["Access8Math"]["settings"]["shortcut_mode"]
 greekAlphabet_mode = False
 writeNav_mode = False
+
+
+def display_braille(regions):
+	if not braille.handler.enabled:
+		return
+	braille.handler.buffer = braille.handler.mainBuffer
+	braille.handler.buffer.clear()
+
+	for region in regions:
+		region.obj = None
+		region.update()
+		braille.handler.buffer.regions.append(region)
+	braille.handler.buffer.update()
+	braille.handler.buffer.focus(region)
+	braille.handler.scrollToCursorOrSelection(region)
+	braille.handler.update()
 
 
 class TextMathEditField(NVDAObject):
@@ -355,6 +372,9 @@ class TextMathEditField(NVDAObject):
 				nvwave.playWaveFile(os.path.join("waves", sound))
 			else:
 				ui.message(_("Browse navigation mode on"))
+			with SectionManager() as manager:
+				result = manager.move(type_='any', step=0)
+				self.displayBlocks([result], "view")
 		else:
 			self.unbindWriteNavGestures()
 			if config.conf["Access8Math"]["settings"]["writeNavAudioIndication"]:
@@ -362,6 +382,7 @@ class TextMathEditField(NVDAObject):
 				nvwave.playWaveFile(os.path.join("waves", sound))
 			else:
 				ui.message(_("Browse navigation mode off"))
+			api.getFocusObject().event_gainFocus()
 
 	def script_writeNav_exit(self, gesture):
 		if not self.writeNav_mode:
@@ -460,7 +481,6 @@ class TextMathEditField(NVDAObject):
 
 		data_folder = os.path.join(PATH, 'web', 'workspace', 'default')
 		entry_file = '{}.{}'.format(name, ext)
-		review_folder = os.path.join(PATH, 'web', 'workspace', 'review')
 
 		try:
 			shutil.rmtree(data_folder)
@@ -516,6 +536,48 @@ class TextMathEditField(NVDAObject):
 		with SectionManager() as manager:
 			A8MBatchCommandView(section=manager).setFocus()
 
+	def displayBlocks(self, results, mode):
+		text = []
+		brailleRegion = []
+		for result in results:
+			if result['data'] == "":
+				continue
+			if mode == "view" and result['type'] == "latex":
+				try:
+					mathMl = latex2mathml(result['data'])
+					mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
+					text += mathPres.speechProvider.getSpeechForMathMl(mathMl)
+					brailleRegion += mathPres.speechProvider.getBrailleForMathMl(mathMl)
+				except BaseException:
+					text += result['data']
+					brailleRegion += [braille.TextRegion(result['data'])]
+			elif mode == "view" and result['type'] == "asciimath":
+				try:
+					mathMl = asciimath2mathml(result['data'])
+					mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
+					text += mathPres.speechProvider.getSpeechForMathMl(mathMl)
+					brailleRegion += mathPres.speechProvider.getBrailleForMathMl(mathMl)
+				except BaseException:
+					text += result['data']
+					brailleRegion += [braille.TextRegion(result['data'])]
+			elif mode == "view" and result['type'] == "mathml":
+				try:
+					mathMl = result['data']
+					text += mathPres.speechProvider.getSpeechForMathMl(mathMl)
+					brailleRegion += mathPres.speechProvider.getBrailleForMathMl(mathMl)
+				except BaseException:
+					text += result['data']
+					brailleRegion += [braille.TextRegion(result['data'])]
+			else:
+				text += [result['data']]
+				brailleRegion += [braille.TextRegion(result['data'])]
+
+		try:
+			speech.speak(text)
+			display_braille(brailleRegion)
+		except BaseException:
+			pass
+
 	def script_navigate(self, gesture):
 		with SectionManager() as manager:
 			selected = False
@@ -570,35 +632,14 @@ class TextMathEditField(NVDAObject):
 				result = None
 
 			if not result:
-				tones.beep(100, 50)
 				result = manager.move(type_='any', step=0)
+				tones.beep(100, 50)
 
-			if result:
-				if selected:
-					manager.caret.updateSelection()
-
-				if "alt" not in gesture.modifierNames and result['type'] == "latex":
-					try:
-						mathMl = latex2mathml(result['data'])
-						mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
-						speech.speak(mathPres.speechProvider.getSpeechForMathMl(mathMl))
-					except BaseException:
-						ui.message(result['data'])
-				elif "alt" not in gesture.modifierNames and result['type'] == "asciimath":
-					try:
-						mathMl = asciimath2mathml(result['data'])
-						mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
-						speech.speak(mathPres.speechProvider.getSpeechForMathMl(mathMl))
-					except BaseException:
-						ui.message(result['data'])
-				elif "alt" not in gesture.modifierNames and result['type'] == "mathml":
-					mathMl = result['data']
-					speech.speak(mathPres.speechProvider.getSpeechForMathMl(mathMl))
-				elif not selected:
-					ui.message(result['data'])
-
-				# if "alt" in gesture.modifierNames:
-					# tones.beep(500, 50)
+			mode = "raw" if "alt" in gesture.modifierNames else "view"
+			if selected:
+				manager.caret.updateSelection()
+			else:
+				self.displayBlocks([result], mode)
 
 	def script_navigateLine(self, gesture):
 		with SectionManager() as manager:
@@ -629,40 +670,18 @@ class TextMathEditField(NVDAObject):
 					selected = True
 			else:
 				results = []
-
-			if len(results) == 0:
-				tones.beep(100, 50)
-				results = manager.moveLine(step=0)
 				if "shift" in gesture.modifierNames:
 					selected = True
 
-			if len(results) > 0:
-				if selected:
-					manager.caret.updateSelection()
+			if len(results) == 0:
+				results = manager.moveLine(step=0)
+				tones.beep(100, 50)
 
-				for result in results:
-					if result['data'] == "":
-						continue
-					if result['type'] == "latex":
-						try:
-							mathMl = latex2mathml(result['data'])
-							mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
-							speech.speak(mathPres.speechProvider.getSpeechForMathMl(mathMl))
-						except BaseException:
-							ui.message(result['data'])
-					elif result['type'] == "asciimath":
-						try:
-							mathMl = asciimath2mathml(result['data'])
-							mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
-							speech.speak(mathPres.speechProvider.getSpeechForMathMl(mathMl))
-						except BaseException:
-							ui.message(result['data'])
-					elif result['type'] == "mathml":
-						mathMl = result['data']
-						mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
-						speech.speak(mathPres.speechProvider.getSpeechForMathMl(mathMl))
-					else:
-						ui.message(result['data'])
+			mode = "view"
+			if selected:
+				manager.caret.updateSelection()
+			else:
+				self.displayBlocks(results, mode)
 
 	def script_navigateCopy(self, gesture):
 		with SectionManager() as manager:
