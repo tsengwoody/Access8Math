@@ -49,9 +49,9 @@ def display_braille(regions):
 		region.update()
 		braille.handler.buffer.regions.append(region)
 	braille.handler.buffer.update()
-	braille.handler.buffer.focus(region)
-	braille.handler.scrollToCursorOrSelection(region)
-	braille.handler.update()
+	# braille.handler.buffer.focus(region)
+	# braille.handler.scrollToCursorOrSelection(region)
+	# braille.handler.update()
 
 
 class TextMathEditField(NVDAObject):
@@ -470,12 +470,17 @@ class TextMathEditField(NVDAObject):
 		if not isinstance(title, str) or not title or title.isspace():
 			title = obj.appModule.appName if obj.appModule else None
 			if not isinstance(title, str) or not title or title.isspace():
-				title = ""
-		try:
-			file = title.split("-")[0].strip('* ')
-			name = '.'.join(file.split('.')[:-1])
-			ext = file.split('.')[-1]
-		except BaseException:
+				title = "index.txt"
+
+		file = title.split("-")[0].strip('* ')
+		dotsplit = file.split('.')
+		if len(dotsplit) > 1:
+			name = '.'.join(dotsplit[:-1])
+			ext = dotsplit[-1]
+		elif len(dotsplit) == 1:
+			name = '.'.join(dotsplit)
+			ext = 'txt'
+		else:
 			name = 'index'
 			ext = 'txt'
 
@@ -547,36 +552,38 @@ class TextMathEditField(NVDAObject):
 					mathMl = latex2mathml(result['data'])
 					mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
 					text += mathPres.speechProvider.getSpeechForMathMl(mathMl)
-					brailleRegion += mathPres.speechProvider.getBrailleForMathMl(mathMl)
+					brailleRegion += ["".join(mathPres.speechProvider.getBrailleForMathMl(mathMl))]
 				except BaseException:
 					text += result['data']
-					brailleRegion += [braille.TextRegion(result['data'])]
+					brailleRegion += [result['data']]
 			elif mode == "view" and result['type'] == "asciimath":
 				try:
 					mathMl = asciimath2mathml(result['data'])
 					mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
 					text += mathPres.speechProvider.getSpeechForMathMl(mathMl)
-					brailleRegion += mathPres.speechProvider.getBrailleForMathMl(mathMl)
+					brailleRegion += ["".join(mathPres.speechProvider.getBrailleForMathMl(mathMl))]
 				except BaseException:
 					text += result['data']
-					brailleRegion += [braille.TextRegion(result['data'])]
+					brailleRegion += [result['data']]
 			elif mode == "view" and result['type'] == "mathml":
 				try:
 					mathMl = result['data']
 					text += mathPres.speechProvider.getSpeechForMathMl(mathMl)
-					brailleRegion += mathPres.speechProvider.getBrailleForMathMl(mathMl)
+					brailleRegion += ["".join(mathPres.speechProvider.getBrailleForMathMl(mathMl))]
 				except BaseException:
 					text += result['data']
-					brailleRegion += [braille.TextRegion(result['data'])]
+					brailleRegion += [result['data']]
 			else:
 				text += [result['data']]
-				brailleRegion += [braille.TextRegion(result['data'])]
+				brailleRegion += [result['data']]
+		brailleRegion = [braille.TextRegion("".join(brailleRegion))]
+		# brailleRegion = [braille.TextRegion(br) for br in brailleRegion]
 
 		try:
 			speech.speak(text)
 			display_braille(brailleRegion)
-		except BaseException:
-			pass
+		except BaseException as e:
+			print(e)
 
 	def script_navigate(self, gesture):
 		with SectionManager() as manager:
