@@ -171,7 +171,15 @@ class EditorFrame(wx.Frame):
 			if dialog.ShowModal() == wx.ID_OK:
 				userProvidedFilename = True
 
-				self.ad = Access8MathDocument(dialog.GetPath())
+				# if self.ad.temp:
+					# self.ad.raw_folder = dialog.GetPath()[:-4]
+					# self.ad.raw_entry = os.path.basename(dialog.GetPath())
+				if self.ad.raw_entry != os.path.dirname(dialog.GetPath()):
+					self.ad.raw_folder = os.path.dirname(dialog.GetPath())
+					self.ad.raw_entry = os.path.basename(dialog.GetPath())
+				else:
+					self.ad.raw_entry = os.path.basename(dialog.GetPath())
+
 				self.filename = os.path.basename(self.ad.raw_entry)
 				self.dirname = self.ad.raw_folder
 
@@ -242,26 +250,24 @@ class EditorFrame(wx.Frame):
 
 	def OnPreview(self, event):
 		save_result = False
-		# Translators: The name of the document in the Editor when it has never been saved to a file
-		if self.ad.temp:
-			save_result = self.OnSave(event)
-		else:
-			if self.modify:
-				val = gui.messageBox(
-					# Translators: The message displayed
-					_("Preview will only include the saved content. The content in the editor has been modified since the last save, do you want to save and preview it?"),
-					# Translators: The title of the dialog
-					_("Preview"),
-					wx.YES_NO | wx.YES_DEFAULT | wx.CANCEL | wx.ICON_QUESTION, self
-				)
-				if val == wx.YES:
-					save_result = self.OnSave(event)
-				elif val == wx.NO:
-					save_result = True
-				elif val == wx.CANCEL:
-					return
-			else:
+		if self.modify:
+			val = gui.messageBox(
+				# Translators: The message displayed
+				_("Preview will only include the saved content. The content in the editor has been modified since the last save, do you want to save and preview it?"),
+				# Translators: The title of the dialog
+				_("Preview"),
+				wx.YES_NO | wx.YES_DEFAULT | wx.CANCEL | wx.ICON_QUESTION, self
+			)
+			if val == wx.YES:
+				with open(os.path.join(self.dirname, self.filename), 'w', encoding='utf-8') as file:
+					file.write(self.control.GetValue())
+				self.modify = False
+			elif val == wx.NO:
 				save_result = True
+			elif val == wx.CANCEL:
+				return
+		else:
+			save_result = True
 
 		if not save_result:
 			return
