@@ -171,9 +171,6 @@ class EditorFrame(wx.Frame):
 			if dialog.ShowModal() == wx.ID_OK:
 				userProvidedFilename = True
 
-				# if self.ad.temp:
-					# self.ad.raw_folder = dialog.GetPath()[:-4]
-					# self.ad.raw_entry = os.path.basename(dialog.GetPath())
 				if self.ad.raw_entry != os.path.dirname(dialog.GetPath()):
 					self.ad.raw_folder = os.path.dirname(dialog.GetPath())
 					self.ad.raw_entry = os.path.basename(dialog.GetPath())
