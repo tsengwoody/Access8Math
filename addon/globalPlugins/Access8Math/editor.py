@@ -173,9 +173,9 @@ class EditorFrame(wx.Frame):
 
 				if self.ad.raw_entry != os.path.dirname(dialog.GetPath()):
 					self.ad.raw_folder = os.path.dirname(dialog.GetPath())
-					self.ad.raw_entry = os.path.basename(dialog.GetPath())
+					self.ad.raw_entry = dialog.GetPath()
 				else:
-					self.ad.raw_entry = os.path.basename(dialog.GetPath())
+					self.ad.raw_entry = dialog.GetPath()
 
 				self.filename = os.path.basename(self.ad.raw_entry)
 				self.dirname = self.ad.raw_folder
