@@ -193,7 +193,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 		self.language = config.conf["Access8Math"]["settings"]["language"]
 		self.create_menu()
-		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(MathReaderSettingsPanel)
 
 	def terminate(self):
 		from lib.latex import latexData
