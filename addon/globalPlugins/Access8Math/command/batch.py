@@ -6,9 +6,7 @@ from scriptHandler import script
 
 import wx
 
-from delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter
-delimiter_dict = {**AsciiMath_delimiter, **LaTeX_delimiter}
-
+from .action import batch as _batch
 from .clipboard import clearClipboard
 from .models import MenuModel
 from .views import MenuView, MenuViewTextInfo
@@ -18,7 +16,7 @@ addonHandler.initTranslation()
 
 def batch(section, mode):
 	old_all_index = section.all_index
-	text = section.batch(mode)
+	text = _batch(mode)(section.document.text)
 
 	try:
 		temp = api.getClipData()

@@ -11,6 +11,7 @@ import core
 import gui
 from gui import guiHelper, nvdaControls
 from gui.settingsDialogs import MultiCategorySettingsDialog, SettingsDialog, SettingsPanel
+import languageHandler
 from logHandler import log
 from mathPres.mathPlayer import MathPlayer
 import queueHandler
@@ -19,7 +20,6 @@ import tones
 import A8M_PM
 from A8M_PM import MathContent
 from contextHelp import ContextHelpMixin
-from languageHandler_custom import getAvailableLanguages
 
 addonHandler.initTranslation()
 
@@ -155,10 +155,12 @@ class ReadingSettingsPanel(A8MSettingsPanel):
 
 	def makeSettings(self, settingsSizer):
 		try:
-			available_languages = getAvailableLanguages(base_path)
+			available_languages = A8M_PM.available_languages()
 		except BaseException:
 			available_languages = []
-		available_languages_dict = {k: v for k, v in available_languages if k != 'default'}
+		map = dict(languageHandler.getAvailableLanguages())
+		available_languages_dict = {k: map[k] for k in available_languages}
+
 		self.settings["language"]["options"] = available_languages_dict
 
 		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
@@ -711,13 +713,9 @@ class UnicodeDicDialog(SettingsDialog):
 	def OnRecoverDefaultClick(self, evt):
 		self.onSymbolEdited()
 		self.editingItem = None
-		category = self.category
-		language = self.language
-		path = os.path.dirname(os.path.abspath(__file__))
-		if language != 'Windows':
-			path = os.path.join(path, 'locale', category, language)
-		else:
-			path = os.path.join(path, 'locale', category, 'default')
+
+		path = os.path.join(A8M_PM.LOCALE_DIR, self.category, self.language)
+
 		self.load(os.path.join(path, "unicode.dic"))
 
 	def OnImportClick(self, evt):
@@ -973,7 +971,7 @@ class MathRuleDialog(SettingsDialog):
 		entryDialog.Destroy()
 
 	def OnExampleClick(self, evt):
-		from interaction import A8MInteraction
+		from .interaction import A8MInteraction
 		index = self.mathrulesList.GetFirstSelected()
 		mathrule = copy.deepcopy(self.mathrules[index])
 		mathMl = mathrule[1].example
@@ -1048,7 +1046,7 @@ class NewLanguageAddingDialog(wx.Dialog):
 		self.mainSizer = wx.BoxSizer(wx.VERTICAL)
 		self.sHelper = guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 
-		exist_languages = os.listdir(os.path.join(base_path, 'locale', 'speech'))
+		exist_languages = A8M_PM.available_languages()
 		self.languageNames = languageHandler.getAvailableLanguages()[:-1]
 		self.languageNames = [x for x in self.languageNames if not x[0] in exist_languages]
 		languageChoices = [x[1] for x in self.languageNames]
@@ -1103,12 +1101,8 @@ class NewLanguageAddingDialog(wx.Dialog):
 	def OnCertainClick(self, evt):
 		self.languageIndex = self.languageList.Selection
 		self.certainLanguage = self.languageNames[self.languageIndex][0]
-		src = os.path.join(base_path, 'locale', 'speech', 'default')
-		dst = os.path.join(base_path, 'locale', 'speech', self.certainLanguage)
-		shutil.copytree(src, dst, ignore=shutil.ignore_patterns('*_user.*'))
-		src = os.path.join(base_path, 'locale', 'braille', 'default')
-		dst = os.path.join(base_path, 'locale', 'braille', self.certainLanguage)
-		shutil.copytree(src, dst, ignore=shutil.ignore_patterns('*_user.*'))
+
+		A8M_PM.add_language(self.certainLanguage)
 
 		self.languageList.Clear()
 		self.languageList.Append(self.languageNames[self.languageIndex][1])
@@ -1127,13 +1121,7 @@ class NewLanguageAddingDialog(wx.Dialog):
 		self.SetSizer(self.mainSizer)
 
 	def OnUncertainClick(self, evt):
-		try:
-			dst = os.path.join(base_path, 'locale', 'speech', self.certainLanguage)
-			shutil.rmtree(dst)
-			dst = os.path.join(base_path, 'locale', 'braille', self.certainLanguage)
-			shutil.rmtree(dst)
-		except BaseException:
-			return
+		A8M_PM.remove_language(self.certainLanguage)
 
 		self.certainLanguage = None
 

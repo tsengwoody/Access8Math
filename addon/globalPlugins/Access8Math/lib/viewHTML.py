@@ -141,6 +141,7 @@ class Access8MathDocument:
 		return resources
 
 	def raw2review(self):
+		print(self.raw_folder)
 		rawIntoReview(self.raw_folder, self.review_folder, self.resources)
 
 		shutil.copyfile(
@@ -207,6 +208,8 @@ def text2template(src, dst):
 	backslash_pattern = re.compile(r"\\")
 	data = backslash_pattern.sub(lambda m: m.group(0).replace('\\', '\\\\'), value)
 	data = data.replace(r'`', r'\`')
+	data = data.replace(r'`', r'\`')
+	data = data.replace(r'\vec{', r'\overset{⇀}{')
 	raw = data
 	template = env.get_template("index.template")
 	content = template.render({

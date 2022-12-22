@@ -24,8 +24,6 @@ class EditorFrame(wx.Frame):
 		parent = gui.mainFrame
 		super(EditorFrame, self).__init__(parent, size=(400, 300), style=style)
 
-		self.parent = parent
-
 		if not path:
 			self.ad = Access8MathDocument()
 		else:
@@ -54,6 +52,10 @@ class EditorFrame(wx.Frame):
 	def CreateInteriorWindowComponents(self):
 		self.control = wx.TextCtrl(self, -1, value="", style=wx.TE_MULTILINE)
 		self.control.Bind(wx.EVT_TEXT, self.OnTextChanged)
+		# self.font = wx.Font()
+		# self.control.SetFont(self.font)
+		# self.colour = wx.Colour()
+		# self.control.SetForegroundColour(self.colour)
 
 	def CreateExteriorWindowComponents(self):
 		self.SetTitle()
@@ -153,6 +155,38 @@ class EditorFrame(wx.Frame):
 		# Translators: A menu item in the Editor window
 		menuBar.Append(viewMenu, _("&View"))
 
+		formatMenu = wx.Menu()
+
+		for id, label, helpText, handler in [
+			(
+				wx.ID_ANY,
+				# Translators: A menu item in the Editor window
+				_("Font"),
+				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+				_("Adjust font format"),
+				self.OnFont
+			),
+			(
+				wx.ID_ANY,
+				# Translators: A menu item in the Editor window
+				_("Find"),
+				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+				_("Find and replace"),
+				self.OnFindReplace
+			),
+		]:
+			if id is None:
+				formatMenu.AppendSeparator()
+			else:
+				item = formatMenu.Append(id, label, helpText)
+
+				# Bind some events to an events handler.
+				self.Bind(wx.EVT_MENU, handler, item)
+
+		# Add the fileMenu to the menuBar.
+		# Translators: A menu item in the Editor window
+		menuBar.Append(formatMenu, _("&Format"))
+
 		# Add the menuBar to the frame.
 		self.SetMenuBar(menuBar)
 
@@ -188,7 +222,7 @@ class EditorFrame(wx.Frame):
 		return userProvidedFilename
 
 	def OnNew(self, event):
-		frame = self.__class__(parent=self.parent)
+		frame = self.__class__()
 		frame.Show(True)
 
 	def OnOpen(self, event):
@@ -309,6 +343,25 @@ class EditorFrame(wx.Frame):
 			dst = entryDialog.GetPath()
 		dst = dst[:-4]
 		shutil.make_archive(dst, 'zip', self.ad.review_folder)
+
+	def OnFont(self, event):
+		data = wx.FontData()
+		data.SetInitialFont(self.control.GetFont())
+		data.SetColour(self.control.GetForegroundColour())
+		with wx.FontDialog(self, data) as dialog:
+			if dialog.ShowModal() == wx.ID_OK:
+				font_data = dialog.GetFontData()
+				# self.font = font_data.GetChosenFont()
+				self.control.SetFont(font_data.GetChosenFont())
+				# self.colour = font_data.GetColour()
+				self.control.SetForegroundColour(font_data.GetColour())
+
+	def OnFindReplace(self, event):
+		data = wx.FindReplaceData()
+		with wx.FindReplaceDialog(self, data, style=wx.FR_REPLACEDIALOG) as dialog:
+			if dialog.Show(True) == wx.ID_OK:
+				print(dialog.GetData())
+			print("YAA")
 
 	def OnImport(self, event):
 		# Translators: The title of the Editor's Open file window

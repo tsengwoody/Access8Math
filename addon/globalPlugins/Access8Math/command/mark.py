@@ -1,14 +1,12 @@
 import addonHandler
 import api
-import config
 import eventHandler
 from keyboardHandler import KeyboardInputGesture
 from scriptHandler import script
+import textInfos
 import wx
 
-from delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter
-delimiter_dict = {**AsciiMath_delimiter, **LaTeX_delimiter}
-
+from .action import mark as _mark
 from .clipboard import clearClipboard
 from .models import MenuModel
 from .views import MenuView, MenuViewTextInfo
@@ -17,27 +15,18 @@ addonHandler.initTranslation()
 
 
 def mark(section, type_):
-	if type_ == "latex":
-		delimiter = delimiter_dict[config.conf["Access8Math"]["settings"]["LaTeX_delimiter"]]
-	if type_ == "asciimath":
-		delimiter = delimiter_dict["graveaccent"]
-	delimiter_start = delimiter["start"]
-	delimiter_end = delimiter["end"]
-
 	try:
 		temp = api.getClipData()
 	except BaseException:
 		temp = ''
-	api.copyToClip(r'{delimiter_start}{selection}{delimiter_end}'.format(
-		selection=section.selection.text,
-		delimiter_start=delimiter_start,
-		delimiter_end=delimiter_end,
-	))
+
+	result = _mark(type_)(section.obj.makeTextInfo(textInfos.POSITION_ALL).text)
+	api.copyToClip(result["text"])
 
 	KeyboardInputGesture.fromName("control+v").send()
 
 	leftArrow = KeyboardInputGesture.fromName("leftArrow")
-	for i in range(len(delimiter_end)):
+	for i in range(result["end_offset"]):
 		leftArrow.send()
 
 	if temp != '':

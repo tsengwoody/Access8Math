@@ -58,8 +58,11 @@ delimiter_dict = {**AsciiMath_delimiter, **LaTeX_delimiter}
 
 
 def latex2mathml(data):
+	data = data.replace(r'\vec{', r'\overset{⇀}{')
+	print(data)
 	mathml = converter.convert(data)
 	mathml = html.unescape(mathml)
+	mathml = mathml.replace('<mi>⇀</mi>', '<mo>⇀</mo>')
 	return mathml
 
 

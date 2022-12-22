@@ -203,6 +203,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		except (AttributeError, RuntimeError):
 			pass
 
+		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(MathReaderSettingsPanel)
+
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		if obj.windowClassName == "wxWindowNR" and obj.role == ROLE_WINDOW and obj.name == _("Access8Math interaction window"):
 			clsList.insert(0, AppWindowRoot)
@@ -418,15 +420,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			except BaseException:
 				pass
 
-		locale = os.path.join(PATH, 'locale')
-		for dirPath, dirNames, fileNames in os.walk(locale):
-			for item in fileNames:
-				item = os.path.join(dirPath, item)
-				try:
-					if os.path.isfile(item) and ('_user.dic' in item or '_user.rule' in item):
-						os.remove(item)
-				except BaseException:
-					pass
+		A8M_PM.clean_user_data()
 
 		gui.messageBox(_("Workspace has already been cleaned"), _("Clean Workspace"), wx.OK)
 

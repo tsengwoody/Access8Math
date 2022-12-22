@@ -12,7 +12,6 @@ import re
 import weakref
 import shutil
 
-from languageHandler_custom import getAvailableLanguages
 
 AUTO_GENERATE = 0
 DIC_GENERATE = 1
@@ -1469,21 +1468,54 @@ class MathRule(object):
 		self.example = example
 
 
+LOCALE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'locale')
+
+
+def exist_language(language):
+	return os.path.exists(os.path.join(LOCALE_DIR, 'speech', language)) and os.path.exists(os.path.join(LOCALE_DIR, 'braille', language))
+
+
 def add_language(language):
-	base_path = os.path.dirname(os.path.abspath(__file__))
-	src = os.path.join(base_path, 'locale', 'speech', 'en')
-	dst = os.path.join(base_path, 'locale', 'speech', language)
+	src = os.path.join(LOCALE_DIR, 'speech', 'en')
+	dst = os.path.join(LOCALE_DIR, 'speech', language)
 	shutil.copytree(src, dst, ignore=shutil.ignore_patterns('*_user.*'))
 
-	src = os.path.join(base_path, 'locale', 'braille', 'en')
-	dst = os.path.join(base_path, 'locale', 'braille', language)
+	src = os.path.join(LOCALE_DIR, 'braille', 'en')
+	dst = os.path.join(LOCALE_DIR, 'braille', language)
 	shutil.copytree(src, dst, ignore=shutil.ignore_patterns('*_user.*'))
+
+
+def remove_language(language):
+	try:
+		dst = os.path.join(LOCALE_DIR, 'speech', language)
+		shutil.rmtree(dst)
+		dst = os.path.join(LOCALE_DIR, 'braille', language)
+		shutil.rmtree(dst)
+	except BaseException:
+		return False
+	return True
+
+
+def available_languages(category='speech'):
+	path = os.path.join(LOCALE_DIR, category)
+	languages = [item for item in os.listdir(path) if os.path.isdir(os.path.join(path, item))]
+	return languages
+
+
+def clean_user_data():
+	for dirPath, dirNames, fileNames in os.walk(LOCALE_DIR):
+		for item in fileNames:
+			item = os.path.join(dirPath, item)
+			try:
+				if os.path.isfile(item) and ('_user.dic' in item or '_user.rule' in item):
+					os.remove(item)
+			except BaseException:
+				pass
 
 
 def load_unicode_dic(path=None, language='', category='speech'):
 	if not path and language:
-		path = os.path.dirname(os.path.abspath(__file__))
-		path = os.path.join(path, 'locale', category, language)
+		path = os.path.join(LOCALE_DIR, category, language)
 		if not os.path.exists(path):
 			add_language(language)
 
@@ -1509,11 +1541,10 @@ def load_unicode_dic(path=None, language='', category='speech'):
 
 
 def load_math_rule(path=None, language='', category='speech'):
-	math_example_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'math.example')
+	math_example_path = os.path.join(LOCALE_DIR, 'math.example')
 
 	if not path and language:
-		path = os.path.dirname(os.path.abspath(__file__))
-		path = os.path.join(path, 'locale', category, language)
+		path = os.path.join(LOCALE_DIR, category, language)
 		if not os.path.exists(path):
 			add_language(language)
 
@@ -1572,11 +1603,7 @@ def load_math_rule(path=None, language='', category='speech'):
 
 def save_unicode_dic(symbol, path=None, language='', category='speech'):
 	if not path and language:
-		path = os.path.dirname(os.path.abspath(__file__))
-		if language != 'Windows':
-			path = os.path.join(path, 'locale', category, language)
-		else:
-			path = os.path.join(path, 'locale', category, 'default')
+		path = os.path.join(LOCALE_DIR, category, language)
 		path = os.path.join(path, 'unicode_user.dic')
 
 	with io.open(path, 'w', encoding='utf-8') as f:
@@ -1592,12 +1619,8 @@ def save_unicode_dic(symbol, path=None, language='', category='speech'):
 
 def save_math_rule(mathrule, path=None, language='', category='speech'):
 	if not path and language:
-		path = os.path.dirname(os.path.abspath(__file__))
-		if language != 'Windows':
-			path = os.path.join(path, 'locale', category, language)
-		else:
-			path = os.path.join(path, 'locale', category, 'default')
-		path = os.path.join(path, 'math_user.rule')
+		path = os.path.join(LOCALE_DIR, category, language)
+		path = os.path.join(path, 'unicode_user.dic')
 
 	mathrule_unicode = {}
 	for k, v in mathrule.items():
@@ -1618,12 +1641,7 @@ def save_math_rule(mathrule, path=None, language='', category='speech'):
 
 def initialize(Access8MathConfig):
 	if Access8MathConfig:
-		base_path = os.path.dirname(os.path.abspath(__file__))
-		try:
-			available_languages = [i[0] for i in getAvailableLanguages(base_path)]
-		except BaseException:
-			available_languages = []
-		if Access8MathConfig["settings"]["language"] not in available_languages:
+		if not exist_language(Access8MathConfig["settings"]["language"]):
 			add_language(Access8MathConfig["settings"]["language"])
 
 	global nodetypes_check

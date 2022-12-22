@@ -350,16 +350,14 @@ class A8MInteraction(Window):
 
 	def _get_mathMl(self):
 		return self.mathcontent.root.get_mathml()
-		# return self.raw_data
 
 	def makeTextInfo(self, position=textInfos.POSITION_FIRST):
 		return A8MInteractionTextInfo(self, position)
 
-	"""def event_gainFocus(self):
+	def event_gainFocus(self):
 		# Translators: A message reported to the user when the interaction window takes the focus
 		ui.message(_("Entering interaction mode"))
 		super().event_gainFocus()
-		api.setReviewPosition(self.makeTextInfo(), False)"""
 
 	def reportFocus(self):
 		speech.speak(translate_SpeechCommand(self.mathcontent.root.serialized()))

@@ -1,5 +1,4 @@
 import os
-import re
 import shutil
 
 import addonHandler
@@ -22,9 +21,8 @@ from command.review import A8MHTMLCommandView
 from command.translate import A8MTranslateCommandView
 from command.batch import A8MBatchCommandView
 from delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter
-from lib.mathProcess import textmath2laObjFactory, latex2mathml, asciimath2mathml, latex2asciimath, asciimath2latex
+from lib.mathProcess import textmath2laObjFactory, latex2mathml, asciimath2mathml
 from lib.viewHTML import Access8MathDocument
-from regularExpression import delimiterRegularExpression, latex_bracket_dollar
 
 addonHandler.initTranslation()
 ADDON_SUMMARY = addonHandler.getCodeAddon().manifest["summary"]
@@ -49,24 +47,240 @@ def display_braille(regions):
 		region.update()
 		braille.handler.buffer.regions.append(region)
 	braille.handler.buffer.update()
+	braille.handler.update()
 	# braille.handler.buffer.focus(region)
 	# braille.handler.scrollToCursorOrSelection(region)
 	# braille.handler.update()
 
 
+class SectionManager:
+	def __init__(self):
+		self.reset()
+
+	@property
+	def pointer(self):
+		try:
+			pointer = self.points[self.section_index]
+		except BaseException:
+			pointer = None
+
+		return pointer
+
+	@property
+	def delimiter(self):
+		if self.pointer['type'] == 'latex':
+			result = LaTeX_delimiter[config.conf["Access8Math"]["settings"]["LaTeX_delimiter"]]
+		elif self.pointer['type'] == 'asciimath':
+			result = AsciiMath_delimiter["graveaccent"]
+		else:
+			result = {
+				"start": "",
+				"end": "",
+				"type": self.pointer['type'],
+			}
+		return result
+
+	@property
+	def inSection(self):
+		if self.pointer is None:
+			return True
+
+		delimiter_start_length = len(self.delimiter["start"])
+		delimiter_end_length = len(self.delimiter["end"])
+
+		if self.caret._startOffset >= self.pointer['start'] + delimiter_start_length and self.caret._endOffset <= self.pointer['end'] - delimiter_end_length:
+			return True
+		else:
+			return False
+
+	@property
+	def inMath(self):
+		if self.pointer is None:
+			return False
+
+		if self.inSection and (self.pointer['type'] == 'latex' or self.pointer['type'] == 'asciimath' or self.pointer['type'] == 'mathml'):
+			return True
+		else:
+			return False
+
+	@property
+	def inText(self):
+		if self.pointer is None:
+			return True
+
+		if self.inSection and self.pointer['type'] == 'text':
+			return True
+		else:
+			return False
+
+	@property
+	def inLaTeX(self):
+		if self.pointer is None:
+			return False
+
+		if self.inSection and self.pointer['type'] == 'latex':
+			return True
+		else:
+			return False
+
+	@property
+	def inAsciiMath(self):
+		if self.pointer is None:
+			return False
+
+		if self.inSection and self.pointer['type'] == 'asciimath':
+			return True
+		else:
+			return False
+
+	@property
+	def inMathML(self):
+		if self.pointer is None:
+			return False
+
+		if self.inSection and self.pointer['type'] == 'mathml':
+			return True
+		else:
+			return False
+
+	def reset(self):
+		self.index = -1
+		self.section_index = -1
+		self.points = None
+
+	def __enter__(self):
+		self.obj = api.getFocusObject()
+		self.caret = self.obj.makeTextInfo(textInfos.POSITION_CARET)
+		self.reset()
+		points = textmath2laObjFactory(
+			delimiter={
+				"latex": config.conf["Access8Math"]["settings"]["LaTeX_delimiter"],
+				"asciimath": "graveaccent",
+			}
+		)(self.obj.makeTextInfo(textInfos.POSITION_ALL).text)
+		self.points = list(filter(lambda point: point['start'] < point['end'], points))
+		temp = []
+		for point in self.points:
+			del point['index']
+			temp.append(point)
+		self.points = temp
+		for index, point in enumerate(self.points):
+			if self.caret._startOffset >= point['start'] and self.caret._startOffset < point['end']:
+				self.section_index = index
+
+		return self
+
+	def __exit__(self, exc_type, exc_val, exc_tb):
+		pass
+
+	def move(self, step=0, type_="any", all_index=None):
+		if all_index is not None:
+			pointer = self.points[all_index]
+		else:
+			if step >= 0:
+				filte_points = self.points[self.section_index:]
+			elif step < 0:
+				filte_points = self.points[:self.section_index]
+
+			if type_ in ["latex", "asciimath", "mathml", "text"]:
+				filte_points = list(filter(lambda i: i['type'] == type_, filte_points))
+			elif type_ == 'interactivable':
+				filte_points = list(filter(lambda i: i['type'] == "latex" or i['type'] == "asciimath" or i['type'] == "mathml", filte_points))
+			try:
+				pointer = filte_points[step]
+			except BaseException:
+				pointer = None
+
+		if not pointer:
+			return None
+
+		if type_ == 'notacrossline' and all_index is not None:
+			if self.pointer['line'] != pointer['line']:
+				return None
+
+		self.section_index = self.points.index(pointer)
+		delimiter_start_length = len(self.delimiter["start"])
+		self.caret._startOffset = self.caret._endOffset = pointer['start'] + delimiter_start_length
+		self.caret.updateCaret()
+		self.caret._startOffset = pointer['start']
+		self.caret._endOffset = pointer['end']
+
+		return pointer
+
+	def moveLine(self, step, type=None):
+		line = -1
+		if self.pointer and self.pointer["line"] + step >= 0 and self.pointer["line"] + step <= self.points[-1]["line"]:
+			line = self.pointer["line"] + step
+		pointers = []
+		for all_index, point in enumerate(self.points):
+			if point['line'] == line:
+				self.section_index = all_index
+				pointers.append(point)
+
+		if len(pointers) > 0:
+			if type:
+				if type == "home":
+					pointers = [pointers[0]]
+				elif type == "end":
+					pointers = [pointers[-1]]
+				self.caret._startOffset = self.caret._endOffset = pointers[0]['start']
+				self.caret.updateCaret()
+				self.caret._startOffset = pointers[0]['start']
+				self.caret._endOffset = pointers[0]['end']
+			else:
+				self.caret._startOffset = self.caret._endOffset = pointers[0]['start']
+				self.caret.updateCaret()
+				self.caret._startOffset = pointers[0]['start']
+				self.caret._endOffset = pointers[-1]['end']
+
+		return pointers
+
+	def start(self):
+		delimiter_start_length = len(self.delimiter["start"])
+		if self.pointer:
+			self.caret._startOffset = self.caret._endOffset = self.pointer['start'] + delimiter_start_length
+			self.caret.updateCaret()
+			return self.pointer
+		return None
+
+	def end(self):
+		delimiter_end_length = len(self.delimiter["end"])
+		if self.pointer:
+			self.caret._startOffset = self.caret._endOffset = self.pointer['end'] - delimiter_end_length - 1
+			self.caret.updateCaret()
+			return self.pointer
+		return None
+
+	def startMargin(self):
+		if self.pointer:
+			self.caret._startOffset = self.caret._endOffset = self.pointer['start']
+			self.caret.updateCaret()
+			return self.pointer
+		return None
+
+	def endMargin(self):
+		if self.pointer:
+			self.caret._startOffset = self.caret._endOffset = self.pointer['end']
+			self.caret.updateCaret()
+			return self.pointer
+		return None
+
+
 class TextMathEditField(NVDAObject):
 	initial = True
-	shortcut_mode = False
-	greekAlphabet_mode = False
 	writeNav_mode = False
 	_originGestureMap = {}
 
+	def initOverlayClass(self):
+		super().initOverlayClass()
+
 	def event_gainFocus(self):
+		self.section_manager = SectionManager()
 		if self.initial:
 			self._originGestureMap = self._gestureMap.copy()
 			self.initial = False
 
-		global command_mode, navigate_mode, shortcut_mode
+		global command_mode, navigate_mode, shortcut_mode, greekAlphabet_mode
 		try:
 			if command_mode:
 				self.bindCommandGestures()
@@ -82,6 +296,13 @@ class TextMathEditField(NVDAObject):
 			pass
 
 		super().event_gainFocus()
+
+	def event_loseFocus(self):
+		super().event_loseFocus()
+
+	def event_caret(self):
+		super().event_caret()
+		# tones.beep(100, 100)
 
 	def bindCommandGestures(self):
 		self.bindGesture("kb:alt+b", "batch")
@@ -372,7 +593,7 @@ class TextMathEditField(NVDAObject):
 				nvwave.playWaveFile(os.path.join("waves", sound))
 			else:
 				ui.message(_("Browse navigation mode on"))
-			with SectionManager() as manager:
+			with self.section_manager as manager:
 				result = manager.move(type_='any', step=0)
 				self.displayBlocks([result], "view")
 		else:
@@ -397,7 +618,7 @@ class TextMathEditField(NVDAObject):
 			gesture.send()
 
 	def script_shortcut(self, gesture):
-		with SectionManager() as manager:
+		with self.section_manager as manager:
 			if manager.inMath:
 				view = A8MLaTeXCommandView(selection=manager.selection.text, inSection=manager.inMath)
 				slot = gesture.mainKeyName[1:] if len(gesture.mainKeyName) > 1 else gesture.mainKeyName
@@ -414,7 +635,7 @@ class TextMathEditField(NVDAObject):
 				gesture.send()
 
 	def script_shortcut_help(self, gesture):
-		with SectionManager() as manager:
+		with self.section_manager as manager:
 			if manager.inMath:
 				view = A8MLaTeXCommandView(selection=manager.selection.text, inSection=manager.inMath)
 				slot = gesture.mainKeyName[1:] if len(gesture.mainKeyName) > 1 else gesture.mainKeyName
@@ -431,7 +652,7 @@ class TextMathEditField(NVDAObject):
 				gesture.send()
 
 	def script_GreekAlphabet(self, gesture):
-		with SectionManager() as manager:
+		with self.section_manager as manager:
 			if manager.inMath:
 				view = A8MLaTeXCommandView(selection=manager.selection.text, inSection=manager.inMath)
 				slot = gesture.mainKeyName
@@ -503,21 +724,21 @@ class TextMathEditField(NVDAObject):
 		).setFocus()
 
 	def script_mark(self, gesture):
-		with SectionManager() as manager:
+		with self.section_manager as manager:
 			if (manager.pointer and manager.pointer['type'] == 'text') or len(manager.points) == 0:
 				A8MMarkCommandView(section=manager).setFocus()
 			else:
 				ui.message(_("In math section. Please leave math section first and try again."))
 
 	def script_latex_command(self, gesture):
-		with SectionManager() as manager:
+		with self.section_manager as manager:
 			if manager.inLaTeX or manager.inText:
-				A8MLaTeXCommandView(selection=manager.selection.text, inSection=manager.inLaTeX).setFocus()
+				A8MLaTeXCommandView(selection=self.makeTextInfo(textInfos.POSITION_ALL).text, inSection=manager.inLaTeX).setFocus()
 			else:
 				ui.message(_("Not in LaTeX block or text block. cannot use LaTeX command"))
 
 	def script_interact(self, gesture):
-		with SectionManager() as manager:
+		with self.section_manager as manager:
 			if manager.inMath:
 				if manager.pointer['type'] == 'latex':
 					mathMl = latex2mathml(manager.pointer['data'])
@@ -531,14 +752,14 @@ class TextMathEditField(NVDAObject):
 				ui.message(_("This block cannot be interacted"))
 
 	def script_translate(self, gesture):
-		with SectionManager() as manager:
+		with self.section_manager as manager:
 			if manager.inLaTeX or manager.inAsciiMath:
 				A8MTranslateCommandView(section=manager).setFocus()
 			else:
 				ui.message(_("This block cannot be translated"))
 
 	def script_batch(self, gesture):
-		with SectionManager() as manager:
+		with self.section_manager as manager:
 			A8MBatchCommandView(section=manager).setFocus()
 
 	def displayBlocks(self, results, mode):
@@ -586,7 +807,7 @@ class TextMathEditField(NVDAObject):
 			print(e)
 
 	def script_navigate(self, gesture):
-		with SectionManager() as manager:
+		with self.section_manager as manager:
 			selected = False
 			if gesture.mainKeyName == "downArrow":
 				result = manager.move(type_='any', step=0)
@@ -649,7 +870,7 @@ class TextMathEditField(NVDAObject):
 				self.displayBlocks([result], mode)
 
 	def script_navigateLine(self, gesture):
-		with SectionManager() as manager:
+		with self.section_manager as manager:
 			selected = False
 			if gesture.mainKeyName == "upArrow":
 				results = manager.moveLine(step=-1)
@@ -691,335 +912,27 @@ class TextMathEditField(NVDAObject):
 				self.displayBlocks(results, mode)
 
 	def script_navigateCopy(self, gesture):
-		with SectionManager() as manager:
+		with self.section_manager as manager:
 			result = manager.move(type_='any', step=0)
 			api.copyToClip(result["raw"])
 			ui.message(_("{data} copied to clipboard").format(data=result["raw"]))
 
 	def script_navigatePaste(self, gesture):
-		with SectionManager() as manager:
+		with self.section_manager as manager:
 			manager.endMargin()
 			KeyboardInputGesture.fromName("control+v").send()
 			ui.message(_("{data} inserted to document").format(data=api.getClipData()))
 
 	def script_navigateCut(self, gesture):
-		with SectionManager() as manager:
+		with self.section_manager as manager:
 			result = manager.move(type_='any', step=0)
 			manager.caret.updateSelection()
 			KeyboardInputGesture.fromName("control+x").send()
 			ui.message(_("{data} cut from document").format(data=result["raw"]))
 
 	def script_navigateDelete(self, gesture):
-		with SectionManager() as manager:
+		with self.section_manager as manager:
 			result = manager.move(type_='any', step=0)
 			manager.caret.updateSelection()
 			KeyboardInputGesture.fromName("delete").send()
 			ui.message(_("{data} deleted from document").format(data=result["raw"]))
-
-
-class SectionManager:
-	def __init__(self):
-		self.reset()
-
-	@property
-	def pointer(self):
-		try:
-			pointer = self.points[self.all_index]
-		except BaseException:
-			pointer = None
-
-		return pointer
-
-	@property
-	def delimiter(self):
-		if self.pointer['type'] == 'latex':
-			result = LaTeX_delimiter[config.conf["Access8Math"]["settings"]["LaTeX_delimiter"]]
-		elif self.pointer['type'] == 'asciimath':
-			result = AsciiMath_delimiter["graveaccent"]
-		else:
-			result = {
-				"start": "",
-				"end": "",
-				"type": self.pointer['type'],
-			}
-		return result
-
-	@property
-	def inSection(self):
-		if self.pointer is None:
-			return True
-
-		delimiter_start_length = len(self.delimiter["start"])
-		delimiter_end_length = len(self.delimiter["end"])
-
-		focus = api.getFocusObject()
-		self.caret = focus.makeTextInfo(textInfos.POSITION_CARET)
-
-		if self.caret._startOffset >= self.pointer['start'] + delimiter_start_length and self.caret._endOffset <= self.pointer['end'] - delimiter_end_length:
-			return True
-		else:
-			return False
-
-	@property
-	def inMath(self):
-		if self.pointer is None:
-			return False
-
-		focus = api.getFocusObject()
-		self.caret = focus.makeTextInfo(textInfos.POSITION_CARET)
-
-		if self.inSection and (self.pointer['type'] == 'latex' or self.pointer['type'] == 'asciimath' or self.pointer['type'] == 'mathml'):
-			return True
-		else:
-			return False
-
-	@property
-	def inText(self):
-		if self.pointer is None:
-			return True
-
-		focus = api.getFocusObject()
-		self.caret = focus.makeTextInfo(textInfos.POSITION_CARET)
-
-		if self.inSection and self.pointer['type'] == 'text':
-			return True
-		else:
-			return False
-
-	@property
-	def inLaTeX(self):
-		if self.pointer is None:
-			return False
-
-		focus = api.getFocusObject()
-		self.caret = focus.makeTextInfo(textInfos.POSITION_CARET)
-
-		if self.inSection and self.pointer['type'] == 'latex':
-			return True
-		else:
-			return False
-
-	@property
-	def inAsciiMath(self):
-		if self.pointer is None:
-			return False
-
-		focus = api.getFocusObject()
-		self.caret = focus.makeTextInfo(textInfos.POSITION_CARET)
-
-		if self.inSection and self.pointer['type'] == 'asciimath':
-			return True
-		else:
-			return False
-
-	@property
-	def inMathML(self):
-		if self.pointer is None:
-			return False
-
-		focus = api.getFocusObject()
-		self.caret = focus.makeTextInfo(textInfos.POSITION_CARET)
-
-		if self.inSection and self.pointer['type'] == 'mathml':
-			return True
-		else:
-			return False
-
-	def reset(self):
-		self.all_index = -1
-		self.points = None
-
-	def __enter__(self):
-		focus = api.getFocusObject()
-		self.caret = focus.makeTextInfo(textInfos.POSITION_CARET)
-		self.selection = focus.makeTextInfo(textInfos.POSITION_SELECTION)
-		self.reset()
-		self.document = focus.makeTextInfo(textInfos.POSITION_ALL)
-		points = textmath2laObjFactory(
-			delimiter={
-				"latex": config.conf["Access8Math"]["settings"]["LaTeX_delimiter"],
-				"asciimath": "graveaccent",
-			}
-		)(self.document.text)
-		self.points = list(filter(lambda point: point['start'] < point['end'], points))
-		temp = []
-		for point in self.points:
-			del point['index']
-			temp.append(point)
-		self.points = temp
-		for index, point in enumerate(self.points):
-			if self.caret._startOffset >= point['start'] and self.caret._startOffset < point['end']:
-				self.all_index = index
-
-		return self
-
-	def __exit__(self, exc_type, exc_val, exc_tb):
-		pass
-
-	def move(self, step=0, type_="any", all_index=None):
-		if all_index is not None:
-			pointer = self.points[all_index]
-		else:
-			if step >= 0:
-				filte_points = self.points[self.all_index:]
-			elif step < 0:
-				filte_points = self.points[:self.all_index]
-
-			if type_ in ["latex", "asciimath", "mathml", "text"]:
-				filte_points = list(filter(lambda i: i['type'] == type_, filte_points))
-			elif type_ == 'interactivable':
-				filte_points = list(filter(lambda i: i['type'] == "latex" or i['type'] == "asciimath" or i['type'] == "mathml", filte_points))
-			try:
-				pointer = filte_points[step]
-			except BaseException:
-				pointer = None
-
-		if not pointer:
-			return None
-
-		if type_ == 'notacrossline' and all_index is not None:
-			if self.pointer['line'] != pointer['line']:
-				return None
-
-		self.all_index = self.points.index(pointer)
-		delimiter_start_length = len(self.delimiter["start"])
-		self.caret._startOffset = self.caret._endOffset = pointer['start'] + delimiter_start_length
-		self.caret.updateCaret()
-		self.caret._startOffset = pointer['start']
-		self.caret._endOffset = pointer['end']
-
-		return pointer
-
-	def moveLine(self, step, type=None):
-		line = -1
-		if self.pointer and self.pointer["line"] + step >= 0 and self.pointer["line"] + step <= self.points[-1]["line"]:
-			line = self.pointer["line"] + step
-		pointers = []
-		for all_index, point in enumerate(self.points):
-			if point['line'] == line:
-				self.all_index = all_index
-				pointers.append(point)
-
-		if len(pointers) > 0:
-			if type:
-				if type == "home":
-					pointers = [pointers[0]]
-				elif type == "end":
-					pointers = [pointers[-1]]
-				self.caret._startOffset = self.caret._endOffset = pointers[0]['start']
-				self.caret.updateCaret()
-				self.caret._startOffset = pointers[0]['start']
-				self.caret._endOffset = pointers[0]['end']
-			else:
-				self.caret._startOffset = self.caret._endOffset = pointers[0]['start']
-				self.caret.updateCaret()
-				self.caret._startOffset = pointers[0]['start']
-				self.caret._endOffset = pointers[-1]['end']
-
-		return pointers
-
-	def start(self):
-		delimiter_start_length = len(self.delimiter["start"])
-		if self.pointer:
-			self.caret._startOffset = self.caret._endOffset = self.pointer['start'] + delimiter_start_length
-			self.caret.updateCaret()
-			return self.pointer
-		return None
-
-	def end(self):
-		delimiter_end_length = len(self.delimiter["end"])
-		if self.pointer:
-			self.caret._startOffset = self.caret._endOffset = self.pointer['end'] - delimiter_end_length - 1
-			self.caret.updateCaret()
-			return self.pointer
-		return None
-
-	def startMargin(self):
-		if self.pointer:
-			self.caret._startOffset = self.caret._endOffset = self.pointer['start']
-			self.caret.updateCaret()
-			return self.pointer
-		return None
-
-	def endMargin(self):
-		if self.pointer:
-			self.caret._startOffset = self.caret._endOffset = self.pointer['end']
-			self.caret.updateCaret()
-			return self.pointer
-		return None
-
-	def batch(self, mode='reverse'):
-		def l2a(m):
-			delimiter = AsciiMath_delimiter["graveaccent"]
-			data = m.group('latex') or m.group('latex_start')
-			try:
-				data = delimiter["start"] + latex2asciimath(data) + delimiter["end"]
-			except BaseException:
-				data = m.group(0)
-			return data
-
-		def a2l(m):
-			delimiter = LaTeX_delimiter[config.conf["Access8Math"]["settings"]["LaTeX_delimiter"]]
-			data = m.group('asciimath') or m.group('asciimath_start')
-			try:
-				data = delimiter["start"] + asciimath2latex(data)[1:-1] + delimiter["end"]
-			except BaseException:
-				data = m.group(0)
-			return data
-
-		def reverse(m):
-			data = m.group("latex") or m.group("latex_start") or m.group("asciimath") or m.group("asciimath_start")
-			if not data:
-				data = ''
-			if m.group("ld_start") or m.group("lsd_start"):
-				type_ = "latex"
-			elif m.group("ad_start") or m.group("asd_start"):
-				type_ = "asciimath"
-			else:
-				raise TypeError(m.group(0))
-			if type_ == "latex":
-				result = l2a(m)
-			elif type_ == "asciimath":
-				result = a2l(m)
-			else:
-				result = m.group(0)
-			return result
-
-		def b2d(m):
-			data = m.group('latex') or m.group('latex_start')
-			return r"${data}$".format(data=data)
-
-		def d2b(m):
-			data = m.group('latex') or m.group('latex_start')
-			return r"\({data}\)".format(data=data)
-
-		delimiter_regular_expression = delimiterRegularExpression(
-			delimiter={
-				"latex": config.conf["Access8Math"]["settings"]["LaTeX_delimiter"],
-				"asciimath": "graveaccent",
-			}
-		)
-
-		if mode == 'latex2asciimath':
-			restring = "|".join([delimiter_regular_expression["latex"], delimiter_regular_expression["latex_start"]])
-			pattern = re.compile(restring)
-			text = pattern.sub(l2a, self.document.text)
-		elif mode == 'asciimath2latex':
-			restring = "|".join([delimiter_regular_expression["asciimath"], delimiter_regular_expression["asciimath_start"]])
-			pattern = re.compile(restring)
-			text = pattern.sub(a2l, self.document.text)
-		elif mode == 'reverse':
-			restring = "|".join([delimiter_regular_expression["latex"], delimiter_regular_expression["latex_start"], delimiter_regular_expression["asciimath"], delimiter_regular_expression["asciimath_start"]])
-			pattern = re.compile(restring)
-			text = pattern.sub(reverse, self.document.text)
-		elif mode == 'bracket2dollar':
-			restring = "|".join([latex_bracket_dollar["latex_bracket"], latex_bracket_dollar["latex_start_bracket"]])
-			pattern = re.compile(restring)
-			text = pattern.sub(b2d, self.document.text)
-		elif mode == 'dollar2bracket':
-			restring = "|".join([latex_bracket_dollar["latex_dollar"], latex_bracket_dollar["latex_start_dollar"]])
-			pattern = re.compile(restring)
-			text = pattern.sub(d2b, self.document.text)
-		else:
-			text = ''
-		return text
