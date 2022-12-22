@@ -122,9 +122,8 @@ class A8MLaTeXCommandView(MenuView):
 	# Translators: alt+l window
 	name = _("LaTeX command")
 
-	def __init__(self, selection, inSection=True):
+	def __init__(self, inSection=True):
 		super().__init__(MenuModel=A8MLaTeXCommandModel, TextInfo=A8MLaTeXCommandViewTextInfo)
-		self._selection = selection
 		self.inSection = inSection
 
 	def update_menu(self):

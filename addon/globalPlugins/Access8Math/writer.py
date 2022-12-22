@@ -620,7 +620,7 @@ class TextMathEditField(NVDAObject):
 	def script_shortcut(self, gesture):
 		with self.section_manager as manager:
 			if manager.inMath:
-				view = A8MLaTeXCommandView(selection=manager.selection.text, inSection=manager.inMath)
+				view = A8MLaTeXCommandView(inSection=manager.inMath)
 				slot = gesture.mainKeyName[1:] if len(gesture.mainKeyName) > 1 else gesture.mainKeyName
 				if slot in view.data.shortcut:
 					view.command(view.data.shortcut[slot]["id"])
@@ -637,7 +637,7 @@ class TextMathEditField(NVDAObject):
 	def script_shortcut_help(self, gesture):
 		with self.section_manager as manager:
 			if manager.inMath:
-				view = A8MLaTeXCommandView(selection=manager.selection.text, inSection=manager.inMath)
+				view = A8MLaTeXCommandView(inSection=manager.inMath)
 				slot = gesture.mainKeyName[1:] if len(gesture.mainKeyName) > 1 else gesture.mainKeyName
 				if slot in view.data.shortcut:
 					ui.message(view.data.shortcut[slot]["name"])
@@ -654,7 +654,7 @@ class TextMathEditField(NVDAObject):
 	def script_GreekAlphabet(self, gesture):
 		with self.section_manager as manager:
 			if manager.inMath:
-				view = A8MLaTeXCommandView(selection=manager.selection.text, inSection=manager.inMath)
+				view = A8MLaTeXCommandView(inSection=manager.inMath)
 				slot = gesture.mainKeyName
 				if slot in view.data.greekAlphabet:
 					view.greekAlphabetCommand(view.data.greekAlphabet[slot]["id"])
@@ -733,7 +733,7 @@ class TextMathEditField(NVDAObject):
 	def script_latex_command(self, gesture):
 		with self.section_manager as manager:
 			if manager.inLaTeX or manager.inText:
-				A8MLaTeXCommandView(selection=self.makeTextInfo(textInfos.POSITION_ALL).text, inSection=manager.inLaTeX).setFocus()
+				A8MLaTeXCommandView(inSection=manager.inLaTeX).setFocus()
 			else:
 				ui.message(_("Not in LaTeX block or text block. cannot use LaTeX command"))
 
