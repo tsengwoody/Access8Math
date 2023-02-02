@@ -407,6 +407,8 @@ class Node(object):
 
 	def get_mathml(self):
 		mathml = ''
+		#the xml namespace for mathml. Needed to ensure newer versions of word recognise and render the mathml
+		mathmlNamespace='xmlns="http://www.w3.org/1998/Math/MathML"'
 		for c in self.child:
 			mathml = mathml + c.get_mathml()
 		attrib = ''
@@ -414,9 +416,9 @@ class Node(object):
 			attrib = attrib + ' {0}="{1}"'.format(k, v)
 
 		if len(self.attrib) > 0:
-			result = '<{0}{1}>{2}</{0}>'.format(self.tag, attrib, mathml)
+			result = '<{0} {3} {1}>{2}</{0}>'.format(self.tag, attrib, mathml, mathmlNamespace)
 		else:
-			result = '<{0}>{1}</{0}>'.format(self.tag, mathml)
+			result = '<{0} {2}>{1}</{0}>'.format(self.tag, mathml, mathmlNamespace)
 
 		return result
 
