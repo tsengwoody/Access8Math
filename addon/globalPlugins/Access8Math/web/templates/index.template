@@ -5,8 +5,9 @@
 		<meta name="description" content="{|{ title }|}" />
 		<meta name="keywords" content="{|{ title }|}" />
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<script src="modules/sweetalert2.all.min.js"></script>
 		<script src="modules/vue.js"></script>
-		<script src="modules/mathProcess.js"></script>
+		<script src="modules/process.js"></script>
 		<style>
 			body {
 				font-size: 16px;
@@ -41,7 +42,7 @@
 		<div id="app" class="theme">
 			<div v-if="document_display === 'markdown'">
 				<span>
-					<span v-html="marked(raw)"/>
+					<span v-html="linkHandler(marked(raw))" />
 				</span>
 			</div>
 			<div v-else>
@@ -88,8 +89,9 @@
 					const document_display = ref(`{|{ document_display }|}`);
 
 					return {
-						asciimath2mml, latex2mml, mml2svg, marked,
-						data, content, raw, document_display
+						asciimath2mml, latex2mml, mml2svg,
+						marked, linkHandler, document_display,
+						data, content, raw,
 					}
 				},
 			}

@@ -1186,6 +1186,26 @@ class LineSegmentType(NonTerminalNodeType):
 	name = 'LineSegmentType'
 
 
+class MoVectorType(TerminalNodeType):
+	tag = Mo
+	data = re.compile(r"^[→]$")
+	attrib = {
+		'stretchy': re.compile(r"^false$"),
+	}
+
+
+class VectorSingleType(NonTerminalNodeType):
+	tag = Mover
+	child = [MiOperandType, MoVectorType]
+	name = 'VectorSingleType'
+
+
+class VectorDoubleType(NonTerminalNodeType):
+	tag = Mover
+	child = [TwoMiOperandItemType, MoVectorType]
+	name = 'VectorDoubleType'
+
+
 # Arrow above 2 symbols denotes Ray in English notation and vector in French notation
 # (equivalent of VectorDoubleType).
 # Arrow above 1 symbol denotes also vector in French notation.
@@ -1200,23 +1220,6 @@ class RayType(NonTerminalNodeType):
 	tag = Mover
 	child = [TwoMiOperandItemType, MoRayType]
 	name = 'RayType'
-
-
-class MoVectorType(TerminalNodeType):
-	tag = Mo
-	data = re.compile(r"^[⇀]$")
-
-
-class VectorSingleType(NonTerminalNodeType):
-	tag = Mover
-	child = [MiOperandType, MoVectorType]
-	name = 'VectorSingleType'
-
-
-class VectorDoubleType(NonTerminalNodeType):
-	tag = Mover
-	child = [TwoMiOperandItemType, MoVectorType]
-	name = 'VectorDoubleType'
 
 
 # Arrow above single symbol denotes vector in French notation.

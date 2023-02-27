@@ -309,6 +309,14 @@ github： https://github.com/tsengwoody/Access8Math
 
 # Access8Math 日誌
 
+## Access8Math v3.5 更新日志
+
+* 可以正确区分向量和射线
+* Access8Math HTML 文件中使用对话框显示图片、影片或声音的资源
+* Access8Math HTML 文件中使用新窗口开启链接的资源
+* 在互动导航模式下从 Math 对象复制 MathML 时导出 MathML 命名空间
+* 相容于 NVDA 2023.1
+
 ## Access8Math v3.4 更新日志
 
 * 语音、盲文、交互来源，移动到 NVDA 菜单 -> 选项 -> 设置 -> 数学阅读器的类别下。

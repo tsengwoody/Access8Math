@@ -208,8 +208,7 @@ def text2template(src, dst):
 	backslash_pattern = re.compile(r"\\")
 	data = backslash_pattern.sub(lambda m: m.group(0).replace('\\', '\\\\'), value)
 	data = data.replace(r'`', r'\`')
-	data = data.replace(r'`', r'\`')
-	data = data.replace(r'\vec{', r'\overset{⇀}{')
+	# data = data.replace(r'\vec{', r'\overset{⇀}{')
 	raw = data
 	template = env.get_template("index.template")
 	content = template.render({

@@ -39,11 +39,11 @@ PositiveSignType	正	正號	正號
 SquarePowerType	, 0, 的平方	底數,指數	平方指數
 CubePowerType	, 0, 的立方	底數,指數	立方指數
 LineType	直線, 0,	主符號,正上標	直線
-RayType	向量, 0,	主符號,正上標	向量
+RayType	射線, 0,	主符號,正上標	射線
 LineSegmentType	線段, 0,	主符號,正上標	線段
 VectorSingleType	向量, 0,	主符號,正上標	單符號向量
 VectorDoubleType	向量, 0,	主符號,正上標	雙符號向量
-ArrowOverSingleSymbolType	向量, 0,	main,super	Arrow over a single symbol (vector in French notation)
+ArrowOverSingleSymbolType	射線, 0,	主符號,正上標	Arrow over a single symbol (vector in French notation)
 FrownType	弧, 0,	主符號,正上標	符號弧
 DegreeType	0, 度	主符號,上標	符號度
 LogType	對數, 1, 為底	主符號,下標	對數

@@ -1,66 +1,73 @@
 # Access8Math feature
 
+This NVDA addon enhances the mathematical content reading and writing experience.
+
+The reading feature includes improved language translation in the ability to segment long math content into smaller parts using interactive navigation.
+
+The writing feature includes a command menu for easier LaTeX/AsciiMath input and the ability to export to a visually readable HTML document for better collaboration.
+
 ## reading feature
 
-*	Read whole line included text and mathematics content
-*	Interactive navigation move and zoom snippet mathematics content
-*	Interactive navigation reviewing text
-*	Simplified speech rules
-*	Break speech between item and item in mathematics content
+*	Reads entire lines including text and mathematical content
+*	Provides interactive navigation to move, read, and zoom in or out on mathematical content snippets
+*	Allows for reviewing text while interactive navigation
+*	Uses simplified speech rules
+*	Breaks speech between items in mathematical content
 
 ## writing feature
 
-*	Write mathematical content by LaTeX/AsciiMath
-*	Command menu input LaTeX/AsciiMath
-*	Shortcut gesture input LaTeX/AsciiMath
-*	Navigation cursor movement editing
-*	Directly read document containing LaTeX/AsciiMath data
-*	Review HTML document
+*	Allows writing of mathematical content using LaTeX/AsciiMath
+*	Provides a command menu for inputting LaTeX/AsciiMath
+*	Offers shortcut gestures for inputting LaTeX/AsciiMath
+*	Allows for more efficient cursor movement during editing
+*	Allows reads documents containing LaTeX/AsciiMath data in real-time while editing the document
+*	Provides  converting text files into HTML files for preview and export.
 
 # Access8Math ReadMe
 
-This NVDA addon provides the feature for reading of mathematical content. Although the original NVDA already equipped this feature by applying MathPlayer, some functions still needed to be improved, such as not providing or incomplete specific language translation, not providing specific language interactive navigation and many more.
+This NVDA add-on enhances speech and braille output for mathematical content. Although the NVDA already integrating MathPlayer, certain aspects require improvement, such as the lack or incompleteness of language-specific translation, language-specific interactive navigation.
 
-interactive navigation can segment a math content into smaller partial snippet for speaking, and select the read fragment and method through a series of keyboard key operations. This function can better understand the structure and items of long math content. The hierarchical relationship with the item.
+Interactive navigation dissects mathematical content into smaller portions for speech or braille output, allowing for the selection of the desired fragment and mode of delivery through keyboard commands. This enhances one's understanding of the structure and elements of lengthy mathematical content, and the hierarchical relationships between items.
 
-This NVDA addon provides the feature for writing of mathematical content. Through the command menu, the input task can be completed without memorizing when entering LaTeX/AsciiMath. After the content is completed, the document can be convert to visually readable HTML document through the view and export feature. Through HTML document, you can facilitate interactive discussions with other people.
+Additionally, this NVDA add-on enables the writing of mathematical content. Using the command menu, input can be executed without having to memorize LaTeX codes. Upon completion, the document can be transformed into a visually comprehensible HTML document via the view and export function, thereby enabling seamless collaboration and discourse with others.
 
 ## Reading feature
 
-*	Read math content written in MathML in web browser(Mozilla Firefox, Microsoft Internet Explorer and Google Chrome) or read Microsoft Word math content written in MathType. (MathPlayer installed only)
-*	Interaction: Press space or enter on the MathML math object to enter navigation interactive mode. It means you can browse part of the sub-content in the math content and move between sub-contents or zoom the size of the sub-content
-*	Pressing "Space" in math content to open "Access8Math interaction window" which contains "interactive" and "copy" button.
-	*	interaction: Into math content to navigate and browse. Also, you can partially explore the subparts in expression and move or zoom the content between the subpart.
-	*	copy: Copy MathML object source code.
-* Text review: Press the numeric keyboard 1-9 during navigation to read the mathematical content of the serialized text word by word and line by line
+Access8Math is able to read MathML content in web browsers such as Mozilla Firefox, Google Chrome, and Microsoft Edge, as well as MathType content in Microsoft Word.
+
+By pressing the space bar or enter key on a MathML math object, you can enter navigation mode and interact with the content by moving, and zooming in or out on reading snippets.
+
 * Analyze the overall mathematical meaning of the content: analyze the structure of MathML, and when it meets a specific rule, read it aloud in the mathematical meaning of the rule
 * Analyze the mathematical meaning of the content item: When navigating and browsing, it will prompt the meaning of the content under its upper content. For example, there are two score items, and moving between them will enroll the item as the denominator or numerator
 
 ### navigation interactive mode command：
 
-*	"Down Arrow": Zoom in on a smaller subpart of the math content.
-*	"Up Arrow": Zoom out to  a larger subpartthe of the math content .
-*	"Left Arrow": Move to the previous math content.
-*	"Right Arrow": Move to the next math content.
-*	"Home": Move back to the top.(Entire math content)	
-*	"Ctrl+c": Copy object MathML source code
-*	"Numpad 1~9": Reading the math content into serialized text using NVDA Reviewing Text.
-*	"ESC": Exit the navigation mode.
+The following commands are available in navigation interactive mode:
+
+*	"Down Arrow": shrink the reading snippet(zoom in)
+*	"Up Arrow": enlarge the reading snippet(zoom out)
+*	"Left Arrow": Moves to the previous math content.
+*	"Right Arrow": Moves to the next math content.
+*	"home": Moves back to the top of the entire math content.
+*	"ctrl+C": Copies the MathML source code of the object.
+*	"numpad 1~9": Reads the math content as serialized text using NVDA Reviewing Text.
+*	"ESC": Exits the navigation mode.
 
 ## Writing feature
 
-Writing comprehensive content (text content and mathematical content):
+Comprehensive content: Incorporating Both Text and Mathematical Content
 
-### write comprehensive content (Shortcut key is available use in editing area, it is recommended to use built-in editor(Access8Math editor). Access8Math editor must be used for Windows 11; Notepad can be used for Windows 10 below version.)
+For Windows 11, the Access8Math editor must be used, while for Windows 10 or earlier versions, either Access8Math editor or Notepad can be used. It is recommended to use the built-in Access8Math editor for writing comprehensive content.
 
-Use LaTeX or AsciiMath separate markers to frame the math area to distinguish text content and mathematical content. That is, the data in math marker area is mathematical content of LaTeX/AsciiMath content, and text content outside math marker area.
+To differentiate between text content and mathematical content, LaTeX/AsciiMath separate markers should be used to frame the mathematical area. In other words, the data within the math marker area represents the mathematical content writen by LaTeX/AsciiMath and the text content outside of the math marker area represents regular text.
 
-*	LaTeX delimiter mark: (can choose to use brackets or money number in the reading setting)
-*	Start delimiter: "\(" or "$"
-*	End delimiter: "\)" or "$"
-*	AsciiMath delimiter:
-*	Start delimiter: "`"
-*	End delimiter: "`"
+| category | start delimiter | end delimiter |
+| --- | --- | --- |
+| LaTeX(bracket) | \( | \) |
+| LaTeX(money) | $ | $ |
+| AsciiMath | ` | ` |
+
+You can choose to use brackets or money  for LaTeX delimiter in the writing setting.
 
 ### Command gesture (toggle: NVDA+alt+c)
 
@@ -193,14 +200,11 @@ In File Explorer, you can press the NVDA+application, if the selected path is tx
 
 ## settings
 
-All Access8Math menus are centralized in tools -> Access8Math->Settings
+All Access8Math settings are centralized in tools -> Access8Math->Settings
 
 ### Reading Settings
 
 *	Language: Access8Math read language
-*	Speech source:
-*	Braille source:
-*	Interact source:
 *	Analyze mathematical meaning of content: perform semantic analysis on the mathematical content, and when it meets a specific rule, using that rule to speak.
 *	show interaction window when entering interaction navigation mode: Whether to show "Access8Math interaction window" when active event entering interaction navigation mode on math object
 *	Reading pre-defined meaning in dictionary in interaction navigation mode: When the pattern is definied in the dictionary, use dictionary to read the meaning of subpart in the upper layer part.
@@ -218,23 +222,30 @@ All Access8Math menus are centralized in tools -> Access8Math->Settings
 *	HTML math display:
 *	LaTeX delimiter:
 
-
-
 ### Rule setting: Setting whether rules are actived
+
+### Math reader
+
+*	Speech source:
+*	Braille source:
+*	Interact source:
 
 ## localization
 
-*	"Unicode dictionary" allows customizing the reading method for each symbol text.
-*	"Mathematics Rules" allows customizing the reading method for each type of mathematics.
-*	"Add a new language" can add languages: that were not originally provided in the built-in. After adding, there will be more newly added language families in the general settings and can be used to define the reading method through the "unicode dictionary" and "mathematics rules" to reach localization
+If you want Access8Math to have speech/braille output for MathML in different languages, you need to create a Unicode dictionary (unicode.dic) and mathematical rules (math.rule). This can be done using the GUI in Access8Math -> Localization, or by referring to the globalPlugins/Access8Math/locale in the plugin folder.
 
-#### Math Rules
+The "Unicode Dictionary" enables you to customize speech or braille output for symbols and characters. The "Mathematics Rules" allow you to customize speech or braille output for different types of mathematics.
+
+"New language" dialog can adding language not included in Access8Math built-in. Upon Adding language option will appear in the Reading Settings language selection, Allowing for the Definition of speech/braille  via the Unicode Dictionary and Mathematics Rules, Resulting in Localization.
+
+### Math Rules
 
 Access8Math establishes 46 mathematical rules according to the mathematical type and logic to decide the reading math method and order. According to different local math reading logic, the math reading text and order can be changed. The method is as follows:
 
 Edit: After entering the "math rule", the window lists 46 math rules. Choose any math rule and select the "Edit" to enter the editing entry.
 
 The "editing entry" can be divided into two major blocks, the "Serialized ordering" and the "Child role".
+
 *	Serialized ordering: Math rule is divided into multiple blocks according to the reading order. In this area, the reading order of child node and the delimitation text of start, inter- and the end can be changed. Taking the fractional rule mfrac as an example, this rule is divided into five reading blocks. The order 0, 2, and 4 represent the initial prompt, the project segmentation prompt, and the end prompt, respectively, and the meanings text can be changed in each field. Order 1 and 3 adjust the reading	sequence of child node which can be changed in the drop-down menu.
 *	Child role:  The next-level sub-item of the mathematical rule. Taking the fractional rule mfrac as an example, the rule contains the numerator and the denominator. The sub-content in the upper sub-content meaning can be changed in the child-node role field.
 
@@ -265,6 +276,14 @@ github: https://github.com/tsengwoody/Access8Math
 Please report any bugs or comments, thank you!
 
 # Access8Math update log
+
+## Access8Math v3.5 Update
+
+* Vectors and rays can be distinguished correctly
+* Utilizing dialogue to display image, video, or audio resources in an Access8Math HTML document
+* Using a new window to open link resources in an Access8Math HTML document
+* The MathML namespace is exported when copying MathML from the Math object in interactive navigation mode
+* Compatibility with NVDA 2023.1
 
 ## Access8Math v3.4 Update
 
