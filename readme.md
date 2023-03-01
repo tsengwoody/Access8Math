@@ -283,6 +283,7 @@ Please report any bugs or comments, thank you!
 * Utilizing dialogue to display image, video, or audio resources in an Access8Math HTML document
 * Using a new window to open link resources in an Access8Math HTML document
 * The MathML namespace is exported when copying MathML from the Math object in interactive navigation mode
+* Display font adjustment, find and replace feature in Access8Math editor
 * Compatibility with NVDA 2023.1
 
 ## Access8Math v3.4 Update

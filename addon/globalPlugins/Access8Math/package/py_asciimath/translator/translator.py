@@ -409,7 +409,7 @@ class MathML2Tex(Translator):  # pragma: no cover
         )
         self.transformer = lxml.etree.XSLT(transformer)
 
-    def _translate(self, exp, network=False, **kwargs):
+    def _translate(self, exp, network=False, dtd_validation=True, **kwargs):
         if network and not check_connection():
             network = False
             logging.warning("No connection available...")
@@ -420,7 +420,7 @@ class MathML2Tex(Translator):  # pragma: no cover
             )
         parsed = MathMLParser.parse(
             exp,
-            dtd_validation=True,
+            dtd_validation=dtd_validation,
             network=network,
             resolve_entities=True,
             **kwargs

@@ -415,13 +415,20 @@ class A8MInteraction(Window):
 		speech.speak(translate_SpeechCommand(self.mathcontent.pointer.serialized()))
 
 	@script(
+		gesture="kb:control+r",
+	)
+	def script_RawDataToClip(self, gesture):
+		api.copyToClip(self.mathcontent.raw_mathMl)
+		# Translators: A message reported to the user when copying data from the Interaction window
+		ui.message(_("Copied raw MathML"))
+
+	@script(
 		gesture="kb:control+c",
 	)
-	def script_rawdataToClip(self, gesture):
-		# api.copyToClip(self.raw_data)
-		api.copyToClip(self.mathcontent.root.get_mathml())
+	def script_MathMLToClip(self, gesture):
+		api.copyToClip(self.mathcontent.mathML)
 		# Translators: A message reported to the user when copying data from the Interaction window
-		ui.message(_("Copied"))
+		ui.message(_("Copied MathML"))
 
 	@script(
 		gesture="kb:control+s",
@@ -432,7 +439,7 @@ class A8MInteraction(Window):
 		globalVars.mathcontent = self.mathcontent
 
 	@script(
-		gesture="kb:control+a",
+		gesture="kb:control+alt+a",
 	)
 	def script_asciimath_insert(self, gesture):
 		def show(event):
@@ -454,7 +461,7 @@ class A8MInteraction(Window):
 		wx.CallAfter(show, None)
 
 	@script(
-		gesture="kb:control+l",
+		gesture="kb:control+alt+l",
 	)
 	def script_latex_insert(self, gesture):
 		def show(event):
@@ -474,7 +481,7 @@ class A8MInteraction(Window):
 		wx.CallAfter(show, None)
 
 	@script(
-		gesture="kb:control+delete",
+		gesture="kb:control+alt+delete",
 	)
 	def script_delete(self, gesture):
 		self.mathcontent.delete()

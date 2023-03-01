@@ -1,5 +1,11 @@
 # Access8Math 功能
 
+此 NVDA addon 增强了数学内容的阅读和書寫体验。
+
+阅读功能特色包括可客製的語音/點字輸出，透過互動式导航可将长数学内容分割成较小部分以利閱讀。
+
+書寫功能特色包括用于更易於输入 LaTeX/AsciiMath 的指令選單，以及将純文字文件轉換為視覺可读的 HTML 文件，以便更好的與他人协作。
+
 ## 阅读功能
 
 * 文字内容与数学内容整行阅读
@@ -315,6 +321,7 @@ github： https://github.com/tsengwoody/Access8Math
 * Access8Math HTML 文件中使用对话框显示图片、影片或声音的资源
 * Access8Math HTML 文件中使用新窗口开启链接的资源
 * 在互动导航模式下从 Math 对象复制 MathML 时导出 MathML 命名空间
+* Access8Math 编辑器新增显示字型调整、寻找与取代功能
 * 相容于 NVDA 2023.1
 
 ## Access8Math v3.4 更新日志

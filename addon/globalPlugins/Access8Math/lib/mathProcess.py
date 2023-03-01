@@ -9,9 +9,11 @@ from asciimathml import parse
 from py_asciimath.translator.translator import (
 	ASCIIMath2MathML,
 	ASCIIMath2Tex,
-	Tex2ASCIIMath
+	Tex2ASCIIMath,
+	MathML2Tex
 )
 
+mathml2latexObj = None
 asciimath2mathmlObj = None
 latex2asciimathObj = None
 asciimath2latexObj = None
@@ -57,9 +59,18 @@ AsciiMath_delimiter = {
 delimiter_dict = {**AsciiMath_delimiter, **LaTeX_delimiter}
 
 
+def mathml2latex(data):
+	global mathml2latexObj
+	if not mathml2latexObj:
+		mathml2latexObj = MathML2Tex()
+	return mathml2latexObj.translate(
+		data,
+		dtd="mathml3",
+	)[1:-1].strip()
+
+
 def latex2mathml(data):
 	data = data.replace(r'\vec{', r'\overset{⇀}{')
-	print(data)
 	mathml = converter.convert(data)
 	mathml = html.unescape(mathml)
 	mathml = mathml.replace('<mi>⇀</mi>', '<mo>⇀</mo>')

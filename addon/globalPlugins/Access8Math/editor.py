@@ -1,4 +1,5 @@
 import os
+import re
 import shutil
 import wx
 
@@ -44,6 +45,14 @@ class EditorFrame(wx.Frame):
 		self.modify = False
 
 		Hotkey(self)
+
+
+		self.findReplaceData = wx.FindReplaceData()
+		self.pos = 0
+		self.Bind(wx.EVT_FIND, self.OnFindAction)
+		self.Bind(wx.EVT_FIND_NEXT, self.OnFindNextAction)
+		self.Bind(wx.EVT_FIND_REPLACE, self.OnReplaceAction)
+		self.Bind(wx.EVT_FIND_REPLACE_ALL, self.OnReplaceAllAction)
 
 	def SetTitle(self):
 		# Translators: The title of the Editor window
@@ -155,7 +164,7 @@ class EditorFrame(wx.Frame):
 		# Translators: A menu item in the Editor window
 		menuBar.Append(viewMenu, _("&View"))
 
-		formatMenu = wx.Menu()
+		otherMenu = wx.Menu()
 
 		for id, label, helpText, handler in [
 			(
@@ -176,16 +185,16 @@ class EditorFrame(wx.Frame):
 			),
 		]:
 			if id is None:
-				formatMenu.AppendSeparator()
+				otherMenu.AppendSeparator()
 			else:
-				item = formatMenu.Append(id, label, helpText)
+				item = otherMenu.Append(id, label, helpText)
 
 				# Bind some events to an events handler.
 				self.Bind(wx.EVT_MENU, handler, item)
 
 		# Add the fileMenu to the menuBar.
 		# Translators: A menu item in the Editor window
-		menuBar.Append(formatMenu, _("&Format"))
+		menuBar.Append(otherMenu, _("&Other"))
 
 		# Add the menuBar to the frame.
 		self.SetMenuBar(menuBar)
@@ -357,11 +366,43 @@ class EditorFrame(wx.Frame):
 				self.control.SetForegroundColour(font_data.GetColour())
 
 	def OnFindReplace(self, event):
-		data = wx.FindReplaceData()
-		with wx.FindReplaceDialog(self, data, style=wx.FR_REPLACEDIALOG) as dialog:
-			if dialog.Show(True) == wx.ID_OK:
-				print(dialog.GetData())
-			print("YAA")
+		wx.FindReplaceDialog(self, self.findReplaceData, style=wx.FR_REPLACEDIALOG).Show()
+
+	def OnFindAction(self, event):
+		fstring = self.findReplaceData.GetFindString()
+		self.pos = self.control.GetInsertionPoint()
+		self.pos = self.control.GetValue().find(fstring, self.pos)
+		self.start_pos = self.pos
+		self.end_pos = self.pos + len(fstring)
+		self.control.SetSelection(self.start_pos, self.end_pos + 1)
+
+	def OnFindNextAction(self, event):
+		fstring = self.findReplaceData.GetFindString()
+		self.pos += len(fstring)
+		self.pos = self.control.GetValue().find(fstring, self.pos)
+		self.start_pos = self.pos
+		self.end_pos = self.pos + len(fstring)
+		self.control.SetSelection(self.start_pos, self.end_pos + 1)
+
+	def OnReplaceAction(self, event):
+		fstring = self.findReplaceData.GetFindString()
+		rstring = self.findReplaceData.GetReplaceString()
+		text = self.control.GetValue()
+		if self.findReplaceData.GetFlags() & 4 == 4:
+			text = re.sub(re.escape(fstring), rstring, text, count=1)
+		else:
+			text = re.sub(re.escape(fstring), rstring, text, count=1, flags=re.IGNORECASE)
+		self.control.SetValue(text)
+
+	def OnReplaceAllAction(self, event):
+		fstring = self.findReplaceData.GetFindString()
+		rstring = self.findReplaceData.GetReplaceString()
+		text = self.control.GetValue()
+		if self.findReplaceData.GetFlags() & 4 == 4:
+			text = re.sub(re.escape(fstring), rstring, text)
+		else:
+			text = re.sub(re.escape(fstring), rstring, text, flags=re.IGNORECASE)
+		self.control.SetValue(text)
 
 	def OnImport(self, event):
 		# Translators: The title of the Editor's Open file window

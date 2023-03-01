@@ -180,6 +180,14 @@ class MathContent(object):
 		braillemathrule = load_math_rule(language=language, category="braille")
 		self.set_braillemathrule(braillemathrule)
 
+	@property
+	def mathML(self):
+		mathmlNamespace = 'xmlns="http://www.w3.org/1998/Math/MathML"'
+		result = self.pointer.get_mathml()
+		if not result.startswith("<math"):
+			result = f"<math {mathmlNamespace}>{result}</math>"
+		return result
+
 	def set_mathrule(self, mathrule):
 		self.mathrule = mathrule
 		set_mathrule_allnode(self.root, self.mathrule)
@@ -407,18 +415,20 @@ class Node(object):
 
 	def get_mathml(self):
 		mathml = ''
-		#the xml namespace for mathml. Needed to ensure newer versions of word recognise and render the mathml
-		mathmlNamespace='xmlns="http://www.w3.org/1998/Math/MathML"'
-		for c in self.child:
-			mathml = mathml + c.get_mathml()
+		if len(self.child) > 0:
+			for c in self.child:
+				mathml = mathml + c.get_mathml()
+		else:
+			mathml = mathml + " "
+
 		attrib = ''
 		for k, v in self.attrib.items():
 			attrib = attrib + ' {0}="{1}"'.format(k, v)
 
-		if len(self.attrib) > 0:
-			result = '<{0} {3} {1}>{2}</{0}>'.format(self.tag, attrib, mathml, mathmlNamespace)
+		if len(attrib) > 0:
+			result = f'<{self.tag} {attrib}>{mathml}</{self.tag}>'
 		else:
-			result = '<{0} {2}>{1}</{0}>'.format(self.tag, mathml, mathmlNamespace)
+			result = f'<{self.tag}>{mathml}</{self.tag}>'
 
 		return result
 
@@ -564,7 +574,17 @@ class TerminalNode(Node):
 	def get_mathml(self):
 		mathml = ''
 		mathml = mathml + self.data if self.data else mathml
-		return '<{0}>{1}</{0}>'.format(self.tag, mathml)
+
+		attrib = ''
+		for k, v in self.attrib.items():
+			attrib = attrib + ' {0}="{1}"'.format(k, v)
+
+		if len(attrib) > 0:
+			result = f'<{self.tag} {attrib}>{mathml}</{self.tag}>'
+		else:
+			result = f'<{self.tag}>{mathml}</{self.tag}>'
+
+		return result
 
 
 class AlterNode(NonTerminalNode):
@@ -821,7 +841,24 @@ class Maction(AlterNode):
 
 
 class Math(AlterNode):
-	pass
+	def get_mathml(self):
+		mathml = ''
+		#the xml namespace for mathml. Needed to ensure newer versions of word recognise and render the mathml
+		mathmlNamespace = 'xmlns="http://www.w3.org/1998/Math/MathML"'
+		for c in self.child:
+			mathml = mathml + c.get_mathml()
+
+		attrib = ''
+		for k, v in self.attrib.items():
+			k = re.sub(r"\{.*\}", "", k)
+			attrib = attrib + ' {0}="{1}"'.format(k, v)
+
+		if len(attrib) > 0:
+			result = f'<{self.tag} {mathmlNamespace} {attrib}>{mathml}</{self.tag}>'
+		else:
+			result = f'<{self.tag} {mathmlNamespace}>{mathml}</{self.tag}>'
+
+		return result
 
 
 class Mi(TerminalNode):
