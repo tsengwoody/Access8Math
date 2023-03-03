@@ -20,7 +20,7 @@ def mark(section, type_):
 	except BaseException:
 		temp = ''
 
-	result = _mark(type_)(section.obj.makeTextInfo(textInfos.POSITION_ALL).text)
+	result = _mark(type_)(section.obj.makeTextInfo(textInfos.POSITION_SELECTION).text)
 	api.copyToClip(result["text"])
 
 	KeyboardInputGesture.fromName("control+v").send()

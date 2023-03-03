@@ -1,5 +1,30 @@
 ﻿symbols:
 
+# ASCII
+!	factorial	none
+"	quotation mark	none
+'	prime	none
+(	open	none
+)	close	none
+*	times	none
++	plus	none
+-	minus	none
+/	divided by	none
+:	colon	none
+<	less than	none
+=	equals	none
+>	greater than	none
+[	左中括	none
+]	右中括	none
+{	open brace	none
+|	vertical line	none
+}	close brace	none
+¯	under bar	none
+±	plus or minus	none
+·	times	none
+×	times	none
+÷	divided by	none
+
 #0370~03FF
 Ͱ	Heta	none
 ͱ	Heta	none
