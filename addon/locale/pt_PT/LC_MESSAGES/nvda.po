@@ -1,0 +1,1420 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the 'Access8Math' package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 'Access8Math' '3.1'\n"
+"Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
+"POT-Creation-Date: 2021-09-08 06:33+0800\n"
+"PO-Revision-Date: 2021-10-14 19:28+0100\n"
+"Last-Translator: Ângelo Abrantes <ampa4374@gmail.com>\n"
+"Language-Team: \n"
+"Language: pt_PT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0\n"
+
+#, fuzzy, python-brace-format
+msgid ""
+"Access8Math\n"
+"Version: {addonVersion}\n"
+"URL: https://addons.nvda-project.org/addons/access8math.en.html\n"
+"Copyright (C) {copyrightFirstYear}-{copyrightLastYear} Access8Math "
+"Contributors\n"
+"Access8Math is covered by the GNU General Public License (Version 2). You "
+"are free to share or change this software in any way you like as long as it "
+"is accompanied by the license and you make all source code available to "
+"anyone who wants it. This applies to both original and modified copies of "
+"this software, plus any derivative works.\n"
+"It can be viewed online at: https://www.gnu.org/licenses/old-licenses/"
+"gpl-2.0.html\n"
+"Access8Math has been sponsored by \"Taiwan Visually Impaired People "
+"Association\"(accessibility@twvip.org) in 2018~2019, hereby express our "
+"sincere appreciation.\n"
+"If you feel this add-on is helpful, please don't hesitate to give support to "
+"\"Taiwan Visually Impaired People Association\" and authors."
+msgstr ""
+"Access8Math\n"
+"Version: 3.1\n"
+"URL: https://addons.nvda-project.org/addons/access8math.en.html\n"
+"Copyright (C) 2017-2021 Access8Math Contributors\n"
+"Access8Math is covered by the GNU General Public License (Version 2). You "
+"are free to share or change this software in any way you like as long as it "
+"is accompanied by the license and you make all source code available to "
+"anyone who wants it. This applies to both original and modified copies of "
+"this software, plus any derivative works.\n"
+"It can be viewed online at: https://www.gnu.org/licenses/old-licenses/"
+"gpl-2.0.html\n"
+"Access8Math has been sponsored by \"Taiwan Visually Impaired People "
+"Association\"(accessibility@twvip.org) in 2018~2019, hereby express our "
+"sincere appreciation.\n"
+"If you feel this add-on is helpful, please don't hesitate to give support to "
+"\"Taiwan Visually Impaired People Association\" and authors."
+
+#. Translators: The title of the interaction window
+msgid "Access8Math interaction window"
+msgstr "Janela de interacção do Access8Math"
+
+#, fuzzy
+msgid "&Editor..."
+msgstr "&Editar"
+
+#, fuzzy
+msgid "&Settings..."
+msgstr "Configurações de &Regras..."
+
+#, fuzzy
+msgid "Speech &unicode dictionary..."
+msgstr "Dicionário &unicode..."
+
+#, fuzzy
+msgid "Speech &math rule..."
+msgstr "A regra da &math..."
+
+#, fuzzy
+msgid "Braille &unicode dictionary..."
+msgstr "Dicionário &unicode..."
+
+#, fuzzy
+msgid "Braille &math rule..."
+msgstr "A regra da &math..."
+
+msgid "&New language adding..."
+msgstr "&Nova linguagem adicionada..."
+
+#, fuzzy
+msgid "&Localization"
+msgstr "&Localização..."
+
+msgid "&Clean Workspace..."
+msgstr ""
+
+msgid "&About..."
+msgstr "&Sobre..."
+
+#. Translators: Title of a setting dialog.
+#. Translators: A choice of a combobox in the reading settings dialog
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on
+#. to be shown on installation and add-on information found in Add-ons Manager.
+msgid "Access8Math"
+msgstr "Access8Math"
+
+msgid "Switch math speech reader"
+msgstr ""
+
+#, fuzzy, python-format
+msgid "Math speech reader switch to %s"
+msgstr "MathML speech source switch to %s"
+
+msgid "Switch math Braille reader"
+msgstr ""
+
+#, fuzzy, python-format
+msgid "Math braille reader switch to %s"
+msgstr "MathML braille source switch to %s"
+
+msgid "Switch math interact reader"
+msgstr ""
+
+#, fuzzy, python-format
+msgid "Math interact reader switch to %s"
+msgstr "MathML interact source switch to %s"
+
+msgid "Pop up the editor"
+msgstr ""
+
+msgid "Open virtual context menu"
+msgstr ""
+
+msgid "open path failed"
+msgstr ""
+
+msgid "get path failed"
+msgstr ""
+
+msgid "Workspace has already been cleaned"
+msgstr ""
+
+msgid "Clean Workspace"
+msgstr ""
+
+msgid "About Access8Math"
+msgstr "Sobre o Access8Math"
+
+#. Translators: Message indicating no context sensitive help is available for the control or dialog.
+msgid "No help available here."
+msgstr ""
+
+#. Translators: Message shown when trying to display context sensitive help,
+#. indicating that	the user guide could not be found.
+msgid "No user guide found."
+msgstr ""
+
+#. Translators: A choice of a combobox in the writing settings dialog (not used)
+msgid "MathCAT"
+msgstr ""
+
+#. Translators: A choice of a combobox in the writing settings dialog (not used)
+msgid "Math Player"
+msgstr "Math Player"
+
+#. Translators: Title of a setting dialog.
+#, fuzzy
+msgid "Math Reader"
+msgstr "Math Player"
+
+#. Translators: The label of an option in the reading settings dialog
+msgid "&Speech source:"
+msgstr "Fonte &de voz:"
+
+#. Translators: The label of an option in the reading settings dialog
+msgid "&Braille source:"
+msgstr "Fonte &Braille:"
+
+#. Translators: The label of an option in the reading settings dialog
+msgid "Inter&act source:"
+msgstr "Fonte Inter&act:"
+
+#. Translators: Title of a setting dialog.
+#, fuzzy
+msgid "Reading"
+msgstr "Configurações de regras"
+
+#. Translators: The label of a setting in the Add new language dialog
+msgid "&Language:"
+msgstr "&Linguagem:"
+
+#. Translators: The label of an option in the reading settings dialog
+msgid "Analyze mathematical meaning of content"
+msgstr "Analisar o significado matemático do conteúdo"
+
+#. Translators: The label of an option in the reading settings dialog
+#, fuzzy
+msgid "Show interaction window when entering interaction navigation mode"
+msgstr ""
+"A Mostrar a janela de interacção Access8Math ao entrar no modo de interacção"
+
+#. Translators: The label of an option in the reading settings dialog
+#, fuzzy
+msgid ""
+"Reading pre-defined meaning in dictionary in interaction navigation mode"
+msgstr ""
+"Leitura de significado pré-definido no dicionário ao navegar em modo "
+"interactivo"
+
+#. Translators: The label of an option in the reading settings dialog
+#, fuzzy
+msgid "Reading of auto-generated meaning in interaction navigation mode"
+msgstr ""
+"Leitura do significado gerado automaticamente quando se navega em modo "
+"interactivo"
+
+#. Translators: The label of an option in the reading settings dialog
+#, fuzzy
+msgid "Use tone indicate to no move in interaction navigation mode"
+msgstr ""
+"A Mostrar a janela de interacção Access8Math ao entrar no modo de interacção"
+
+#. Translators: The label of an option in the reading settings dialog
+msgid "&Item interval time:"
+msgstr "&Item tempo de intervalo:"
+
+#. Translators: Title of a setting dialog.
+#, fuzzy
+msgid "Writing"
+msgstr "Configurações Gerais"
+
+#. Translators: The label of an option in the writing settings dialog
+#, fuzzy
+msgid "Activate command gesture at startup"
+msgstr "Activar o comando de atalho por defeito"
+
+#. Translators: The label of an option in the writing settings dialog
+#, fuzzy
+msgid "Activate block navigate gesture at startup"
+msgstr "Activar o comando de navegação em bloco por defeito"
+
+#. Translators: The label of an option in the writing settings dialog
+#, fuzzy
+msgid "Activate shortcut gesture at startup"
+msgstr "Activar o comando de atalho por defeito"
+
+#. Translators: The label of an option in the writing settings dialog
+msgid "Use audio indicate to switching of browse navigation mode"
+msgstr ""
+
+#. Translators: The label of an option in the writing settings dialog
+msgid ""
+"Left/Right arrow key allow of moving across line in browse navigation mode"
+msgstr ""
+
+#. Translators: Title of a setting dialog.
+msgid "Document"
+msgstr ""
+
+#. Translators: The label of an option in the writing settings dialog
+msgid "&LaTeX delimiter:"
+msgstr "Delimitador &LaTeX:"
+
+#. Translators: A choice of a combobox in the writing settings dialog
+msgid "bracket"
+msgstr "Parêntesis recto"
+
+#. Translators: A choice of a combobox in the writing settings dialog
+msgid "dollar"
+msgstr "dólar"
+
+#. Translators: The label of an option in the writing settings dialog
+#, fuzzy
+msgid "HTML &document display:"
+msgstr "Mostrar &HTML:"
+
+#. Translators: A choice of a combobox in the writing settings dialog
+msgid "Markdown"
+msgstr ""
+
+#. Translators: A choice of a combobox in the writing settings dialog
+msgid "text"
+msgstr ""
+
+#. Translators: The label of an option in the writing settings dialog
+#, fuzzy
+msgid "HTML &math display:"
+msgstr "Mostrar &HTML:"
+
+#. Translators: A choice of a combobox in the writing settings dialog
+msgid "block"
+msgstr "block"
+
+#. Translators: A choice of a combobox in the writing settings dialog
+msgid "inline"
+msgstr "em linha"
+
+#. Translators: The label of an option in the writing settings dialog
+msgid "HTML font color:"
+msgstr ""
+
+#. Translators: A choice of a combobox in the writing settings dialog
+msgid "white"
+msgstr ""
+
+#. Translators: A choice of a combobox in the writing settings dialog
+msgid "black"
+msgstr ""
+
+#. Translators: The label of an option in the writing settings dialog
+msgid "HTML background color:"
+msgstr ""
+
+#. Translators: Title of a setting dialog.
+#. Translators: The label for a math rule list column header in the math rules dialog.
+msgid "Rule"
+msgstr "Regra"
+
+#. Translators: The label of an option in the Rule settings dialog
+msgid "Simplified subscript and superscript"
+msgstr "Subscrito e superescrito simplificados"
+
+#. Translators: The label of an option in the Rule settings dialog
+msgid "Simplified subscript"
+msgstr "Subscrito simplificado"
+
+#. Translators: The label of an option in the Rule settings dialog
+msgid "Simplified superscript"
+msgstr "Super-escrito simplificado"
+
+#. Translators: The label of an option in the Rule settings dialog
+msgid "Simplified underscript and overscript"
+msgstr "Sublinhado e sobrescrito simplificados"
+
+#. Translators: The label of an option in the Rule settings dialog
+msgid "Simplified underscript"
+msgstr "Sublinhado simplificado"
+
+#. Translators: The label of an option in the Rule settings dialog
+msgid "Simplified overscript"
+msgstr "Overscript simplificado"
+
+#. Translators: The label of an option in the Rule settings dialog
+msgid "Simplified fraction"
+msgstr "Fração simplificada"
+
+#. Translators: The label of an option in the Rule settings dialog
+msgid "Simplified square root"
+msgstr "Raiz quadrada simplificada"
+
+#. Translators: The label of an option in the Rule settings dialog
+msgid "Power"
+msgstr "Potência"
+
+#. Translators: The label of an option in the Rule settings dialog
+msgid "Square power"
+msgstr "Potência quadrada"
+
+#. Translators: The label of an option in the Rule settings dialog
+msgid "Cube power"
+msgstr "Potência cúbica"
+
+#. Translators: The label of an option in the Rule settings dialog
+msgid "Set"
+msgstr "Definir"
+
+#. Translators: The label of an option in the Rule settings dialog
+msgid "Absolute value"
+msgstr "Valor absoluto"
+
+#. Translators: The label of an option in the Rule settings dialog
+msgid "Matrix"
+msgstr "Matriz"
+
+#. Translators: The label of an option in the Rule settings dialog
+msgid "Determinant"
+msgstr "Determinante"
+
+#. Translators: The label of an option in the Rule settings dialog
+msgid "Integer and fraction"
+msgstr "Inteiro e fracção"
+
+#. translators: title of the dialog.
+#, fuzzy
+msgid "Settings"
+msgstr "Configurações de &Regras..."
+
+#. Translators: This is the label for the add symbol dialog.
+msgid "Add Symbol"
+msgstr "Adicionar símbolo"
+
+#. Translators: This is the label for the edit field in the add symbol dialog.
+#, fuzzy
+msgid "&Symbol:"
+msgstr "Símbolo:"
+
+#. Translators: This is the label for the unicode dictionary dialog.
+#, fuzzy, python-brace-format
+msgid "{category} unicode dictionary ({language})"
+msgstr "dicionário unicode (%s)"
+
+#. Translators: The label of a text field to search for symbols in the speech symbols dialog.
+msgctxt "speechSymbols"
+msgid "&Filter by:"
+msgstr ""
+
+#. Translators: The label for symbols list in symbol pronunciation dialog.
+msgid "&Symbols"
+msgstr "&Símbolos"
+
+#. Translators: The label for a column in symbols list used to identify a symbol.
+msgid "Symbol"
+msgstr "Símbolo"
+
+#. Translators: The label for a column in symbols list used to identify a replacement.
+msgid "Replacement"
+msgstr "Substituir por"
+
+#. Translators: The label for the group of controls in symbol pronunciation dialog to change the pronunciation of a symbol.
+msgid "Change selected symbol"
+msgstr "Alterar símbolo seleccionado"
+
+#. Translators: The label for the edit field in symbol pronunciation dialog to change the replacement text of a symbol.
+msgid "&Replacement"
+msgstr "&Substituir por"
+
+#. Translators: The label for a button in the Symbol Pronunciation dialog to add a new symbol.
+msgid "&Add"
+msgstr "&Adicionar"
+
+#. Translators: The label for a button in the Symbol Pronunciation dialog to remove a symbol.
+msgid "Re&move"
+msgstr "Re&mover"
+
+#. Translators: The label for a button to recover default value.
+msgid "&Recover default"
+msgstr "&Remover padrão"
+
+#. Translators: The label for a button to import unicode.dic.
+#. Translators: The label for a button to import math.rule.
+msgid "&Import"
+msgstr "&Importar"
+
+#. Translators: The label for a button to export unicode.dic.
+#. Translators: The label for a button to export math.rule.
+msgid "Exp&ort"
+msgstr "E&xportar"
+
+#. Translators: An error reported in the Symbol Pronunciation dialog when adding a symbol that is already present.
+#, python-format
+msgid "Symbol \"%s\" is already present."
+msgstr "O símbolo \"%s\" já existe."
+
+#. Translators: The title of the error message window showing up when adding a symbol that is already present in the Symbol Pronunciation dialog .
+msgid "Error"
+msgstr "Erro"
+
+#. Translators: The title of the import file dialog accessible from the Symbol Pronunciation dialog.
+#. Translators: The title of the file selection dialog to import rules
+msgid "Import file..."
+msgstr "Importar ficheiro..."
+
+#. Translators: The title of the file selection dialog to export rules
+#. Translators: The title of the Editor's Export file window
+msgid "Export file..."
+msgstr "Exportar ficheiro..."
+
+msgid "Edit Math Rule Entry"
+msgstr "Entrada de Regra de Matemática Edit Math"
+
+#, fuzzy
+msgid "&Description"
+msgstr "Descrição"
+
+#. Translators: The label for a math rule list column header in the math rules dialog.
+msgid "Description"
+msgstr "Descrição"
+
+msgid "Serialized ordering"
+msgstr "Encomenda serializada"
+
+#, python-format
+msgid "Ordering %d"
+msgstr "Encomenda %d"
+
+msgid "Child"
+msgstr "Criança"
+
+#. before item
+#, python-format
+msgid "Before item text &%d"
+msgstr "Antes do texto do artigo &%d"
+
+#. after item
+#, python-format
+msgid "After item text &%d"
+msgstr "Depois do texto do artigo &%d"
+
+#, python-format
+msgid "Start text &%d"
+msgstr "Iniciar texto &%d"
+
+#, python-format
+msgid "End text &%d"
+msgstr "Texto final &%d"
+
+#, python-format
+msgid "&Interval text &%d"
+msgstr "&Intervalo texto &%d"
+
+msgid "Child role"
+msgstr ""
+
+#, python-format
+msgid "&Child %d meaning"
+msgstr ""
+
+#. Translators: This is an error message to let the user know that the dictionary entry is not valid.
+#, python-format
+msgid "Regular Expression error: \"%s\"."
+msgstr "Erro de expressão regular: \"%s\"."
+
+msgid "Dictionary Entry Error"
+msgstr "Erro na entrada de dicionário"
+
+#. Translators: This is the title of the math rule dialog.
+#, python-brace-format
+msgid "{category} math rule ({language})"
+msgstr ""
+
+#. Translators: The label for math rule list in math rules dialog.
+msgid "&Mathrules"
+msgstr "&Mathrules"
+
+#. Translators: The label for a button to edit math rule.
+msgid "&Edit"
+msgstr "&Editar"
+
+#. Translators: The label for a button to example math rule.
+msgid "E&xample"
+msgstr "E&xemplo"
+
+#. Translators: The title of the Add new language dialog
+msgid "New language adding"
+msgstr "Novo idioma adicionado"
+
+#. Translators: The label of a button in the Add new language dialog
+msgid "&Select"
+msgstr "&Seleccionar"
+
+#. Translators: The label of a button in the Add new language dialog
+msgid "&Unselect"
+msgstr "&retirar selecção"
+
+#. Add button
+#. Translators: The label of a button in the Add new language dialog
+#, fuzzy
+msgid "Unicode dictionary"
+msgstr "dicionário unicode"
+
+#. Translators: The label of a button in the Add new language dialog
+#, fuzzy
+msgid "Math rule"
+msgstr "regra da matemática"
+
+#. Translators: The label of a button in the Add new language dialog
+msgid "OK"
+msgstr "OK"
+
+#. Translators: The message displayed
+#, fuzzy
+msgid ""
+"For the new language to be added, NVDA must be restarted. Press enter to "
+"restart NVDA, or cancel to exit at a later time."
+msgstr ""
+"Para que a nova linguagem possa ser adicionada, o NVDA deve ser reiniciado. "
+"Pressione enter para reiniciar o NVDA ou cancele para reiniciar mais tarde."
+
+#. Translators: The title of the dialog
+#, fuzzy
+msgid "Add new language"
+msgstr "Adicionar novo idioma"
+
+#. Translators: The title of the Editor window
+#, fuzzy, python-format
+msgid "%s - Access8Math Editor"
+msgstr "Access8Math"
+
+#. Translators: A menu item in the Editor window
+msgid "&New"
+msgstr ""
+
+#. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+msgid "Open a new editor."
+msgstr ""
+
+#. Translators: A menu item in the Editor window
+msgid "&Open..."
+msgstr ""
+
+#. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+msgid "Open a new file."
+msgstr ""
+
+#. Translators: A menu item in the Editor window
+msgid "&Save"
+msgstr ""
+
+#. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+msgid "Save the current file."
+msgstr ""
+
+#. Translators: A menu item in the Editor window
+msgid "Save &as..."
+msgstr ""
+
+#. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+msgid "Save the file under a different name."
+msgstr ""
+
+#. Translators: A menu item in the Editor window
+msgid "E&xit"
+msgstr ""
+
+#. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+#, fuzzy
+msgid "Terminate the program."
+msgstr "Encerrar o programa"
+
+#. Add the fileMenu to the menuBar.
+#. Translators: A menu item in the Editor window
+msgid "&File"
+msgstr ""
+
+#. Translators: A menu item in the Editor window
+#. Translators: The title of the dialog
+msgid "Preview"
+msgstr ""
+
+#. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+#, fuzzy
+msgid "Preview HTML file"
+msgstr "Exportar ficheiro..."
+
+#. Translators: A menu item in the Editor window
+#, fuzzy
+msgid "Export..."
+msgstr "&Importar"
+
+#. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+#, fuzzy
+msgid "Export archive file"
+msgstr "Exportar ficheiro..."
+
+#. Add the fileMenu to the menuBar.
+#. Translators: A menu item in the Editor window
+msgid "&View"
+msgstr ""
+
+#. Translators: The title of the Editor's Open file window
+msgid "Open file"
+msgstr ""
+
+#. Translators: The title of the Editor's Save file window
+#. Translators: The title of the Editor's Save as file window
+msgid "Save file"
+msgstr ""
+
+#. Translators: The message displayed
+#, python-brace-format
+msgid "Save file{path}?"
+msgstr ""
+
+#. Translators: The title of the dialog
+msgid "Save"
+msgstr ""
+
+#. Translators: The message displayed
+msgid ""
+"Preview will only include the saved content. The content in the editor has "
+"been modified since the last save, do you want to save and preview it?"
+msgstr ""
+
+#. Translators: The message displayed
+msgid ""
+"Export will only include the saved content. The content in the editor has "
+"been modified since the last save, do you want to save and export it?"
+msgstr ""
+
+#. Translators: The title of the dialog
+#, fuzzy
+msgid "Export"
+msgstr "&Importar"
+
+#. Translators: A mmenu item in the Interaction window
+msgid "&Menu"
+msgstr "&Menu"
+
+#. Translators: A mmenu item in the Interaction window
+msgid "&Exit"
+msgstr "&Sair"
+
+msgid "Terminate the program"
+msgstr "Encerrar o programa"
+
+#. Translators: A button label in the Interaction window
+#, fuzzy
+msgid "Interaction"
+msgstr "interacção"
+
+#. Translators: A button label in the Interaction window
+msgid "Copy"
+msgstr ""
+
+#. Translators: A message reported to the user when copying data from the interaction window
+#. Translators: A message reported to the user when copying data from the Interaction window
+msgid "Copied"
+msgstr ""
+
+#. Translators: A message reported to the user when navigating in the math expression of the interaction window
+#, fuzzy
+msgid "No move"
+msgstr "sem movimento"
+
+#. Translators: A message reported to the user when taking a snapshot of math data in the Interaction window
+msgid "snapshot"
+msgstr "instantâneo"
+
+#. Translators: A message in the ASCII Math input dialog of the Interaction window
+msgid "Write AsciiMath Content"
+msgstr "Escrever conteúdo de AsciiMath"
+
+#. Translators: A message in the LaTeX input dialog of the Interaction window
+msgid "Write LaTeX Content"
+msgstr "Escrever conteúdo LaTeX"
+
+#. Translators: The description of a command in input help mode and in the Input gesture dialog
+#, fuzzy
+msgid "Toggle command gestures"
+msgstr "activar comandos de escrita"
+
+#, fuzzy
+msgid "Command gestures activated"
+msgstr "alternância de comandos de escrita"
+
+#, fuzzy
+msgid "Command gestures deactivated"
+msgstr "alternância de comandos de escrita"
+
+#. Translators: The description of a command in input help mode and in the Input gesture dialog
+#, fuzzy
+msgid "Toggle block navigation gestures"
+msgstr "Activar o comando de navegação em bloco por defeito"
+
+#, fuzzy
+msgid "Block navigation gestures activated"
+msgstr "alternância de comandos de escrita"
+
+#, fuzzy
+msgid "Block navigation gestures deactivated"
+msgstr "alternância de comandos de escrita"
+
+#. Translators: The description of a command in input help mode and in the Input gesture dialog
+#, fuzzy
+msgid "Toggle shortcut gestures"
+msgstr "Activar o comando de atalho por defeito"
+
+#, fuzzy
+msgid "Cannot activate shortcut gesture in browse navigation mode"
+msgstr "Activar o comando de atalho por defeito"
+
+#, fuzzy
+msgid "Shortcut gestures activated"
+msgstr "Activar o comando de atalho por defeito"
+
+#, fuzzy
+msgid "Shortcut gestures deactivated"
+msgstr "Activar o comando de atalho por defeito"
+
+#. Translators: The description of a command in input help mode and in the Input gesture dialog
+#, fuzzy
+msgid "Toggle Greek alphabet gesture"
+msgstr "activar comandos de escrita"
+
+#, fuzzy
+msgid "Cannot activate Greek alphabet gestures in browse navigation mode"
+msgstr "Activar o comando de atalho por defeito"
+
+#, fuzzy
+msgid "Greek alphabet gestures activated"
+msgstr "alternância de comandos de escrita"
+
+#, fuzzy
+msgid "Greek alphabet gestures deactivated"
+msgstr "alternância de comandos de escrita"
+
+#. Translators: The description of a command in input help mode and in the Input gesture dialog
+msgid "Toggle browse navigation mode"
+msgstr ""
+
+msgid "Browse navigation mode on"
+msgstr ""
+
+msgid "Browse navigation mode off"
+msgstr ""
+
+#, python-brace-format
+msgid "Shortcut {shortcut} is not set"
+msgstr ""
+
+#, python-brace-format
+msgid "Greek alphabet {GreekAlphabet} is not set"
+msgstr ""
+
+msgid "In math section. Please leave math section first and try again."
+msgstr ""
+
+msgid "Not in LaTeX block or text block. cannot use LaTeX command"
+msgstr ""
+
+msgid "This block cannot be interacted"
+msgstr ""
+
+msgid "This block cannot be translated"
+msgstr ""
+
+#, python-brace-format
+msgid "{data} copied to clipboard"
+msgstr ""
+
+#, python-brace-format
+msgid "{data} inserted to document"
+msgstr ""
+
+#, python-brace-format
+msgid "{data} cut from document"
+msgstr ""
+
+#, python-brace-format
+msgid "{data} deleted from document"
+msgstr ""
+
+#. Translators: batch menu
+#, fuzzy
+msgid "math block"
+msgstr "block"
+
+#. Translators: batch menu
+msgid "LaTeX to AsciiMath"
+msgstr ""
+
+#. Translators: batch menu
+msgid "AsciiMath to LaTeX"
+msgstr ""
+
+#. Translators: batch menu
+msgid "LaTeX and AsciiMath reverse translate"
+msgstr ""
+
+#. Translators: batch menu
+#, fuzzy
+msgid "LaTeX delimiter"
+msgstr "Delimitador &LaTeX:"
+
+#. Translators: batch menu
+msgid "bracket to dollar"
+msgstr ""
+
+#. Translators: batch menu
+msgid "dollar to bracket"
+msgstr ""
+
+#. Translators: alt+m window
+msgid "batch command"
+msgstr ""
+
+msgid "view"
+msgstr ""
+
+msgid "edit"
+msgstr ""
+
+msgid "virtual context menu"
+msgstr ""
+
+#. Translators: LaTeX command category - shortcut
+msgid "shortcut"
+msgstr ""
+
+#. Translators: LaTeX command category - common
+msgid "common"
+msgstr ""
+
+#. Translators: LaTeX command category - operator
+msgid "operator"
+msgstr ""
+
+#. Translators: LaTeX command category - relation
+msgid "relation"
+msgstr ""
+
+#. Translators: LaTeX command category - relation
+msgid "logic"
+msgstr ""
+
+#. Translators: LaTeX command category - arrow
+msgid "arrow"
+msgstr ""
+
+#. Translators: LaTeX command category - 2-dimension
+msgid "2-dimension"
+msgstr ""
+
+#. Translators: LaTeX command category - set
+msgid "set"
+msgstr ""
+
+#. Translators: LaTeX command category - other
+msgid "other"
+msgstr ""
+
+#. Translators: alt+l window
+msgid "LaTeX command"
+msgstr ""
+
+#. Translators: A message reported when setting the shortcut on an element of the LaTeX commands menu
+msgid "Cannot set shortcut on menu"
+msgstr ""
+
+#. Translators: A message reported when setting the shortcut on an element of the LaTeX commands menu
+#, python-brace-format
+msgid "Shortcut {slot} set"
+msgstr ""
+
+#. Translators: A message reported when resetting the shortcut on an element of the LaTeX commands menu
+msgid "Cannot clear shortcut on a menu"
+msgstr ""
+
+#. Translators: A message reported when resetting the shortcut on an element of the LaTeX commands menu
+msgid "No shortcut set on this item"
+msgstr ""
+
+#. Translators: A message reported when resetting the shortcut on an element of the LaTeX commands menu
+#, python-brace-format
+msgid "Shortcut {slot} cleared"
+msgstr ""
+
+#. Translators: mark command category - LaTeX
+#. Translators: translate command category - LaTeX
+msgid "LaTeX"
+msgstr ""
+
+#. Translators: mark command category - AsciiMath
+#. Translators: translate command category - AsciiMath
+#, fuzzy
+msgid "AsciiMath"
+msgstr "&asciimath..."
+
+#. Translators: alt+m window
+msgid "mark command"
+msgstr ""
+
+msgid "preview"
+msgstr ""
+
+msgid "export"
+msgstr ""
+
+msgid "view command"
+msgstr ""
+
+msgid "Save file..."
+msgstr ""
+
+#. Translators: alt+m window
+msgid "translate command"
+msgstr ""
+
+msgid "command"
+msgstr ""
+
+#, python-brace-format
+msgid "f{shortcut}"
+msgstr ""
+
+msgid "subMenu"
+msgstr ""
+
+#, python-brace-format
+msgid "{number} of {total}"
+msgstr ""
+
+#, python-brace-format
+msgid "{shortcut}"
+msgstr ""
+
+#. Translators: LaTeX command - fractions
+msgid "fractions"
+msgstr ""
+
+#. Translators: LaTeX command - square root
+msgid "square root"
+msgstr ""
+
+#. Translators: LaTeX command - root
+msgid "root"
+msgstr ""
+
+#. Translators: LaTeX command - summation
+msgid "summation"
+msgstr ""
+
+#. Translators: LaTeX command - vector
+msgid "vector"
+msgstr ""
+
+#. Translators: LaTeX command - limit
+msgid "limit"
+msgstr ""
+
+#. Translators: LaTeX command - times
+msgid "times"
+msgstr ""
+
+#. Translators: LaTeX command - divide
+msgid "divide"
+msgstr ""
+
+#. Translators: LaTeX command - plus-minus sign
+msgid "plus-minus sign"
+msgstr ""
+
+#. Translators: LaTeX command - greater than or equal to
+msgid "greater than or equal to"
+msgstr ""
+
+#. Translators: LaTeX command - less than or equal to
+msgid "less than or equal to"
+msgstr ""
+
+#. Translators: LaTeX command - not equal to
+msgid "not equal to"
+msgstr ""
+
+#. Translators: LaTeX command - approximate
+msgid "approximate"
+msgstr ""
+
+#. Translators: LaTeX command - parallel
+msgid "parallel"
+msgstr ""
+
+#. Translators: LaTeX command - perpendicular
+msgid "perpendicular"
+msgstr ""
+
+#. Translators: LaTeX command - full equal
+msgid "full equal"
+msgstr ""
+
+#. Translators: LaTeX command - similar
+msgid "similar"
+msgstr ""
+
+#. Translators: LaTeX command - because
+msgid "because"
+msgstr ""
+
+#. Translators: LaTeX command - therefore
+msgid "therefore"
+msgstr ""
+
+#. Translators: LaTeX command - because
+msgid "if and only if"
+msgstr ""
+
+#. Translators: LaTeX command - because
+msgid "implies"
+msgstr ""
+
+#. Translators: LaTeX command - because
+#, fuzzy
+msgid "implied by"
+msgstr "Subscrito simplificado"
+
+#. Translators: LaTeX command - left arrow
+msgid "left arrow"
+msgstr ""
+
+#. Translators: LaTeX command - right arrow
+msgid "right arrow"
+msgstr ""
+
+#. Translators: LaTeX command - left right arrow
+msgid "left right arrow"
+msgstr ""
+
+#. Translators: LaTeX command - up arrow
+msgid "up arrow"
+msgstr ""
+
+#. Translators: LaTeX command - down arrow
+msgid "down arrow"
+msgstr ""
+
+#. Translators: LaTeX command - up down arrow
+msgid "up down arrow"
+msgstr ""
+
+#. Translators: LaTeX command - line segment
+msgid "line segment"
+msgstr ""
+
+#. Translators: LaTeX command - line
+msgid "line"
+msgstr ""
+
+#. Translators: LaTeX command - ray
+msgid "ray"
+msgstr ""
+
+#. Translators: LaTeX command - arc
+msgid "arc"
+msgstr ""
+
+#. Translators: LaTeX command - triangle
+msgid "triangle"
+msgstr ""
+
+#. Translators: LaTeX command - angle
+msgid "angle"
+msgstr ""
+
+#. Translators: LaTeX command - degree
+msgid "degree"
+msgstr ""
+
+#. Translators: LaTeX command - circle
+msgid "circle"
+msgstr ""
+
+#. Translators: LaTeX command - binomial coefficient
+msgid "binomial coefficient"
+msgstr ""
+
+#. Translators: LaTeX command - matrix (2X2)
+msgid "matrix (2X2)"
+msgstr ""
+
+#. Translators: LaTeX command - matrix (3X3)
+msgid "matrix (3X3)"
+msgstr ""
+
+#. Translators: LaTeX command - determinant (2X2)
+msgid "determinant (2X2)"
+msgstr ""
+
+#. Translators: LaTeX command - determinant (3X3)
+msgid "determinant (3X3)"
+msgstr ""
+
+#. Translators: LaTeX command - simultaneous equations
+msgid "simultaneous equations"
+msgstr ""
+
+#. Translators: LaTeX command - belong to
+msgid "belong to"
+msgstr ""
+
+#. Translators: LaTeX command - not belong to
+msgid "not belong to"
+msgstr ""
+
+#. Translators: LaTeX command - lie in
+msgid "lie in"
+msgstr ""
+
+#. Translators: LaTeX command - properly lie in
+msgid "properly lie in"
+msgstr ""
+
+#. Translators: LaTeX command - not lie in
+msgid "not lie in"
+msgstr ""
+
+#. Translators: LaTeX command - include
+msgid "include"
+msgstr ""
+
+#. Translators: LaTeX command - properly include
+msgid "properly include"
+msgstr ""
+
+#. Translators: LaTeX command - not include
+msgid "not include"
+msgstr ""
+
+#. Translators: LaTeX command - intersection set
+msgid "intersection set"
+msgstr ""
+
+#. Translators: LaTeX command - union set
+msgid "union set"
+msgstr ""
+
+#. Translators: LaTeX command - difference set
+msgid "difference set"
+msgstr ""
+
+#. Translators: LaTeX command - complement
+msgid "complement"
+msgstr ""
+
+#. Translators: LaTeX command - empty set
+msgid "empty set"
+msgstr ""
+
+#. Translators: LaTeX command - natural number
+msgid "natural number"
+msgstr ""
+
+#. Translators: LaTeX command - real number
+msgid "real number"
+msgstr ""
+
+#. Translators: LaTeX command - logarithm
+msgid "logarithm"
+msgstr ""
+
+#. Translators: LaTeX command - infty
+msgid "infty"
+msgstr ""
+
+#. Translators: LaTeX command - for all
+msgid "for all"
+msgstr ""
+
+#. Translators: LaTeX command - exists
+msgid "exists"
+msgstr ""
+
+#. Translators: LaTeX command - repeating decimal
+msgid "repeating decimal"
+msgstr ""
+
+#. Translators: greek alphabet command - alpha
+msgid "alpha"
+msgstr ""
+
+#. Translators: greek alphabet command - beta
+msgid "beta"
+msgstr ""
+
+#. Translators: greek alphabet command - gamma
+msgid "gamma"
+msgstr ""
+
+#. Translators: greek alphabet command - delta
+msgid "delta"
+msgstr ""
+
+#. Translators: greek alphabet command - epsilon
+msgid "epsilon"
+msgstr ""
+
+#. Translators: greek alphabet command - zeta
+msgid "zeta"
+msgstr ""
+
+#. Translators: greek alphabet command - eta
+#, fuzzy
+msgid "eta"
+msgstr "Definir"
+
+#. Translators: greek alphabet command - theta
+msgid "theta"
+msgstr ""
+
+#. Translators: greek alphabet command - iota
+msgid "iota"
+msgstr ""
+
+#. Translators: greek alphabet command - kappa
+msgid "kappa"
+msgstr ""
+
+#. Translators: greek alphabet command - lambda
+msgid "lambda"
+msgstr ""
+
+#. Translators: greek alphabet command - mu
+msgid "mu"
+msgstr ""
+
+#. Translators: greek alphabet command - nu
+msgid "nu"
+msgstr ""
+
+#. Translators: greek alphabet command - xi
+msgid "xi"
+msgstr ""
+
+#. Translators: greek alphabet command - o
+msgid "omicron"
+msgstr ""
+
+#. Translators: greek alphabet command - pi
+msgid "pi"
+msgstr ""
+
+#. Translators: greek alphabet command - rho
+msgid "rho"
+msgstr ""
+
+#. Translators: greek alphabet command - sigma
+msgid "sigma"
+msgstr ""
+
+#. Translators: greek alphabet command - tau
+msgid "tau"
+msgstr ""
+
+#. Translators: greek alphabet command - upsilon
+msgid "upsilon"
+msgstr ""
+
+#. Translators: greek alphabet command - phi
+msgid "phi"
+msgstr ""
+
+#. Translators: greek alphabet command - chi
+msgid "chi"
+msgstr ""
+
+#. Translators: greek alphabet command - psi
+msgid "psi"
+msgstr ""
+
+#. Translators: greek alphabet command - down omega
+msgid "omega"
+msgstr ""
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+msgid ""
+"Allows access math content written by MathML ; Allows write math content by "
+"LaTeX"
+msgstr ""
+
+#, fuzzy
+#~ msgid "&Reading settings..."
+#~ msgstr "Configurações de &Regras..."
+
+#, fuzzy
+#~ msgid "&Writing settings..."
+#~ msgstr "Configurações de &Regras..."
+
+#, fuzzy
+#~ msgid "Ru&le settings..."
+#~ msgstr "Configurações de &Regras..."
+
+#, fuzzy
+#~ msgid "Speech source switch"
+#~ msgstr "interruptor da fonte da voz"
+
+#, fuzzy
+#~ msgid "Braille source switch"
+#~ msgstr "interruptor de fonte em braille"
+
+#, fuzzy
+#~ msgid "Interact source switch"
+#~ msgstr "interruptor de fonte de interacção"
+
+#~ msgid "Rule Settings"
+#~ msgstr "Configurações de regras"
+
+#~ msgid "&description"
+#~ msgstr "&descrição"
+
+#~ msgid "description"
+#~ msgstr "descrição"
+
+#~ msgid "copy"
+#~ msgstr "copiar"
+
+#, fuzzy
+#~ msgid "deactivate command gesture"
+#~ msgstr "desactivar comandos de escrita"
+
+#, fuzzy
+#~ msgid "deactivate block navigation gesture"
+#~ msgstr "Activar o comando de navegação em bloco por defeito"
+
+#, fuzzy
+#~ msgid "deactivate greek alphabet gesture"
+#~ msgstr "desactivar comandos de escrita"
+
+#, fuzzy
+#~ msgid "Editor"
+#~ msgstr "&Editar"
+
+#~ msgid "User default"
+#~ msgstr "Predefinição  do utilizador"
+
+#~ msgid "&General settings..."
+#~ msgstr "&Configurações gerais..."
+
+#~ msgid "&latex..."
+#~ msgstr "&latex..."
+
+#~ msgid "&Write..."
+#~ msgstr "&Escrever..."
+
+#~ msgid "Using a beep to alert no move"
+#~ msgstr "Usando um sinal sonoro para não alertar para nenhum movimento"
+
+#~ msgid "Activate write gesture by default"
+#~ msgstr "Activar o comando de escrita por defeito"
+
+#~ msgid "math rule (%s)"
+#~ msgstr "regra da matemática (%s)"
