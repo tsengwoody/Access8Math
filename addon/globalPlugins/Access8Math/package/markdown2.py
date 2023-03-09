@@ -99,7 +99,7 @@ see <https://github.com/trentm/python-markdown2/wiki/Extras> for details):
 #   not yet sure if there implications with this. Compare 'pydoc sre'
 #   and 'perldoc perlre'.
 
-__version_info__ = (2, 4, 6)
+__version_info__ = (2, 4, 8)
 __version__ = '.'.join(map(str, __version_info__))
 __author__ = "Trent Mick"
 
@@ -449,17 +449,17 @@ class Markdown(object):
     #
     #   # header
     _meta_data_pattern = re.compile(r'''
-        ^(?:---[\ \t]*\n)?(  # optional opening fence
+        ^{0}(  # optional opening fence
             (?:
-                [\S \t]*\w[\S \t]*\s*:(?:\n+[ \t]+.*)+  # indented lists
+                {1}:(?:\n+[ \t]+.*)+  # indented lists
             )|(?:
-                (?:[\S \t]*\w[\S \t]*\s*:\s+>(?:\n\s+.*)+?)  # multiline long descriptions
-                (?=\n[\S \t]*\w[\S \t]*\s*:\s*.*\n|\s*\Z)  # match up until the start of the next key:value definition or the end of the input text
+                (?:{1}:\s+>(?:\n\s+.*)+?)  # multiline long descriptions
+                (?=\n{1}:\s*.*\n|\s*\Z)  # match up until the start of the next key:value definition or the end of the input text
             )|(?:
-                [\S \t]*\w[\S \t]*\s*:(?! >).*\n?  # simple key:value pair, leading spaces allowed
+                {1}:(?! >).*\n?  # simple key:value pair, leading spaces allowed
             )
-        )(?:---[\ \t]*\n)?  # optional closing fence
-        ''', re.MULTILINE | re.VERBOSE
+        ){0}  # optional closing fence
+        '''.format(r'(?:---[\ \t]*\n)?', r'[\S \t]*\w[\S \t]*\s*'), re.MULTILINE | re.VERBOSE
     )
 
     _key_val_list_pat = re.compile(
@@ -741,7 +741,11 @@ class Markdown(object):
     _html_markdown_attr_re = re.compile(
         r'''\s+markdown=("1"|'1')''')
     def _hash_html_block_sub(self, match, raw=False):
-        html = match.group(1)
+        if isinstance(match, str):
+            html = match
+        else:
+            html = match.group(1)
+
         if raw and self.safe_mode:
             html = self._sanitize_html(html)
         elif 'markdown-in-html' in self.extras and 'markdown=' in html:
@@ -792,7 +796,7 @@ class Markdown(object):
         # the inner nested divs must be indented.
         # We need to do this before the next, more liberal match, because the next
         # match will start at the first `<div>` and stop at the first `</div>`.
-        text = self._strict_tag_block_re.sub(hash_html_block_sub, text)
+        text = self._strict_tag_block_sub(text, self._block_tags_a, hash_html_block_sub)
 
         # Now match more liberally, simply from `\n<tag>` to `</tag>\n`
         text = self._liberal_tag_block_re.sub(hash_html_block_sub, text)
@@ -870,6 +874,39 @@ class Markdown(object):
             text = _xml_oneliner_re.sub(hash_html_block_sub, text)
 
         return text
+
+    def _strict_tag_block_sub(self, text, html_tags_re, callback):
+        tag_count = 0
+        current_tag = html_tags_re
+        block = ''
+        result = ''
+
+        for chunk in text.splitlines(True):
+            is_markup = re.match(r'^(?:</code>(?=</pre>))?(</?(%s)\b>?)' % current_tag, chunk)
+            block += chunk
+
+            if is_markup:
+                if chunk.startswith('</'):
+                    tag_count -= 1
+                else:
+                    # if close tag is in same line
+                    if '</%s>' % is_markup.group(2) in chunk[is_markup.end():]:
+                        # we must ignore these
+                        is_markup = None
+                    else:
+                        tag_count += 1
+                        current_tag = is_markup.group(2)
+
+            if tag_count == 0:
+                if is_markup:
+                    block = callback(block.rstrip('\n'))  # remove trailing newline
+                current_tag = html_tags_re
+                result += block
+                block = ''
+
+        result += block
+
+        return result
 
     def _strip_link_definitions(self, text):
         # Strips link definitions from text, stores the URLs and titles in
@@ -1240,6 +1277,9 @@ class Markdown(object):
 
         text = self._do_italics_and_bold(text)
 
+        if "tg-spoiler" in self.extras:
+            text = self._do_tg_spoiler(text)
+
         if "smarty-pants" in self.extras:
             text = self._do_smart_punctuation(text)
 
@@ -1254,18 +1294,21 @@ class Markdown(object):
     # "Sorta" because auto-links are identified as "tag" tokens.
     _sorta_html_tokenize_re = re.compile(r"""
         (
-            # tag
-            </?
-            (?:\w+)                                     # tag name
-            (?:\s+(?:[\w-]+:)?[\w-]+=(?:".*?"|'.*?'))*  # attributes
-            \s*/?>
-            |
-            # auto-link (e.g., <http://www.activestate.com/>)
-            <[\w~:/?#\[\]@!$&'\(\)*+,;%=\.\\-]+>
-            |
-            <!--.*?-->      # comment
-            |
-            <\?.*?\?>       # processing instruction
+            \\*  # escapes
+            (?:
+                # tag
+                </?
+                (?:\w+)                                     # tag name
+                (?:\s+(?:[\w-]+:)?[\w-]+=(?:".*?"|'.*?'))*  # attributes
+                \s*/?>
+                |
+                # auto-link (e.g., <http://www.activestate.com/>)
+                <[\w~:/?#\[\]@!$&'\(\)*+,;%=\.\\-]+>
+                |
+                <!--.*?-->      # comment
+                |
+                <\?.*?\?>       # processing instruction
+            )
         )
         """, re.X)
 
@@ -1276,20 +1319,27 @@ class Markdown(object):
         # it isn't susceptible to unmatched '<' and '>' in HTML tags).
         # Note, however, that '>' is not allowed in an auto-link URL
         # here.
+        lead_escape_re = re.compile(r'^((?:\\\\)*(?!\\))')
         escaped = []
         is_html_markup = False
         for token in self._sorta_html_tokenize_re.split(text):
-            if is_html_markup:
+            # check token is preceded by 0 or more PAIRS of escapes, because escape pairs
+            # escape themselves and don't affect the token
+            if is_html_markup and lead_escape_re.match(token):
                 # Within tags/HTML-comments/auto-links, encode * and _
                 # so they don't conflict with their use in Markdown for
                 # italics and strong.  We're replacing each such
                 # character with its corresponding MD5 checksum value;
                 # this is likely overkill, but it should prevent us from
                 # colliding with the escape values by accident.
-                escaped.append(token.replace('*', self._escape_table['*'])
-                                    .replace('_', self._escape_table['_']))
+                escape_seq, token = lead_escape_re.split(token)[1:] or ('', token)
+                escaped.append(
+                    escape_seq.replace('\\\\', self._escape_table['\\'])
+                    + token.replace('*', self._escape_table['*'])
+                           .replace('_', self._escape_table['_'])
+                )
             else:
-                escaped.append(self._encode_backslash_escapes(token))
+                escaped.append(self._encode_backslash_escapes(token.replace('\\<', '&lt;')))
             is_html_markup = not is_html_markup
         return ''.join(escaped)
 
@@ -1415,6 +1465,17 @@ class Markdown(object):
             url = self._strip_anglebrackets.sub(r'\1', url)
         return url, title, end_idx
 
+    def _protect_url(self, url):
+        '''
+        Function that passes a URL through `_html_escape_url` to remove any nasty characters,
+        and then hashes the now "safe" URL to prevent other safety mechanisms from tampering
+        with it (eg: escaping "&" in URL parameters)
+        '''
+        url = _html_escape_url(url, safe_mode=self.safe_mode)
+        key = _hash_text(url)
+        self._escape_table[url] = key
+        return key
+
     _safe_protocols = re.compile(r'(https?|ftp):', re.I)
     def _do_links(self, text):
         """Turn Markdown link shortcuts into XHTML <a> and <img> tags.
@@ -1522,7 +1583,7 @@ class Markdown(object):
                     if is_img:
                         img_class_str = self._html_class_str_from_tag("img")
                         result = '<img src="%s" alt="%s"%s%s%s' \
-                            % (_html_escape_url(url, safe_mode=self.safe_mode),
+                            % (self._protect_url(url),
                                _xml_escape_attr(link_text),
                                title_str,
                                img_class_str,
@@ -1530,13 +1591,14 @@ class Markdown(object):
                         if "smarty-pants" in self.extras:
                             result = result.replace('"', self._escape_table['"'])
                         curr_pos = start_idx + len(result)
+                        anchor_allowed_pos = start_idx + len(result)
                         text = text[:start_idx] + result + text[url_end_idx:]
                     elif start_idx >= anchor_allowed_pos:
                         safe_link = self._safe_protocols.match(url) or url.startswith('#')
                         if self.safe_mode and not safe_link:
                             result_head = '<a href="#"%s>' % (title_str)
                         else:
-                            result_head = '<a href="%s"%s>' % (_html_escape_url(url, safe_mode=self.safe_mode), title_str)
+                            result_head = '<a href="%s"%s>' % (self._protect_url(url), title_str)
                         result = '%s%s</a>' % (result_head, link_text)
                         if "smarty-pants" in self.extras:
                             result = result.replace('"', self._escape_table['"'])
@@ -1578,7 +1640,7 @@ class Markdown(object):
                         if is_img:
                             img_class_str = self._html_class_str_from_tag("img")
                             result = '<img src="%s" alt="%s"%s%s%s' \
-                                % (_html_escape_url(url, safe_mode=self.safe_mode),
+                                % (self._protect_url(url),
                                    _xml_escape_attr(link_text),
                                    title_str,
                                    img_class_str,
@@ -1591,7 +1653,7 @@ class Markdown(object):
                             if self.safe_mode and not self._safe_protocols.match(url):
                                 result_head = '<a href="#"%s>' % (title_str)
                             else:
-                                result_head = '<a href="%s"%s>' % (_html_escape_url(url, safe_mode=self.safe_mode), title_str)
+                                result_head = '<a href="%s"%s>' % (self._protect_url(url), title_str)
                             result = '%s%s</a>' % (result_head, link_text)
                             if "smarty-pants" in self.extras:
                                 result = result.replace('"', self._escape_table['"'])
@@ -1919,12 +1981,6 @@ class Markdown(object):
             codeblock = codeblock.lstrip('\n')  # trim leading newlines
             codeblock = codeblock.rstrip()      # trim trailing whitespace
 
-            # Note: "code-color" extra is DEPRECATED.
-            if "code-color" in self.extras and codeblock.startswith(":::"):
-                lexer_name, rest = codeblock.split('\n', 1)
-                lexer_name = lexer_name[3:].strip()
-                codeblock = rest.lstrip("\n")   # Remove lexer declaration line.
-
         # Use pygments only if not using the highlightjs-lang extra
         if lexer_name and "highlightjs-lang" not in self.extras:
             lexer = self._get_pygments_lexer(lexer_name)
@@ -1941,12 +1997,16 @@ class Markdown(object):
 
         if is_fenced_code_block:
             # Fenced code blocks need to be outdented before encoding, and then reapplied
-            leading_indent = ' '*(len(match.group(1)) - len(match.group(1).lstrip()))
+            leading_indent = ' ' * (len(match.group(1)) - len(match.group(1).lstrip()))
             if codeblock:
                 # only run the codeblock through the outdenter if not empty
                 leading_indent, codeblock = self._uniform_outdent(codeblock, max_outdent=leading_indent)
 
             codeblock = self._encode_code(codeblock)
+
+            if lexer_name == 'mermaid' and 'mermaid' in self.extras:
+                return '\n%s<pre class="mermaid-pre"><div class="mermaid">%s\n</div></pre>\n' % (
+                    leading_indent, codeblock)
 
             return "\n%s<pre%s><code%s>%s\n</code></pre>\n" % (
                 leading_indent, pre_class_str, code_class_str, codeblock)
@@ -1960,7 +2020,7 @@ class Markdown(object):
         if is_fenced_code_block:
             formatter_opts = self.extras['fenced-code-blocks'] or {}
         else:
-            formatter_opts = self.extras['code-color'] or {}
+            formatter_opts = {}
 
         def unhash_code(codeblock):
             for key, sanitized in list(self.html_spans.items()):
@@ -1974,9 +2034,9 @@ class Markdown(object):
                 codeblock = codeblock.replace(old, new)
             return codeblock
         # remove leading indent from code block
-        leading_indent, codeblock = self._uniform_outdent(codeblock)
+        _, codeblock = self._uniform_outdent(codeblock, max_outdent=leading_indent)
 
-        codeblock = unhash_code( codeblock )
+        codeblock = unhash_code(codeblock)
         colored = self._color_with_pygments(codeblock, lexer,
                                             **formatter_opts)
 
@@ -2180,6 +2240,11 @@ class Markdown(object):
     _underline_re = re.compile(r"(?<!<!)--(?!>)(?=\S)(.+?)(?<=\S)(?<!<!)--(?!>)", re.S)
     def _do_underline(self, text):
         text = self._underline_re.sub(r"<u>\1</u>", text)
+        return text
+    
+    _tg_spoiler_re = re.compile(r"\|\|\s?(.+?)\s?\|\|", re.S)
+    def _do_tg_spoiler(self, text):
+        text = self._tg_spoiler_re.sub(r"<tg-spoiler>\1</tg-spoiler>", text)
         return text
 
     _strong_re = re.compile(r"(\*\*|__)(?=\S)(.+?[*_]*)(?<=\S)\1", re.S)
@@ -2421,7 +2486,7 @@ class Markdown(object):
     _auto_link_re = re.compile(r'<((https?|ftp):[^\'">\s]+)>', re.I)
     def _auto_link_sub(self, match):
         g1 = match.group(1)
-        return '<a href="%s">%s</a>' % (g1, g1)
+        return '<a href="%s">%s</a>' % (self._protect_url(g1), g1)
 
     _auto_email_link_re = re.compile(r"""
           <
@@ -2519,8 +2584,12 @@ class Markdown(object):
 
     def _unescape_special_chars(self, text):
         # Swap back in all the special characters we've hidden.
-        for ch, hash in list(self._escape_table.items()) + list(self._code_table.items()):
-            text = text.replace(hash, ch)
+        while True:
+            orig_text = text
+            for ch, hash in list(self._escape_table.items()) + list(self._code_table.items()):
+                text = text.replace(hash, ch)
+            if text == orig_text:
+                break
         return text
 
     def _outdent(self, text):
@@ -2573,7 +2642,7 @@ class MarkdownWithExtras(Markdown):
     """A markdowner class that enables most extras:
 
     - footnotes
-    - code-color (only has effect if 'pygments' Python module on path)
+    - fenced-code-blocks (only highlights code if 'pygments' Python module on path)
 
     These are not included:
     - pyshell (specific to Python-related documenting)
@@ -2581,7 +2650,7 @@ class MarkdownWithExtras(Markdown):
     - link-patterns (because you need to specify some actual
       link-patterns anyway)
     """
-    extras = ["footnotes", "code-color"]
+    extras = ["footnotes", "fenced-code-blocks"]
 
 
 # ---- internal support functions

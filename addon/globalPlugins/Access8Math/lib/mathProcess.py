@@ -5,7 +5,6 @@ from regularExpression import delimiterRegularExpression
 
 from xml.etree.ElementTree import tostring
 from latex2mathml import converter
-from asciimathml import parse
 from py_asciimath.translator.translator import (
 	ASCIIMath2MathML,
 	ASCIIMath2Tex,
@@ -66,6 +65,7 @@ def mathml2latex(data):
 	return mathml2latexObj.translate(
 		data,
 		dtd="mathml3",
+		dtd_validation=False,
 	)[1:-1].strip()
 
 
@@ -100,10 +100,6 @@ def asciimath2latex(data):
 	if not asciimath2latexObj:
 		asciimath2latexObj = ASCIIMath2Tex()
 	return asciimath2latexObj.translate(data)
-
-
-def asciimath2mathmlO(asciimath):
-	return tostring(parse(asciimath)).decode("utf-8")
 
 
 def textmath2laObjFactory(delimiter):
