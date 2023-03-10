@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Access8Math 2.1\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2021-09-08 06:33+0800\n"
-"PO-Revision-Date: 2022-09-16 09:15+0200\n"
+"PO-Revision-Date: 2023-03-03 10:44+0100\n"
 "Last-Translator: Michel Such <michelsuch93@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.0\n"
 "X-Poedit-Basepath: ../globalPlugins/MathMlReader\n"
 "X-Poedit-SearchPath-0: __init__.py\n"
 "X-Poedit-SearchPath-1: dialogs.py\n"
@@ -628,6 +628,27 @@ msgstr "Exporter le fichier d'archive"
 msgid "&View"
 msgstr "&Affichage"
 
+#. Translators: A menu item in the Editor window
+msgid "Font"
+msgstr "Police"
+
+#. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+msgid "Adjust font format"
+msgstr "Ajuster le format de la police"
+
+#. Translators: A menu item in the Editor window
+msgid "Find"
+msgstr "Trouver"
+
+#. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+msgid "Find and replace"
+msgstr "Trouver et remplacer"
+
+#. Add the fileMenu to the menuBar.
+#. Translators: A menu item in the Editor window
+msgid "&Other"
+msgstr "&Autre"
+
 #. Translators: The title of the Editor's Open file window
 msgid "Open file"
 msgstr "Ouvrir un fichier"
@@ -688,13 +709,24 @@ msgid "Copy"
 msgstr "Copier"
 
 #. Translators: A message reported to the user when copying data from the interaction window
-#. Translators: A message reported to the user when copying data from the Interaction window
 msgid "Copied"
 msgstr "Copié"
+
+#. Translators: A message reported to the user when the interaction window takes the focus
+msgid "Entering interaction mode"
+msgstr "Passage en mode interaction"
 
 #. Translators: A message reported to the user when navigating in the math expression of the interaction window
 msgid "No move"
 msgstr "Pas de mouvementP"
+
+#. Translators: A message reported to the user when copying data from the Interaction window
+msgid "Copied raw MathML"
+msgstr "MathML brut copié"
+
+#. Translators: A message reported to the user when copying data from the Interaction window
+msgid "Copied MathML"
+msgstr "MathML copié"
 
 #. Translators: A message reported to the user when taking a snapshot of math data in the Interaction window
 msgid "snapshot"

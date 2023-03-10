@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: 'Access8Math' '3.1'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2021-09-08 06:33+0800\n"
-"PO-Revision-Date: 2022-09-16 08:55+0200\n"
+"PO-Revision-Date: 2023-03-03 10:50+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #, python-brace-format
 msgid ""
@@ -632,6 +632,27 @@ msgstr "Exportar archivo"
 msgid "&View"
 msgstr "&Ver"
 
+#. Translators: A menu item in the Editor window
+msgid "Font"
+msgstr "Fuente"
+
+#. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+msgid "Adjust font format"
+msgstr "Ajustar formato de fuente"
+
+#. Translators: A menu item in the Editor window
+msgid "Find"
+msgstr "Buscar"
+
+#. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+msgid "Find and replace"
+msgstr "Buscar y reemplazar"
+
+#. Add the fileMenu to the menuBar.
+#. Translators: A menu item in the Editor window
+msgid "&Other"
+msgstr "&Otro"
+
 #. Translators: The title of the Editor's Open file window
 msgid "Open file"
 msgstr "Abrir archivo"
@@ -692,13 +713,24 @@ msgid "Copy"
 msgstr "Copiar"
 
 #. Translators: A message reported to the user when copying data from the interaction window
-#. Translators: A message reported to the user when copying data from the Interaction window
 msgid "Copied"
 msgstr "Copiado"
+
+#. Translators: A message reported to the user when the interaction window takes the focus
+msgid "Entering interaction mode"
+msgstr "Entrando en modo de interacción"
 
 #. Translators: A message reported to the user when navigating in the math expression of the interaction window
 msgid "No move"
 msgstr "Sin movimiento"
+
+#. Translators: A message reported to the user when copying data from the Interaction window
+msgid "Copied raw MathML"
+msgstr "MathML sin procesar copiado"
+
+#. Translators: A message reported to the user when copying data from the Interaction window
+msgid "Copied MathML"
+msgstr "MathML copiado"
 
 #. Translators: A message reported to the user when taking a snapshot of math data in the Interaction window
 msgid "snapshot"
