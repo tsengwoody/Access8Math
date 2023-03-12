@@ -1,10 +1,10 @@
 # Access8Math 功能
 
-此 NVDA addon 增强了数学内容的阅读和書寫体验。
+此 NVDA 插件增强了数学内容的阅读和书写体验。
 
-阅读功能特色包括可客製的語音/點字輸出，透過互動式导航可将长数学内容分割成较小部分以利閱讀。
+阅读功能包括可定制的语音/盲文输出，还能够使用交互式导航浏览从而将一个长数学内容分成较小的部分便于阅读。
 
-書寫功能特色包括用于更易於输入 LaTeX/AsciiMath 的指令選單，以及将純文字文件轉換為視覺可读的 HTML 文件，以便更好的與他人协作。
+书写功能包括易于编写 LaTeX/AsciiMath 的交互式菜单，还能够将纯文本转换为 HTML 文档，便于与他人协作。
 
 ## 阅读功能
 
@@ -75,7 +75,7 @@
 
 书写混合内容（文字内容与数学内容）：
 
-### 书写混合内容（快捷键可在编辑区域使用，建议使用插件内置编辑器， Windows11 必须使用插件内置编辑器， Windows 11 以下可使用系统记事本）
+在 windows 11 必须使用 Access8Math 编辑器；而在 windows 10 或更早版本可使用 Access8Math 编辑器或记事本。建议使用 Access8Math 编辑器编写混合内容。
 
 以 LaTeX 或 AsciiMath 分隔符划分数学标记区域，用以区分文字内容和数学内容，在 LaTeX 或 AsciiMath 标记区域内的内容为 LaTeX/AsciiMath 数学内容，在标记区域之外的为文字内容。
 
@@ -84,6 +84,7 @@
 | LaTeX(括号) | \( | \) |
 | LaTeX(美元) | $ | $ |
 | AsciiMath | ` | ` |
+您可以在书写设置中选择括号或美元符号作为 LaTeX 分隔符。
 
 ### 命令手势（开关：NVDA+alt+c）
 
@@ -210,7 +211,6 @@ space/enter：光标停留在数学区域则与此数学内容进行交互式导
 
 在文件管理器内可按下快捷键 NVDA +Application 键，当所选文件为 txt/Access8Math Document 时，可快速打开阅读或编辑该文件。
 
-
 ### 混合内容示例
 
 *	LaTeX（使用括号作为分隔符）：一元二次方程是 \(ax^2+bx+c=0\) 的解为 \(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\) 。
@@ -318,11 +318,11 @@ github： https://github.com/tsengwoody/Access8Math
 ## Access8Math v3.5 更新日志
 
 * 可以正确区分向量和射线
-* Access8Math HTML 文件中使用对话框显示图片、影片或声音的资源
-* Access8Math HTML 文件中使用新窗口开启链接的资源
-* 在互动导航模式下从 Math 对象复制 MathML 时导出 MathML 命名空间
-* Access8Math 编辑器新增显示字型调整、寻找与取代功能
-* 相容于 NVDA 2023.1
+* 在 Access8Math HTML 文档中使用对话框显示图片、视频和音频资源
+* 在 Access8Math HTML 文档中使用新窗口打开链接。
+* 在交互式导航模式下从 Math 对象复制 MathML 时增加 MathML 命名空间
+* Access8Math 编辑器增加了显示字体的调整，以及查找与替换功能
+* 兼容 NVDA 2023.1
 
 ## Access8Math v3.4 更新日志
 
