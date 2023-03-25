@@ -364,6 +364,7 @@ class Node(object):
 				result.append(i)
 
 			braillerule = braillerule[0:1] + result + braillerule[-1:]
+
 		self.braillerule = braillerule
 
 	def serialized(self):
@@ -793,7 +794,20 @@ class Mtable(AlterNode):
 		self.rule = table_head + cell + table_tail
 
 	def set_braillerule(self):
-		pass
+		super().set_braillerule()
+		braillerule = self.braillerule
+
+		row_count = len(self.child)
+		column_count_list = [len(i.child) for i in self.child]
+		column_count = max(column_count_list)
+		table_head = [braillerule[0] + '{0}{1}{2}{3}{4}⠀'.format(
+			self.braillesymbol_translate(''),
+			row_count, self.braillesymbol_translate('r'),
+			column_count, self.braillesymbol_translate('c')
+		)]
+		cell = braillerule[1:-1]
+		table_tail = braillerule[-1:]
+		self.braillerule = table_head + cell + table_tail
 
 
 class Mlabeledtr(AlterNode):
@@ -806,6 +820,12 @@ class Mtr(AlterNode):
 		rule = self.rule
 		cell = rule[1:-1]
 		self.rule = rule[:1] + cell + rule[-1:]
+
+	def set_braillerule(self):
+		super().set_braillerule()
+		braillerule = self.braillerule
+		cell = braillerule[1:-1]
+		self.braillerule = braillerule[:1] + cell + braillerule[-1:]
 
 
 class Mtd(AlterNode):

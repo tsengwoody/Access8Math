@@ -10,9 +10,9 @@ msup	, 0, ⠘, 1, ⠐	主符號,上標	symbol have supscript
 munderover	⠐, 0, ⠩, 1, ⠣, 2, ⠻	主符號,正下標,正上標	symbol have underscript and overscript
 munder	⠐, 0, ⠩, 1, ⠻	主符號,正下標	symbol have underscript
 mover	⠐, 0, ⠣, 1, ⠻	主符號,正上標	symbol have overscript
-mtable	⠞⠃⠇, (⠗.),	列	2-dimension table
-mtr	,(⠉.),	欄	table row
-mtd	,(.),	項	table cell
+mtable	⠞⠃⠇, (⠗.⠀),	列	2-dimension table
+mtr	,(⠉.⠀),	欄	table row
+mtd	,(.),⠀	項	table cell
 mmultiscripts	,(.),	項	symbol have left mark
 mprescripts			
 none			

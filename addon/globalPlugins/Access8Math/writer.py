@@ -21,6 +21,7 @@ from command.review import A8MHTMLCommandView
 from command.translate import A8MTranslateCommandView
 from command.batch import A8MBatchCommandView
 from delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter
+from lib.braille import display_braille
 from lib.mathProcess import textmath2laObjFactory, latex2mathml, asciimath2mathml
 from lib.viewHTML import Access8MathDocument
 
@@ -34,23 +35,6 @@ navigate_mode = config.conf["Access8Math"]["settings"]["navigate_mode"]
 shortcut_mode = config.conf["Access8Math"]["settings"]["shortcut_mode"]
 greekAlphabet_mode = False
 writeNav_mode = False
-
-
-def display_braille(regions):
-	if not braille.handler.enabled:
-		return
-	braille.handler.buffer = braille.handler.mainBuffer
-	braille.handler.buffer.clear()
-
-	for region in regions:
-		region.obj = None
-		region.update()
-		braille.handler.buffer.regions.append(region)
-	braille.handler.buffer.update()
-	braille.handler.update()
-	# braille.handler.buffer.focus(region)
-	# braille.handler.scrollToCursorOrSelection(region)
-	# braille.handler.update()
 
 
 class SectionManager:
@@ -773,7 +757,7 @@ class TextMathEditField(NVDAObject):
 					mathMl = latex2mathml(result['data'])
 					mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
 					text += mathPres.speechProvider.getSpeechForMathMl(mathMl)
-					brailleRegion += ["".join(mathPres.speechProvider.getBrailleForMathMl(mathMl))]
+					brailleRegion += ["⠀⠼", "".join(mathPres.speechProvider.getBrailleForMathMl(mathMl)), "⠀"]
 				except BaseException:
 					text += result['data']
 					brailleRegion += [result['data']]
@@ -782,7 +766,7 @@ class TextMathEditField(NVDAObject):
 					mathMl = asciimath2mathml(result['data'])
 					mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
 					text += mathPres.speechProvider.getSpeechForMathMl(mathMl)
-					brailleRegion += ["".join(mathPres.speechProvider.getBrailleForMathMl(mathMl))]
+					brailleRegion += ["⠀⠼", "".join(mathPres.speechProvider.getBrailleForMathMl(mathMl)), "⠀"]
 				except BaseException:
 					text += result['data']
 					brailleRegion += [result['data']]
@@ -790,7 +774,7 @@ class TextMathEditField(NVDAObject):
 				try:
 					mathMl = result['data']
 					text += mathPres.speechProvider.getSpeechForMathMl(mathMl)
-					brailleRegion += ["".join(mathPres.speechProvider.getBrailleForMathMl(mathMl))]
+					brailleRegion += ["⠀⠼", "".join(mathPres.speechProvider.getBrailleForMathMl(mathMl)), "⠀"]
 				except BaseException:
 					text += result['data']
 					brailleRegion += [result['data']]

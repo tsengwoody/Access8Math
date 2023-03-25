@@ -30,6 +30,8 @@ except BaseException:
 
 import A8M_PM
 from A8M_PM import MathContent
+from lib.braille import display_braille
+from lib.mathProcess import mathml2latex
 
 addonHandler.initTranslation()
 
@@ -412,7 +414,12 @@ class A8MInteraction(Window):
 				speech.speak([self.mathcontent.pointer.des])
 		else:
 			speech.speak([self.mathcontent.pointer.des])
+
 		speech.speak(translate_SpeechCommand(self.mathcontent.pointer.serialized()))
+		cells = translate_Braille(self.mathcontent.pointer.brailleserialized())
+		brailleRegion = [braille.TextRegion(cells)]
+		display_braille(brailleRegion)
+
 
 	@script(
 		gesture="kb:control+r",
@@ -423,12 +430,25 @@ class A8MInteraction(Window):
 		ui.message(_("Copied raw MathML"))
 
 	@script(
-		gesture="kb:control+c",
+		gesture="kb:control+m",
 	)
 	def script_MathMLToClip(self, gesture):
 		api.copyToClip(self.mathcontent.mathML)
 		# Translators: A message reported to the user when copying data from the Interaction window
 		ui.message(_("Copied MathML"))
+
+	@script(
+		gesture="kb:control+l",
+	)
+	def script_LaTeXToClip(self, gesture):
+		try:
+			latex = mathml2latex(self.mathcontent.mathML)
+			api.copyToClip(latex)
+		except:
+			# Translators: A message reported to the user when copying LaTeX failed from the Interaction window
+			ui.message(_("Copy LaTeX failed"))
+		# Translators: A message reported to the user when copying LaTeX from the Interaction window
+		ui.message(_("Copied LaTeX"))
 
 	@script(
 		gesture="kb:control+s",
