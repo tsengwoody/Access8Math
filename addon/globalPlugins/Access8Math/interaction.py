@@ -358,7 +358,7 @@ class A8MInteraction(Window):
 
 	def event_gainFocus(self):
 		# Translators: A message reported to the user when the interaction window takes the focus
-		ui.message(_("Entering interaction mode"))
+		speech.speak(_("Entering interaction mode"))
 		super().event_gainFocus()
 
 	def reportFocus(self):
@@ -430,25 +430,12 @@ class A8MInteraction(Window):
 		ui.message(_("Copied raw MathML"))
 
 	@script(
-		gesture="kb:control+m",
+		gesture="kb:control+c",
 	)
 	def script_MathMLToClip(self, gesture):
 		api.copyToClip(self.mathcontent.mathML)
 		# Translators: A message reported to the user when copying data from the Interaction window
 		ui.message(_("Copied MathML"))
-
-	@script(
-		gesture="kb:control+l",
-	)
-	def script_LaTeXToClip(self, gesture):
-		try:
-			latex = mathml2latex(self.mathcontent.mathML)
-			api.copyToClip(latex)
-		except:
-			# Translators: A message reported to the user when copying LaTeX failed from the Interaction window
-			ui.message(_("Copy LaTeX failed"))
-		# Translators: A message reported to the user when copying LaTeX from the Interaction window
-		ui.message(_("Copied LaTeX"))
 
 	@script(
 		gesture="kb:control+s",
