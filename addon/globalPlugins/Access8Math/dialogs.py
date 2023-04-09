@@ -159,7 +159,13 @@ class ReadingSettingsPanel(A8MSettingsPanel):
 		except BaseException:
 			available_languages = []
 		map = dict(languageHandler.getAvailableLanguages())
-		available_languages_dict = {k: map[k] for k in available_languages}
+
+		available_languages_dict = {}
+		for k in available_languages:
+			try:
+				available_languages_dict[k] = map[k]
+			except KeyError:
+				available_languages_dict[k] = k
 
 		self.settings["language"]["options"] = available_languages_dict
 
@@ -381,10 +387,11 @@ class RuleSettingsPanel(A8MSettingsPanel):
 	field = "rules"
 
 
+NvdaSettingsDialogActiveConfigProfile = None
+NvdaSettingsDialogWindowHandle = None
 class Access8MathSettingsDialog(MultiCategorySettingsDialog):
-	# translators: title of the dialog.
-	dialogTitle = _("Settings")
-	title = "% s - %s" % (_("Access8Math"), dialogTitle)
+	# Translators: This is the label for the Access8Math settings dialog.
+	title = _("Access8Math Settings")
 	INITIAL_SIZE = (1000, 480)
 	MIN_SIZE = (470, 240)
 
@@ -398,6 +405,40 @@ class Access8MathSettingsDialog(MultiCategorySettingsDialog):
 
 	def __init__(self, parent, initialCategory=None):
 		super().__init__(parent, initialCategory)
+
+	def makeSettings(self, settingsSizer):
+		# Ensure that after the settings dialog is created the name is set correctly
+		super().makeSettings(settingsSizer)
+		self._doOnCategoryChange()
+		global NvdaSettingsDialogWindowHandle
+		NvdaSettingsDialogWindowHandle = self.GetHandle()
+
+	def _doOnCategoryChange(self):
+		global NvdaSettingsDialogActiveConfigProfile
+		NvdaSettingsDialogActiveConfigProfile = config.conf.profiles[-1].name
+		if not NvdaSettingsDialogActiveConfigProfile:
+			# Translators: The profile name for normal configuration
+			NvdaSettingsDialogActiveConfigProfile = _("normal configuration")
+		self.SetTitle(self._getDialogTitle())
+
+	def _getDialogTitle(self):
+		return u"{dialogTitle}: {panelTitle} ({configProfile})".format(
+			dialogTitle=self.title,
+			panelTitle=self.currentCategory.title,
+			configProfile=NvdaSettingsDialogActiveConfigProfile
+		)
+
+	def onCategoryChange(self,evt):
+		super().onCategoryChange(evt)
+		if evt.Skipped:
+			return
+		self._doOnCategoryChange()
+
+	def Destroy(self):
+		global NvdaSettingsDialogActiveConfigProfile, NvdaSettingsDialogWindowHandle
+		NvdaSettingsDialogActiveConfigProfile = None
+		NvdaSettingsDialogWindowHandle = None
+		super().Destroy()
 
 
 class Symbol:
