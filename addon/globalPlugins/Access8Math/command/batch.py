@@ -3,6 +3,7 @@ import api
 import eventHandler
 from keyboardHandler import KeyboardInputGesture
 from scriptHandler import script
+import textInfos
 
 import wx
 
@@ -15,8 +16,8 @@ addonHandler.initTranslation()
 
 
 def batch(section, mode):
-	old_all_index = section.all_index
-	text = _batch(mode)(section.document.text)
+	old_section_index = section.section_index
+	text = _batch(mode)(section.obj.makeTextInfo(textInfos.POSITION_ALL).text)
 
 	try:
 		temp = api.getClipData()
@@ -30,7 +31,7 @@ def batch(section, mode):
 
 	def move():
 		with section.__enter__() as manager:
-			manager.move(all_index=old_all_index)
+			manager.move(all_index=old_section_index)
 	wx.CallLater(100, move)
 
 	if temp != '':

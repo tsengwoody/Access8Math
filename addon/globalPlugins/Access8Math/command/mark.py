@@ -51,6 +51,12 @@ class A8MMarkCommandModel(MenuModel):
 				"name": _("AsciiMath"),
 				"type": "item",
 			},
+			{
+				"id": "nemeth",
+				# Translators: mark command category - AsciiMath
+				"name": _("Nemeth"),
+				"type": "item",
+			},
 		]
 
 

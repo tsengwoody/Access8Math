@@ -20,9 +20,9 @@ from command.mark import A8MMarkCommandView
 from command.review import A8MHTMLCommandView
 from command.translate import A8MTranslateCommandView
 from command.batch import A8MBatchCommandView
-from delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter
+from delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter, Nemeth as Nemeth_delimiter
 from lib.braille import display_braille
-from lib.mathProcess import textmath2laObjFactory, latex2mathml, asciimath2mathml
+from lib.mathProcess import textmath2laObjFactory, latex2mathml, asciimath2mathml, nemeth2latex
 from lib.viewHTML import Access8MathDocument
 
 addonHandler.initTranslation()
@@ -56,6 +56,8 @@ class SectionManager:
 			result = LaTeX_delimiter[config.conf["Access8Math"]["settings"]["LaTeX_delimiter"]]
 		elif self.pointer['type'] == 'asciimath':
 			result = AsciiMath_delimiter["graveaccent"]
+		elif self.pointer['type'] == 'nemeth':
+			result = Nemeth_delimiter["nemeth"]
 		else:
 			result = {
 				"start": "",
@@ -82,7 +84,7 @@ class SectionManager:
 		if self.pointer is None:
 			return False
 
-		if self.inSection and (self.pointer['type'] == 'latex' or self.pointer['type'] == 'asciimath' or self.pointer['type'] == 'mathml'):
+		if self.inSection and (self.pointer['type'] == 'latex' or self.pointer['type'] == 'asciimath' or self.pointer['type'] == 'nemeth' or self.pointer['type'] == 'mathml'):
 			return True
 		else:
 			return False
@@ -118,6 +120,16 @@ class SectionManager:
 			return False
 
 	@property
+	def inNemeth(self):
+		if self.pointer is None:
+			return False
+
+		if self.inSection and self.pointer['type'] == 'nemeth':
+			return True
+		else:
+			return False
+
+	@property
 	def inMathML(self):
 		if self.pointer is None:
 			return False
@@ -128,7 +140,7 @@ class SectionManager:
 			return False
 
 	def reset(self):
-		self.index = -1
+		self.section_index = -1
 		self.section_index = -1
 		self.points = None
 
@@ -140,6 +152,7 @@ class SectionManager:
 			delimiter={
 				"latex": config.conf["Access8Math"]["settings"]["LaTeX_delimiter"],
 				"asciimath": "graveaccent",
+				"nemeth": "nemeth",
 			}
 		)(self.obj.makeTextInfo(textInfos.POSITION_ALL).text)
 		self.points = list(filter(lambda point: point['start'] < point['end'], points))
@@ -158,21 +171,26 @@ class SectionManager:
 		pass
 
 	def move(self, step=0, type_="any", all_index=None):
+		MATH_TYPE = ["latex", "asciimath", "nemeth", "mathml"]
 		if all_index is not None:
 			pointer = self.points[all_index]
 		else:
 			if step >= 0:
 				filte_points = self.points[self.section_index:]
+				if self.pointer["type"] != type_ and type_ in MATH_TYPE + ["text"]:
+					step -= 1
+				if self.pointer["type"] not in MATH_TYPE and type_ == "interactivable":
+					step -= 1
 			elif step < 0:
 				filte_points = self.points[:self.section_index]
 
-			if type_ in ["latex", "asciimath", "mathml", "text"]:
+			if type_ in MATH_TYPE + ["text"]:
 				filte_points = list(filter(lambda i: i['type'] == type_, filte_points))
 			elif type_ == 'interactivable':
-				filte_points = list(filter(lambda i: i['type'] == "latex" or i['type'] == "asciimath" or i['type'] == "mathml", filte_points))
+				filte_points = list(filter(lambda i: i['type'] in MATH_TYPE, filte_points))
 			try:
 				pointer = filte_points[step]
-			except BaseException:
+			except BaseException as e:
 				pointer = None
 
 		if not pointer:
@@ -728,6 +746,9 @@ class TextMathEditField(NVDAObject):
 					mathMl = latex2mathml(manager.pointer['data'])
 				elif manager.pointer['type'] == 'asciimath':
 					mathMl = asciimath2mathml(manager.pointer['data'])
+				elif manager.pointer['type'] == 'nemeth':
+					mathMl = latex2mathml(nemeth2latex(manager.pointer['data']))
+					print(mathMl)
 				elif manager.pointer['type'] == 'mathml':
 					mathMl = manager.pointer['data']
 				mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
@@ -764,6 +785,15 @@ class TextMathEditField(NVDAObject):
 			elif mode == "view" and result['type'] == "asciimath":
 				try:
 					mathMl = asciimath2mathml(result['data'])
+					mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
+					text += mathPres.speechProvider.getSpeechForMathMl(mathMl)
+					brailleRegion += ["⠀⠼", "".join(mathPres.speechProvider.getBrailleForMathMl(mathMl)), "⠀"]
+				except BaseException:
+					text += result['data']
+					brailleRegion += [result['data']]
+			elif mode == "view" and result['type'] == "nemeth":
+				try:
+					mathMl = latex2mathml(nemeth2latex(result['data']))
 					mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
 					text += mathPres.speechProvider.getSpeechForMathMl(mathMl)
 					brailleRegion += ["⠀⠼", "".join(mathPres.speechProvider.getBrailleForMathMl(mathMl)), "⠀"]
@@ -831,6 +861,11 @@ class TextMathEditField(NVDAObject):
 					result = manager.move(type_='asciimath', step=-1)
 				else:
 					result = manager.move(type_='asciimath', step=1)
+			elif gesture.mainKeyName == "n":
+				if "shift" in gesture.modifierNames:
+					result = manager.move(type_='nemeth', step=-1)
+				else:
+					result = manager.move(type_='nemeth', step=1)
 			elif gesture.mainKeyName == "m":
 				if "shift" in gesture.modifierNames:
 					result = manager.move(type_='mathml', step=-1)

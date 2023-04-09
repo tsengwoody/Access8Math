@@ -2,18 +2,20 @@ import config
 
 import re
 
-from delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter
+from delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter, Nemeth as Nemeth_delimiter
 from lib.mathProcess import latex2asciimath, asciimath2latex
-from regularExpression import delimiterRegularExpression, latex_bracket_dollar
+from regularExpression import delimiterRegularExpression
 
-delimiter_dict = {**AsciiMath_delimiter, **LaTeX_delimiter}
+delimiter_dict = {**AsciiMath_delimiter, **LaTeX_delimiter, **Nemeth_delimiter}
 
 
 def mark(type_):
 	if type_ == "latex":
 		delimiter = delimiter_dict[config.conf["Access8Math"]["settings"]["LaTeX_delimiter"]]
-	if type_ == "asciimath":
+	elif type_ == "asciimath":
 		delimiter = delimiter_dict["graveaccent"]
+	elif type_ == "nemeth":
+		delimiter = delimiter_dict["nemeth"]
 	delimiter_start = delimiter["start"]
 	delimiter_end = delimiter["end"]
 
@@ -83,6 +85,21 @@ def batch(mode):
 		delimiter={
 			"latex": config.conf["Access8Math"]["settings"]["LaTeX_delimiter"],
 			"asciimath": "graveaccent",
+			"nemeth": "nemeth",
+		}
+	)
+	delimiter_regular_expression_latex_bracket = delimiterRegularExpression(
+		delimiter={
+			"latex": "bracket",
+			"asciimath": "graveaccent",
+			"nemeth": "nemeth",
+		}
+	)
+	delimiter_regular_expression_latex_dollar = delimiterRegularExpression(
+		delimiter={
+			"latex": "dollar",
+			"asciimath": "graveaccent",
+			"nemeth": "nemeth",
 		}
 	)
 
@@ -100,11 +117,11 @@ def batch(mode):
 			pattern = re.compile(restring)
 			text = pattern.sub(reverse, text)
 		elif mode == 'bracket2dollar':
-			restring = "|".join([latex_bracket_dollar["latex_bracket"], latex_bracket_dollar["latex_start_bracket"]])
+			restring = "|".join([delimiter_regular_expression_latex_bracket["latex"], delimiter_regular_expression_latex_bracket["latex_start"]])
 			pattern = re.compile(restring)
 			text = pattern.sub(b2d, text)
 		elif mode == 'dollar2bracket':
-			restring = "|".join([latex_bracket_dollar["latex_dollar"], latex_bracket_dollar["latex_start_dollar"]])
+			restring = "|".join([delimiter_regular_expression_latex_dollar["latex"], delimiter_regular_expression_latex_bracket["latex_start"]])
 			pattern = re.compile(restring)
 			text = pattern.sub(d2b, text)
 		else:

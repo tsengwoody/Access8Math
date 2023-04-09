@@ -28,3 +28,11 @@ AsciiMath = {
 		"type": "asciimath",
 	},
 }
+
+Nemeth = {
+	"nemeth": {
+		"start": r"\n",
+		"end": r"\n",
+		"type": "nemeth",
+	},
+}

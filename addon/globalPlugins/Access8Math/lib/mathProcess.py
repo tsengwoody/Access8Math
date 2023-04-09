@@ -12,10 +12,19 @@ from py_asciimath.translator.translator import (
 	MathML2Tex
 )
 
+import os
+
+import brailleTables
+import config
+import louisHelper
+
+from .nemeth.translator import Nemeth2LaTeXTranslator
+
 mathml2latexObj = None
 asciimath2mathmlObj = None
 latex2asciimathObj = None
 asciimath2latexObj = None
+nemeth2latexObj = None
 
 translate_dict = {
 	ord("$"): r"\$",
@@ -23,40 +32,6 @@ translate_dict = {
 	ord(")"): r"\)",
 	ord("\\"): r"\\",
 }
-
-LaTeX_delimiter = {
-	"latex": {
-		"start": r"\l",
-		"end": r"\l",
-		"type": "latex",
-	},
-	"bracket": {
-		"start": r"\(",
-		"end": r"\)",
-		"type": "latex",
-	},
-	"dollar": {
-		"start": "$",
-		"end": "$",
-		"type": "latex",
-	},
-}
-
-AsciiMath_delimiter = {
-	"asciimath": {
-		"start": r"\a",
-		"end": r"\a",
-		"type": "asciimath",
-	},
-	"graveaccent": {
-		"start": "`",
-		"end": "`",
-		"type": "asciimath",
-	},
-}
-
-delimiter_dict = {**AsciiMath_delimiter, **LaTeX_delimiter}
-
 
 def mathml2latex(data):
 	global mathml2latexObj
@@ -102,6 +77,20 @@ def asciimath2latex(data):
 	return asciimath2latexObj.translate(data)
 
 
+def nemeth2latex(data):
+	BRAILLE_UNICODE_PATTERNS_START = 0x2800
+	temp = ""
+	for string in data:
+		brailleCells, brailleToRawPos, rawToBraillePos, brailleCursorPos = louisHelper.translate([os.path.join(brailleTables.TABLES_DIR, config.conf["braille"]["translationTable"]), "braille-patterns.cti"], string, mode=4)
+		temp += "".join([chr(BRAILLE_UNICODE_PATTERNS_START + cell) for cell in brailleCells])
+	data = "".join(temp)
+
+	global nemeth2latexObj
+	if not nemeth2latexObj:
+		nemeth2latexObj = Nemeth2LaTeXTranslator()
+	return nemeth2latexObj.translate(data)
+
+
 def textmath2laObjFactory(delimiter):
 	def wrapper(input):
 		delimiter_regular_expression = delimiterRegularExpression(delimiter)
@@ -117,6 +106,7 @@ def textmath2laObjFactory(delimiter):
 			"text": 0,
 			"latex": 0,
 			"asciimath": 0,
+			"nemeth": 0,
 			"line": 0,
 		}
 		for index, item in enumerate(maths):
@@ -154,9 +144,7 @@ def textmath2laObjFactory(delimiter):
 			start = item.start(0)
 			end = item.end(0)
 			raw = item.group(0)
-			# delimiterObj = list(filter(lambda item: raw.startswith(item["start"]), delimiter_dict.values()))[0]
-			# data = raw[len(delimiterObj["start"]):-len(delimiterObj["end"])]
-			data = item.group("latex") or item.group("latex_start") or item.group("asciimath") or item.group("asciimath_start") or item.group("mathml")
+			data = item.group("latex") or item.group("latex_start") or item.group("asciimath") or item.group("asciimath_start") or item.group("nemeth") or item.group("nemeth_start") or item.group("mathml")
 			if not data:
 				data = ''
 
@@ -164,6 +152,8 @@ def textmath2laObjFactory(delimiter):
 				type_ = "latex"
 			elif item.group("ad_start") or item.group("asd_start"):
 				type_ = "asciimath"
+			elif item.group("nd_start") or item.group("nsd_start"):
+				type_ = "nemeth"
 			elif item.group("mathml"):
 				type_ = "mathml"
 			else:
