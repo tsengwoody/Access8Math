@@ -1,21 +1,20 @@
 import csv
 import os
 
+from .utils import nemeth2symbol_with_priority
+
 
 BASE_DIR = os.path.dirname(__file__)
 data_folder = os.path.join(BASE_DIR, "data")
 
 data = {}
 for item in ["symbol", "letter", "number"]:
-	with open(os.path.join(BASE_DIR, data_folder, f"{item}.csv"), "r", encoding="utf8") as src_file:
-		src_dict_reader = csv.DictReader(src_file)
-		data[item] = []
-		for row in src_dict_reader:
-			data[item].append(row["braille"])
+	src = os.path.join(BASE_DIR, data_folder, f"{item}.csv")
+	nemeth2symbol = nemeth2symbol_with_priority(src)
+	data[item] = sorted(nemeth2symbol.keys(), key=lambda i:len(i), reverse=True)
 
 grammar = r"""
-	%import common.WS
-	%ignore WS
+	%ignore "⠀"
 	start: "\b" exp "\b" -> exp
 		| exp -> exp
 	exp: i exp* -> exp
@@ -46,6 +45,7 @@ grammar = r"""
 	EN_UPPERCASE: /(⠠({ens}))+/
 	EN_LOWERCASE: /({ens})+/
 	EN_UPPERCASE_CONTINUE: /⠠⠠({ens})+(⠠⠄({ens}))?/
+	SPACE: /⠀/
 """.format(
 	ens="|".join(data["letter"]),
 	numbers="|".join(data["number"]),

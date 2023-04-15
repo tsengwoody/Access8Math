@@ -3,6 +3,8 @@ import os
 
 from lark import Transformer, Tree
 
+from .utils import nemeth2symbol_with_priority
+
 
 class Nemeth2TexTransformer(Transformer):
 	def __init__(self, *args, **kwargs):
@@ -11,28 +13,16 @@ class Nemeth2TexTransformer(Transformer):
 		data_folder = os.path.join(BASE_DIR, "data")
 
 		data_path = "number.csv"
-		with open(os.path.join(data_folder, data_path), 'r', encoding='utf-8') as data_file:
-			data_dict_csv = csv.DictReader(data_file)
-			map = {}
-			for row in data_dict_csv:
-				map[row["braille"]] = row["unicode"]
-			self.number = sorted(list(map.items()), key=lambda i: -len(i[0]))
+		map = nemeth2symbol_with_priority(os.path.join(data_folder, data_path))
+		self.number = sorted(list(map.items()), key=lambda i: -len(i[0]))
 
 		data_path = "letter.csv"
-		with open(os.path.join(data_folder, data_path), 'r', encoding='utf-8') as data_file:
-			data_dict_csv = csv.DictReader(data_file)
-			map = {}
-			for row in data_dict_csv:
-				map[row["braille"]] = row["unicode"]
-			self.letter = sorted(list(map.items()), key=lambda i: -len(i[0]))
+		map = nemeth2symbol_with_priority(os.path.join(data_folder, data_path))
+		self.letter = sorted(list(map.items()), key=lambda i: -len(i[0]))
 
 		data_path = "symbol.csv"
-		with open(os.path.join(data_folder, data_path), 'r', encoding='utf-8') as data_file:
-			data_dict_csv = csv.DictReader(data_file)
-			map = {}
-			for row in data_dict_csv:
-				map[row["braille"]] = row["unicode"]
-			self.symbol = sorted(list(map.items()), key=lambda i: -len(i[0]))
+		map = nemeth2symbol_with_priority(os.path.join(data_folder, data_path))
+		self.symbol = sorted(list(map.items()), key=lambda i: -len(i[0]))
 
 	def translate(self, string, map):
 		for key, value in map:
