@@ -25,6 +25,8 @@ import html5lib
 import markdown2
 import xml.etree.ElementTree as etree
 
+from command.action import batch
+
 
 class Access8MathDocument:
 	def __init__(self, path=None, exist=True):
@@ -201,6 +203,8 @@ def rawIntoReview(raw_folder, review_folder, resources):
 def text2template(src, dst):
 	with open(src, "r", encoding="utf8") as f:
 		value = f.read()
+		value = batch("nemeth2latex")(value)
+
 	try:
 		title = '.'.join(os.path.basename(dst).split('.')[:-1])
 	except BaseException:

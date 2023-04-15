@@ -4,12 +4,13 @@ import config
 import eventHandler
 from keyboardHandler import KeyboardInputGesture
 from scriptHandler import script
+import ui
 import wx
 
-from delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter
+from delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter, Nemeth as Nemeth_delimiter
 delimiter_dict = {**AsciiMath_delimiter, **LaTeX_delimiter}
 
-from lib.mathProcess import latex2asciimath, asciimath2latex
+from lib.mathProcess import latex2asciimath, asciimath2latex, nemeth2latex
 
 from .clipboard import clearClipboard
 from .models import MenuModel
@@ -21,18 +22,26 @@ addonHandler.initTranslation()
 def translate(section, type_):
 	if type_ == "latex":
 		delimiter = delimiter_dict[config.conf["Access8Math"]["settings"]["LaTeX_delimiter"]]
-	if type_ == "asciimath":
+	elif type_ == "asciimath":
 		delimiter = delimiter_dict["graveaccent"]
+	elif type_ == "nemeth":
+		delimiter = delimiter_dict["nemeth"]
 	delimiter_start = delimiter["start"]
 	delimiter_end = delimiter["end"]
 
-	if section.pointer['type'] == 'latex' and type_ == 'asciimath':
-		data = latex2asciimath(section.pointer['data'])
-	elif section.pointer['type'] == 'asciimath' and type_ == 'latex':
-		data = asciimath2latex(section.pointer['data'])
-		data = data[1:-1]
-	else:
-		return
+	data = None
+	if type_ == 'asciimath':
+		if section.pointer['type'] == 'latex':
+			data = latex2asciimath(section.pointer['data'])
+	elif type_ == 'latex':
+		if section.pointer['type'] == 'asciimath':
+			data = asciimath2latex(section.pointer['data'])
+			data = data[1:-1]
+		elif section.pointer['type'] == 'nemeth':
+			data = nemeth2latex(section.pointer['data'])
+
+	if not data:
+		return False
 
 	result = section.move(type_='any', step=0)
 	if result:
@@ -59,6 +68,8 @@ def translate(section, type_):
 		wx.CallLater(100, api.copyToClip, temp)
 	else:
 		wx.CallLater(100, clearClipboard)
+
+	return True
 
 
 class A8MTranslateCommandModel(MenuModel):
@@ -95,5 +106,7 @@ class A8MTranslateCommandView(MenuView):
 		self.translate(self.data.pointer['id'], self._section)
 
 	def translate(self, id, section):
-		translate(section, type_=id)
+		result = translate(section, type_=id)
+		if not result:
+			ui.message(_("This block cannot be translated into {id}").format(id=id))
 		eventHandler.executeEvent("gainFocus", self.parent)

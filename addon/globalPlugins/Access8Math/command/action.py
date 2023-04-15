@@ -3,7 +3,7 @@ import config
 import re
 
 from delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter, Nemeth as Nemeth_delimiter
-from lib.mathProcess import latex2asciimath, asciimath2latex
+from lib.mathProcess import latex2asciimath, asciimath2latex, nemeth2latex
 from regularExpression import delimiterRegularExpression
 
 delimiter_dict = {**AsciiMath_delimiter, **LaTeX_delimiter, **Nemeth_delimiter}
@@ -47,6 +47,16 @@ def batch(mode):
 		data = m.group('asciimath') or m.group('asciimath_start')
 		try:
 			data = delimiter["start"] + asciimath2latex(data)[1:-1] + delimiter["end"]
+		except BaseException as e:
+			print(e)
+			data = m.group(0)
+		return data
+
+	def n2l(m):
+		delimiter = LaTeX_delimiter[config.conf["Access8Math"]["settings"]["LaTeX_delimiter"]]
+		data = m.group('nemeth') or m.group('nemeth_start')
+		try:
+			data = delimiter["start"] + nemeth2latex(data) + delimiter["end"]
 		except BaseException as e:
 			print(e)
 			data = m.group(0)
@@ -112,6 +122,10 @@ def batch(mode):
 			restring = "|".join([delimiter_regular_expression["asciimath"], delimiter_regular_expression["asciimath_start"]])
 			pattern = re.compile(restring)
 			text = pattern.sub(a2l, text)
+		elif mode == 'nemeth2latex':
+			restring = "|".join([delimiter_regular_expression["nemeth"], delimiter_regular_expression["nemeth_start"]])
+			pattern = re.compile(restring)
+			text = pattern.sub(n2l, text)
 		elif mode == 'reverse':
 			restring = "|".join([delimiter_regular_expression["latex"], delimiter_regular_expression["latex_start"], delimiter_regular_expression["asciimath"], delimiter_regular_expression["asciimath_start"]])
 			pattern = re.compile(restring)

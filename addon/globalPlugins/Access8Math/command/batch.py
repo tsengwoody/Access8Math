@@ -63,9 +63,9 @@ class A8MBatchCommandModel(MenuModel):
 						"type": "item",
 					},
 					{
-						"id": "reverse",
+						"id": "nemeth2latex",
 						# Translators: batch menu
-						"name": _("LaTeX and AsciiMath reverse translate"),
+						"name": _("Nemeth to LaTeX"),
 						"type": "item",
 					},
 				],
@@ -105,6 +105,6 @@ class A8MBatchCommandView(MenuView):
 		gestures=["kb:enter"]
 	)
 	def script_enter(self, gesture):
-		if self.data.pointer['id'] in ['asciimath2latex', 'latex2asciimath', 'reverse', 'bracket2dollar', 'dollar2bracket']:
+		if self.data.pointer['id'] in ['asciimath2latex', 'latex2asciimath', 'nemeth2latex', 'reverse', 'bracket2dollar', 'dollar2bracket']:
 			batch(self._section, mode=self.data.pointer['id'])
 		eventHandler.executeEvent("gainFocus", self.parent)
