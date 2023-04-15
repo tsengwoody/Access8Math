@@ -25,6 +25,7 @@ power	, 0, to the, 1, power	base,exponent	power
 absolute_value	absolute value of, (.), end absolute value	item	absolute value
 determinant	determinant, (row.), end determinant	row	determinant
 matrix	matrix, (row.), end matrix	row	matrix
+SimultaneousEquations	simultaneous equations, (equation.), end of simultaneous equations	equation	simultaneous equations
 single_fraction	, 0, over, 1,	numerator,denominator	single fraction
 single_square_root	square root, 0,	root in	single square root
 SingleMsubsup	, 0, sub, 1, super, 2, 	main,sub,super	single subscript and supscript
@@ -38,13 +39,13 @@ NegativeSignType	negative	negative	negative sign
 PositiveSignType	positive	positive	positive sign
 SquarePowerType	, 0, squared	base,exponent	square power
 CubePowerType	, 0, cubed	base,exponent	cube power
-LineType	line, 0,	main,super	line
-RayType	ray, 0,	main,super	ray
-LineSegmentType	line segment, 0,	main,super	line segment
+LineType	line, 0,	main,above	line
+RayType	ray, 0,	main,above	ray
+LineSegmentType	line segment, 0,	main,above	line segment
 VectorSingleType	vector, 0,	main,super	vector have one symbol
-VectorDoubleType	vector, 0,	main,super	vector have two symbol
-ArrowOverSingleSymbolType	vector, 0,	main,super	Arrow over a single symbol (vector in French notation)
-FrownType	frown, 0,	main,super	frown
+VectorDoubleType	vector, 0,	main,above	vector have two symbol
+ArrowOverSingleSymbolType	vector, 0,	main,above	Arrow over a single symbol (vector in French notation)
+FrownType	frown, 0,	main,above	frown
 DegreeType	0, degree	main,super	degree
 LogType	log, 1, based	main,sub	log
 BinomialType	from, 0, item choice, 1, item	all,choice	binomial

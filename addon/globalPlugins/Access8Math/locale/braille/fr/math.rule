@@ -1,49 +1,50 @@
-node	, (.),	項	node
-mfrac	⠹, 0, ⠌, 1, ⠼	分子,分母	generics fraction
-mfenced	⠷, (.), ⠾	項	generics parentheses
-msqrt	⠜, (.), ⠻	項	square root
-mroot	⠣, 1, ⠜, 0, ⠻	根號內,開方數	root
-math	, (.),	項	math
-msubsup	, 0, ⠰, 1, ⠘, 2, ⠐	主符號,下標,上標	symbol have subscript and supscript
-msub	, 0, ⠰, 1, ⠐	主符號,下標	symbol have subscript
-msup	, 0, ⠘, 1, ⠐	主符號,上標	symbol have supscript
-munderover	⠐, 0, ⠩, 1, ⠣, 2, ⠻	主符號,正下標,正上標	symbol have underscript and overscript
-munder	⠐, 0, ⠩, 1, ⠻	主符號,正下標	symbol have underscript
-mover	⠐, 0, ⠣, 1, ⠻	主符號,正上標	symbol have overscript
-mtable	⠞⠃⠇, (⠗.),	列	2-dimension table
-mtr	,(⠉.),	欄	table row
-mtd	,(.),	項	table cell
-mmultiscripts	,(.),	項	symbol have left mark
+node	, (.),	item	node
+mfrac	⠹, 0, ⠌, 1, ⠼	numerator,denominator	generics fraction
+mfenced	⠷, (.), ⠾	item	generics parentheses
+msqrt	⠜, (.), ⠻	item	square root
+mroot	⠣, 1, ⠜, 0, ⠻	root,count	root
+math	, (.),	item	math
+msubsup	, 0, ⠰, 1, ⠘, 2, ⠐	main,sub,super	symbol have subscript and supscript
+msub	, 0, ⠰, 1, ⠐	main,sub	symbol have subscript
+msup	, 0, ⠘, 1, ⠐	main,super	symbol have supscript
+munderover	⠐, 0, ⠩, 1, ⠣, 2, ⠻	main,below,above	symbol have underscript and overscript
+munder	⠐, 0, ⠩, 1, ⠻	main,below	symbol have underscript
+mover	⠐, 0, ⠣, 1, ⠻	main,above	symbol have overscript
+mtable	⠞⠃⠇, (⠗.),	row	2-dimension table
+mtr	,(⠉.),	column	table row
+mtd	,(.),	item	table cell
+mmultiscripts	,(.),	item	symbol have left mark
 mprescripts			
 none			
 menclose	{start} enclosing, (.), end {end} enclosure	item	enclosure
-from_to	⠐, 0, ⠩, 1, ⠣, 2, ⠻	運算符,從,到	from ... to ... operator
-from	⠐, 0, ⠩, 1, ⠻	運算符,從	from ... operator
-to	⠐, 0, ⠣, 1, ⠻	運算符,到	to ... operator
-power	, 0, ⠘, 1, ⠐	底數,指數	power
-absolute_value	⠳, (.), ⠳	項	absolute value
-determinant	⠳, (⠗.), ⠳	列	determinant
-matrix	⠨⠷, (⠗.), ⠨⠾	列	matrix
-single_fraction	⠹, 0, ⠌, 1, ⠼	分子,分母	single fraction
-single_square_root	⠜, (.), ⠻	根號內	single square root
-SingleMsubsup	, 0, ⠰, 1, ⠘, 2, ⠐	主符號,下標,上標	single subscript and supscript
-SingleMsub	, 0, , 1, ⠐	主符號,下標	single subscript
-SingleMsup	, 0, ⠘, 1, ⠐	主符號,上標	single supscript
-SingleMunderover	⠐, 0, ⠩, 1, ⠣, 2, ⠻	主符號,正下標,正上標	single underscript and overscript
-SingleMunder	⠐, 0, ⠩, 1, ⠻	主符號,正下標	single underscript
-SingleMover	⠐, 0, ⠣, 1, ⠻	主符號,正上標	single overscript
-AddIntegerFractionType	⠸⠹, 0, ⠌, 1, ⠸⠼	分子,分母	add integer fraction
-NegativeSignType	⠤	負號	negative sign
-PositiveSignType	⠬	正號	positive sign
-SquarePowerType	, 0, ⠘⠆⠐	底數,指數	square power
+from_to	⠐, 0, ⠩, 1, ⠣, 2, ⠻	operator,from,to	from ... to ... operator
+from	⠐, 0, ⠩, 1, ⠻	operator,from	from ... operator
+to	⠐, 0, ⠣, 1, ⠻	operator,to	to ... operator
+power	, 0, ⠘, 1, ⠐	base,exponent	power
+absolute_value	⠳, (.), ⠳	item	absolute value
+determinant	⠳, (⠗.), ⠳	row	determinant
+matrix	⠨⠷, (⠗.), ⠨⠾	row	matrix
+SimultaneousEquations	⠨⠷, (⠗.), ⠨⠾	equation	simultaneous equations
+single_fraction	⠹, 0, ⠌, 1, ⠼	numerator,denominator	single fraction
+single_square_root	⠜, (.), ⠻	root in	single square root
+SingleMsubsup	, 0, ⠰, 1, ⠘, 2, ⠐	main,sub,super	single subscript and supscript
+SingleMsub	, 0, , 1, ⠐	main,sub	single subscript
+SingleMsup	, 0, ⠘, 1, ⠐	main,super	single supscript
+SingleMunderover	⠐, 0, ⠩, 1, ⠣, 2, ⠻	main,below,above	single underscript and overscript
+SingleMunder	⠐, 0, ⠩, 1, ⠻	main,below	single underscript
+SingleMover	⠐, 0, ⠣, 1, ⠻	main,above	single overscript
+AddIntegerFractionType	⠸⠹, 0, ⠌, 1, ⠸⠼	numerator,denominator	add integer fraction
+NegativeSignType	⠤	negative	negative sign
+PositiveSignType	⠬	positive	positive sign
+SquarePowerType	, 0, ⠘⠆⠐	base,exponent	square power
 CubePowerType	, 0, ⠘⠒⠐	底數,指數	cube power
-LineType	⠐, 0, ⠣⠫⠪⠒⠒⠕⠻	主符號,正上標	line
-RayType	⠐, 0, ⠣⠫⠕⠻	主符號,正上標	ray
-LineSegmentType	⠐, 0, ⠣⠱⠻	主符號,正上標	line segment
-VectorSingleType	⠐, 0, ⠣⠫⠒⠒⠈⠕⠻	主符號,正上標	vector have one symbol
-VectorDoubleType	⠐, 0, ⠣⠫⠒⠒⠈⠕⠻	主符號,正上標	vector have two symbol
-ArrowOverSingleSymbolType	⠐, 0, ⠣⠫⠒⠒⠈⠕⠻	main,super	Arrow over a single symbol (vector in French notation)
-FrownType	⠐, 0, ⠣⠫⠁⠻	主符號,正上標	frown
-DegreeType	0, ⠘⠨⠡	主符號,上標	degree
-LogType	⠇⠕⠛⠰, 1, ⠐	主符號,下標	log
-BinomialType	⠠⠉⠰, 1, ⠘, 0, ⠐	全,選	binomial
+LineType	⠐, 0, ⠣⠫⠪⠒⠒⠕⠻	main,above	line
+RayType	⠐, 0, ⠣⠫⠕⠻	main,above	ray
+LineSegmentType	⠐, 0, ⠣⠱⠻	main,above	line segment
+VectorSingleType	⠐, 0, ⠣⠫⠒⠒⠈⠕⠻	main,above	vector have one symbol
+VectorDoubleType	⠐, 0, ⠣⠫⠒⠒⠈⠕⠻	main,above	vector have two symbol
+ArrowOverSingleSymbolType	⠐, 0, ⠣⠫⠒⠒⠈⠕⠻	main,above	Arrow over a single symbol (vector in French notation)
+FrownType	⠐, 0, ⠣⠫⠁⠻	main,above	frown
+DegreeType	0, ⠘⠨⠡	main,super	degree
+LogType	⠇⠕⠛⠰, 1, ⠐	main,sub	log
+BinomialType	⠠⠉⠰, 1, ⠘, 0, ⠐	all,choice	binomial

@@ -25,6 +25,7 @@ power	, 0, 的, 1, 次方	底数,指数	指数
 absolute_value	绝对值, (.), 结束绝对值	项	绝对值
 determinant	行列式, (第.行), 结束行列式	行	行列式
 matrix	矩阵, (第.行), 结束矩阵	行	矩阵
+SimultaneousEquations	联立方程组, (方程式.), 结束联立方程组	方程式	联立方程组
 single_fraction	, 1, 分之, 0,	分子,分母	简化分数
 single_square_root	平方根, 0,	根号内	简化平方根
 SingleMsubsup	, 0, 下标, 1, 上标, 2, 	主符号,下标,上标	简化上下标记

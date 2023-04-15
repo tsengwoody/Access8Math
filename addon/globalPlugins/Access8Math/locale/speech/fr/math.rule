@@ -25,6 +25,7 @@ power	, 0, puissance, 1	base,exposant	puissance
 absolute_value	valeur absolue de, (.), fin valeur absolue	élément	valeur absolue
 determinant	déterminant, ( .), fin déterminant	élément	déterminant
 matrix	matrix, ( .), end matrix	élément	matrice
+SimultaneousEquations	simultaneous equations, (equation.), end of simultaneous equations	equation	simultaneous equations
 single_fraction	0,sur,1	numérateur,dénominateur	fraction simple
 single_square_root	racine carrée de,0	radicande	racine carrée simple
 SingleMsubsup	, 0, sub, 1, puissance, 2, 	principal,indice,exposant	indice et exposant simple

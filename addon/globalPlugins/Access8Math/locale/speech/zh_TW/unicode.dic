@@ -20,7 +20,7 @@ symbols:
 }	右大括	none
 ¯	橫線	none
 ±	加減	none
-·	圓點	none
+·	內積	none
 ×	乘以	none
 ÷	除以	none
 
@@ -172,8 +172,8 @@ symbols:
 ∈	屬於	none
 ∉	不屬於	none
 ∊	屬於	none
-∋	包含	none
-∌	不包含	none
+∋	包含元素	none
+∌	不包含元素	none
 ∍	小型包含	none
 ∎	結束證明	none
 ∏	N元乘積,從…到…的積,求積	none

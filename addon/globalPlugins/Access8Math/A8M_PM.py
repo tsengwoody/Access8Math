@@ -1451,6 +1451,17 @@ class MatrixType(SiblingNodeType):
 	name = 'matrix'
 
 
+class OpenSimultaneousEquationsType(SiblingNodeType):
+	tag = Mo
+	data = re.compile(r"^\{$")
+
+
+class SimultaneousEquationsType(SiblingNodeType):
+	previous_siblings = [OpenSimultaneousEquationsType]
+	self_ = MtableType
+	name = 'SimultaneousEquations'
+
+
 class DeterminantType(SiblingNodeType):
 	tag = Mtable
 	previous_siblings = [VerticalBarType]
@@ -1540,11 +1551,17 @@ def exist_language(language):
 def add_language(language):
 	src = os.path.join(LOCALE_DIR, 'speech', 'en')
 	dst = os.path.join(LOCALE_DIR, 'speech', language)
-	shutil.copytree(src, dst, ignore=shutil.ignore_patterns('*_user.*'))
+	try:
+		shutil.copytree(src, dst, ignore=shutil.ignore_patterns('*_user.*'))
+	except FileExistsError:
+		pass
 
 	src = os.path.join(LOCALE_DIR, 'braille', 'en')
 	dst = os.path.join(LOCALE_DIR, 'braille', language)
-	shutil.copytree(src, dst, ignore=shutil.ignore_patterns('*_user.*'))
+	try:
+		shutil.copytree(src, dst, ignore=shutil.ignore_patterns('*_user.*'))
+	except FileExistsError:
+		pass
 
 
 def remove_language(language):
@@ -1771,6 +1788,7 @@ mathrule_info = {
 		"absolute_value": [3, 1, "*", ],
 		"determinant": [3, 1, "*", ],
 		"matrix": [3, 1, "*", ],
+		"SimultaneousEquations": [3, 1, "*", ],
 	},
 	"root": {
 		"msqrt": [3, 1, "*", ],
@@ -1856,6 +1874,7 @@ mathrule_order = {
 		"absolute_value",
 		"determinant",
 		"matrix",
+		"SimultaneousEquations",
 	],
 	"root": [
 		"msqrt",
