@@ -19,6 +19,14 @@ grammar = r"""
 		| exp -> exp
 	exp: i exp* -> exp
 	i: s -> exp_interm
+		| "⠐" exp? "⠣⠫⠪⠒⠒⠕⠻" -> exp_line
+		| "⠐" exp? "⠣⠱⠻" -> exp_line_segment
+		| "⠐" exp? "⠣⠫⠕⠻" -> exp_ray
+		| "⠐" exp? "⠣⠫⠁⠻" -> exp_arc
+		| "⠐⠨⠠⠎⠩" exp? "⠣" exp? "⠻" -> exp_sum
+		| "⠐" exp? "⠣⠫⠒⠒⠈⠕⠻" -> exp_vector
+		| "⠷⠠⠉⠰" exp? "⠐⠘" exp? "⠐⠾" -> exp_binom
+		| "⠐⠇⠊⠍⠩" exp? "⠀⠫⠕⠀" exp? "⠻" -> exp_limit
 		| s "⠘" exp? "⠐" -> exp_sup
 		| s "⠰" exp? "⠐" -> exp_sub
 		| "⠐" exp? "⠩" exp? "⠻" -> exp_under
@@ -26,25 +34,25 @@ grammar = r"""
 		| "⠐" exp? "⠩" exp? "⠣" s "⠻" -> exp_underover
 		| s "⠰" s -> exp_sub_simple
 		| s "⠘" s -> exp_sup_simple
-		| "⠹" exp? ("⠌"|"⠸") exp? "⠼" -> exp_frac
+		| ("⠠")*"⠹" exp? ("⠠")*"⠌" exp? ("⠠")*"⠼" -> exp_frac
 		| "⠜" exp? "⠻" -> exp_sqrt
 		| "⠣" exp? "⠜" exp? "⠻" -> exp_root
-	s: "⠷" exp? "⠾" -> exp_par
-		| "⠈⠷" exp? "⠈⠾" -> exp_par
-		| "⠨⠷" exp? "⠨⠾" -> exp_par
+	s: "⠷" exp? "⠾" -> exp_parenthesis
+		| "⠈⠷" exp? "⠈⠾" -> exp_square_bracket
+		| "⠨⠷" exp? "⠨⠾" -> exp_curly_brace
 		| OPERAND -> operand
-		| OTHER -> other
-		| _c -> const
-	_c: NUMBER
-		| EN_UPPERCASE
+		| _const -> const
+	_const: NUMBER
 		| EN_LOWERCASE
+		| EN_UPPERCASE
 		| EN_UPPERCASE_CONTINUE
-	OPERAND: /(⠬|⠤|⠈⠡|⠡|⠨⠌|⠨⠅|⠨⠂|⠐⠅)+/
-	OTHER: /({symbols})/
+		| OTHER
+	EN_LOWERCASE: /({ens})/
+	EN_UPPERCASE: /(⠠({ens}))/
+	EN_UPPERCASE_CONTINUE.1: /⠠⠠({ens})+(⠠⠄({ens}))?/
 	NUMBER: /⠼?({numbers})+/
-	EN_UPPERCASE: /(⠠({ens}))+/
-	EN_LOWERCASE: /({ens})+/
-	EN_UPPERCASE_CONTINUE: /⠠⠠({ens})+(⠠⠄({ens}))?/
+	OPERAND: /(⠬|⠤|⠈⠡|⠡|⠨⠌|⠨⠅|⠨⠂|⠐⠅)+/
+	OTHER.-1: /({symbols})/
 	SPACE: /⠀/
 """.format(
 	ens="|".join(data["letter"]),

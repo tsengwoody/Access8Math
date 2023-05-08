@@ -16,11 +16,11 @@ The writing feature includes a command menu for easier LaTeX/AsciiMath input and
 
 ## writing feature
 
-*	Allows writing of mathematical content using LaTeX/AsciiMath
-*	Provides a command menu for inputting LaTeX/AsciiMath
-*	Offers shortcut gestures for inputting LaTeX/AsciiMath
+*	Allows writing of mathematical content using LaTeX/AsciiMath/Nemeth
+*	Provides a command menu for inputting LaTeX
+*	Offers shortcut gestures for inputting LaTeX
 *	Allows for more efficient cursor movement during editing
-*	Allows reads documents containing LaTeX/AsciiMath data in real-time while editing the document
+*	Allows reads documents containing LaTeX/AsciiMath/Nemeth data in real-time while editing the document
 *	Provides  converting text files into HTML files for preview and export.
 
 # Access8Math ReadMe
@@ -66,8 +66,10 @@ To differentiate between text content and mathematical content, LaTeX/AsciiMath 
 | LaTeX(bracket) | \( | \) |
 | LaTeX(money) | $ | $ |
 | AsciiMath | ` | ` |
+| Nemeth(UEB) | _% | _: |
+| Nemeth(at) | @ | @ |
 
-You can choose to use brackets or money  for LaTeX delimiter in the writing setting.
+You can choose what delimiter use for LaTeX/Nemeth in the writing setting.
 
 ### Command gesture (toggle: NVDA+alt+c)
 
@@ -168,6 +170,7 @@ For the following keys, if you only press the single key, the editing cursor wil
 
 * l: Move to the next LaTeX data block and read it out
 * a: Move to the next AsciiMath data block and read it out
+* n: Move to the next Nemeth data block and read it out
 * m: move to the next MathML data block and read
 * t: move to the next text block and read it
 * tab: move to the next interactive block (math block) and read it out
@@ -193,10 +196,12 @@ In File Explorer, you can press the NVDA+application, if the selected path is tx
 
 ### content example:
 
-*	LaTeX(by bracket separator): The solution of the quadratic equation in one variable \(ax^2+bx+c=0\) is \(\frac{-b\pm\sqrt{b^2-4ac}}{2a}\) .
-*	LaTeX(by dollar separator): The solution of the quadratic equation in one variable $ax^2+bx+c=0$ is $\frac{-b\pm\sqrt{b^2-4ac}}{2a}$ .
-*	AsciiMath: The solution of the quadratic equation in one variable `ax^2+bx+c=0` is `x=(-b+- \sqrt(b^2-4ac))/(2a)` .
-*	MathML: The solution of the quadratic equation in one variable <math display="inline"><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi><mo>=</mo><mn>0</mn></math> is <math display="inline"><mfrac><mrow><mo>−</mo><mi>b</mi><mi>±</mi><msqrt><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></math> .
+* LaTeX(bracket): The solution of the quadratic equation in one variable \(ax^2+bx+c=0\) is \(\frac{-b\pm\sqrt{b^2-4ac}}{2a}\) .
+* LaTeX(dollar): The solution of the quadratic equation in one variable $ax^2+bx+c=0$ is $\frac{-b\pm\sqrt{b^2-4ac}}{2a}$ .
+* AsciiMath: The solution of the quadratic equation in one variable `ax^2+bx+c=0` is `x=(-b+- \sqrt(b^2-4ac))/(2a)` .
+* Nemeth(UEB): The solution of the quadratic equation in one variable _%⠁⠭⠘⠆⠐⠬⠃⠭⠬⠉⠀⠨⠅⠀⠴_: is _%⠭⠀⠨⠅⠀⠹⠤⠃⠬⠤⠜⠃⠘⠆⠐⠤⠲⠁⠉⠻⠌⠆⠁⠼_: .
+* Nemeth(at): The solution of the quadratic equation in one variable @⠁⠭⠘⠆⠐⠬⠃⠭⠬⠉⠀⠨⠅⠀⠴@ is @⠭⠀⠨⠅⠀⠹⠤⠃⠬⠤⠜⠃⠘⠆⠐⠤⠲⠁⠉⠻⠌⠆⠁⠼@ .
+* MathML: The solution of the quadratic equation in one variable <math display="inline"><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi><mo>=</mo><mn>0</mn></math> is <math display="inline"><mfrac><mrow><mo>−</mo><mi>b</mi><mi>±</mi><msqrt><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></math> .
 
 ## settings
 

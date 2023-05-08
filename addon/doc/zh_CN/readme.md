@@ -16,11 +16,11 @@
 
 ## 书写功能
 
-*	以 LaTeX/AsciiMath 书写数学内容
-*	菜单交互式书写 LaTeX/AsciiMath 数学内容
-*	快捷指令书写 LaTeX/AsciiMath 语法
+*	以 LaTeX/AsciiMath/Nemeth 书写数学内容
+*	菜单交互式书写 LaTeX 数学内容
+*	快捷指令书写 LaTeX 语法
 *	导航光标移动编辑
-*	直接阅读包含 LaTeX/AsciiMath 的文档
+*	直接阅读包含 LaTeX/AsciiMath/Nemeth 的文档
 *	导出预览 HTML 文件
 
 # Access8Math 说明
@@ -77,14 +77,17 @@
 
 在 windows 11 必须使用 Access8Math 编辑器；而在 windows 10 或更早版本可使用 Access8Math 编辑器或记事本。建议使用 Access8Math 编辑器编写混合内容。
 
-以 LaTeX 或 AsciiMath 分隔符划分数学标记区域，用以区分文字内容和数学内容，在 LaTeX 或 AsciiMath 标记区域内的内容为 LaTeX/AsciiMath 数学内容，在标记区域之外的为文字内容。
+以分隔符划分数学标记区域，用以区分文字内容和数学内容，在标记区域内的内容为数学内容，在标记区域之外的为文字内容。
 
 | 类别 | 开始标记 | 结束标记 |
 | --- | --- | --- |
 | LaTeX(括号) | \( | \) |
 | LaTeX(美元) | $ | $ |
 | AsciiMath | ` | ` |
-您可以在书写设置中选择括号或美元符号作为 LaTeX 分隔符。
+| Nemeth(UEB) | _% | _: |
+| Nemeth(at) | @ | @ |
+
+您可以在书写设置中选择 LaTeX/Nemeth 使用的分隔符。
 
 ### 命令手势（开关：NVDA+alt+c）
 
@@ -188,6 +191,7 @@ space/enter：光标停留在数学区域则与此数学内容进行交互式导
 
 *	l: 移动到下一个 LaTeX 区域并读出
 *	a: 移动到下一个 ASCIIMath 区域并读出
+*	n: 移动到下一个 Nemeth 区域并读出
 *	m: 移动到下一个 MathML 区域并读出
 *	t: 移动到下一个 文字 区域并读出
 *	tab: 移动到下一个 可互动区域（数学区域）并读出
@@ -213,9 +217,11 @@ space/enter：光标停留在数学区域则与此数学内容进行交互式导
 
 ### 混合内容示例
 
-*	LaTeX（使用括号作为分隔符）：一元二次方程是 \(ax^2+bx+c=0\) 的解为 \(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\) 。
-*	LaTeX（使用美元作为分隔符）：一元二次方程是 $ax^2+bx+c=0$ 的解为 $x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$ 。
-*	AxciiMath：一元二次方程式 `ax^2+bx+c=0` 的解为 `x=(-b+- \sqrt(b^2-4ac))/(2a)` 。
+* LaTeX（括号）：一元二次方程式 \(ax^2+bx+c=0\) 的解为 \(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\) 。
+* LaTeX（钱号）：一元二次方程式 $ax^2+bx+c=0$ 的解为 $x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$ 。
+* AxciiMath：一元二次方程式 `ax^2+bx+c=0` 的解为 `x=(-b+- \sqrt(b^2-4ac))/(2a)` 。
+* Nemeth(UEB)：一元二次方程式 _%⠁⠭⠘⠆⠐⠬⠃⠭⠬⠉⠀⠨⠅⠀⠴_: 的解为 _%⠭⠀⠨⠅⠀⠹⠤⠃⠬⠤⠜⠃⠘⠆⠐⠤⠲⠁⠉⠻⠌⠆⠁⠼_: 。
+* Nemeth(at)：一元二次方程式 @⠁⠭⠘⠆⠐⠬⠃⠭⠬⠉⠀⠨⠅⠀⠴@ 的解为 @⠭⠀⠨⠅⠀⠹⠤⠃⠬⠤⠜⠃⠘⠆⠐⠤⠲⠁⠉⠻⠌⠆⠁⠼@ 。
 *	MathML：一元二次方程是 <math display="inline"><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi><mo>=</mo><mn>0</mn></math> 的解为 <math display="inline"><mfrac><mrow><mo>−</mo><mi>b</mi><mi>±</mi><msqrt><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></math> 。
 
 ## 设置

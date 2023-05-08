@@ -29,64 +29,43 @@ class Nemeth2TexTransformer(Transformer):
 			string = string.replace(key, value)
 		return string
 
-	def exp(self, items):
-		join = ""
+	def curly_brace(self, items):
+		result = []
 		for item in items:
-			if isinstance(item, str):
-				join += item
-			else:
-				print("not string:", item)
-		return join
+			if not len(item) == 1:
+				item = r"{" + item + r"}"
+			result.append(item)
+		return result
+
+
+	def exp(self, items):
+		return "".join(items)
 
 	def exp_sup(self, items):
-		main = items[0]
-		if not len(main) == 1:
-			main = r"{" + main + r"}"
-
-		comp = items[1]
-		if not len(comp) == 1:
-			comp = r"{" + comp + r"}"
-
-		return main + r"^" + comp
+		items = self.curly_brace(items)
+		return items[0] + r"^" + items[1]
 
 	def exp_sub(self, items):
-		main = items[0]
-		if not len(main) == 1:
-			main = r"{" + main + r"}"
-
-		comp = items[1]
-		if not len(comp) == 1:
-			comp = r"{" + comp + r"}"
-
-		return main + r"_" + comp
+		items = self.curly_brace(items)
+		return items[0] + r"_" + items[1]
 
 	def exp_sup_simple(self, items):
-		main = items[0]
-		if not len(main) == 1:
-			main = r"{" + main + r"}"
-
-		comp = items[1]
-		if not len(comp) == 1:
-			comp = r"{" + comp + r"}"
-
-		return main + r"^" + comp
+		items = self.curly_brace(items)
+		return items[0] + r"^" + items[1]
 
 	def exp_sub_simple(self, items):
-		main = items[0]
-		if not len(main) == 1:
-			main = r"{" + main + r"}"
+		items = self.curly_brace(items)
+		return items[0] + r"_" + items[1]
 
-		comp = items[1]
-		if not len(comp) == 1:
-			comp = r"{" + comp + r"}"
-
-		return main + r"_" + comp
+	def exp_under(self, items):
+		return r"\underset{" + items[1] + r"}{" + items[0] + r"}"
 
 	def exp_over(self, items):
 		return r"\overset{" + items[1] + r"}{" + items[0] + r"}"
 
-	def exp_under(self, items):
-		return r"\underset{" + items[1] + r"}{" + items[0] + r"}"
+	def exp_underover(self, items):
+		return r"\overset{" + items[2] + r"}{\underset{" + items[1] + r"}{" + items[0] + r"}}"
+		return r"\overset{" + items[1] + r"}{" + items[0] + r"}"
 
 	def exp_frac(self, items):
 		return r"\frac{" + items[0] + r"}{" + items[1] + r"}"
@@ -97,11 +76,41 @@ class Nemeth2TexTransformer(Transformer):
 	def exp_root(self, items):
 		return r"\sqrt[" + items[0] + r"]{" + items[1] + r"}"
 
+	def exp_line(self, items):
+		return r"\overleftrightarrow{" + items[0] + r"}"
+
+	def exp_line_segment(self, items):
+		return r"\overline{" + items[0] + r"}"
+
+	def exp_ray(self, items):
+		return r"\overrightarrow{" + items[0] + r"}"
+
+	def exp_arc(self, items):
+		return r"\overset{\frown}{" + items[0] + r"}"
+
+	def exp_sum(self, items):
+		return r"\sum_{" + items[0] + r"}^{" + items[1] + r"}"
+
+	def exp_vector(self, items):
+		return r"\vec{" + items[0] + r"}"
+
+	def exp_binom(self, items):
+		return r"\binom{" + items[1] + r"}{" + items[0] + "}"
+
+	def exp_limit(self, items):
+		return r"\lim_{{" + items[0] + r"} \to {" + items[1] + r"}}"
+
 	def exp_interm(self, items):
 		return items[0]
 
-	def exp_par(self, items):
-		return "".join(items)
+	def exp_curly_brace(self, items):
+		return r"{" + "".join(items) + r"}"
+
+	def exp_square_bracket(self, items):
+		return r"[" + "".join(items) + r"]"
+
+	def exp_parenthesis(self, items):
+		return r"(" + "".join(items) + r")"
 
 	def const(self, items):
 		return "".join(items)
@@ -131,12 +140,12 @@ class Nemeth2TexTransformer(Transformer):
 	def operand(self, items):
 		return "".join(items)
 
-	def other(self, items):
-		return "".join(items)
-
 	def OPERAND(self, items):
 		result = self.translate(items, self.symbol)
 		return result
+
+	def other(self, items):
+		return "".join(items)
 
 	def OTHER(self, items):
 		result = self.translate(items, self.symbol)

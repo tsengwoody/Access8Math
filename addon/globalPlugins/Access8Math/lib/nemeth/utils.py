@@ -10,6 +10,7 @@ def nemeth2symbol_with_priority(src):
 			if row["nemeth"] == "":
 				continue
 			data[row["nemeth"]].append({
+				"latex": row["latex"],
 				"symbol": row["symbol"],
 				"priority": int(row["priority"]),
 			})
@@ -20,11 +21,13 @@ def nemeth2symbol_with_priority(src):
 			temp = sorted(value, key=lambda i: i["priority"])
 		else:
 			temp = value
-		symbol = temp[0]["symbol"]
+		if temp[0]["latex"].startswith("\\"):
+			symbol = temp[0]["latex"] + " "
+		else:
+			symbol = temp[0]["symbol"]
 		nemeth2symbol[key] = symbol
 
 	return nemeth2symbol
 
 if __name__ == "__main__":
 	i = nemeth2symbol_with_priority("final.csv")
-	print(len(i))
