@@ -57,7 +57,7 @@ class SectionManager:
 		elif self.pointer['type'] == 'asciimath':
 			result = AsciiMath_delimiter["graveaccent"]
 		elif self.pointer['type'] == 'nemeth':
-			result = Nemeth_delimiter["nemeth"]
+			result = Nemeth_delimiter[config.conf["Access8Math"]["settings"]["Nemeth_delimiter"]]
 		else:
 			result = {
 				"start": "",
@@ -152,7 +152,7 @@ class SectionManager:
 			delimiter={
 				"latex": config.conf["Access8Math"]["settings"]["LaTeX_delimiter"],
 				"asciimath": "graveaccent",
-				"nemeth": "nemeth",
+				"nemeth": config.conf["Access8Math"]["settings"]["Nemeth_delimiter"],
 			}
 		)(self.obj.makeTextInfo(textInfos.POSITION_ALL).text)
 		self.points = list(filter(lambda point: point['start'] < point['end'], points))
@@ -183,7 +183,6 @@ class SectionManager:
 					step -= 1
 			elif step < 0:
 				filte_points = self.points[:self.section_index]
-
 			if type_ in MATH_TYPE + ["text"]:
 				filte_points = list(filter(lambda i: i['type'] == type_, filte_points))
 			elif type_ == 'interactivable':
@@ -627,12 +626,7 @@ class TextMathEditField(NVDAObject):
 				if slot in view.data.shortcut:
 					view.command(view.data.shortcut[slot]["id"])
 				else:
-					if True:
-						gesture.send()
-					else:
-						ui.message(_("Shortcut {shortcut} is not set").format(
-							shortcut=slot,
-						))
+					gesture.send()
 			else:
 				gesture.send()
 
@@ -728,7 +722,8 @@ class TextMathEditField(NVDAObject):
 	def script_mark(self, gesture):
 		with self.section_manager as manager:
 			if (manager.pointer and manager.pointer['type'] == 'text') or len(manager.points) == 0:
-				A8MMarkCommandView(section=manager).setFocus()
+				view = A8MMarkCommandView(section=manager)
+				view.setFocus()
 			else:
 				ui.message(_("In math section. Please leave math section first and try again."))
 
@@ -748,7 +743,6 @@ class TextMathEditField(NVDAObject):
 					mathMl = asciimath2mathml(manager.pointer['data'])
 				elif manager.pointer['type'] == 'nemeth':
 					mathMl = latex2mathml(nemeth2latex(manager.pointer['data']))
-					print(mathMl)
 				elif manager.pointer['type'] == 'mathml':
 					mathMl = manager.pointer['data']
 				mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
@@ -758,7 +752,7 @@ class TextMathEditField(NVDAObject):
 
 	def script_translate(self, gesture):
 		with self.section_manager as manager:
-			if manager.inLaTeX or manager.inAsciiMath:
+			if manager.inLaTeX or manager.inAsciiMath or manager.inNemeth:
 				A8MTranslateCommandView(section=manager).setFocus()
 			else:
 				ui.message(_("This block cannot be translated"))
@@ -818,7 +812,7 @@ class TextMathEditField(NVDAObject):
 			speech.speak(text)
 			display_braille(brailleRegion)
 		except BaseException as e:
-			print(e)
+			pass
 
 	def script_navigate(self, gesture):
 		with self.section_manager as manager:

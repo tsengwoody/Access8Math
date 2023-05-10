@@ -29,6 +29,7 @@ def mark(section, type_):
 	for i in range(result["end_offset"]):
 		leftArrow.send()
 
+	return
 	if temp != '':
 		wx.CallLater(100, api.copyToClip, temp)
 	else:
@@ -72,5 +73,8 @@ class A8MMarkCommandView(MenuView):
 		gestures=["kb:enter"]
 	)
 	def script_enter(self, gesture):
-		mark(self._section, type_=self.data.pointer['id'])
+		self.mark(self.data.pointer['id'])
+
+	def mark(self, type_):
+		mark(self._section, type_=type_)
 		eventHandler.executeEvent("gainFocus", self.parent)

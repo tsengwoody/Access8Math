@@ -271,6 +271,16 @@ class DocumentSettingsPanel(A8MSettingsPanel):
 				"dollar": _("dollar"),
 			}
 		},
+		"Nemeth_delimiter": {
+			# Translators: The label of an option in the writing settings dialog
+			"label": _("&Nemeth delimiter:"),
+			"options": {
+				# Translators: A choice of a combobox in the writing settings dialog
+				"ueb": _("UEB"),
+				# Translators: A choice of a combobox in the writing settings dialog
+				"at": _("at"),
+			}
+		},
 		"HTML_document_display": {
 			# Translators: The label of an option in the writing settings dialog
 			"label": _("HTML &document display:"),

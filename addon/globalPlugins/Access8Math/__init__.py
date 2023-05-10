@@ -70,6 +70,7 @@ config.conf.spec["Access8Math"] = {
 		"color": "string(default=#000000)",
 		"bg_color": "string(default=#ffffff)",
 		"LaTeX_delimiter": "string(default=bracket)",
+		"Nemeth_delimiter": "string(default=ueb)",
 		"speech_source": "string(default=Access8Math)",
 		"braille_source": "string(default=Access8Math)",
 		"interact_source": "string(default=Access8Math)",

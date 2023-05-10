@@ -225,7 +225,6 @@ class A8MLaTeXCommandView(MenuView):
 			else:
 				command(**kwargs)
 		except BaseException as e:
-			raise e
 			tones.beep(100, 100)
 			return
 		eventHandler.executeEvent("gainFocus", self.parent)

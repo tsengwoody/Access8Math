@@ -35,4 +35,14 @@ Nemeth = {
 		"end": r"\n",
 		"type": "nemeth",
 	},
+	"at": {
+		"start": r"@",
+		"end": r"@",
+		"type": "nemeth",
+	},
+	"ueb": {
+		"start": r"_%",
+		"end": r"_:",
+		"type": "nemeth",
+	},
 }

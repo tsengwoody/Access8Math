@@ -15,7 +15,7 @@ def mark(type_):
 	elif type_ == "asciimath":
 		delimiter = delimiter_dict["graveaccent"]
 	elif type_ == "nemeth":
-		delimiter = delimiter_dict["nemeth"]
+		delimiter = delimiter_dict[config.conf["Access8Math"]["settings"]["Nemeth_delimiter"]]
 	delimiter_start = delimiter["start"]
 	delimiter_end = delimiter["end"]
 
@@ -95,21 +95,21 @@ def batch(mode):
 		delimiter={
 			"latex": config.conf["Access8Math"]["settings"]["LaTeX_delimiter"],
 			"asciimath": "graveaccent",
-			"nemeth": "nemeth",
+			"nemeth": config.conf["Access8Math"]["settings"]["Nemeth_delimiter"],
 		}
 	)
 	delimiter_regular_expression_latex_bracket = delimiterRegularExpression(
 		delimiter={
 			"latex": "bracket",
 			"asciimath": "graveaccent",
-			"nemeth": "nemeth",
+			"nemeth": config.conf["Access8Math"]["settings"]["Nemeth_delimiter"],
 		}
 	)
 	delimiter_regular_expression_latex_dollar = delimiterRegularExpression(
 		delimiter={
 			"latex": "dollar",
 			"asciimath": "graveaccent",
-			"nemeth": "nemeth",
+			"nemeth": config.conf["Access8Math"]["settings"]["Nemeth_delimiter"],
 		}
 	)
 
