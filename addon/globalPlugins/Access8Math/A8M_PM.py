@@ -1699,7 +1699,7 @@ def save_unicode_dic(symbol, path=None, language='', category='speech'):
 def save_math_rule(mathrule, path=None, language='', category='speech'):
 	if not path and language:
 		path = os.path.join(LOCALE_DIR, category, language)
-		path = os.path.join(path, 'unicode_user.dic')
+		path = os.path.join(path, 'math_user.rule')
 
 	mathrule_unicode = {}
 	for k, v in mathrule.items():
