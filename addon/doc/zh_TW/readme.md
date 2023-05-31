@@ -4,7 +4,7 @@
 
 阅读功能特色包括可客製的語音/點字輸出，透過互動导航可将长数学内容分割成较小部分以利閱讀。
 
-書寫功能特色包括用于更易於输入 LaTeX/AsciiMath 的指令選單，以及将純文字文件轉換為視覺可读的 HTML 文件，以便更好的與他人协作。
+書寫功能特色包括用于更易於输入 LaTeX/AsciiMath/Nemeth 的指令選單，以及将純文字文件轉換為視覺可读的 HTML 文件，以便更好的與他人协作。
 
 ## 閱讀功能特色
 
@@ -89,7 +89,7 @@ Access8Math 可以讀取瀏覽器（如 Mozilla Firefox、Google Chrome 和 Micr
 
 ### 指令手勢（開關：NVDA+alt+c）
 
-alt+m：彈出標記指令視窗，選擇 LaTeX/AsciiMath 按下 enter 鍵即會在當前所選文字前後（無選擇文字時為當前游標處）加入 LaTeX/AsciiMath 標記並會自動將游標移入其內，以快速輸入內容。
+alt+m：彈出標記指令視窗，選擇 LaTeX/AsciiMath/Nemeth 按下 enter 鍵即會在當前所選文字前後（無選擇文字時為當前游標處）加入 LaTeX/AsciiMath/Nemeth 標記並會自動將游標移入其內，以快速輸入內容。
 
 alt+l：彈出 LaTeX 指令視窗，選擇要加入的 LaTeX 指令項目按下 enter 鍵即會在當前游標處加入對應的 LaTeX 語法並會自動將游標移入適當輸入點，以快速輸入內容（如游標未在 LaTeX 區內會自動加上開始與結束標記）。
 
@@ -313,6 +313,14 @@ github： https://github.com/tsengwoody/Access8Math
 歡迎提出見意與bug回報，謝謝！
 
 # Access8Math 日誌
+
+## Access8Math v3.6 更新日誌
+
+* 新功能：nemeth 點字輸入，與 LaTeX 輸入有相同功能，編輯時可即時互動導覽(alt+i)、可輸出 HTML+MathML 文件
+* 新功能：加入 Nemeth 分隔符 UEB/at(@@) 以區分 Nemeth 內容。
+* 新功能：在互動導航模式下從 Math 物件轉換並複製 LaTeX
+* 在檔案總管中開啟虛擬路徑位置功能表快速鍵增加 NVDA+shift+f10
+* 修正與優化本地化 UI  問題
 
 ## Access8Math v3.5 更新日誌
 

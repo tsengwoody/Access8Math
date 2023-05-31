@@ -4,7 +4,7 @@ This NVDA addon enhances the mathematical content reading and writing experience
 
 The reading feature includes improved language translation in the ability to segment long math content into smaller parts using interactive navigation.
 
-The writing feature includes a command menu for easier LaTeX/AsciiMath input and the ability to export to a visually readable HTML document for better collaboration.
+The writing feature includes a command menu for easier LaTeX/AsciiMath/Nemeth input and the ability to export to a visually readable HTML document for better collaboration.
 
 ## reading feature
 
@@ -59,7 +59,7 @@ Comprehensive content: Incorporating Both Text and Mathematical Content
 
 For Windows 11, the Access8Math editor must be used, while for Windows 10 or earlier versions, either Access8Math editor or Notepad can be used. It is recommended to use the built-in Access8Math editor for writing comprehensive content.
 
-To differentiate between text content and mathematical content, LaTeX/AsciiMath separate markers should be used to frame the mathematical area. In other words, the data within the math marker area represents the mathematical content writen by LaTeX/AsciiMath and the text content outside of the math marker area represents regular text.
+To distinguish between text content and mathematical content, you can use delimiters to enclose the mathematical notation area. This means that any data within the mathematical notation area will be considered mathematical content according to the specified delimiter, while data outside of the mathematical notation area will be treated as text content.
 
 | category | start delimiter | end delimiter |
 | --- | --- | --- |
@@ -73,7 +73,7 @@ You can choose what delimiter use for LaTeX/Nemeth in the writing setting.
 
 ### Command gesture (toggle: NVDA+alt+c)
 
-alt+m: The mark command window pops up, select LaTeX/AsciiMath and press enter to add LaTeX/AsciiMath marks before and after the currently selected text (the current cursor when no text is selected) and automatically move the cursor into it. Enter content quickly.
+alt+m: The mark command window pops up, select LaTeX/AsciiMath/Nemeth and press enter to add LaTeX/AsciiMath marks before and after the currently selected text (the current cursor when no text is selected) and automatically move the cursor into it. Enter content quickly.
 
 alt+l: Pop up the LaTeX command window, select the LaTeX command item to be added and press the enter key to add the corresponding LaTeX syntax at the current cursor and automatically move the cursor to the appropriate input point for quick input.
 
@@ -281,6 +281,14 @@ github: https://github.com/tsengwoody/Access8Math
 Please report any bugs or comments, thank you!
 
 # Access8Math update log
+
+## Access8Math v3.6 Update
+
+* new feature: Nemeth Braille Input, with the same functionality as LaTeX input. Allows for real-time interactive navigation (Alt+I) during editing and supports outputting HTML+MathML documents.
+* new feature: Added Nemeth delimiter UEB/at(@@) for distinguish Nemeth content.
+* new feature: You can convert and copy LaTeX from Math object in interactive navigation mode.
+* Added the NVDA+Shift+F10 shortcut to open  virtual context menu in the file explorer.
+* Fixed and optimized localized UI issues.
 
 ## Access8Math v3.5 Update
 
