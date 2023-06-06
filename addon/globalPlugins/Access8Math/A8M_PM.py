@@ -1,14 +1,16 @@
 # coding=utf-8
-# Copyright (C) 2017-2022 Tseng Woody <tsengwoody.tw@gmail.com>
+# Copyright (C) 2017-2023 Tseng Woody <tsengwoody.tw@gmail.com>
 
 from xml.etree import ElementTree as ET
 
 import collections
+import csv
 import html
 import inspect
 import io
 import os
 import re
+import shutil
 import weakref
 import shutil
 
@@ -120,6 +122,8 @@ def set_mathcontent_allnode(node, mathcontent):
 	for child in node.child:
 		set_mathcontent_allnode(child, mathcontent)
 	node.mathcontent = mathcontent
+	if node.type:
+		node.type.mathcontent = mathcontent
 	return node
 
 
@@ -167,10 +171,10 @@ class MathContent(object):
 		self.raw_mathMl = mathMl
 		et = mathml2etree(mathMl)
 		self.root = self.pointer = create_node(et)
-		set_mathcontent_allnode(self.root, self)
+
 		clean_allnode(self.root)
-		clear_type_allnode(self.root)
-		check_type_allnode(self.root)
+
+		set_mathcontent_allnode(self.root, self)
 
 		self.symbol = load_unicode_dic(language=language)
 		mathrule = load_math_rule(language=language)
@@ -194,6 +198,7 @@ class MathContent(object):
 		clear_type_allnode(self.root)
 		check_type_allnode(self.root)
 		set_mathrule_allnode(self.root, self.mathrule)
+		set_mathcontent_allnode(self.root, self)
 
 	def set_braillemathrule(self, braillemathrule):
 		self.braillemathrule = braillemathrule
@@ -201,6 +206,7 @@ class MathContent(object):
 		clear_type_allnode(self.root)
 		check_type_allnode(self.root)
 		set_braillemathrule_allnode(self.root, self.braillemathrule)
+		set_mathcontent_allnode(self.root, self)
 
 	def navigate(self, action):
 		pointer = None
@@ -221,42 +227,17 @@ class MathContent(object):
 
 		return False
 
-	def insert(self, mathMl):
-		et = mathml2etree(mathMl)
-		node = create_node(et)
-		if self.pointer.parent:
-			self.pointer.parent.insert(self.pointer.index_in_parent(), node)
-			self.pointer = node
+	def symbol_translate(self, string):
+		symbol_order = sorted(list(self.symbol.items()), key=lambda i: -len(i[0]))
+		for key, value in symbol_order:
+			string = string.replace(key, value)
+		return string
 
-		else:
-			self.pointer.insert(len(self.pointer.child), node)
-			self.pointer = node
-
-		# node refresh
-		clean_allnode(self.root)
-		clear_type_allnode(self.root)
-		set_mathrule_allnode(self.root, self.mathrule)
-		check_type_allnode(self.root)
-		self.pointer = self.root
-
-		if check_in_allnode(self.root, node):
-			del node
-
-	def delete(self):
-		if self.pointer.parent:
-			parent = self.pointer.parent
-			index = self.pointer.index_in_parent()
-			self.pointer.parent.delete(self.pointer.index_in_parent())
-			try:
-				self.pointer = parent.child[index]
-			except BaseException:
-				self.pointer = parent
-
-			# node refresh
-			clean_allnode(self.root)
-			clear_type_allnode(self.root)
-			set_mathrule_allnode(self.root, self.mathrule)
-			check_type_allnode(self.root)
+	def braillesymbol_translate(self, string):
+		symbol_order = sorted(list(self.braillesymbol.items()), key=lambda i: -len(i[0]))
+		for key, value in symbol_order:
+			string = string.replace(key, value)
+		return string
 
 
 class Node(object):
@@ -290,8 +271,12 @@ class Node(object):
 			if nodetype.check(self) and nodetype.name in self.mathrule:
 				if not self.type:
 					self.type = nodetype()
+					self.type.mathcontent = self.mathcontent
+					self.type.set_mathrule(self.mathrule)
 				elif self.type and issubclass(nodetype, self.type.__class__):
 					self.type = nodetype()
+					self.type.mathcontent = self.mathcontent
+					self.type.set_mathrule(self.mathrule)
 
 	def set_mathrule(self, mathrule):
 		self.mathrule = mathrule
@@ -301,7 +286,7 @@ class Node(object):
 			self.type.set_mathrule(self.mathrule)
 
 	def set_role(self):
-		self.role = self.mathrule[self.name].role if self.name in self.mathrule else [self.symbol_translate('item')]
+		self.role = self.mathrule[self.name].role if self.name in self.mathrule else [self.mathcontent.symbol_translate('item')]
 		d = len(self.child) - len(self.role)
 		if d > 0:
 			append = self.role[-1]
@@ -337,7 +322,7 @@ class Node(object):
 			self.type.set_braillemathrule(self.braillemathrule)
 
 	def set_braillerole(self):
-		self.braillerole = self.braillemathrule[self.name].role if self.name in self.braillemathrule else [self.symbol_translate('item')]
+		self.braillerole = self.braillemathrule[self.name].role if self.name in self.braillemathrule else [self.mathcontent.symbol_translate('item')]
 		d = len(self.child) - len(self.braillerole)
 		if d > 0:
 			append = self.braillerole[-1]
@@ -402,18 +387,6 @@ class Node(object):
 				raise TypeError('rule element type error : expect int or str (get {0})'.format(type(r)))
 		return serialized
 
-	def symbol_translate(self, string):
-		symbol_order = sorted(list(self.mathcontent.symbol.items()), key=lambda i: -len(i[0]))
-		for key, value in symbol_order:
-			string = string.replace(key, value)
-		return string
-
-	def braillesymbol_translate(self, string):
-		symbol_order = sorted(list(self.mathcontent.braillesymbol.items()), key=lambda i: -len(i[0]))
-		for key, value in symbol_order:
-			string = string.replace(key, value)
-		return string
-
 	def get_mathml(self):
 		mathml = ''
 		if len(self.child) > 0:
@@ -444,7 +417,7 @@ class Node(object):
 
 	@property
 	def des(self):
-		return self.parent.role[self.index_in_parent()] if self.parent else self.symbol_translate('math')
+		return self.parent.role[self.index_in_parent()] if self.parent else self.mathcontent.symbol_translate('math')
 
 	@property
 	def name(self):
@@ -564,13 +537,13 @@ class TerminalNode(Node):
 		try:
 			super().set_rule()
 		except BaseException:
-			self.rule = [str(self.symbol_translate(self.data))]
+			self.rule = [str(self.mathcontent.symbol_translate(self.data))]
 
 	def set_braillerule(self):
 		try:
 			super().set_braillerule()
 		except BaseException:
-			self.braillerule = [str(self.braillesymbol_translate(self.data))]
+			self.braillerule = [str(self.mathcontent.braillesymbol_translate(self.data))]
 
 	def get_mathml(self):
 		mathml = ''
@@ -589,31 +562,7 @@ class TerminalNode(Node):
 
 
 class AlterNode(NonTerminalNode):
-	def insert(self, index, node):
-		if index > len(self.child):
-			return None
-		if index == len(self.child):
-			self.child.insert(index + 1, node)
-			node.parent = self
-		elif isinstance(self.child[index], BlockNode) and len(self.child[index].child) == 0:
-			self.child[index].child.insert(0, node)
-			node.parent = self.child[index]
-		else:
-			self.child.insert(index + 1, node)
-			node.parent = self
-		return node
-
-	def delete(self, index):
-		if index >= len(self.child):
-			return None
-		node = self.child[index]
-		del self.child[index]
-		if len(self.child) <= 0:
-			mrow_node = Mrow([], {})
-			self.child.insert(0, mrow_node)
-			mrow_node.parent = self
-		return node
-
+	pass
 
 class FixNode(NonTerminalNode):
 	def insert(self, index, node):
@@ -739,7 +688,7 @@ class Menclose(AlterNode):
 			notation = "longdiv"
 
 		try:
-			description = self.symbol_translate("notation:{}".format(value2description[notation]))
+			description = self.mathcontent.symbol_translate("notation:{}".format(value2description[notation]))
 		except BaseException:
 			description = ""
 
@@ -779,16 +728,20 @@ class Munderover(FixNode):
 class Mtable(AlterNode):
 	def set_rule(self):
 		super().set_rule()
+
 		rule = self.rule
 
-		row_count = len(self.child)
-		column_count_list = [len(i.child) for i in self.child]
-		column_count = max(column_count_list)
-		table_head = [rule[0] + '{0}{1}{2}{3}{4}'.format(
-			self.symbol_translate('has'),
-			row_count, self.symbol_translate('row'),
-			column_count, self.symbol_translate('column')
-		)]
+		if not self.type:
+			row_count = len(self.child)
+			column_count_list = [len(i.child) for i in self.child]
+			column_count = max(column_count_list)
+			table_head = [rule[0] + '{0}{1}{2}{3}{4}'.format(
+				self.mathcontent.symbol_translate('has'),
+				row_count, self.mathcontent.symbol_translate('row'),
+				column_count, self.mathcontent.symbol_translate('column')
+			)]
+		else:
+			table_head = [rule[0]]
 		cell = rule[1:-1]
 		table_tail = rule[-1:]
 		self.rule = table_head + cell + table_tail
@@ -797,14 +750,17 @@ class Mtable(AlterNode):
 		super().set_braillerule()
 		braillerule = self.braillerule
 
-		row_count = len(self.child)
-		column_count_list = [len(i.child) for i in self.child]
-		column_count = max(column_count_list)
-		table_head = [braillerule[0] + '{0}{1}{2}{3}{4}⠀'.format(
-			self.braillesymbol_translate(''),
-			row_count, self.braillesymbol_translate('r'),
-			column_count, self.braillesymbol_translate('c')
-		)]
+		if not self.type:
+			row_count = len(self.child)
+			column_count_list = [len(i.child) for i in self.child]
+			column_count = max(column_count_list)
+			table_head = [braillerule[0] + '{0}{1}{2}{3}{4}⠀'.format(
+				self.mathcontent.braillesymbol_translate(''),
+				row_count, self.mathcontent.braillesymbol_translate('r'),
+				column_count, self.mathcontent.braillesymbol_translate('c')
+			)]
+		else:
+			table_head = [braillerule[0]]
 		cell = braillerule[1:-1]
 		table_tail = braillerule[-1:]
 		self.braillerule = table_head + cell + table_tail
@@ -920,9 +876,9 @@ class Mmultiscripts(AlterNode):
 		index_mix = zip(index_odd, index_even)
 		for count, item in enumerate(index_mix):
 			temp = [
-				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count + 1, self.symbol_translate('mmultiscripts:pre-subscript')),
+				'{0}{1}{2}'.format(self.mathcontent.symbol_translate('mmultiscripts:order'), count + 1, self.mathcontent.symbol_translate('mmultiscripts:pre-subscript')),
 				item[0],
-				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count + 1, self.symbol_translate('mmultiscripts:pre-superscript')),
+				'{0}{1}{2}'.format(self.mathcontent.symbol_translate('mmultiscripts:order'), count + 1, self.mathcontent.symbol_translate('mmultiscripts:pre-superscript')),
 				item[1],
 			]
 			mmrule.extend(temp)
@@ -933,9 +889,9 @@ class Mmultiscripts(AlterNode):
 		index_mix = zip(index_odd, index_even)
 		for count, item in enumerate(index_mix):
 			temp = [
-				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count + 1, self.symbol_translate('mmultiscripts:post-subscript')),
+				'{0}{1}{2}'.format(self.mathcontent.symbol_translate('mmultiscripts:order'), count + 1, self.mathcontent.symbol_translate('mmultiscripts:post-subscript')),
 				item[0],
-				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count + 1, self.symbol_translate('mmultiscripts:post-superscript')),
+				'{0}{1}{2}'.format(self.mathcontent.symbol_translate('mmultiscripts:order'), count + 1, self.mathcontent.symbol_translate('mmultiscripts:post-superscript')),
 				item[1],
 			]
 			mmrule.extend(temp)
@@ -950,7 +906,7 @@ class Mmultiscripts(AlterNode):
 
 	def set_role(self):
 		super().set_role()
-		mmrole = [self.symbol_translate('main')]
+		mmrole = [self.mathcontent.symbol_translate('main')]
 
 		index = range(1, self.mprescripts_index_in_child())
 		index_odd = index[0::2]
@@ -958,12 +914,12 @@ class Mmultiscripts(AlterNode):
 		index_mix = zip(index_odd, index_even)
 		for count, item in enumerate(index_mix):
 			temp = [
-				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count + 1, self.symbol_translate('mmultiscripts:post-subscript')),
-				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count + 1, self.symbol_translate('mmultiscripts:post-superscript')),
+				'{0}{1}{2}'.format(self.mathcontent.symbol_translate('mmultiscripts:order'), count + 1, self.mathcontent.symbol_translate('mmultiscripts:post-subscript')),
+				'{0}{1}{2}'.format(self.mathcontent.symbol_translate('mmultiscripts:order'), count + 1, self.mathcontent.symbol_translate('mmultiscripts:post-superscript')),
 			]
 			mmrole.extend(temp)
 
-		mmrole.append(self.symbol_translate('mmultiscripts:mprescripts'))
+		mmrole.append(self.mathcontent.symbol_translate('mmultiscripts:mprescripts'))
 
 		index = range(self.mprescripts_index_in_child() + 1, len(self.child))
 		index_odd = index[0::2]
@@ -971,8 +927,8 @@ class Mmultiscripts(AlterNode):
 		index_mix = zip(index_odd, index_even)
 		for count, item in enumerate(index_mix):
 			temp = [
-				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count + 1, self.symbol_translate('mmultiscripts:pre-subscript')),
-				'{0}{1}{2}'.format(self.symbol_translate('mmultiscripts:order'), count + 1, self.symbol_translate('mmultiscripts:pre-superscript')),
+				'{0}{1}{2}'.format(self.mathcontent.symbol_translate('mmultiscripts:order'), count + 1, self.mathcontent.symbol_translate('mmultiscripts:pre-subscript')),
+				'{0}{1}{2}'.format(self.mathcontent.symbol_translate('mmultiscripts:order'), count + 1, self.mathcontent.symbol_translate('mmultiscripts:pre-superscript')),
 			]
 			mmrole.extend(temp)
 
@@ -991,7 +947,7 @@ class Mprescripts(TerminalNode):
 
 class Nones(TerminalNode):
 	def set_rule(self):
-		self.rule = [self.symbol_translate('none')]
+		self.rule = [self.mathcontent.symbol_translate('none')]
 
 
 class NodeType(object):
@@ -1023,7 +979,7 @@ class NodeType(object):
 	def set_rule(self):
 		try:
 			self.rule = self.mathrule[self.name].serialized_order
-		except BaseException:
+		except BaseException as e:
 			self.rule = None
 
 	def set_braillemathrule(self, braillemathrule):
@@ -1459,7 +1415,20 @@ class OpenSimultaneousEquationsType(SiblingNodeType):
 class SimultaneousEquationsType(SiblingNodeType):
 	previous_siblings = [OpenSimultaneousEquationsType]
 	self_ = MtableType
+	next_siblings = []
 	name = 'SimultaneousEquations'
+	priority = 0
+
+	def set_rule(self):
+		super().set_rule()
+		rule = self.rule
+
+		row_count = len(self.child)
+
+		table_head = [rule[0] + f'{self.mathcontent.symbol_translate("has")} {row_count} {self.mathcontent.symbol_translate("row")}']
+		cell = rule[1:-1]
+		table_tail = rule[-1:]
+		self.rule = table_head + cell + table_tail
 
 
 class DeterminantType(SiblingNodeType):
@@ -1600,22 +1569,20 @@ def load_unicode_dic(path=None, language='', category='speech'):
 
 		frp = os.path.join(path, 'unicode.dic')
 		frp_user = os.path.join(path, 'unicode_user.dic')
-
 		if not os.path.exists(frp_user):
-			with io.open(frp, 'r', encoding='utf-8') as src, io.open(frp_user, 'w', encoding='utf-8') as dst:
-				dst.write(src.read())
-
+			shutil.copyfile(frp, frp_user)
 		path = frp_user
 
 	symbol = {}
-	try:
-		with io.open(path, 'r', encoding='utf-8') as fr:
-			for line in fr:
-				line = line.split('\t')
-				if len(line) >= 2:
-					symbol[line[0]] = line[1].split(',')[0].strip()
-	except BaseException:
-		pass
+
+	with open(path, 'r', encoding='utf-8') as fr:
+		reader = csv.reader(fr, delimiter='\t')
+		for row in reader:
+			if len(row) >= 2:
+				try:
+					symbol[row[0]] = row[1].split(',')[0].strip()
+				except BaseException:
+					pass
 	return symbol
 
 
@@ -1629,11 +1596,8 @@ def load_math_rule(path=None, language='', category='speech'):
 
 		frp = os.path.join(path, 'math.rule')
 		frp_user = os.path.join(path, 'math_user.rule')
-
 		if not os.path.exists(frp_user):
-			with io.open(frp, 'r', encoding='utf-8') as src, io.open(frp_user, 'w', encoding='utf-8') as dst:
-				dst.write(src.read())
-
+			shutil.copyfile(frp, frp_user)
 		path = frp_user
 
 	mathrule = collections.OrderedDict({})
@@ -1642,10 +1606,10 @@ def load_math_rule(path=None, language='', category='speech'):
 		for item in category:
 			mathrule[item] = None
 
-	with io.open(path, 'r', encoding='utf-8') as fr, io.open(math_example_path, 'r', encoding='utf-8') as math_example:
-		for line in fr:
+	with open(path, 'r', encoding='utf-8') as fr:
+		reader = csv.reader(fr, delimiter='\t')
+		for line in reader:
 			try:
-				line = line.split('\t')
 				if len(line) == 4:
 					rule = []
 					for i in line[1].split(','):
@@ -1669,9 +1633,10 @@ def load_math_rule(path=None, language='', category='speech'):
 			except BaseException:
 				pass
 
-		for line in math_example:
+	with open(math_example_path, 'r', encoding='utf-8') as math_example:
+		reader = csv.reader(math_example, delimiter='\t')
+		for line in reader:
 			try:
-				line = line.split('\t')
 				if len(line) == 2:
 					mathrule[line[0]].example = line[1].strip()
 			except BaseException:
@@ -1685,13 +1650,12 @@ def save_unicode_dic(symbol, path=None, language='', category='speech'):
 		path = os.path.join(LOCALE_DIR, category, language)
 		path = os.path.join(path, 'unicode_user.dic')
 
-	with io.open(path, 'w', encoding='utf-8') as f:
-		f.write('symbols:\r\n')
+	with open(path, 'w', encoding='utf-8', newline="") as file:
+		writer = csv.writer(file, delimiter='\t')
 		key = list(symbol.keys())
 		key.sort()
 		for k in key:
-			line = '\t'.join([k, symbol[k], 'none']) + '\r\n'
-			f.write(line)
+			writer.writerow([k, symbol[k]])
 
 	return True
 
@@ -1703,17 +1667,23 @@ def save_math_rule(mathrule, path=None, language='', category='speech'):
 
 	mathrule_unicode = {}
 	for k, v in mathrule.items():
-		so_line = [str(i) if not isinstance(i, tuple) else '(' + '.'.join(i) + ')' for i in v.serialized_order]
-		so_line = ', '.join(so_line)
-		role_line = ', '.join(v.role)
-		mathrule_unicode[k] = '\t'.join([so_line, role_line, v.description])
+		try:
+			so_line = [str(i) if not isinstance(i, tuple) else '(' + '.'.join(i) + ')' for i in v.serialized_order]
+			so_line = ', '.join(so_line)
+			role_line = ', '.join(v.role)
+			mathrule_unicode[k] = [so_line, role_line, v.description]
+		except:
+			pass
 
-	with io.open(path, 'w', encoding='utf-8') as f:
+	with open(path, 'w', encoding='utf-8', newline="") as file:
+		writer = csv.writer(file, delimiter='\t')
 		key = list(mathrule.keys())
 		key.sort()
 		for k in key:
-			line = '\t'.join([k, mathrule_unicode[k]]) + '\r\n'
-			f.write(line)
+			try:
+				writer.writerow([k, *mathrule_unicode[k]])
+			except:
+				pass
 
 	return True
 

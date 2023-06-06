@@ -288,7 +288,7 @@ Please report any bugs or comments, thank you!
 * new feature: Added Nemeth delimiter UEB/at(@@) for distinguish Nemeth content.
 * new feature: You can convert and copy LaTeX from Math object in interactive navigation mode.
 * Added the NVDA+Shift+F10 shortcut to open  virtual context menu in the file explorer.
-* Fixed and optimized localized UI issues.
+* Fixed and optimized localized UI issues and cleaned localized file format.
 
 ## Access8Math v3.5 Update
 

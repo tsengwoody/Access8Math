@@ -276,9 +276,9 @@ class DocumentSettingsPanel(A8MSettingsPanel):
 			"label": _("&Nemeth delimiter:"),
 			"options": {
 				# Translators: A choice of a combobox in the writing settings dialog
-				"ueb": _("UEB"),
-				# Translators: A choice of a combobox in the writing settings dialog
 				"at": _("at"),
+				# Translators: A choice of a combobox in the writing settings dialog
+				"ueb": _("UEB"),
 			}
 		},
 		"HTML_document_display": {
@@ -491,13 +491,12 @@ class UnicodeDicDialog(SettingsDialog):
 		self.Access8MathConfig = Access8MathConfig
 		self.language = language
 		self.category = category
-		try:
-			symbol = A8M_PM.load_unicode_dic(language=self.language, category=category)
-		except LookupError:
-			symbol = A8M_PM.load_unicode_dic(language='Windows', category=category)
-		self.A8M_symbol = symbol
+
 		# Translators: This is the label for the unicode dictionary dialog.
 		self.title = _("{category} unicode dictionary ({language})").format(language=self.language, category=category)
+
+		self.A8M_symbol = A8M_PM.load_unicode_dic(language=self.language, category=self.category)
+
 		super().__init__(
 			parent,
 			resizeable=True,
@@ -907,16 +906,16 @@ class MathRuleDialog(SettingsDialog):
 		self.Access8MathConfig = Access8MathConfig
 		self.language = language
 		self.category = category
-		try:
-			mathrule = A8M_PM.load_math_rule(language=self.language, category=category)
-		except LookupError:
-			mathrule = A8M_PM.load_math_rule(language='Windows', category=category)
 
-		self.A8M_mathrule = mathrule
 		# Translators: This is the title of the math rule dialog.
 		self.title = _("{category} math rule ({language})").format(language=self.language, category=category)
-		# self.mathrules = list(self.A8M_mathrule.items())
+
+		self.A8M_mathrule = A8M_PM.load_math_rule(language=self.language, category=self.category)
 		self.mathrules = [(k, v) for k, v in self.A8M_mathrule.items() if k not in ['node', 'none']]
+		for k, v in self.A8M_mathrule.items():
+			if k == "SimultaneousEquations":
+				print(v)
+
 		super().__init__(parent)
 
 	def makeSettings(self, settingsSizer):
@@ -997,7 +996,10 @@ class MathRuleDialog(SettingsDialog):
 	def refresh(self):
 		self.mathrulesList.DeleteAllItems()
 		for item in self.mathrules:
-			self.mathrulesList.Append((item[0], item[1].description,))
+			try:
+				self.mathrulesList.Append((item[0], item[1].description,))
+			except:
+				print(item)
 
 	def onListItemFocused(self, evt):
 		# ChangeValue and Selection property used because they do not cause EVNT_CHANGED to be fired.
@@ -1026,6 +1028,7 @@ class MathRuleDialog(SettingsDialog):
 		index = self.mathrulesList.GetFirstSelected()
 		mathrule = copy.deepcopy(self.mathrules[index])
 		mathMl = mathrule[1].example
+		print(repr(mathrule[1].example))
 		mathcontent = MathContent(self.Access8MathConfig["settings"]["language"], mathMl)
 		parent = api.getFocusObject()
 		vw = A8MInteraction(parent=parent)
