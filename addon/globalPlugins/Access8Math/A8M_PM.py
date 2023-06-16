@@ -1518,14 +1518,23 @@ def exist_language(language):
 
 
 def add_language(language):
-	src = os.path.join(LOCALE_DIR, 'speech', 'en')
+	try:
+		src_language = language.split("_")[0]
+	except IndexError:
+		src_language = "en"
+
+	src = os.path.join(LOCALE_DIR, 'speech', src_language)
+	if not os.path.exists(src):
+		src = os.path.join(LOCALE_DIR, 'speech', 'en')
 	dst = os.path.join(LOCALE_DIR, 'speech', language)
 	try:
 		shutil.copytree(src, dst, ignore=shutil.ignore_patterns('*_user.*'))
 	except FileExistsError:
 		pass
 
-	src = os.path.join(LOCALE_DIR, 'braille', 'en')
+	src = os.path.join(LOCALE_DIR, 'braille', src_language)
+	if not os.path.exists(src):
+		src = os.path.join(LOCALE_DIR, 'braille', 'en')
 	dst = os.path.join(LOCALE_DIR, 'braille', language)
 	try:
 		shutil.copytree(src, dst, ignore=shutil.ignore_patterns('*_user.*'))

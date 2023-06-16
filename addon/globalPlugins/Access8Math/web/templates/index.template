@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>{|{ title }|}</title>
-		<meta name="description" content="{|{ title }|}" />
-		<meta name="keywords" content="{|{ title }|}" />
+		<title>demo</title>
+		<meta name="description" content="demo" />
+		<meta name="keywords" content="demo" />
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<script src="modules/sweetalert2.all.min.js"></script>
 		<script src="modules/vue.js"></script>
@@ -33,9 +33,20 @@
 				margin: 30px auto;
 			}
 			.theme {
-				background-color: {|{ bg_color }|};
-				color: {|{ color }|};
+				background-color: #ffffff;
+				color: #000000;
 			}
+            table {
+              border: 1px solid black;
+              border-collapse: collapse;
+            }
+            tr {
+              border: inherit;
+            }
+            td, th {
+              padding: 0.25rem;
+              border: 1px solid black;
+            }
 		</style>
 	</head>
 	<body>
