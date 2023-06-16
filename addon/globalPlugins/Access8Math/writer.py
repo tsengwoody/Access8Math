@@ -1,3 +1,5 @@
+# coding=utf-8
+
 import os
 import shutil
 
@@ -772,7 +774,7 @@ class TextMathEditField(NVDAObject):
 					mathMl = latex2mathml(result['data'])
 					mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
 					text += mathPres.speechProvider.getSpeechForMathMl(mathMl)
-					brailleRegion += ["⠀⠼", "".join(mathPres.speechProvider.getBrailleForMathMl(mathMl)), "⠀"]
+					brailleRegion += ["⠀", "".join(mathPres.speechProvider.getBrailleForMathMl(mathMl)), "⠀"]
 				except BaseException:
 					text += result['data']
 					brailleRegion += [result['data']]
