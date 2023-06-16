@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Access8Math - 3.5\n"
+"Project-Id-Version: Access8Math - 3.6\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2023-03-05 13:49+0300\n"
-"PO-Revision-Date: 2023-03-05 13:54+0300\n"
+"POT-Creation-Date: 2023-06-06 14:09+0300\n"
+"PO-Revision-Date: 2023-06-06 14:14+0300\n"
 "Last-Translator: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language-Team: cagrid@hotmail.com\n"
 "Language: tr_TR\n"
@@ -11,12 +11,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.1\n"
 "X-Poedit-Basepath: ../../..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: globalPlugins/Access8Math/__init__.py:112
+#: globalPlugins/Access8Math/__init__.py:113
 #, python-brace-format
 msgid ""
 "Access8Math\n"
@@ -55,145 +55,145 @@ msgstr ""
 "Bu eklentinin faydalı olduğunu düşünüyorsanız, lütfen \"Tayvan Görme "
 "Engelliler Derneği\" ve yazarlarına destek vermekten çekinmeyin."
 
-#: globalPlugins/Access8Math/__init__.py:209
-#: globalPlugins/Access8Math/interaction.py:210
+#: globalPlugins/Access8Math/__init__.py:210
+#: globalPlugins/Access8Math/interaction.py:212
 msgid "Access8Math interaction window"
 msgstr "Access8Math etkileşim penceresi"
 
-#: globalPlugins/Access8Math/__init__.py:221
+#: globalPlugins/Access8Math/__init__.py:222
 msgid "&Editor..."
 msgstr "Düz&enleyici..."
 
-#: globalPlugins/Access8Math/__init__.py:227
+#: globalPlugins/Access8Math/__init__.py:228
 msgid "&Settings..."
 msgstr "&Ayarlar..."
 
-#: globalPlugins/Access8Math/__init__.py:235
+#: globalPlugins/Access8Math/__init__.py:236
 msgid "Speech &unicode dictionary..."
 msgstr "Unicode konuşma sözlüğü."
 
-#: globalPlugins/Access8Math/__init__.py:241
+#: globalPlugins/Access8Math/__init__.py:242
 msgid "Speech &math rule..."
 msgstr "Konuşma &matematik kuralı..."
 
-#: globalPlugins/Access8Math/__init__.py:247
+#: globalPlugins/Access8Math/__init__.py:248
 msgid "Braille &unicode dictionary..."
 msgstr "&Unicode Braille sözlüğü."
 
-#: globalPlugins/Access8Math/__init__.py:253
+#: globalPlugins/Access8Math/__init__.py:254
 msgid "Braille &math rule..."
 msgstr "Braille &matematik kuralı..."
 
-#: globalPlugins/Access8Math/__init__.py:259
+#: globalPlugins/Access8Math/__init__.py:260
 msgid "&New language adding..."
 msgstr "&Yeni dil ekleme..."
 
-#: globalPlugins/Access8Math/__init__.py:265
+#: globalPlugins/Access8Math/__init__.py:266
 msgid "&Localization"
 msgstr "&Yerelleştirme"
 
-#: globalPlugins/Access8Math/__init__.py:270
+#: globalPlugins/Access8Math/__init__.py:271
 msgid "&Clean Workspace..."
 msgstr "Çalışma Alanı'nı &Temizle..."
 
-#: globalPlugins/Access8Math/__init__.py:276
+#: globalPlugins/Access8Math/__init__.py:277
 msgid "&About..."
 msgstr "H&akkında..."
 
-#: globalPlugins/Access8Math/__init__.py:280
+#: globalPlugins/Access8Math/__init__.py:281
 #: globalPlugins/Access8Math/dialogs.py:43
 #: globalPlugins/Access8Math/dialogs.py:101
 #: globalPlugins/Access8Math/dialogs.py:109
 #: globalPlugins/Access8Math/dialogs.py:117
-#: globalPlugins/Access8Math/dialogs.py:387
 msgid "Access8Math"
 msgstr "Access8Math"
 
-#: globalPlugins/Access8Math/__init__.py:283
+#: globalPlugins/Access8Math/__init__.py:284
 msgid "Switch math speech reader"
 msgstr "Matematik konuşma okuyucusunu değiştir"
 
-#: globalPlugins/Access8Math/__init__.py:294
+#: globalPlugins/Access8Math/__init__.py:295
 #, python-format
 msgid "Math speech reader switch to %s"
 msgstr "Matematik konuşma okuyucu geçişi %s"
 
-#: globalPlugins/Access8Math/__init__.py:297
+#: globalPlugins/Access8Math/__init__.py:298
 msgid "Switch math Braille reader"
 msgstr "Matematik Braille okuyucuyu değiştir"
 
-#: globalPlugins/Access8Math/__init__.py:308
+#: globalPlugins/Access8Math/__init__.py:309
 #, python-format
 msgid "Math braille reader switch to %s"
 msgstr "Matematik braille okuyucu geçişi %s"
 
-#: globalPlugins/Access8Math/__init__.py:311
+#: globalPlugins/Access8Math/__init__.py:312
 msgid "Switch math interact reader"
 msgstr "Matematik etkileşimli okuyucuyu değiştir"
 
-#: globalPlugins/Access8Math/__init__.py:322
+#: globalPlugins/Access8Math/__init__.py:323
 #, python-format
 msgid "Math interact reader switch to %s"
 msgstr "Matematik etkileşimli okuyucu geçişi %s"
 
-#: globalPlugins/Access8Math/__init__.py:325
+#: globalPlugins/Access8Math/__init__.py:326
 msgid "Pop up the editor"
 msgstr "Düzenleyiciyi aç"
 
-#: globalPlugins/Access8Math/__init__.py:359
+#: globalPlugins/Access8Math/__init__.py:360
 msgid "Open virtual context menu"
 msgstr "Sanal bağlam menüsünü aç"
 
-#: globalPlugins/Access8Math/__init__.py:376
+#: globalPlugins/Access8Math/__init__.py:377
 #: globalPlugins/Access8Math/command/context.py:62
 msgid "open path failed"
 msgstr "açık yol başarısız"
 
-#: globalPlugins/Access8Math/__init__.py:378
+#: globalPlugins/Access8Math/__init__.py:379
 msgid "get path failed"
 msgstr "yol alınamadı"
 
-#: globalPlugins/Access8Math/__init__.py:425
+#: globalPlugins/Access8Math/__init__.py:426
 msgid "Workspace has already been cleaned"
 msgstr "Çalışma alanı temizlendi"
 
-#: globalPlugins/Access8Math/__init__.py:425
+#: globalPlugins/Access8Math/__init__.py:426
 msgid "Clean Workspace"
 msgstr "Çalışma Alanı'nı temizle"
 
-#: globalPlugins/Access8Math/__init__.py:428
+#: globalPlugins/Access8Math/__init__.py:429
 msgid "About Access8Math"
 msgstr "Access8Math hakkında"
 
-#: globalPlugins/Access8Math/command/batch.py:49
+#: globalPlugins/Access8Math/command/batch.py:50
 msgid "math block"
 msgstr "matematik bloğu"
 
-#: globalPlugins/Access8Math/command/batch.py:55
+#: globalPlugins/Access8Math/command/batch.py:56
 msgid "LaTeX to AsciiMath"
 msgstr "LaTeX'ten AsciiMath'e"
 
-#: globalPlugins/Access8Math/command/batch.py:61
+#: globalPlugins/Access8Math/command/batch.py:62
 msgid "AsciiMath to LaTeX"
 msgstr "AsciiMath'ten LaTeX'e"
 
-#: globalPlugins/Access8Math/command/batch.py:67
-msgid "LaTeX and AsciiMath reverse translate"
-msgstr "LaTeX ve AsciiMath ters çevir"
+#: globalPlugins/Access8Math/command/batch.py:68
+#| msgid "AsciiMath to LaTeX"
+msgid "Nemeth to LaTeX"
+msgstr "Nemeth'ten LaTeX'e"
 
-#: globalPlugins/Access8Math/command/batch.py:75
+#: globalPlugins/Access8Math/command/batch.py:76
 msgid "LaTeX delimiter"
 msgstr "LaTeX sınırlayıcı"
 
-#: globalPlugins/Access8Math/command/batch.py:81
+#: globalPlugins/Access8Math/command/batch.py:82
 msgid "bracket to dollar"
 msgstr "parantezden dolara"
 
-#: globalPlugins/Access8Math/command/batch.py:87
+#: globalPlugins/Access8Math/command/batch.py:88
 msgid "dollar to bracket"
 msgstr "dolardan paranteze"
 
-#: globalPlugins/Access8Math/command/batch.py:97
+#: globalPlugins/Access8Math/command/batch.py:98
 msgid "batch command"
 msgstr "toplu komut"
 
@@ -271,17 +271,21 @@ msgstr "Bu öğede ayarlanmış kısayol yok"
 msgid "Shortcut {slot} cleared"
 msgstr "{slot} kısayolu temizlendi"
 
-#: globalPlugins/Access8Math/command/mark.py:45
-#: globalPlugins/Access8Math/command/translate.py:71
+#: globalPlugins/Access8Math/command/mark.py:46
+#: globalPlugins/Access8Math/command/translate.py:82
 msgid "LaTeX"
 msgstr "LaTeX"
 
-#: globalPlugins/Access8Math/command/mark.py:51
-#: globalPlugins/Access8Math/command/translate.py:77
+#: globalPlugins/Access8Math/command/mark.py:52
+#: globalPlugins/Access8Math/command/translate.py:88
 msgid "AsciiMath"
 msgstr "AsciiMath"
 
-#: globalPlugins/Access8Math/command/mark.py:59
+#: globalPlugins/Access8Math/command/mark.py:58
+msgid "Nemeth"
+msgstr "Nemeth"
+
+#: globalPlugins/Access8Math/command/mark.py:66
 msgid "mark command"
 msgstr "işaret komutu"
 
@@ -301,9 +305,15 @@ msgstr "komutu görüntüle"
 msgid "Save file..."
 msgstr "Dosyayı kaydet..."
 
-#: globalPlugins/Access8Math/command/translate.py:85
+#: globalPlugins/Access8Math/command/translate.py:96
 msgid "translate command"
 msgstr "komutu çevir"
+
+#: globalPlugins/Access8Math/command/translate.py:111
+#, python-brace-format
+#| msgid "This block cannot be translated"
+msgid "This block cannot be translated into {id}"
+msgstr "Bu blok {id} diline çevrilemez"
 
 #: globalPlugins/Access8Math/command/views.py:13
 msgid "command"
@@ -340,12 +350,12 @@ msgid "No user guide found."
 msgstr "Kullanıcı kılavuzu bulunamadı."
 
 #: globalPlugins/Access8Math/dialogs.py:55
-#: globalPlugins/Access8Math/dialogs.py:173
+#: globalPlugins/Access8Math/dialogs.py:179
 msgid "MathCAT"
 msgstr "MathCAT"
 
 #: globalPlugins/Access8Math/dialogs.py:58
-#: globalPlugins/Access8Math/dialogs.py:176
+#: globalPlugins/Access8Math/dialogs.py:182
 msgid "Math Player"
 msgstr "Math Player"
 
@@ -370,7 +380,7 @@ msgid "Reading"
 msgstr "Okuma"
 
 #: globalPlugins/Access8Math/dialogs.py:130
-#: globalPlugins/Access8Math/dialogs.py:1054
+#: globalPlugins/Access8Math/dialogs.py:1108
 msgid "&Language:"
 msgstr "Di&l:"
 
@@ -395,354 +405,373 @@ msgstr "Etkileşim gezinme modunda otomatik oluşturulan anlamı oku"
 msgid "Use tone indicate to no move in interaction navigation mode"
 msgstr "Etkileşim gezinme modunda hareket etmemek için tonlu işaret kullan"
 
-#: globalPlugins/Access8Math/dialogs.py:191
+#: globalPlugins/Access8Math/dialogs.py:197
 msgid "&Item interval time:"
 msgstr "&Öğe zaman aralığı:"
 
-#: globalPlugins/Access8Math/dialogs.py:228
+#: globalPlugins/Access8Math/dialogs.py:234
 msgid "Writing"
 msgstr "Yazma"
 
-#: globalPlugins/Access8Math/dialogs.py:232
+#: globalPlugins/Access8Math/dialogs.py:238
 msgid "Activate command gesture at startup"
 msgstr "Başlangıçta komut hareketini etkinleştir"
 
-#: globalPlugins/Access8Math/dialogs.py:236
+#: globalPlugins/Access8Math/dialogs.py:242
 msgid "Activate block navigate gesture at startup"
 msgstr "Başlangıçta blok gezinme hareketini etkinleştir"
 
-#: globalPlugins/Access8Math/dialogs.py:240
+#: globalPlugins/Access8Math/dialogs.py:246
 msgid "Activate shortcut gesture at startup"
 msgstr "Başlangıçta kısayol hareketini etkinleştir"
 
-#: globalPlugins/Access8Math/dialogs.py:244
+#: globalPlugins/Access8Math/dialogs.py:250
 msgid "Use audio indicate to switching of browse navigation mode"
 msgstr "Gezinme gözatma modunu değiştirmek için sesli göstergeyi kullanın"
 
-#: globalPlugins/Access8Math/dialogs.py:248
+#: globalPlugins/Access8Math/dialogs.py:254
 msgid ""
 "Left/Right arrow key allow of moving across line in browse navigation mode"
 msgstr "Sol/Sağ ok tuşu, gezinme gözatma modunda satırda ilerlemeye izin verir"
 
-#: globalPlugins/Access8Math/dialogs.py:256
+#: globalPlugins/Access8Math/dialogs.py:262
 msgid "Document"
 msgstr "Belge"
 
-#: globalPlugins/Access8Math/dialogs.py:260
+#: globalPlugins/Access8Math/dialogs.py:266
 msgid "&LaTeX delimiter:"
 msgstr "&LaTeX sınırlayıcı:"
 
-#: globalPlugins/Access8Math/dialogs.py:263
+#: globalPlugins/Access8Math/dialogs.py:269
 msgid "bracket"
 msgstr "parantez"
 
-#: globalPlugins/Access8Math/dialogs.py:265
+#: globalPlugins/Access8Math/dialogs.py:271
 msgid "dollar"
 msgstr "dolar"
 
-#: globalPlugins/Access8Math/dialogs.py:270
+#: globalPlugins/Access8Math/dialogs.py:276
+#| msgid "&LaTeX delimiter:"
+msgid "&Nemeth delimiter:"
+msgstr "&Nemeth sınırlayıcı:"
+
+#: globalPlugins/Access8Math/dialogs.py:279
+msgid "at"
+msgstr "de"
+
+#: globalPlugins/Access8Math/dialogs.py:281
+msgid "UEB"
+msgstr "UEB"
+
+#: globalPlugins/Access8Math/dialogs.py:286
 msgid "HTML &document display:"
 msgstr "&HTML belge görünümü:"
 
-#: globalPlugins/Access8Math/dialogs.py:273
+#: globalPlugins/Access8Math/dialogs.py:289
 msgid "Markdown"
 msgstr "Markdown"
 
-#: globalPlugins/Access8Math/dialogs.py:275
+#: globalPlugins/Access8Math/dialogs.py:291
 msgid "text"
 msgstr "metin"
 
-#: globalPlugins/Access8Math/dialogs.py:280
+#: globalPlugins/Access8Math/dialogs.py:296
 msgid "HTML &math display:"
 msgstr "HTML ve matematik görünümü:"
 
-#: globalPlugins/Access8Math/dialogs.py:283
+#: globalPlugins/Access8Math/dialogs.py:299
 msgid "block"
 msgstr "blok"
 
-#: globalPlugins/Access8Math/dialogs.py:285
+#: globalPlugins/Access8Math/dialogs.py:301
 msgid "inline"
 msgstr "çizgide"
 
-#: globalPlugins/Access8Math/dialogs.py:290
+#: globalPlugins/Access8Math/dialogs.py:306
 msgid "HTML font color:"
 msgstr "HTML yazı tipi rengi:"
 
-#: globalPlugins/Access8Math/dialogs.py:293
-#: globalPlugins/Access8Math/dialogs.py:303
+#: globalPlugins/Access8Math/dialogs.py:309
+#: globalPlugins/Access8Math/dialogs.py:319
 msgid "white"
 msgstr "beyaz"
 
-#: globalPlugins/Access8Math/dialogs.py:295
-#: globalPlugins/Access8Math/dialogs.py:305
+#: globalPlugins/Access8Math/dialogs.py:311
+#: globalPlugins/Access8Math/dialogs.py:321
 msgid "black"
 msgstr "siyah"
 
-#: globalPlugins/Access8Math/dialogs.py:300
+#: globalPlugins/Access8Math/dialogs.py:316
 msgid "HTML background color:"
 msgstr "HTML arka plan rengi:"
 
-#: globalPlugins/Access8Math/dialogs.py:314
-#: globalPlugins/Access8Math/dialogs.py:882
+#: globalPlugins/Access8Math/dialogs.py:330
+#: globalPlugins/Access8Math/dialogs.py:932
 msgid "Rule"
 msgstr "Kural"
 
-#: globalPlugins/Access8Math/dialogs.py:318
+#: globalPlugins/Access8Math/dialogs.py:334
 msgid "Simplified subscript and superscript"
 msgstr "Basitleştirilmiş alt simge ve üst simge"
 
-#: globalPlugins/Access8Math/dialogs.py:322
+#: globalPlugins/Access8Math/dialogs.py:338
 msgid "Simplified subscript"
 msgstr "Basitleştirilmiş alt simge"
 
-#: globalPlugins/Access8Math/dialogs.py:326
+#: globalPlugins/Access8Math/dialogs.py:342
 msgid "Simplified superscript"
 msgstr "Basitleştirilmiş üst simge"
 
-#: globalPlugins/Access8Math/dialogs.py:330
+#: globalPlugins/Access8Math/dialogs.py:346
 msgid "Simplified underscript and overscript"
 msgstr "Basitleştirilmiş alt simge ve üst simge"
 
-#: globalPlugins/Access8Math/dialogs.py:334
+#: globalPlugins/Access8Math/dialogs.py:350
 msgid "Simplified underscript"
 msgstr "Basitleştirilmiş alt simge"
 
-#: globalPlugins/Access8Math/dialogs.py:338
+#: globalPlugins/Access8Math/dialogs.py:354
 msgid "Simplified overscript"
 msgstr "Basitleştirilmiş üst simge"
 
-#: globalPlugins/Access8Math/dialogs.py:342
+#: globalPlugins/Access8Math/dialogs.py:358
 msgid "Simplified fraction"
 msgstr "Basitleştirilmiş kesir"
 
-#: globalPlugins/Access8Math/dialogs.py:346
+#: globalPlugins/Access8Math/dialogs.py:362
 msgid "Simplified square root"
 msgstr "Basitleştirilmiş karekök"
 
-#: globalPlugins/Access8Math/dialogs.py:350
+#: globalPlugins/Access8Math/dialogs.py:366
 msgid "Power"
 msgstr "Kuvvet"
 
-#: globalPlugins/Access8Math/dialogs.py:354
+#: globalPlugins/Access8Math/dialogs.py:370
 msgid "Square power"
 msgstr "Kare kuvvet"
 
-#: globalPlugins/Access8Math/dialogs.py:358
+#: globalPlugins/Access8Math/dialogs.py:374
 msgid "Cube power"
 msgstr "Küp kuvvet"
 
-#: globalPlugins/Access8Math/dialogs.py:362
+#: globalPlugins/Access8Math/dialogs.py:378
 msgid "Set"
 msgstr "Küme"
 
-#: globalPlugins/Access8Math/dialogs.py:366
+#: globalPlugins/Access8Math/dialogs.py:382
 msgid "Absolute value"
 msgstr "Mutlak değer"
 
-#: globalPlugins/Access8Math/dialogs.py:370
+#: globalPlugins/Access8Math/dialogs.py:386
 msgid "Matrix"
 msgstr "Matris"
 
-#: globalPlugins/Access8Math/dialogs.py:374
+#: globalPlugins/Access8Math/dialogs.py:390
 msgid "Determinant"
 msgstr "Determinant"
 
-#: globalPlugins/Access8Math/dialogs.py:378
+#: globalPlugins/Access8Math/dialogs.py:394
 msgid "Integer and fraction"
 msgstr "Tamsayı ve kesir"
 
-#: globalPlugins/Access8Math/dialogs.py:386
-msgid "Settings"
-msgstr "Ayarlar"
+#: globalPlugins/Access8Math/dialogs.py:404
+#| msgid "Access8Math"
+msgid "Access8Math Settings"
+msgstr "Access8Math Ayarları"
 
-#: globalPlugins/Access8Math/dialogs.py:419
+#: globalPlugins/Access8Math/dialogs.py:431
+#| msgid "binomial coefficient"
+msgid "normal configuration"
+msgstr "normal yapılandırma"
+
+#: globalPlugins/Access8Math/dialogs.py:470
 msgid "Add Symbol"
 msgstr "Sembol Ekle"
 
-#: globalPlugins/Access8Math/dialogs.py:424
+#: globalPlugins/Access8Math/dialogs.py:475
 msgid "&Symbol:"
 msgstr "&Sembol:"
 
-#: globalPlugins/Access8Math/dialogs.py:449
+#: globalPlugins/Access8Math/dialogs.py:496
 #, python-brace-format
 msgid "{category} unicode dictionary ({language})"
 msgstr "{category} unicode sözlüğü ({language})"
 
-#: globalPlugins/Access8Math/dialogs.py:470
+#: globalPlugins/Access8Math/dialogs.py:520
 msgid "&Symbols"
 msgstr "&Semboller"
 
-#: globalPlugins/Access8Math/dialogs.py:480
+#: globalPlugins/Access8Math/dialogs.py:530
 msgid "Symbol"
 msgstr "Sembol"
 
-#: globalPlugins/Access8Math/dialogs.py:482
+#: globalPlugins/Access8Math/dialogs.py:532
 msgid "Replacement"
 msgstr "Yerine"
 
-#: globalPlugins/Access8Math/dialogs.py:486
+#: globalPlugins/Access8Math/dialogs.py:536
 msgid "Change selected symbol"
 msgstr "Seçilen sembolü değiştir"
 
-#: globalPlugins/Access8Math/dialogs.py:503
+#: globalPlugins/Access8Math/dialogs.py:553
 msgid "&Replacement"
 msgstr "Ye&rine"
 
-#: globalPlugins/Access8Math/dialogs.py:513
+#: globalPlugins/Access8Math/dialogs.py:563
 msgid "&Add"
 msgstr "&ekle"
 
-#: globalPlugins/Access8Math/dialogs.py:516
+#: globalPlugins/Access8Math/dialogs.py:566
 msgid "Re&move"
 msgstr "Kaldı&r"
 
-#: globalPlugins/Access8Math/dialogs.py:520
-#: globalPlugins/Access8Math/dialogs.py:913
+#: globalPlugins/Access8Math/dialogs.py:570
+#: globalPlugins/Access8Math/dialogs.py:963
 msgid "&Recover default"
 msgstr "Kullanıcı varsayılanını yükle"
 
-#: globalPlugins/Access8Math/dialogs.py:523
-#: globalPlugins/Access8Math/dialogs.py:916
+#: globalPlugins/Access8Math/dialogs.py:573
+#: globalPlugins/Access8Math/dialogs.py:966
 msgid "&Import"
 msgstr "&İçe aktar"
 
-#: globalPlugins/Access8Math/dialogs.py:526
-#: globalPlugins/Access8Math/dialogs.py:919
+#: globalPlugins/Access8Math/dialogs.py:576
+#: globalPlugins/Access8Math/dialogs.py:969
 msgid "Exp&ort"
 msgstr "&Dışa aktar"
 
-#: globalPlugins/Access8Math/dialogs.py:622
+#: globalPlugins/Access8Math/dialogs.py:672
 #, python-format
 msgid "Symbol \"%s\" is already present."
 msgstr "\"%s\" sembolü zaten var."
 
-#: globalPlugins/Access8Math/dialogs.py:624
+#: globalPlugins/Access8Math/dialogs.py:674
 msgid "Error"
 msgstr "Hata"
 
-#: globalPlugins/Access8Math/dialogs.py:726
-#: globalPlugins/Access8Math/dialogs.py:995
+#: globalPlugins/Access8Math/dialogs.py:776
+#: globalPlugins/Access8Math/dialogs.py:1049
 msgid "Import file..."
 msgstr "Dosyayı içe aktar..."
 
-#: globalPlugins/Access8Math/dialogs.py:737
-#: globalPlugins/Access8Math/dialogs.py:1008
+#: globalPlugins/Access8Math/dialogs.py:787
+#: globalPlugins/Access8Math/dialogs.py:1062
 #: globalPlugins/Access8Math/editor.py:347
 msgid "Export file..."
 msgstr "Dosyayı dışa aktar..."
 
-#: globalPlugins/Access8Math/dialogs.py:753
+#: globalPlugins/Access8Math/dialogs.py:803
 msgid "Edit Math Rule Entry"
 msgstr "Matematik Kuralı Girişini düzenle"
 
-#: globalPlugins/Access8Math/dialogs.py:761
-#: globalPlugins/Access8Math/dialogs.py:766
+#: globalPlugins/Access8Math/dialogs.py:811
+#: globalPlugins/Access8Math/dialogs.py:816
 msgid "&Description"
 msgstr "&Tanım"
 
-#: globalPlugins/Access8Math/dialogs.py:763
-#: globalPlugins/Access8Math/dialogs.py:884
+#: globalPlugins/Access8Math/dialogs.py:813
+#: globalPlugins/Access8Math/dialogs.py:934
 msgid "Description"
 msgstr "Tarif"
 
-#: globalPlugins/Access8Math/dialogs.py:772
+#: globalPlugins/Access8Math/dialogs.py:822
 msgid "Serialized ordering"
 msgstr "Seri sıralama"
 
-#: globalPlugins/Access8Math/dialogs.py:775
+#: globalPlugins/Access8Math/dialogs.py:825
 #, python-format
 msgid "Ordering %d"
 msgstr "%d sıralanıyor"
 
-#: globalPlugins/Access8Math/dialogs.py:778
+#: globalPlugins/Access8Math/dialogs.py:828
 msgid "Child"
 msgstr "Çocuk"
 
-#: globalPlugins/Access8Math/dialogs.py:784
+#: globalPlugins/Access8Math/dialogs.py:834
 #, python-format
 msgid "Before item text &%d"
 msgstr "Öğe öncesi metin &%d"
 
-#: globalPlugins/Access8Math/dialogs.py:789
+#: globalPlugins/Access8Math/dialogs.py:839
 #, python-format
 msgid "After item text &%d"
 msgstr "Öge sonrası metin &%d"
 
-#: globalPlugins/Access8Math/dialogs.py:795
+#: globalPlugins/Access8Math/dialogs.py:845
 #, python-format
 msgid "Start text &%d"
 msgstr "Metni Başlat &%d"
 
-#: globalPlugins/Access8Math/dialogs.py:797
+#: globalPlugins/Access8Math/dialogs.py:847
 #, python-format
 msgid "End text &%d"
 msgstr "Metni sonlandır &%d"
 
-#: globalPlugins/Access8Math/dialogs.py:799
+#: globalPlugins/Access8Math/dialogs.py:849
 #, python-format
 msgid "&Interval text &%d"
 msgstr "&Metin aralığı &%d"
 
-#: globalPlugins/Access8Math/dialogs.py:807
+#: globalPlugins/Access8Math/dialogs.py:857
 msgid "Child role"
 msgstr "Çocuk rolü"
 
-#: globalPlugins/Access8Math/dialogs.py:810
+#: globalPlugins/Access8Math/dialogs.py:860
 #, python-format
 msgid "&Child %d meaning"
 msgstr "&çocuk %d anlamı"
 
-#: globalPlugins/Access8Math/dialogs.py:849
+#: globalPlugins/Access8Math/dialogs.py:899
 #, python-format
 msgid "Regular Expression error: \"%s\"."
 msgstr "Düzenli İfade hatası: \"%s\"."
 
-#: globalPlugins/Access8Math/dialogs.py:849
+#: globalPlugins/Access8Math/dialogs.py:899
 msgid "Dictionary Entry Error"
 msgstr "Sözlük Giriş Hatası"
 
-#: globalPlugins/Access8Math/dialogs.py:866
+#: globalPlugins/Access8Math/dialogs.py:911
 #, python-brace-format
 msgid "{category} math rule ({language})"
 msgstr "{category} matematik kuralı ({language})"
 
-#: globalPlugins/Access8Math/dialogs.py:874
+#: globalPlugins/Access8Math/dialogs.py:924
 msgid "&Mathrules"
 msgstr "&MathKuralları"
 
-#: globalPlugins/Access8Math/dialogs.py:905
+#: globalPlugins/Access8Math/dialogs.py:955
 msgid "&Edit"
 msgstr "Düz&enle"
 
-#: globalPlugins/Access8Math/dialogs.py:909
+#: globalPlugins/Access8Math/dialogs.py:959
 msgid "E&xample"
 msgstr "&Örnek"
 
-#: globalPlugins/Access8Math/dialogs.py:1044
+#: globalPlugins/Access8Math/dialogs.py:1098
 msgid "New language adding"
 msgstr "Yeni dil ekleme"
 
-#: globalPlugins/Access8Math/dialogs.py:1063
+#: globalPlugins/Access8Math/dialogs.py:1117
 msgid "&Select"
 msgstr "&Seeç"
 
-#: globalPlugins/Access8Math/dialogs.py:1068
+#: globalPlugins/Access8Math/dialogs.py:1122
 msgid "&Unselect"
 msgstr "Seçimi kaldı&r"
 
-#: globalPlugins/Access8Math/dialogs.py:1077
+#: globalPlugins/Access8Math/dialogs.py:1131
 msgid "Unicode dictionary"
 msgstr "Unicode sözlüğü"
 
-#: globalPlugins/Access8Math/dialogs.py:1079
+#: globalPlugins/Access8Math/dialogs.py:1133
 msgid "Math rule"
 msgstr "Matematik kuralı"
 
-#: globalPlugins/Access8Math/dialogs.py:1081
+#: globalPlugins/Access8Math/dialogs.py:1135
 msgid "OK"
 msgstr "OK"
 
-#: globalPlugins/Access8Math/dialogs.py:1164
+#: globalPlugins/Access8Math/dialogs.py:1218
 msgid ""
 "For the new language to be added, NVDA must be restarted. Press enter to "
 "restart NVDA, or cancel to exit at a later time."
@@ -751,7 +780,7 @@ msgstr ""
 "yeniden başlatmak için enter tuşuna basın veya daha sonra çıkmak için iptal "
 "edin."
 
-#: globalPlugins/Access8Math/dialogs.py:1166
+#: globalPlugins/Access8Math/dialogs.py:1220
 msgid "Add new language"
 msgstr "Yeni dil ekle"
 
@@ -842,7 +871,6 @@ msgid "Find and replace"
 msgstr "Bul ve Değiştir"
 
 #: globalPlugins/Access8Math/editor.py:197
-#| msgid "other"
 msgid "&Other"
 msgstr "&Diğer"
 
@@ -886,56 +914,65 @@ msgstr ""
 msgid "Export"
 msgstr "Dışa aktar"
 
-#: globalPlugins/Access8Math/interaction.py:217
+#: globalPlugins/Access8Math/interaction.py:219
 msgid "&Menu"
 msgstr "&Menü"
 
-#: globalPlugins/Access8Math/interaction.py:219
+#: globalPlugins/Access8Math/interaction.py:221
 msgid "&Exit"
 msgstr "Çı&kış"
 
-#: globalPlugins/Access8Math/interaction.py:219
+#: globalPlugins/Access8Math/interaction.py:221
 msgid "Terminate the program"
 msgstr "Programı sonlandır"
 
-#: globalPlugins/Access8Math/interaction.py:226
+#: globalPlugins/Access8Math/interaction.py:228
 msgid "Interaction"
 msgstr "Etkileşim"
 
-#: globalPlugins/Access8Math/interaction.py:228
+#: globalPlugins/Access8Math/interaction.py:230
 msgid "Copy"
 msgstr "Kopyala"
 
-#: globalPlugins/Access8Math/interaction.py:258
+#: globalPlugins/Access8Math/interaction.py:260
 msgid "Copied"
 msgstr "Kopyalandı"
 
-#: globalPlugins/Access8Math/interaction.py:359
+#: globalPlugins/Access8Math/interaction.py:361
 msgid "Entering interaction mode"
 msgstr "Etkileşim moduna gir"
 
-#: globalPlugins/Access8Math/interaction.py:405
+#: globalPlugins/Access8Math/interaction.py:407
 msgid "No move"
 msgstr "Hareket yok"
 
-#: globalPlugins/Access8Math/interaction.py:423
+#: globalPlugins/Access8Math/interaction.py:430
 msgid "Copied raw MathML"
 msgstr "Ham MathML kopyalandı"
 
-#: globalPlugins/Access8Math/interaction.py:431
-#| msgid "Copied"
+#: globalPlugins/Access8Math/interaction.py:438
 msgid "Copied MathML"
 msgstr "MathML kopyalandı"
 
-#: globalPlugins/Access8Math/interaction.py:438
+#: globalPlugins/Access8Math/interaction.py:449
+#| msgid "open path failed"
+msgid "Copy LaTeX failed"
+msgstr "LaTeX kopyalanamadı"
+
+#: globalPlugins/Access8Math/interaction.py:451
+#| msgid "Copied"
+msgid "Copied LaTeX"
+msgstr "LaTeX kopyalandı"
+
+#: globalPlugins/Access8Math/interaction.py:458
 msgid "snapshot"
 msgstr "snapshot"
 
-#: globalPlugins/Access8Math/interaction.py:452
+#: globalPlugins/Access8Math/interaction.py:472
 msgid "Write AsciiMath Content"
 msgstr "AsciiMath İçeriği Yaz"
 
-#: globalPlugins/Access8Math/interaction.py:473
+#: globalPlugins/Access8Math/interaction.py:493
 msgid "Write LaTeX Content"
 msgstr "Latex Girişi Yaz"
 
@@ -1298,128 +1335,133 @@ msgstr "psi"
 msgid "omega"
 msgstr "omega"
 
-#: globalPlugins/Access8Math/lib/viewHTML.py:43
-#: globalPlugins/Access8Math/lib/viewHTML.py:44
+#: globalPlugins/Access8Math/lib/viewHTML.py:45
+#: globalPlugins/Access8Math/lib/viewHTML.py:46
 msgid "New document"
 msgstr "Yeni belge"
 
-#: globalPlugins/Access8Math/writer.py:509
+#: globalPlugins/Access8Math/writer.py:510
 msgid "Toggle command gestures"
 msgstr "Komut hareketlerini aç/kapat"
 
-#: globalPlugins/Access8Math/writer.py:517
+#: globalPlugins/Access8Math/writer.py:518
 msgid "Command gestures activated"
 msgstr "Komut hareketleri etkinleştirildi"
 
-#: globalPlugins/Access8Math/writer.py:520
+#: globalPlugins/Access8Math/writer.py:521
 msgid "Command gestures deactivated"
 msgstr "Komut hareketleri devre dışı bırakıldı"
 
-#: globalPlugins/Access8Math/writer.py:525
+#: globalPlugins/Access8Math/writer.py:526
 msgid "Toggle block navigation gestures"
 msgstr "Blok gezinme hareketlerini aç/kapat"
 
-#: globalPlugins/Access8Math/writer.py:533
+#: globalPlugins/Access8Math/writer.py:534
 msgid "Block navigation gestures activated"
 msgstr "Blok Gezinme hareketleri etkinleştirildi"
 
-#: globalPlugins/Access8Math/writer.py:536
+#: globalPlugins/Access8Math/writer.py:537
 msgid "Block navigation gestures deactivated"
 msgstr "Blok Gezinme hareketleri devre dışı bırakıldı"
 
-#: globalPlugins/Access8Math/writer.py:541
+#: globalPlugins/Access8Math/writer.py:542
 msgid "Toggle shortcut gestures"
 msgstr "Kısayol hareketlerini aç/kapat"
 
-#: globalPlugins/Access8Math/writer.py:546
+#: globalPlugins/Access8Math/writer.py:547
 msgid "Cannot activate shortcut gesture in browse navigation mode"
 msgstr "Gözatma gezinme modunda kısayol hareketi etkinleştirilemiyor"
 
-#: globalPlugins/Access8Math/writer.py:553
+#: globalPlugins/Access8Math/writer.py:554
 msgid "Shortcut gestures activated"
 msgstr "Kısayol hareketleri etkinleştirildi"
 
-#: globalPlugins/Access8Math/writer.py:557
+#: globalPlugins/Access8Math/writer.py:558
 msgid "Shortcut gestures deactivated"
 msgstr "Kısayol hareketleri devre dışı bırakıldı"
 
-#: globalPlugins/Access8Math/writer.py:562
+#: globalPlugins/Access8Math/writer.py:563
 msgid "Toggle Greek alphabet gesture"
 msgstr "Yunan alfabesi hareketini aç/kapat"
 
-#: globalPlugins/Access8Math/writer.py:567
+#: globalPlugins/Access8Math/writer.py:568
 msgid "Cannot activate Greek alphabet gestures in browse navigation mode"
 msgstr "Gezinme gözatma modunda Yunan alfabesi hareketleri etkinleştirilemiyor"
 
-#: globalPlugins/Access8Math/writer.py:574
+#: globalPlugins/Access8Math/writer.py:575
 msgid "Greek alphabet gestures activated"
 msgstr "Yunan alfabesi hareketleri etkinleştirildi"
 
-#: globalPlugins/Access8Math/writer.py:578
+#: globalPlugins/Access8Math/writer.py:579
 msgid "Greek alphabet gestures deactivated"
 msgstr "Yunan alfabesi hareketleri devre dışı bırakıldı"
 
-#: globalPlugins/Access8Math/writer.py:583
+#: globalPlugins/Access8Math/writer.py:584
 msgid "Toggle browse navigation mode"
 msgstr "Gezinme gözatma modunu aç/kapat"
 
-#: globalPlugins/Access8Math/writer.py:595
-#: globalPlugins/Access8Math/writer.py:616
+#: globalPlugins/Access8Math/writer.py:596
+#: globalPlugins/Access8Math/writer.py:617
 msgid "Browse navigation mode on"
 msgstr "Navigasyon modu açık"
 
-#: globalPlugins/Access8Math/writer.py:605
+#: globalPlugins/Access8Math/writer.py:606
 msgid "Browse navigation mode off"
 msgstr "Gezinme modu kapalı"
 
-#: globalPlugins/Access8Math/writer.py:631
-#: globalPlugins/Access8Math/writer.py:648
+#: globalPlugins/Access8Math/writer.py:644
 #, python-brace-format
 msgid "Shortcut {shortcut} is not set"
 msgstr "Kısayol {shortcut} ayarlanmadı"
 
-#: globalPlugins/Access8Math/writer.py:662
+#: globalPlugins/Access8Math/writer.py:658
 #, python-brace-format
 msgid "Greek alphabet {GreekAlphabet} is not set"
 msgstr "Yunan alfabesi {GreekAlphabet} ayarlanmadı"
 
-#: globalPlugins/Access8Math/writer.py:731
+#: globalPlugins/Access8Math/writer.py:728
 msgid "In math section. Please leave math section first and try again."
 msgstr ""
 "Matematik bölümünde. Lütfen önce matematik bölümünden çıkın ve tekrar "
 "deneyin."
 
-#: globalPlugins/Access8Math/writer.py:738
+#: globalPlugins/Access8Math/writer.py:735
 msgid "Not in LaTeX block or text block. cannot use LaTeX command"
 msgstr "LaTeX bloğunda veya metin bloğunda değil. LaTeX komutunu kullanamaz"
 
-#: globalPlugins/Access8Math/writer.py:752
+#: globalPlugins/Access8Math/writer.py:751
 msgid "This block cannot be interacted"
 msgstr "Bu blokla etkileşim kurulamaz"
 
-#: globalPlugins/Access8Math/writer.py:759
+#: globalPlugins/Access8Math/writer.py:758
 msgid "This block cannot be translated"
 msgstr "Bu blok çevrilemez"
 
-#: globalPlugins/Access8Math/writer.py:918
+#: globalPlugins/Access8Math/writer.py:931
 #, python-brace-format
 msgid "{data} copied to clipboard"
 msgstr "{data} panoya kopyalandı"
 
-#: globalPlugins/Access8Math/writer.py:924
+#: globalPlugins/Access8Math/writer.py:937
 #, python-brace-format
 msgid "{data} inserted to document"
 msgstr "{data} belgeye eklendi"
 
-#: globalPlugins/Access8Math/writer.py:931
+#: globalPlugins/Access8Math/writer.py:944
 #, python-brace-format
 msgid "{data} cut from document"
 msgstr "{data} belgeden kesildi"
 
-#: globalPlugins/Access8Math/writer.py:938
+#: globalPlugins/Access8Math/writer.py:951
 #, python-brace-format
 msgid "{data} deleted from document"
 msgstr "{data} belgeden silindi"
+
+#~ msgid "LaTeX and AsciiMath reverse translate"
+#~ msgstr "LaTeX ve AsciiMath ters çevir"
+
+#~ msgid "Settings"
+#~ msgstr "Ayarlar"
 
 #~ msgid "&General settings..."
 #~ msgstr "&Genel Ayarlar..."
