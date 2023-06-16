@@ -323,11 +323,11 @@ github： https://github.com/tsengwoody/Access8Math
 
 ## Access8Math v3.6 更新日志
 
-* 新功能：nemeth 点字输入，与 LaTeX 输入有相同功能，编辑时可实时互动导览(alt+i)、可输出 HTML+MathML 文件
-* 新功能：加入 Nemeth 分隔符 UEB/at(@@) 以区分 Nemeth 内容。
-* 新功能：在互动导航模式下从 Math 对象转换并复制 LaTeX
-* 在档案总管中开启虚拟路径位置菜单快捷键增加 NVDA+shift+f10
-* 修正与优化本地化 UI  问题
+* 新功能：nemeth 盲文输入，与 LaTeX 输入功能相同，编辑过程中可实时预览(alt+i)、可以输出 HTML+MathML 文件。
+* 新功能：增加 Nemeth 分隔符 UEB/at(@@) 以区分 Nemeth 内容。
+* 新功能：在交互导航模式下从 Math 对象转换并复制 LaTeX。
+* 为文件管理器弹出虚拟菜单新增快捷键 NVDA+shift+f10。
+* 修正与优化本地化 UI  问题。
 
 ## Access8Math v3.5 更新日志
 
