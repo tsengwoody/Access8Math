@@ -7,7 +7,7 @@ mfenced	<math><mfenced><mrow><mn>5</mn><mo>+</mo><mn>6</mn></mrow></mfenced></ma
 set	<math><mfenced open="{" close="}"><mrow><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>4</mn></mrow></mfenced></math>
 absolute_value	<math><mfenced open="|" close="|"><mrow><mo>-</mo><mn>2</mn></mrow></mfenced></math>
 determinant	<math><mfenced open="|" close="|"><mtable><mtr><mtd><mn>2</mn></mtd><mtd><mn>3</mn></mtd></mtr><mtr><mtd><mn>5</mn></mtd><mtd><mi>x</mi></mtd></mtr></mtable></mfenced></math>
-matrix	<math><mfenced open="[" close="]"><mtable><mtr><mtd><mn>2</mn></mtd><mtd><mn>3</mn></mtd></mtr><mtr><mtd><mn>5</mn></mtd><mtd><mi>x</mi></mtd></mtr></mtable></mfenced></math>
+matrix	<math><mrow data-mjx-texclass="INNER"><mo data-mjx-texclass="OPEN">[</mo><mtable columnspacing="1em" rowspacing="4pt"><mtr><mtd><mrow data-mjx-texclass="ORD"><mi>a</mi></mrow></mtd><mtd><mrow data-mjx-texclass="ORD"><mi>b</mi></mrow></mtd></mtr><mtr><mtd><mrow data-mjx-texclass="ORD"><mi>c</mi></mrow></mtd><mtd><mrow data-mjx-texclass="ORD"><mi>d</mi></mrow></mtd></mtr></mtable><mo data-mjx-texclass="CLOSE">]</mo></mrow></math>
 msqrt	<math><msqrt><mi>4</mi><mo>+</mo><mi>9</mi></msqrt></math>
 mroot	<math><mroot><mi>9</mi><mi>3</mi></mroot></math>
 single_square_root	<math><msqrt><mi>4</mi></msqrt></math>
@@ -35,8 +35,8 @@ mtd	<math><mtable><mtr><mtd><mi>x</mi><mo>+</mo><mi>y</mi></mtd><mtd><mo>=</mo><
 LineType	<math><mrow><mover accent='true'><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy='true'>&#x2194;</mo></mover></mrow></math>
 RayType	<math><mrow><mover accent='true'><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy='true'>&#x2192;</mo></mover></mrow></math>
 LineSegmentType	<math><mover><mrow><mi>A</mi><mi>B</mi></mrow><mo>&#xAF;</mo></mover></math>
-VectorSingleType	<math><mrow><mover accent='true'><mrow><mi>A</mi></mrow><mo stretchy='true'>&#x21C0;</mo></mover></mrow></math>
-VectorDoubleType	<math><mrow><mover accent='true'><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy='true'>&#x21C0;</mo></mover></mrow></math>
+VectorSingleType	<math><mrow data-mjx-texclass="ORD"><mover><mi>A</mi><mo stretchy="false">→</mo></mover></mrow></math>
+VectorDoubleType	<math><mrow data-mjx-texclass="ORD"><mover><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy="false">→</mo></mover></mrow></math>
 ArrowOverSingleSymbolType	<math><mrow><mover accent='true'><mrow><mi>a</mi></mrow><mo stretchy='true'>&#x2192;</mo></mover></mrow></math>
 FrownType	<math><mrow><mover accent='true'><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy='true'>&#x2322;</mo></mover></mrow></math>
 DegreeType	<math ><msup ><mn>15</mn><mo>∘</mo></msup><mo>+</mo><msup ><mn>10</mn><mo>∘</mo></msup><mo>=</mo><msup ><mn>25</mn><mo>∘</mo></msup></math>
