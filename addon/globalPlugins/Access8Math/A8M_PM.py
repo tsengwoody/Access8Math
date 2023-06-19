@@ -1437,6 +1437,7 @@ class DeterminantType(SiblingNodeType):
 	self_ = MtableType
 	next_siblings = [VerticalBarType]
 	name = 'determinant'
+	priority = 1
 
 
 class BinomialType(FractionType):

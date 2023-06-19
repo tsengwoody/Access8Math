@@ -205,13 +205,21 @@ def text2template(src, dst):
 		value = f.read()
 		value = batch("nemeth2latex")(value)
 
+	backslash_pattern = re.compile(r"\\")
+	value = backslash_pattern.sub(lambda m: m.group(0).replace('\\', '\\\\'), value)
+
+	decimal_pattern = re.compile(r"&#([\d]+);")
+	value = decimal_pattern.sub(lambda m: chr(int(m.group(1))), value)
+
+	hexadecimal_pattern = re.compile(r"&#x([\dABCDEFabcdef]+);")
+	value = hexadecimal_pattern.sub(lambda m: chr(int(m.group(1), 16)), value)
+
 	try:
 		title = '.'.join(os.path.basename(dst).split('.')[:-1])
 	except BaseException:
 		title = 'Access8Math'
-	backslash_pattern = re.compile(r"\\")
-	data = backslash_pattern.sub(lambda m: m.group(0).replace('\\', '\\\\'), value)
-	data = data.replace(r'`', r'\`')
+
+	data = value.replace(r'`', r'\`')
 	# data = data.replace(r'\vec{', r'\overset{⇀}{')
 	raw = data
 	template = env.get_template("index.template")

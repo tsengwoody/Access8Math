@@ -1096,7 +1096,6 @@ class NewLanguageAddingDialog(wx.Dialog):
 	def __init__(self, parent):
 		# Translators: The title of the Add new language dialog
 		super().__init__(parent, title=_("New language adding"))
-		import languageHandler
 		self.mainSizer = wx.BoxSizer(wx.VERTICAL)
 		self.sHelper = guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 
@@ -1128,20 +1127,12 @@ class NewLanguageAddingDialog(wx.Dialog):
 
 		# Add button
 		# Translators: The label of a button in the Add new language dialog
-		self.unicodeDicButton = self.bHelper.addButton(self, label=_("Unicode dictionary"))
-		# Translators: The label of a button in the Add new language dialog
-		self.mathRuleButton = self.bHelper.addButton(self, label=_("Math rule"))
-		# Translators: The label of a button in the Add new language dialog
 		self.OkButton = self.bHelper.addButton(self, label=_("OK"), id=wx.ID_OK)
 
 		# Bind button
-		self.unicodeDicButton.Bind(wx.EVT_BUTTON, self.OnUnicodeDicClick)
-		self.mathRuleButton.Bind(wx.EVT_BUTTON, self.OnMathRuleClick)
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 
 		# Hide button
-		self.unicodeDicButton.Disable()
-		self.mathRuleButton.Disable()
 		self.OkButton.Disable()
 
 		self.Bind(wx.EVT_CLOSE, self.OnCloseWindow)
@@ -1164,8 +1155,6 @@ class NewLanguageAddingDialog(wx.Dialog):
 
 		self.certainButton.Hide()
 		self.uncertainButton.Show()
-		self.unicodeDicButton.Enable()
-		self.mathRuleButton.Enable()
 		self.OkButton.Enable()
 
 		self.uncertainButton.SetFocus()
@@ -1186,8 +1175,6 @@ class NewLanguageAddingDialog(wx.Dialog):
 
 		self.certainButton.Show()
 		self.uncertainButton.Hide()
-		self.unicodeDicButton.Disable()
-		self.mathRuleButton.Disable()
 		self.OkButton.Disable()
 
 		self.certainButton.SetFocus()
@@ -1195,12 +1182,6 @@ class NewLanguageAddingDialog(wx.Dialog):
 		self.mainSizer.Fit(self)
 		# self.mainSizer.Layout()
 		self.SetSizer(self.mainSizer)
-
-	def OnUnicodeDicClick(self, evt):
-		gui.mainFrame._popupSettingsDialog(UnicodeDicDialog, config.conf["Access8Math"], self.certainLanguage)
-
-	def OnMathRuleClick(self, evt):
-		gui.mainFrame._popupSettingsDialog(MathRuleDialog, config.conf["Access8Math"], self.certainLanguage)
 
 	def OnCloseWindow(self, evt):
 		if self.certainLanguage:
