@@ -197,7 +197,7 @@ class MathContent(object):
 
 		set_mathcontent_allnode(self.root, self)
 
-		symbol = load_unicode_dic(language=language)
+		symbol = load_unicode_dic(language=language, category="speech", NVDASymbol=True)
 		self.set_symbol(symbol)
 
 		mathrule = load_math_rule(language=language)
@@ -1641,26 +1641,25 @@ def clean_user_data():
 				pass
 
 
-def load_unicode_dic(path=None, language='', category='speech'):
-	load_NVDASymbol = False
+def load_unicode_dic(path=None, language='', category='speech', NVDASymbol=False):
 	symbol = {}
 
 	if not path and language:
 		path = os.path.join(LOCALE_DIR, category, language)
 		if not os.path.exists(path):
 			add_language(language)
+		if category == 'speech' and NVDASymbol:
+			try:
+				builtin, user = NVDASymbolsFetch(language)
+			except BaseException:
+				builtin, user = {}, {}
+			symbol = {**builtin, **user}
 
 		frp = os.path.join(path, 'unicode.dic')
 		frp_user = os.path.join(path, 'unicode_user.dic')
 		if not os.path.exists(frp_user):
 			shutil.copyfile(frp, frp_user)
-			if category == 'speech':
-				try:
-					builtin, user = NVDASymbolsFetch(language)
-				except BaseException:
-					builtin, user = {}, {}
-				symbol = {**builtin, **user}
-				load_NVDASymbol = True
+
 		path = frp_user
 
 	with open(path, 'r', encoding='utf-8') as fr:
@@ -1671,15 +1670,6 @@ def load_unicode_dic(path=None, language='', category='speech'):
 						symbol[row[0]] = row[1].split(',')[0].strip()
 					except BaseException:
 						pass
-
-	if load_NVDASymbol:
-		with open(path, 'w', encoding='utf-8', newline="") as file:
-			writer = csv.writer(file, delimiter='\t')
-			key = list(symbol.keys())
-			key.sort()
-			for k in key:
-				if k != '\x00':
-					writer.writerow([k, symbol[k]])
 
 	return symbol
 
