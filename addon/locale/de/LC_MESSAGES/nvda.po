@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: Access8Math 3.1\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2021-09-24 01:15+0000\n"
-"PO-Revision-Date: 2022-09-30 06:54+0200\n"
-"Last-Translator: Bernd Dorer <mail@bdorer.de>\n"
+"PO-Revision-Date: 2023-06-21 22:09+0200\n"
+"Last-Translator: René Linke <rene.linke@hamburg.de>\n"
 "Language-Team: \n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.3.1\n"
 
 #, python-brace-format
 msgid ""
@@ -39,22 +39,23 @@ msgid ""
 msgstr ""
 "Access8Math\n"
 "Version: {addonVersion}\n"
-"URL: https://addons.nvda-project.org/addons/access8math.en.html\n"
+"URL: https://addons.nvda-project.org/addons/access8math.de.html\n"
 "Copyright (C) {copyrightFirstYear}-{copyrightLastYear} Access8Math-"
 "Mitwirkende\n"
-"Access8Math wird durch die GNU General Public License (Version 2) abgedeckt. "
-"Es steht Ihnen frei, diese Software auf jede beliebige Weise weiterzugeben "
-"oder zu verändern, solange die Lizenz beigefügt wird und Sie den gesamten "
+"Access8Math unterliegt der GNU General Public License (Version 2). Es steht "
+"Ihnen frei, diese Software auf jede beliebige Weise weiterzugeben oder zu "
+"verändern, solange sie von der Lizenz begleitet wird und Sie den gesamten "
 "Quellcode jedem zur Verfügung stellen, der ihn haben möchte. Dies gilt "
 "sowohl für originale als auch für modifizierte Kopien dieser Software sowie "
-"für alle abgeleiteten Varianten.\n"
+"für alle abgeleiteten Werke.\n"
 "Sie kann online eingesehen werden unter: https://www.gnu.org/licenses/old-"
 "licenses/gpl-2.0.html\n"
-"Access8Math wurde 2018-2019 von der \"Taiwan Visually Impaired People "
+"Access8Math wurde 2018/2019 von der \"Taiwan Visually Impaired People "
 "Association\" (accessibility@twvip.org) gesponsert, wofür wir uns hiermit "
 "herzlich bedanken.\n"
-"Wenn Sie möchten, können Sie die Autoren und die Taiwan Visually Impaired "
-"People Association für die Arbeit der Erweiterung unterstützen."
+"Wenn Sie diese NVDA-Erweiterung nützlich finden, zögern Sie bitte nicht, die "
+"\"Taiwan Visually Impaired People Association\" und die Autoren zu "
+"unterstützen."
 
 #. Translators: The title of the interaction window
 msgid "Access8Math interaction window"
@@ -67,16 +68,16 @@ msgid "&Settings..."
 msgstr "&Einstellungen..."
 
 msgid "Speech &unicode dictionary..."
-msgstr "Sprachausgaben-&Unicode-Wörterbuch..."
+msgstr "&Unicode-Wörterbuch für die Sprachausgabe..."
 
 msgid "Speech &math rule..."
-msgstr "Sprachausgaben-&Mathematikregel..."
+msgstr "&Mathematikregel für die Sprachausgabe..."
 
 msgid "Braille &unicode dictionary..."
-msgstr "Braille-&Unicode-Wörterbuch..."
+msgstr "&Unicode-Wörterbuch für die Braille-Schrift..."
 
 msgid "Braille &math rule..."
-msgstr "Braille-&Mathematik-Regel..."
+msgstr "&Mathematikregel für die Braille-Schrift..."
 
 msgid "&New language adding..."
 msgstr "&Neue Sprache hinzufügen..."
@@ -256,6 +257,18 @@ msgid "dollar"
 msgstr "Dollar"
 
 #. Translators: The label of an option in the writing settings dialog
+msgid "&Nemeth delimiter:"
+msgstr "&Nemeth-Trennzeichen:"
+
+#. Translators: A choice of a combobox in the writing settings dialog
+msgid "at"
+msgstr "um"
+
+#. Translators: A choice of a combobox in the writing settings dialog
+msgid "UEB"
+msgstr "UEB"
+
+#. Translators: The label of an option in the writing settings dialog
 msgid "HTML &document display:"
 msgstr "HTML-&Dokument-Anzeige:"
 
@@ -277,7 +290,7 @@ msgstr "Abschnitt"
 
 #. Translators: A choice of a combobox in the writing settings dialog
 msgid "inline"
-msgstr ""
+msgstr "in Zeile"
 
 #. Translators: The label of an option in the writing settings dialog
 msgid "HTML font color:"
@@ -364,9 +377,13 @@ msgstr "Determinante"
 msgid "Integer and fraction"
 msgstr "Ganzzahl und Bruch"
 
-#. translators: title of the dialog.
-msgid "Settings"
-msgstr "Einstellungen"
+#. Translators: This is the label for the Access8Math settings dialog.
+msgid "Access8Math Settings"
+msgstr "Access8Math-Einstellungen"
+
+#. Translators: The profile name for normal configuration
+msgid "normal configuration"
+msgstr "Standard-Konfiguration"
 
 #. Translators: This is the label for the add symbol dialog.
 msgid "Add Symbol"
@@ -633,25 +650,24 @@ msgstr "&Ansicht"
 
 #. Translators: A menu item in the Editor window
 msgid "Font"
-msgstr ""
+msgstr "Schriftart"
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Adjust font format"
-msgstr ""
+msgstr "Format der Schriftart anpassen"
 
 #. Translators: A menu item in the Editor window
 msgid "Find"
-msgstr ""
+msgstr "Suchen"
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Find and replace"
-msgstr ""
+msgstr "Suchen und Ersetzen"
 
 #. Add the fileMenu to the menuBar.
 #. Translators: A menu item in the Editor window
-#, fuzzy
 msgid "&Other"
-msgstr "andere"
+msgstr "&Weitere"
 
 #. Translators: The title of the Editor's Open file window
 msgid "Open file"
@@ -718,7 +734,7 @@ msgstr "Kopiert"
 
 #. Translators: A message reported to the user when the interaction window takes the focus
 msgid "Entering interaction mode"
-msgstr ""
+msgstr "Interaktionsmodus einschalten"
 
 #. Translators: A message reported to the user when navigating in the math expression of the interaction window
 msgid "No move"
@@ -726,12 +742,19 @@ msgstr "Keine Bewegung"
 
 #. Translators: A message reported to the user when copying data from the Interaction window
 msgid "Copied raw MathML"
-msgstr ""
+msgstr "Einfaches MathML kopiert"
 
 #. Translators: A message reported to the user when copying data from the Interaction window
-#, fuzzy
 msgid "Copied MathML"
-msgstr "Kopiert"
+msgstr "MathML kopiert"
+
+#. Translators: A message reported to the user when copying LaTeX failed from the Interaction window
+msgid "Copy LaTeX failed"
+msgstr "Kopieren von LaTeX ist fehlgeschlagen"
+
+#. Translators: A message reported to the user when copying LaTeX from the Interaction window
+msgid "Copied LaTeX"
+msgstr "LaTeX kopiert"
 
 #. Translators: A message reported to the user when taking a snapshot of math data in the Interaction window
 msgid "snapshot"
@@ -858,8 +881,8 @@ msgid "AsciiMath to LaTeX"
 msgstr "AsciiMath nach LaTeX"
 
 #. Translators: batch menu
-msgid "LaTeX and AsciiMath reverse translate"
-msgstr "LaTeX und AsciiMath rückwärts übersetzen"
+msgid "Nemeth to LaTeX"
+msgstr "Nemeth nach LaTeX"
 
 #. Translators: batch menu
 msgid "LaTeX delimiter"
@@ -958,6 +981,10 @@ msgstr "LaTeX"
 msgid "AsciiMath"
 msgstr "AsciiMath"
 
+#. Translators: mark command category - AsciiMath
+msgid "Nemeth"
+msgstr "Nemeth"
+
 #. Translators: alt+m window
 msgid "mark command"
 msgstr "markiere Befehl"
@@ -977,6 +1004,10 @@ msgstr "Datei speichern..."
 #. Translators: alt+m window
 msgid "translate command"
 msgstr "Befehl übersetzen"
+
+#, python-brace-format
+msgid "This block cannot be translated into {id}"
+msgstr "Dieser Block konnte nicht übersetzt werden in {id}"
 
 msgid "command"
 msgstr "Befehl"
@@ -1230,7 +1261,7 @@ msgstr "Logarithmus"
 
 #. Translators: LaTeX command - infty
 msgid "infty"
-msgstr ""
+msgstr "Einrichten"
 
 #. Translators: LaTeX command - for all
 msgid "for all"
@@ -1348,6 +1379,12 @@ msgid ""
 msgstr ""
 "Ermöglicht es, mathematische Inhalte im MathML-Format zu lesen sowie Math-ML "
 "mittels Latex zu erzeugen"
+
+#~ msgid "Settings"
+#~ msgstr "Einstellungen"
+
+#~ msgid "LaTeX and AsciiMath reverse translate"
+#~ msgstr "LaTeX und AsciiMath rückwärts übersetzen"
 
 #~ msgid "&Reading settings..."
 #~ msgstr "&Lese-Einstellungen..."

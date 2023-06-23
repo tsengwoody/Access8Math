@@ -1,20 +1,21 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the 'Access8Math' package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Access8Math - 3.6\n"
+"Project-Id-Version: 'Access8Math' '3.1'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2023-06-06 14:09+0300\n"
-"PO-Revision-Date: 2023-06-16 13:40+0300\n"
-"Last-Translator: Umut KORKMAZ <umutkork@gmail.com>\n"
-"Language-Team: cagrid@hotmail.com\n"
-"Language: tr_TR\n"
+"POT-Creation-Date: 2021-09-20 15:26+0800\n"
+"PO-Revision-Date: 2023-06-08 04:00+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.3.1\n"
-"X-Poedit-Basepath: ../../..\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: .\n"
 
 #, python-brace-format
 msgid ""
@@ -37,56 +38,58 @@ msgid ""
 "\"Taiwan Visually Impaired People Association\" and authors."
 msgstr ""
 "Access8Math\n"
-"Sürüm: {addonVersion}\n"
-"URL: https://addons.nvda-project.org/addons/access8math.en.html\n"
-"Telif hakkı (C) {copyrightFirstYear}-{copyrightLastYear} Access8Math "
+"Versiune: {addonVersion}\n"
+"Link: https://addons.nvda-project.org/addons/access8math.en.html\n"
+"Copyright (C) {copyrightFirstYear}-{copyrightLastYear} Access8Math "
 "Contributors\n"
-"Access8Math, GNU Genel Kamu Lisansı (Sürüm 2) kapsamındadır. Lisansla "
-"birlikte verildiği ve tüm kaynak kodunu isteyen herkesin kullanımına "
-"açtığınız sürece, bu yazılımı istediğiniz şekilde paylaşmakta veya "
-"değiştirmekte özgürsünüz. Bu, bu yazılımın hem orijinal hem de değiştirilmiş "
-"kopyaları ile tüm türev çalışmaları için geçerlidir.\\n\n"
-"Çevrimiçi olarak şu adresten görüntülenebilir: https://www.gnu.org/licenses/"
-"old-licenses/gpl-2.0.html\\n\n"
-"Access8Math, 2018~2019'da \"Tayvan Görme Engelliler "
-"Derneği\"(accessibility@twvip.org) tarafından desteklenmiştir, bu vesileyle "
-"içten teşekkürlerimizi sunarız.\\n\n"
-"Bu eklentinin faydalı olduğunu düşünüyorsanız, lütfen \"Tayvan Görme "
-"Engelliler Derneği\" ve yazarlarına destek vermekten çekinmeyin."
+"Access8Math este protejat de Licența Publică Generală GNU (Versiunea 2). "
+"Sunteți liber să partajați sau să modificați acest software în orice mod "
+"doriți, atât timp cât este însoțit de licență și puneți tot codul sursă la "
+"dispoziția oricui dorește. Acest lucru este valabil atât pentru copiile "
+"originale, cât și pentru cele modificate ale acestui software, plus orice "
+"lucrări derivate.\n"
+"Poate fi vizualizat online la: https://www.gnu.org/licenses/old-licenses/"
+"gpl-2.0.html\n"
+"Access8Math a fost sponsorizat de „Asociația persoanelor cu deficiențe de "
+"vedere din Taiwan” (accessibility@twvip.org) în 2018 ~ 2019, prin prezenta "
+"exprimăm aprecierea noastră sinceră.\n"
+"Dacă considerați că acest supliment este util, vă rugăm să nu ezitați să "
+"acordați sprijin „Asociației persoanelor cu deficiențe de vedere din Taiwan” "
+"și autorilor."
 
 #. Translators: The title of the interaction window
 msgid "Access8Math interaction window"
-msgstr "Access8Math etkileşim penceresi"
+msgstr "Fereastra de interacțiune Access8Math"
 
 msgid "&Editor..."
-msgstr "Düz&enleyici..."
+msgstr "&Editor..."
 
 msgid "&Settings..."
-msgstr "&Ayarlar..."
+msgstr "&Setări..."
 
 msgid "Speech &unicode dictionary..."
-msgstr "Unicode konuşma sözlüğü."
+msgstr "Dicționar vorbire &unicode..."
 
 msgid "Speech &math rule..."
-msgstr "Konuşma &matematik kuralı..."
+msgstr "Vorbire reguli &matematice..."
 
 msgid "Braille &unicode dictionary..."
-msgstr "&Unicode Braille sözlüğü."
+msgstr "Dicționar Braille &unicode..."
 
 msgid "Braille &math rule..."
-msgstr "Braille &matematik kuralı..."
+msgstr "Braille reguli &matematice..."
 
 msgid "&New language adding..."
-msgstr "&Yeni dil ekleme..."
+msgstr "Adăugare limbaj &nou..."
 
 msgid "&Localization"
-msgstr "&Yerelleştirme"
+msgstr "&Localizare"
 
 msgid "&Clean Workspace..."
-msgstr "Çalışma Alanı'nı &Temizle..."
+msgstr "&Curățare spațiu de lucru..."
 
 msgid "&About..."
-msgstr "H&akkında..."
+msgstr "&Despre..."
 
 #. Translators: Title of a setting dialog.
 #. Translators: A choice of a combobox in the reading settings dialog
@@ -97,55 +100,55 @@ msgid "Access8Math"
 msgstr "Access8Math"
 
 msgid "Switch math speech reader"
-msgstr "Matematik konuşma okuyucusunu değiştir"
+msgstr "Comutare cititor de vorbire matematică"
 
 #, python-format
 msgid "Math speech reader switch to %s"
-msgstr "Matematik konuşma okuyucu geçişi %s"
+msgstr "Cititor de vorbire matematică comutăt la %s"
 
 msgid "Switch math Braille reader"
-msgstr "Matematik Braille okuyucuyu değiştir"
+msgstr "Comutare cititor Braille matematic"
 
 #, python-format
 msgid "Math braille reader switch to %s"
-msgstr "Matematik braille okuyucu geçişi %s"
+msgstr "Cititor braille matematic comutăt la %s"
 
 msgid "Switch math interact reader"
-msgstr "Matematik etkileşimli okuyucuyu değiştir"
+msgstr "Comutare cititor de interacțiune matematică"
 
 #, python-format
 msgid "Math interact reader switch to %s"
-msgstr "Matematik etkileşimli okuyucu geçişi %s"
+msgstr "Cititor de interacțiune matematică comutăt la %s"
 
 msgid "Pop up the editor"
-msgstr "Düzenleyiciyi aç"
+msgstr "Afișează editorul"
 
 msgid "Open virtual context menu"
-msgstr "Sanal bağlam menüsünü aç"
+msgstr "Deschideți meniul contextual virtual"
 
 msgid "open path failed"
-msgstr "açık yol başarısız"
+msgstr "deschidere cale eșuată"
 
 msgid "get path failed"
-msgstr "yol alınamadı"
+msgstr "obținere cale eșuată"
 
 msgid "Workspace has already been cleaned"
-msgstr "Çalışma alanı temizlendi"
+msgstr "Spațiul de lucru a fost deja curățat"
 
 msgid "Clean Workspace"
-msgstr "Çalışma Alanı'nı temizle"
+msgstr "Spațiu de lucru curat"
 
 msgid "About Access8Math"
-msgstr "Access8Math hakkında"
+msgstr "Despre Access8Math"
 
 #. Translators: Message indicating no context sensitive help is available for the control or dialog.
 msgid "No help available here."
-msgstr "Burada yardım yok."
+msgstr "Nu există ajutor disponibil aici."
 
 #. Translators: Message shown when trying to display context sensitive help,
 #. indicating that	the user guide could not be found.
 msgid "No user guide found."
-msgstr "Kullanıcı kılavuzu bulunamadı."
+msgstr "Nu a fost găsit niciun ghid de utilizare."
 
 #. Translators: A choice of a combobox in the writing settings dialog (not used)
 msgid "MathCAT"
@@ -157,109 +160,118 @@ msgstr "Math Player"
 
 #. Translators: Title of a setting dialog.
 msgid "Math Reader"
-msgstr "Matematik Okuyucu"
+msgstr "Cititor Matematic"
 
 #. Translators: The label of an option in the reading settings dialog
 msgid "&Speech source:"
-msgstr "&Konuşma kaynağı:"
+msgstr "Sursa &vorbire:"
 
 #. Translators: The label of an option in the reading settings dialog
 msgid "&Braille source:"
-msgstr "&Braille kaynağı:"
+msgstr "sursă &Braille:"
 
 #. Translators: The label of an option in the reading settings dialog
 msgid "Inter&act source:"
-msgstr "&Etkileşim kaynağı:"
+msgstr "Sursă Inter&acțiune:"
 
 #. Translators: Title of a setting dialog.
 msgid "Reading"
-msgstr "Okuma"
+msgstr "Citire"
 
 #. Translators: The label of a setting in the Add new language dialog
 msgid "&Language:"
-msgstr "Di&l:"
+msgstr "&Limbăj:"
 
 #. Translators: The label of an option in the reading settings dialog
 msgid "Analyze mathematical meaning of content"
-msgstr "İçeriğin matematiksel anlamını analiz et"
+msgstr "Analizați sensul matematic al conținutului"
 
 #. Translators: The label of an option in the reading settings dialog
 msgid "Show interaction window when entering interaction navigation mode"
-msgstr "Etkileşim gezinme moduna girerken etkileşim penceresini göster"
+msgstr ""
+"Afișați fereastra de interacțiune când intrați în modul de navigare "
+"interacțiune"
 
 #. Translators: The label of an option in the reading settings dialog
 msgid ""
 "Reading pre-defined meaning in dictionary in interaction navigation mode"
-msgstr "Etkileşim gezinme modunda sözlükte önceden tanımlanmış anlamı oku"
+msgstr ""
+"Citirea sensului predefinit în dicționar în modul de navigare interacțiune"
 
 #. Translators: The label of an option in the reading settings dialog
 msgid "Reading of auto-generated meaning in interaction navigation mode"
-msgstr "Etkileşim gezinme modunda otomatik oluşturulan anlamı oku"
+msgstr ""
+"Citirea semnificației generate automat în modul de navigare interacțiune"
 
 #. Translators: The label of an option in the reading settings dialog
 msgid "Use tone indicate to no move in interaction navigation mode"
-msgstr "Etkileşim gezinme modunda hareket etmemek için tonlu işaret kullan"
+msgstr ""
+"Utilizați semnalul sonor pentru a nu se deplasa în modul de navigare "
+"interacțiune"
 
 #. Translators: The label of an option in the reading settings dialog
 msgid "&Item interval time:"
-msgstr "&Öğe zaman aralığı:"
+msgstr "Timp interval &articol:"
 
 #. Translators: Title of a setting dialog.
 msgid "Writing"
-msgstr "Yazma"
+msgstr "Scriere"
 
 #. Translators: The label of an option in the writing settings dialog
 msgid "Activate command gesture at startup"
-msgstr "Başlangıçta komut hareketini etkinleştir"
+msgstr "Activați gestul de comandă la pornire"
 
 #. Translators: The label of an option in the writing settings dialog
 msgid "Activate block navigate gesture at startup"
-msgstr "Başlangıçta blok gezinme hareketini etkinleştir"
+msgstr "Activați blocarea gestului de navigare la pornire"
 
 #. Translators: The label of an option in the writing settings dialog
 msgid "Activate shortcut gesture at startup"
-msgstr "Başlangıçta kısayol hareketini etkinleştir"
+msgstr "Activați gestul de comandă rapidă la pornire"
 
 #. Translators: The label of an option in the writing settings dialog
 msgid "Use audio indicate to switching of browse navigation mode"
-msgstr "Gezinme gözatma modunu değiştirmek için sesli göstergeyi kullanın"
+msgstr "Utilizați indicarea audio pentru a comuta în modul de navigare"
 
 #. Translators: The label of an option in the writing settings dialog
 msgid ""
 "Left/Right arrow key allow of moving across line in browse navigation mode"
-msgstr "Sol/Sağ ok tuşu, gezinme gözatma modunda satırda ilerlemeye izin verir"
+msgstr ""
+"Tastele săgeți stânga/dreapta permite deplasarea pe linie în modul de "
+"navigare"
 
 #. Translators: Title of a setting dialog.
 msgid "Document"
-msgstr "Belge"
+msgstr "Document"
 
 #. Translators: The label of an option in the writing settings dialog
 msgid "&LaTeX delimiter:"
-msgstr "&LaTeX sınırlayıcı:"
+msgstr "Delimitator &LaTeX:"
 
 #. Translators: A choice of a combobox in the writing settings dialog
 msgid "bracket"
-msgstr "parantez"
+msgstr "paranteză"
 
 #. Translators: A choice of a combobox in the writing settings dialog
 msgid "dollar"
 msgstr "dolar"
 
 #. Translators: The label of an option in the writing settings dialog
+#, fuzzy
 msgid "&Nemeth delimiter:"
-msgstr "&Nemeth sınırlayıcı:"
+msgstr "Delimitator &LaTeX:"
 
 #. Translators: A choice of a combobox in the writing settings dialog
 msgid "at"
-msgstr "de"
+msgstr ""
 
 #. Translators: A choice of a combobox in the writing settings dialog
 msgid "UEB"
-msgstr "UEB"
+msgstr ""
 
 #. Translators: The label of an option in the writing settings dialog
 msgid "HTML &document display:"
-msgstr "&HTML belge görünümü:"
+msgstr "Afișare &document HTML:"
 
 #. Translators: A choice of a combobox in the writing settings dialog
 msgid "Markdown"
@@ -267,96 +279,96 @@ msgstr "Markdown"
 
 #. Translators: A choice of a combobox in the writing settings dialog
 msgid "text"
-msgstr "metin"
+msgstr "text"
 
 #. Translators: The label of an option in the writing settings dialog
 msgid "HTML &math display:"
-msgstr "HTML ve matematik görünümü:"
+msgstr "Afișare &matematică HTML:"
 
 #. Translators: A choice of a combobox in the writing settings dialog
 msgid "block"
-msgstr "blok"
+msgstr "blocare"
 
 #. Translators: A choice of a combobox in the writing settings dialog
 msgid "inline"
-msgstr "çizgide"
+msgstr "în linie"
 
 #. Translators: The label of an option in the writing settings dialog
 msgid "HTML font color:"
-msgstr "HTML yazı tipi rengi:"
+msgstr "culoare font HTML:"
 
 #. Translators: A choice of a combobox in the writing settings dialog
 msgid "white"
-msgstr "beyaz"
+msgstr "alb"
 
 #. Translators: A choice of a combobox in the writing settings dialog
 msgid "black"
-msgstr "siyah"
+msgstr "negru"
 
 #. Translators: The label of an option in the writing settings dialog
 msgid "HTML background color:"
-msgstr "HTML arka plan rengi:"
+msgstr "Culoare fundal HTML:"
 
 #. Translators: Title of a setting dialog.
 #. Translators: The label for a math rule list column header in the math rules dialog.
 msgid "Rule"
-msgstr "Kural"
+msgstr "Regulă"
 
 #. Translators: The label of an option in the Rule settings dialog
 msgid "Simplified subscript and superscript"
-msgstr "Basitleştirilmiş alt simge ve üst simge"
+msgstr "Indice inferior și superior simplificat"
 
 #. Translators: The label of an option in the Rule settings dialog
 msgid "Simplified subscript"
-msgstr "Basitleştirilmiş alt simge"
+msgstr "Indice inferior"
 
 #. Translators: The label of an option in the Rule settings dialog
 msgid "Simplified superscript"
-msgstr "Basitleştirilmiş üst simge"
+msgstr "Indice superior"
 
 #. Translators: The label of an option in the Rule settings dialog
 msgid "Simplified underscript and overscript"
-msgstr "Basitleştirilmiş alt simge ve üst simge"
+msgstr "Indice inferior și superior simplificat"
 
 #. Translators: The label of an option in the Rule settings dialog
 msgid "Simplified underscript"
-msgstr "Basitleştirilmiş alt simge"
+msgstr "Indice inferior simplificat"
 
 #. Translators: The label of an option in the Rule settings dialog
 msgid "Simplified overscript"
-msgstr "Basitleştirilmiş üst simge"
+msgstr "Indice superior simplificat"
 
 #. Translators: The label of an option in the Rule settings dialog
 msgid "Simplified fraction"
-msgstr "Basitleştirilmiş kesir"
+msgstr "Fracție simplificată"
 
 #. Translators: The label of an option in the Rule settings dialog
 msgid "Simplified square root"
-msgstr "Basitleştirilmiş karekök"
+msgstr "Rădăcină pătrată simplificată"
 
 #. Translators: The label of an option in the Rule settings dialog
 msgid "Power"
-msgstr "Kuvvet"
+msgstr "Putere"
 
 #. Translators: The label of an option in the Rule settings dialog
 msgid "Square power"
-msgstr "Kare kuvvet"
+msgstr "Putere la pătrat"
 
 #. Translators: The label of an option in the Rule settings dialog
 msgid "Cube power"
-msgstr "Küp kuvvet"
+msgstr "Cub la pătrat"
 
 #. Translators: The label of an option in the Rule settings dialog
 msgid "Set"
-msgstr "Küme"
+msgstr "Set"
 
 #. Translators: The label of an option in the Rule settings dialog
 msgid "Absolute value"
-msgstr "Mutlak değer"
+msgstr "Valoare absolută"
 
 #. Translators: The label of an option in the Rule settings dialog
 msgid "Matrix"
-msgstr "Matris"
+msgstr "Matrice"
 
 #. Translators: The label of an option in the Rule settings dialog
 msgid "Determinant"
@@ -364,189 +376,191 @@ msgstr "Determinant"
 
 #. Translators: The label of an option in the Rule settings dialog
 msgid "Integer and fraction"
-msgstr "Tamsayı ve kesir"
+msgstr "Număr întreg și fracție"
 
 #. Translators: This is the label for the Access8Math settings dialog.
+#, fuzzy
 msgid "Access8Math Settings"
-msgstr "Access8Math Ayarları"
+msgstr "Access8Math"
 
 #. Translators: The profile name for normal configuration
+#, fuzzy
 msgid "normal configuration"
-msgstr "normal yapılandırma"
+msgstr "coeficient binom"
 
 #. Translators: This is the label for the add symbol dialog.
 msgid "Add Symbol"
-msgstr "Sembol Ekle"
+msgstr "Adăugare simbol"
 
 #. Translators: This is the label for the edit field in the add symbol dialog.
 msgid "&Symbol:"
-msgstr "&Sembol:"
+msgstr "&Symbol:"
 
 #. Translators: This is the label for the unicode dictionary dialog.
 #, python-brace-format
 msgid "{category} unicode dictionary ({language})"
-msgstr "{category} unicode sözlüğü ({language})"
+msgstr "{category} dicționar unicode ({language})"
 
 #. Translators: The label of a text field to search for symbols in the speech symbols dialog.
 msgctxt "speechSymbols"
 msgid "&Filter by:"
-msgstr "Şuna göre &filtrele:"
+msgstr "&Filtrare dupa:"
 
 #. Translators: The label for symbols list in symbol pronunciation dialog.
 msgid "&Symbols"
-msgstr "&Semboller"
+msgstr "&Simboluri"
 
 #. Translators: The label for a column in symbols list used to identify a symbol.
 msgid "Symbol"
-msgstr "Sembol"
+msgstr "Simbol"
 
 #. Translators: The label for a column in symbols list used to identify a replacement.
 msgid "Replacement"
-msgstr "Yerine"
+msgstr "Înlocuire"
 
 #. Translators: The label for the group of controls in symbol pronunciation dialog to change the pronunciation of a symbol.
 msgid "Change selected symbol"
-msgstr "Seçilen sembolü değiştir"
+msgstr "Schimbare simbol selectat"
 
 #. Translators: The label for the edit field in symbol pronunciation dialog to change the replacement text of a symbol.
 msgid "&Replacement"
-msgstr "Ye&rine"
+msgstr "&Înlocuire"
 
 #. Translators: The label for a button in the Symbol Pronunciation dialog to add a new symbol.
 msgid "&Add"
-msgstr "&ekle"
+msgstr "&Adăugare"
 
 #. Translators: The label for a button in the Symbol Pronunciation dialog to remove a symbol.
 msgid "Re&move"
-msgstr "Kaldı&r"
+msgstr "El&iminare"
 
 #. Translators: The label for a button to recover default value.
 msgid "&Recover default"
-msgstr "Kullanıcı varsayılanını yükle"
+msgstr "&Recuperare implicit"
 
 #. Translators: The label for a button to import unicode.dic.
 #. Translators: The label for a button to import math.rule.
 msgid "&Import"
-msgstr "&İçe aktar"
+msgstr "&Import"
 
 #. Translators: The label for a button to export unicode.dic.
 #. Translators: The label for a button to export math.rule.
 msgid "Exp&ort"
-msgstr "&Dışa aktar"
+msgstr "Exp&ortare"
 
 #. Translators: An error reported in the Symbol Pronunciation dialog when adding a symbol that is already present.
 #, python-format
 msgid "Symbol \"%s\" is already present."
-msgstr "\"%s\" sembolü zaten var."
+msgstr "Simbolul \"%s\" este deja prezent."
 
 #. Translators: The title of the error message window showing up when adding a symbol that is already present in the Symbol Pronunciation dialog .
 msgid "Error"
-msgstr "Hata"
+msgstr "Eroare"
 
 #. Translators: The title of the import file dialog accessible from the Symbol Pronunciation dialog.
 #. Translators: The title of the file selection dialog to import rules
 msgid "Import file..."
-msgstr "Dosyayı içe aktar..."
+msgstr "Importare fișier..."
 
 #. Translators: The title of the file selection dialog to export rules
 #. Translators: The title of the Editor's Export file window
 msgid "Export file..."
-msgstr "Dosyayı dışa aktar..."
+msgstr "Exportare fișier..."
 
 msgid "Edit Math Rule Entry"
-msgstr "Matematik Kuralı Girişini düzenle"
+msgstr "Editare intrare reguli matematice"
 
 msgid "&Description"
-msgstr "&Tanım"
+msgstr "&Descriere"
 
 #. Translators: The label for a math rule list column header in the math rules dialog.
 msgid "Description"
-msgstr "Tarif"
+msgstr "Descriere"
 
 msgid "Serialized ordering"
-msgstr "Seri sıralama"
+msgstr "Ordonare în serie"
 
 #, python-format
 msgid "Ordering %d"
-msgstr "%d sıralanıyor"
+msgstr "Ordonare %d"
 
 msgid "Child"
-msgstr "Çocuk"
+msgstr "Descendent"
 
 #. before item
 #, python-format
 msgid "Before item text &%d"
-msgstr "Öğe öncesi metin &%d"
+msgstr "Înainte articol text &%d"
 
 #. after item
 #, python-format
 msgid "After item text &%d"
-msgstr "Öge sonrası metin &%d"
+msgstr "După articol text următor &%d"
 
 #, python-format
 msgid "Start text &%d"
-msgstr "Metni Başlat &%d"
+msgstr "Începere text &%d"
 
 #, python-format
 msgid "End text &%d"
-msgstr "Metni sonlandır &%d"
+msgstr "Terminare text &%d"
 
 #, python-format
 msgid "&Interval text &%d"
-msgstr "&Metin aralığı &%d"
+msgstr "&Interval text &%d"
 
 msgid "Child role"
-msgstr "Çocuk rolü"
+msgstr "Rol descendent"
 
 #, python-format
 msgid "&Child %d meaning"
-msgstr "&çocuk %d anlamı"
+msgstr "Însemnătate %d &descendent"
 
 #. Translators: This is an error message to let the user know that the dictionary entry is not valid.
 #, python-format
 msgid "Regular Expression error: \"%s\"."
-msgstr "Düzenli İfade hatası: \"%s\"."
+msgstr "Eroare expresie regulară: \"%s\"."
 
 msgid "Dictionary Entry Error"
-msgstr "Sözlük Giriş Hatası"
+msgstr "Eroare intrare dicționar"
 
 #. Translators: This is the title of the math rule dialog.
 #, python-brace-format
 msgid "{category} math rule ({language})"
-msgstr "{category} matematik kuralı ({language})"
+msgstr "{category} regulă matematică ({language})"
 
 #. Translators: The label for math rule list in math rules dialog.
 msgid "&Mathrules"
-msgstr "&MathKuralları"
+msgstr "&Reguli matematice"
 
 #. Translators: The label for a button to edit math rule.
 msgid "&Edit"
-msgstr "Düz&enle"
+msgstr "&Editare"
 
 #. Translators: The label for a button to example math rule.
 msgid "E&xample"
-msgstr "&Örnek"
+msgstr "E&xemplu"
 
 #. Translators: The title of the Add new language dialog
 msgid "New language adding"
-msgstr "Yeni dil ekleme"
+msgstr "Adăugare limbă nouă"
 
 #. Translators: The label of a button in the Add new language dialog
 msgid "&Select"
-msgstr "&Seeç"
+msgstr "&Selectare"
 
 #. Translators: The label of a button in the Add new language dialog
 msgid "&Unselect"
-msgstr "Seçimi kaldı&r"
+msgstr "&Deselectare"
 
 #. Add button
 #. Translators: The label of a button in the Add new language dialog
 msgid "Unicode dictionary"
-msgstr "Unicode sözlüğü"
+msgstr "Dicționar Unicode"
 
 #. Translators: The label of a button in the Add new language dialog
 msgid "Math rule"
-msgstr "Matematik kuralı"
+msgstr "Regulă matematică"
 
 #. Translators: The label of a button in the Add new language dialog
 msgid "OK"
@@ -557,401 +571,405 @@ msgid ""
 "For the new language to be added, NVDA must be restarted. Press enter to "
 "restart NVDA, or cancel to exit at a later time."
 msgstr ""
-"Eklenecek yeni dil için NVDA'nın yeniden başlatılması gerekir. NVDA'yı "
-"yeniden başlatmak için enter tuşuna basın veya daha sonra çıkmak için iptal "
-"edin."
+"Pentru ca noul limbaj să fie adăugat, NVDA trebuie repornit. Apăsați enter "
+"pentru a reporni NVDA sau anulați pentru a închide mai târziu."
 
 #. Translators: The title of the dialog
 msgid "Add new language"
-msgstr "Yeni dil ekle"
+msgstr "Adăugare limbaj nou"
 
 #. Translators: The title of the Editor window
 #, python-format
 msgid "%s - Access8Math Editor"
-msgstr "%s - Access8Math Düzenleyicisi"
+msgstr "Editor %s - Access8Math"
 
 #. Translators: A menu item in the Editor window
 msgid "&New"
-msgstr "Ye&ni"
+msgstr "&Nou"
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Open a new editor."
-msgstr "Yeni bir düzenleyici açın."
+msgstr "Deschideți un nou editor."
 
 #. Translators: A menu item in the Editor window
 msgid "&Open..."
-msgstr "&Aç..."
+msgstr "&Deschideți..."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Open a new file."
-msgstr "Yeni bir dosya açın."
+msgstr "Deschideți un fișier nou."
 
 #. Translators: A menu item in the Editor window
 msgid "&Save"
-msgstr "&Kaydet"
+msgstr "&Salvați"
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Save the current file."
-msgstr "Geçerli dosyayı kaydedin."
+msgstr "Salvați fișierul curent."
 
 #. Translators: A menu item in the Editor window
 msgid "Save &as..."
-msgstr "F&arklı kaydet..."
+msgstr "Salvare &ca..."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Save the file under a different name."
-msgstr "Dosyayı farklı bir adla kaydedin."
+msgstr "Salvați fișierul sub alt nume."
 
 #. Translators: A menu item in the Editor window
 msgid "E&xit"
-msgstr "&Çık"
+msgstr "I&eșire"
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Terminate the program."
-msgstr "Programı sonlandır."
+msgstr "Închideți programul."
 
 #. Add the fileMenu to the menuBar.
 #. Translators: A menu item in the Editor window
 msgid "&File"
-msgstr "&Dosya"
+msgstr "&Fișier"
 
 #. Translators: A menu item in the Editor window
 #. Translators: The title of the dialog
 msgid "Preview"
-msgstr "Ön izleme"
+msgstr "Previzualizare"
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Preview HTML file"
-msgstr "HTML dosyasını önizle"
+msgstr "Previzualizare fișier HTML"
 
 #. Translators: A menu item in the Editor window
 msgid "Export..."
-msgstr "Dışa aktar..."
+msgstr "Exportare..."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Export archive file"
-msgstr "Arşiv dosyasını dışa aktar"
+msgstr "Exportare fișier arhivăt"
 
 #. Add the fileMenu to the menuBar.
 #. Translators: A menu item in the Editor window
 msgid "&View"
-msgstr "G&örünüm"
+msgstr "&Vizualizare"
 
 #. Translators: A menu item in the Editor window
 msgid "Font"
-msgstr "Yazı tipi"
+msgstr "Fundal"
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Adjust font format"
-msgstr "Yazı tipi biçimini ayarla"
+msgstr "Ajustare format font"
 
 #. Translators: A menu item in the Editor window
 msgid "Find"
-msgstr "Bul"
+msgstr "Găsire"
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Find and replace"
-msgstr "Bul ve Değiştir"
+msgstr "Găsire și înlocuire"
 
 #. Add the fileMenu to the menuBar.
 #. Translators: A menu item in the Editor window
 msgid "&Other"
-msgstr "&Diğer"
+msgstr "&Altele"
 
 #. Translators: The title of the Editor's Open file window
 msgid "Open file"
-msgstr "Dosya aç"
+msgstr "Deschidere fișier"
 
 #. Translators: The title of the Editor's Save file window
 #. Translators: The title of the Editor's Save as file window
 msgid "Save file"
-msgstr "Dosyayı kaydet"
+msgstr "Salvare fișier"
 
 #. Translators: The message displayed
 #, python-brace-format
 msgid "Save file{path}?"
-msgstr "{path} dosyası kaydedilsin mi?"
+msgstr "Salvare locaţie{path}?"
 
 #. Translators: The title of the dialog
 msgid "Save"
-msgstr "Kaydet"
+msgstr "Salvare"
 
 #. Translators: The message displayed
 msgid ""
 "Preview will only include the saved content. The content in the editor has "
 "been modified since the last save, do you want to save and preview it?"
 msgstr ""
-"Önizleme yalnızca kaydedilen içeriği gösterir. Düzenleyicideki içerik, son "
-"kaydetmeden bu yana değiştirildi, kaydetmek ve önizlemek istiyor musunuz?"
+"Previzualizarea va include numai conținutul salvat. Conținutul din editor a "
+"fost modificat de la ultima salvare, doriți să îl salvați și să îl "
+"previzualizați?"
 
 #. Translators: The message displayed
 msgid ""
 "Export will only include the saved content. The content in the editor has "
 "been modified since the last save, do you want to save and export it?"
 msgstr ""
-"Dışa aktarma yalnızca kaydedilen içeriği içerecektir. Düzenleyicideki "
-"içerik, son kaydetmeden bu yana değiştirildi, kaydedip dışa aktarmak istiyor "
-"musunuz?"
+"Exportarea va include numai conținutul salvat. Conținutul din editor a fost "
+"modificat de la ultima salvare, doriți să îl salvați și să îl exportați?"
 
 #. Translators: The title of the dialog
 msgid "Export"
-msgstr "Dışa aktar"
+msgstr "Exportare"
 
 #. Translators: A mmenu item in the Interaction window
 msgid "&Menu"
-msgstr "&Menü"
+msgstr "&Meniu"
 
 #. Translators: A mmenu item in the Interaction window
 msgid "&Exit"
-msgstr "Çı&kış"
+msgstr "&Ieșire"
 
 msgid "Terminate the program"
-msgstr "Programı sonlandır"
+msgstr "Închideți programul"
 
 #. Translators: A button label in the Interaction window
 msgid "Interaction"
-msgstr "Etkileşim"
+msgstr "Interacțiune"
 
 #. Translators: A button label in the Interaction window
 msgid "Copy"
-msgstr "Kopyala"
+msgstr "Copiere"
 
 #. Translators: A message reported to the user when copying data from the interaction window
 msgid "Copied"
-msgstr "Kopyalandı"
+msgstr "Copiat"
 
 #. Translators: A message reported to the user when the interaction window takes the focus
 msgid "Entering interaction mode"
-msgstr "Etkileşim moduna gir"
+msgstr "Intrare în mod de interacțiune"
 
 #. Translators: A message reported to the user when navigating in the math expression of the interaction window
 msgid "No move"
-msgstr "Hareket yok"
+msgstr "Nicio mutare"
 
 #. Translators: A message reported to the user when copying data from the Interaction window
 msgid "Copied raw MathML"
-msgstr "Ham MathML kopyalandı"
+msgstr "S-a copiat MathML brut"
 
 #. Translators: A message reported to the user when copying data from the Interaction window
 msgid "Copied MathML"
-msgstr "MathML kopyalandı"
+msgstr "S-a copiat MathML"
 
 #. Translators: A message reported to the user when copying LaTeX failed from the Interaction window
+#, fuzzy
 msgid "Copy LaTeX failed"
-msgstr "LaTeX kopyalanamadı"
+msgstr "deschidere cale eșuată"
 
 #. Translators: A message reported to the user when copying LaTeX from the Interaction window
+#, fuzzy
 msgid "Copied LaTeX"
-msgstr "LaTeX kopyalandı"
+msgstr "Copiat"
 
 #. Translators: A message reported to the user when taking a snapshot of math data in the Interaction window
 msgid "snapshot"
-msgstr "snapshot"
+msgstr "instantaneu"
 
 #. Translators: A message in the ASCII Math input dialog of the Interaction window
 msgid "Write AsciiMath Content"
-msgstr "AsciiMath İçeriği Yaz"
+msgstr "Scriere conținut AsciiMath"
 
 #. Translators: A message in the LaTeX input dialog of the Interaction window
 msgid "Write LaTeX Content"
-msgstr "Latex Girişi Yaz"
+msgstr "Scriere conținut LaTeX"
 
 #. Translators: The description of a command in input help mode and in the Input gesture dialog
 msgid "Toggle command gestures"
-msgstr "Komut hareketlerini aç/kapat"
+msgstr "Comutați gesturile de comandă"
 
 msgid "Command gestures activated"
-msgstr "Komut hareketleri etkinleştirildi"
+msgstr "Gesturi de comandă activate"
 
 msgid "Command gestures deactivated"
-msgstr "Komut hareketleri devre dışı bırakıldı"
+msgstr "Gesturi de comandă dezactivate"
 
 #. Translators: The description of a command in input help mode and in the Input gesture dialog
 msgid "Toggle block navigation gestures"
-msgstr "Blok gezinme hareketlerini aç/kapat"
+msgstr "Comutați blocarea gesturilor de navigare"
 
 msgid "Block navigation gestures activated"
-msgstr "Blok Gezinme hareketleri etkinleştirildi"
+msgstr "Blocarea gesturilor de navigare activată"
 
 msgid "Block navigation gestures deactivated"
-msgstr "Blok Gezinme hareketleri devre dışı bırakıldı"
+msgstr "Blocarea gesturilor de navigare a fost dezactivată"
 
 #. Translators: The description of a command in input help mode and in the Input gesture dialog
 msgid "Toggle shortcut gestures"
-msgstr "Kısayol hareketlerini aç/kapat"
+msgstr "Comutați gesturile comenzilor rapide"
 
 msgid "Cannot activate shortcut gesture in browse navigation mode"
-msgstr "Gözatma gezinme modunda kısayol hareketi etkinleştirilemiyor"
+msgstr ""
+"Gesturile pentru comenzi rapide nu pot fi activate în modul de navigare"
 
 msgid "Shortcut gestures activated"
-msgstr "Kısayol hareketleri etkinleştirildi"
+msgstr "Gesturi comenzi rapide activate"
 
 msgid "Shortcut gestures deactivated"
-msgstr "Kısayol hareketleri devre dışı bırakıldı"
+msgstr "Gesturi comenzi rapide dezactivate"
 
 #. Translators: The description of a command in input help mode and in the Input gesture dialog
 msgid "Toggle Greek alphabet gesture"
-msgstr "Yunan alfabesi hareketini aç/kapat"
+msgstr "Comutare gesturi alfabet grecesc"
 
 msgid "Cannot activate Greek alphabet gestures in browse navigation mode"
-msgstr "Gezinme gözatma modunda Yunan alfabesi hareketleri etkinleştirilemiyor"
+msgstr ""
+"Gesturile pentru alfabet grecesc nu pot fi activate în modul de navigare"
 
 msgid "Greek alphabet gestures activated"
-msgstr "Yunan alfabesi hareketleri etkinleştirildi"
+msgstr "Gesturi alfabet grecesc activate"
 
 msgid "Greek alphabet gestures deactivated"
-msgstr "Yunan alfabesi hareketleri devre dışı bırakıldı"
+msgstr "Gesturi alfabet grecesc dezactivate"
 
 #. Translators: The description of a command in input help mode and in the Input gesture dialog
 msgid "Toggle browse navigation mode"
-msgstr "Gezinme gözatma modunu aç/kapat"
+msgstr "Comutare mod  navigare"
 
 msgid "Browse navigation mode on"
-msgstr "Navigasyon modu açık"
+msgstr "Mod navigare activat"
 
 msgid "Browse navigation mode off"
-msgstr "Gezinme modu kapalı"
+msgstr "Mod navigare dezactivat"
 
 #, python-brace-format
 msgid "Shortcut {shortcut} is not set"
-msgstr "Kısayol {shortcut} ayarlanmadı"
+msgstr "Comanda rapidă {shortcut} nu este configurată"
 
 #, python-brace-format
 msgid "Greek alphabet {GreekAlphabet} is not set"
-msgstr "Yunan alfabesi {GreekAlphabet} ayarlanmadı"
+msgstr "Alfabetul grecesc {GreekAlphabet} nu este configurat"
 
 msgid "In math section. Please leave math section first and try again."
 msgstr ""
-"Matematik bölümünde. Lütfen önce matematik bölümünden çıkın ve tekrar "
-"deneyin."
+"În secțiunea  matematică. Vă rugăm să părăsiți mai întâi secțiunea "
+"matematică și să încercați din nou."
 
 msgid "Not in LaTeX block or text block. cannot use LaTeX command"
-msgstr "LaTeX bloğunda veya metin bloğunda değil. LaTeX komutunu kullanamaz"
+msgstr "Nu în blocul LaTeX sau blocul text. Comanda LaTeX nu poate fi folosită"
 
 msgid "This block cannot be interacted"
-msgstr "Bu blokla etkileşim kurulamaz"
+msgstr "Nu se poate interacţiona cu acest block"
 
 msgid "This block cannot be translated"
-msgstr "Bu blok çevrilemez"
+msgstr "Acest block nu poate fi tradus"
 
 #, python-brace-format
 msgid "{data} copied to clipboard"
-msgstr "{data} panoya kopyalandı"
+msgstr "{data} copiate în planşetă"
 
 #, python-brace-format
 msgid "{data} inserted to document"
-msgstr "{data} belgeye eklendi"
+msgstr "{data} inserate în document"
 
 #, python-brace-format
 msgid "{data} cut from document"
-msgstr "{data} belgeden kesildi"
+msgstr "{data} mutate din document"
 
 #, python-brace-format
 msgid "{data} deleted from document"
-msgstr "{data} belgeden silindi"
+msgstr "{data} eliminate din document"
 
 #. Translators: batch menu
 msgid "math block"
-msgstr "matematik bloğu"
+msgstr "block Math"
 
 #. Translators: batch menu
 msgid "LaTeX to AsciiMath"
-msgstr "LaTeX'ten AsciiMath'e"
+msgstr "LaTeX în AsciiMath"
 
 #. Translators: batch menu
 msgid "AsciiMath to LaTeX"
-msgstr "AsciiMath'ten LaTeX'e"
+msgstr "AsciiMath în LaTeX"
 
 #. Translators: batch menu
+#, fuzzy
 msgid "Nemeth to LaTeX"
-msgstr "Nemeth'ten LaTeX'e"
+msgstr "AsciiMath în LaTeX"
 
 #. Translators: batch menu
 msgid "LaTeX delimiter"
-msgstr "LaTeX sınırlayıcı"
+msgstr "Delimitator LaTeX"
 
 #. Translators: batch menu
 msgid "bracket to dollar"
-msgstr "parantezden dolara"
+msgstr "paranteză în dolar"
 
 #. Translators: batch menu
 msgid "dollar to bracket"
-msgstr "dolardan paranteze"
+msgstr "dolar în paranteză"
 
 #. Translators: alt+m window
 msgid "batch command"
-msgstr "toplu komut"
+msgstr "comanda batch"
 
 msgid "view"
-msgstr "görünüm"
+msgstr "vizualizare"
 
 msgid "edit"
-msgstr "düzenle"
+msgstr "editare"
 
 msgid "virtual context menu"
-msgstr "sanal bağlam menüsü"
+msgstr "meniul contextual virtual"
 
 #. Translators: LaTeX command category - shortcut
 msgid "shortcut"
-msgstr "kısayol"
+msgstr "comandă rapidă"
 
 #. Translators: LaTeX command category - common
 msgid "common"
-msgstr "yaygın"
+msgstr "comun"
 
 #. Translators: LaTeX command category - operator
 msgid "operator"
-msgstr "operatör"
+msgstr "operator"
 
 #. Translators: LaTeX command category - relation
 msgid "relation"
-msgstr "ilişki"
+msgstr "relaţie"
 
 #. Translators: LaTeX command category - relation
 msgid "logic"
-msgstr "mantık"
+msgstr "logic"
 
 #. Translators: LaTeX command category - arrow
 msgid "arrow"
-msgstr "ok"
+msgstr "săgeată"
 
 #. Translators: LaTeX command category - 2-dimension
 msgid "2-dimension"
-msgstr "2 boyutlu"
+msgstr "2-dimensiune"
 
 #. Translators: LaTeX command category - set
 msgid "set"
-msgstr "küme"
+msgstr "set"
 
 #. Translators: LaTeX command category - other
 msgid "other"
-msgstr "diğer"
+msgstr "altul"
 
 #. Translators: alt+l window
 msgid "LaTeX command"
-msgstr "LaTeX komutu"
+msgstr "Comanda LaTeX"
 
 #. Translators: A message reported when setting the shortcut on an element of the LaTeX commands menu
 msgid "Cannot set shortcut on menu"
-msgstr "Menüde kısayol ayarlanamıyor"
+msgstr "Nu se poate seta o comandă rapidă în meniu"
 
 #. Translators: A message reported when setting the shortcut on an element of the LaTeX commands menu
 #, python-brace-format
 msgid "Shortcut {slot} set"
-msgstr "Kısayol {slot} seti"
+msgstr "Scurtătură {slot} configurată"
 
 #. Translators: A message reported when resetting the shortcut on an element of the LaTeX commands menu
 msgid "Cannot clear shortcut on a menu"
-msgstr "Bir menüdeki kısayol temizlenemiyor"
+msgstr "Nu se poate elimina comanda rapidă dintr-un meniu"
 
 #. Translators: A message reported when resetting the shortcut on an element of the LaTeX commands menu
 msgid "No shortcut set on this item"
-msgstr "Bu öğede ayarlanmış kısayol yok"
+msgstr "Nu a fost setată nicio comandă rapidă pentru acest articol"
 
 #. Translators: A message reported when resetting the shortcut on an element of the LaTeX commands menu
 #, python-brace-format
 msgid "Shortcut {slot} cleared"
-msgstr "{slot} kısayolu temizlendi"
+msgstr "Comanda rapidă {slot} a fost eliminată"
 
 #. Translators: mark command category - LaTeX
 #. Translators: translate command category - LaTeX
@@ -965,45 +983,45 @@ msgstr "AsciiMath"
 
 #. Translators: mark command category - AsciiMath
 msgid "Nemeth"
-msgstr "Nemeth"
+msgstr ""
 
 #. Translators: alt+m window
 msgid "mark command"
-msgstr "işaret komutu"
+msgstr "marcare comandă"
 
 msgid "preview"
-msgstr "ön izleme"
+msgstr "previzualizare"
 
 msgid "export"
-msgstr "dışa aktar"
+msgstr "exportare"
 
 msgid "view command"
-msgstr "komutu görüntüle"
+msgstr "vizualizare comandă"
 
 msgid "Save file..."
-msgstr "Dosyayı kaydet..."
+msgstr "Salvare fişier..."
 
 #. Translators: alt+m window
 msgid "translate command"
-msgstr "komutu çevir"
+msgstr "comandă traducere"
 
-#, python-brace-format
+#, fuzzy, python-brace-format
 msgid "This block cannot be translated into {id}"
-msgstr "Bu blok {id} diline çevrilemez"
+msgstr "Acest block nu poate fi tradus"
 
 msgid "command"
-msgstr "komut"
+msgstr "comandă"
 
 #, python-brace-format
 msgid "f{shortcut}"
-msgstr "{shortcut}f"
+msgstr "f{shortcut}"
 
 msgid "subMenu"
-msgstr "alt menü"
+msgstr "subMeniu"
 
 #, python-brace-format
 msgid "{number} of {total}"
-msgstr "{number} bölü {total}"
+msgstr "{number} din {total}"
 
 #, python-brace-format
 msgid "{shortcut}"
@@ -1011,55 +1029,55 @@ msgstr "{shortcut}"
 
 #. Translators: LaTeX command - fractions
 msgid "fractions"
-msgstr "kesirler"
+msgstr "fracţii"
 
 #. Translators: LaTeX command - square root
 msgid "square root"
-msgstr "kare kök"
+msgstr "rădăcină pătrată"
 
 #. Translators: LaTeX command - root
 msgid "root"
-msgstr "kök"
+msgstr "rădăcină"
 
 #. Translators: LaTeX command - summation
 msgid "summation"
-msgstr "toplama"
+msgstr "însumare"
 
 #. Translators: LaTeX command - vector
 msgid "vector"
-msgstr "vektör"
+msgstr "vector"
 
 #. Translators: LaTeX command - limit
 msgid "limit"
-msgstr "limit"
+msgstr "limită"
 
 #. Translators: LaTeX command - times
 msgid "times"
-msgstr "çarpma"
+msgstr "ori"
 
 #. Translators: LaTeX command - divide
 msgid "divide"
-msgstr "bölme"
+msgstr "împărţit"
 
 #. Translators: LaTeX command - plus-minus sign
 msgid "plus-minus sign"
-msgstr "artı eksi işareti"
+msgstr "semnul plus-minus"
 
 #. Translators: LaTeX command - greater than or equal to
 msgid "greater than or equal to"
-msgstr "büyük veya eşit"
+msgstr "mai mare sau egal cu"
 
 #. Translators: LaTeX command - less than or equal to
 msgid "less than or equal to"
-msgstr "küçük veya eşit"
+msgstr "mai mic sau egal cu"
 
 #. Translators: LaTeX command - not equal to
 msgid "not equal to"
-msgstr "eşit değil"
+msgstr "nu este egal cu"
 
 #. Translators: LaTeX command - approximate
 msgid "approximate"
-msgstr "yaklaşık"
+msgstr "aproximativ"
 
 #. Translators: LaTeX command - parallel
 msgid "parallel"
@@ -1067,103 +1085,103 @@ msgstr "paralel"
 
 #. Translators: LaTeX command - perpendicular
 msgid "perpendicular"
-msgstr "dik"
+msgstr "perpendicular"
 
 #. Translators: LaTeX command - full equal
 msgid "full equal"
-msgstr "tam eşit"
+msgstr "egal"
 
 #. Translators: LaTeX command - similar
 msgid "similar"
-msgstr "benzer"
+msgstr "similar"
 
 #. Translators: LaTeX command - because
 msgid "because"
-msgstr "çünkü"
+msgstr "deoarece"
 
 #. Translators: LaTeX command - therefore
 msgid "therefore"
-msgstr "o halde"
+msgstr "prin urmare"
 
 #. Translators: LaTeX command - because
 msgid "if and only if"
-msgstr "ancak ve ancak"
+msgstr "dacă și numai dacă"
 
 #. Translators: LaTeX command - because
 msgid "implies"
-msgstr "ima eder"
+msgstr "implică"
 
 #. Translators: LaTeX command - because
 msgid "implied by"
-msgstr "tarafından ima edilen"
+msgstr "subînțeles de"
 
 #. Translators: LaTeX command - left arrow
 msgid "left arrow"
-msgstr "sol ok"
+msgstr "sageata stanga"
 
 #. Translators: LaTeX command - right arrow
 msgid "right arrow"
-msgstr "sağ ok"
+msgstr "sageata dreapta"
 
 #. Translators: LaTeX command - left right arrow
 msgid "left right arrow"
-msgstr "sol sağ ok"
+msgstr "săgeată stânga dreapta"
 
 #. Translators: LaTeX command - up arrow
 msgid "up arrow"
-msgstr "yukarı ok"
+msgstr "săgeată sus"
 
 #. Translators: LaTeX command - down arrow
 msgid "down arrow"
-msgstr "aşağı ok"
+msgstr "săgeată jos"
 
 #. Translators: LaTeX command - up down arrow
 msgid "up down arrow"
-msgstr "yukarı aşağı ok"
+msgstr "săgeată sus jos"
 
 #. Translators: LaTeX command - line segment
 msgid "line segment"
-msgstr "doğru parçası"
+msgstr "segment linie"
 
 #. Translators: LaTeX command - line
 msgid "line"
-msgstr "doğru"
+msgstr "linie"
 
 #. Translators: LaTeX command - ray
 msgid "ray"
-msgstr "ışın"
+msgstr "rază"
 
 #. Translators: LaTeX command - arc
 msgid "arc"
-msgstr "yay"
+msgstr "arc"
 
 #. Translators: LaTeX command - triangle
 msgid "triangle"
-msgstr "üçgen"
+msgstr "triungi"
 
 #. Translators: LaTeX command - angle
 msgid "angle"
-msgstr "açı"
+msgstr "unghi"
 
 #. Translators: LaTeX command - degree
 msgid "degree"
-msgstr "derece"
+msgstr "grad"
 
 #. Translators: LaTeX command - circle
 msgid "circle"
-msgstr "daire"
+msgstr "cerc"
 
 #. Translators: LaTeX command - binomial coefficient
 msgid "binomial coefficient"
-msgstr "binom katsayısı"
+msgstr "coeficient binom"
 
 #. Translators: LaTeX command - matrix (2X2)
 msgid "matrix (2X2)"
-msgstr "matris (2X2)"
+msgstr "matrice (2X2)"
 
 #. Translators: LaTeX command - matrix (3X3)
 msgid "matrix (3X3)"
-msgstr "matris (3X3)"
+msgstr "matrice (3X3)"
 
 #. Translators: LaTeX command - determinant (2X2)
 msgid "determinant (2X2)"
@@ -1175,87 +1193,87 @@ msgstr "determinant (3X3)"
 
 #. Translators: LaTeX command - simultaneous equations
 msgid "simultaneous equations"
-msgstr "eşzamanlı denklemler"
+msgstr "ecuații simultane"
 
 #. Translators: LaTeX command - belong to
 msgid "belong to"
-msgstr "ait"
+msgstr "apartine"
 
 #. Translators: LaTeX command - not belong to
 msgid "not belong to"
-msgstr "ait değil"
+msgstr "nu aparține"
 
 #. Translators: LaTeX command - lie in
 msgid "lie in"
-msgstr "doğurma"
+msgstr "se află în"
 
 #. Translators: LaTeX command - properly lie in
 msgid "properly lie in"
-msgstr "düzgün doğurmak"
+msgstr "se află corespunzător în"
 
 #. Translators: LaTeX command - not lie in
 msgid "not lie in"
-msgstr "doğurmamak"
+msgstr "nu se află corespunzător în"
 
 #. Translators: LaTeX command - include
 msgid "include"
-msgstr "dahil etmek"
+msgstr "inclus"
 
 #. Translators: LaTeX command - properly include
 msgid "properly include"
-msgstr "uygun şekilde dahil etmek"
+msgstr "inclus în mod corespunzător"
 
 #. Translators: LaTeX command - not include
 msgid "not include"
-msgstr "hariç"
+msgstr "nu include"
 
 #. Translators: LaTeX command - intersection set
 msgid "intersection set"
-msgstr "kesişim kümesi"
+msgstr "set intersecție"
 
 #. Translators: LaTeX command - union set
 msgid "union set"
-msgstr "birleşim kümesi"
+msgstr "set unire"
 
 #. Translators: LaTeX command - difference set
 msgid "difference set"
-msgstr "fark kümesi"
+msgstr "set diferenţă"
 
 #. Translators: LaTeX command - complement
 msgid "complement"
-msgstr "tamamlayıcı"
+msgstr "complement"
 
 #. Translators: LaTeX command - empty set
 msgid "empty set"
-msgstr "boş küme"
+msgstr "set gol"
 
 #. Translators: LaTeX command - natural number
 msgid "natural number"
-msgstr "doğal sayı"
+msgstr "număr natural"
 
 #. Translators: LaTeX command - real number
 msgid "real number"
-msgstr "gerçek sayı"
+msgstr "număr real"
 
 #. Translators: LaTeX command - logarithm
 msgid "logarithm"
-msgstr "logaritma"
+msgstr "logaritm"
 
 #. Translators: LaTeX command - infty
 msgid "infty"
-msgstr "elli"
+msgstr "infinit"
 
 #. Translators: LaTeX command - for all
 msgid "for all"
-msgstr "hepsi için"
+msgstr "pentru toate"
 
 #. Translators: LaTeX command - exists
 msgid "exists"
-msgstr "vardır"
+msgstr "există"
 
 #. Translators: LaTeX command - repeating decimal
 msgid "repeating decimal"
-msgstr "tekrar eden ondalık"
+msgstr "zecimală se repetă"
 
 #. Translators: greek alphabet command - alpha
 msgid "alpha"
@@ -1275,11 +1293,11 @@ msgstr "delta"
 
 #. Translators: greek alphabet command - epsilon
 msgid "epsilon"
-msgstr "epsilon"
+msgstr "ygrec"
 
 #. Translators: greek alphabet command - zeta
 msgid "zeta"
-msgstr "zeta"
+msgstr "zet"
 
 #. Translators: greek alphabet command - eta
 msgid "eta"
@@ -1295,27 +1313,27 @@ msgstr "iota"
 
 #. Translators: greek alphabet command - kappa
 msgid "kappa"
-msgstr "kappa"
+msgstr "kapa"
 
 #. Translators: greek alphabet command - lambda
 msgid "lambda"
-msgstr "lambda"
+msgstr "lamda"
 
 #. Translators: greek alphabet command - mu
 msgid "mu"
-msgstr "mu"
+msgstr "miu"
 
 #. Translators: greek alphabet command - nu
 msgid "nu"
-msgstr "nu"
+msgstr "niu"
 
 #. Translators: greek alphabet command - xi
 msgid "xi"
-msgstr "xi"
+msgstr "ix"
 
 #. Translators: greek alphabet command - o
 msgid "omicron"
-msgstr "omikron"
+msgstr "omicron"
 
 #. Translators: greek alphabet command - pi
 msgid "pi"
@@ -1323,7 +1341,7 @@ msgstr "pi"
 
 #. Translators: greek alphabet command - rho
 msgid "rho"
-msgstr "rho"
+msgstr "ro"
 
 #. Translators: greek alphabet command - sigma
 msgid "sigma"
@@ -1339,7 +1357,7 @@ msgstr "upsilon"
 
 #. Translators: greek alphabet command - phi
 msgid "phi"
-msgstr "phi"
+msgstr "fi"
 
 #. Translators: greek alphabet command - chi
 msgid "chi"
@@ -1359,97 +1377,11 @@ msgid ""
 "Allows access math content written by MathML ; Allows write math content by "
 "LaTeX"
 msgstr ""
-"MathML ile yazılan matematik içeriğine erişime sağlar ve LaTeX ile matematik "
-"içeriği oluşturmaya izin verir"
-
-#~ msgid "{name} Update"
-#~ msgstr "{name} Güncelleme"
-
-#~ msgid "is available"
-#~ msgstr "geçerli"
-
-#~ msgid "Do you want to download and install it?"
-#~ msgstr "İndirip kurmak istiyor musunuz?"
-
-#~ msgid "New document"
-#~ msgstr "Yeni belge"
-
-#~ msgid "LaTeX and AsciiMath reverse translate"
-#~ msgstr "LaTeX ve AsciiMath ters çevir"
+"Permite accesul la conținut matematic scris de MathML; Permite scrierea "
+"conținutului matematic prin LaTeX"
 
 #~ msgid "Settings"
-#~ msgstr "Ayarlar"
+#~ msgstr "Setări"
 
-#~ msgid "&General settings..."
-#~ msgstr "&Genel Ayarlar..."
-
-#~ msgid "&latex..."
-#~ msgstr "&latex..."
-
-#~ msgid "&Write..."
-#~ msgstr "&Yazım..."
-
-#~ msgid "speech source switch"
-#~ msgstr "konuşma kaynağını değiştir"
-
-#~ msgid "braille source switch"
-#~ msgstr "braille kaynağını değiştir"
-
-#~ msgid "interact source switch"
-#~ msgstr "Etkileşim kaynağını değiştir"
-
-#~ msgid "General Settings"
-#~ msgstr "Genel Ayarlar"
-
-#~ msgid "Using a beep to alert no move"
-#~ msgstr "Hareket yok uyarısı için bir bip sesi kullan"
-
-#~ msgid "Activate write gesture by default"
-#~ msgstr "Yazım hareketini varsayılan olarak etkinleştir"
-
-#~ msgid "&description"
-#~ msgstr "&açıklama"
-
-#~ msgid "description"
-#~ msgstr "açıklama"
-
-#~ msgid "math rule (%s)"
-#~ msgstr "matematik kuralı (%s)"
-
-#~ msgid "copy"
-#~ msgstr "kopyala"
-
-#~ msgid "User default"
-#~ msgstr "Kullanıcı varsayılanı"
-
-#~ msgid "write gesture toggle"
-#~ msgstr "Yazım hareketini aç kapa"
-
-#~ msgid "activate write gesture"
-#~ msgstr "yazım hareketini etkinleştir"
-
-#~ msgid "deactivate write gesture"
-#~ msgstr "yazım hareketini devre dışı bırak"
-
-#~ msgid "deactivate block navigate gesture"
-#~ msgstr "Blok navigasyon hareketini devre dışı bırak"
-
-#~ msgid "deactivate shortcut gesture"
-#~ msgstr "Kısayol hareketini devre dışı bırak"
-
-#~ msgid "single letter navigate mode toggle"
-#~ msgstr "tek harfle navigasyon aç kapa"
-
-#~ msgid "Not in math section. Please insert LaTeX mark first and try again."
-#~ msgstr ""
-#~ "matematik bölümünde değil. Lütfen önce LaTeX işaretini girin ve tekrar "
-#~ "deneyin."
-
-#~ msgid "menu can not set shortcut"
-#~ msgstr "menü kısayolu ayarlayamıyor"
-
-#~ msgid "sub menu no shortcut"
-#~ msgstr "alt menü kısayol yok"
-
-#~ msgid "Access8Math HTML"
-#~ msgstr "Access8Math HTML"
+#~ msgid "LaTeX and AsciiMath reverse translate"
+#~ msgstr "LaTeX și AsciiMath traducere inversă"

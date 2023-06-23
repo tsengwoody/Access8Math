@@ -262,6 +262,19 @@ msgid "dollar"
 msgstr "cifrão"
 
 #. Translators: The label of an option in the writing settings dialog
+#, fuzzy
+msgid "&Nemeth delimiter:"
+msgstr "Delimitador &LaTeX:"
+
+#. Translators: A choice of a combobox in the writing settings dialog
+msgid "at"
+msgstr ""
+
+#. Translators: A choice of a combobox in the writing settings dialog
+msgid "UEB"
+msgstr ""
+
+#. Translators: The label of an option in the writing settings dialog
 msgid "HTML &document display:"
 msgstr "Exibir &documento HTML:"
 
@@ -370,10 +383,15 @@ msgstr "Determinante"
 msgid "Integer and fraction"
 msgstr "Inteiro e fração"
 
-#. translators: title of the dialog.
+#. Translators: This is the label for the Access8Math settings dialog.
 #, fuzzy
-msgid "Settings"
-msgstr "&Configurações"
+msgid "Access8Math Settings"
+msgstr "Access8Math"
+
+#. Translators: The profile name for normal configuration
+#, fuzzy
+msgid "normal configuration"
+msgstr "coeficiente binomial"
 
 #. Translators: This is the label for the add symbol dialog.
 msgid "Add Symbol"
@@ -738,6 +756,16 @@ msgstr ""
 msgid "Copied MathML"
 msgstr "Copiado"
 
+#. Translators: A message reported to the user when copying LaTeX failed from the Interaction window
+#, fuzzy
+msgid "Copy LaTeX failed"
+msgstr "Abrir arquivo"
+
+#. Translators: A message reported to the user when copying LaTeX from the Interaction window
+#, fuzzy
+msgid "Copied LaTeX"
+msgstr "Copiado"
+
 #. Translators: A message reported to the user when taking a snapshot of math data in the Interaction window
 msgid "snapshot"
 msgstr "instantâneo"
@@ -861,8 +889,9 @@ msgid "AsciiMath to LaTeX"
 msgstr "AsciiMath para LaTeX"
 
 #. Translators: batch menu
-msgid "LaTeX and AsciiMath reverse translate"
-msgstr "Tradução reversa de LaTeX e AsciiMath"
+#, fuzzy
+msgid "Nemeth to LaTeX"
+msgstr "AsciiMath para LaTeX"
 
 #. Translators: batch menu
 msgid "LaTeX delimiter"
@@ -962,6 +991,10 @@ msgstr "LaTeX"
 msgid "AsciiMath"
 msgstr "AsciiMath"
 
+#. Translators: mark command category - AsciiMath
+msgid "Nemeth"
+msgstr ""
+
 #. Translators: alt+m window
 msgid "mark command"
 msgstr "comando marcar"
@@ -981,6 +1014,10 @@ msgstr "Salvar arquivo..."
 #. Translators: alt+m window
 msgid "translate command"
 msgstr "comando de tradução"
+
+#, fuzzy, python-brace-format
+msgid "This block cannot be translated into {id}"
+msgstr "Este bloco não pode ser traduzido"
 
 msgid "command"
 msgstr "comando"
@@ -1352,6 +1389,13 @@ msgid ""
 msgstr ""
 "Permite acessar conteúdo matemático escrito com MathML; Permite escrever "
 "conteúdo matemático através de LaTeX"
+
+#, fuzzy
+#~ msgid "Settings"
+#~ msgstr "&Configurações"
+
+#~ msgid "LaTeX and AsciiMath reverse translate"
+#~ msgstr "Tradução reversa de LaTeX e AsciiMath"
 
 #~ msgid "&Reading settings..."
 #~ msgstr "Configurações de &leitura..."
