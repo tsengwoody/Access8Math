@@ -691,20 +691,11 @@ class TextMathEditField(NVDAObject):
 			if not isinstance(title, str) or not title or title.isspace():
 				title = "index.txt"
 
-		file = title.split("-")[0].strip('* ')
-		dotsplit = file.split('.')
-		if len(dotsplit) > 1:
-			name = '.'.join(dotsplit[:-1])
-			ext = dotsplit[-1]
-		elif len(dotsplit) == 1:
-			name = '.'.join(dotsplit)
-			ext = 'txt'
-		else:
-			name = 'index'
-			ext = 'txt'
+		name = title.split("-")[0].strip('* ')
+		ext = 'txt'
 
 		data_folder = os.path.join(PATH, 'web', 'workspace', 'default')
-		entry_file = '{}.{}'.format(name, ext)
+		entry_file = f'{name}.{ext}'
 
 		try:
 			shutil.rmtree(data_folder)

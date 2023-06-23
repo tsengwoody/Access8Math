@@ -116,7 +116,7 @@ class Access8MathDocument:
 			name = '.'.join(os.path.basename(self.raw_entry).split('.')[:-1])
 		except BaseException:
 			name = 'index'
-		return os.path.join(self.review_folder, "{}.html".format(name))
+		return os.path.join(self.review_folder, f"{name}.html")
 
 	@property
 	def resources(self):
@@ -143,7 +143,6 @@ class Access8MathDocument:
 		return resources
 
 	def raw2review(self):
-		print(self.raw_folder)
 		rawIntoReview(self.raw_folder, self.review_folder, self.resources)
 
 		shutil.copyfile(
@@ -174,7 +173,7 @@ class Access8MathDocument:
 				except BaseException:
 					name = ''
 					extend = ''
-				if os.path.isfile(item) and extend == 'txt':
+				if os.path.isfile(item) and (extend in ['txt'] or os.path.basename(item) == os.path.basename(self.raw_entry)):
 					text2template(src=item, dst=os.path.join(os.path.dirname(item), '{}.html'.format(name)))
 
 

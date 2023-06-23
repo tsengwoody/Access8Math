@@ -12,11 +12,32 @@ import os
 import re
 import shutil
 import weakref
-import shutil
-
 
 AUTO_GENERATE = 0
 DIC_GENERATE = 1
+
+
+def includes_unicode_range(string, lower, high):
+	for char in string:
+		if ord(char) < high and ord(char) >= lower:
+			return True
+	return False
+
+
+def NVDASymbolsFetch(language):
+	from characterProcessing import _getSpeechSymbolsForLocale
+	builtin_dict = {}
+	user_dict = {}
+
+	builtin, user = _getSpeechSymbolsForLocale(language)
+	for value in builtin.symbols.values():
+		if not value.identifier.isspace() and not " " in value.identifier:
+			builtin_dict[value.identifier] = value.replacement
+	for value in user.symbols.values():
+		if not value.identifier.isspace() and not " " in value.identifier:
+			user_dict[value.identifier] = value.replacement
+
+	return builtin_dict, user_dict
 
 
 def mathml2etree(mathml):
@@ -176,11 +197,15 @@ class MathContent(object):
 
 		set_mathcontent_allnode(self.root, self)
 
-		self.symbol = load_unicode_dic(language=language)
+		symbol = load_unicode_dic(language=language)
+		self.set_symbol(symbol)
+
 		mathrule = load_math_rule(language=language)
 		self.set_mathrule(mathrule)
 
-		self.braillesymbol = load_unicode_dic(language=language, category="braille")
+		braillesymbol = load_unicode_dic(language=language, category="braille")
+		self.set_braillesymbol(braillesymbol)
+
 		braillemathrule = load_math_rule(language=language, category="braille")
 		self.set_braillemathrule(braillemathrule)
 
@@ -194,19 +219,62 @@ class MathContent(object):
 
 	def set_mathrule(self, mathrule):
 		self.mathrule = mathrule
-		set_mathrule_allnode(self.root, self.mathrule)
+		set_mathrule_allnode(self.root, mathrule)
 		clear_type_allnode(self.root)
 		check_type_allnode(self.root)
-		set_mathrule_allnode(self.root, self.mathrule)
+		set_mathrule_allnode(self.root, mathrule)
 		set_mathcontent_allnode(self.root, self)
 
-	def set_braillemathrule(self, braillemathrule):
-		self.braillemathrule = braillemathrule
-		set_braillemathrule_allnode(self.root, self.braillemathrule)
+	def set_braillemathrule(self, mathrule):
+		self.braillemathrule = mathrule
+		set_braillemathrule_allnode(self.root, mathrule)
 		clear_type_allnode(self.root)
 		check_type_allnode(self.root)
-		set_braillemathrule_allnode(self.root, self.braillemathrule)
+		set_braillemathrule_allnode(self.root, mathrule)
 		set_mathcontent_allnode(self.root, self)
+
+	def set_symbol(self, symbol):
+		self.symbol = symbol
+		symbol_list = sorted(list(symbol.keys()), key=lambda i: -len(i))
+		symbol_list = [item.replace("|", "\|") for item in symbol_list if not includes_unicode_range(item, 124, 125)]
+		restring = "|".join(symbol_list).translate({
+			ord("$"): "\\$",
+			ord("("): "\(",
+			ord(")"): "\)",
+			ord("*"): "\*",
+			ord("+"): "\+",
+			ord("-"): "\-",
+			ord("."): "\.",
+			ord("?"): "\?",
+			ord("["): "\[",
+			ord("\\"): "\\\\",
+			ord("]"): "\]",
+			ord("^"): "\^",
+			ord("{"): "\{",
+			ord("}"): "\}",
+		})
+		self.symbol_repattern = re.compile(restring)
+
+	def set_braillesymbol(self, symbol):
+		self.braillesymbol = symbol
+		symbol_list = sorted(list(symbol.keys()), key=lambda i: -len(i))
+		symbol_list = [item.replace("|", "\|") for item in symbol_list]
+		restring = "|".join(symbol_list).translate({
+			ord("$"): "\\$",
+			ord("("): "\(",
+			ord(")"): "\)",
+			ord("*"): "\*",
+			ord("+"): "\+",
+			ord("-"): "\-",
+			ord("."): "\.",
+			ord("?"): "\?",
+			ord("["): "\[",
+			ord("]"): "\]",
+			ord("^"): "\^",
+			ord("{"): "\{",
+			ord("}"): "\}",
+		})
+		self.braillesymbol_repattern = re.compile(restring)
 
 	def navigate(self, action):
 		pointer = None
@@ -228,15 +296,19 @@ class MathContent(object):
 		return False
 
 	def symbol_translate(self, string):
-		symbol_order = sorted(list(self.symbol.items()), key=lambda i: -len(i[0]))
-		for key, value in symbol_order:
-			string = string.replace(key, value)
+		try:
+			string = self.symbol_repattern.sub(lambda m: self.symbol[m.group(0)], string)
+		except BaseException:
+			pass
+
 		return string
 
 	def braillesymbol_translate(self, string):
-		symbol_order = sorted(list(self.braillesymbol.items()), key=lambda i: -len(i[0]))
-		for key, value in symbol_order:
-			string = string.replace(key, value)
+		try:
+			string = self.braillesymbol_repattern.sub(lambda m: self.symbol[m.group(0)], string)
+		except BaseException:
+			pass
+
 		return string
 
 
@@ -252,8 +324,6 @@ class Node(object):
 
 		self.attrib = attrib if attrib else {}
 		self.data = str(data.strip()) if data else ''
-
-		self.symbol = {}
 
 		self.mathrule = {}
 		self.rule = []
@@ -1572,6 +1642,9 @@ def clean_user_data():
 
 
 def load_unicode_dic(path=None, language='', category='speech'):
+	load_NVDASymbol = False
+	symbol = {}
+
 	if not path and language:
 		path = os.path.join(LOCALE_DIR, category, language)
 		if not os.path.exists(path):
@@ -1581,18 +1654,33 @@ def load_unicode_dic(path=None, language='', category='speech'):
 		frp_user = os.path.join(path, 'unicode_user.dic')
 		if not os.path.exists(frp_user):
 			shutil.copyfile(frp, frp_user)
+			if category == 'speech':
+				try:
+					builtin, user = NVDASymbolsFetch(language)
+				except BaseException:
+					builtin, user = {}, {}
+				symbol = {**builtin, **user}
+				load_NVDASymbol = True
 		path = frp_user
-
-	symbol = {}
 
 	with open(path, 'r', encoding='utf-8') as fr:
 		reader = csv.reader(fr, delimiter='\t')
 		for row in reader:
-			if len(row) >= 2:
-				try:
-					symbol[row[0]] = row[1].split(',')[0].strip()
-				except BaseException:
-					pass
+				if len(row) >= 2:
+					try:
+						symbol[row[0]] = row[1].split(',')[0].strip()
+					except BaseException:
+						pass
+
+	if load_NVDASymbol:
+		with open(path, 'w', encoding='utf-8', newline="") as file:
+			writer = csv.writer(file, delimiter='\t')
+			key = list(symbol.keys())
+			key.sort()
+			for k in key:
+				if k != '\x00':
+					writer.writerow([k, symbol[k]])
+
 	return symbol
 
 
