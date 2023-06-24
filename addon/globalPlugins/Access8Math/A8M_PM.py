@@ -306,7 +306,6 @@ class MathContent(object):
 	def braillesymbol_translate(self, string):
 		try:
 			string = self.braillesymbol_repattern.sub(lambda m: self.braillesymbol[m.group(0)], string)
-			print(string)
 		except BaseException:
 			pass
 
