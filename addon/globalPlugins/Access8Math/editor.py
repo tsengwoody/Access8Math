@@ -46,7 +46,6 @@ class EditorFrame(wx.Frame):
 
 		Hotkey(self)
 
-
 		self.findReplaceData = wx.FindReplaceData()
 		self.pos = 0
 		self.Bind(wx.EVT_FIND, self.OnFindAction)

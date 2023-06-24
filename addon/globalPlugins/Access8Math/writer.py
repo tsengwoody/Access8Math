@@ -191,7 +191,7 @@ class SectionManager:
 				filte_points = list(filter(lambda i: i['type'] in MATH_TYPE, filte_points))
 			try:
 				pointer = filte_points[step]
-			except BaseException as e:
+			except BaseException:
 				pointer = None
 
 		if not pointer:
@@ -804,7 +804,7 @@ class TextMathEditField(NVDAObject):
 		try:
 			speech.speak(text)
 			display_braille(brailleRegion)
-		except BaseException as e:
+		except BaseException:
 			pass
 
 	def script_navigate(self, gesture):

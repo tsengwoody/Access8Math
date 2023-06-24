@@ -1,4 +1,3 @@
-import csv
 import os
 
 from .utils import nemeth2symbol_with_priority
@@ -11,7 +10,7 @@ data = {}
 for item in ["symbol", "letter", "number"]:
 	src = os.path.join(BASE_DIR, data_folder, f"{item}.csv")
 	nemeth2symbol = nemeth2symbol_with_priority(src)
-	data[item] = sorted(nemeth2symbol.keys(), key=lambda i:len(i), reverse=True)
+	data[item] = sorted(nemeth2symbol.keys(), key=lambda i: len(i), reverse=True)
 
 grammar = r"""
 	%ignore "⠀"

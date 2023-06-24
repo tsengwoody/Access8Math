@@ -399,6 +399,8 @@ class RuleSettingsPanel(A8MSettingsPanel):
 
 NvdaSettingsDialogActiveConfigProfile = None
 NvdaSettingsDialogWindowHandle = None
+
+
 class Access8MathSettingsDialog(MultiCategorySettingsDialog):
 	# Translators: This is the label for the Access8Math settings dialog.
 	title = _("Access8Math Settings")
@@ -438,7 +440,7 @@ class Access8MathSettingsDialog(MultiCategorySettingsDialog):
 			configProfile=NvdaSettingsDialogActiveConfigProfile
 		)
 
-	def onCategoryChange(self,evt):
+	def onCategoryChange(self, evt):
 		super().onCategoryChange(evt)
 		if evt.Skipped:
 			return
@@ -912,9 +914,6 @@ class MathRuleDialog(SettingsDialog):
 
 		self.A8M_mathrule = A8M_PM.load_math_rule(language=self.language, category=self.category)
 		self.mathrules = [(k, v) for k, v in self.A8M_mathrule.items() if k not in ['node', 'none']]
-		for k, v in self.A8M_mathrule.items():
-			if k == "SimultaneousEquations":
-				print(v)
 
 		super().__init__(parent)
 
@@ -998,8 +997,8 @@ class MathRuleDialog(SettingsDialog):
 		for item in self.mathrules:
 			try:
 				self.mathrulesList.Append((item[0], item[1].description,))
-			except:
-				print(item)
+			except BaseException:
+				pass
 
 	def onListItemFocused(self, evt):
 		# ChangeValue and Selection property used because they do not cause EVNT_CHANGED to be fired.
@@ -1028,7 +1027,6 @@ class MathRuleDialog(SettingsDialog):
 		index = self.mathrulesList.GetFirstSelected()
 		mathrule = copy.deepcopy(self.mathrules[index])
 		mathMl = mathrule[1].example
-		print(repr(mathrule[1].example))
 		mathcontent = MathContent(self.Access8MathConfig["settings"]["language"], mathMl)
 		parent = api.getFocusObject()
 		vw = A8MInteraction(parent=parent)

@@ -7,7 +7,7 @@ from scriptHandler import script
 import ui
 import wx
 
-from delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter, Nemeth as Nemeth_delimiter
+from delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter
 delimiter_dict = {**AsciiMath_delimiter, **LaTeX_delimiter}
 
 from lib.mathProcess import latex2asciimath, asciimath2latex, nemeth2latex

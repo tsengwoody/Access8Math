@@ -7,7 +7,6 @@ import collections
 import csv
 import html
 import inspect
-import io
 import os
 import re
 import shutil
@@ -31,10 +30,10 @@ def NVDASymbolsFetch(language):
 
 	builtin, user = _getSpeechSymbolsForLocale(language)
 	for value in builtin.symbols.values():
-		if not value.identifier.isspace() and not " " in value.identifier:
+		if not value.identifier.isspace() and " " not in value.identifier:
 			builtin_dict[value.identifier] = value.replacement
 	for value in user.symbols.values():
-		if not value.identifier.isspace() and not " " in value.identifier:
+		if not value.identifier.isspace() and " " not in value.identifier:
 			user_dict[value.identifier] = value.replacement
 
 	return builtin_dict, user_dict
@@ -236,43 +235,44 @@ class MathContent(object):
 	def set_symbol(self, symbol):
 		self.symbol = symbol
 		symbol_list = sorted(list(symbol.keys()), key=lambda i: -len(i))
-		symbol_list = [item.replace("|", "\|") for item in symbol_list if not includes_unicode_range(item, 124, 125)]
+		symbol_list = [item.replace("|", "\\|") for item in symbol_list if not includes_unicode_range(item, 124, 125)]
 		restring = "|".join(symbol_list).translate({
 			ord("$"): "\\$",
-			ord("("): "\(",
-			ord(")"): "\)",
-			ord("*"): "\*",
-			ord("+"): "\+",
-			ord("-"): "\-",
-			ord("."): "\.",
-			ord("?"): "\?",
-			ord("["): "\[",
+			ord("("): "\\(",
+			ord(")"): "\\)",
+			ord("*"): "\\*",
+			ord("+"): "\\+",
+			ord("-"): "\\-",
+			ord("."): "\\.",
+			ord("?"): "\\?",
+			ord("["): "\\[",
 			ord("\\"): "\\\\",
-			ord("]"): "\]",
-			ord("^"): "\^",
-			ord("{"): "\{",
-			ord("}"): "\}",
+			ord("]"): "\\]",
+			ord("^"): "\\^",
+			ord("{"): "\\{",
+			ord("}"): "\\}",
 		})
 		self.symbol_repattern = re.compile(restring)
 
 	def set_braillesymbol(self, symbol):
 		self.braillesymbol = symbol
 		symbol_list = sorted(list(symbol.keys()), key=lambda i: -len(i))
-		symbol_list = [item.replace("|", "\|") for item in symbol_list]
+		symbol_list = [item.replace("|", "\\|") for item in symbol_list]
 		restring = "|".join(symbol_list).translate({
 			ord("$"): "\\$",
-			ord("("): "\(",
-			ord(")"): "\)",
-			ord("*"): "\*",
-			ord("+"): "\+",
-			ord("-"): "\-",
-			ord("."): "\.",
-			ord("?"): "\?",
-			ord("["): "\[",
-			ord("]"): "\]",
-			ord("^"): "\^",
-			ord("{"): "\{",
-			ord("}"): "\}",
+			ord("("): "\\(",
+			ord(")"): "\\)",
+			ord("*"): "\\*",
+			ord("+"): "\\+",
+			ord("-"): "\\-",
+			ord("."): "\\.",
+			ord("?"): "\\?",
+			ord("["): "\\[",
+			ord("\\"): "\\\\",
+			ord("]"): "\\]",
+			ord("^"): "\\^",
+			ord("{"): "\\{",
+			ord("}"): "\\}",
 		})
 		self.braillesymbol_repattern = re.compile(restring)
 
@@ -634,6 +634,7 @@ class TerminalNode(Node):
 class AlterNode(NonTerminalNode):
 	pass
 
+
 class FixNode(NonTerminalNode):
 	def insert(self, index, node):
 		if index >= len(self.child):
@@ -889,7 +890,7 @@ class Maction(AlterNode):
 class Math(AlterNode):
 	def get_mathml(self):
 		mathml = ''
-		#the xml namespace for mathml. Needed to ensure newer versions of word recognise and render the mathml
+		# the xml namespace for mathml. Needed to ensure newer versions of word recognise and render the mathml
 		mathmlNamespace = 'xmlns="http://www.w3.org/1998/Math/MathML"'
 		for c in self.child:
 			mathml = mathml + c.get_mathml()
@@ -1049,7 +1050,7 @@ class NodeType(object):
 	def set_rule(self):
 		try:
 			self.rule = self.mathrule[self.name].serialized_order
-		except BaseException as e:
+		except BaseException:
 			self.rule = None
 
 	def set_braillemathrule(self, braillemathrule):
@@ -1665,11 +1666,11 @@ def load_unicode_dic(path=None, language='', category='speech', NVDASymbol=False
 	with open(path, 'r', encoding='utf-8') as fr:
 		reader = csv.reader(fr, delimiter='\t')
 		for row in reader:
-				if len(row) >= 2:
-					try:
-						symbol[row[0]] = row[1].split(',')[0].strip()
-					except BaseException:
-						pass
+			if len(row) >= 2:
+				try:
+					symbol[row[0]] = row[1].split(',')[0].strip()
+				except BaseException:
+					pass
 
 	return symbol
 
@@ -1760,7 +1761,7 @@ def save_math_rule(mathrule, path=None, language='', category='speech'):
 			so_line = ', '.join(so_line)
 			role_line = ', '.join(v.role)
 			mathrule_unicode[k] = [so_line, role_line, v.description]
-		except:
+		except BaseException:
 			pass
 
 	with open(path, 'w', encoding='utf-8', newline="") as file:
@@ -1770,7 +1771,7 @@ def save_math_rule(mathrule, path=None, language='', category='speech'):
 		for k in key:
 			try:
 				writer.writerow([k, *mathrule_unicode[k]])
-			except:
+			except BaseException:
 				pass
 
 	return True

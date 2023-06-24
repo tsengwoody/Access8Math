@@ -420,7 +420,6 @@ class A8MInteraction(Window):
 		brailleRegion = [braille.TextRegion(cells)]
 		display_braille(brailleRegion)
 
-
 	@script(
 		gesture="kb:control+r",
 	)
@@ -444,7 +443,7 @@ class A8MInteraction(Window):
 		try:
 			latex = mathml2latex(self.mathcontent.mathML)
 			api.copyToClip(latex)
-		except:
+		except BaseException:
 			# Translators: A message reported to the user when copying LaTeX failed from the Interaction window
 			ui.message(_("Copy LaTeX failed"))
 		# Translators: A message reported to the user when copying LaTeX from the Interaction window

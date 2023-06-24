@@ -3,7 +3,6 @@ import re
 
 from regularExpression import delimiterRegularExpression
 
-from xml.etree.ElementTree import tostring
 from latex2mathml import converter
 from py_asciimath.translator.translator import (
 	ASCIIMath2MathML,
@@ -32,6 +31,7 @@ translate_dict = {
 	ord(")"): r"\)",
 	ord("\\"): r"\\",
 }
+
 
 def mathml2latex(data):
 	global mathml2latexObj

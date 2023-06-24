@@ -29,5 +29,6 @@ def nemeth2symbol_with_priority(src):
 
 	return nemeth2symbol
 
+
 if __name__ == "__main__":
 	i = nemeth2symbol_with_priority("final.csv")
