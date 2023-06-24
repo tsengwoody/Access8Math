@@ -257,7 +257,7 @@ class MathContent(object):
 	def set_braillesymbol(self, symbol):
 		self.braillesymbol = symbol
 		symbol_list = sorted(list(symbol.keys()), key=lambda i: -len(i))
-		symbol_list = [item.replace("|", "\\|") for item in symbol_list]
+		symbol_list = [item.replace("|", "\\|") for item in symbol_list if not includes_unicode_range(item, 124, 125)]
 		restring = "|".join(symbol_list).translate({
 			ord("$"): "\\$",
 			ord("("): "\\(",
@@ -305,7 +305,8 @@ class MathContent(object):
 
 	def braillesymbol_translate(self, string):
 		try:
-			string = self.braillesymbol_repattern.sub(lambda m: self.symbol[m.group(0)], string)
+			string = self.braillesymbol_repattern.sub(lambda m: self.braillesymbol[m.group(0)], string)
+			print(string)
 		except BaseException:
 			pass
 
