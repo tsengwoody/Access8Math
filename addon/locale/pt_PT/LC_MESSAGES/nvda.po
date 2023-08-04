@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 'Access8Math' '3.1'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2021-09-08 06:33+0800\n"
-"PO-Revision-Date: 2023-06-16 09:56+0100\n"
+"PO-Revision-Date: 2023-07-27 23:07+0100\n"
 "Last-Translator: Ângelo Abrantes <ampa4374@gmail.com>\n"
 "Language-Team: Equipa portuguesa do NVDA: Ângelo Abrantes e Rui Fontes "
 "(16-06-2023)\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 3.3.2\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #, python-brace-format
@@ -251,7 +251,7 @@ msgstr "Delimitador de &LaTeX:"
 
 #. Translators: A choice of a combobox in the writing settings dialog
 msgid "bracket"
-msgstr "Parêntesis recto"
+msgstr "parêntesis recto"
 
 #. Translators: A choice of a combobox in the writing settings dialog
 msgid "dollar"
@@ -299,11 +299,11 @@ msgstr "Cor da fonte HTML:"
 
 #. Translators: A choice of a combobox in the writing settings dialog
 msgid "white"
-msgstr "Branco"
+msgstr "branco"
 
 #. Translators: A choice of a combobox in the writing settings dialog
 msgid "black"
-msgstr "Preto"
+msgstr "preto"
 
 #. Translators: The label of an option in the writing settings dialog
 msgid "HTML background color:"
@@ -392,7 +392,7 @@ msgstr "Adicionar símbolo"
 
 #. Translators: This is the label for the edit field in the add symbol dialog.
 msgid "&Symbol:"
-msgstr "&Símbolo"
+msgstr "&Símbolo:"
 
 #. Translators: This is the label for the unicode dictionary dialog.
 #, python-brace-format
@@ -469,7 +469,7 @@ msgid "Edit Math Rule Entry"
 msgstr "Entrada de Regra de Matemática Edit Math"
 
 msgid "&Description"
-msgstr "&Descrição:"
+msgstr "&Descrição"
 
 #. Translators: The label for a math rule list column header in the math rules dialog.
 msgid "Description"
@@ -554,11 +554,11 @@ msgstr "&retirar selecção"
 #. Add button
 #. Translators: The label of a button in the Add new language dialog
 msgid "Unicode dictionary"
-msgstr "dicionário unicode"
+msgstr "Dicionário unicode"
 
 #. Translators: The label of a button in the Add new language dialog
 msgid "Math rule"
-msgstr "regra da matemática"
+msgstr "Regra da matemática"
 
 #. Translators: The label of a button in the Add new language dialog
 msgid "OK"
@@ -721,7 +721,7 @@ msgstr "Encerrar o programa"
 
 #. Translators: A button label in the Interaction window
 msgid "Interaction"
-msgstr "interacção"
+msgstr "Interacção"
 
 #. Translators: A button label in the Interaction window
 msgid "Copy"
@@ -737,7 +737,7 @@ msgstr "Entrar no modo de interacção"
 
 #. Translators: A message reported to the user when navigating in the math expression of the interaction window
 msgid "No move"
-msgstr "sem movimento"
+msgstr "Sem movimento"
 
 #. Translators: A message reported to the user when copying data from the Interaction window
 msgid "Copied raw MathML"
@@ -843,7 +843,7 @@ msgstr ""
 "LaTeX"
 
 msgid "This block cannot be interacted"
-msgstr "Não é possível interagir com Este bloco "
+msgstr "Não é possível interagir com Este bloco"
 
 msgid "This block cannot be translated"
 msgstr "Este bloco não pode ser traduzido"
@@ -882,7 +882,7 @@ msgstr "Nemeth para LaTeX"
 
 #. Translators: batch menu
 msgid "LaTeX delimiter"
-msgstr "Delimitador de &LaTeX:"
+msgstr "Delimitador de &LaTeX"
 
 #. Translators: batch menu
 msgid "bracket to dollar"
@@ -900,7 +900,7 @@ msgid "view"
 msgstr "ver"
 
 msgid "edit"
-msgstr "Editar"
+msgstr "editar"
 
 msgid "virtual context menu"
 msgstr "menu de contexto virtual"
@@ -935,7 +935,7 @@ msgstr "2 dimensões"
 
 #. Translators: LaTeX command category - set
 msgid "set"
-msgstr "Definir"
+msgstr "sefinir"
 
 #. Translators: LaTeX command category - other
 msgid "other"
@@ -989,7 +989,7 @@ msgid "preview"
 msgstr "pré-visualização"
 
 msgid "export"
-msgstr "Exportar"
+msgstr "exportar"
 
 msgid "view command"
 msgstr "comando de visualização"
@@ -1065,7 +1065,7 @@ msgstr "maior ou igual a"
 
 #. Translators: LaTeX command - less than or equal to
 msgid "less than or equal to"
-msgstr "Menor ou igual a"
+msgstr "menor ou igual a"
 
 #. Translators: LaTeX command - not equal to
 msgid "not equal to"
@@ -1149,7 +1149,7 @@ msgstr "raio"
 
 #. Translators: LaTeX command - arc
 msgid "arc"
-msgstr "Arco"
+msgstr "arco"
 
 #. Translators: LaTeX command - triangle
 msgid "triangle"
@@ -1161,7 +1161,7 @@ msgstr "ângulo"
 
 #. Translators: LaTeX command - degree
 msgid "degree"
-msgstr "Grau"
+msgstr "grau"
 
 #. Translators: LaTeX command - circle
 msgid "circle"
@@ -1213,7 +1213,7 @@ msgstr "não se deitar em"
 
 #. Translators: LaTeX command - include
 msgid "include"
-msgstr "Incluir"
+msgstr "incluir"
 
 #. Translators: LaTeX command - properly include
 msgid "properly include"
