@@ -123,7 +123,7 @@ class A8MLaTeXCommandView(MenuView):
 	name = _("LaTeX command")
 
 	def __init__(self, inSection=True):
-		super().__init__(MenuModel=A8MLaTeXCommandModel, TextInfo=A8MLaTeXCommandViewTextInfo)
+		super().__init__(MenuModel=A8MLaTeXCommandModel, TextInfo=MenuViewTextInfo)
 		self.inSection = inSection
 
 	def update_menu(self):
@@ -247,7 +247,3 @@ class A8MLaTeXCommandView(MenuView):
 			tones.beep(100, 100)
 			return
 		eventHandler.executeEvent("gainFocus", self.parent)
-
-
-class A8MLaTeXCommandViewTextInfo(MenuViewTextInfo):
-	pass

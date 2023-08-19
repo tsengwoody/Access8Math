@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 'Access8Math' '3.1'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2021-09-20 15:26+0800\n"
-"PO-Revision-Date: 2023-06-08 04:00+0300\n"
+"PO-Revision-Date: 2023-06-24 20:34+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -257,17 +257,16 @@ msgid "dollar"
 msgstr "dolar"
 
 #. Translators: The label of an option in the writing settings dialog
-#, fuzzy
 msgid "&Nemeth delimiter:"
-msgstr "Delimitator &LaTeX:"
+msgstr "&Nemeth delimitator:"
 
 #. Translators: A choice of a combobox in the writing settings dialog
 msgid "at"
-msgstr ""
+msgstr "la"
 
 #. Translators: A choice of a combobox in the writing settings dialog
 msgid "UEB"
-msgstr ""
+msgstr "UEB"
 
 #. Translators: The label of an option in the writing settings dialog
 msgid "HTML &document display:"
@@ -379,14 +378,12 @@ msgid "Integer and fraction"
 msgstr "Număr întreg și fracție"
 
 #. Translators: This is the label for the Access8Math settings dialog.
-#, fuzzy
 msgid "Access8Math Settings"
-msgstr "Access8Math"
+msgstr "Setări Access8Math"
 
 #. Translators: The profile name for normal configuration
-#, fuzzy
 msgid "normal configuration"
-msgstr "coeficient binom"
+msgstr "configurație normală"
 
 #. Translators: This is the label for the add symbol dialog.
 msgid "Add Symbol"
@@ -750,14 +747,12 @@ msgid "Copied MathML"
 msgstr "S-a copiat MathML"
 
 #. Translators: A message reported to the user when copying LaTeX failed from the Interaction window
-#, fuzzy
 msgid "Copy LaTeX failed"
-msgstr "deschidere cale eșuată"
+msgstr "Copierea LaTeX a eșuat"
 
 #. Translators: A message reported to the user when copying LaTeX from the Interaction window
-#, fuzzy
 msgid "Copied LaTeX"
-msgstr "Copiat"
+msgstr "LaTeX copiat"
 
 #. Translators: A message reported to the user when taking a snapshot of math data in the Interaction window
 msgid "snapshot"
@@ -880,9 +875,8 @@ msgid "AsciiMath to LaTeX"
 msgstr "AsciiMath în LaTeX"
 
 #. Translators: batch menu
-#, fuzzy
 msgid "Nemeth to LaTeX"
-msgstr "AsciiMath în LaTeX"
+msgstr "Nemeth la LaTeX"
 
 #. Translators: batch menu
 msgid "LaTeX delimiter"
@@ -983,7 +977,7 @@ msgstr "AsciiMath"
 
 #. Translators: mark command category - AsciiMath
 msgid "Nemeth"
-msgstr ""
+msgstr "Nemeth"
 
 #. Translators: alt+m window
 msgid "mark command"
@@ -1005,9 +999,9 @@ msgstr "Salvare fişier..."
 msgid "translate command"
 msgstr "comandă traducere"
 
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "This block cannot be translated into {id}"
-msgstr "Acest block nu poate fi tradus"
+msgstr "Acest bloc nu poate fi tradus în {id}"
 
 msgid "command"
 msgstr "comandă"

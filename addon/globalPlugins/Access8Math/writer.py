@@ -1,6 +1,7 @@
 # coding=utf-8
 
 import os
+import re
 import shutil
 
 import addonHandler
@@ -22,6 +23,7 @@ from command.mark import A8MMarkCommandView
 from command.review import A8MHTMLCommandView
 from command.translate import A8MTranslateCommandView
 from command.batch import A8MBatchCommandView
+from command.autocomplete import A8MAutocompleteCommandView
 from delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter, Nemeth as Nemeth_delimiter
 from lib.braille import display_braille
 from lib.mathProcess import textmath2laObjFactory, latex2mathml, asciimath2mathml, nemeth2latex
@@ -42,6 +44,37 @@ writeNav_mode = False
 class SectionManager:
 	def __init__(self):
 		self.reset()
+
+	def reset(self):
+		self.section_index = -1
+		self.points = None
+
+	def __enter__(self):
+		self.obj = api.getFocusObject()
+		self.caret = self.obj.makeTextInfo(textInfos.POSITION_CARET)
+		self.reset()
+		points = textmath2laObjFactory(
+			delimiter={
+				"latex": config.conf["Access8Math"]["settings"]["LaTeX_delimiter"],
+				"asciimath": "graveaccent",
+				"nemeth": config.conf["Access8Math"]["settings"]["Nemeth_delimiter"],
+			}
+		)(self.obj.makeTextInfo(textInfos.POSITION_ALL).text)
+		self.points = list(filter(lambda point: point['start'] < point['end'], points))
+		temp = []
+		for point in self.points:
+			del point['index']
+			temp.append(point)
+		self.points = temp
+		for index, point in enumerate(self.points):
+			if self.caret._startOffset >= point['start'] and self.caret._startOffset < point['end']:
+				self.section_index = index
+
+		# print(self.obj.makeTextInfo(textInfos.POSITION_ALL).text[self.caret._startOffset])
+		return self
+
+	def __exit__(self, exc_type, exc_val, exc_tb):
+		pass
 
 	@property
 	def pointer(self):
@@ -141,36 +174,46 @@ class SectionManager:
 		else:
 			return False
 
-	def reset(self):
-		self.section_index = -1
-		self.section_index = -1
-		self.points = None
+	@property
+	def command(self):
+		delimiter_start_length = len(self.delimiter["start"])
+		delimiter_end_length = len(self.delimiter["end"])
 
-	def __enter__(self):
-		self.obj = api.getFocusObject()
-		self.caret = self.obj.makeTextInfo(textInfos.POSITION_CARET)
-		self.reset()
-		points = textmath2laObjFactory(
-			delimiter={
-				"latex": config.conf["Access8Math"]["settings"]["LaTeX_delimiter"],
-				"asciimath": "graveaccent",
-				"nemeth": config.conf["Access8Math"]["settings"]["Nemeth_delimiter"],
+		data = self.pointer["data"]
+
+		start = self.pointer['start'] + delimiter_start_length
+		end = self.pointer['end'] - delimiter_end_length
+		current = self.caret._startOffset
+		current_local = self.caret._startOffset - start
+
+		front_str = data[:current_local]
+		back_str = data[current_local:]
+
+		command = {
+			"all": None,
+			"front": None,
+			"back": None,
+		}
+		front_result = re.match(r"[A-Za-z]*\\", front_str[::-1])
+		if front_result:
+			back_result = re.match(r"[A-Za-z]*", back_str)
+			front_command = front_result.group(0)[::-1]
+			back_command = back_result.group(0)
+			command = {
+				"all": f"{front_command}{back_command}",
+				"front": front_command,
+				"back": back_command,
 			}
-		)(self.obj.makeTextInfo(textInfos.POSITION_ALL).text)
-		self.points = list(filter(lambda point: point['start'] < point['end'], points))
-		temp = []
-		for point in self.points:
-			del point['index']
-			temp.append(point)
-		self.points = temp
-		for index, point in enumerate(self.points):
-			if self.caret._startOffset >= point['start'] and self.caret._startOffset < point['end']:
-				self.section_index = index
 
-		return self
+		return command
 
-	def __exit__(self, exc_type, exc_val, exc_tb):
-		pass
+	def commandSelection(self):
+		command = self.command
+		if command["all"]:
+			current = self.caret._startOffset
+			self.caret._startOffset = current - len(command["front"])
+			self.caret._endOffset = current + len(command["back"])
+			self.caret.updateSelection()
 
 	def move(self, step=0, type_="any", all_index=None):
 		MATH_TYPE = ["latex", "asciimath", "nemeth", "mathml"]
@@ -311,13 +354,14 @@ class TextMathEditField(NVDAObject):
 		self.bindGesture("kb:alt+b", "batch")
 		self.bindGesture("kb:alt+h", "view_math")
 		self.bindGesture("kb:alt+i", "interact")
+		self.bindGesture("kb:alt+upArrow", "autocomplete")
 		self.bindGesture("kb:alt+l", "latex_command")
 		self.bindGesture("kb:alt+m", "mark")
 		self.bindGesture("kb:alt+t", "translate")
 
 	def unbindCommandGestures(self):
 		import inputCore
-		for key in ["alt+b", "alt+h", "alt+i", "alt+l", "alt+m", "alt+t"]:
+		for key in ["alt+b", "alt+h", "alt+i", "alt+l", "alt+m", "alt+t", "alt+upArrow"]:
 			key = "kb:{}".format(key)
 			try:
 				self.removeGestureBinding(key)
@@ -743,6 +787,21 @@ class TextMathEditField(NVDAObject):
 			else:
 				ui.message(_("This block cannot be interacted"))
 
+	def script_autocomplete(self, gesture):
+		with self.section_manager as manager:
+			if manager.inLaTeX:
+				command = manager.command["all"]
+				if command:
+					view = A8MAutocompleteCommandView(section=manager, command=command)
+					if len(view.data.data) > 0:
+						view.setFocus()
+					else:
+						ui.message(_("No autocomplete found"))
+				else:
+					ui.message(_("No autocomplete found"))
+			else:
+				ui.message(_("No autocomplete found"))
+
 	def script_translate(self, gesture):
 		with self.section_manager as manager:
 			if manager.inLaTeX or manager.inAsciiMath or manager.inNemeth:
@@ -774,7 +833,7 @@ class TextMathEditField(NVDAObject):
 					mathMl = asciimath2mathml(result['data'])
 					mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
 					text += mathPres.speechProvider.getSpeechForMathMl(mathMl)
-					brailleRegion += ["⠀⠼", "".join(mathPres.speechProvider.getBrailleForMathMl(mathMl)), "⠀"]
+					brailleRegion += ["⠀", "".join(mathPres.speechProvider.getBrailleForMathMl(mathMl)), "⠀"]
 				except BaseException:
 					text += result['data']
 					brailleRegion += [result['data']]
@@ -783,7 +842,7 @@ class TextMathEditField(NVDAObject):
 					mathMl = latex2mathml(nemeth2latex(result['data']))
 					mathMl = mathMl.replace("<<", "&lt;<").replace(">>", ">&gt;")
 					text += mathPres.speechProvider.getSpeechForMathMl(mathMl)
-					brailleRegion += ["⠀⠼", "".join(mathPres.speechProvider.getBrailleForMathMl(mathMl)), "⠀"]
+					brailleRegion += ["⠀", "".join(mathPres.speechProvider.getBrailleForMathMl(mathMl)), "⠀"]
 				except BaseException:
 					text += result['data']
 					brailleRegion += [result['data']]
@@ -791,7 +850,7 @@ class TextMathEditField(NVDAObject):
 				try:
 					mathMl = result['data']
 					text += mathPres.speechProvider.getSpeechForMathMl(mathMl)
-					brailleRegion += ["⠀⠼", "".join(mathPres.speechProvider.getBrailleForMathMl(mathMl)), "⠀"]
+					brailleRegion += ["⠀", "".join(mathPres.speechProvider.getBrailleForMathMl(mathMl)), "⠀"]
 				except BaseException:
 					text += result['data']
 					brailleRegion += [result['data']]
