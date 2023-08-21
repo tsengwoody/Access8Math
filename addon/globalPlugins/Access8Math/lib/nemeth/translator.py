@@ -11,7 +11,4 @@ class Nemeth2LaTeXTranslator:
 		# self.parser = Lark(grammar, parser=parser, lexer=lexer)
 
 	def translate(self, data):
-		return self.transformer.transform(self.parser.parse(data)).strip().translate({
-			ord("{"): "\\{",
-			ord("}"): "\\}",
-		})
+		return self.transformer.transform(self.parser.parse(data)).strip()

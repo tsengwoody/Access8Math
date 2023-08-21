@@ -176,6 +176,14 @@ class SectionManager:
 
 	@property
 	def command(self):
+		command = {
+			"all": None,
+			"front": None,
+			"back": None,
+		}
+		if not self.inLaTeX:
+			return command
+
 		delimiter_start_length = len(self.delimiter["start"])
 		delimiter_end_length = len(self.delimiter["end"])
 
@@ -189,11 +197,6 @@ class SectionManager:
 		front_str = data[:current_local]
 		back_str = data[current_local:]
 
-		command = {
-			"all": None,
-			"front": None,
-			"back": None,
-		}
 		front_result = re.match(r"[A-Za-z]*\\", front_str[::-1])
 		if front_result:
 			back_result = re.match(r"[A-Za-z]*", back_str)
@@ -789,14 +792,11 @@ class TextMathEditField(NVDAObject):
 
 	def script_autocomplete(self, gesture):
 		with self.section_manager as manager:
-			if manager.inLaTeX:
-				command = manager.command["all"]
-				if command:
-					view = A8MAutocompleteCommandView(section=manager, command=command)
-					if len(view.data.data) > 0:
-						view.setFocus()
-					else:
-						ui.message(_("No autocomplete found"))
+			command = manager.command["all"]
+			if command:
+				view = A8MAutocompleteCommandView(section=manager, command=command)
+				if len(view.data.data) > 0:
+					view.setFocus()
 				else:
 					ui.message(_("No autocomplete found"))
 			else:
