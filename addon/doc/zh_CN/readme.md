@@ -218,7 +218,7 @@ space/enter：光标停留在数学区域则与此数学内容进行交互式导
 ### 混合内容示例
 
 * LaTeX（括号）：一元二次方程式 \(ax^2+bx+c=0\) 的解为 \(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\) 。
-* LaTeX（钱号）：一元二次方程式 $ax^2+bx+c=0$ 的解为 $x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$ 。
+* LaTeX（美元符号）：一元二次方程式 $ax^2+bx+c=0$ 的解为 $x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$ 。
 * AxciiMath：一元二次方程式 `ax^2+bx+c=0` 的解为 `x=(-b+- \sqrt(b^2-4ac))/(2a)` 。
 * Nemeth(UEB)：一元二次方程式 _%⠁⠭⠘⠆⠐⠬⠃⠭⠬⠉⠀⠨⠅⠀⠴_: 的解为 _%⠭⠀⠨⠅⠀⠹⠤⠃⠬⠤⠜⠃⠘⠆⠐⠤⠲⠁⠉⠻⠌⠆⠁⠼_: 。
 * Nemeth(at)：一元二次方程式 @⠁⠭⠘⠆⠐⠬⠃⠭⠬⠉⠀⠨⠅⠀⠴@ 的解为 @⠭⠀⠨⠅⠀⠹⠤⠃⠬⠤⠜⠃⠘⠆⠐⠤⠲⠁⠉⠻⠌⠆⠁⠼@ 。
@@ -288,8 +288,8 @@ Access8Math 将常用数学表达式依据类型与逻辑，建立了46项数学
 编辑: 进入"数学规则"后，窗口内有数学规则列表，选则任一规则后可选择"编辑按钮"进入编辑条目。
 
 规则的"编辑条目"可分为两大部分，分别是序列化顺序与子节点角色。
-	*	序列化顺序：将数学规则根据朗读顺序划分多个部分，在此部分可更改规则子项目的朗读顺序及开始、项目间和结束文本的分隔内容，以分数规则 mfrac 为例，此规则分为五个朗读顺序，顺序0、2和4分别代表开始提示、项目间提示与结束提示，可在各字段中输入自己习惯的朗读方式，而顺序1和3则可调整子节点朗读的先后，可在组合框中更改其顺序。
-	*	子节点角色：为该数学规则的下级子项目，以分数规则 mfrac 为例，此项规则就包含分子与分母两项，而在子节点字段中，可以更改该项子内容在其上层子内容的意义文本（如： 分子或分母）。
+	* 序列化顺序：将数学规则根据朗读顺序划分多个部分，在此部分可更改规则子项目的朗读顺序及开始、项目间和结束文本的分隔内容，以分数规则 mfrac 为例，此规则分为五个朗读顺序，顺序0、2和4分别代表开始提示、项目间提示与结束提示，可在各字段中输入自己习惯的朗读方式，而顺序1和3则可调整子节点朗读的先后，可在组合框中更改其顺序。
+	* 子节点角色：为该数学规则的下级子项目，以分数规则 mfrac 为例，此项规则就包含分子与分母两项，而在子节点字段中，可以更改该项子内容在其上层子内容的意义文本（如： 分子或分母）。
 
 示例：预览编辑修改后的规则读法，点击后会出现一个使用该规则的数学内容，供用户确认该类型的规则修改是否符合预期。
 
@@ -299,9 +299,59 @@ Access8Math 将常用数学表达式依据类型与逻辑，建立了46项数学
 
 导出：将数学规则文件保存到指定路径，便于分享或保存数学规则文件。
 
+| category | example |
+| - | - |
+| math | <math><mn>1</mn><mo>+</mo><mn>2</mn><mo>+</mo><mn>3</mn></math> |
+| mfrac | <math><mrow><mfrac><mn>3</mn><mrow><mn>1</mn><mo>+</mo><mi>x</mi></mrow></mfrac></mrow></math> |
+| single_fraction | <math><mfrac><mi>3</mi><mi>4</mi></mfrac></math> |
+| AddIntegerFractionType | <math><mn>17</mn><mfrac><mn>2</mn><mn>5</mn></mfrac></math> |
+| mfenced | <math><mfenced><mrow><mn>5</mn><mo>+</mo><mn>6</mn></mrow></mfenced></math> |
+| set | <math><mfenced open="{" close="}"><mrow><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>4</mn></mrow></mfenced></math> |
+| absolute_value | <math><mfenced open="|" close="|"><mrow><mo>-</mo><mn>	2</mn></mrow></mfenced></math> |
+| determinant | <math><mfenced open="|" close="|"><mtable><mtr><mtd><mn>2</mn></mtd><mtd><mn>3</mn></mtd></mtr><mtr><mtd><mn>5</mn></mtd><mtd><mi>x</mi></mtd></mtr></mtable></mfenced></math> |
+| matrix | <math><mfenced open="[" close="]"><mtable><mtr><mtd><mn>2</mn></mtd><mtd><mn>3</mn></mtd></mtr><mtr><mtd><mn>5</mn></mtd><mtd><mi>x</mi></mtd></mtr></mtable></mfenced></math> |
+| msqrt | <math><msqrt><mi>4</mi><mo>+</mo><mi>9</mi></msqrt></math> |
+| mroot | <math><mroot><mi>9</mi><mi>3</mi></mroot></math> |
+| single_square_root | <math><msqrt><mi>4</mi></msqrt></math> |
+| msubsup | <math><msubsup><mi>a</mi><mn>n</mn><mn>2</mn></msubsup><mo>+</mo><msubsup><mi>a</mi><mn>n+1</mn><mn>2</mn></msubsup></math> |
+| msup | <math><mrow><msup><mi>x</mi><mrow><mi>a</mi><mo>+</mo><mi>b</mi></mrow></msup></mrow></math> |
+| msub | <math><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></math> |
+| munderover | <math><munderover><mi mathvariant="normal">&#x3C0;</mi><mrow><mi>x</mi><mo>=</mo><mn>0</mn></mrow><mi>N</mi></munderover></math> |
+| munder | <math><mrow><munder><mrow><mi>lim</mi></mrow><mrow><mi>x</mi><mo>&#x2192;</mo><mi>&#x221E;</mi></mrow></munder></mrow></math> |
+| mover | <math><mover><mrow><mi>A</mi><mo>+</mo><mi>B</mi></mrow><mo>&#xAF;</mo></mover></math> |
+| SingleMsubsup | <math><msubsup><mi>a</mi><mn>0</mn><mn>2</mn></msubsup><mo>+</mo><msubsup><mi>a</mi><mn>1</mn><mn>2</mn></msubsup></math> |
+| SingleMsub | <math><mrow><msub><mrow><mi>log</mi></mrow><mn>2</mn></msub><mn>10</mn></mrow></math> |
+| SingleMsup | <math><msup><mi>f</mi><mo>'</mo></msup></math> |
+| SingleMunderover | <math><munderover><mi>&#x391;</mi><mi>m</mi><mi>n</mi></munderover></math> |
+| SingleMunder | <math><munder><mi>lim</mi><mi>a</mi></munder></math> |
+| SingleMover | <math><mover><mi>A</mi><mo>&#xAF;</mo></mover></math> |
+| power | <math><msup><mn>3</mn><mn>5</mn></msup></math> |
+| SquarePowerType | <math><msup><mn>3</mn><mn>2</mn></msup></math> |
+| CubePowerType | <math><msup><mn>2</mn><mn>3</mn></msup></math> |
+| from_to | <math><msubsup><mo>&#x222B;</mo><mn>0</mn><mn>1</mn></msubsup><msqrt><mi>x</mi></msqrt></math> |
+| from | <math><munder><mo>&#x2211;</mo><mi>N</mi></munder></math> |
+| to | <math><mover><mo>&#x2211;</mo><mi>N</mi></mover></math> |
+| mtable | <math><mtable><mtr><mtd><mi>x</mi><mo>+</mo><mi>y</mi></mtd><mtd><mo>=</mo></mtd><mtd><mn>1</mn></mtd></mtr><mtr><mtd><mi>x</mi><mo>+</mo><mn>2</mn><mi>y</mi></mtd><mtd><mo>=</mo></mtd><mtd><mn>4</mn></mtd></mtr></mtable></math> |
+| mtr | <math><mtable><mtr><mtd><mi>x</mi><mo>+</mo><mi>y</mi></mtd><mtd><mo>=</mo></mtd><mtd><mn>1</mn></mtd></mtr><mtr><mtd><mi>x</mi><mo>+</mo><mn>2</mn><mi>y</mi></mtd><mtd><mo>=</mo></mtd><mtd><mn>4</mn></mtd></mtr></mtable></math> |
+| mtd | <math><mtable><mtr><mtd><mi>x</mi><mo>+</mo><mi>y</mi></mtd><mtd><mo>=</mo></mtd><mtd><mn>1</mn></mtd></mtr><mtr><mtd><mi>x</mi><mo>+</mo><mn>2</mn><mi>y</mi></mtd><mtd><mo>=</mo></mtd><mtd><mn>4</mn></mtd></mtr></mtable></math> |
+| LineType | <math><mrow><mover accent='true'><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy='true'>&#x2194;</mo></mover></mrow></math> |
+| RayType | <math><mrow><mover accent='true'><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy='true'>&#x2192;</mo></mover></mrow></math> |
+| LineSegmentType | <math><mover><mrow><mi>A</mi><mi>B</mi></mrow><mo>&#xAF;</mo></mover></math> |
+| VectorSingleType | <math><mrow data-mjx-texclass="ORD"><mover><mi>A</mi><mo stretchy="false">→</mo></mover></mrow></math> |
+| VectorDoubleType | <math><mrow data-mjx-texclass="ORD"><mover><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy="false">→</mo></mover></mrow></math> |
+| ArrowOverSingleSymbolType | <math><mrow><mover accent='true'><mrow><mi>a</mi></mrow><mo stretchy='true'>&#x2192;</mo></mover></mrow></math> |
+| FrownType | <math><mrow><mover accent='true'><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy='true'>&#x2322;</mo></mover></mrow></math> |
+| DegreeType | <math ><msup ><mn>15</mn><mo>∘</mo></msup><mo>+</mo><msup ><mn>10</mn><mo>∘</mo></msup><mo>=</mo><msup ><mn>25</mn><mo>∘</mo></msup></math> |
+| LogType | <math><msub><mi>log</mi><mn>10</mn></msub></math> |
+| BinomialType | <math><mo>(</mo><mfrac linethickness = "0"><mi>n</mi><mi>k</mi></mfrac><mo>)</mo></math> |
+| NegativeSignType | <math><mo>-</mo><mn>2</mn></math> |
+| PositiveSignType | <math><mo>+</mo><mn>2</mn></math> |
+| mmultiscripts | <math><mmultiscripts><mi>T</mi><mprescripts/><mi>n</mi><mi>m</mi></mmultiscripts></math> |
+| mprescripts | <math><mmultiscripts><mi>T</mi><mprescripts/><mi>n</mi><mi>m</mi></mmultiscripts></math> |
+
 ## 示例
 
-维基百科上的数学内容都以 MathML 书写而成
+维基百科上的数学内容都是用 MathML 书写的：
 
 *	一元二次方程是：https://zh.wikipedia.org/wiki/一元二次方程
 *	矩阵乘法：https://zh.wikipedia.org/zh-tw/%E7%9F%A9%E9%99%A3%E4%B9%98%E6%B3%95
