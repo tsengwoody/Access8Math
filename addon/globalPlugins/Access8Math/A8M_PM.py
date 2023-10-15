@@ -252,6 +252,7 @@ class MathContent(object):
 			ord("{"): "\\{",
 			ord("}"): "\\}",
 		})
+		restring += "|\\|"
 		self.symbol_repattern = re.compile(restring)
 
 	def set_braillesymbol(self, symbol):
@@ -274,6 +275,7 @@ class MathContent(object):
 			ord("{"): "\\{",
 			ord("}"): "\\}",
 		})
+		restring += "|\\|"
 		self.braillesymbol_repattern = re.compile(restring)
 
 	def navigate(self, action):
