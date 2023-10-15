@@ -68,6 +68,9 @@ class Nemeth2TexTransformer(Transformer):
 	def exp_frac(self, items):
 		return r"\frac{" + items[0] + r"}{" + items[1] + r"}"
 
+	def exp_mixed_number(self, items):
+		return items[0] + r"\frac{" + items[1] + r"}{" + items[2] + r"}"
+
 	def exp_sqrt(self, items):
 		return r"\sqrt{" + items[0] + r"}"
 
@@ -102,7 +105,7 @@ class Nemeth2TexTransformer(Transformer):
 		return items[0]
 
 	def exp_curly_brace(self, items):
-		return r"{" + "".join(items) + r"}"
+		return r"\{" + "".join(items) + r"\}"
 
 	def exp_square_bracket(self, items):
 		return r"[" + "".join(items) + r"]"

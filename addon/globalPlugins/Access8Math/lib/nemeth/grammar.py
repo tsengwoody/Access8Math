@@ -34,6 +34,7 @@ grammar = r"""
 		| s "⠰" s -> exp_sub_simple
 		| s "⠘" s -> exp_sup_simple
 		| ("⠠")*"⠹" exp? ("⠠")*"⠌" exp? ("⠠")*"⠼" -> exp_frac
+		| NUMBER "⠸"("⠠")*"⠹" exp? ("⠠")*"⠌" exp? "⠸"("⠠")*"⠼" -> exp_mixed_number
 		| "⠜" exp? "⠻" -> exp_sqrt
 		| "⠣" exp? "⠜" exp? "⠻" -> exp_root
 	s: "⠷" exp? "⠾" -> exp_parenthesis
