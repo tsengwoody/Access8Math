@@ -19,11 +19,9 @@ wildcard = \
 
 
 class EditorFrame(wx.Frame):
-	# Translators: The name of the document in the Editor when it has never been saved to a file
 	def __init__(self, path=None):
-		style = wx.DEFAULT_FRAME_STYLE & (~wx.CLOSE_BOX)
-		parent = gui.mainFrame
-		super(EditorFrame, self).__init__(parent, size=(400, 300), style=style)
+		style = wx.DEFAULT_FRAME_STYLE
+		super(EditorFrame, self).__init__(gui.mainFrame, size=(400, 300), style=style)
 
 		if not path:
 			self.ad = Access8MathDocument()
@@ -52,6 +50,8 @@ class EditorFrame(wx.Frame):
 		self.Bind(wx.EVT_FIND_NEXT, self.OnFindNextAction)
 		self.Bind(wx.EVT_FIND_REPLACE, self.OnReplaceAction)
 		self.Bind(wx.EVT_FIND_REPLACE_ALL, self.OnReplaceAllAction)
+
+		self.Bind(wx.EVT_CLOSE, lambda event: self.OnExit(event))
 
 	def SetTitle(self):
 		# Translators: The title of the Editor window
