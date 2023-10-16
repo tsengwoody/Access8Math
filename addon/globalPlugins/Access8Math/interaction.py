@@ -109,11 +109,11 @@ def translate_Unicode(serializes):
 
 	# replace mutiple blank to single blank
 	pattern = re.compile(r'[ ]+')
-	sequence = pattern.sub(lambda m: u' ', sequence)
+	sequence = pattern.sub(lambda m: ' ', sequence)
 
 	# replace blank line to none
 	pattern = re.compile(r'\n\s*\n')
-	sequence = pattern.sub(lambda m: u'\n', sequence)
+	sequence = pattern.sub(lambda m: '\n', sequence)
 
 	# strip blank at start and end line
 	temp = ''
@@ -358,7 +358,7 @@ class A8MInteraction(Window):
 
 	def event_gainFocus(self):
 		# Translators: A message reported to the user when the interaction window takes the focus
-		speech.speak(_("Entering interaction mode"))
+		speech.speak([_("Entering interaction mode")])
 		super().event_gainFocus()
 
 	def reportFocus(self):

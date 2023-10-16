@@ -102,16 +102,6 @@ def clean_allnode(node):
 	for child in node.child:
 		clean_allnode(child)
 
-	'''if len(node.child) > 1:
-		clean_child = []
-		clean_child.append(node.child[0])
-		for index in range(1, len(node.child)):
-			if isinstance(node, Mrow) and isinstance(node.child[index-1], Mn) and isinstance(node.child[index], Mn):
-				clean_child[-1].data = clean_child[-1].data +node.child[index].data
-			else:
-				clean_child.append(node.child[index])
-		node.child = clean_child'''
-
 	if isinstance(node, Mphantom):
 		# remove node
 		parent_new_child = node.parent.child[0:node.index_in_parent()]
@@ -426,8 +416,6 @@ class Node(object):
 
 	def serialized(self):
 		serialized = []
-		if isinstance(self, TerminalNode):
-			serialized.append(['@10@'])
 		for r in self.rule:
 			if isinstance(r, int):
 				serialized.append(self.child[r].serialized())
@@ -440,8 +428,6 @@ class Node(object):
 				serialized.append([r])
 			else:
 				raise TypeError('rule element type error : expect int or str (get {0})'.format(type(r)))
-		if isinstance(self, TerminalNode):
-			serialized.append(['@10@'])
 		return serialized
 
 	def brailleserialized(self):
@@ -609,7 +595,7 @@ class TerminalNode(Node):
 		try:
 			super().set_rule()
 		except BaseException:
-			self.rule = [str(self.mathcontent.symbol_translate(self.data))]
+			self.rule = ['@10@', str(self.mathcontent.symbol_translate(self.data)), '@10@']
 
 	def set_braillerule(self):
 		try:
@@ -638,43 +624,11 @@ class AlterNode(NonTerminalNode):
 
 
 class FixNode(NonTerminalNode):
-	def insert(self, index, node):
-		if index >= len(self.child):
-			return None
-		if isinstance(self.child[index], BlockNode):
-			self.child[index].child.append(node)
-			node.parent = self.child[index]
-		else:
-			mrow_child = [self.child[index], node]
-			mrow_node = Mrow(mrow_child, {})
-			mrow_node.parent = self
-			for child in mrow_node.child:
-				child.parent = mrow_node
-			self.child[index] = mrow_node
-
-		return node
-
-	def delete(self, index):
-		if index >= len(self.child):
-			return None
-		node = self.child[index]
-		self.child[index] = Mrow([], {})
-		self.child[index].parent = self
-		return node
+	pass
 
 
 class BlockNode(AlterNode):
-	def set_rule(self):
-		try:
-			super().set_rule()
-		except BaseException:
-			self.rule = range(len(self.child))
-
-	def set_braillerule(self):
-		try:
-			super().set_braillerule()
-		except BaseException:
-			self.braillerule = range(len(self.child))
+	pass
 
 
 class Mrow(BlockNode):
@@ -1131,46 +1085,42 @@ class SiblingNodeType(NodeType):
 	@classmethod
 	def check(cls, obj):
 		self_index = obj.index_in_parent()
-		cls_previous_siblings = cls.previous_siblings
-		cls_next_siblings = cls.next_siblings
-		cpsl = len(cls_previous_siblings)
-		cnsl = len(cls_next_siblings)
-		if self_index is not None:
-			start_index = self_index - cpsl
-			if cpsl > 0 and cls_previous_siblings[0] is None:
-				cls_previous_siblings = cls_previous_siblings[1:]
-				if not start_index == -1:
-					return False
-			elif start_index < 0:
-				return False
-
-			end_index = self_index + cnsl
-			if cnsl > 0 and cls_next_siblings[-1] is None:
-				cls_next_siblings = cls_next_siblings[:-1]
-				if not end_index == len(obj.parent.child):
-					return False
-			elif end_index > len(obj.parent.child):
-				return False
-		else:
+		if self_index is None:
 			return False
 
-		if not cls.self_.check(obj):
+		cls_previous_siblings = cls.previous_siblings
+		cls_next_siblings = cls.next_siblings
+
+		cpsl = len(cls_previous_siblings)
+		cnsl = len(cls_next_siblings)
+
+		start_index = self_index - cpsl
+		end_index = self_index + cnsl
+
+		if cpsl > 0 and cls_previous_siblings[0] is None:
+			cls_previous_siblings = cls_previous_siblings[1:]
+			cpsl = len(cls_previous_siblings)
+			start_index = self_index - cpsl
+			if not start_index == 0:
+				return False
+		elif start_index < 0:
+			return False
+
+		if cnsl > 0 and cls_next_siblings[-1] is None:
+			cls_next_siblings = cls_next_siblings[:-1]
+			cnsl = len(cls_next_siblings)
+			end_index = self_index + cnsl
+			if not end_index == len(obj.parent.child) - 1:
+				return False
+		elif end_index >= len(obj.parent.child):
 			return False
 
 		# change type
-		type_list = cls_previous_siblings
+		type_list = cls_previous_siblings + [cls.self_] + cls_next_siblings
 		type_list_str = [t if isinstance(t, str) else t.__name__ for t in type_list]
 		type_list = [all_nodetypes_dict[t] for t in type_list_str]
-		obj_previous_siblings = obj.parent.child[start_index:self_index]
-		for mt, o in zip(type_list, obj_previous_siblings):
-			if not mt == object and not mt.check(o):
-				return False
-
-		type_list = cls_next_siblings
-		type_list_str = [t if isinstance(t, str) else t.__name__ for t in type_list]
-		type_list = [all_nodetypes_dict[t] for t in type_list_str]
-		obj_next_siblings = obj.parent.child[self_index + 1:end_index + 1]
-		for mt, o in zip(type_list, obj_next_siblings):
+		objs = obj.parent.child[start_index:end_index + 1]
+		for mt, o in zip(type_list, objs):
 			if not mt == object and not mt.check(o):
 				return False
 
@@ -1480,7 +1430,7 @@ class MatrixType(SiblingNodeType):
 	name = 'matrix'
 
 
-class OpenSimultaneousEquationsType(SiblingNodeType):
+class OpenSimultaneousEquationsType(TerminalNodeType):
 	tag = Mo
 	data = re.compile(r"^\{$")
 
@@ -1488,7 +1438,6 @@ class OpenSimultaneousEquationsType(SiblingNodeType):
 class SimultaneousEquationsType(SiblingNodeType):
 	previous_siblings = [OpenSimultaneousEquationsType]
 	self_ = MtableType
-	next_siblings = []
 	name = 'SimultaneousEquations'
 	priority = 0
 
