@@ -5,6 +5,7 @@ import wx
 
 import addonHandler
 import gui
+import wx
 
 from lib.viewHTML import Access8MathDocument
 
@@ -21,7 +22,7 @@ wildcard = \
 class EditorFrame(wx.Frame):
 	def __init__(self, path=None):
 		style = wx.DEFAULT_FRAME_STYLE
-		super(EditorFrame, self).__init__(gui.mainFrame, size=(400, 300), style=style)
+		super(EditorFrame, self).__init__(wx.GetApp().TopWindow, size=(400, 300), style=style)
 
 		if not path:
 			self.ad = Access8MathDocument()
