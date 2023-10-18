@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: 'Access8Math' '3.1'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2021-09-08 06:33+0800\n"
-"PO-Revision-Date: 2023-05-15 22:03+0200\n"
+"PO-Revision-Date: 2023-10-06 23:16+0200\n"
 "Last-Translator: Juan C. Buño <oprisniki@gmail.com>\n"
 "Language-Team: \n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.4\n"
 
 #, python-brace-format
 msgid ""
@@ -256,17 +256,16 @@ msgid "dollar"
 msgstr "dólar"
 
 #. Translators: The label of an option in the writing settings dialog
-#, fuzzy
 msgid "&Nemeth delimiter:"
-msgstr "Delimitador &LaTeX:"
+msgstr "Delimitador &Nemeth:"
 
 #. Translators: A choice of a combobox in the writing settings dialog
 msgid "at"
-msgstr ""
+msgstr "en"
 
 #. Translators: A choice of a combobox in the writing settings dialog
 msgid "UEB"
-msgstr ""
+msgstr "UEB"
 
 #. Translators: The label of an option in the writing settings dialog
 msgid "HTML &document display:"
@@ -378,14 +377,12 @@ msgid "Integer and fraction"
 msgstr "Enteiro e fración"
 
 #. Translators: This is the label for the Access8Math settings dialog.
-#, fuzzy
 msgid "Access8Math Settings"
-msgstr "Access8Math"
+msgstr "Opcións do Access8Math"
 
 #. Translators: The profile name for normal configuration
-#, fuzzy
 msgid "normal configuration"
-msgstr "coeficente binomial"
+msgstr "configuración normal"
 
 #. Translators: This is the label for the add symbol dialog.
 msgid "Add Symbol"
@@ -749,14 +746,12 @@ msgid "Copied MathML"
 msgstr "MathML copiado"
 
 #. Translators: A message reported to the user when copying LaTeX failed from the Interaction window
-#, fuzzy
 msgid "Copy LaTeX failed"
-msgstr "fallo ao se abrir a ruta"
+msgstr "Fallo ao copiar LaTeX"
 
 #. Translators: A message reported to the user when copying LaTeX from the Interaction window
-#, fuzzy
 msgid "Copied LaTeX"
-msgstr "Copiado"
+msgstr "LaTeX Copiado"
 
 #. Translators: A message reported to the user when taking a snapshot of math data in the Interaction window
 msgid "snapshot"
@@ -880,9 +875,8 @@ msgid "AsciiMath to LaTeX"
 msgstr "AsciiMath a LaTeX"
 
 #. Translators: batch menu
-#, fuzzy
 msgid "Nemeth to LaTeX"
-msgstr "AsciiMath a LaTeX"
+msgstr "Nemeth a LaTeX"
 
 #. Translators: batch menu
 msgid "LaTeX delimiter"
@@ -983,7 +977,7 @@ msgstr "AsciiMath"
 
 #. Translators: mark command category - AsciiMath
 msgid "Nemeth"
-msgstr ""
+msgstr "Nemeth"
 
 #. Translators: alt+m window
 msgid "mark command"
@@ -1005,9 +999,9 @@ msgstr "Gardar ficheiro..."
 msgid "translate command"
 msgstr "orde de tradución"
 
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "This block cannot be translated into {id}"
-msgstr "Non se pode traducir este bloque"
+msgstr "Non se pode traducir este bloque a {id}"
 
 msgid "command"
 msgstr "orde"
