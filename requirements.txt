@@ -1,5 +1,3 @@
-####### requirements.txt #######
-#
-###### Requirements for automated lint ######
+# Requirements for automated linting (flake8 --config flake8.ini addon)
 flake8 ~= 3.7.7
 flake8-tabs == 2.1.0

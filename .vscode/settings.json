@@ -14,9 +14,7 @@
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
     "editor.insertSpaces": false,
-    "python.analysis.diagnosticSeverityOverrides": {
-        "reportUndefinedVariable": "none"
-    },
+    "python.analysis.stubPath": "${workspaceFolder}/.vscode/typings",
     "python.analysis.extraPaths": [
         "../nvda/source",
         "../nvda/miscDeps/python"

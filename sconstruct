@@ -101,7 +101,7 @@ if env["dev"]:
 	buildDate = datetime.datetime.now()
 	year, month, day = str(buildDate.year), str(buildDate.month), str(buildDate.day)
 	versionTimestamp = "".join([year, month.zfill(2), day.zfill(2)])
-	env["addon_version"] = f"{versionTimestamp}-dev"
+	env["addon_version"] = f"{versionTimestamp}.0.0"
 	env["versionNumber"] = f"{versionTimestamp}.0.0"
 	env["channel"] = "dev"
 elif env["version"] is not None:
@@ -299,7 +299,12 @@ for file in pythonFiles:
 createAddonHelp("addon")
 for mdFile in env.Glob(os.path.join('addon', 'doc', '*', '*.md')):
 	htmlFile = env.markdown(mdFile)
-	env.Depends(htmlFile, mdFile)
+	try:  # It is possible that no moFile was set, because an add-on has no translations.
+		moFile
+	except NameError:  # Runs if there is no moFile
+		env.Depends(htmlFile, mdFile)
+	else:  # Runs if there is a moFile
+		env.Depends(htmlFile, [mdFile, moFile])
 	env.Depends(addon, htmlFile)
 
 # Pot target

@@ -3,7 +3,6 @@ import api
 import eventHandler
 from keyboardHandler import KeyboardInputGesture
 from scriptHandler import script
-import textInfos
 import wx
 
 from .clipboard import clearClipboard
@@ -44,7 +43,7 @@ def A8MAutocompleteCommandModelFactory(command):
 		**i, **{
 			"type": "item",
 		}
-	} for i in latexData.latexAll if i['latex'].startswith(command) ]
+	} for i in latexData.latexAll if i['latex'].startswith(command)]
 
 	class A8MAutocompleteCommandModel(MenuModel):
 		def __init__(self):
@@ -74,6 +73,5 @@ class A8MAutocompleteCommandView(MenuView):
 			kwargs = latexData.latexCommand[id_]
 			command(**kwargs)
 		except BaseException:
-			tones.beep(100, 100)
 			return
 		eventHandler.executeEvent("gainFocus", self.parent)

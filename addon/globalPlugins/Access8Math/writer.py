@@ -185,13 +185,10 @@ class SectionManager:
 			return command
 
 		delimiter_start_length = len(self.delimiter["start"])
-		delimiter_end_length = len(self.delimiter["end"])
 
 		data = self.pointer["data"]
 
 		start = self.pointer['start'] + delimiter_start_length
-		end = self.pointer['end'] - delimiter_end_length
-		current = self.caret._startOffset
 		current_local = self.caret._startOffset - start
 
 		front_str = data[:current_local]
