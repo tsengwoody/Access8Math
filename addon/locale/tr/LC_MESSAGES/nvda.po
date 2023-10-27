@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Access8Math - 3.6\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2023-06-06 14:09+0300\n"
-"PO-Revision-Date: 2023-06-16 13:40+0300\n"
+"PO-Revision-Date: 2023-10-20 13:27+0300\n"
 "Last-Translator: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language-Team: cagrid@hotmail.com\n"
 "Language: tr_TR\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 3.4\n"
 "X-Poedit-Basepath: ../../..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -541,14 +541,6 @@ msgstr "Seçimi kaldı&r"
 
 #. Add button
 #. Translators: The label of a button in the Add new language dialog
-msgid "Unicode dictionary"
-msgstr "Unicode sözlüğü"
-
-#. Translators: The label of a button in the Add new language dialog
-msgid "Math rule"
-msgstr "Matematik kuralı"
-
-#. Translators: The label of a button in the Add new language dialog
 msgid "OK"
 msgstr "OK"
 
@@ -831,6 +823,9 @@ msgstr "LaTeX bloğunda veya metin bloğunda değil. LaTeX komutunu kullanamaz"
 msgid "This block cannot be interacted"
 msgstr "Bu blokla etkileşim kurulamaz"
 
+msgid "No autocomplete found"
+msgstr "Otomatik tamamlama bulunamadı"
+
 msgid "This block cannot be translated"
 msgstr "Bu blok çevrilemez"
 
@@ -849,6 +844,10 @@ msgstr "{data} belgeden kesildi"
 #, python-brace-format
 msgid "{data} deleted from document"
 msgstr "{data} belgeden silindi"
+
+#. Translators: alt+m window
+msgid "autocomplete command"
+msgstr "otomatik tamamlama komutu"
 
 #. Translators: batch menu
 msgid "math block"
@@ -1361,6 +1360,12 @@ msgid ""
 msgstr ""
 "MathML ile yazılan matematik içeriğine erişime sağlar ve LaTeX ile matematik "
 "içeriği oluşturmaya izin verir"
+
+#~ msgid "Unicode dictionary"
+#~ msgstr "Unicode sözlüğü"
+
+#~ msgid "Math rule"
+#~ msgstr "Matematik kuralı"
 
 #~ msgid "{name} Update"
 #~ msgstr "{name} Güncelleme"
