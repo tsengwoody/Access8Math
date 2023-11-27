@@ -551,14 +551,6 @@ msgstr "&Deselecionar"
 
 #. Add button
 #. Translators: The label of a button in the Add new language dialog
-msgid "Unicode dictionary"
-msgstr "Dicionario Unicode"
-
-#. Translators: The label of a button in the Add new language dialog
-msgid "Math rule"
-msgstr "Regra matemática"
-
-#. Translators: The label of a button in the Add new language dialog
 msgid "OK"
 msgstr "Aceptar"
 
@@ -843,6 +835,9 @@ msgstr "Non estás nun bloque de texto ou laTeX. Non se pode usar a orden LaTeX"
 msgid "This block cannot be interacted"
 msgstr "Non se pode interactuar con este bloque"
 
+msgid "No autocomplete found"
+msgstr ""
+
 msgid "This block cannot be translated"
 msgstr "Non se pode traducir este bloque"
 
@@ -861,6 +856,11 @@ msgstr "{data} cortado do documento"
 #, python-brace-format
 msgid "{data} deleted from document"
 msgstr "{data} borrado do documento"
+
+#. Translators: alt+m window
+#, fuzzy
+msgid "autocomplete command"
+msgstr "orde en lotes"
 
 #. Translators: batch menu
 msgid "math block"
@@ -1373,6 +1373,12 @@ msgid ""
 msgstr ""
 "Permite acesar a contido matemático escrebido en MathML; permite escrebir "
 "contido matemático en LaTeX"
+
+#~ msgid "Unicode dictionary"
+#~ msgstr "Dicionario Unicode"
+
+#~ msgid "Math rule"
+#~ msgstr "Regra matemática"
 
 #~ msgid "Settings"
 #~ msgstr "Opcións"

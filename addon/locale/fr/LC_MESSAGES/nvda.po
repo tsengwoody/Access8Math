@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Access8Math 2.1\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2021-09-08 06:33+0800\n"
-"PO-Revision-Date: 2023-06-20 16:41+0200\n"
+"PO-Revision-Date: 2023-10-20 22:09+0200\n"
 "Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 3.2.2\n"
 "X-Poedit-Basepath: ../globalPlugins/MathMlReader\n"
 "X-Poedit-SearchPath-0: __init__.py\n"
 "X-Poedit-SearchPath-1: dialogs.py\n"
@@ -63,7 +63,7 @@ msgid "&Editor..."
 msgstr "É&diteur..."
 
 msgid "&Settings..."
-msgstr "&Paramètres"
+msgstr "&Paramètres..."
 
 msgid "Speech &unicode dictionary..."
 msgstr "Dictionnaire unicode de la &parole..."
@@ -255,7 +255,7 @@ msgstr "dollar"
 
 #. Translators: The label of an option in the writing settings dialog
 msgid "&Nemeth delimiter:"
-msgstr "Délimiteur &Nemeth"
+msgstr "Délimiteur &Nemeth :"
 
 #. Translators: A choice of a combobox in the writing settings dialog
 msgid "at"
@@ -549,14 +549,6 @@ msgstr "&Désélectionner"
 
 #. Add button
 #. Translators: The label of a button in the Add new language dialog
-msgid "Unicode dictionary"
-msgstr "Dictionnaire Unicode"
-
-#. Translators: The label of a button in the Add new language dialog
-msgid "Math rule"
-msgstr "Règle mathématique"
-
-#. Translators: The label of a button in the Add new language dialog
 msgid "OK"
 msgstr "OK"
 
@@ -842,6 +834,9 @@ msgstr ""
 msgid "This block cannot be interacted"
 msgstr "Vous ne pouvez pas interagir avec ce bloc"
 
+msgid "No autocomplete found"
+msgstr "Aucune saisie semi-automatique trouvée"
+
 msgid "This block cannot be translated"
 msgstr "Ce bloc ne peut pas être traduit"
 
@@ -860,6 +855,10 @@ msgstr "{data} coupé du document"
 #, python-brace-format
 msgid "{data} deleted from document"
 msgstr "{data} effacé du document"
+
+#. Translators: alt+m window
+msgid "autocomplete command"
+msgstr "commande de saisie semi-automatique"
 
 #. Translators: batch menu
 msgid "math block"
@@ -1372,6 +1371,12 @@ msgid ""
 msgstr ""
 "Permet l'accès au contenu mathématique écrit en MathML ; Permet d'écrire du "
 "contenu mathématique en LaTeX"
+
+#~ msgid "Unicode dictionary"
+#~ msgstr "Dictionnaire Unicode"
+
+#~ msgid "Math rule"
+#~ msgstr "Règle mathématique"
 
 #~ msgid "Settings"
 #~ msgstr "Paramètres"
