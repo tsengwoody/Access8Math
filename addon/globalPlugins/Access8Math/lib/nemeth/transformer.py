@@ -63,7 +63,14 @@ class Nemeth2TexTransformer(Transformer):
 
 	def exp_underover(self, items):
 		return r"\overset{" + items[2] + r"}{\underset{" + items[1] + r"}{" + items[0] + r"}}"
-		return r"\overset{" + items[1] + r"}{" + items[0] + r"}"
+
+	def exp_subsup_symbol(self, items):
+		symbol = self.translate(items[0], self.symbol)
+		return symbol.strip() + r"_{" + items[1] + r"}^{" + items[2] + r"}"
+
+	def exp_underover_symbol(self, items):
+		symbol = self.translate(items[0], self.symbol)
+		return symbol.strip() + r"_{" + items[1] + r"}^{" + items[2] + r"}"
 
 	def exp_frac(self, items):
 		return r"\frac{" + items[0] + r"}{" + items[1] + r"}"
@@ -88,9 +95,6 @@ class Nemeth2TexTransformer(Transformer):
 
 	def exp_arc(self, items):
 		return r"\overset{\frown}{" + items[0] + r"}"
-
-	def exp_sum(self, items):
-		return r"\sum_{" + items[0] + r"}^{" + items[1] + r"}"
 
 	def exp_vector(self, items):
 		return r"\vec{" + items[0] + r"}"

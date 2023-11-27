@@ -22,12 +22,13 @@ grammar = r"""
 		| "⠐" exp? "⠣⠱⠻" -> exp_line_segment
 		| "⠐" exp? "⠣⠫⠕⠻" -> exp_ray
 		| "⠐" exp? "⠣⠫⠁⠻" -> exp_arc
-		| "⠐⠨⠠⠎⠩" exp? "⠣" exp? "⠻" -> exp_sum
 		| "⠐" exp? "⠣⠫⠒⠒⠈⠕⠻" -> exp_vector
 		| "⠷⠠⠉⠰" exp? "⠐⠘" exp? "⠐⠾" -> exp_binom
 		| "⠐⠇⠊⠍⠩" exp? "⠀⠫⠕⠀" exp? "⠻" -> exp_limit
+		| BPUO "⠰" exp? "⠘" exp? "⠐" -> exp_subsup_symbol
 		| s "⠘" exp? "⠐" -> exp_sup
 		| s "⠰" exp? "⠐" -> exp_sub
+		| "⠐" s "⠩" exp? "⠣" exp? "⠻" -> exp_underover_symbol
 		| "⠐" exp? "⠩" exp? "⠻" -> exp_under
 		| "⠐" exp? "⠣" exp? "⠻" -> exp_over
 		| "⠐" exp? "⠩" exp? "⠣" s "⠻" -> exp_underover
@@ -54,6 +55,7 @@ grammar = r"""
 	OPERAND: /(⠬|⠤|⠈⠡|⠡|⠨⠌|⠨⠅|⠨⠂|⠐⠅)+/
 	OTHER.-1: /({symbols})/
 	SPACE: /⠀/
+	BPUO: /(⠨⠠⠎|⠮)/
 """.format(
 	ens="|".join(data["letter"]),
 	numbers="|".join(data["number"]),
