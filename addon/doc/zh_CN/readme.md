@@ -371,6 +371,15 @@ github： https://github.com/tsengwoody/Access8Math
 
 # Access8Math 日誌
 
+## Access8Math v3.7 更新日志
+
+* 新功能：在书写功能中新增 LaTeX 自动补齐功能。
+* 在 Nemeth 转 LaTeX 中，新增带分数规则
+* 在 Access8Math 编辑器中，右上角新增关闭按钮，按下可关闭 Access8Math 编辑器
+* 修正联立方成式规则（阅读功能）
+* 修正“|”符号不会根据 Unicode 字典转换为文字。（阅读功能）
+* 修正 ∫ Nemeth 点字转换 LaTeX 错误
+
 ## Access8Math v3.6 更新日志
 
 * 新功能：nemeth 盲文输入，与 LaTeX 输入功能相同，编辑过程中可实时预览(alt+i)、可以输出 HTML+MathML 文件。

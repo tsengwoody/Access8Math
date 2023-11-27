@@ -364,9 +364,18 @@ github： https://github.com/tsengwoody/Access8Math
 
 # Access8Math 日誌
 
+## Access8Math v3.7 更新日誌
+
+* 新功能：在書寫功能中新增 LaTeX 自動補齊功能。
+* 在 Nemeth 轉 LaTeX 中，新增帶分數規則
+* 在 Access8Math 編輯器中，右上角新增關閉按鈕，按下可關閉 Access8Math 編輯器
+* 修正聯立方成式規則（閱讀功能）
+* 修正“|”符號不會根據 Unicode 字典轉換為文字。（閱讀功能）
+* 修正 ∫ Nemeth 點字轉換 LaTeX 錯誤
+
 ## Access8Math v3.6 更新日誌
 
-* 新功能：nemeth 點字輸入，與 LaTeX 輸入有相同功能，編輯時可即時互動導覽(alt+i)、可輸出 HTML+MathML 文件
+* 新功能：nemeth 點字輸入，與 LaTeX 輸入有相同功能，編輯時可即時互動導覽(alt+i)、可輸出 HTML+MathML 文件。
 * 新功能：加入 Nemeth 分隔符 UEB/at(@@) 以區分 Nemeth 內容。
 * 新功能：在互動導航模式下從 Math 物件轉換並複製 LaTeX
 * 在檔案總管中開啟虛擬路徑位置功能表快速鍵增加 NVDA+shift+f10

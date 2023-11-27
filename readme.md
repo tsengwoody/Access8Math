@@ -331,6 +331,15 @@ Please report any bugs or comments, thank you!
 
 # Access8Math update log
 
+## Access8Math v3.7 Update
+
+* new feature: Auto-Complete feature in write feature.
+* Added "mixed number" rule to the Nemeth to LaTeX translator.
+* In Access8Math editor, Added close button on the upper right corner to close the Access8Math editor.
+* Fixed SimultaneousEquationsType rule(read feature).
+* Fixed "|" symbol don`t convert to text according in Unicode dictionary(read feature).
+* Fix issues with Converting ∫ Nemeth Braille to LaTeX.
+
 ## Access8Math v3.6 Update
 
 * new feature: Nemeth Braille Input, with the same functionality as LaTeX input. Allows for real-time interactive navigation (Alt+I) during editing and supports outputting HTML+MathML documents.
