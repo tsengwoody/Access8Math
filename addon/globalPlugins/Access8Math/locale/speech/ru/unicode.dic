@@ -1,8 +1,18 @@
-﻿%	процент
+﻿!	факториал
+'	штрих
+%	процент
 +	плюс
+-	минус
+	*	умножить
+/	разделить на
+:	двоеточие
 <	меньше
 =	равно
 >	больше
+|	вертикальная черта
+·	умножить
+×	умножить
+÷	разделить на
 arccos	арккосинус
 arccosec	арккосеканс
 arccot	арккотангенс
@@ -22,6 +32,7 @@ cotan	котангенс
 csc	косеканс
 ctg	котангенс
 exp	экспонента
+column	столбец
 has	содержит
 item	элемент
 lb	двоичный логарифм
@@ -36,6 +47,24 @@ math	математика
 max	максимум
 min	минимум
 mprescripts_index	mprescripts index
+none	пусто
+notation:Arabic factorial symbol	факториал в арабской нотации
+notation:actuarial symbol	актуарная нотация
+notation:box	прямоугольник
+notation:circle	круг
+notation:diagonal arrow	диагональная стрелка
+notation:down diagonal cross out	перечёркнутая по диагонали вниз строка
+notation:horizontal cross out	горизонтально перечёркнутая строка
+notation:line on bottom	строка снизу
+notation:line on left	строка слева
+notation:line on right	строка справа
+notation:line on top	строка сверху
+notation:long division symbol	деление столбиком
+notation:phasor angle	фазор
+notation:radical	радикал
+notation:round box	скруглённый прямоугольник
+notation:up diagonal cross out	перечёркнутая по диагонали вверх строка
+notation:vertical cross out	вертикально перечёркнутая строка
 order	порядок
 rightdownmark	отметка справа и внизу
 rightupmark	отметка справа и вверху
