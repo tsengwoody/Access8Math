@@ -50,6 +50,7 @@ class UnexpectedInput(LarkError):
     pos_in_stream = None
     state: Any
     _terminals_by_name = None
+    interactive_parser: 'InteractiveParser'
 
     def get_context(self, text: str, span: int=40) -> str:
         """Returns a pretty string pinpointing the error in the text,
@@ -217,7 +218,7 @@ class UnexpectedToken(ParseError, UnexpectedInput):
         expected: The set of expected tokens
         considered_rules: Which rules were considered, to deduce the expected tokens
         state: A value representing the parser state. Do not rely on its value or type.
-        interactive_parser: An instance of ``InteractiveParser``, that is initialized to the point of failture,
+        interactive_parser: An instance of ``InteractiveParser``, that is initialized to the point of failure,
                             and can be used for debugging and error handling.
 
     Note: These parameters are available as attributes of the instance.
@@ -225,7 +226,6 @@ class UnexpectedToken(ParseError, UnexpectedInput):
 
     expected: Set[str]
     considered_rules: Set[str]
-    interactive_parser: 'InteractiveParser'
 
     def __init__(self, token, expected, considered_rules=None, state=None, interactive_parser=None, terminals_by_name=None, token_history=None):
         super(UnexpectedToken, self).__init__()

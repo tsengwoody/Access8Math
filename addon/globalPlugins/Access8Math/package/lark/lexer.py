@@ -4,30 +4,41 @@ from abc import abstractmethod, ABC
 import re
 from contextlib import suppress
 from typing import (
-    TypeVar, Type, List, Dict, Iterator, Collection, Callable, Optional, FrozenSet, Any,
-    Pattern as REPattern, ClassVar, TYPE_CHECKING, overload
+    TypeVar, Type, Dict, Iterator, Collection, Callable, Optional, FrozenSet, Any,
+    ClassVar, TYPE_CHECKING, overload
 )
 from types import ModuleType
 import warnings
+try:
+    import interegular
+except ImportError:
+    pass
 if TYPE_CHECKING:
     from .common import LexerConf
+    from .parsers.lalr_parser_state import ParserState
 
-from .utils import classify, get_regexp_width, Serialize
+from .utils import classify, get_regexp_width, Serialize, logger
 from .exceptions import UnexpectedCharacters, LexError, UnexpectedToken
 from .grammar import TOKEN_DEFAULT_PRIORITY
+
 
 ###{standalone
 from copy import copy
 
+try:  # For the standalone parser, we need to make sure that has_interegular is False to avoid NameErrors later on
+    has_interegular = bool(interegular)
+except NameError:
+    has_interegular = False
 
 class Pattern(Serialize, ABC):
+    "An abstraction over regular expressions."
 
     value: str
     flags: Collection[str]
     raw: Optional[str]
     type: ClassVar[str]
 
-    def __init__(self, value: str, flags: Collection[str]=(), raw: Optional[str]=None) -> None:
+    def __init__(self, value: str, flags: Collection[str] = (), raw: Optional[str] = None) -> None:
         self.value = value
         self.flags = frozenset(flags)
         self.raw = raw
@@ -63,7 +74,7 @@ class Pattern(Serialize, ABC):
 
 
 class PatternStr(Pattern):
-    __serialize_fields__ = 'value', 'flags'
+    __serialize_fields__ = 'value', 'flags', 'raw'
 
     type: ClassVar[str] = "str"
 
@@ -80,7 +91,7 @@ class PatternStr(Pattern):
 
 
 class PatternRE(Pattern):
-    __serialize_fields__ = 'value', 'flags', '_width'
+    __serialize_fields__ = 'value', 'flags', 'raw', '_width'
 
     type: ClassVar[str] = "re"
 
@@ -103,6 +114,7 @@ class PatternRE(Pattern):
 
 
 class TerminalDef(Serialize):
+    "A definition of a terminal"
     __serialize_fields__ = 'name', 'pattern', 'priority'
     __serialize_namespace__ = PatternStr, PatternRE
 
@@ -110,7 +122,7 @@ class TerminalDef(Serialize):
     pattern: Pattern
     priority: int
 
-    def __init__(self, name: str, pattern: Pattern, priority: int=TOKEN_DEFAULT_PRIORITY) -> None:
+    def __init__(self, name: str, pattern: Pattern, priority: int = TOKEN_DEFAULT_PRIORITY) -> None:
         assert isinstance(pattern, Pattern), pattern
         self.name = name
         self.pattern = pattern
@@ -120,7 +132,7 @@ class TerminalDef(Serialize):
         return '%s(%r, %r)' % (type(self).__name__, self.name, self.pattern)
 
     def user_repr(self) -> str:
-        if self.name.startswith('__'): # We represent a generated terminal
+        if self.name.startswith('__'):  # We represent a generated terminal
             return self.pattern.raw or self.name
         else:
             return self.name
@@ -162,29 +174,29 @@ class Token(str):
 
     @overload
     def __new__(
-        cls,
-        type: str,
-        value: Any,
-        start_pos: Optional[int]=None,
-        line: Optional[int]=None,
-        column: Optional[int]=None,
-        end_line: Optional[int]=None,
-        end_column: Optional[int]=None,
-        end_pos: Optional[int]=None
+            cls,
+            type: str,
+            value: Any,
+            start_pos: Optional[int] = None,
+            line: Optional[int] = None,
+            column: Optional[int] = None,
+            end_line: Optional[int] = None,
+            end_column: Optional[int] = None,
+            end_pos: Optional[int] = None
     ) -> 'Token':
         ...
 
     @overload
     def __new__(
-        cls,
-        type_: str,
-        value: Any,
-        start_pos: Optional[int]=None,
-        line: Optional[int]=None,
-        column: Optional[int]=None,
-        end_line: Optional[int]=None,
-        end_column: Optional[int]=None,
-        end_pos: Optional[int]=None
+            cls,
+            type_: str,
+            value: Any,
+            start_pos: Optional[int] = None,
+            line: Optional[int] = None,
+            column: Optional[int] = None,
+            end_line: Optional[int] = None,
+            end_column: Optional[int] = None,
+            end_pos: Optional[int] = None
     ) -> 'Token':        ...
 
     def __new__(cls, *args, **kwargs):
@@ -213,11 +225,11 @@ class Token(str):
         return inst
 
     @overload
-    def update(self, type: Optional[str]=None, value: Optional[Any]=None) -> 'Token':
+    def update(self, type: Optional[str] = None, value: Optional[Any] = None) -> 'Token':
         ...
 
     @overload
-    def update(self, type_: Optional[str]=None, value: Optional[Any]=None) -> 'Token':
+    def update(self, type_: Optional[str] = None, value: Optional[Any] = None) -> 'Token':
         ...
 
     def update(self, *args, **kwargs):
@@ -230,7 +242,7 @@ class Token(str):
 
         return self._future_update(*args, **kwargs)
 
-    def _future_update(self, type: Optional[str]=None, value: Optional[Any]=None) -> 'Token':
+    def _future_update(self, type: Optional[str] = None, value: Optional[Any] = None) -> 'Token':
         return Token.new_borrow_pos(
             type if type is not None else self.type,
             value if value is not None else self.value,
@@ -260,6 +272,8 @@ class Token(str):
 
 
 class LineCounter:
+    "A utility class for keeping track of line & column information"
+
     __slots__ = 'char_pos', 'line', 'column', 'line_start_pos', 'newline_char'
 
     def __init__(self, newline_char):
@@ -364,7 +378,7 @@ class Scanner:
             try:
                 mre = self.re_.compile(pattern, self.g_regex_flags)
             except AssertionError:  # Yes, this is what Python provides us.. :/
-                return self._build_mres(terminals, max_size//2)
+                return self._build_mres(terminals, max_size // 2)
 
             mres.append(mre)
             terminals = terminals[max_size:]
@@ -390,12 +404,16 @@ def _regexp_has_newline(r: str):
 
 class LexerState:
     """Represents the current state of the lexer as it scans the text
-    (Lexer objects are only instanciated per grammar, not per text)
+    (Lexer objects are only instantiated per grammar, not per text)
     """
 
     __slots__ = 'text', 'line_ctr', 'last_token'
 
-    def __init__(self, text, line_ctr=None, last_token=None):
+    text: str
+    line_ctr: LineCounter
+    last_token: Optional[Token]
+
+    def __init__(self, text: str, line_ctr: Optional[LineCounter]=None, last_token: Optional[Token]=None):
         self.text = text
         self.line_ctr = line_ctr or LineCounter(b'\n' if isinstance(text, bytes) else '\n')
         self.last_token = last_token
@@ -419,7 +437,7 @@ class LexerThread:
         self.state = lexer_state
 
     @classmethod
-    def from_text(cls, lexer: 'Lexer', text: str):
+    def from_text(cls, lexer: 'Lexer', text: str) -> 'LexerThread':
         return cls(lexer, LexerState(text))
 
     def lex(self, parser_state):
@@ -448,8 +466,56 @@ class Lexer(ABC):
         return LexerState(text)
 
 
-class BasicLexer(Lexer):
+def _check_regex_collisions(terminal_to_regexp: Dict[TerminalDef, str], comparator, strict_mode, max_collisions_to_show=8):
+    if not comparator:
+        comparator = interegular.Comparator.from_regexes(terminal_to_regexp)
 
+    # When in strict mode, we only ever try to provide one example, so taking
+    # a long time for that should be fine
+    max_time = 2 if strict_mode else 0.2
+
+    # We don't want to show too many collisions.
+    if comparator.count_marked_pairs() >= max_collisions_to_show:
+        return
+    for group in classify(terminal_to_regexp, lambda t: t.priority).values():
+        for a, b in comparator.check(group, skip_marked=True):
+            assert a.priority == b.priority
+            # Mark this pair to not repeat warnings when multiple different BasicLexers see the same collision
+            comparator.mark(a, b)
+
+            # Notify the user
+            message = f"Collision between Terminals {a.name} and {b.name}. "
+            try:
+                example = comparator.get_example_overlap(a, b, max_time).format_multiline()
+            except ValueError:
+                # Couldn't find an example within max_time steps.
+                example = "No example could be found fast enough. However, the collision does still exists"
+            if strict_mode:
+                raise LexError(f"{message}\n{example}")
+            logger.warning("%s The lexer will choose between them arbitrarily.\n%s", message, example)
+            if comparator.count_marked_pairs() >= max_collisions_to_show:
+                logger.warning("Found 8 regex collisions, will not check for more.")
+                return
+
+
+class AbstractBasicLexer(Lexer):
+    terminals_by_name: Dict[str, TerminalDef]
+
+    @abstractmethod
+    def __init__(self, conf: 'LexerConf', comparator=None) -> None:
+        ...
+
+    @abstractmethod
+    def next_token(self, lex_state: LexerState, parser_state: Any = None) -> Token:
+        ...
+
+    def lex(self, state: LexerState, parser_state: Any) -> Iterator[Token]:
+        with suppress(EOFError):
+            while True:
+                yield self.next_token(state, parser_state)
+
+
+class BasicLexer(AbstractBasicLexer):
     terminals: Collection[TerminalDef]
     ignore_types: FrozenSet[str]
     newline_types: FrozenSet[str]
@@ -457,7 +523,7 @@ class BasicLexer(Lexer):
     callback: Dict[str, _Callback]
     re: ModuleType
 
-    def __init__(self, conf: 'LexerConf') -> None:
+    def __init__(self, conf: 'LexerConf', comparator=None) -> None:
         terminals = list(conf.terminals)
         assert all(isinstance(t, TerminalDef) for t in terminals), terminals
 
@@ -465,17 +531,26 @@ class BasicLexer(Lexer):
 
         if not conf.skip_validation:
             # Sanitization
+            terminal_to_regexp = {}
             for t in terminals:
+                regexp = t.pattern.to_regexp()
                 try:
-                    self.re.compile(t.pattern.to_regexp(), conf.g_regex_flags)
+                    self.re.compile(regexp, conf.g_regex_flags)
                 except self.re.error:
                     raise LexError("Cannot compile token %s: %s" % (t.name, t.pattern))
 
                 if t.pattern.min_width == 0:
                     raise LexError("Lexer does not allow zero-width terminals. (%s: %s)" % (t.name, t.pattern))
+                if t.pattern.type == "re":
+                    terminal_to_regexp[t] = regexp
 
             if not (set(conf.ignore) <= {t.name for t in terminals}):
                 raise LexError("Ignore terminals are not defined: %s" % (set(conf.ignore) - {t.name for t in terminals}))
+
+            if has_interegular:
+                _check_regex_collisions(terminal_to_regexp, comparator, conf.strict)
+            elif conf.strict:
+                raise LexError("interegular must be installed for strict mode. Use `pip install 'lark[interegular]'`.")
 
         # Init
         self.newline_types = frozenset(t.name for t in terminals if _regexp_has_newline(t.pattern.to_regexp()))
@@ -512,12 +587,7 @@ class BasicLexer(Lexer):
     def match(self, text, pos):
         return self.scanner.match(text, pos)
 
-    def lex(self, state: LexerState, parser_state: Any) -> Iterator[Token]:
-        with suppress(EOFError):
-            while True:
-                yield self.next_token(state, parser_state)
-
-    def next_token(self, lex_state: LexerState, parser_state: Any=None) -> Token:
+    def next_token(self, lex_state: LexerState, parser_state: Any = None) -> Token:
         line_ctr = lex_state.line_ctr
         while line_ctr.char_pos < len(lex_state.text):
             res = self.match(lex_state.text, line_ctr.char_pos)
@@ -531,41 +601,45 @@ class BasicLexer(Lexer):
 
             value, type_ = res
 
-            if type_ not in self.ignore_types:
+            ignored = type_ in self.ignore_types
+            t = None
+            if not ignored or type_ in self.callback:
                 t = Token(type_, value, line_ctr.char_pos, line_ctr.line, line_ctr.column)
-                line_ctr.feed(value, type_ in self.newline_types)
+            line_ctr.feed(value, type_ in self.newline_types)
+            if t is not None:
                 t.end_line = line_ctr.line
                 t.end_column = line_ctr.column
                 t.end_pos = line_ctr.char_pos
                 if t.type in self.callback:
                     t = self.callback[t.type](t)
+                if not ignored:
                     if not isinstance(t, Token):
                         raise LexError("Callbacks must return a token (returned %r)" % t)
-                lex_state.last_token = t
-                return t
-            else:
-                if type_ in self.callback:
-                    t2 = Token(type_, value, line_ctr.char_pos, line_ctr.line, line_ctr.column)
-                    self.callback[type_](t2)
-                line_ctr.feed(value, type_ in self.newline_types)
+                    lex_state.last_token = t
+                    return t
 
         # EOF
         raise EOFError(self)
 
 
 class ContextualLexer(Lexer):
+    lexers: Dict[int, AbstractBasicLexer]
+    root_lexer: AbstractBasicLexer
 
-    lexers: Dict[str, BasicLexer]
-    root_lexer: BasicLexer
+    BasicLexer: Type[AbstractBasicLexer] = BasicLexer
 
-    def __init__(self, conf: 'LexerConf', states: Dict[str, Collection[str]], always_accept: Collection[str]=()) -> None:
+    def __init__(self, conf: 'LexerConf', states: Dict[int, Collection[str]], always_accept: Collection[str]=()) -> None:
         terminals = list(conf.terminals)
         terminals_by_name = conf.terminals_by_name
 
         trad_conf = copy(conf)
         trad_conf.terminals = terminals
 
-        lexer_by_tokens: Dict[FrozenSet[str], BasicLexer] = {}
+        if has_interegular and not conf.skip_validation:
+            comparator = interegular.Comparator.from_regexes({t: t.pattern.to_regexp() for t in terminals})
+        else:
+            comparator = None
+        lexer_by_tokens: Dict[FrozenSet[str], AbstractBasicLexer] = {}
         self.lexers = {}
         for state, accepts in states.items():
             key = frozenset(accepts)
@@ -575,15 +649,16 @@ class ContextualLexer(Lexer):
                 accepts = set(accepts) | set(conf.ignore) | set(always_accept)
                 lexer_conf = copy(trad_conf)
                 lexer_conf.terminals = [terminals_by_name[n] for n in accepts if n in terminals_by_name]
-                lexer = BasicLexer(lexer_conf)
+                lexer = self.BasicLexer(lexer_conf, comparator)
                 lexer_by_tokens[key] = lexer
 
             self.lexers[state] = lexer
 
         assert trad_conf.terminals is terminals
-        self.root_lexer = BasicLexer(trad_conf)
+        trad_conf.skip_validation = True  # We don't need to verify all terminals again
+        self.root_lexer = self.BasicLexer(trad_conf, comparator)
 
-    def lex(self, lexer_state: LexerState, parser_state: Any) -> Iterator[Token]:
+    def lex(self, lexer_state: LexerState, parser_state: 'ParserState') -> Iterator[Token]:
         try:
             while True:
                 lexer = self.lexers[parser_state.position]
