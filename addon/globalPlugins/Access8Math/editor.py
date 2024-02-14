@@ -302,6 +302,7 @@ class EditorFrame(wx.Frame):
 				with open(os.path.join(self.dirname, self.filename), 'w', encoding='utf-8') as file:
 					file.write(self.control.GetValue())
 				self.modify = False
+				save_result = True
 			elif val == wx.NO:
 				save_result = True
 			elif val == wx.CANCEL:
