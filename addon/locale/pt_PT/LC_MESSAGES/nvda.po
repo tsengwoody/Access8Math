@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 'Access8Math' '3.1'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2021-09-08 06:33+0800\n"
-"PO-Revision-Date: 2023-07-27 23:07+0100\n"
+"PO-Revision-Date: 2023-12-01 23:09+0000\n"
 "Last-Translator: Ângelo Abrantes <ampa4374@gmail.com>\n"
 "Language-Team: Equipa portuguesa do NVDA: Ângelo Abrantes e Rui Fontes "
 "(16-06-2023)\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #, python-brace-format
@@ -838,7 +838,7 @@ msgid "This block cannot be interacted"
 msgstr "Não é possível interagir com Este bloco"
 
 msgid "No autocomplete found"
-msgstr ""
+msgstr "Nenhum preenchimento automático encontrado"
 
 msgid "This block cannot be translated"
 msgstr "Este bloco não pode ser traduzido"
@@ -860,9 +860,8 @@ msgid "{data} deleted from document"
 msgstr "{data} apagados do documento"
 
 #. Translators: alt+m window
-#, fuzzy
 msgid "autocomplete command"
-msgstr "comando de lote"
+msgstr "comando de preenchimento automático"
 
 #. Translators: batch menu
 msgid "math block"
