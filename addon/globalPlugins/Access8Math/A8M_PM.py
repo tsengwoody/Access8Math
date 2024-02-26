@@ -1,5 +1,5 @@
 # coding=utf-8
-# Copyright (C) 2017-2023 Tseng Woody <tsengwoody.tw@gmail.com>
+# Copyright (C) 2017-2024 Tseng Woody <tsengwoody.tw@gmail.com>
 
 from xml.etree import ElementTree as ET
 
@@ -180,7 +180,7 @@ class MathContent(object):
 	def __init__(self, language, mathMl):
 		self.raw_mathMl = mathMl
 		et = mathml2etree(mathMl)
-		self.root = self.pointer = create_node(et)
+		self.root = self._pointer = self._history = create_node(et)
 
 		clean_allnode(self.root)
 
@@ -287,6 +287,22 @@ class MathContent(object):
 
 		return False
 
+	def table_navigate(self, action):
+		if action == "downArrow":
+			pointer = self.pointer.vertical_down
+		elif action == "upArrow":
+			pointer = self.pointer.vertical_up
+		elif action == "leftArrow":
+			pointer = self.pointer.previous_sibling
+		elif action == "rightArrow":
+			pointer = self.pointer.next_sibling
+
+		if pointer is not None:
+			self.pointer = pointer
+			return True
+
+		return False
+
 	def symbol_translate(self, string):
 		try:
 			string = self.symbol_repattern.sub(lambda m: self.symbol[m.group(0)], string)
@@ -302,6 +318,23 @@ class MathContent(object):
 			pass
 
 		return string
+
+	@property
+	def pointer(self):
+		return self._pointer
+
+	@pointer.setter
+	def pointer(self, node):
+		self._history = self._pointer
+		self._pointer = node
+
+	@property
+	def hint(self):
+		if self._history.tag == "mtd" and self._pointer.tag == "mtd" \
+		and self._history.parent.parent == self._pointer.parent.parent \
+		and self._history.parent.index_in_parent() != self._pointer.parent.index_in_parent():
+			return [self._pointer.parent.des]
+		return []
 
 
 class Node(object):
@@ -566,6 +599,34 @@ class Node(object):
 			return self.parent
 		except BaseException:
 			return None
+
+	@property
+	def vertical_down(self):
+		if self.tag == "mtd":
+			index = self.index_in_parent()
+			if index >= 0:
+				parent_next_sibling = self.parent.next_sibling
+				if parent_next_sibling:
+					try:
+						return parent_next_sibling.child[index]
+					except IndexError:
+						pass
+
+		return None
+
+	@property
+	def vertical_up(self):
+		if self.tag == "mtd":
+			index = self.index_in_parent()
+			if index >= 0:
+				parent_previous_sibling = self.parent.previous_sibling
+				if parent_previous_sibling:
+					try:
+						return parent_previous_sibling.child[index]
+					except IndexError:
+						pass
+
+		return None
 
 
 class NonTerminalNode(Node):

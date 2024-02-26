@@ -382,21 +382,22 @@ class A8MInteraction(Window):
 		region.rawText = "".join(cells)
 		yield region
 
-	def getScript(self, gesture):
-		if isinstance(gesture, KeyboardInputGesture) and "NVDA" not in gesture.modifierNames and (
-			gesture.mainKeyName in {
-				"leftArrow", "rightArrow", "upArrow", "downArrow",
-				"home", "end",
-				"space", "backspace", "enter",
-			}
-			# or len(gesture.mainKeyName)  ==  1
-		):
-			return self.script_navigate
-		return super().getScript(gesture)
-
+	@script(
+		gestures=[
+			"kb:downArrow", "kb:upArrow",
+			"kb:leftArrow", "kb:rightArrow",
+			"kb:control+alt+downArrow", "kb:control+alt+upArrow",
+			"kb:control+alt+leftArrow", "kb:control+alt+rightArrow",
+			"kb:home",
+		],
+	)
 	def script_navigate(self, gesture):
 		r = False
-		if gesture.mainKeyName in ["downArrow", "upArrow", "leftArrow", "rightArrow", "home"]:
+		if gesture.mainKeyName == "home":
+			r = self.mathcontent.navigate(gesture.mainKeyName)
+		elif gesture.mainKeyName in ["downArrow", "upArrow", "leftArrow", "rightArrow"] and "control" in gesture.modifierNames and "alt" in gesture.modifierNames:
+			r = self.mathcontent.table_navigate(gesture.mainKeyName)
+		elif gesture.mainKeyName in ["downArrow", "upArrow", "leftArrow", "rightArrow"]:
 			r = self.mathcontent.navigate(gesture.mainKeyName)
 
 		if not r:
@@ -407,6 +408,8 @@ class A8MInteraction(Window):
 				speech.speak([_("No move")])
 
 		api.setReviewPosition(self.makeTextInfo(), clearNavigatorObject=False, isCaret=True)
+
+		speech.speak(self.mathcontent.hint)
 		if self.mathcontent.pointer.parent:
 			if config.conf["Access8Math"]["settings"]["auto_generate"] and self.mathcontent.pointer.parent.role_level == A8M_PM.AUTO_GENERATE:
 				speech.speak([self.mathcontent.pointer.des])
@@ -456,54 +459,6 @@ class A8MInteraction(Window):
 		# Translators: A message reported to the user when taking a snapshot of math data in the Interaction window
 		ui.message(_("snapshot"))
 		globalVars.mathcontent = self.mathcontent
-
-	@script(
-		gesture="kb:control+alt+a",
-	)
-	def script_asciimath_insert(self, gesture):
-		def show(event):
-			# asciimath to mathml
-			from xml.etree.ElementTree import tostring
-			import asciimathml
-			global main_frame
-			parent = main_frame if main_frame else gui.mainFrame
-			# Translators: A message in the ASCII Math input dialog of the Interaction window
-			with wx.TextEntryDialog(parent=parent, message=_("Write AsciiMath Content")) as dialog:
-				if dialog.ShowModal() == wx.ID_OK:
-					data = dialog.GetValue()
-					data = asciimathml.parse(data)
-					mathml = tostring(data)
-					mathml = mathml.decode("utf-8")
-					mathml = mathml.replace('math>', 'mrow>')
-					self.mathcontent.insert(mathml)
-
-		wx.CallAfter(show, None)
-
-	@script(
-		gesture="kb:control+alt+l",
-	)
-	def script_latex_insert(self, gesture):
-		def show(event):
-			# latex to mathml
-			import latex2mathml.converter
-			global main_frame
-			parent = main_frame if main_frame else gui.mainFrame
-			# Translators: A message in the LaTeX input dialog of the Interaction window
-			with wx.TextEntryDialog(parent=parent, message=_("Write LaTeX Content")) as dialog:
-				if dialog.ShowModal() == wx.ID_OK:
-					data = dialog.GetValue()
-					data = latex2mathml.converter.convert(data)
-					mathml = data
-					# mathml = mathml.replace('math>', 'mrow>')
-					self.mathcontent.insert(mathml)
-
-		wx.CallAfter(show, None)
-
-	@script(
-		gesture="kb:control+alt+delete",
-	)
-	def script_delete(self, gesture):
-		self.mathcontent.delete()
 
 
 class A8MInteractionTextInfo(textInfos.offsets.OffsetsTextInfo):
