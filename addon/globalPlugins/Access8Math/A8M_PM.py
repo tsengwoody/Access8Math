@@ -352,9 +352,13 @@ class Node(object):
 		d = len(self.child) - len(self.role)
 		if d > 0:
 			append = self.role[-1]
+			try:
+				before, after = append.split(".")
+			except ValueError as e:
+				before, after = f"{append}.".split(".")
 			self.role = self.role[:-1]
 			for i in range(d + 1):
-				self.role.append('{0}{1}'.format(append, i + 1))
+				self.role.append(f"{before}{i+1}{after}")
 			self.role_level = AUTO_GENERATE
 		else:
 			self.role_level = DIC_GENERATE

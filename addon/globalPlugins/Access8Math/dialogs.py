@@ -568,8 +568,8 @@ class UnicodeDicDialog(SettingsDialog):
 		self.removeButton = bHelper.addButton(self, label=_("Re&move"))
 		self.removeButton.Disable()
 
-		# Translators: The label for a button to recover default value.
-		recoverDefaultButton = bHelper.addButton(self, label=_("&Recover default"))
+		# Translators: The label for a button to restore default value.
+		restoreDefaultButton = bHelper.addButton(self, label=_("&Restore default"))
 
 		# Translators: The label for a button to import unicode.dic.
 		importButton = bHelper.addButton(self, label=_("&Import"))
@@ -579,7 +579,7 @@ class UnicodeDicDialog(SettingsDialog):
 
 		addButton.Bind(wx.EVT_BUTTON, self.OnAddClick)
 		self.removeButton.Bind(wx.EVT_BUTTON, self.OnRemoveClick)
-		recoverDefaultButton.Bind(wx.EVT_BUTTON, self.OnRecoverDefaultClick)
+		restoreDefaultButton.Bind(wx.EVT_BUTTON, self.OnRestoreDefaultClick)
 		importButton.Bind(wx.EVT_BUTTON, self.OnImportClick)
 		exportButton.Bind(wx.EVT_BUTTON, self.OnExportClick)
 
@@ -762,7 +762,7 @@ class UnicodeDicDialog(SettingsDialog):
 	def save(self, path, symbol):
 		A8M_PM.save_unicode_dic(symbol, path=path)
 
-	def OnRecoverDefaultClick(self, evt):
+	def OnRestoreDefaultClick(self, evt):
 		self.onSymbolEdited()
 		self.editingItem = None
 
@@ -958,8 +958,8 @@ class MathRuleDialog(SettingsDialog):
 		self.exampleButton = bHelper.addButton(self, label=_("E&xample"))
 		self.exampleButton.Disable()
 
-		# Translators: The label for a button to recover default value.
-		recoverDefaultButton = bHelper.addButton(self, label=_("&Recover default"))
+		# Translators: The label for a button to restore default value.
+		restoreDefaultButton = bHelper.addButton(self, label=_("&Restore default"))
 
 		# Translators: The label for a button to import math.rule.
 		importButton = bHelper.addButton(self, label=_("&Import"))
@@ -969,7 +969,7 @@ class MathRuleDialog(SettingsDialog):
 
 		self.editButton.Bind(wx.EVT_BUTTON, self.OnEditClick)
 		self.exampleButton.Bind(wx.EVT_BUTTON, self.OnExampleClick)
-		recoverDefaultButton.Bind(wx.EVT_BUTTON, self.OnRecoverDefaultClick)
+		restoreDefaultButton.Bind(wx.EVT_BUTTON, self.OnRestoreDefaultClick)
 		importButton.Bind(wx.EVT_BUTTON, self.OnImportClick)
 		exportButton.Bind(wx.EVT_BUTTON, self.OnExportClick)
 
@@ -1033,13 +1033,10 @@ class MathRuleDialog(SettingsDialog):
 		vw.set(data=mathcontent, name="")
 		vw.setFocus()
 
-	def OnRecoverDefaultClick(self, evt):
-		path = base_path
-		if not self.language == 'Windows':
-			path = os.path.join(base_path, 'locale', self.language, 'math.rule')
-
+	def OnRestoreDefaultClick(self, evt):
+		path = os.path.join(A8M_PM.LOCALE_DIR, self.category, self.language)
 		self.clear()
-		self.load(path)
+		self.load(os.path.join(path, "math.rule"))
 
 	def OnImportClick(self, evt):
 		with wx.FileDialog(
