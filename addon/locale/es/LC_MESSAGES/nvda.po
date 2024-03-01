@@ -432,8 +432,9 @@ msgstr "&Añadir"
 msgid "Re&move"
 msgstr "E&liminar"
 
-#. Translators: The label for a button to recover default value.
-msgid "&Recover default"
+#. Translators: The label for a button to restore default value.
+#, fuzzy
+msgid "&Restore default"
 msgstr "&Recuperar predeterminado"
 
 #. Translators: The label for a button to import unicode.dic.
@@ -751,14 +752,6 @@ msgstr "LaTeX copiado"
 #. Translators: A message reported to the user when taking a snapshot of math data in the Interaction window
 msgid "snapshot"
 msgstr "instantánea"
-
-#. Translators: A message in the ASCII Math input dialog of the Interaction window
-msgid "Write AsciiMath Content"
-msgstr "Escribir contenido AsciiMath"
-
-#. Translators: A message in the LaTeX input dialog of the Interaction window
-msgid "Write LaTeX Content"
-msgstr "Escribir contenido LaTeX"
 
 #. Translators: The description of a command in input help mode and in the Input gesture dialog
 msgid "Toggle command gestures"
@@ -1376,3 +1369,9 @@ msgid ""
 msgstr ""
 "Permite acceder a contenido matemático escrito en MathML; permite escribir "
 "contenido matemático en LaTeX"
+
+#~ msgid "Write AsciiMath Content"
+#~ msgstr "Escribir contenido AsciiMath"
+
+#~ msgid "Write LaTeX Content"
+#~ msgstr "Escribir contenido LaTeX"
