@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Access8Math - 3.6\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2023-06-06 14:09+0300\n"
-"PO-Revision-Date: 2023-10-20 13:27+0300\n"
+"PO-Revision-Date: 2024-03-01 17:08+0300\n"
 "Last-Translator: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language-Team: cagrid@hotmail.com\n"
 "Language: tr_TR\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Poedit 3.4.2\n"
 "X-Poedit-Basepath: ../../..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -421,9 +421,8 @@ msgid "Re&move"
 msgstr "Kaldı&r"
 
 #. Translators: The label for a button to restore default value.
-#, fuzzy
 msgid "&Restore default"
-msgstr "Kullanıcı varsayılanını yükle"
+msgstr "&Varsayılana geri yükle"
 
 #. Translators: The label for a button to import unicode.dic.
 #. Translators: The label for a button to import math.rule.
