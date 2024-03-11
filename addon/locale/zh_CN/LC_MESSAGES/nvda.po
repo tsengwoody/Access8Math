@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Access8Math - 3.2\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2024-02-16 09:07+0800\n"
-"PO-Revision-Date: 2024-02-16 09:24+0800\n"
+"PO-Revision-Date: 2024-03-07 19:30+0800\n"
 "Last-Translator: \n"
 "Language-Team: cary-rowen <manchen_0528@outlook.com>\n"
 "Language: zh_CN\n"
@@ -416,9 +416,8 @@ msgid "Re&move"
 msgstr "移除(&M)"
 
 #. Translators: The label for a button to restore default value.
-#, fuzzy
 msgid "&Restore default"
-msgstr "恢复默认值(&R)"
+msgstr "恢复默认(&R)"
 
 #. Translators: The label for a button to import unicode.dic.
 #. Translators: The label for a button to import math.rule.
