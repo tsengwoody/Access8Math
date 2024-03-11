@@ -115,114 +115,24 @@ def data2shortcutMap(latexAll):
 
 latexMenuData = [
 	{
-		"id": "frac",
-		# Translators: LaTeX command - fractions
-		"name": _("fractions"),
+		"id": "matrix2X2",
+		# Translators: LaTeX command - matrix (2X2)
+		"name": _("matrix (2X2)"),
 	},
 	{
-		"id": "sqrt",
-		# Translators: LaTeX command - square root
-		"name": _("square root"),
+		"id": "matrix3X3",
+		# Translators: LaTeX command - matrix (3X3)
+		"name": _("matrix (3X3)"),
 	},
 	{
-		"id": "root",
-		# Translators: LaTeX command - root
-		"name": _("root"),
+		"id": "determinant2X2",
+		# Translators: LaTeX command - determinant (2X2)
+		"name": _("determinant (2X2)"),
 	},
 	{
-		"id": "sumupdown",
-		# Translators: LaTeX command - summation
-		"name": _("summation"),
-	},
-	{
-		"id": "vector",
-		# Translators: LaTeX command - vector
-		"name": _("vector"),
-	},
-	{
-		"id": "limit",
-		# Translators: LaTeX command - limit
-		"name": _("limit"),
-	},
-	{
-		"id": "times",
-		# Translators: LaTeX command - times
-		"name": _("times"),
-	},
-	{
-		"id": "div",
-		# Translators: LaTeX command - divide
-		"name": _("divide"),
-	},
-	{
-		"id": "pm",
-		# Translators: LaTeX command - plus-minus sign
-		"name": _("plus-minus sign"),
-	},
-	{
-		"id": "ge",
-		# Translators: LaTeX command - greater than or equal to
-		"name": _("greater than or equal to"),
-	},
-	{
-		"id": "le",
-		# Translators: LaTeX command - less than or equal to
-		"name": _("less than or equal to"),
-	},
-	{
-		"id": "ne",
-		# Translators: LaTeX command - not equal to
-		"name": _("not equal to"),
-	},
-	{
-		"id": "approx",
-		# Translators: LaTeX command - approximate
-		"name": _("approximate"),
-	},
-	{
-		"id": "parallel",
-		# Translators: LaTeX command - parallel
-		"name": _("parallel"),
-	},
-	{
-		"id": "perp",
-		# Translators: LaTeX command - perpendicular
-		"name": _("perpendicular"),
-	},
-	{
-		"id": "cong",
-		# Translators: LaTeX command - full equal
-		"name": _("full equal"),
-	},
-	{
-		"id": "sim",
-		# Translators: LaTeX command - similar
-		"name": _("similar"),
-	},
-	{
-		"id": "because",
-		# Translators: LaTeX command - because
-		"name": _("because"),
-	},
-	{
-		"id": "therefore",
-		# Translators: LaTeX command - therefore
-		"name": _("therefore"),
-	},
-	{
-		"id": "iff",
-		# Translators: LaTeX command - because
-		"name": _("if and only if"),
-	},
-	{
-		"id": "implies",
-		# Translators: LaTeX command - because
-		"name": _("implies"),
-	},
-	{
-		"id": "impliedby",
-		# Translators: LaTeX command - because
-		"name": _("implied by"),
+		"id": "determinant3X3",
+		# Translators: LaTeX command - determinant (3X3)
+		"name": _("determinant (3X3)"),
 	},
 	{
 		"id": "leftarrow",
@@ -255,19 +165,89 @@ latexMenuData = [
 		"name": _("up down arrow"),
 	},
 	{
-		"id": "overline",
-		# Translators: LaTeX command - line segment
-		"name": _("line segment"),
+		"id": "dotproduct",
+		# Translators: LaTeX command - dot product
+		"name": _("dot product"),
 	},
 	{
-		"id": "overleftrightarrow",
-		# Translators: LaTeX command - line
-		"name": _("line"),
+		"id": "integral",
+		# Translators: LaTeX command - integral
+		"name": _("integral"),
 	},
 	{
-		"id": "overrightarrow",
-		# Translators: LaTeX command - ray
-		"name": _("ray"),
+		"id": "nabla",
+		# Translators: LaTeX command - nabla
+		"name": _("nabla"),
+	},
+	{
+		"id": "partial",
+		# Translators: LaTeX command - partial derivative
+		"name": _("partial derivative"),
+	},
+	{
+		"id": "prime",
+		# Translators: LaTeX command - derivative
+		"name": _("derivative"),
+	},
+	{
+		"id": "differential",
+		# Translators: LaTeX command - differential
+		"name": _("differential"),
+	},
+	{
+		"id": "combination",
+		# Translators: LaTeX command - combination
+		"name": _("combination"),
+	},
+	{
+		"id": "permutation",
+		# Translators: LaTeX command - permutation
+		"name": _("permutation"),
+	},
+	{
+		"id": "combination-with-repetition",
+		# Translators: LaTeX command - combination with repetition
+		"name": _("combination with repetition"),
+	},
+	{
+		"id": "unordered-selection",
+		# Translators: LaTeX command - unordered selection
+		"name": _("unordered selection"),
+	},
+	{
+		"id": "frac",
+		# Translators: LaTeX command - fractions
+		"name": _("fractions"),
+	},
+	{
+		"id": "sqrt",
+		# Translators: LaTeX command - square root
+		"name": _("square root"),
+	},
+	{
+		"id": "root",
+		# Translators: LaTeX command - root
+		"name": _("root"),
+	},
+	{
+		"id": "sumupdown",
+		# Translators: LaTeX command - summation
+		"name": _("summation"),
+	},
+	{
+		"id": "vector",
+		# Translators: LaTeX command - vector
+		"name": _("vector"),
+	},
+	{
+		"id": "limit",
+		# Translators: LaTeX command - limit
+		"name": _("limit"),
+	},
+	{
+		"id": "logarithm",
+		# Translators: LaTeX command - logarithm
+		"name": _("logarithm"),
 	},
 	{
 		"id": "arc",
@@ -295,34 +275,149 @@ latexMenuData = [
 		"name": _("circle"),
 	},
 	{
+		"id": "parallel",
+		# Translators: LaTeX command - parallel
+		"name": _("parallel"),
+	},
+	{
+		"id": "perp",
+		# Translators: LaTeX command - perpendicular
+		"name": _("perpendicular"),
+	},
+	{
+		"id": "square",
+		# Translators: LaTeX command - square
+		"name": _("square"),
+	},
+	{
+		"id": "small-diamond",
+		# Translators: LaTeX command - small diamond
+		"name": _("small diamond"),
+	},
+	{
+		"id": "large-diamond",
+		# Translators: LaTeX command - large diamond
+		"name": _("large diamond"),
+	},
+	{
+		"id": "because",
+		# Translators: LaTeX command - because
+		"name": _("because"),
+	},
+	{
+		"id": "therefore",
+		# Translators: LaTeX command - therefore
+		"name": _("therefore"),
+	},
+	{
+		"id": "iff",
+		# Translators: LaTeX command - if and only if
+		"name": _("if and only if"),
+	},
+	{
+		"id": "implies",
+		# Translators: LaTeX command - implies
+		"name": _("implies"),
+	},
+	{
+		"id": "impliedby",
+		# Translators: LaTeX command - implied by
+		"name": _("implied by"),
+	},
+	{
+		"id": "times",
+		# Translators: LaTeX command - times
+		"name": _("times"),
+	},
+	{
+		"id": "div",
+		# Translators: LaTeX command - divide
+		"name": _("divide"),
+	},
+	{
+		"id": "pm",
+		# Translators: LaTeX command - plus-minus sign
+		"name": _("plus-minus sign"),
+	},
+	{
+		"id": "modulus",
+		# Translators: LaTeX command - modulus
+		"name": _("modulus"),
+	},
+	{
+		"id": "overline",
+		# Translators: LaTeX command - line segment
+		"name": _("line segment"),
+	},
+	{
+		"id": "overleftrightarrow",
+		# Translators: LaTeX command - line
+		"name": _("line"),
+	},
+	{
+		"id": "overrightarrow",
+		# Translators: LaTeX command - ray
+		"name": _("ray"),
+	},
+	{
 		"id": "binom",
 		# Translators: LaTeX command - binomial coefficient
 		"name": _("binomial coefficient"),
 	},
 	{
-		"id": "matrix2X2",
-		# Translators: LaTeX command - matrix (2X2)
-		"name": _("matrix (2X2)"),
-	},
-	{
-		"id": "matrix3X3",
-		# Translators: LaTeX command - matrix (3X3)
-		"name": _("matrix (3X3)"),
-	},
-	{
-		"id": "determinant2X2",
-		# Translators: LaTeX command - determinant (2X2)
-		"name": _("determinant (2X2)"),
-	},
-	{
-		"id": "determinant3X3",
-		# Translators: LaTeX command - determinant (3X3)
-		"name": _("determinant (3X3)"),
-	},
-	{
 		"id": "simultaneous-equations",
 		# Translators: LaTeX command - simultaneous equations
 		"name": _("simultaneous equations"),
+	},
+	{
+		"id": "infty",
+		# Translators: LaTeX command - infty
+		"name": _("infty"),
+	},
+	{
+		"id": "repeating-decimal",
+		# Translators: LaTeX command - repeating decimal
+		"name": _("repeating decimal"),
+	},
+	{
+		"id": "ge",
+		# Translators: LaTeX command - greater than or equal to
+		"name": _("greater than or equal to"),
+	},
+	{
+		"id": "le",
+		# Translators: LaTeX command - less than or equal to
+		"name": _("less than or equal to"),
+	},
+	{
+		"id": "ne",
+		# Translators: LaTeX command - not equal to
+		"name": _("not equal to"),
+	},
+	{
+		"id": "approx",
+		# Translators: LaTeX command - approximate
+		"name": _("approximate"),
+	},
+	{
+		"id": "cong",
+		# Translators: LaTeX command - full equal
+		"name": _("full equal"),
+	},
+	{
+		"id": "sim",
+		# Translators: LaTeX command - similar
+		"name": _("similar"),
+	},
+	{
+		"id": "doteqdot",
+		# Translators: LaTeX command - approximately equal to
+		"name": _("approximately equal to"),
+	},
+	{
+		"id": "propto",
+		# Translators: LaTeX command - proportional to
+		"name": _("proportional to"),
 	},
 	{
 		"id": "in",
@@ -333,6 +428,16 @@ latexMenuData = [
 		"id": "notin",
 		# Translators: LaTeX command - not belong to
 		"name": _("not belong to"),
+	},
+	{
+		"id": "ni",
+		# Translators: LaTeX command - include element
+		"name": _("include element"),
+	},
+	{
+		"id": "notni",
+		# Translators: LaTeX command - not include element
+		"name": _("not include element"),
 	},
 	{
 		"id": "subset",
@@ -400,16 +505,6 @@ latexMenuData = [
 		"name": _("real number"),
 	},
 	{
-		"id": "logarithm",
-		# Translators: LaTeX command - logarithm
-		"name": _("logarithm"),
-	},
-	{
-		"id": "infty",
-		# Translators: LaTeX command - infty
-		"name": _("infty"),
-	},
-	{
 		"id": "forall",
 		# Translators: LaTeX command - for all
 		"name": _("for all"),
@@ -420,9 +515,79 @@ latexMenuData = [
 		"name": _("exists"),
 	},
 	{
-		"id": "repeating-decimal",
-		# Translators: LaTeX command - repeating decimal
-		"name": _("repeating decimal"),
+		"id": "sine",
+		# Translators: LaTeX command - sine
+		"name": _("sine"),
+	},
+	{
+		"id": "cosine",
+		# Translators: LaTeX command - cosine
+		"name": _("cosine"),
+	},
+	{
+		"id": "tangent",
+		# Translators: LaTeX command - tangent
+		"name": _("tangent"),
+	},
+	{
+		"id": "cotangent",
+		# Translators: LaTeX command - cotangent
+		"name": _("cotangent"),
+	},
+	{
+		"id": "secant",
+		# Translators: LaTeX command - secant
+		"name": _("secant"),
+	},
+	{
+		"id": "cosecant",
+		# Translators: LaTeX command - cosecant
+		"name": _("cosecant"),
+	},
+	{
+		"id": "arcsine",
+		# Translators: LaTeX command - arcsine
+		"name": _("arcsine"),
+	},
+	{
+		"id": "arccosine",
+		# Translators: LaTeX command - arccosine
+		"name": _("arccosine"),
+	},
+	{
+		"id": "arctangent",
+		# Translators: LaTeX command - arctangent
+		"name": _("arctangent"),
+	},
+	{
+		"id": "hyperbolic-sine",
+		# Translators: LaTeX command - hyperbolic sine
+		"name": _("hyperbolic sine"),
+	},
+	{
+		"id": "hyperbolic-cosine",
+		# Translators: LaTeX command - hyperbolic cosine
+		"name": _("hyperbolic cosine"),
+	},
+	{
+		"id": "hyperbolic-tangent",
+		# Translators: LaTeX command - hyperbolic tangent
+		"name": _("hyperbolic tangent"),
+	},
+	{
+		"id": "hyperbolic-cotangent",
+		# Translators: LaTeX command - hyperbolic cotangent
+		"name": _("hyperbolic cotangent"),
+	},
+	{
+		"id": "floor",
+		# Translators: LaTeX command - floor
+		"name": _("floor"),
+	},
+	{
+		"id": "ceil",
+		# Translators: LaTeX command - ceil
+		"name": _("ceil"),
 	},
 ]
 latexData = []

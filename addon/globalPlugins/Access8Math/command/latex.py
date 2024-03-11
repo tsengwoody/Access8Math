@@ -93,6 +93,27 @@ class A8MLaTeXCommandModel(MenuModel):
 				"items": latexData.latexMenu['arrow'],
 			},
 			{
+				"id": "geometry",
+				# Translators: LaTeX command category - geometry
+				"name": _("geometry"),
+				"type": "menu",
+				"items": latexData.latexMenu['geometry'],
+			},
+			{
+				"id": "combinatorics",
+				# Translators: LaTeX command category - combinatorics
+				"name": _("combinatorics"),
+				"type": "menu",
+				"items": latexData.latexMenu['combinatorics'],
+			},
+			{
+				"id": "trigonometric",
+				# Translators: LaTeX command category - trigonometric
+				"name": _("trigonometric"),
+				"type": "menu",
+				"items": latexData.latexMenu['trigonometric'],
+			},
+			{
 				"id": "2-dimension",
 				# Translators: LaTeX command category - 2-dimension
 				"name": _("2-dimension"),
@@ -105,6 +126,13 @@ class A8MLaTeXCommandModel(MenuModel):
 				"name": _("set"),
 				"type": "menu",
 				"items": latexData.latexMenu['set'],
+			},
+			{
+				"id": "calculus",
+				# Translators: LaTeX command category - calculus
+				"name": _("calculus"),
+				"type": "menu",
+				"items": latexData.latexMenu['calculus'],
 			},
 			{
 				"id": "other",
