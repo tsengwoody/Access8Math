@@ -921,6 +921,18 @@ msgstr "lógica"
 msgid "arrow"
 msgstr "seta"
 
+#. Translators: LaTeX command category - geometry
+msgid "geometry"
+msgstr ""
+
+#. Translators: LaTeX command category - combinatorics
+msgid "combinatorics"
+msgstr ""
+
+#. Translators: LaTeX command category - trigonometric
+msgid "trigonometric"
+msgstr ""
+
 #. Translators: LaTeX command category - 2-dimension
 msgid "2-dimension"
 msgstr "2 dimensões"
@@ -928,6 +940,10 @@ msgstr "2 dimensões"
 #. Translators: LaTeX command category - set
 msgid "set"
 msgstr "sefinir"
+
+#. Translators: LaTeX command category - calculus
+msgid "calculus"
+msgstr ""
 
 #. Translators: LaTeX command category - other
 msgid "other"
@@ -1015,93 +1031,21 @@ msgstr "{number} de {total}"
 msgid "{shortcut}"
 msgstr "{shortcut}"
 
-#. Translators: LaTeX command - fractions
-msgid "fractions"
-msgstr "fracções"
+#. Translators: LaTeX command - matrix (2X2)
+msgid "matrix (2X2)"
+msgstr "matriz (2X2)"
 
-#. Translators: LaTeX command - square root
-msgid "square root"
-msgstr "raiz quadrada"
+#. Translators: LaTeX command - matrix (3X3)
+msgid "matrix (3X3)"
+msgstr "matriz (3X3)"
 
-#. Translators: LaTeX command - root
-msgid "root"
-msgstr "raiz"
+#. Translators: LaTeX command - determinant (2X2)
+msgid "determinant (2X2)"
+msgstr "determinante (2X2)"
 
-#. Translators: LaTeX command - summation
-msgid "summation"
-msgstr "somatório"
-
-#. Translators: LaTeX command - vector
-msgid "vector"
-msgstr "vetorial"
-
-#. Translators: LaTeX command - limit
-msgid "limit"
-msgstr "limite"
-
-#. Translators: LaTeX command - times
-msgid "times"
-msgstr "vezes"
-
-#. Translators: LaTeX command - divide
-msgid "divide"
-msgstr "dividir"
-
-#. Translators: LaTeX command - plus-minus sign
-msgid "plus-minus sign"
-msgstr "sinal de mais-menos"
-
-#. Translators: LaTeX command - greater than or equal to
-msgid "greater than or equal to"
-msgstr "maior ou igual a"
-
-#. Translators: LaTeX command - less than or equal to
-msgid "less than or equal to"
-msgstr "menor ou igual a"
-
-#. Translators: LaTeX command - not equal to
-msgid "not equal to"
-msgstr "não igual a"
-
-#. Translators: LaTeX command - approximate
-msgid "approximate"
-msgstr "aproximado"
-
-#. Translators: LaTeX command - parallel
-msgid "parallel"
-msgstr "paralelo"
-
-#. Translators: LaTeX command - perpendicular
-msgid "perpendicular"
-msgstr "perpendicular"
-
-#. Translators: LaTeX command - full equal
-msgid "full equal"
-msgstr "totalmente igual"
-
-#. Translators: LaTeX command - similar
-msgid "similar"
-msgstr "semelhante"
-
-#. Translators: LaTeX command - because
-msgid "because"
-msgstr "porque"
-
-#. Translators: LaTeX command - therefore
-msgid "therefore"
-msgstr "portanto"
-
-#. Translators: LaTeX command - because
-msgid "if and only if"
-msgstr "se e somente se"
-
-#. Translators: LaTeX command - because
-msgid "implies"
-msgstr "implica"
-
-#. Translators: LaTeX command - because
-msgid "implied by"
-msgstr "implícito por"
+#. Translators: LaTeX command - determinant (3X3)
+msgid "determinant (3X3)"
+msgstr "determinante (3X3)"
 
 #. Translators: LaTeX command - left arrow
 msgid "left arrow"
@@ -1127,17 +1071,76 @@ msgstr "seta abaixo"
 msgid "up down arrow"
 msgstr "seta para cima para baixo"
 
-#. Translators: LaTeX command - line segment
-msgid "line segment"
-msgstr "segmento de linha"
+#. Translators: LaTeX command - dot product
+msgid "dot product"
+msgstr ""
 
-#. Translators: LaTeX command - line
-msgid "line"
-msgstr "linha"
+#. Translators: LaTeX command - integral
+msgid "integral"
+msgstr ""
 
-#. Translators: LaTeX command - ray
-msgid "ray"
-msgstr "raio"
+#. Translators: LaTeX command - nabla
+msgid "nabla"
+msgstr ""
+
+#. Translators: LaTeX command - partial derivative
+msgid "partial derivative"
+msgstr ""
+
+#. Translators: LaTeX command - derivative
+msgid "derivative"
+msgstr ""
+
+#. Translators: LaTeX command - differential
+#, fuzzy
+msgid "differential"
+msgstr "conjunto de diferenças"
+
+#. Translators: LaTeX command - combination
+#, fuzzy
+msgid "combination"
+msgstr "somatório"
+
+#. Translators: LaTeX command - permutation
+#, fuzzy
+msgid "permutation"
+msgstr "Interacção"
+
+#. Translators: LaTeX command - combination with repetition
+msgid "combination with repetition"
+msgstr ""
+
+#. Translators: LaTeX command - unordered selection
+msgid "unordered selection"
+msgstr ""
+
+#. Translators: LaTeX command - fractions
+msgid "fractions"
+msgstr "fracções"
+
+#. Translators: LaTeX command - square root
+msgid "square root"
+msgstr "raiz quadrada"
+
+#. Translators: LaTeX command - root
+msgid "root"
+msgstr "raiz"
+
+#. Translators: LaTeX command - summation
+msgid "summation"
+msgstr "somatório"
+
+#. Translators: LaTeX command - vector
+msgid "vector"
+msgstr "vetorial"
+
+#. Translators: LaTeX command - limit
+msgid "limit"
+msgstr "limite"
+
+#. Translators: LaTeX command - logarithm
+msgid "logarithm"
+msgstr "logaritmo"
 
 #. Translators: LaTeX command - arc
 msgid "arc"
@@ -1159,29 +1162,123 @@ msgstr "grau"
 msgid "circle"
 msgstr "círculo"
 
+#. Translators: LaTeX command - parallel
+msgid "parallel"
+msgstr "paralelo"
+
+#. Translators: LaTeX command - perpendicular
+msgid "perpendicular"
+msgstr "perpendicular"
+
+#. Translators: LaTeX command - square
+#, fuzzy
+msgid "square"
+msgstr "raiz quadrada"
+
+#. Translators: LaTeX command - small diamond
+msgid "small diamond"
+msgstr ""
+
+#. Translators: LaTeX command - large diamond
+msgid "large diamond"
+msgstr ""
+
+#. Translators: LaTeX command - because
+msgid "because"
+msgstr "porque"
+
+#. Translators: LaTeX command - therefore
+msgid "therefore"
+msgstr "portanto"
+
+#. Translators: LaTeX command - if and only if
+msgid "if and only if"
+msgstr "se e somente se"
+
+#. Translators: LaTeX command - implies
+msgid "implies"
+msgstr "implica"
+
+#. Translators: LaTeX command - implied by
+msgid "implied by"
+msgstr "implícito por"
+
+#. Translators: LaTeX command - times
+msgid "times"
+msgstr "vezes"
+
+#. Translators: LaTeX command - divide
+msgid "divide"
+msgstr "dividir"
+
+#. Translators: LaTeX command - plus-minus sign
+msgid "plus-minus sign"
+msgstr "sinal de mais-menos"
+
+#. Translators: LaTeX command - modulus
+msgid "modulus"
+msgstr ""
+
+#. Translators: LaTeX command - line segment
+msgid "line segment"
+msgstr "segmento de linha"
+
+#. Translators: LaTeX command - line
+msgid "line"
+msgstr "linha"
+
+#. Translators: LaTeX command - ray
+msgid "ray"
+msgstr "raio"
+
 #. Translators: LaTeX command - binomial coefficient
 msgid "binomial coefficient"
 msgstr "coeficiente binomial"
 
-#. Translators: LaTeX command - matrix (2X2)
-msgid "matrix (2X2)"
-msgstr "matriz (2X2)"
-
-#. Translators: LaTeX command - matrix (3X3)
-msgid "matrix (3X3)"
-msgstr "matriz (3X3)"
-
-#. Translators: LaTeX command - determinant (2X2)
-msgid "determinant (2X2)"
-msgstr "determinante (2X2)"
-
-#. Translators: LaTeX command - determinant (3X3)
-msgid "determinant (3X3)"
-msgstr "determinante (3X3)"
-
 #. Translators: LaTeX command - simultaneous equations
 msgid "simultaneous equations"
 msgstr "equações simultâneas"
+
+#. Translators: LaTeX command - infty
+msgid "infty"
+msgstr "infatil"
+
+#. Translators: LaTeX command - repeating decimal
+msgid "repeating decimal"
+msgstr "repetição de decimais"
+
+#. Translators: LaTeX command - greater than or equal to
+msgid "greater than or equal to"
+msgstr "maior ou igual a"
+
+#. Translators: LaTeX command - less than or equal to
+msgid "less than or equal to"
+msgstr "menor ou igual a"
+
+#. Translators: LaTeX command - not equal to
+msgid "not equal to"
+msgstr "não igual a"
+
+#. Translators: LaTeX command - approximate
+msgid "approximate"
+msgstr "aproximado"
+
+#. Translators: LaTeX command - full equal
+msgid "full equal"
+msgstr "totalmente igual"
+
+#. Translators: LaTeX command - similar
+msgid "similar"
+msgstr "semelhante"
+
+#. Translators: LaTeX command - approximately equal to
+#, fuzzy
+msgid "approximately equal to"
+msgstr "aproximado"
+
+#. Translators: LaTeX command - proportional to
+msgid "proportional to"
+msgstr ""
 
 #. Translators: LaTeX command - belong to
 msgid "belong to"
@@ -1190,6 +1287,16 @@ msgstr "pertencer a"
 #. Translators: LaTeX command - not belong to
 msgid "not belong to"
 msgstr "não pertencer a"
+
+#. Translators: LaTeX command - include element
+#, fuzzy
+msgid "include element"
+msgstr "segmento de linha"
+
+#. Translators: LaTeX command - not include element
+#, fuzzy
+msgid "not include element"
+msgstr "não incluir"
 
 #. Translators: LaTeX command - lie in
 msgid "lie in"
@@ -1243,14 +1350,6 @@ msgstr "número natural"
 msgid "real number"
 msgstr "número real"
 
-#. Translators: LaTeX command - logarithm
-msgid "logarithm"
-msgstr "logaritmo"
-
-#. Translators: LaTeX command - infty
-msgid "infty"
-msgstr "infatil"
-
 #. Translators: LaTeX command - for all
 msgid "for all"
 msgstr "para todos"
@@ -1259,9 +1358,65 @@ msgstr "para todos"
 msgid "exists"
 msgstr "existe"
 
-#. Translators: LaTeX command - repeating decimal
-msgid "repeating decimal"
-msgstr "repetição de decimais"
+#. Translators: LaTeX command - sine
+msgid "sine"
+msgstr ""
+
+#. Translators: LaTeX command - cosine
+msgid "cosine"
+msgstr ""
+
+#. Translators: LaTeX command - tangent
+msgid "tangent"
+msgstr ""
+
+#. Translators: LaTeX command - cotangent
+msgid "cotangent"
+msgstr ""
+
+#. Translators: LaTeX command - secant
+msgid "secant"
+msgstr ""
+
+#. Translators: LaTeX command - cosecant
+msgid "cosecant"
+msgstr ""
+
+#. Translators: LaTeX command - arcsine
+msgid "arcsine"
+msgstr ""
+
+#. Translators: LaTeX command - arccosine
+msgid "arccosine"
+msgstr ""
+
+#. Translators: LaTeX command - arctangent
+msgid "arctangent"
+msgstr ""
+
+#. Translators: LaTeX command - hyperbolic sine
+msgid "hyperbolic sine"
+msgstr ""
+
+#. Translators: LaTeX command - hyperbolic cosine
+msgid "hyperbolic cosine"
+msgstr ""
+
+#. Translators: LaTeX command - hyperbolic tangent
+msgid "hyperbolic tangent"
+msgstr ""
+
+#. Translators: LaTeX command - hyperbolic cotangent
+msgid "hyperbolic cotangent"
+msgstr ""
+
+#. Translators: LaTeX command - floor
+msgid "floor"
+msgstr ""
+
+#. Translators: LaTeX command - ceil
+msgid "ceil"
+msgstr ""
 
 #. Translators: greek alphabet command - alpha
 msgid "alpha"

@@ -906,6 +906,18 @@ msgstr "mantık"
 msgid "arrow"
 msgstr "ok"
 
+#. Translators: LaTeX command category - geometry
+msgid "geometry"
+msgstr ""
+
+#. Translators: LaTeX command category - combinatorics
+msgid "combinatorics"
+msgstr ""
+
+#. Translators: LaTeX command category - trigonometric
+msgid "trigonometric"
+msgstr ""
+
 #. Translators: LaTeX command category - 2-dimension
 msgid "2-dimension"
 msgstr "2 boyutlu"
@@ -913,6 +925,10 @@ msgstr "2 boyutlu"
 #. Translators: LaTeX command category - set
 msgid "set"
 msgstr "küme"
+
+#. Translators: LaTeX command category - calculus
+msgid "calculus"
+msgstr ""
 
 #. Translators: LaTeX command category - other
 msgid "other"
@@ -1000,93 +1016,21 @@ msgstr "{number} bölü {total}"
 msgid "{shortcut}"
 msgstr "{shortcut}"
 
-#. Translators: LaTeX command - fractions
-msgid "fractions"
-msgstr "kesirler"
+#. Translators: LaTeX command - matrix (2X2)
+msgid "matrix (2X2)"
+msgstr "matris (2X2)"
 
-#. Translators: LaTeX command - square root
-msgid "square root"
-msgstr "kare kök"
+#. Translators: LaTeX command - matrix (3X3)
+msgid "matrix (3X3)"
+msgstr "matris (3X3)"
 
-#. Translators: LaTeX command - root
-msgid "root"
-msgstr "kök"
+#. Translators: LaTeX command - determinant (2X2)
+msgid "determinant (2X2)"
+msgstr "determinant (2X2)"
 
-#. Translators: LaTeX command - summation
-msgid "summation"
-msgstr "toplama"
-
-#. Translators: LaTeX command - vector
-msgid "vector"
-msgstr "vektör"
-
-#. Translators: LaTeX command - limit
-msgid "limit"
-msgstr "limit"
-
-#. Translators: LaTeX command - times
-msgid "times"
-msgstr "çarpma"
-
-#. Translators: LaTeX command - divide
-msgid "divide"
-msgstr "bölme"
-
-#. Translators: LaTeX command - plus-minus sign
-msgid "plus-minus sign"
-msgstr "artı eksi işareti"
-
-#. Translators: LaTeX command - greater than or equal to
-msgid "greater than or equal to"
-msgstr "büyük veya eşit"
-
-#. Translators: LaTeX command - less than or equal to
-msgid "less than or equal to"
-msgstr "küçük veya eşit"
-
-#. Translators: LaTeX command - not equal to
-msgid "not equal to"
-msgstr "eşit değil"
-
-#. Translators: LaTeX command - approximate
-msgid "approximate"
-msgstr "yaklaşık"
-
-#. Translators: LaTeX command - parallel
-msgid "parallel"
-msgstr "paralel"
-
-#. Translators: LaTeX command - perpendicular
-msgid "perpendicular"
-msgstr "dik"
-
-#. Translators: LaTeX command - full equal
-msgid "full equal"
-msgstr "tam eşit"
-
-#. Translators: LaTeX command - similar
-msgid "similar"
-msgstr "benzer"
-
-#. Translators: LaTeX command - because
-msgid "because"
-msgstr "çünkü"
-
-#. Translators: LaTeX command - therefore
-msgid "therefore"
-msgstr "o halde"
-
-#. Translators: LaTeX command - because
-msgid "if and only if"
-msgstr "ancak ve ancak"
-
-#. Translators: LaTeX command - because
-msgid "implies"
-msgstr "ima eder"
-
-#. Translators: LaTeX command - because
-msgid "implied by"
-msgstr "tarafından ima edilen"
+#. Translators: LaTeX command - determinant (3X3)
+msgid "determinant (3X3)"
+msgstr "determinant (3X3)"
 
 #. Translators: LaTeX command - left arrow
 msgid "left arrow"
@@ -1112,17 +1056,76 @@ msgstr "aşağı ok"
 msgid "up down arrow"
 msgstr "yukarı aşağı ok"
 
-#. Translators: LaTeX command - line segment
-msgid "line segment"
-msgstr "doğru parçası"
+#. Translators: LaTeX command - dot product
+msgid "dot product"
+msgstr ""
 
-#. Translators: LaTeX command - line
-msgid "line"
-msgstr "doğru"
+#. Translators: LaTeX command - integral
+msgid "integral"
+msgstr ""
 
-#. Translators: LaTeX command - ray
-msgid "ray"
-msgstr "ışın"
+#. Translators: LaTeX command - nabla
+msgid "nabla"
+msgstr ""
+
+#. Translators: LaTeX command - partial derivative
+msgid "partial derivative"
+msgstr ""
+
+#. Translators: LaTeX command - derivative
+msgid "derivative"
+msgstr ""
+
+#. Translators: LaTeX command - differential
+#, fuzzy
+msgid "differential"
+msgstr "fark kümesi"
+
+#. Translators: LaTeX command - combination
+#, fuzzy
+msgid "combination"
+msgstr "toplama"
+
+#. Translators: LaTeX command - permutation
+#, fuzzy
+msgid "permutation"
+msgstr "Etkileşim"
+
+#. Translators: LaTeX command - combination with repetition
+msgid "combination with repetition"
+msgstr ""
+
+#. Translators: LaTeX command - unordered selection
+msgid "unordered selection"
+msgstr ""
+
+#. Translators: LaTeX command - fractions
+msgid "fractions"
+msgstr "kesirler"
+
+#. Translators: LaTeX command - square root
+msgid "square root"
+msgstr "kare kök"
+
+#. Translators: LaTeX command - root
+msgid "root"
+msgstr "kök"
+
+#. Translators: LaTeX command - summation
+msgid "summation"
+msgstr "toplama"
+
+#. Translators: LaTeX command - vector
+msgid "vector"
+msgstr "vektör"
+
+#. Translators: LaTeX command - limit
+msgid "limit"
+msgstr "limit"
+
+#. Translators: LaTeX command - logarithm
+msgid "logarithm"
+msgstr "logaritma"
 
 #. Translators: LaTeX command - arc
 msgid "arc"
@@ -1144,29 +1147,123 @@ msgstr "derece"
 msgid "circle"
 msgstr "daire"
 
+#. Translators: LaTeX command - parallel
+msgid "parallel"
+msgstr "paralel"
+
+#. Translators: LaTeX command - perpendicular
+msgid "perpendicular"
+msgstr "dik"
+
+#. Translators: LaTeX command - square
+#, fuzzy
+msgid "square"
+msgstr "kare kök"
+
+#. Translators: LaTeX command - small diamond
+msgid "small diamond"
+msgstr ""
+
+#. Translators: LaTeX command - large diamond
+msgid "large diamond"
+msgstr ""
+
+#. Translators: LaTeX command - because
+msgid "because"
+msgstr "çünkü"
+
+#. Translators: LaTeX command - therefore
+msgid "therefore"
+msgstr "o halde"
+
+#. Translators: LaTeX command - if and only if
+msgid "if and only if"
+msgstr "ancak ve ancak"
+
+#. Translators: LaTeX command - implies
+msgid "implies"
+msgstr "ima eder"
+
+#. Translators: LaTeX command - implied by
+msgid "implied by"
+msgstr "tarafından ima edilen"
+
+#. Translators: LaTeX command - times
+msgid "times"
+msgstr "çarpma"
+
+#. Translators: LaTeX command - divide
+msgid "divide"
+msgstr "bölme"
+
+#. Translators: LaTeX command - plus-minus sign
+msgid "plus-minus sign"
+msgstr "artı eksi işareti"
+
+#. Translators: LaTeX command - modulus
+msgid "modulus"
+msgstr ""
+
+#. Translators: LaTeX command - line segment
+msgid "line segment"
+msgstr "doğru parçası"
+
+#. Translators: LaTeX command - line
+msgid "line"
+msgstr "doğru"
+
+#. Translators: LaTeX command - ray
+msgid "ray"
+msgstr "ışın"
+
 #. Translators: LaTeX command - binomial coefficient
 msgid "binomial coefficient"
 msgstr "binom katsayısı"
 
-#. Translators: LaTeX command - matrix (2X2)
-msgid "matrix (2X2)"
-msgstr "matris (2X2)"
-
-#. Translators: LaTeX command - matrix (3X3)
-msgid "matrix (3X3)"
-msgstr "matris (3X3)"
-
-#. Translators: LaTeX command - determinant (2X2)
-msgid "determinant (2X2)"
-msgstr "determinant (2X2)"
-
-#. Translators: LaTeX command - determinant (3X3)
-msgid "determinant (3X3)"
-msgstr "determinant (3X3)"
-
 #. Translators: LaTeX command - simultaneous equations
 msgid "simultaneous equations"
 msgstr "eşzamanlı denklemler"
+
+#. Translators: LaTeX command - infty
+msgid "infty"
+msgstr "elli"
+
+#. Translators: LaTeX command - repeating decimal
+msgid "repeating decimal"
+msgstr "tekrar eden ondalık"
+
+#. Translators: LaTeX command - greater than or equal to
+msgid "greater than or equal to"
+msgstr "büyük veya eşit"
+
+#. Translators: LaTeX command - less than or equal to
+msgid "less than or equal to"
+msgstr "küçük veya eşit"
+
+#. Translators: LaTeX command - not equal to
+msgid "not equal to"
+msgstr "eşit değil"
+
+#. Translators: LaTeX command - approximate
+msgid "approximate"
+msgstr "yaklaşık"
+
+#. Translators: LaTeX command - full equal
+msgid "full equal"
+msgstr "tam eşit"
+
+#. Translators: LaTeX command - similar
+msgid "similar"
+msgstr "benzer"
+
+#. Translators: LaTeX command - approximately equal to
+#, fuzzy
+msgid "approximately equal to"
+msgstr "yaklaşık"
+
+#. Translators: LaTeX command - proportional to
+msgid "proportional to"
+msgstr ""
 
 #. Translators: LaTeX command - belong to
 msgid "belong to"
@@ -1175,6 +1272,16 @@ msgstr "ait"
 #. Translators: LaTeX command - not belong to
 msgid "not belong to"
 msgstr "ait değil"
+
+#. Translators: LaTeX command - include element
+#, fuzzy
+msgid "include element"
+msgstr "doğru parçası"
+
+#. Translators: LaTeX command - not include element
+#, fuzzy
+msgid "not include element"
+msgstr "hariç"
 
 #. Translators: LaTeX command - lie in
 msgid "lie in"
@@ -1228,14 +1335,6 @@ msgstr "doğal sayı"
 msgid "real number"
 msgstr "gerçek sayı"
 
-#. Translators: LaTeX command - logarithm
-msgid "logarithm"
-msgstr "logaritma"
-
-#. Translators: LaTeX command - infty
-msgid "infty"
-msgstr "elli"
-
 #. Translators: LaTeX command - for all
 msgid "for all"
 msgstr "hepsi için"
@@ -1244,9 +1343,65 @@ msgstr "hepsi için"
 msgid "exists"
 msgstr "vardır"
 
-#. Translators: LaTeX command - repeating decimal
-msgid "repeating decimal"
-msgstr "tekrar eden ondalık"
+#. Translators: LaTeX command - sine
+msgid "sine"
+msgstr ""
+
+#. Translators: LaTeX command - cosine
+msgid "cosine"
+msgstr ""
+
+#. Translators: LaTeX command - tangent
+msgid "tangent"
+msgstr ""
+
+#. Translators: LaTeX command - cotangent
+msgid "cotangent"
+msgstr ""
+
+#. Translators: LaTeX command - secant
+msgid "secant"
+msgstr ""
+
+#. Translators: LaTeX command - cosecant
+msgid "cosecant"
+msgstr ""
+
+#. Translators: LaTeX command - arcsine
+msgid "arcsine"
+msgstr ""
+
+#. Translators: LaTeX command - arccosine
+msgid "arccosine"
+msgstr ""
+
+#. Translators: LaTeX command - arctangent
+msgid "arctangent"
+msgstr ""
+
+#. Translators: LaTeX command - hyperbolic sine
+msgid "hyperbolic sine"
+msgstr ""
+
+#. Translators: LaTeX command - hyperbolic cosine
+msgid "hyperbolic cosine"
+msgstr ""
+
+#. Translators: LaTeX command - hyperbolic tangent
+msgid "hyperbolic tangent"
+msgstr ""
+
+#. Translators: LaTeX command - hyperbolic cotangent
+msgid "hyperbolic cotangent"
+msgstr ""
+
+#. Translators: LaTeX command - floor
+msgid "floor"
+msgstr ""
+
+#. Translators: LaTeX command - ceil
+msgid "ceil"
+msgstr ""
 
 #. Translators: greek alphabet command - alpha
 msgid "alpha"
