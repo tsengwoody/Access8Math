@@ -372,6 +372,11 @@ github： https://github.com/tsengwoody/Access8Math
 
 # Access8Math 日誌
 
+## Access8Math v4.0 更新日志
+
+* 相容于 NVDA 2024.1
+* 移除遗留冗余程序代码
+
 ## Access8Math v3.8 更新日志
 
 * 互动模式中对 Mtable 可使用表格导览(ctrl+alt+箭头键)

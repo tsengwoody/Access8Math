@@ -10,6 +10,7 @@ import config
 import core
 import gui
 from gui import guiHelper, nvdaControls
+from gui.contextHelp import ContextHelpMixin
 from gui.settingsDialogs import MultiCategorySettingsDialog, SettingsDialog, SettingsPanel
 import languageHandler
 from logHandler import log
@@ -19,7 +20,6 @@ import tones
 
 import A8M_PM
 from A8M_PM import MathContent
-from contextHelp import ContextHelpMixin
 
 addonHandler.initTranslation()
 

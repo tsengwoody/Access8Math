@@ -115,20 +115,15 @@ Version: {addonVersion}
 URL: https://addons.nvda-project.org/addons/access8math.en.html
 Copyright (C) {copyrightFirstYear}-{copyrightLastYear} Access8Math Contributors
 Access8Math is covered by the GNU General Public License (Version 2). You are free to share or change this software in any way you like as long as it is accompanied by the license and you make all source code available to anyone who wants it. This applies to both original and modified copies of this software, plus any derivative works.
-It can be viewed online at: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
-Access8Math has been sponsored by "Taiwan Visually Impaired People Association"(accessibility@twvip.org) in 2018~2019, hereby express our sincere appreciation.
-If you feel this add-on is helpful, please don't hesitate to give support to "Taiwan Visually Impaired People Association" and authors.""").format(
+It can be viewed online at: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html""").format(
 	addonVersion=ADDON_VERSION,
 	copyrightFirstYear=2017,
-	copyrightLastYear=2022,
+	copyrightLastYear=2024,
 )
 
-if buildVersion.version_year >= 2022:
-	ROLE_WINDOW = controlTypes.Role.WINDOW
-	ROLE_EDITABLETEXT = controlTypes.Role.EDITABLETEXT
-else:
-	ROLE_WINDOW = controlTypes.ROLE_WINDOW
-	ROLE_EDITABLETEXT = controlTypes.ROLE_EDITABLETEXT
+
+ROLE_WINDOW = controlTypes.Role.WINDOW
+ROLE_EDITABLETEXT = controlTypes.Role.EDITABLETEXT
 
 available_readers = []
 available_readers.append("Access8Math")

@@ -331,6 +331,11 @@ Please report any bugs or comments, thank you!
 
 # Access8Math update log
 
+## Access8Math v4.0 Update
+
+* Compatibility with NVDA 2024.1
+* Removed legacy code
+
 ## Access8Math v3.8 Update
 
 * Added table navigation support (ctrl+alt+arrow keys) for Mtable in interactive mode.
