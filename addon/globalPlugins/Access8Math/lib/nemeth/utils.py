@@ -6,6 +6,7 @@ def nemeth2symbol_with_priority(src):
 	with open(src, "r", encoding="utf8") as src_file:
 		src_dict_reader = csv.DictReader(src_file)
 		data = defaultdict(list)
+
 		for row in src_dict_reader:
 			if row["nemeth"] == "":
 				continue
@@ -14,6 +15,12 @@ def nemeth2symbol_with_priority(src):
 				"symbol": row["symbol"],
 				"priority": int(row["priority"]),
 			})
+			if "ingore-braille-space" in row and row["ingore-braille-space"] == "True":
+				data[row["nemeth"].strip("⠀")].append({
+					"latex": row["latex"],
+					"symbol": row["symbol"],
+					"priority": int(row["priority"]) + 100,
+				})
 
 	nemeth2symbol = {}
 	for key, value in data.items():

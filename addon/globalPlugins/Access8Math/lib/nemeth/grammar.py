@@ -13,7 +13,6 @@ for item in ["symbol", "letter", "number"]:
 	data[item] = sorted(nemeth2symbol.keys(), key=lambda i: len(i), reverse=True)
 
 grammar = r"""
-	%ignore "⠀"
 	start: "\b" exp "\b" -> exp
 		| exp -> exp
 	exp: i exp* -> exp
