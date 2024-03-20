@@ -62,6 +62,7 @@ Access8Math 可以讀取瀏覽器（如 Mozilla Firefox、Google Chrome 和 Micr
 * home鍵：閱讀片段的範圍為整個數學內容
 * 數字鍵盤1-9：使用NVDA 檢閱模式閱讀數學內容（請參見 NVDA 用戶指南的檢閱模式章節）
 * esc鍵：退出互動導航模式
+* ctrl+alt+方向鍵：可在數學表格中以行與列方式移動
 
 ### 數學規則
 
@@ -363,6 +364,15 @@ github： https://github.com/tsengwoody/Access8Math
 歡迎提出見意與bug回報，謝謝！
 
 # Access8Math 日誌
+
+## Access8Math v3.8 更新日誌
+
+* 互動模式中對 Mtable 可使用表格導覽(ctrl+alt+方向鍵)
+* 新增 LaTeX 選單類別，包括幾何學、排列組合、三角函數與微積分類別
+* 新增 LaTeX 選單項目
+* 加入取整符號
+* 修正 Nemeth 轉 LaTeX 時 .1 與 > 符號轉換錯誤
+* 修正數學規則對話框還原預設檔的路徑錯誤
 
 ## Access8Math v3.7 更新日誌
 

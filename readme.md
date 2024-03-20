@@ -331,6 +331,15 @@ Please report any bugs or comments, thank you!
 
 # Access8Math update log
 
+## Access8Math v3.8 Update
+
+* Added table navigation support (ctrl+alt+arrow keys) for Mtable in interactive mode.
+* Added new categories to the LaTeX menu, including Geometry, Combinatorics, Trigonometric Functions, and Calculus.
+* Added new items to the LaTeX menu.
+* Included the rounding symbol.
+* Fixed conversion errors of .1 and > symbols when converting Nemeth to LaTeX.
+* Fixed the path error for restoring default files in the math rules dialog.
+
 ## Access8Math v3.7 Update
 
 * new feature: Auto-Complete feature in write feature.

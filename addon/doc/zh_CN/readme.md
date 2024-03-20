@@ -64,6 +64,7 @@
 *	home键回到最顶层（朗读完整的数学内容）
 *	数字键盘 1-9：使用 NVDA 文本查看模式阅读数学内容（笔记本键盘方案请参看 NVDA 用户指南的文本查看相关章节）
 *	ESC键退出交互导航浏览模式
+* ctrl+alt+箭头键：可在数学表格中以行与列方式移动
 
 ## 数学规则
 
@@ -370,6 +371,15 @@ github： https://github.com/tsengwoody/Access8Math
 **本插件简体中文本地化由 Eureka <manchen_0528@outlook.com> 维护，有任何与简体中文本地化相关的问题可通过该邮件联系。**
 
 # Access8Math 日誌
+
+## Access8Math v3.8 更新日志
+
+* 互动模式中对 Mtable 可使用表格导览(ctrl+alt+箭头键)
+* 新增 LaTeX 选单类别，包括几何学、排列组合、三角函数与微积分类别
+* 新增 LaTeX 选单项目
+* 加入取整符号
+* 修正 Nemeth 转 LaTeX 时 .1 与 > 符号转换错误
+* 修正数学规则对话框还原默认文件的路径错误
 
 ## Access8Math v3.7 更新日志
 
