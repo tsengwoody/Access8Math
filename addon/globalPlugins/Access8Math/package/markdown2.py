@@ -106,7 +106,7 @@ see <https://github.com/trentm/python-markdown2/wiki/Extras> for details):
 #   not yet sure if there implications with this. Compare 'pydoc sre'
 #   and 'perldoc perlre'.
 
-__version_info__ = (2, 4, 12)
+__version_info__ = (2, 4, 13)
 __version__ = '.'.join(map(str, __version_info__))
 __author__ = "Trent Mick"
 
@@ -791,7 +791,7 @@ class Markdown(object):
             except IndexError:
                 tag = None
 
-        tag = tag or re.match(r'^<(\S).*?>', html).group(1)
+        tag = tag or re.match(r'.*?<(\S).*?>', html).group(1)
 
         if raw and self.safe_mode:
             html = self._sanitize_html(html)
@@ -800,13 +800,17 @@ class Markdown(object):
             m = self._html_markdown_attr_re.search(first_line)
             if m:
                 lines = html.split('\n')
-                if len(lines) < 3:  # if MD is on same line as HTML
-                    lines = re.split(r'(<%s.*markdown=.*?>)' % tag, lines[0])[1:] + lines[1:]
-                    first_line = lines[0]
-                    lines = lines[:-1] + re.split(r'(</%s>.*?$)' % tag, lines[-1])[:-1]
+                # if MD is on same line as opening tag then split across two lines
+                lines = list(filter(None, (re.split(r'(.*?<%s.*markdown=.*?>)' % tag, lines[0])))) + lines[1:]
+                # if MD on same line as closing tag, split across two lines
+                lines = lines[:-1] + list(filter(None, re.split(r'(\s*?</%s>.*?$)' % tag, lines[-1])))
+                # extract key sections of the match
+                first_line = lines[0]
                 middle = '\n'.join(lines[1:-1])
                 last_line = lines[-1]
+                # remove `markdown="1"` attr from tag
                 first_line = first_line[:m.start()] + first_line[m.end():]
+                # hash the HTML segments to protect them
                 f_key = _hash_text(first_line)
                 self.html_blocks[f_key] = first_line
                 l_key = _hash_text(last_line)
@@ -1249,7 +1253,7 @@ class Markdown(object):
         """
         less_than_tab = self.tab_width - 1
         table_re = re.compile(r'''
-                (?:(?<=\n\n)|\A\n?)             # leading blank line
+                (?:(?<=\n)|\A\n?)             # leading blank line
 
                 ^[ ]{0,%d}                      # allowed whitespace
                 (.*[|].*)[ ]*\n                   # $1: header row (at least one pipe)
@@ -1362,15 +1366,20 @@ class Markdown(object):
             text = self._do_smart_punctuation(text)
 
         # Do hard breaks:
-        if 'breaks' in self.extras:
-            break_tag = "<br%s\n" % self.empty_element_suffix
-            # do backslashes first because on_newline inserts the break before the newline
-            if self.extras['breaks'].get('on_backslash', False):
-                text = re.sub(r' *\\\n', break_tag, text)
-            if self.extras['breaks'].get('on_newline', False):
-                text = re.sub(r" *\n(?!\<(?:\/?(ul|ol|li))\>)", break_tag, text)
+        on_backslash = self.extras.get('breaks', {}).get('on_backslash', False)
+        on_newline = self.extras.get('breaks', {}).get('on_newline', False)
+
+        if on_backslash and on_newline:
+            pattern = r' *\\?'
+        elif on_backslash:
+            pattern = r'(?: *\\| {2,})'
+        elif on_newline:
+            pattern = r' *'
         else:
-            text = re.sub(r" {2,}\n", " <br%s\n" % self.empty_element_suffix, text)
+            pattern = r' {2,}'
+
+        break_tag = "<br%s\n" % self.empty_element_suffix
+        text = re.sub(pattern + r"\n(?!\<(?:\/?(ul|ol|li))\>)", break_tag, text)
 
         return text
 
@@ -2635,7 +2644,7 @@ class Markdown(object):
         text = self._naked_gt_re.sub('&gt;', text)
         return text
 
-    _incomplete_tags_re = re.compile(r"<(/?\w+?(?!\w)\s*?.+?[\s/]+?)")
+    _incomplete_tags_re = re.compile(r"<(!--|/?\w+?(?!\w)\s*?.+?[\s/]+?)")
 
     def _encode_incomplete_tags(self, text):
         if self.safe_mode not in ("replace", "escape"):
