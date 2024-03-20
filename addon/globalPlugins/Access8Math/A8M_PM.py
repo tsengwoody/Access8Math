@@ -1800,16 +1800,13 @@ def initialize(Access8MathConfig):
 
 	global nodetypes_check
 	nodetypes_check = []
-	if Access8MathConfig:
+	if Access8MathConfig and Access8MathConfig["settings"]["analyze_math_meaning"]:
 		for i in nodetypes:
 			if i.__name__ in Access8MathConfig["rules"]:
 				if Access8MathConfig["rules"][i.__name__]:
 					nodetypes_check.append(globals()[i.__name__])
 			else:
 				nodetypes_check.append(globals()[i.__name__])
-
-		if not Access8MathConfig["settings"]["analyze_math_meaning"]:
-			nodetypes_check = []
 
 
 def ComplementMethod(method):

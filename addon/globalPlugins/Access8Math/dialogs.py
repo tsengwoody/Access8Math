@@ -1095,8 +1095,8 @@ class NewLanguageAddingDialog(wx.Dialog):
 		self.sHelper = guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 
 		exist_languages = A8M_PM.available_languages()
-		self.languageNames = languageHandler.getAvailableLanguages()[:-1]
-		self.languageNames = [x for x in self.languageNames if not x[0] in exist_languages]
+		self.languageNames = languageHandler.getAvailableLanguages()
+		self.languageNames = [x for x in self.languageNames if not x[0] in exist_languages and x[0] != "Windows"]
 		languageChoices = [x[1] for x in self.languageNames]
 		# Translators: The label of a setting in the Add new language dialog
 		languageLabelText = _("&Language:")
