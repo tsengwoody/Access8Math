@@ -5,7 +5,6 @@ import wx
 
 import addonHandler
 import gui
-import wx
 
 from lib.viewHTML import Access8MathDocument
 

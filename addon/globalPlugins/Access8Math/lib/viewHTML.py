@@ -161,11 +161,6 @@ class Access8MathDocument:
 					else:
 						text2template(src=item, dst=os.path.join(os.path.dirname(item), '{}.html'.format(name)))
 
-
-		# shutil.copytree(
-			# os.path.join(template_folder, 'modules'),
-			# os.path.join(self.review_folder, 'modules')
-		# )
 		with ZipFile(os.path.join(template_folder, "Access8MathTemplate.zip"), "r") as zip_file:
 			zip_file.extractall(self.review_folder)
 
@@ -175,6 +170,7 @@ class Access8MathDocument:
 		dst = os.path.join(self.review_folder, 'Access8Math.json')
 		with open(dst, 'w', encoding='utf8') as f:
 			json.dump(metadata, f)
+
 
 def rawIntoReview(raw_folder, review_folder, resources):
 	try:

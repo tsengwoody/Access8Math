@@ -10,8 +10,6 @@ import brailleTables
 import config
 import eventHandler
 import globalVars
-import gui
-from keyboardHandler import KeyboardInputGesture
 from logHandler import log
 import louisHelper
 from NVDAObjects.window import Window

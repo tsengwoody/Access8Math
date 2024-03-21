@@ -12,7 +12,6 @@ import addonHandler
 import api
 import appModules
 import config
-import buildVersion
 import controlTypes
 import globalPluginHandler
 import globalVars

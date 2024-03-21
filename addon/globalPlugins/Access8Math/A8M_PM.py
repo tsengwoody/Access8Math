@@ -387,7 +387,7 @@ class Node(object):
 			append = self.role[-1]
 			try:
 				before, after = append.split(".")
-			except ValueError as e:
+			except ValueError:
 				before, after = f"{append}.".split(".")
 			self.role = self.role[:-1]
 			for i in range(d + 1):
