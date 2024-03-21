@@ -19,14 +19,10 @@ import mathPres
 from mathPres.mathPlayer import MathPlayer
 from scriptHandler import script
 import speech
+from speech.commands import BreakCommand
 import textInfos
 import tones
 import ui
-
-try:
-	from speech import BreakCommand
-except BaseException:
-	from speech.commands import BreakCommand
 
 import A8M_PM
 from A8M_PM import MathContent
@@ -73,17 +69,16 @@ def translate_SpeechCommand(serializes):
 	@type list
 	@rtype SpeechCommand
 	"""
-	pattern = re.compile(r'[@](?P<time>[\d]*)[@]')
+	pattern = re.compile(r'<break time="(?P<time>[\d]*)ms" />')
 	speechSequence = []
 	for r in flatten(serializes):
 		time_search = pattern.search(r)
-		try:
+		if time_search:
 			time = time_search.group('time')
 			command = BreakCommand(time=int(time) + int(config.conf["Access8Math"]["settings"]["item_interval_time"]))
 			speechSequence.append(command)
-		except BaseException:
+		else:
 			speechSequence.append(r)
-
 	return speechSequence
 
 
@@ -94,16 +89,14 @@ def translate_Unicode(serializes):
 	@type list
 	@rtype str
 	"""
-	pattern = re.compile(r'[@](?P<time>[\d]*)[@]')
+	pattern = re.compile(r'<break time="(?P<time>[\d]*)ms" />')
 	sequence = ''
 
 	for c in serializes:
 		sequence = sequence + '\n'
 		for r in flatten(c):
 			time_search = pattern.search(r)
-			try:
-				time_search.group('time')
-			except BaseException:
+			if not time_search:
 				sequence = sequence + str(r)
 			sequence = sequence + ' '
 
@@ -120,7 +113,6 @@ def translate_Unicode(serializes):
 	for i in sequence.split('\n'):
 		temp = temp + i.strip() + '\n'
 	sequence = temp
-
 	return sequence.strip()
 
 

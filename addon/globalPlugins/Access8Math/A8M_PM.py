@@ -460,7 +460,7 @@ class Node(object):
 				for c in self.child:
 					if c:
 						serialized.append(c.serialized())
-						serialized.append(['@10@'])
+						serialized.append(['<break time="10ms" />'])
 			elif isinstance(r, str):
 				serialized.append([r])
 			else:
@@ -660,7 +660,7 @@ class TerminalNode(Node):
 		try:
 			super().set_rule()
 		except BaseException:
-			self.rule = ['@10@', str(self.mathcontent.symbol_translate(self.data)), '@10@']
+			self.rule = ['<break time="10ms" />', str(self.mathcontent.symbol_translate(self.data)), '<break time="10ms" />']
 
 	def set_braillerule(self):
 		try:
