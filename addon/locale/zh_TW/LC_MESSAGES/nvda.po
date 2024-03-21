@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Access8Math - 3.8\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2024-03-11 15:26+0800\n"
-"PO-Revision-Date: 2024-03-11 15:27+0800\n"
+"POT-Creation-Date: 2024-03-21 10:40+0800\n"
+"PO-Revision-Date: 2024-03-21 10:50+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_TW\n"
@@ -30,12 +30,7 @@ msgid ""
 "anyone who wants it. This applies to both original and modified copies of "
 "this software, plus any derivative works.\n"
 "It can be viewed online at: https://www.gnu.org/licenses/old-licenses/"
-"gpl-2.0.html\n"
-"Access8Math has been sponsored by \"Taiwan Visually Impaired People "
-"Association\"(accessibility@twvip.org) in 2018~2019, hereby express our "
-"sincere appreciation.\n"
-"If you feel this add-on is helpful, please don't hesitate to give support to "
-"\"Taiwan Visually Impaired People Association\" and authors."
+"gpl-2.0.html"
 msgstr ""
 "Access8Math\n"
 "版本： {addonVersion}\n"
@@ -45,54 +40,51 @@ msgstr ""
 "改本軟體，前提是發布時必需包含該許可證，同時公開原版與修改版的原始碼，並加上"
 "任何用本軟體的原始碼所創造的軟體。\n"
 "此項許可證可以在此網站查看：https：//www.gnu.org/licenses/old-licenses/"
-"gpl-2.0.html\n"
-"Access8Math 於 2018~2019 年受臺灣視障協會(accessibility@twvip.org)支持開發，"
-"特此深表感謝。\n"
-"若您覺得此項附加元件有所助益，請不吝給予我們與臺灣視障協會支持。"
+"gpl-2.0.html"
 
 #. Translators: The title of the interaction window
-#: addon\globalPlugins\Access8Math\__init__.py:210
+#: addon\globalPlugins\Access8Math\__init__.py:205
 #: addon\globalPlugins\Access8Math\interaction.py:212
 msgid "Access8Math interaction window"
 msgstr "Access8Math 互動視窗"
 
-#: addon\globalPlugins\Access8Math\__init__.py:222
+#: addon\globalPlugins\Access8Math\__init__.py:217
 msgid "&Editor..."
 msgstr "編輯器(&E)"
 
-#: addon\globalPlugins\Access8Math\__init__.py:228
+#: addon\globalPlugins\Access8Math\__init__.py:223
 msgid "&Settings..."
 msgstr "設定(&S)..."
 
-#: addon\globalPlugins\Access8Math\__init__.py:236
+#: addon\globalPlugins\Access8Math\__init__.py:231
 msgid "Speech &unicode dictionary..."
 msgstr "語音 &unicode 字典..."
 
-#: addon\globalPlugins\Access8Math\__init__.py:242
+#: addon\globalPlugins\Access8Math\__init__.py:237
 msgid "Speech &math rule..."
 msgstr "語音數學規則(&m)..."
 
-#: addon\globalPlugins\Access8Math\__init__.py:248
+#: addon\globalPlugins\Access8Math\__init__.py:243
 msgid "Braille &unicode dictionary..."
 msgstr "點字 &unicode 字典..."
 
-#: addon\globalPlugins\Access8Math\__init__.py:254
+#: addon\globalPlugins\Access8Math\__init__.py:249
 msgid "Braille &math rule..."
 msgstr "點字數學規則(&m)..."
 
-#: addon\globalPlugins\Access8Math\__init__.py:260
+#: addon\globalPlugins\Access8Math\__init__.py:255
 msgid "&New language adding..."
 msgstr "加入新語言(&N)"
 
-#: addon\globalPlugins\Access8Math\__init__.py:266
+#: addon\globalPlugins\Access8Math\__init__.py:261
 msgid "&Localization"
 msgstr "本地化(&L)"
 
-#: addon\globalPlugins\Access8Math\__init__.py:271
+#: addon\globalPlugins\Access8Math\__init__.py:266
 msgid "&Clean Workspace..."
 msgstr "清理工作區(&C)"
 
-#: addon\globalPlugins\Access8Math\__init__.py:277
+#: addon\globalPlugins\Access8Math\__init__.py:272
 msgid "&About..."
 msgstr "關於(&A)"
 
@@ -101,7 +93,7 @@ msgstr "關於(&A)"
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on
 #. to be shown on installation and add-on information found in Add-ons Manager.
-#: addon\globalPlugins\Access8Math\__init__.py:281
+#: addon\globalPlugins\Access8Math\__init__.py:276
 #: addon\globalPlugins\Access8Math\dialogs.py:43
 #: addon\globalPlugins\Access8Math\dialogs.py:101
 #: addon\globalPlugins\Access8Math\dialogs.py:109
@@ -109,72 +101,61 @@ msgstr "關於(&A)"
 msgid "Access8Math"
 msgstr "Access8Math"
 
-#: addon\globalPlugins\Access8Math\__init__.py:284
+#: addon\globalPlugins\Access8Math\__init__.py:279
 msgid "Switch math speech reader"
 msgstr "切換數學語音閱讀器"
 
-#: addon\globalPlugins\Access8Math\__init__.py:295
+#: addon\globalPlugins\Access8Math\__init__.py:290
 #, python-format
 msgid "Math speech reader switch to %s"
 msgstr "數學語音閱讀器切換為 %s"
 
-#: addon\globalPlugins\Access8Math\__init__.py:298
+#: addon\globalPlugins\Access8Math\__init__.py:293
 msgid "Switch math Braille reader"
 msgstr "切換數學點字閱讀器"
 
-#: addon\globalPlugins\Access8Math\__init__.py:309
+#: addon\globalPlugins\Access8Math\__init__.py:304
 #, python-format
 msgid "Math braille reader switch to %s"
 msgstr "數學點字閱讀器切換為 %s"
 
-#: addon\globalPlugins\Access8Math\__init__.py:312
+#: addon\globalPlugins\Access8Math\__init__.py:307
 msgid "Switch math interact reader"
 msgstr "切換數學互動閱讀器"
 
-#: addon\globalPlugins\Access8Math\__init__.py:323
+#: addon\globalPlugins\Access8Math\__init__.py:318
 #, python-format
 msgid "Math interact reader switch to %s"
 msgstr "數學互動閱讀器切換為 %s"
 
-#: addon\globalPlugins\Access8Math\__init__.py:326
+#: addon\globalPlugins\Access8Math\__init__.py:321
 msgid "Pop up the editor"
 msgstr "開啟編輯器"
 
-#: addon\globalPlugins\Access8Math\__init__.py:360
+#: addon\globalPlugins\Access8Math\__init__.py:355
 msgid "Open virtual context menu"
 msgstr "虛擬路徑位置功能表"
 
-#: addon\globalPlugins\Access8Math\__init__.py:377
+#: addon\globalPlugins\Access8Math\__init__.py:372
 #: addon\globalPlugins\Access8Math\command\context.py:62
 msgid "open path failed"
 msgstr "開啟檔案失敗"
 
-#: addon\globalPlugins\Access8Math\__init__.py:379
+#: addon\globalPlugins\Access8Math\__init__.py:374
 msgid "get path failed"
 msgstr "取得路徑失敗"
 
-#: addon\globalPlugins\Access8Math\__init__.py:426
+#: addon\globalPlugins\Access8Math\__init__.py:421
 msgid "Workspace has already been cleaned"
 msgstr "工作區已清理"
 
-#: addon\globalPlugins\Access8Math\__init__.py:426
+#: addon\globalPlugins\Access8Math\__init__.py:421
 msgid "Clean Workspace"
 msgstr "清理工作區"
 
-#: addon\globalPlugins\Access8Math\__init__.py:429
+#: addon\globalPlugins\Access8Math\__init__.py:424
 msgid "About Access8Math"
 msgstr "關於 Access8Math"
-
-#. Translators: Message indicating no context sensitive help is available for the control or dialog.
-#: addon\globalPlugins\Access8Math\contextHelp.py:34
-msgid "No help available here."
-msgstr "沒有可用的幫助。"
-
-#. Translators: Message shown when trying to display context sensitive help,
-#. indicating that	the user guide could not be found.
-#: addon\globalPlugins\Access8Math\contextHelp.py:41
-msgid "No user guide found."
-msgstr "沒有找到使用者指南。"
 
 #. Translators: A choice of a combobox in the writing settings dialog (not used)
 #: addon\globalPlugins\Access8Math\dialogs.py:55
@@ -1683,67 +1664,67 @@ msgstr "存在"
 #. Translators: LaTeX command - sine
 #: addon\globalPlugins\Access8Math\lib\latex\latexData.py:520
 msgid "sine"
-msgstr ""
+msgstr "sine"
 
 #. Translators: LaTeX command - cosine
 #: addon\globalPlugins\Access8Math\lib\latex\latexData.py:525
 msgid "cosine"
-msgstr ""
+msgstr "cosine"
 
 #. Translators: LaTeX command - tangent
 #: addon\globalPlugins\Access8Math\lib\latex\latexData.py:530
 msgid "tangent"
-msgstr ""
+msgstr "tangent"
 
 #. Translators: LaTeX command - cotangent
 #: addon\globalPlugins\Access8Math\lib\latex\latexData.py:535
 msgid "cotangent"
-msgstr ""
+msgstr "cotangent"
 
 #. Translators: LaTeX command - secant
 #: addon\globalPlugins\Access8Math\lib\latex\latexData.py:540
 msgid "secant"
-msgstr ""
+msgstr "secant"
 
 #. Translators: LaTeX command - cosecant
 #: addon\globalPlugins\Access8Math\lib\latex\latexData.py:545
 msgid "cosecant"
-msgstr ""
+msgstr "cosecant"
 
 #. Translators: LaTeX command - arcsine
 #: addon\globalPlugins\Access8Math\lib\latex\latexData.py:550
 msgid "arcsine"
-msgstr ""
+msgstr "arcsine"
 
 #. Translators: LaTeX command - arccosine
 #: addon\globalPlugins\Access8Math\lib\latex\latexData.py:555
 msgid "arccosine"
-msgstr ""
+msgstr "arccosine"
 
 #. Translators: LaTeX command - arctangent
 #: addon\globalPlugins\Access8Math\lib\latex\latexData.py:560
 msgid "arctangent"
-msgstr ""
+msgstr "arctangent"
 
 #. Translators: LaTeX command - hyperbolic sine
 #: addon\globalPlugins\Access8Math\lib\latex\latexData.py:565
 msgid "hyperbolic sine"
-msgstr ""
+msgstr "hyperbolic sine"
 
 #. Translators: LaTeX command - hyperbolic cosine
 #: addon\globalPlugins\Access8Math\lib\latex\latexData.py:570
 msgid "hyperbolic cosine"
-msgstr ""
+msgstr "hyperbolic cosine"
 
 #. Translators: LaTeX command - hyperbolic tangent
 #: addon\globalPlugins\Access8Math\lib\latex\latexData.py:575
 msgid "hyperbolic tangent"
-msgstr ""
+msgstr "hyperbolic tangent"
 
 #. Translators: LaTeX command - hyperbolic cotangent
 #: addon\globalPlugins\Access8Math\lib\latex\latexData.py:580
 msgid "hyperbolic cotangent"
-msgstr ""
+msgstr "hyperbolic cotangent"
 
 #. Translators: LaTeX command - floor
 #: addon\globalPlugins\Access8Math\lib\latex\latexData.py:585
@@ -1882,6 +1863,12 @@ msgid ""
 "Allows access math content written by MathML ; Allows write math content by "
 "LaTeX"
 msgstr "允許閱讀 MathML 編寫的數學內容；允許通過 LaTeX 書寫數學內容"
+
+#~ msgid "No help available here."
+#~ msgstr "沒有可用的幫助。"
+
+#~ msgid "No user guide found."
+#~ msgstr "沒有找到使用者指南。"
 
 #~ msgid "Write AsciiMath Content"
 #~ msgstr "輸寫 AsciiMath 內容"
