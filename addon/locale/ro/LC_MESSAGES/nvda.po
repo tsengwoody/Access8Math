@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.3.1\n"
 
-#, python-brace-format
+#, fuzzy, python-brace-format
 msgid ""
 "Access8Math\n"
 "Version: {addonVersion}\n"
@@ -30,12 +30,7 @@ msgid ""
 "anyone who wants it. This applies to both original and modified copies of "
 "this software, plus any derivative works.\n"
 "It can be viewed online at: https://www.gnu.org/licenses/old-licenses/"
-"gpl-2.0.html\n"
-"Access8Math has been sponsored by \"Taiwan Visually Impaired People "
-"Association\"(accessibility@twvip.org) in 2018~2019, hereby express our "
-"sincere appreciation.\n"
-"If you feel this add-on is helpful, please don't hesitate to give support to "
-"\"Taiwan Visually Impaired People Association\" and authors."
+"gpl-2.0.html"
 msgstr ""
 "Access8Math\n"
 "Versiune: {addonVersion}\n"
@@ -140,15 +135,6 @@ msgstr "Spațiu de lucru curat"
 
 msgid "About Access8Math"
 msgstr "Despre Access8Math"
-
-#. Translators: Message indicating no context sensitive help is available for the control or dialog.
-msgid "No help available here."
-msgstr "Nu există ajutor disponibil aici."
-
-#. Translators: Message shown when trying to display context sensitive help,
-#. indicating that	the user guide could not be found.
-msgid "No user guide found."
-msgstr "Nu a fost găsit niciun ghid de utilizare."
 
 #. Translators: A choice of a combobox in the writing settings dialog (not used)
 msgid "MathCAT"
@@ -1521,6 +1507,12 @@ msgid ""
 msgstr ""
 "Permite accesul la conținut matematic scris de MathML; Permite scrierea "
 "conținutului matematic prin LaTeX"
+
+#~ msgid "No help available here."
+#~ msgstr "Nu există ajutor disponibil aici."
+
+#~ msgid "No user guide found."
+#~ msgstr "Nu a fost găsit niciun ghid de utilizare."
 
 #~ msgid "Write AsciiMath Content"
 #~ msgstr "Scriere conținut AsciiMath"

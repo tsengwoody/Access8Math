@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: __init__.py\n"
 "X-Poedit-SearchPath-1: dialogs.py\n"
 
-#, python-brace-format
+#, fuzzy, python-brace-format
 msgid ""
 "Access8Math\n"
 "Version: {addonVersion}\n"
@@ -29,12 +29,7 @@ msgid ""
 "anyone who wants it. This applies to both original and modified copies of "
 "this software, plus any derivative works.\n"
 "It can be viewed online at: https://www.gnu.org/licenses/old-licenses/"
-"gpl-2.0.html\n"
-"Access8Math has been sponsored by \"Taiwan Visually Impaired People "
-"Association\"(accessibility@twvip.org) in 2018~2019, hereby express our "
-"sincere appreciation.\n"
-"If you feel this add-on is helpful, please don't hesitate to give support to "
-"\"Taiwan Visually Impaired People Association\" and authors."
+"gpl-2.0.html"
 msgstr ""
 "Access8Math\n"
 "版本: {addonVersion}\n"
@@ -132,15 +127,6 @@ msgstr "清理工作区"
 
 msgid "About Access8Math"
 msgstr "关于 Access8Math"
-
-#. Translators: Message indicating no context sensitive help is available for the control or dialog.
-msgid "No help available here."
-msgstr "此处无可用帮助。"
-
-#. Translators: Message shown when trying to display context sensitive help,
-#. indicating that	the user guide could not be found.
-msgid "No user guide found."
-msgstr "未找到用户指南。"
 
 #. Translators: A choice of a combobox in the writing settings dialog (not used)
 msgid "MathCAT"
@@ -1494,6 +1480,12 @@ msgid ""
 "Allows access math content written by MathML ; Allows write math content by "
 "LaTeX"
 msgstr "可以閱讀 MathML 編寫的數學內容；可以使用 LaTeX 書寫數學內容"
+
+#~ msgid "No help available here."
+#~ msgstr "此处无可用帮助。"
+
+#~ msgid "No user guide found."
+#~ msgstr "未找到用户指南。"
 
 #~ msgid "Write AsciiMath Content"
 #~ msgstr "书写 AsciiMath 内容"
