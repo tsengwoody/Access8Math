@@ -62,11 +62,28 @@ class Mode(enum.Enum):
     MATH = enum.auto()
 
 
-def convert(latex: str, xmlns: str = "http://www.w3.org/1998/Math/MathML", display: str = "inline") -> str:
-    math = Element("math", xmlns=xmlns, display=display)
+def convert(
+    latex: str,
+    xmlns: str = "http://www.w3.org/1998/Math/MathML",
+    display: str = "inline",
+    parent: Optional[Element] = None,
+) -> str:
+    math = convert_to_element(latex, xmlns, display, parent)
+    return _convert(math)
+
+
+def convert_to_element(
+    latex: str,
+    xmlns: str = "http://www.w3.org/1998/Math/MathML",
+    display: str = "inline",
+    parent: Optional[Element] = None,
+) -> Element:
+    tag = "math"
+    attrib = {"xmlns": xmlns, "display": display}
+    math = Element(tag, attrib) if parent is None else SubElement(parent, tag, attrib)
     row = SubElement(math, "mrow")
     _convert_group(iter(walk(latex)), row)
-    return _convert(math)
+    return math
 
 
 def _convert(tree: Element) -> str:
@@ -547,8 +564,6 @@ def main() -> None:  # pragma: no cover
     import argparse
     import sys
 
-    import pkg_resources
-
     parser = argparse.ArgumentParser(description="Pure Python library for LaTeX to MathML conversion")
     parser.add_argument("-V", "--version", dest="version", action="store_true", required=False, help="Show version")
     parser.add_argument("-b", "--block", dest="block", action="store_true", required=False, help="Display block")
@@ -564,8 +579,9 @@ def main() -> None:  # pragma: no cover
     display = "block" if arguments.block else "inline"
 
     if arguments.version:
-        version = pkg_resources.get_distribution("latex2mathml").version
-        print("latex2mathml", version)
+        import latex2mathml
+
+        print("latex2mathml", latex2mathml.__version__)
     elif arguments.text:
         print(convert(arguments.text, display=display))
     elif arguments.file:
