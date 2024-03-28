@@ -201,9 +201,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(MathReaderSettingsPanel)
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
-		if obj.windowClassName == "wxWindowNR" and obj.role == ROLE_WINDOW and obj.name == _("Access8Math interaction window"):
+		if getattr(obj, 'windowClassName', None) == "wxWindowNR" and obj.role == ROLE_WINDOW and obj.name == _("Access8Math interaction window"):
 			clsList.insert(0, AppWindowRoot)
-		if obj.windowClassName == "Edit" and obj.role == ROLE_EDITABLETEXT:
+		if getattr(obj, 'windowClassName', None) == "Edit" and obj.role == ROLE_EDITABLETEXT:
 			clsList.insert(0, TextMathEditField)
 
 	def create_menu(self):
