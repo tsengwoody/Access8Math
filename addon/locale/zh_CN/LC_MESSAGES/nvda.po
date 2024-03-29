@@ -3,9 +3,10 @@ msgstr ""
 "Project-Id-Version: Access8Math - 3.2\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2024-02-16 09:07+0800\n"
-"PO-Revision-Date: 2024-03-07 19:30+0800\n"
-"Last-Translator: \n"
-"Language-Team: cary-rowen <manchen_0528@outlook.com>\n"
+"PO-Revision-Date: 2024-03-24 09:27+0800\n"
+"Last-Translator: Zhang Yunxi <zhyx-work@outlook.com>\n"
+"Language-Team: NVDA Simplified Chinese team(cary-rowen "
+"<manchen_0528@outlook.com>, Zhang Yunxi <zhyx-work@outlook.com>)\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,7 +17,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: __init__.py\n"
 "X-Poedit-SearchPath-1: dialogs.py\n"
 
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid ""
 "Access8Math\n"
 "Version: {addonVersion}\n"
@@ -49,10 +50,10 @@ msgid "Access8Math interaction window"
 msgstr "Access8Math 交互窗口"
 
 msgid "&Editor..."
-msgstr "编辑(&E)..."
+msgstr "编辑器(&E)..."
 
 msgid "&Settings..."
-msgstr "设置(&L)..."
+msgstr "设置(&S)..."
 
 msgid "Speech &unicode dictionary..."
 msgstr "语音 Unicode 字典(&U)"
@@ -883,15 +884,15 @@ msgstr "箭头"
 
 #. Translators: LaTeX command category - geometry
 msgid "geometry"
-msgstr ""
+msgstr "几何学"
 
 #. Translators: LaTeX command category - combinatorics
 msgid "combinatorics"
-msgstr ""
+msgstr "组合学"
 
 #. Translators: LaTeX command category - trigonometric
 msgid "trigonometric"
-msgstr ""
+msgstr "三角函数"
 
 #. Translators: LaTeX command category - 2-dimension
 msgid "2-dimension"
@@ -899,11 +900,11 @@ msgstr "二维"
 
 #. Translators: LaTeX command category - set
 msgid "set"
-msgstr "集合"
+msgstr "集合学"
 
 #. Translators: LaTeX command category - calculus
 msgid "calculus"
-msgstr ""
+msgstr "微积分"
 
 #. Translators: LaTeX command category - other
 msgid "other"
@@ -1033,46 +1034,43 @@ msgstr "上下箭头"
 
 #. Translators: LaTeX command - dot product
 msgid "dot product"
-msgstr ""
+msgstr "内积"
 
 #. Translators: LaTeX command - integral
 msgid "integral"
-msgstr ""
+msgstr "积分"
 
 #. Translators: LaTeX command - nabla
 msgid "nabla"
-msgstr ""
+msgstr "梯度"
 
 #. Translators: LaTeX command - partial derivative
 msgid "partial derivative"
-msgstr ""
+msgstr "偏导数"
 
 #. Translators: LaTeX command - derivative
 msgid "derivative"
-msgstr ""
+msgstr "导数"
 
 #. Translators: LaTeX command - differential
-#, fuzzy
 msgid "differential"
-msgstr "差集"
+msgstr "微分"
 
 #. Translators: LaTeX command - combination
-#, fuzzy
 msgid "combination"
-msgstr "求和"
+msgstr "组合"
 
 #. Translators: LaTeX command - permutation
-#, fuzzy
 msgid "permutation"
-msgstr "交互"
+msgstr "排列"
 
 #. Translators: LaTeX command - combination with repetition
 msgid "combination with repetition"
-msgstr ""
+msgstr "重复组合"
 
 #. Translators: LaTeX command - unordered selection
 msgid "unordered selection"
-msgstr ""
+msgstr "无序选择"
 
 #. Translators: LaTeX command - fractions
 msgid "fractions"
@@ -1131,17 +1129,16 @@ msgid "perpendicular"
 msgstr "垂直"
 
 #. Translators: LaTeX command - square
-#, fuzzy
 msgid "square"
-msgstr "平方根"
+msgstr "正方形"
 
 #. Translators: LaTeX command - small diamond
 msgid "small diamond"
-msgstr ""
+msgstr "小菱形"
 
 #. Translators: LaTeX command - large diamond
 msgid "large diamond"
-msgstr ""
+msgstr "大菱形"
 
 #. Translators: LaTeX command - because
 msgid "because"
@@ -1153,7 +1150,7 @@ msgstr "所以"
 
 #. Translators: LaTeX command - if and only if
 msgid "if and only if"
-msgstr "若且为若"
+msgstr "当且仅当"
 
 #. Translators: LaTeX command - implies
 msgid "implies"
@@ -1177,7 +1174,7 @@ msgstr "正负号"
 
 #. Translators: LaTeX command - modulus
 msgid "modulus"
-msgstr ""
+msgstr "求余数"
 
 #. Translators: LaTeX command - line segment
 msgid "line segment"
@@ -1232,13 +1229,12 @@ msgid "similar"
 msgstr "相似于"
 
 #. Translators: LaTeX command - approximately equal to
-#, fuzzy
 msgid "approximately equal to"
-msgstr "约等于"
+msgstr "近似等于"
 
 #. Translators: LaTeX command - proportional to
 msgid "proportional to"
-msgstr ""
+msgstr "成比例"
 
 #. Translators: LaTeX command - belong to
 msgid "belong to"
@@ -1249,14 +1245,12 @@ msgid "not belong to"
 msgstr "不属于"
 
 #. Translators: LaTeX command - include element
-#, fuzzy
 msgid "include element"
-msgstr "线段"
+msgstr "包含元素"
 
 #. Translators: LaTeX command - not include element
-#, fuzzy
 msgid "not include element"
-msgstr "不包含"
+msgstr "不包含元素"
 
 #. Translators: LaTeX command - lie in
 msgid "lie in"
@@ -1320,63 +1314,63 @@ msgstr "存在"
 
 #. Translators: LaTeX command - sine
 msgid "sine"
-msgstr ""
+msgstr "sine"
 
 #. Translators: LaTeX command - cosine
 msgid "cosine"
-msgstr ""
+msgstr "cosine"
 
 #. Translators: LaTeX command - tangent
 msgid "tangent"
-msgstr ""
+msgstr "tangent"
 
 #. Translators: LaTeX command - cotangent
 msgid "cotangent"
-msgstr ""
+msgstr "cotangent"
 
 #. Translators: LaTeX command - secant
 msgid "secant"
-msgstr ""
+msgstr "secant"
 
 #. Translators: LaTeX command - cosecant
 msgid "cosecant"
-msgstr ""
+msgstr "cosecant"
 
 #. Translators: LaTeX command - arcsine
 msgid "arcsine"
-msgstr ""
+msgstr "arcsine"
 
 #. Translators: LaTeX command - arccosine
 msgid "arccosine"
-msgstr ""
+msgstr "arccosine"
 
 #. Translators: LaTeX command - arctangent
 msgid "arctangent"
-msgstr ""
+msgstr "arctangent"
 
 #. Translators: LaTeX command - hyperbolic sine
 msgid "hyperbolic sine"
-msgstr ""
+msgstr "hyperbolic sine"
 
 #. Translators: LaTeX command - hyperbolic cosine
 msgid "hyperbolic cosine"
-msgstr ""
+msgstr "hyperbolic cosine"
 
 #. Translators: LaTeX command - hyperbolic tangent
 msgid "hyperbolic tangent"
-msgstr ""
+msgstr "hyperbolic tangent"
 
 #. Translators: LaTeX command - hyperbolic cotangent
 msgid "hyperbolic cotangent"
-msgstr ""
+msgstr "hyperbolic cotangent"
 
 #. Translators: LaTeX command - floor
 msgid "floor"
-msgstr ""
+msgstr "下取整"
 
 #. Translators: LaTeX command - ceil
 msgid "ceil"
-msgstr ""
+msgstr "上取整"
 
 #. Translators: greek alphabet command - alpha
 msgid "alpha"

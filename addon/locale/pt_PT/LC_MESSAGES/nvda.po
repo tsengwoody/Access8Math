@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 'Access8Math' '3.1'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2021-09-08 06:33+0800\n"
-"PO-Revision-Date: 2023-12-01 23:09+0000\n"
+"PO-Revision-Date: 2024-03-28 19:32+0000\n"
 "Last-Translator: Ângelo Abrantes <ampa4374@gmail.com>\n"
 "Language-Team: Equipa portuguesa do NVDA: Ângelo Abrantes e Rui Fontes "
 "(16-06-2023)\n"
@@ -17,10 +17,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.1\n"
+"X-Generator: Poedit 3.4.2\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid ""
 "Access8Math\n"
 "Version: {addonVersion}\n"
@@ -35,8 +35,8 @@ msgid ""
 "It can be viewed online at: https://www.gnu.org/licenses/old-licenses/"
 "gpl-2.0.html"
 msgstr ""
-"Versão do Access8Math:\n"
-"{addonVersion}\n"
+"Access8Math\n"
+"Versão: {addonVersion}\n"
 "URL: https://addons.nvda-project.org/addons/access8math.en.html\n"
 "Copyright (C) {copyrightFirstYear}-{copyrightLastYear} Contribuintes do "
 "Access8Math\n"
@@ -46,12 +46,7 @@ msgstr ""
 "quiser. Isto aplica-se tanto às cópias originais como às modificadas deste "
 "software, para além de quaisquer trabalhos derivados.\n"
 "Pode ser visualizado online em: https://www.gnu.org/licenses/old-licenses/"
-"gpl-2.0.html\n"
-"O Access8Math foi patrocinado pela \"Associação de Pessoas com Deficiência "
-"Visual de Taiwan\" (accessibility@twvip.org) em 2018~2019, pelo que "
-"expressamos os nossos sinceros agradecimentos.\n"
-"Se considerar que este suplemento é útil, não hesite em apoiar a "
-"\"Associação de Pessoas com Deficiência Visual de Taiwan\" e os autores."
+"gpl-2.0.html"
 
 #. Translators: The title of the interaction window
 msgid "Access8Math interaction window"
@@ -419,9 +414,8 @@ msgid "Re&move"
 msgstr "Re&mover"
 
 #. Translators: The label for a button to restore default value.
-#, fuzzy
 msgid "&Restore default"
-msgstr "&Remover padrão"
+msgstr "&Restaurar predefinição"
 
 #. Translators: The label for a button to import unicode.dic.
 #. Translators: The label for a button to import math.rule.
@@ -909,15 +903,15 @@ msgstr "seta"
 
 #. Translators: LaTeX command category - geometry
 msgid "geometry"
-msgstr ""
+msgstr "geometria"
 
 #. Translators: LaTeX command category - combinatorics
 msgid "combinatorics"
-msgstr ""
+msgstr "combinatória"
 
 #. Translators: LaTeX command category - trigonometric
 msgid "trigonometric"
-msgstr ""
+msgstr "trigonométrico"
 
 #. Translators: LaTeX command category - 2-dimension
 msgid "2-dimension"
@@ -929,7 +923,7 @@ msgstr "sefinir"
 
 #. Translators: LaTeX command category - calculus
 msgid "calculus"
-msgstr ""
+msgstr "cálculo"
 
 #. Translators: LaTeX command category - other
 msgid "other"
@@ -1059,46 +1053,43 @@ msgstr "seta para cima para baixo"
 
 #. Translators: LaTeX command - dot product
 msgid "dot product"
-msgstr ""
+msgstr "produto escalar"
 
 #. Translators: LaTeX command - integral
 msgid "integral"
-msgstr ""
+msgstr "integral"
 
 #. Translators: LaTeX command - nabla
 msgid "nabla"
-msgstr ""
+msgstr "nabla"
 
 #. Translators: LaTeX command - partial derivative
 msgid "partial derivative"
-msgstr ""
+msgstr "derivada parcial"
 
 #. Translators: LaTeX command - derivative
 msgid "derivative"
-msgstr ""
+msgstr "derivado"
 
 #. Translators: LaTeX command - differential
-#, fuzzy
 msgid "differential"
-msgstr "conjunto de diferenças"
+msgstr "diferencial"
 
 #. Translators: LaTeX command - combination
-#, fuzzy
 msgid "combination"
-msgstr "somatório"
+msgstr "combinação"
 
 #. Translators: LaTeX command - permutation
-#, fuzzy
 msgid "permutation"
-msgstr "Interacção"
+msgstr "permutação"
 
 #. Translators: LaTeX command - combination with repetition
 msgid "combination with repetition"
-msgstr ""
+msgstr "combinação com repetição"
 
 #. Translators: LaTeX command - unordered selection
 msgid "unordered selection"
-msgstr ""
+msgstr "seleção não ordenada"
 
 #. Translators: LaTeX command - fractions
 msgid "fractions"
@@ -1157,17 +1148,16 @@ msgid "perpendicular"
 msgstr "perpendicular"
 
 #. Translators: LaTeX command - square
-#, fuzzy
 msgid "square"
-msgstr "raiz quadrada"
+msgstr "cuadrado"
 
 #. Translators: LaTeX command - small diamond
 msgid "small diamond"
-msgstr ""
+msgstr "Bolinha pequena"
 
 #. Translators: LaTeX command - large diamond
 msgid "large diamond"
-msgstr ""
+msgstr "Bolinha grande"
 
 #. Translators: LaTeX command - because
 msgid "because"
@@ -1203,7 +1193,7 @@ msgstr "sinal de mais-menos"
 
 #. Translators: LaTeX command - modulus
 msgid "modulus"
-msgstr ""
+msgstr "módulo"
 
 #. Translators: LaTeX command - line segment
 msgid "line segment"
@@ -1258,13 +1248,12 @@ msgid "similar"
 msgstr "semelhante"
 
 #. Translators: LaTeX command - approximately equal to
-#, fuzzy
 msgid "approximately equal to"
-msgstr "aproximado"
+msgstr "aproximadamente igual a"
 
 #. Translators: LaTeX command - proportional to
 msgid "proportional to"
-msgstr ""
+msgstr "proporcional a"
 
 #. Translators: LaTeX command - belong to
 msgid "belong to"
@@ -1275,14 +1264,12 @@ msgid "not belong to"
 msgstr "não pertencer a"
 
 #. Translators: LaTeX command - include element
-#, fuzzy
 msgid "include element"
-msgstr "segmento de linha"
+msgstr "incluir elemento"
 
 #. Translators: LaTeX command - not include element
-#, fuzzy
 msgid "not include element"
-msgstr "não incluir"
+msgstr "não incluir elemento"
 
 #. Translators: LaTeX command - lie in
 msgid "lie in"
@@ -1346,63 +1333,63 @@ msgstr "existe"
 
 #. Translators: LaTeX command - sine
 msgid "sine"
-msgstr ""
+msgstr "seno"
 
 #. Translators: LaTeX command - cosine
 msgid "cosine"
-msgstr ""
+msgstr "cosseno"
 
 #. Translators: LaTeX command - tangent
 msgid "tangent"
-msgstr ""
+msgstr "tangente"
 
 #. Translators: LaTeX command - cotangent
 msgid "cotangent"
-msgstr ""
+msgstr "cotangente"
 
 #. Translators: LaTeX command - secant
 msgid "secant"
-msgstr ""
+msgstr "secante"
 
 #. Translators: LaTeX command - cosecant
 msgid "cosecant"
-msgstr ""
+msgstr "cossecante"
 
 #. Translators: LaTeX command - arcsine
 msgid "arcsine"
-msgstr ""
+msgstr "arcsina"
 
 #. Translators: LaTeX command - arccosine
 msgid "arccosine"
-msgstr ""
+msgstr "arccosina"
 
 #. Translators: LaTeX command - arctangent
 msgid "arctangent"
-msgstr ""
+msgstr "arctangente"
 
 #. Translators: LaTeX command - hyperbolic sine
 msgid "hyperbolic sine"
-msgstr ""
+msgstr "seno hiperbólico"
 
 #. Translators: LaTeX command - hyperbolic cosine
 msgid "hyperbolic cosine"
-msgstr ""
+msgstr "cosseno hiperbólico"
 
 #. Translators: LaTeX command - hyperbolic tangent
 msgid "hyperbolic tangent"
-msgstr ""
+msgstr "tangente hiperbólica"
 
 #. Translators: LaTeX command - hyperbolic cotangent
 msgid "hyperbolic cotangent"
-msgstr ""
+msgstr "cotangente hiperbólica"
 
 #. Translators: LaTeX command - floor
 msgid "floor"
-msgstr ""
+msgstr "chão"
 
 #. Translators: LaTeX command - ceil
 msgid "ceil"
-msgstr ""
+msgstr "teto"
 
 #. Translators: greek alphabet command - alpha
 msgid "alpha"
