@@ -921,12 +921,9 @@ class MathRuleDialog(SettingsDialog):
 		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 		# Translators: The label for math rule list in math rules dialog.
 		mathrulesText = _("&Mathrules")
-		try:
-			# NVDA version >= 2019.2 syntax with autoSizeColumn keyword
-			self.mathrulesList = sHelper.addLabeledControl(mathrulesText, nvdaControls.AutoWidthColumnListCtrl, autoSizeColumn=0, style=wx.LC_REPORT | wx.LC_SINGLE_SEL)
-		except TypeError:
-			# NVDA version <= 2019.1.1 syntax with autoSizeColumnIndex keyword
-			self.mathrulesList = sHelper.addLabeledControl(mathrulesText, nvdaControls.AutoWidthColumnListCtrl, autoSizeColumnIndex=0, style=wx.LC_REPORT | wx.LC_SINGLE_SEL)
+
+		self.mathrulesList = sHelper.addLabeledControl(mathrulesText, nvdaControls.AutoWidthColumnListCtrl, autoSizeColumn=0, style=wx.LC_REPORT | wx.LC_SINGLE_SEL)
+
 		# Translators: The label for a math rule list column header in the math rules dialog.
 		self.mathrulesList.InsertColumn(0, _("Rule"))
 		# Translators: The label for a math rule list column header in the math rules dialog.

@@ -1,4 +1,4 @@
-#
+name	rule	role	description
 node	, (.),	item	node
 mfrac	fraction with numerator, 0, and denominator, 1, end fraction	numerator,denominator	generics fraction
 mfenced	open parentheses, (.), close parentheses	item	generics parentheses
@@ -15,8 +15,6 @@ mtable	table, (row.), end table	row	2-dimension table
 mtr	,(column.),	column	table row
 mtd	,(.),	item	table cell
 mmultiscripts	multi-scripts,(.),end multi-scripts	item	multi-scripts
-mprescripts			
-none			
 menclose	{start} enclosing, (.), end {end} enclosure	item	enclosure
 from_to	operator, 0, from, 1, to, 2, apply to	operator,from,to	from ... to ... operator
 from	operator, 0, from, 1, apply to	operator,from	from ... operator

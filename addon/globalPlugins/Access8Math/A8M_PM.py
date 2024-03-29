@@ -5,12 +5,16 @@ from xml.etree import ElementTree as ET
 
 import collections
 import csv
+from csv import DictReader
+from dataclasses import dataclass
 import html
 import inspect
 import os
 import re
 import shutil
 import weakref
+
+from lib.dataProcess import joinObjectArray
 
 AUTO_GENERATE = 0
 DIC_GENERATE = 1
@@ -1588,14 +1592,14 @@ class FirstPositiveSignType(SiblingNodeType):
 	name = 'PositiveSignType'
 
 
+@dataclass
 class MathRule(object):
-	def __init__(self, name, description, category, serialized_order, role, example=''):
-		self.name = name
-		self.description = description
-		self.category = category
-		self.serialized_order = serialized_order
-		self.role = role
-		self.example = example
+	name: str
+	description: str
+	category: str
+	serialized_order: list
+	role: list
+	example: str
 
 
 LOCALE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'locale')
@@ -1692,7 +1696,7 @@ def load_unicode_dic(path=None, language='', category='speech', NVDASymbol=False
 
 
 def load_math_rule(path=None, language='', category='speech'):
-	math_example_path = os.path.join(LOCALE_DIR, 'math.example')
+	meta_path = os.path.join(LOCALE_DIR, 'rule.csv')
 
 	if not path and language:
 		path = os.path.join(LOCALE_DIR, category, language)
@@ -1706,18 +1710,27 @@ def load_math_rule(path=None, language='', category='speech'):
 		path = frp_user
 
 	mathrule = collections.OrderedDict({})
-	for category_key in mathrule_category_order:
-		category = mathrule_order[category_key]
-		for item in category:
-			mathrule[item] = None
 
-	with open(path, 'r', encoding='utf-8') as fr:
-		reader = csv.reader(fr, delimiter='\t')
-		for line in reader:
+	with open(path, 'r', encoding='utf-8') as rule_file, open(meta_path, 'r', encoding='utf-8') as meta_file:
+		meta_dict_csv = DictReader(meta_file, delimiter='\t')
+		meta = []
+		for item in meta_dict_csv:
+			meta.append(item)
+
+		rule_dict_csv = DictReader(rule_file, delimiter='\t')
+		rule = []
+		for item in rule_dict_csv:
+			rule.append(item)
+
+		rows = joinObjectArray(meta, rule, "name")
+		rows = [{**item, **{"order": int(item["order"])}} for item in rows]
+		rows = sorted(rows, key=lambda row: row["order"])
+
+		for line in rows:
 			try:
-				if len(line) == 4:
+				if len(line) == 7:
 					rule = []
-					for i in line[1].split(','):
+					for i in line["rule"].split(','):
 						i = i.strip()
 						tuple_pattern = re.compile(r"\((.*)\.(.*)\)")
 						s = tuple_pattern.search(i)
@@ -1730,23 +1743,16 @@ def load_math_rule(path=None, language='', category='speech'):
 							rule.append(i)
 
 					role = []
-					for i in line[2].split(','):
+					for i in line["role"].split(','):
 						i = i.strip()
 						role.append(i)
 
-					mathrule[line[0]] = MathRule(line[0], line[3].strip(), '', rule, role)
+					mathrule[line["name"]] = MathRule(line["name"], line["description"].strip(), '', rule, role, line["mathml"])
 			except BaseException:
 				pass
 
-	with open(math_example_path, 'r', encoding='utf-8') as math_example:
-		reader = csv.reader(math_example, delimiter='\t')
-		for line in reader:
-			try:
-				if len(line) == 2:
-					mathrule[line[0]].example = line[1].strip()
-			except BaseException:
-				pass
-
+	print(len(mathrule))
+	mathrule = collections.OrderedDict({k: v for k, v in mathrule.items() if v})
 	return mathrule
 
 
@@ -1855,13 +1861,6 @@ mathrule_info = {
 		"AddIntegerFractionType": [5, 2, ".", ],
 		"BinomialType": [5, 2, ".", ],
 	},
-	"fenced": {
-		"mfenced": [3, 1, "*", ],
-		"absolute_value": [3, 1, "*", ],
-		"determinant": [3, 1, "*", ],
-		"matrix": [3, 1, "*", ],
-		"SimultaneousEquations": [3, 1, "*", ],
-	},
 	"root": {
 		"msqrt": [3, 1, "*", ],
 		"mroot": [5, 2, ".", ],
@@ -1896,6 +1895,9 @@ mathrule_info = {
 		"mtable": [3, 1, "*", ],
 		"mtr": [3, 1, "*", ],
 		"mtd": [3, 1, "*", ],
+		"determinant": [3, 1, "*", ],
+		"matrix": [3, 1, "*", ],
+		"SimultaneousEquations": [3, 1, "*", ],
 	},
 	"line": {
 		"LineType": [3, 2, ".", ],
@@ -1911,95 +1913,9 @@ mathrule_info = {
 		"NegativeSignType": [1, 1, ".", ],
 		"PositiveSignType": [1, 1, ".", ],
 		"mmultiscripts": [0, 0, ".", ],
-		"mprescripts": [0, 0, ".", ],
-		"none": [0, 0, ".", ],
 		"menclose": [3, 1, "*", ],
+		"mfenced": [3, 1, "*", ],
 	},
-}
-
-mathrule_category_order = [
-	"generics",
-	"fraction",
-	"fenced",
-	"root",
-	"position",
-	"power",
-	"from to",
-	"table",
-	"line",
-	"other",
-]
-
-mathrule_order = {
-	"generics": [
-		"node",
-		"math",
-	],
-	"fraction": [
-		"mfrac",
-		"single_fraction",
-		"AddIntegerFractionType",
-		"BinomialType",
-	],
-	"fenced": [
-		"mfenced",
-		"absolute_value",
-		"determinant",
-		"matrix",
-		"SimultaneousEquations",
-	],
-	"root": [
-		"msqrt",
-		"mroot",
-		"single_square_root",
-	],
-	"position": [
-		"msubsup",
-		"msup",
-		"msub",
-		"munderover",
-		"munder",
-		"mover",
-		"SingleMsubsup",
-		"SingleMsub",
-		"SingleMsup",
-		"SingleMunderover",
-		"SingleMunder",
-		"SingleMover",
-	],
-	"power": [
-		"power",
-		"SquarePowerType",
-		"CubePowerType",
-	],
-	"from to": [
-		"from_to",
-		"from",
-		"to",
-	],
-	"table": [
-		"mtable",
-		"mtr",
-		"mtd",
-	],
-	"line": [
-		"LineType",
-		"RayType",
-		"LineSegmentType",
-		"VectorSingleType",
-		"VectorDoubleType",
-		"ArrowOverSingleSymbolType",
-		"FrownType",
-		"DegreeType",
-	],
-	"other": [
-		"NegativeSignType",
-		"PositiveSignType",
-		"mmultiscripts",
-		"mprescripts",
-		"none",
-		"menclose",
-	],
 }
 
 
@@ -2030,10 +1946,3 @@ def mathrule_validate(mathrule, validator):
 
 
 initialize(None)
-
-"""for category_key in mathrule_category_order:
-	category = mathrule_order[category_key]
-	for item in category:
-		if not mathrule_validate(mathrule[item], mathrule_info[category_key][item]):
-			pass
-"""

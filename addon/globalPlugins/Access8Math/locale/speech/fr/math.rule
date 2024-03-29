@@ -1,4 +1,4 @@
-#
+name	rule	role	description
 node	, (.),	élément	nœud
 mfrac	fraction avec numérateur, 0, et dénominateur, 1, fin fraction	numérateur,dénominateur	fraction générique
 mfenced	parenthèse gauche, ( .), parenthèse droite	élément	parenthèses génériques
@@ -15,8 +15,6 @@ mtable	tableau, (ligne.), fin tableau	ligne	tableau à 2 dimensions
 mtr	,(colonne.),	colonne	ligne de tableau
 mtd	,( .),	élément	cellule de tableau
 mmultiscripts	notation à gauche,(.),fin notation	élément	symbole avec notation à gauche
-mprescripts			
-none			
 menclose	{start} enclosing, (.), end {end} enclosure	item	enclosure
 from_to	opérateure, 0, de, 1, à, 2, appliqué à	opérateur,de,à	opérateur de ... à ...
 from	opérateur, 0, de, 1, appliqué à	opérateur,de	opérateur de ...

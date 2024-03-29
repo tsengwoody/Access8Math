@@ -1,3 +1,4 @@
+name	rule	role	description
 AddIntegerFractionType	artı, 0, bölü, 1, 	pay, payda	add integer fraction
 CubePowerType	, 0, küp	taban, üs	cube power
 FrownType	frown, 0, 	main, super	frown
@@ -25,7 +26,6 @@ mfenced	parantez aç, (.), kapa parantez	öğe	generics parentheses
 mfrac	Kesir pay , 0, payda, 1, kesir sonu	pay, payda	generics fraction
 mmultiscripts	left script, (.), end script	item	symbol have left mark
 mover	, 0, üstünde, 1, ile	taban, üstünde	symbol have overscript
-mprescripts			
 mroot	kök, 1, dereceden, 0, kök sonu	kök, sayı	root
 msqrt	karekök, (.), kök sonu	öğe	square root
 msub	, 0, indis, 1, indis sonu	taban, indis	symbol have subscript
@@ -37,7 +37,6 @@ mtr	, (sütun.), 	sütun	table row
 munder	, 0, altında, 1, ile, 	taban, altında	symbol have underscript
 munderover	, 0, altında, 1, , ve, üstünde, 2, ile	taban, altında, üstünde	symbol have underscript and overscript
 node	, (.), 	öğe	node
-none			
 menclose	{start} enclosing, (.), end {end} enclosure	item	enclosure
 power	, 0, üzeri, 1, 	taban, üs	power
 SimultaneousEquations	simultaneous equations, (equation.), end of simultaneous equations	equation	simultaneous equations

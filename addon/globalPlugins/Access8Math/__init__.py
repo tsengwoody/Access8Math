@@ -373,31 +373,31 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				ui.message(_("get path failed"))
 
 	def onSettings(self, evt):
-		wx.CallAfter(gui.mainFrame._popupSettingsDialog, Access8MathSettingsDialog)
+		wx.CallAfter(gui.mainFrame.popupSettingsDialog, Access8MathSettingsDialog)
 
 	def onNewLanguageAdding(self, evt):
 		NewLanguageAddingDialog(gui.mainFrame).Show()
 
 	def onSpeechUnicodeDictionary(self, evt):
-		gui.mainFrame._popupSettingsDialog(
+		gui.mainFrame.popupSettingsDialog(
 			UnicodeDicDialog, config.conf["Access8Math"],
 			language=config.conf["Access8Math"]["settings"]["language"], category='speech'
 		)
 
 	def onSpeechMathRule(self, evt):
-		gui.mainFrame._popupSettingsDialog(
+		gui.mainFrame.popupSettingsDialog(
 			MathRuleDialog, config.conf["Access8Math"],
 			language=config.conf["Access8Math"]["settings"]["language"], category='speech'
 		)
 
 	def onBrailleUnicodeDictionary(self, evt):
-		gui.mainFrame._popupSettingsDialog(
+		gui.mainFrame.popupSettingsDialog(
 			UnicodeDicDialog, config.conf["Access8Math"],
 			language=config.conf["Access8Math"]["settings"]["language"], category='braille'
 		)
 
 	def onBrailleMathRule(self, evt):
-		gui.mainFrame._popupSettingsDialog(
+		gui.mainFrame.popupSettingsDialog(
 			MathRuleDialog, config.conf["Access8Math"],
 			language=config.conf["Access8Math"]["settings"]["language"], category='braille'
 		)

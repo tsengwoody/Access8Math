@@ -1,3 +1,4 @@
+name	rule	role	description
 node	, (.),	item	node
 mfrac	⠹, 0, ⠌, 1, ⠼	numerator,denominator	generics fraction
 mfenced	⠷, (.), ⠾	item	generics parentheses
@@ -14,8 +15,6 @@ mtable	⠞⠃⠇, (⠗.),	row	2-dimension table
 mtr	,(⠉.),	column	table row
 mtd	,(.),	item	table cell
 mmultiscripts	,(.),	item	symbol have left mark
-mprescripts			
-none			
 menclose	{start} enclosing, (.), end {end} enclosure	item	enclosure
 from_to	⠐, 0, ⠩, 1, ⠣, 2, ⠻	operator,from,to	from ... to ... operator
 from	⠐, 0, ⠩, 1, ⠻	operator,from	from ... operator

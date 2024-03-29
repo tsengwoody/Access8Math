@@ -17,7 +17,10 @@ import mathPres
 from mathPres.mathPlayer import MathPlayer
 from scriptHandler import script
 import speech
-from speech.commands import BreakCommand
+from speech.commands import BreakCommand, PitchCommand
+from speech.speech import _getSpellingCharAddCapNotification
+from speechXml import SsmlParser
+from synthDriverHandler import getSynth
 import textInfos
 import tones
 import ui
@@ -60,6 +63,20 @@ def flatten(lines):
 			yield line
 
 
+class A8MSsmlParser(SsmlParser):
+	def _elementHandler(self, tagName: str, attrs: dict | None = None):
+		processedTagName = "".join(tagName.title().split("-"))
+		funcName = f"parse{processedTagName}"
+		if (func := getattr(self, funcName, None)) is None:
+			log.debugWarning(f"Unsupported tag: {tagName}")
+			return
+		for command in func(attrs):
+			# If the last command in the sequence is of the same type, we can remove it.
+			if self._speechSequence and type(self._speechSequence[-1]) is type(command):
+				self._speechSequence.pop()
+			self._speechSequence.append(command)
+
+
 def translate_SpeechCommand(serializes):
 	"""
 	convert Access8Math serialize object to SpeechCommand
@@ -67,40 +84,36 @@ def translate_SpeechCommand(serializes):
 	@type list
 	@rtype SpeechCommand
 	"""
-	pattern = re.compile(r'<break time="(?P<time>[\d]*)ms" />')
-	speechSequence = []
-	for r in flatten(serializes):
-		time_search = pattern.search(r)
-		if time_search:
-			time = time_search.group('time')
-			command = BreakCommand(time=int(time) + int(config.conf["Access8Math"]["settings"]["item_interval_time"]))
-			speechSequence.append(command)
-		else:
-			speechSequence.append(r)
+	item = flatten(serializes)
+	ssml = "<speak>" + "".join(item) + "</speak>"
+	parser = A8MSsmlParser()
+	speechSequence = parser.convertFromXml(ssml)
 	return speechSequence
 
 
 def translate_Unicode(serializes):
 	"""
-	convert Access8Math serialize object to unicode
+	convert Access8Math serialize object to SpeechCommand
 	@param lines: source serializes
 	@type list
-	@rtype str
+	@rtype SpeechCommand
 	"""
 	pattern = re.compile(r'<break time="(?P<time>[\d]*)ms" />')
-	sequence = ''
+	result = ""
 
 	for c in serializes:
-		sequence = sequence + '\n'
-		for r in flatten(c):
-			time_search = pattern.search(r)
-			if not time_search:
-				sequence = sequence + str(r)
-			sequence = sequence + ' '
+		result += "\n"
+		for item in flatten(c):
+			ssml = "<speak>" + "".join(item) + "</speak>"
+			parser = A8MSsmlParser()
+			sequence = parser.convertFromXml(ssml)
+			sequence = [command for command in sequence if type(command) is not BreakCommand]
+			string = " ".join(sequence).strip()
+			result = result + " " + string
 
 	# replace mutiple blank to single blank
 	pattern = re.compile(r'[ ]+')
-	sequence = pattern.sub(lambda m: ' ', sequence)
+	sequence = pattern.sub(lambda m: ' ', result)
 
 	# replace blank line to none
 	pattern = re.compile(r'\n\s*\n')
@@ -112,6 +125,20 @@ def translate_Unicode(serializes):
 		temp = temp + i.strip() + '\n'
 	sequence = temp
 	return sequence.strip()
+
+	speechSequence = []
+	for s in serializes:
+		for item in flatten(s):
+			ssml = "<speak>" + "".join(item) + "</speak>"
+			parser = A8MSsmlParser()
+			sequence = parser.convertFromXml(ssml)
+			sequence = [command for command in sequence if type(command) is not BreakCommand]
+			string = " ".join(sequence).strip()
+			if string != "":
+				speechSequence.append(string)
+
+		speechSequence = "\n".join(speechSequence)
+	return speechSequence.strip()
 
 
 def translate_Braille(serializes):
@@ -126,6 +153,27 @@ def translate_Braille(serializes):
 		brailleCells, brailleToRawPos, rawToBraillePos, brailleCursorPos = louisHelper.translate([os.path.join(brailleTables.TABLES_DIR, config.conf["braille"]["translationTable"]), "braille-patterns.cti"], string, mode=4)
 		temp += "".join([chr(BRAILLE_UNICODE_PATTERNS_START + cell) for cell in brailleCells])
 	return "".join(temp)
+
+
+def getCharAddCapNotification(text: str):
+	if len(text) != 1 or not text.isupper():
+		return [text]
+
+	synth = getSynth()
+	synthConfig = config.conf["speech"][synth.name]
+
+	if PitchCommand in synth.supportedCommands:
+		capPitchChange = synthConfig["capPitchChange"]
+	else:
+		capPitchChange = 0
+
+	seq = list(_getSpellingCharAddCapNotification(
+		text,
+		sayCapForCapitals=synthConfig["sayCapForCapitals"],
+		capPitchChange=capPitchChange,
+		beepForCapitals=synthConfig["beepForCapitals"],
+	))
+	return seq
 
 
 class GenericFrame(wx.Frame):
@@ -408,7 +456,18 @@ class A8MInteraction(Window):
 		else:
 			speech.speak([self.mathcontent.pointer.des])
 
-		speech.speak(translate_SpeechCommand(self.mathcontent.pointer.serialized()))
+		command = translate_SpeechCommand(self.mathcontent.pointer.serialized())
+		temp = []
+		for item in command:
+			if isinstance(item, str):
+				seq = getCharAddCapNotification(item)
+				temp.extend(list(seq))
+			else:
+				temp.append(item)
+		command = temp
+		speech.speak(command)
+		print(command)
+
 		cells = translate_Braille(self.mathcontent.pointer.brailleserialized())
 		brailleRegion = [braille.TextRegion(cells)]
 		display_braille(brailleRegion)

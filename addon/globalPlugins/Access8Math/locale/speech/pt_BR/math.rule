@@ -1,3 +1,4 @@
+name	rule	role	description
 AddIntegerFractionType	adicionar, 0, sobre, 1, 	numerador, denominador	adicional fração integral
 ArrowOverSingleSymbolType	vetor, 0, 	principal, super	Seta sobre um único símbolo (vetor na notação francesa)
 BinomialType	de, 0, item escolhido, 1, item	tudo, escolha	binomial
@@ -31,7 +32,6 @@ mfenced	abre parenteses, (.*), *	item	parenteses genéricos
 mfrac	fração com numerador, 0, e denominador, 1, fração final	numerador, denominador	fração genérica
 mmultiscripts	multi-scripts, (.*), 	item	multi-scripts
 mover	, 0, com, 1, acima	principal, acima	símbolo possui sobrescrito
-mprescripts			prescrições
 mroot	a, 1, raiz de, 0, raiz final	raiz, contar	raiz
 msqrt	raiz quadrada de, (.*), 	item	raiz quadrada
 msub	, 0, com, 1, sub	principal, sub	símbolo possui subscrito
@@ -43,7 +43,6 @@ mtr	, (coluna.*), 	coluna	linha da tabela
 munder	, 0, com, 1, abaixo	principal, abaixo	símbolo tem subscrito
 munderover	, 0, com, 1, abaixo, 2, acima	principal, abaixo, acima	símbolo possui subscrito e sobrescrito
 node	, (.), 	item	node
-none			
 power	, 0, para, 1, potência	base, exponente	potência
 single_fraction	, 0, sobre, 1, 	numerador, denominador	fração simples
 single_square_root	raiz quadrada, 0, 	raiz em	raiz quadrada simples
