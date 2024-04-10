@@ -52,7 +52,6 @@ sys.modules['xml'] = xml
 config.conf.spec["Access8Math"] = {
 	"settings": {
 		"language": "string(default=Windows)",
-		"braille_language": "string(default=en)",
 		"item_interval_time": "integer(default=50,min=0,max=100)",
 		"interaction_frame_show": "boolean(default=false)",
 		"analyze_math_meaning": "boolean(default=true)",
@@ -178,7 +177,11 @@ def disableInSecureMode(decoratedCls):
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self, *args, **kwargs):
 		if config.conf["Access8Math"]["settings"]["language"] == "Windows":
-			config.conf["Access8Math"]["settings"]["language"] = getWindowsLanguage()
+			language = getWindowsLanguage()
+			if A8M_PM.exist_language(language):
+				config.conf["Access8Math"]["settings"]["language"] = language
+			else:
+				config.conf["Access8Math"]["settings"]["language"] = "en"
 
 		from lib.latex import latexData
 		latexData.initialize()
@@ -201,9 +204,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(MathReaderSettingsPanel)
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
-		if getattr(obj, 'windowClassName', None) == "wxWindowNR" and obj.role == ROLE_WINDOW and obj.name == _("Access8Math interaction window"):
+		if obj.windowClassName == "wxWindowNR" and obj.role == ROLE_WINDOW and obj.name == _("Access8Math interaction window"):
 			clsList.insert(0, AppWindowRoot)
-		if getattr(obj, 'windowClassName', None) == "Edit" and obj.role == ROLE_EDITABLETEXT:
+		if obj.windowClassName == "Edit" and obj.role == ROLE_EDITABLETEXT:
 			clsList.insert(0, TextMathEditField)
 
 	def create_menu(self):
