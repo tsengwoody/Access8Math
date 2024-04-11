@@ -20,6 +20,7 @@ from languageHandler import getWindowsLanguage
 from logHandler import log
 import mathPres
 from mathPres.mathPlayer import MathPlayer
+from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import IAccessible
 from scriptHandler import script
 import textInfos
@@ -164,6 +165,55 @@ class AppWindowRoot(IAccessible):
 		wx.CallLater(100, run)
 
 
+class VirtualContextMenu(NVDAObject):
+	@script(
+		description=_("Open virtual context menu"),
+		category=ADDON_SUMMARY,
+		gestures=["kb:NVDA+applications", "kb:NVDA+shift+f10"],
+	)
+	def script_open_virtual_context_menu(self, gesture):
+		obj = api.getFocusObject()
+		try:
+			filename = explorer.get_selected_file()
+		except BaseException:
+			filename = None
+		if filename:
+			try:
+				A8MFEVContextMenuView(
+					path=filename
+				).setFocus()
+			except BaseException:
+				ui.message(_("open path failed"))
+		else:
+			ui.message(_("get path failed"))
+
+	@script(
+		description=_("Pop up the editor"),
+		category=ADDON_SUMMARY,
+		gesture="kb:NVDA+alt+e",
+	)
+	def script_editor_popup(self, gesture):
+		def show():
+			try:
+				filename = explorer.get_selected_file()
+			except BaseException:
+				filename = None
+			if filename:
+				try:
+					self.edit(path=filename)
+				except BaseException:
+					pass
+		wx.CallAfter(show)
+
+	def edit(self, content=None, path=None):
+		if path:
+			frame = EditorFrame(path)
+		if content or content == '':
+			frame = EditorFrame()
+			frame.control.SetValue(content)
+		frame.Show(True)
+
+
 editor_dialog = None
 
 
@@ -206,8 +256,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		if obj.windowClassName == "wxWindowNR" and obj.role == ROLE_WINDOW and obj.name == _("Access8Math interaction window"):
 			clsList.insert(0, AppWindowRoot)
-		if obj.windowClassName == "Edit" and obj.role == ROLE_EDITABLETEXT:
+		elif obj.windowClassName == "Edit" and obj.role == ROLE_EDITABLETEXT:
 			clsList.insert(0, TextMathEditField)
+		elif isinstance(obj.appModule, appModules.explorer.AppModule):
+			clsList.insert(0, VirtualContextMenu)
 
 	def create_menu(self):
 		self.toolsMenu = gui.mainFrame.sysTrayIcon.toolsMenu
@@ -319,32 +371,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		config.conf["Access8Math"]["settings"][key] = available_readers[index]
 		ui.message(_("Math interact reader switch to %s") % config.conf["Access8Math"]["settings"][key])
 
-	@script(
-		description=_("Pop up the editor"),
-		category=ADDON_SUMMARY,
-		gesture="kb:NVDA+alt+e",
-	)
-	def script_editor_popup(self, gesture):
-		def show():
-			try:
-				filename = explorer.get_selected_file()
-			except BaseException:
-				filename = None
-			if filename:
-				try:
-					self.edit(path=filename)
-				except BaseException:
-					obj = api.getFocusObject()
-					document = obj.makeTextInfo(textInfos.POSITION_ALL)
-					editor_content = document.text
-					self.edit(content=editor_content)
-			else:
-				obj = api.getFocusObject()
-				document = obj.makeTextInfo(textInfos.POSITION_ALL)
-				editor_content = document.text
-				self.edit(content=editor_content)
-		wx.CallAfter(show)
-
 	def edit(self, content=None, path=None):
 		if path:
 			frame = EditorFrame(path)
@@ -352,28 +378,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			frame = EditorFrame()
 			frame.control.SetValue(content)
 		frame.Show(True)
-
-	@script(
-		description=_("Open virtual context menu"),
-		category=ADDON_SUMMARY,
-		gestures=["kb:NVDA+applications", "kb:NVDA+shift+f10"],
-	)
-	def script_open_virtual_context_menu(self, gesture):
-		obj = api.getFocusObject()
-		if isinstance(obj.appModule, appModules.explorer.AppModule):
-			try:
-				filename = explorer.get_selected_file()
-			except BaseException:
-				filename = None
-			if filename:
-				try:
-					A8MFEVContextMenuView(
-						path=filename
-					).setFocus()
-				except BaseException:
-					ui.message(_("open path failed"))
-			else:
-				ui.message(_("get path failed"))
 
 	def onSettings(self, evt):
 		wx.CallAfter(gui.mainFrame.popupSettingsDialog, Access8MathSettingsDialog)
