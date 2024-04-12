@@ -134,14 +134,6 @@ class ReadingSettingsPanel(A8MSettingsPanel):
 			# Translators: The label of an option in the reading settings dialog
 			"label": _("Analyze mathematical meaning of content")
 		},
-		"interaction_frame_show": {
-			# Translators: The label of an option in the reading settings dialog
-			"label": _("Show interaction window when entering interaction navigation mode")
-		},
-		"dictionary_generate": {
-			# Translators: The label of an option in the reading settings dialog
-			"label": _("Reading pre-defined meaning in dictionary in interaction navigation mode")
-		},
 		"auto_generate": {
 			# Translators: The label of an option in the reading settings dialog
 			"label": _("Reading of auto-generated meaning in interaction navigation mode")

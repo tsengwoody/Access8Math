@@ -91,6 +91,17 @@ def translate_SpeechCommand(serializes):
 	return speechSequence
 
 
+def translate_SpeechCommand_CapNotification(serializes):
+	command = []
+	for item in translate_SpeechCommand(serializes):
+		if isinstance(item, str):
+			seq = getCharAddCapNotification(item)
+			command.extend(list(seq))
+		else:
+			command.append(item)
+	return command
+
+
 def translate_Unicode(serializes):
 	"""
 	convert Access8Math serialize object to SpeechCommand
@@ -309,7 +320,7 @@ class A8MProvider(mathPres.MathPresentationProvider):
 		speechSequence = []
 		if config.conf["Access8Math"]["settings"]["speech_source"] == "Access8Math":
 			mathcontent = MathContent(config.conf["Access8Math"]["settings"]["language"], mathMl)
-			speechSequence = translate_SpeechCommand(mathcontent.pointer.serialized())
+			speechSequence = translate_SpeechCommand_CapNotification(mathcontent.pointer.serialized())
 		elif config.conf["Access8Math"]["settings"]["speech_source"] == "MathCAT":
 			if mathCAT:
 				speechSequence = mathCAT.getSpeechForMathMl(mathMl)
@@ -348,13 +359,9 @@ class A8MProvider(mathPres.MathPresentationProvider):
 		"""
 		if config.conf["Access8Math"]["settings"]["interact_source"] == "Access8Math":
 			mathcontent = MathContent(config.conf["Access8Math"]["settings"]["language"], mathMl)
-			if config.conf["Access8Math"]["settings"]["interaction_frame_show"]:
-				show_main_frame(mathcontent)
-			else:
-				parent = api.getFocusObject()
-				vw = A8MInteraction(parent=parent)
-				vw.set(data=mathcontent, name="")
-				vw.setFocus()
+			vw = A8MInteraction(parent=api.getFocusObject())
+			vw.set(data=mathcontent, name="")
+			vw.setFocus()
 		elif config.conf["Access8Math"]["settings"]["interact_source"] == "MathCAT":
 			if mathCAT:
 				mathCAT.interactWithMathMl(mathMl)
@@ -400,7 +407,7 @@ class A8MInteraction(Window):
 		super().event_gainFocus()
 
 	def reportFocus(self):
-		speech.speak(translate_SpeechCommand(self.mathcontent.root.serialized()))
+		speech.speak(translate_SpeechCommand_CapNotification(self.mathcontent.root.serialized()))
 
 	def getBrailleRegions(self, review=False):
 		yield braille.NVDAObjectRegion(self, appendText=" ")
@@ -451,22 +458,13 @@ class A8MInteraction(Window):
 		if self.mathcontent.pointer.parent:
 			if config.conf["Access8Math"]["settings"]["auto_generate"] and self.mathcontent.pointer.parent.role_level == A8M_PM.AUTO_GENERATE:
 				speech.speak([self.mathcontent.pointer.des])
-			elif config.conf["Access8Math"]["settings"]["dictionary_generate"] and self.mathcontent.pointer.parent.role_level == A8M_PM.DIC_GENERATE:
+			elif self.mathcontent.pointer.parent.role_level == A8M_PM.DIC_GENERATE:
 				speech.speak([self.mathcontent.pointer.des])
 		else:
 			speech.speak([self.mathcontent.pointer.des])
 
-		command = translate_SpeechCommand(self.mathcontent.pointer.serialized())
-		temp = []
-		for item in command:
-			if isinstance(item, str):
-				seq = getCharAddCapNotification(item)
-				temp.extend(list(seq))
-			else:
-				temp.append(item)
-		command = temp
+		command = translate_SpeechCommand_CapNotification(self.mathcontent.pointer.serialized())
 		speech.speak(command)
-		print(command)
 
 		cells = translate_Braille(self.mathcontent.pointer.brailleserialized())
 		brailleRegion = [braille.TextRegion(cells)]

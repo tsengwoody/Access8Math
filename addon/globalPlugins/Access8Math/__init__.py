@@ -54,7 +54,6 @@ config.conf.spec["Access8Math"] = {
 	"settings": {
 		"language": "string(default=Windows)",
 		"item_interval_time": "integer(default=50,min=0,max=100)",
-		"interaction_frame_show": "boolean(default=false)",
 		"analyze_math_meaning": "boolean(default=true)",
 		"auto_generate": "boolean(default=false)",
 		"dictionary_generate": "boolean(default=true)",
@@ -178,12 +177,9 @@ class VirtualContextMenu(NVDAObject):
 		except BaseException:
 			filename = None
 		if filename:
-			try:
-				A8MFEVContextMenuView(
-					path=filename
-				).setFocus()
-			except BaseException:
-				ui.message(_("open path failed"))
+			A8MFEVContextMenuView(
+				path=filename
+			).setFocus()
 		else:
 			ui.message(_("get path failed"))
 
@@ -258,8 +254,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			clsList.insert(0, AppWindowRoot)
 		elif obj.windowClassName == "Edit" and obj.role == ROLE_EDITABLETEXT:
 			clsList.insert(0, TextMathEditField)
-		elif isinstance(obj.appModule, appModules.explorer.AppModule):
-			clsList.insert(0, VirtualContextMenu)
+		try:
+			if isinstance(obj.appModule, appModules.explorer.AppModule):
+				clsList.insert(0, VirtualContextMenu)
+		except AttributeError:
+			pass
 
 	def create_menu(self):
 		self.toolsMenu = gui.mainFrame.sysTrayIcon.toolsMenu

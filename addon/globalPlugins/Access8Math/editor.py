@@ -22,25 +22,12 @@ class EditorFrame(wx.Frame):
 	def __init__(self, path=None):
 		style = wx.DEFAULT_FRAME_STYLE
 		super(EditorFrame, self).__init__(wx.GetApp().TopWindow, size=(400, 300), style=style)
-
-		if not path:
-			self.ad = Access8MathDocument()
-		else:
-			self.ad = Access8MathDocument(path)
-
-		self.filename = os.path.basename(self.ad.raw_entry)
-		self.dirname = self.ad.raw_folder
-
-		self.modify = False
-
 		# Simplified init method.
 		self.CreateInteriorWindowComponents()
 		self.CreateExteriorWindowComponents()
 		self.CenterOnScreen()
 
-		with open(os.path.join(self.dirname, self.filename), 'r', encoding='utf-8') as file:
-			self.control.SetValue(file.read())
-		self.modify = False
+		self.path = path
 
 		Hotkey(self)
 
@@ -52,6 +39,26 @@ class EditorFrame(wx.Frame):
 		self.Bind(wx.EVT_FIND_REPLACE_ALL, self.OnReplaceAllAction)
 
 		self.Bind(wx.EVT_CLOSE, lambda event: self.OnExit(event))
+
+	@property
+	def path(self):
+		return self._path
+
+	@path.setter
+	def path(self, path):
+		if not path:
+			self.ad = Access8MathDocument()
+		else:
+			self.ad = Access8MathDocument(path)
+
+		self.filename = os.path.basename(self.ad.raw_entry)
+		self.dirname = self.ad.raw_folder
+		self.SetTitle()
+		with open(os.path.join(self.dirname, self.filename), 'r', encoding='utf-8') as file:
+			self.control.SetValue(file.read())
+		self.modify = False
+
+		self._path = path
 
 	def SetTitle(self):
 		# Translators: The title of the Editor window
@@ -66,8 +73,6 @@ class EditorFrame(wx.Frame):
 		# self.control.SetForegroundColour(self.colour)
 
 	def CreateExteriorWindowComponents(self):
-		self.SetTitle()
-
 		self.CreateMenu()
 		self.CreateStatusBar()
 		self.BindEvents()
@@ -208,26 +213,17 @@ class EditorFrame(wx.Frame):
 			wildcard=wildcard,
 		)
 
-	def AskUserForFilename(self, **dialogOptions):
+	def AskUserForFile(self, **dialogOptions):
 		with wx.FileDialog(self, **dialogOptions) as dialog:
 			if dialog.ShowModal() == wx.ID_OK:
-				userProvidedFilename = True
-
-				if self.ad.raw_entry != os.path.dirname(dialog.GetPath()):
-					self.ad.raw_folder = os.path.dirname(dialog.GetPath())
-					self.ad.raw_entry = dialog.GetPath()
-				else:
-					self.ad.raw_entry = dialog.GetPath()
-
-				self.filename = os.path.basename(self.ad.raw_entry)
-				self.dirname = self.ad.raw_folder
-
-				# Update the window title with the new filename.
-				self.SetTitle()
-			else:
-				userProvidedFilename = False
+				return dialog.GetPath()
 		# dialog.Destroy()
-		return userProvidedFilename
+
+	def AskUserForFolder(self, **dialogOptions):
+		with wx.DirDialog(self, _("choice workspace direction"), defaultPath=self.dirname) as dialog:
+			if dialog.ShowModal() == wx.ID_OK:
+				return dialog.GetPath()
+		# dialog.Destroy()
 
 	def OnNew(self, event):
 		frame = self.__class__()
@@ -235,22 +231,16 @@ class EditorFrame(wx.Frame):
 
 	def OnOpen(self, event):
 		# Translators: The title of the Editor's Open file window
-		if self.AskUserForFilename(message=_("Open file"), style=wx.FD_OPEN, **self.DefaultFileDialogOptions()):
+		path = self.AskUserForFile(message=_("Open file"), style=wx.FD_OPEN, **self.DefaultFileDialogOptions())
+		if path:
+			self.path = path
 			with open(os.path.join(self.dirname, self.filename), 'r', encoding='utf-8') as file:
 				self.control.SetValue(file.read())
 			self.modify = False
 
 	def OnSave(self, event):
-		# Translators: The name of the document in the Editor when it has never been saved to a file
 		if self.ad.temp:
-			# Translators: The title of the Editor's Save file window
-			if self.AskUserForFilename(message=_("Save file"), style=wx.FD_SAVE, **self.DefaultFileDialogOptions()):
-				with open(os.path.join(self.dirname, self.filename), 'w', encoding='utf-8') as file:
-					file.write(self.control.GetValue())
-				self.modify = False
-				return True
-			else:
-				return False
+			self.OnSaveAs(event)
 		else:
 			with open(os.path.join(self.dirname, self.filename), 'w', encoding='utf-8') as file:
 				file.write(self.control.GetValue())
@@ -258,11 +248,18 @@ class EditorFrame(wx.Frame):
 			return True
 
 	def OnSaveAs(self, event):
-		# Translators: The title of the Editor's Save as file window
-		if self.AskUserForFilename(message=_("Save file"), style=wx.FD_SAVE, **self.DefaultFileDialogOptions()):
-			with open(os.path.join(self.dirname, self.filename), 'w', encoding='utf-8') as file:
-				file.write(self.control.GetValue())
-			self.modify = False
+			path = self.AskUserForFolder(message=_("Save file"), style=wx.FD_SAVE, **self.DefaultFileDialogOptions())
+			print(path)
+			if path:
+				self.ad.raw_folder = path
+				print(self.ad.raw_entry)
+				with open(self.ad.raw_entry, 'w', encoding='utf-8') as file:
+					file.write(self.control.GetValue())
+				self.path = self.ad.raw_entry
+				self.modify = False
+				return True
+			else:
+				return False
 
 	def OnExit(self, event):
 		if self.modify:
@@ -406,7 +403,7 @@ class EditorFrame(wx.Frame):
 
 	def OnImport(self, event):
 		# Translators: The title of the Editor's Open file window
-		if self.AskUserForFilename(message=_("Open file"), style=wx.FD_OPEN, **self.DefaultFileDialogOptions()):
+		if self.AskUserForFile(message=_("Open file"), style=wx.FD_OPEN, **self.DefaultFileDialogOptions()):
 			with open(os.path.join(self.dirname, self.filename), 'r', encoding='utf-8') as file:
 				self.control.SetValue(file.read())
 			self.modify = False

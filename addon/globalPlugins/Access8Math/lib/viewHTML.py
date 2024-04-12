@@ -90,22 +90,17 @@ class Access8MathDocument:
 
 	@raw_folder.setter
 	def raw_folder(self, path):
-		raw_folder = self.raw_folder
-		review_folder = path
-		resources = self.resources
-		for resource in resources:
-			try:
-				dir = os.path.dirname(os.path.join(review_folder, resource))
-				if not os.path.exists(dir):
-					os.makedirs(dir)
-				shutil.copyfile(
-					os.path.join(raw_folder, resource),
-					os.path.join(review_folder, resource),
-				)
-			except BaseException:
-				pass
+		if self.raw_folder == path:
+			return
+		rawIntoReview(self.raw_folder, path, self.resources)
+
+		shutil.copyfile(
+			os.path.join(self.raw_folder, os.path.basename(self.raw_entry)),
+			os.path.join(path, os.path.basename(self.raw_entry)),
+		)
 
 		self._raw_folder = path
+		self.raw_entry= os.path.join(path, os.path.basename(self.raw_entry))
 		self.temp = False
 
 	@property
@@ -137,6 +132,15 @@ class Access8MathDocument:
 		return resources
 
 	def raw2review(self):
+		try:
+			shutil.rmtree(self.review_folder)
+		except BaseException:
+			pass
+		try:
+			os.makedirs(self.review_folder)
+		except BaseException:
+			pass
+
 		rawIntoReview(self.raw_folder, self.review_folder, self.resources)
 
 		shutil.copyfile(
@@ -173,14 +177,6 @@ class Access8MathDocument:
 
 
 def rawIntoReview(raw_folder, review_folder, resources):
-	try:
-		shutil.rmtree(review_folder)
-	except BaseException:
-		pass
-	try:
-		os.makedirs(review_folder)
-	except BaseException:
-		pass
 	for resource in resources:
 		try:
 			dir = os.path.dirname(os.path.join(review_folder, resource))
