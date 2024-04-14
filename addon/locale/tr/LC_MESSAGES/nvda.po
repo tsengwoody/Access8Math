@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Access8Math - 3.6\n"
+"Project-Id-Version: Access8Math\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2023-06-06 14:09+0300\n"
-"PO-Revision-Date: 2024-03-01 17:08+0300\n"
+"PO-Revision-Date: 2024-03-22 12:04+0300\n"
 "Last-Translator: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language-Team: cagrid@hotmail.com\n"
 "Language: tr_TR\n"
@@ -29,30 +29,20 @@ msgid ""
 "anyone who wants it. This applies to both original and modified copies of "
 "this software, plus any derivative works.\n"
 "It can be viewed online at: https://www.gnu.org/licenses/old-licenses/"
-"gpl-2.0.html\n"
-"Access8Math has been sponsored by \"Taiwan Visually Impaired People "
-"Association\"(accessibility@twvip.org) in 2018~2019, hereby express our "
-"sincere appreciation.\n"
-"If you feel this add-on is helpful, please don't hesitate to give support to "
-"\"Taiwan Visually Impaired People Association\" and authors."
+"gpl-2.0.html"
 msgstr ""
 "Access8Math\n"
 "Sürüm: {addonVersion}\n"
-"URL: https://addons.nvda-project.org/addons/access8math.en.html\n"
-"Telif hakkı (C) {copyrightFirstYear}-{copyrightLastYear} Access8Math "
-"Contributors\n"
+"Web Sayfası: https://addons.nvda-project.org/addons/access8math.en.html\n"
+"Telif hakkı (C) {copyrightFirstYear}-{copyrightLastYear} Access8Math Katkıda "
+"Bulunanlar\n"
 "Access8Math, GNU Genel Kamu Lisansı (Sürüm 2) kapsamındadır. Lisansla "
-"birlikte verildiği ve tüm kaynak kodunu isteyen herkesin kullanımına "
-"açtığınız sürece, bu yazılımı istediğiniz şekilde paylaşmakta veya "
-"değiştirmekte özgürsünüz. Bu, bu yazılımın hem orijinal hem de değiştirilmiş "
-"kopyaları ile tüm türev çalışmaları için geçerlidir.\\n\n"
+"birlikte verildiği ve tüm kaynak kodlarının isteyen herkese açık olduğu "
+"sürece bu yazılımı istediğiniz şekilde paylaşmakta veya değiştirmekte "
+"özgürsünüz. Bu, bu yazılımın hem orijinal hem de değiştirilmiş kopyaları ve "
+"ayrıca türev çalışmalar için geçerlidir..\n"
 "Çevrimiçi olarak şu adresten görüntülenebilir: https://www.gnu.org/licenses/"
-"old-licenses/gpl-2.0.html\\n\n"
-"Access8Math, 2018~2019'da \"Tayvan Görme Engelliler "
-"Derneği\"(accessibility@twvip.org) tarafından desteklenmiştir, bu vesileyle "
-"içten teşekkürlerimizi sunarız.\\n\n"
-"Bu eklentinin faydalı olduğunu düşünüyorsanız, lütfen \"Tayvan Görme "
-"Engelliler Derneği\" ve yazarlarına destek vermekten çekinmeyin."
+"old-licenses/gpl-2.0.html"
 
 #. Translators: The title of the interaction window
 msgid "Access8Math interaction window"
@@ -137,15 +127,6 @@ msgstr "Çalışma Alanı'nı temizle"
 
 msgid "About Access8Math"
 msgstr "Access8Math hakkında"
-
-#. Translators: Message indicating no context sensitive help is available for the control or dialog.
-msgid "No help available here."
-msgstr "Burada yardım yok."
-
-#. Translators: Message shown when trying to display context sensitive help,
-#. indicating that	the user guide could not be found.
-msgid "No user guide found."
-msgstr "Kullanıcı kılavuzu bulunamadı."
 
 #. Translators: A choice of a combobox in the writing settings dialog (not used)
 msgid "MathCAT"
@@ -908,15 +889,15 @@ msgstr "ok"
 
 #. Translators: LaTeX command category - geometry
 msgid "geometry"
-msgstr ""
+msgstr "geometri"
 
 #. Translators: LaTeX command category - combinatorics
 msgid "combinatorics"
-msgstr ""
+msgstr "kombinatorik"
 
 #. Translators: LaTeX command category - trigonometric
 msgid "trigonometric"
-msgstr ""
+msgstr "trigonometrik"
 
 #. Translators: LaTeX command category - 2-dimension
 msgid "2-dimension"
@@ -928,7 +909,7 @@ msgstr "küme"
 
 #. Translators: LaTeX command category - calculus
 msgid "calculus"
-msgstr ""
+msgstr "kalkülüs"
 
 #. Translators: LaTeX command category - other
 msgid "other"
@@ -1058,46 +1039,43 @@ msgstr "yukarı aşağı ok"
 
 #. Translators: LaTeX command - dot product
 msgid "dot product"
-msgstr ""
+msgstr "nokta çarpımı"
 
 #. Translators: LaTeX command - integral
 msgid "integral"
-msgstr ""
+msgstr "integral"
 
 #. Translators: LaTeX command - nabla
 msgid "nabla"
-msgstr ""
+msgstr "nabla"
 
 #. Translators: LaTeX command - partial derivative
 msgid "partial derivative"
-msgstr ""
+msgstr "kısmi türev"
 
 #. Translators: LaTeX command - derivative
 msgid "derivative"
-msgstr ""
+msgstr "türev"
 
 #. Translators: LaTeX command - differential
-#, fuzzy
 msgid "differential"
-msgstr "fark kümesi"
+msgstr "diferansiyel"
 
 #. Translators: LaTeX command - combination
-#, fuzzy
 msgid "combination"
-msgstr "toplama"
+msgstr "kombinasyon"
 
 #. Translators: LaTeX command - permutation
-#, fuzzy
 msgid "permutation"
-msgstr "Etkileşim"
+msgstr "permütasyon"
 
 #. Translators: LaTeX command - combination with repetition
 msgid "combination with repetition"
-msgstr ""
+msgstr "tekrarlı kombinasyon"
 
 #. Translators: LaTeX command - unordered selection
 msgid "unordered selection"
-msgstr ""
+msgstr "sırasız seçim"
 
 #. Translators: LaTeX command - fractions
 msgid "fractions"
@@ -1156,17 +1134,16 @@ msgid "perpendicular"
 msgstr "dik"
 
 #. Translators: LaTeX command - square
-#, fuzzy
 msgid "square"
-msgstr "kare kök"
+msgstr "kare"
 
 #. Translators: LaTeX command - small diamond
 msgid "small diamond"
-msgstr ""
+msgstr "küçük elmas"
 
 #. Translators: LaTeX command - large diamond
 msgid "large diamond"
-msgstr ""
+msgstr "büyük elmas"
 
 #. Translators: LaTeX command - because
 msgid "because"
@@ -1202,7 +1179,7 @@ msgstr "artı eksi işareti"
 
 #. Translators: LaTeX command - modulus
 msgid "modulus"
-msgstr ""
+msgstr "modülüs"
 
 #. Translators: LaTeX command - line segment
 msgid "line segment"
@@ -1257,13 +1234,12 @@ msgid "similar"
 msgstr "benzer"
 
 #. Translators: LaTeX command - approximately equal to
-#, fuzzy
 msgid "approximately equal to"
-msgstr "yaklaşık"
+msgstr "yaklaşık olarak eşittir"
 
 #. Translators: LaTeX command - proportional to
 msgid "proportional to"
-msgstr ""
+msgstr "orantılı"
 
 #. Translators: LaTeX command - belong to
 msgid "belong to"
@@ -1274,14 +1250,12 @@ msgid "not belong to"
 msgstr "ait değil"
 
 #. Translators: LaTeX command - include element
-#, fuzzy
 msgid "include element"
-msgstr "doğru parçası"
+msgstr "dahil olan öğe"
 
 #. Translators: LaTeX command - not include element
-#, fuzzy
 msgid "not include element"
-msgstr "hariç"
+msgstr "dahil olmayan öğe"
 
 #. Translators: LaTeX command - lie in
 msgid "lie in"
@@ -1345,63 +1319,63 @@ msgstr "vardır"
 
 #. Translators: LaTeX command - sine
 msgid "sine"
-msgstr ""
+msgstr "sinüs"
 
 #. Translators: LaTeX command - cosine
 msgid "cosine"
-msgstr ""
+msgstr "kosinüs"
 
 #. Translators: LaTeX command - tangent
 msgid "tangent"
-msgstr ""
+msgstr "tanjant"
 
 #. Translators: LaTeX command - cotangent
 msgid "cotangent"
-msgstr ""
+msgstr "kotanjant"
 
 #. Translators: LaTeX command - secant
 msgid "secant"
-msgstr ""
+msgstr "sekant"
 
 #. Translators: LaTeX command - cosecant
 msgid "cosecant"
-msgstr ""
+msgstr "kosekant"
 
 #. Translators: LaTeX command - arcsine
 msgid "arcsine"
-msgstr ""
+msgstr "arksinüs"
 
 #. Translators: LaTeX command - arccosine
 msgid "arccosine"
-msgstr ""
+msgstr "arkkosinüs"
 
 #. Translators: LaTeX command - arctangent
 msgid "arctangent"
-msgstr ""
+msgstr "arktanjant"
 
 #. Translators: LaTeX command - hyperbolic sine
 msgid "hyperbolic sine"
-msgstr ""
+msgstr "hiperbolik sinüs"
 
 #. Translators: LaTeX command - hyperbolic cosine
 msgid "hyperbolic cosine"
-msgstr ""
+msgstr "hiperbolik kosinüs"
 
 #. Translators: LaTeX command - hyperbolic tangent
 msgid "hyperbolic tangent"
-msgstr ""
+msgstr "hiperbolik tanjant"
 
 #. Translators: LaTeX command - hyperbolic cotangent
 msgid "hyperbolic cotangent"
-msgstr ""
+msgstr "hiperbolik kotanjant"
 
 #. Translators: LaTeX command - floor
 msgid "floor"
-msgstr ""
+msgstr "taban fonksiyonu"
 
 #. Translators: LaTeX command - ceil
 msgid "ceil"
-msgstr ""
+msgstr "tavan fonksiyonu"
 
 #. Translators: greek alphabet command - alpha
 msgid "alpha"
@@ -1507,6 +1481,12 @@ msgid ""
 msgstr ""
 "MathML ile yazılan matematik içeriğine erişime sağlar ve LaTeX ile matematik "
 "içeriği oluşturmaya izin verir"
+
+#~ msgid "No help available here."
+#~ msgstr "Burada yardım yok."
+
+#~ msgid "No user guide found."
+#~ msgstr "Kullanıcı kılavuzu bulunamadı."
 
 #~ msgid "Write AsciiMath Content"
 #~ msgstr "AsciiMath İçeriği Yaz"

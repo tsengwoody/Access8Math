@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Access8Math 2.1\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2021-09-08 06:33+0800\n"
-"PO-Revision-Date: 2024-03-01 14:28+0100\n"
+"PO-Revision-Date: 2024-03-24 18:45+0100\n"
 "Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -30,12 +30,7 @@ msgid ""
 "anyone who wants it. This applies to both original and modified copies of "
 "this software, plus any derivative works.\n"
 "It can be viewed online at: https://www.gnu.org/licenses/old-licenses/"
-"gpl-2.0.html\n"
-"Access8Math has been sponsored by \"Taiwan Visually Impaired People "
-"Association\"(accessibility@twvip.org) in 2018~2019, hereby express our "
-"sincere appreciation.\n"
-"If you feel this add-on is helpful, please don't hesitate to give support to "
-"\"Taiwan Visually Impaired People Association\" and authors."
+"gpl-2.0.html"
 msgstr ""
 "Access8Math\n"
 "Version: {addonVersion}\n"
@@ -49,12 +44,7 @@ msgstr ""
 "l'original que la copie modifiée de ce logiciel, ainsi qu'à n'importe quel "
 "œuvre dérivée.\n"
 "Elle peut être consultée en ligne sur: https://www.gnu.org/licenses/old-"
-"licenses/gpl-2.0.html\n"
-"Access8Math a été financé par la \"Taiwan Visually Impaired People "
-"Association\"(vipastaiwan@gmail.com) en 2018~2019, envers qui nous exprimons "
-"nos sincères remerciements.\n"
-"Si vous trouvez cette extension utile, n'hésitez pas à apporter votre "
-"soutien à la \"Taiwan Visually Impaired People Association\" et aux auteurs."
+"licenses/gpl-2.0.html"
 
 #. Translators: The title of the interaction window
 msgid "Access8Math interaction window"
@@ -139,15 +129,6 @@ msgstr "Vider l'espace de travail"
 
 msgid "About Access8Math"
 msgstr "À propos d'Access8Math"
-
-#. Translators: Message indicating no context sensitive help is available for the control or dialog.
-msgid "No help available here."
-msgstr "Aucune aide disponible ici."
-
-#. Translators: Message shown when trying to display context sensitive help,
-#. indicating that	the user guide could not be found.
-msgid "No user guide found."
-msgstr "Aucun guide d'utilisation trouvé."
 
 #. Translators: A choice of a combobox in the writing settings dialog (not used)
 msgid "MathCAT"
@@ -900,7 +881,7 @@ msgstr "raccourcis"
 
 #. Translators: LaTeX command category - common
 msgid "common"
-msgstr "commun"
+msgstr "usuel"
 
 #. Translators: LaTeX command category - operator
 msgid "operator"
@@ -920,15 +901,15 @@ msgstr "flèche"
 
 #. Translators: LaTeX command category - geometry
 msgid "geometry"
-msgstr ""
+msgstr "géométrie"
 
 #. Translators: LaTeX command category - combinatorics
 msgid "combinatorics"
-msgstr ""
+msgstr "combinatoire"
 
 #. Translators: LaTeX command category - trigonometric
 msgid "trigonometric"
-msgstr ""
+msgstr "trigonométrie"
 
 #. Translators: LaTeX command category - 2-dimension
 msgid "2-dimension"
@@ -940,7 +921,7 @@ msgstr "ensemble"
 
 #. Translators: LaTeX command category - calculus
 msgid "calculus"
-msgstr ""
+msgstr "calcul"
 
 #. Translators: LaTeX command category - other
 msgid "other"
@@ -1070,46 +1051,43 @@ msgstr "flèche haut bas"
 
 #. Translators: LaTeX command - dot product
 msgid "dot product"
-msgstr ""
+msgstr "produit scalaire"
 
 #. Translators: LaTeX command - integral
 msgid "integral"
-msgstr ""
+msgstr "intégrale"
 
 #. Translators: LaTeX command - nabla
 msgid "nabla"
-msgstr ""
+msgstr "nabla"
 
 #. Translators: LaTeX command - partial derivative
 msgid "partial derivative"
-msgstr ""
+msgstr "dérivée partielle"
 
 #. Translators: LaTeX command - derivative
 msgid "derivative"
-msgstr ""
+msgstr "dérivée"
 
 #. Translators: LaTeX command - differential
-#, fuzzy
 msgid "differential"
-msgstr "différence d'ensemble"
+msgstr "différentielle"
 
 #. Translators: LaTeX command - combination
-#, fuzzy
 msgid "combination"
-msgstr "somme"
+msgstr "combinaison"
 
 #. Translators: LaTeX command - permutation
-#, fuzzy
 msgid "permutation"
-msgstr "Interaction"
+msgstr "permutation"
 
 #. Translators: LaTeX command - combination with repetition
 msgid "combination with repetition"
-msgstr ""
+msgstr "combinaison avec répétition"
 
 #. Translators: LaTeX command - unordered selection
 msgid "unordered selection"
-msgstr ""
+msgstr "sélection non ordonnée"
 
 #. Translators: LaTeX command - fractions
 msgid "fractions"
@@ -1168,17 +1146,16 @@ msgid "perpendicular"
 msgstr "perpendiculaire à"
 
 #. Translators: LaTeX command - square
-#, fuzzy
 msgid "square"
-msgstr "racine carrée"
+msgstr "carré"
 
 #. Translators: LaTeX command - small diamond
 msgid "small diamond"
-msgstr ""
+msgstr "petit losange"
 
 #. Translators: LaTeX command - large diamond
 msgid "large diamond"
-msgstr ""
+msgstr "grand losange"
 
 #. Translators: LaTeX command - because
 msgid "because"
@@ -1214,7 +1191,7 @@ msgstr "signe plus ou moins"
 
 #. Translators: LaTeX command - modulus
 msgid "modulus"
-msgstr ""
+msgstr "modulo"
 
 #. Translators: LaTeX command - line segment
 msgid "line segment"
@@ -1254,7 +1231,7 @@ msgstr "inférieur ou égal"
 
 #. Translators: LaTeX command - not equal to
 msgid "not equal to"
-msgstr "pas égal à"
+msgstr "différent de"
 
 #. Translators: LaTeX command - approximate
 msgid "approximate"
@@ -1262,20 +1239,19 @@ msgstr "environ égal à"
 
 #. Translators: LaTeX command - full equal
 msgid "full equal"
-msgstr "approximativement égal à"
+msgstr "géométriquement égal à"
 
 #. Translators: LaTeX command - similar
 msgid "similar"
 msgstr "similaire à"
 
 #. Translators: LaTeX command - approximately equal to
-#, fuzzy
 msgid "approximately equal to"
-msgstr "environ égal à"
+msgstr "approximativement égal à"
 
 #. Translators: LaTeX command - proportional to
 msgid "proportional to"
-msgstr ""
+msgstr "proportionnel à"
 
 #. Translators: LaTeX command - belong to
 msgid "belong to"
@@ -1286,14 +1262,12 @@ msgid "not belong to"
 msgstr "n'appartient pas à"
 
 #. Translators: LaTeX command - include element
-#, fuzzy
 msgid "include element"
-msgstr "segment"
+msgstr "sur-ensemble d'élément"
 
 #. Translators: LaTeX command - not include element
-#, fuzzy
 msgid "not include element"
-msgstr "pas un sur-ensemble de"
+msgstr "pas un sur-ensemble d'élément"
 
 #. Translators: LaTeX command - lie in
 msgid "lie in"
@@ -1345,7 +1319,7 @@ msgstr "entiers naturels"
 
 #. Translators: LaTeX command - real number
 msgid "real number"
-msgstr "nombre réels"
+msgstr "nombres réels"
 
 #. Translators: LaTeX command - for all
 msgid "for all"
@@ -1353,67 +1327,67 @@ msgstr "pour tout"
 
 #. Translators: LaTeX command - exists
 msgid "exists"
-msgstr "il esiste"
+msgstr "il existe"
 
 #. Translators: LaTeX command - sine
 msgid "sine"
-msgstr ""
+msgstr "sinus"
 
 #. Translators: LaTeX command - cosine
 msgid "cosine"
-msgstr ""
+msgstr "cosinus"
 
 #. Translators: LaTeX command - tangent
 msgid "tangent"
-msgstr ""
+msgstr "tangente"
 
 #. Translators: LaTeX command - cotangent
 msgid "cotangent"
-msgstr ""
+msgstr "cotangente"
 
 #. Translators: LaTeX command - secant
 msgid "secant"
-msgstr ""
+msgstr "sécante"
 
 #. Translators: LaTeX command - cosecant
 msgid "cosecant"
-msgstr ""
+msgstr "cosécante"
 
 #. Translators: LaTeX command - arcsine
 msgid "arcsine"
-msgstr ""
+msgstr "arc sinus"
 
 #. Translators: LaTeX command - arccosine
 msgid "arccosine"
-msgstr ""
+msgstr "arc cosinus"
 
 #. Translators: LaTeX command - arctangent
 msgid "arctangent"
-msgstr ""
+msgstr "arctangente"
 
 #. Translators: LaTeX command - hyperbolic sine
 msgid "hyperbolic sine"
-msgstr ""
+msgstr "sinus hyperbolique"
 
 #. Translators: LaTeX command - hyperbolic cosine
 msgid "hyperbolic cosine"
-msgstr ""
+msgstr "cosinus hyperbolique"
 
 #. Translators: LaTeX command - hyperbolic tangent
 msgid "hyperbolic tangent"
-msgstr ""
+msgstr "tangente hyperbolique"
 
 #. Translators: LaTeX command - hyperbolic cotangent
 msgid "hyperbolic cotangent"
-msgstr ""
+msgstr "cotangente hyperbolique"
 
 #. Translators: LaTeX command - floor
 msgid "floor"
-msgstr ""
+msgstr "partie entière"
 
 #. Translators: LaTeX command - ceil
 msgid "ceil"
-msgstr ""
+msgstr "partie entière supérieure"
 
 #. Translators: greek alphabet command - alpha
 msgid "alpha"
@@ -1519,6 +1493,12 @@ msgid ""
 msgstr ""
 "Permet l'accès au contenu mathématique écrit en MathML ; Permet d'écrire du "
 "contenu mathématique en LaTeX"
+
+#~ msgid "No help available here."
+#~ msgstr "Aucune aide disponible ici."
+
+#~ msgid "No user guide found."
+#~ msgstr "Aucun guide d'utilisation trouvé."
 
 #~ msgid "Write AsciiMath Content"
 #~ msgstr "Écrire du contenu AsciiMath"
