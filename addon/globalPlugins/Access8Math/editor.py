@@ -86,7 +86,7 @@ class EditorFrame(wx.Frame):
 			(
 				wx.ID_NEW,
 				# Translators: A menu item in the Editor window
-				_("&New"),
+				_("&New editor"),
 				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 				_("Open a new editor."),
 				self.OnNew
@@ -94,7 +94,7 @@ class EditorFrame(wx.Frame):
 			(
 				wx.ID_OPEN,
 				# Translators: A menu item in the Editor window
-				_("&Open..."),
+				_("&Open file..."),
 				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 				_("Open a new file."),
 				self.OnOpen
@@ -102,7 +102,7 @@ class EditorFrame(wx.Frame):
 			(
 				wx.ID_SAVE,
 				# Translators: A menu item in the Editor window
-				_("&Save"),
+				_("&Save file..."),
 				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 				_("Save the current file."),
 				self.OnSave
@@ -110,9 +110,9 @@ class EditorFrame(wx.Frame):
 			(
 				wx.ID_SAVEAS,
 				# Translators: A menu item in the Editor window
-				_("Save &as..."),
+				_("Change &workspace folder..."),
 				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
-				_("Save the file under a different name."),
+				_("Change workspace folder to a different folder."),
 				self.OnSaveAs
 			),
 			(
@@ -220,7 +220,7 @@ class EditorFrame(wx.Frame):
 		# dialog.Destroy()
 
 	def AskUserForFolder(self, **dialogOptions):
-		with wx.DirDialog(self, _("choice workspace direction"), defaultPath=self.dirname) as dialog:
+		with wx.DirDialog(self, _("Select workspace folder"), defaultPath=self.dirname) as dialog:
 			if dialog.ShowModal() == wx.ID_OK:
 				return dialog.GetPath()
 		# dialog.Destroy()
