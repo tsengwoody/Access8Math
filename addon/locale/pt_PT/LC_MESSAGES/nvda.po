@@ -48,6 +48,15 @@ msgstr ""
 "Pode ser visualizado online em: https://www.gnu.org/licenses/old-licenses/"
 "gpl-2.0.html"
 
+msgid "Open virtual context menu"
+msgstr "Abrir menu de contexto virtual"
+
+msgid "get path failed"
+msgstr "obter caminho falhado"
+
+msgid "Pop up the editor"
+msgstr "Mostre o editor"
+
 #. Translators: The title of the interaction window
 msgid "Access8Math interaction window"
 msgstr "Janela de interacção do Access8Math"
@@ -111,18 +120,6 @@ msgstr "Trocar o leitor de interacção matemática"
 msgid "Math interact reader switch to %s"
 msgstr "O leitor de interação matemática muda para %s"
 
-msgid "Pop up the editor"
-msgstr "Mostre o editor"
-
-msgid "Open virtual context menu"
-msgstr "Abrir menu de contexto virtual"
-
-msgid "open path failed"
-msgstr "caminho aberto falhou"
-
-msgid "get path failed"
-msgstr "obter caminho falhado"
-
 msgid "Workspace has already been cleaned"
 msgstr "O espaço de trabalho já foi limpo"
 
@@ -167,17 +164,6 @@ msgstr "&Linguagem:"
 #. Translators: The label of an option in the reading settings dialog
 msgid "Analyze mathematical meaning of content"
 msgstr "Analisar o significado matemático do conteúdo"
-
-#. Translators: The label of an option in the reading settings dialog
-msgid "Show interaction window when entering interaction navigation mode"
-msgstr ""
-"Mostrar a janela de interação ao entrar no modo de navegação de interação"
-
-#. Translators: The label of an option in the reading settings dialog
-msgid ""
-"Reading pre-defined meaning in dictionary in interaction navigation mode"
-msgstr ""
-"Ler o significado predefinido no dicionário no modo de navegação de interação"
 
 #. Translators: The label of an option in the reading settings dialog
 msgid "Reading of auto-generated meaning in interaction navigation mode"
@@ -555,35 +541,40 @@ msgid "%s - Access8Math Editor"
 msgstr "Editor de %s - Access8Math"
 
 #. Translators: A menu item in the Editor window
-msgid "&New"
-msgstr "&Novo"
+#, fuzzy
+msgid "&New editor"
+msgstr "Abrir um novo editor."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Open a new editor."
 msgstr "Abrir um novo editor."
 
 #. Translators: A menu item in the Editor window
-msgid "&Open..."
-msgstr "&Abrir..."
+#, fuzzy
+msgid "&Open file..."
+msgstr "Abrir ficheiro"
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Open a new file."
 msgstr "Abrir um novo ficheiro."
 
 #. Translators: A menu item in the Editor window
-msgid "&Save"
-msgstr "&Guardar"
+#, fuzzy
+msgid "&Save file..."
+msgstr "Guardar ficheiro..."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Save the current file."
 msgstr "Guardar o ficheiro actual."
 
 #. Translators: A menu item in the Editor window
-msgid "Save &as..."
-msgstr "Guardar &como..."
+#, fuzzy
+msgid "Change &workspace folder..."
+msgstr "&Apagar espaço de trabalho..."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
-msgid "Save the file under a different name."
+#, fuzzy
+msgid "Change workspace folder to a different folder."
 msgstr "Guardar o ficheiro com um nome diferente."
 
 #. Translators: A menu item in the Editor window
@@ -642,12 +633,13 @@ msgstr "Procurar e substituir"
 msgid "&Other"
 msgstr "&Outros"
 
+msgid "Select workspace folder"
+msgstr ""
+
 #. Translators: The title of the Editor's Open file window
 msgid "Open file"
 msgstr "Abrir ficheiro"
 
-#. Translators: The title of the Editor's Save file window
-#. Translators: The title of the Editor's Save as file window
 msgid "Save file"
 msgstr "Guardar ficheiro"
 
@@ -876,6 +868,9 @@ msgstr "editar"
 
 msgid "virtual context menu"
 msgstr "menu de contexto virtual"
+
+msgid "open path failed"
+msgstr "caminho aberto falhou"
 
 #. Translators: LaTeX command category - shortcut
 msgid "shortcut"
@@ -1495,6 +1490,28 @@ msgid ""
 msgstr ""
 "Permite aceder a conteúdos matemáticos escritos em MathML; Permite escrever "
 "conteúdos matemáticos em LaTeX"
+
+#~ msgid "Show interaction window when entering interaction navigation mode"
+#~ msgstr ""
+#~ "Mostrar a janela de interação ao entrar no modo de navegação de interação"
+
+#~ msgid ""
+#~ "Reading pre-defined meaning in dictionary in interaction navigation mode"
+#~ msgstr ""
+#~ "Ler o significado predefinido no dicionário no modo de navegação de "
+#~ "interação"
+
+#~ msgid "&New"
+#~ msgstr "&Novo"
+
+#~ msgid "&Open..."
+#~ msgstr "&Abrir..."
+
+#~ msgid "&Save"
+#~ msgstr "&Guardar"
+
+#~ msgid "Save &as..."
+#~ msgstr "Guardar &como..."
 
 #~ msgid "No help available here."
 #~ msgstr "Não há ajuda disponível aqui."

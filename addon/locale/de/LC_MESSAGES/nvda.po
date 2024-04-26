@@ -52,6 +52,15 @@ msgstr ""
 "\"Taiwan Visually Impaired People Association\" und die Autoren zu "
 "unterstützen."
 
+msgid "Open virtual context menu"
+msgstr "Virtuelles Kontextmenü öffnen"
+
+msgid "get path failed"
+msgstr "Der Pfad konnte nicht ermittelt werden"
+
+msgid "Pop up the editor"
+msgstr "Öffnet ein neues Editor-Fenster"
+
 #. Translators: The title of the interaction window
 msgid "Access8Math interaction window"
 msgstr "Access8Math-Interaktionsbereich"
@@ -115,18 +124,6 @@ msgstr "Math-Interact-Reader umschalten"
 msgid "Math interact reader switch to %s"
 msgstr "Math-Interact-Reader umgeschaltet zu %s"
 
-msgid "Pop up the editor"
-msgstr "Öffnet ein neues Editor-Fenster"
-
-msgid "Open virtual context menu"
-msgstr "Virtuelles Kontextmenü öffnen"
-
-msgid "open path failed"
-msgstr "Beim Öffnen des Pfades trat ein Fehler auf"
-
-msgid "get path failed"
-msgstr "Der Pfad konnte nicht ermittelt werden"
-
 msgid "Workspace has already been cleaned"
 msgstr "Der Arbeitsbereich wurde bereits aufgeräumt"
 
@@ -171,18 +168,6 @@ msgstr "&Sprache:"
 #. Translators: The label of an option in the reading settings dialog
 msgid "Analyze mathematical meaning of content"
 msgstr "Mathematische Inhaltsbedeutung analysieren"
-
-#. Translators: The label of an option in the reading settings dialog
-msgid "Show interaction window when entering interaction navigation mode"
-msgstr ""
-"Zeige Interaktions-Bereich beim Aktivieren des Interaktions-Navigationsmodus'"
-
-#. Translators: The label of an option in the reading settings dialog
-msgid ""
-"Reading pre-defined meaning in dictionary in interaction navigation mode"
-msgstr ""
-"Lesen der vordefinierten Bedeutung (aus dem Wörterbuch) im Interaktions-"
-"Navigationsmodus"
 
 #. Translators: The label of an option in the reading settings dialog
 msgid "Reading of auto-generated meaning in interaction navigation mode"
@@ -561,35 +546,40 @@ msgid "%s - Access8Math Editor"
 msgstr "%s - Access8Math-Editor"
 
 #. Translators: A menu item in the Editor window
-msgid "&New"
-msgstr "&Neu"
+#, fuzzy
+msgid "&New editor"
+msgstr "Öffnet ein neues Editor-Fenster."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Open a new editor."
 msgstr "Öffnet ein neues Editor-Fenster."
 
 #. Translators: A menu item in the Editor window
-msgid "&Open..."
-msgstr "Ö&ffnen..."
+#, fuzzy
+msgid "&Open file..."
+msgstr "Datei öffnen"
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Open a new file."
 msgstr "Öffnet eine neue Datei."
 
 #. Translators: A menu item in the Editor window
-msgid "&Save"
-msgstr "&Speichern"
+#, fuzzy
+msgid "&Save file..."
+msgstr "Datei speichern..."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Save the current file."
 msgstr "Speichert die aktuelle Datei."
 
 #. Translators: A menu item in the Editor window
-msgid "Save &as..."
-msgstr "Speichern &unter..."
+#, fuzzy
+msgid "Change &workspace folder..."
+msgstr "Arbeitsbereich auf&räumen..."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
-msgid "Save the file under a different name."
+#, fuzzy
+msgid "Change workspace folder to a different folder."
 msgstr "Speichert die Datei unter einem neuen Dateinamen ab."
 
 #. Translators: A menu item in the Editor window
@@ -648,12 +638,13 @@ msgstr "Suchen und Ersetzen"
 msgid "&Other"
 msgstr "&Weitere"
 
+msgid "Select workspace folder"
+msgstr ""
+
 #. Translators: The title of the Editor's Open file window
 msgid "Open file"
 msgstr "Datei öffnen"
 
-#. Translators: The title of the Editor's Save file window
-#. Translators: The title of the Editor's Save as file window
 msgid "Save file"
 msgstr "Datei speichern"
 
@@ -887,6 +878,9 @@ msgstr "Bearbeiten"
 
 msgid "virtual context menu"
 msgstr "Virtuelles Kontextmenü"
+
+msgid "open path failed"
+msgstr "Beim Öffnen des Pfades trat ein Fehler auf"
 
 #. Translators: LaTeX command category - shortcut
 msgid "shortcut"
@@ -1513,6 +1507,29 @@ msgid ""
 msgstr ""
 "Ermöglicht es, mathematische Inhalte im MathML-Format zu lesen sowie Math-ML "
 "mittels Latex zu erzeugen"
+
+#~ msgid "Show interaction window when entering interaction navigation mode"
+#~ msgstr ""
+#~ "Zeige Interaktions-Bereich beim Aktivieren des Interaktions-"
+#~ "Navigationsmodus'"
+
+#~ msgid ""
+#~ "Reading pre-defined meaning in dictionary in interaction navigation mode"
+#~ msgstr ""
+#~ "Lesen der vordefinierten Bedeutung (aus dem Wörterbuch) im Interaktions-"
+#~ "Navigationsmodus"
+
+#~ msgid "&New"
+#~ msgstr "&Neu"
+
+#~ msgid "&Open..."
+#~ msgstr "Ö&ffnen..."
+
+#~ msgid "&Save"
+#~ msgstr "&Speichern"
+
+#~ msgid "Save &as..."
+#~ msgstr "Speichern &unter..."
 
 #~ msgid "No help available here."
 #~ msgstr "Keine Hilfe hier verfügbar."

@@ -44,6 +44,15 @@ msgstr ""
 "Çevrimiçi olarak şu adresten görüntülenebilir: https://www.gnu.org/licenses/"
 "old-licenses/gpl-2.0.html"
 
+msgid "Open virtual context menu"
+msgstr "Sanal bağlam menüsünü aç"
+
+msgid "get path failed"
+msgstr "yol alınamadı"
+
+msgid "Pop up the editor"
+msgstr "Düzenleyiciyi aç"
+
 #. Translators: The title of the interaction window
 msgid "Access8Math interaction window"
 msgstr "Access8Math etkileşim penceresi"
@@ -107,18 +116,6 @@ msgstr "Matematik etkileşimli okuyucuyu değiştir"
 msgid "Math interact reader switch to %s"
 msgstr "Matematik etkileşimli okuyucu geçişi %s"
 
-msgid "Pop up the editor"
-msgstr "Düzenleyiciyi aç"
-
-msgid "Open virtual context menu"
-msgstr "Sanal bağlam menüsünü aç"
-
-msgid "open path failed"
-msgstr "açık yol başarısız"
-
-msgid "get path failed"
-msgstr "yol alınamadı"
-
 msgid "Workspace has already been cleaned"
 msgstr "Çalışma alanı temizlendi"
 
@@ -163,15 +160,6 @@ msgstr "Di&l:"
 #. Translators: The label of an option in the reading settings dialog
 msgid "Analyze mathematical meaning of content"
 msgstr "İçeriğin matematiksel anlamını analiz et"
-
-#. Translators: The label of an option in the reading settings dialog
-msgid "Show interaction window when entering interaction navigation mode"
-msgstr "Etkileşim gezinme moduna girerken etkileşim penceresini göster"
-
-#. Translators: The label of an option in the reading settings dialog
-msgid ""
-"Reading pre-defined meaning in dictionary in interaction navigation mode"
-msgstr "Etkileşim gezinme modunda sözlükte önceden tanımlanmış anlamı oku"
 
 #. Translators: The label of an option in the reading settings dialog
 msgid "Reading of auto-generated meaning in interaction navigation mode"
@@ -544,35 +532,40 @@ msgid "%s - Access8Math Editor"
 msgstr "%s - Access8Math Düzenleyicisi"
 
 #. Translators: A menu item in the Editor window
-msgid "&New"
-msgstr "Ye&ni"
+#, fuzzy
+msgid "&New editor"
+msgstr "Yeni bir düzenleyici açın."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Open a new editor."
 msgstr "Yeni bir düzenleyici açın."
 
 #. Translators: A menu item in the Editor window
-msgid "&Open..."
-msgstr "&Aç..."
+#, fuzzy
+msgid "&Open file..."
+msgstr "Dosya aç"
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Open a new file."
 msgstr "Yeni bir dosya açın."
 
 #. Translators: A menu item in the Editor window
-msgid "&Save"
-msgstr "&Kaydet"
+#, fuzzy
+msgid "&Save file..."
+msgstr "Dosyayı kaydet..."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Save the current file."
 msgstr "Geçerli dosyayı kaydedin."
 
 #. Translators: A menu item in the Editor window
-msgid "Save &as..."
-msgstr "F&arklı kaydet..."
+#, fuzzy
+msgid "Change &workspace folder..."
+msgstr "Çalışma Alanı'nı &Temizle..."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
-msgid "Save the file under a different name."
+#, fuzzy
+msgid "Change workspace folder to a different folder."
 msgstr "Dosyayı farklı bir adla kaydedin."
 
 #. Translators: A menu item in the Editor window
@@ -631,12 +624,13 @@ msgstr "Bul ve Değiştir"
 msgid "&Other"
 msgstr "&Diğer"
 
+msgid "Select workspace folder"
+msgstr ""
+
 #. Translators: The title of the Editor's Open file window
 msgid "Open file"
 msgstr "Dosya aç"
 
-#. Translators: The title of the Editor's Save file window
-#. Translators: The title of the Editor's Save as file window
 msgid "Save file"
 msgstr "Dosyayı kaydet"
 
@@ -862,6 +856,9 @@ msgstr "düzenle"
 
 msgid "virtual context menu"
 msgstr "sanal bağlam menüsü"
+
+msgid "open path failed"
+msgstr "açık yol başarısız"
 
 #. Translators: LaTeX command category - shortcut
 msgid "shortcut"
@@ -1481,6 +1478,25 @@ msgid ""
 msgstr ""
 "MathML ile yazılan matematik içeriğine erişime sağlar ve LaTeX ile matematik "
 "içeriği oluşturmaya izin verir"
+
+#~ msgid "Show interaction window when entering interaction navigation mode"
+#~ msgstr "Etkileşim gezinme moduna girerken etkileşim penceresini göster"
+
+#~ msgid ""
+#~ "Reading pre-defined meaning in dictionary in interaction navigation mode"
+#~ msgstr "Etkileşim gezinme modunda sözlükte önceden tanımlanmış anlamı oku"
+
+#~ msgid "&New"
+#~ msgstr "Ye&ni"
+
+#~ msgid "&Open..."
+#~ msgstr "&Aç..."
+
+#~ msgid "&Save"
+#~ msgstr "&Kaydet"
+
+#~ msgid "Save &as..."
+#~ msgstr "F&arklı kaydet..."
 
 #~ msgid "No help available here."
 #~ msgstr "Burada yardım yok."
