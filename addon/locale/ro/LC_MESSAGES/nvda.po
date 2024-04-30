@@ -52,6 +52,15 @@ msgstr ""
 "acordați sprijin „Asociației persoanelor cu deficiențe de vedere din Taiwan” "
 "și autorilor."
 
+msgid "Open virtual context menu"
+msgstr "Deschideți meniul contextual virtual"
+
+msgid "get path failed"
+msgstr "obținere cale eșuată"
+
+msgid "Pop up the editor"
+msgstr "Afișează editorul"
+
 #. Translators: The title of the interaction window
 msgid "Access8Math interaction window"
 msgstr "Fereastra de interacțiune Access8Math"
@@ -115,18 +124,6 @@ msgstr "Comutare cititor de interacțiune matematică"
 msgid "Math interact reader switch to %s"
 msgstr "Cititor de interacțiune matematică comutăt la %s"
 
-msgid "Pop up the editor"
-msgstr "Afișează editorul"
-
-msgid "Open virtual context menu"
-msgstr "Deschideți meniul contextual virtual"
-
-msgid "open path failed"
-msgstr "deschidere cale eșuată"
-
-msgid "get path failed"
-msgstr "obținere cale eșuată"
-
 msgid "Workspace has already been cleaned"
 msgstr "Spațiul de lucru a fost deja curățat"
 
@@ -171,18 +168,6 @@ msgstr "&Limbăj:"
 #. Translators: The label of an option in the reading settings dialog
 msgid "Analyze mathematical meaning of content"
 msgstr "Analizați sensul matematic al conținutului"
-
-#. Translators: The label of an option in the reading settings dialog
-msgid "Show interaction window when entering interaction navigation mode"
-msgstr ""
-"Afișați fereastra de interacțiune când intrați în modul de navigare "
-"interacțiune"
-
-#. Translators: The label of an option in the reading settings dialog
-msgid ""
-"Reading pre-defined meaning in dictionary in interaction navigation mode"
-msgstr ""
-"Citirea sensului predefinit în dicționar în modul de navigare interacțiune"
 
 #. Translators: The label of an option in the reading settings dialog
 msgid "Reading of auto-generated meaning in interaction navigation mode"
@@ -560,35 +545,40 @@ msgid "%s - Access8Math Editor"
 msgstr "Editor %s - Access8Math"
 
 #. Translators: A menu item in the Editor window
-msgid "&New"
-msgstr "&Nou"
+#, fuzzy
+msgid "&New editor"
+msgstr "Deschideți un nou editor."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Open a new editor."
 msgstr "Deschideți un nou editor."
 
 #. Translators: A menu item in the Editor window
-msgid "&Open..."
-msgstr "&Deschideți..."
+#, fuzzy
+msgid "&Open file..."
+msgstr "Deschidere fișier"
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Open a new file."
 msgstr "Deschideți un fișier nou."
 
 #. Translators: A menu item in the Editor window
-msgid "&Save"
-msgstr "&Salvați"
+#, fuzzy
+msgid "&Save file..."
+msgstr "Salvare fişier..."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Save the current file."
 msgstr "Salvați fișierul curent."
 
 #. Translators: A menu item in the Editor window
-msgid "Save &as..."
-msgstr "Salvare &ca..."
+#, fuzzy
+msgid "Change &workspace folder..."
+msgstr "&Curățare spațiu de lucru..."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
-msgid "Save the file under a different name."
+#, fuzzy
+msgid "Change workspace folder to a different folder."
 msgstr "Salvați fișierul sub alt nume."
 
 #. Translators: A menu item in the Editor window
@@ -647,12 +637,13 @@ msgstr "Găsire și înlocuire"
 msgid "&Other"
 msgstr "&Altele"
 
+msgid "Select workspace folder"
+msgstr ""
+
 #. Translators: The title of the Editor's Open file window
 msgid "Open file"
 msgstr "Deschidere fișier"
 
-#. Translators: The title of the Editor's Save file window
-#. Translators: The title of the Editor's Save as file window
 msgid "Save file"
 msgstr "Salvare fișier"
 
@@ -881,6 +872,9 @@ msgstr "editare"
 
 msgid "virtual context menu"
 msgstr "meniul contextual virtual"
+
+msgid "open path failed"
+msgstr "deschidere cale eșuată"
 
 #. Translators: LaTeX command category - shortcut
 msgid "shortcut"
@@ -1507,6 +1501,28 @@ msgid ""
 msgstr ""
 "Permite accesul la conținut matematic scris de MathML; Permite scrierea "
 "conținutului matematic prin LaTeX"
+
+#~ msgid "Show interaction window when entering interaction navigation mode"
+#~ msgstr ""
+#~ "Afișați fereastra de interacțiune când intrați în modul de navigare "
+#~ "interacțiune"
+
+#~ msgid ""
+#~ "Reading pre-defined meaning in dictionary in interaction navigation mode"
+#~ msgstr ""
+#~ "Citirea sensului predefinit în dicționar în modul de navigare interacțiune"
+
+#~ msgid "&New"
+#~ msgstr "&Nou"
+
+#~ msgid "&Open..."
+#~ msgstr "&Deschideți..."
+
+#~ msgid "&Save"
+#~ msgstr "&Salvați"
+
+#~ msgid "Save &as..."
+#~ msgstr "Salvare &ca..."
 
 #~ msgid "No help available here."
 #~ msgstr "Nu există ajutor disponibil aici."
