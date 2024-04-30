@@ -281,31 +281,31 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 		self.speechUnicodeDictionary = l10nMenu.Append(
 			wx.ID_ANY,
-			_("Speech &unicode dictionary...")
+			_("Symbol Speech Dictionary...")
 		)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onSpeechUnicodeDictionary, self.speechUnicodeDictionary)
 
 		self.speechMathRule = l10nMenu.Append(
 			wx.ID_ANY,
-			_("Speech &math rule...")
+			_("Math Rules Speech Output...")
 		)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onSpeechMathRule, self.speechMathRule)
 
 		self.brailleUnicodeDictionary = l10nMenu.Append(
 			wx.ID_ANY,
-			_("Braille &unicode dictionary...")
+			_("Symbol Braille Dictionary...")
 		)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onBrailleUnicodeDictionary, self.brailleUnicodeDictionary)
 
 		self.brailleMathRule = l10nMenu.Append(
 			wx.ID_ANY,
-			_("Braille &math rule...")
+			_("Math Rules Braille Output...")
 		)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onBrailleMathRule, self.brailleMathRule)
 
 		self.newLanguageAdding = l10nMenu.Append(
 			wx.ID_ANY,
-			_("&New language adding...")
+			_("Add New Language...")
 		)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onNewLanguageAdding, self.newLanguageAdding)
 

@@ -13,8 +13,8 @@ addonHandler.initTranslation()
 PATH = os.path.dirname(__file__)
 
 wildcard = \
-"Text (*.txt)|*.txt|"\
 "archive (*.zip)|*.zip|"\
+"Text (*.txt)|*.txt|"\
 "All (*.*)|*.*"
 
 
@@ -51,8 +51,9 @@ class EditorFrame(wx.Frame):
 		else:
 			self.ad = Access8MathDocument(path)
 
-		self.filename = os.path.basename(self.ad.raw_entry)
+		self.filename = self.ad.raw_entry
 		self.dirname = self.ad.raw_folder
+		self.title = self.ad.raw_entry
 		self.SetTitle()
 		with open(os.path.join(self.dirname, self.filename), 'r', encoding='utf-8') as file:
 			self.control.SetValue(file.read())
@@ -62,7 +63,7 @@ class EditorFrame(wx.Frame):
 
 	def SetTitle(self):
 		# Translators: The title of the Editor window
-		super(EditorFrame, self).SetTitle(_("%s - Access8Math Editor") % self.filename)
+		super(EditorFrame, self).SetTitle(_("%s - Access8Math Editor") % self.title)
 
 	def CreateInteriorWindowComponents(self):
 		self.control = wx.TextCtrl(self, -1, value="", style=wx.TE_MULTILINE)
@@ -114,6 +115,14 @@ class EditorFrame(wx.Frame):
 				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 				_("Change workspace folder to a different folder."),
 				self.OnSaveAs
+			),
+			(
+				-1,
+				# Translators: A menu item in the Editor window
+				_("Set &Title..."),
+				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+				_("Set title"),
+				self.OnSetTitle
 			),
 			(
 				wx.ID_EXIT,
@@ -249,43 +258,56 @@ class EditorFrame(wx.Frame):
 
 	def OnSaveAs(self, event):
 			path = self.AskUserForFolder(message=_("Save file"), style=wx.FD_SAVE, **self.DefaultFileDialogOptions())
-			print(path)
 			if path:
 				self.ad.raw_folder = path
-				print(self.ad.raw_entry)
-				with open(self.ad.raw_entry, 'w', encoding='utf-8') as file:
+				with open(os.path.join(self.ad.raw_folder, self.ad.raw_entry), 'w', encoding='utf-8') as file:
 					file.write(self.control.GetValue())
-				self.path = self.ad.raw_entry
+				self.path = os.path.join(self.ad.raw_folder, self.ad.raw_entry)
 				self.modify = False
 				return True
 			else:
 				return False
 
+	def OnSetTitle(self, event):
+		with SetTitleDialog(parent=self, value=self.title) as dialog:
+			if dialog.ShowModal() == wx.ID_OK:
+				src = self.title
+				dst = self.title = dialog.GetValue()
+				self.ad.rename(src, dst)
+				self.SetTitle()
+
 	def OnExit(self, event):
 		if self.modify:
-			# Translators: The name of the document in the Editor when it has never been saved to a file
-			if self.ad.temp:
-				path = ' "' + self.filename + '"'
-			else:
-				path = ' "' + os.path.join(self.dirname, self.filename) + '"'
 			val = gui.messageBox(
 				# Translators: The message displayed
-				_("Save file{path}?").format(path=path),
+				_("The content in the editor has been modified since the last save, do you want to save and exit it?"),
 				# Translators: The title of the dialog
-				_("Save"),
+				_("Exit"),
 				wx.YES_NO | wx.YES_DEFAULT | wx.CANCEL | wx.ICON_QUESTION, self
 			)
 			if val == wx.YES:
-				result = self.OnSave(event)
-				if result:
+				with open(os.path.join(self.dirname, self.filename), 'w', encoding='utf-8') as file:
+					file.write(self.control.GetValue())
+				self.modify = False
+				if self.ad.temp:
+					result = self.OnSave(event)
+					if result:
+						self.Destroy()
+						return
+					else:
+						return
+				else:
 					self.Destroy()
 			elif val == wx.NO:
 				self.Destroy()
+				return
+			elif val == wx.CANCEL:
+				return
 		else:
 			self.Destroy()
+			return
 
 	def OnPreview(self, event):
-		save_result = False
 		if self.modify:
 			val = gui.messageBox(
 				# Translators: The message displayed
@@ -298,45 +320,31 @@ class EditorFrame(wx.Frame):
 				with open(os.path.join(self.dirname, self.filename), 'w', encoding='utf-8') as file:
 					file.write(self.control.GetValue())
 				self.modify = False
-				save_result = True
 			elif val == wx.NO:
-				save_result = True
+				pass
 			elif val == wx.CANCEL:
 				return
-		else:
-			save_result = True
-
-		if not save_result:
-			return
 
 		self.ad.raw2review()
 		os.startfile(os.path.join(self.ad.review_entry))
 
 	def OnExport(self, event):
-		save_result = False
-		# Translators: The name of the document in the Editor when it has never been saved to a file
-		if self.ad.temp:
-			save_result = self.OnSave(event)
-		else:
-			if self.modify:
-				val = gui.messageBox(
-					# Translators: The message displayed
-					_("Export will only include the saved content. The content in the editor has been modified since the last save, do you want to save and export it?"),
-					# Translators: The title of the dialog
-					_("Export"),
-					wx.YES_NO | wx.YES_DEFAULT | wx.CANCEL | wx.ICON_QUESTION, self
-				)
-				if val == wx.YES:
-					save_result = self.OnSave(event)
-				elif val == wx.NO:
-					save_result = True
-				elif val == wx.CANCEL:
-					return
-			else:
-				save_result = True
-
-		if not save_result:
-			return
+		if self.modify:
+			val = gui.messageBox(
+				# Translators: The message displayed
+				_("Export will only include the saved content. The content in the editor has been modified since the last save, do you want to save and export it?"),
+				# Translators: The title of the dialog
+				_("Export"),
+				wx.YES_NO | wx.YES_DEFAULT | wx.CANCEL | wx.ICON_QUESTION, self
+			)
+			if val == wx.YES:
+				with open(os.path.join(self.dirname, self.filename), 'w', encoding='utf-8') as file:
+					file.write(self.control.GetValue())
+				self.modify = False
+			elif val == wx.NO:
+				pass
+			elif val == wx.CANCEL:
+				return
 
 		self.ad.raw2review()
 		with wx.FileDialog(
@@ -488,3 +496,8 @@ class Hotkey(object):
 		except KeyError:
 			self.key_down.clear()
 		event.Skip()
+
+
+class SetTitleDialog(wx.TextEntryDialog):
+	def __init__(self, parent, message=_("enter document title"), value=""):
+		super().__init__(parent=parent,message=message, value=value)

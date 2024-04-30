@@ -57,7 +57,7 @@ class Access8MathDocument:
 			self._raw_folder = path
 			metadata_file = os.path.join(path, 'Access8Math.json')
 			metadata = json.load(open(metadata_file))
-			self.raw_entry = os.path.join(path, metadata["entry"])
+			self.raw_entry = metadata["entry"]
 		elif os.path.isfile(path):
 			file = os.path.basename(path)
 			ext = file.split('.')[-1]
@@ -70,10 +70,10 @@ class Access8MathDocument:
 					file.extractall(self.raw_folder)
 				metadata_file = os.path.join(self.raw_folder, 'Access8Math.json')
 				metadata = json.load(open(metadata_file))
-				self.raw_entry = os.path.join(self.raw_folder, metadata["entry"])
+				self.raw_entry = metadata["entry"]
 			else:
 				self._raw_folder = os.path.dirname(path)
-				self.raw_entry = path
+				self.raw_entry = os.path.basename(path)
 
 		self.review_folder = os.path.join(PATH, 'web', 'workspace', 'review')
 
@@ -95,12 +95,11 @@ class Access8MathDocument:
 		rawIntoReview(self.raw_folder, path, self.resources)
 
 		shutil.copyfile(
-			os.path.join(self.raw_folder, os.path.basename(self.raw_entry)),
-			os.path.join(path, os.path.basename(self.raw_entry)),
+			os.path.join(self.raw_folder, self.raw_entry),
+			os.path.join(path, self.raw_entry),
 		)
 
 		self._raw_folder = path
-		self.raw_entry= os.path.join(path, os.path.basename(self.raw_entry))
 		self.temp = False
 
 	@property
@@ -109,7 +108,7 @@ class Access8MathDocument:
 
 	@property
 	def resources(self):
-		with io.open(self.raw_entry, 'r', encoding='utf8') as f:
+		with io.open(os.path.join(self.raw_folder, self.raw_entry), 'r', encoding='utf8') as f:
 			content = f.read()
 		contentmd = markdown2.markdown(content)
 
@@ -131,6 +130,16 @@ class Access8MathDocument:
 
 		return resources
 
+	def rename(self, src, dst):
+		_src = os.path.join(self.raw_folder, src)
+		_dst = os.path.join(self.raw_folder, dst)
+		if os.path.isfile(_src):
+			os.rename(_src, _dst)
+		else:
+			raise OSError("src path is not file")
+		if src == self.raw_entry:
+			self.raw_entry = dst
+
 	def raw2review(self):
 		try:
 			shutil.rmtree(self.review_folder)
@@ -144,8 +153,8 @@ class Access8MathDocument:
 		rawIntoReview(self.raw_folder, self.review_folder, self.resources)
 
 		shutil.copyfile(
-			os.path.join(self.raw_folder, os.path.basename(self.raw_entry)),
-			os.path.join(self.review_folder, os.path.basename(self.raw_entry)),
+			os.path.join(self.raw_folder, self.raw_entry),
+			os.path.join(self.review_folder, self.raw_entry),
 		)
 
 		template_folder = os.path.join(PATH, 'web', 'templates')
@@ -159,8 +168,8 @@ class Access8MathDocument:
 				except BaseException:
 					name = ''
 					extend = ''
-				if os.path.isfile(item) and (extend in ['txt'] or os.path.basename(item) == os.path.basename(self.raw_entry)):
-					if os.path.basename(item) == os.path.basename(self.raw_entry):
+				if os.path.isfile(item) and (extend in ['txt'] or os.path.basename(item) == self.raw_entry):
+					if os.path.basename(item) == self.raw_entry:
 						text2template(src=item, dst=os.path.join(os.path.dirname(item), "content-config.js"))
 					else:
 						text2template(src=item, dst=os.path.join(os.path.dirname(item), '{}.html'.format(name)))
@@ -169,7 +178,7 @@ class Access8MathDocument:
 			zip_file.extractall(self.review_folder)
 
 		metadata = {
-			"entry": os.path.basename(self.raw_entry),
+			"entry": self.raw_entry,
 		}
 		dst = os.path.join(self.review_folder, 'Access8Math.json')
 		with open(dst, 'w', encoding='utf8') as f:
@@ -205,7 +214,10 @@ def text2template(src, dst):
 	value = hexadecimal_pattern.sub(lambda m: chr(int(m.group(1), 16)), value)
 
 	try:
-		title = '.'.join(os.path.basename(src).split('.')[:-1])
+		name = os.path.basename(src).split('.')
+		if len(name) > 1:
+			name = name[:-1]
+		title = '.'.join(name)
 	except BaseException:
 		title = 'Access8Math'
 

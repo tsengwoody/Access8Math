@@ -479,15 +479,20 @@ class AddSymbolDialog(
 
 
 class UnicodeDicDialog(SettingsDialog):
-	helpId = "SymbolPronunciation"
-
 	def __init__(self, parent, Access8MathConfig, language, category='speech'):
 		self.Access8MathConfig = Access8MathConfig
 		self.language = language
 		self.category = category
 
-		# Translators: This is the label for the unicode dictionary dialog.
-		self.title = _("{category} unicode dictionary ({language})").format(language=self.language, category=category)
+		if category == "speech":
+			title = _("Symbol Speech Dictionary")
+		elif category == "braille":
+			title = _("Symbol Braille Dictionary")
+
+		self.title = _("{title} ({language})").format(
+			language=languageHandler.getLanguageDescription(self.language),
+			title=title,
+		)
 
 		self.A8M_symbol = A8M_PM.load_unicode_dic(language=self.language, category=self.category)
 
@@ -901,8 +906,15 @@ class MathRuleDialog(SettingsDialog):
 		self.language = language
 		self.category = category
 
-		# Translators: This is the title of the math rule dialog.
-		self.title = _("{category} math rule ({language})").format(language=self.language, category=category)
+		if category == "speech":
+			title = _("Math Rules Speech Output")
+		elif category == "braille":
+			title = _("Math Rules Braille Output")
+
+		self.title = _("{title} ({language})").format(
+			language=languageHandler.getLanguageDescription(self.language),
+			title=title,
+		)
 
 		self.A8M_mathrule = A8M_PM.load_math_rule(language=self.language, category=self.category)
 		self.mathrules = [(k, v) for k, v in self.A8M_mathrule.items() if k not in ['node', 'none']]

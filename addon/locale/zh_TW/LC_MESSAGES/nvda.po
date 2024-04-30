@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Access8Math - 4.0\n"
+"Project-Id-Version: Access8Math - 4.1\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2024-04-14 21:54+0800\n"
-"PO-Revision-Date: 2024-04-14 21:59+0800\n"
+"POT-Creation-Date: 2024-04-30 22:02+0800\n"
+"PO-Revision-Date: 2024-04-30 22:04+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_TW\n"
@@ -36,9 +36,9 @@ msgstr ""
 "版本： {addonVersion}\n"
 "URL: https://addons.nvda-project.org/addons/access8math.en.html\n"
 "版權 (C) {copyrightFirstYear}-{copyrightLastYear} Access8Math 的貢獻者\n"
-"Access8Math 受 GNU 通用公共授權條款第二版所規範。您可以自由分享或以任何方式"
-"修改本軟體，前提是發布時必需包含該許可證，同時公開原版與修改版的原始碼，並加"
-"上任何用本軟體的原始碼所創造的軟體。\n"
+"Access8Math 受 GNU 通用公共授權條款第二版所規範。您可以自由分享或以任何方式修"
+"改本軟體，前提是發布時必需包含該許可證，同時公開原版與修改版的原始碼，並加上"
+"任何用本軟體的原始碼所創造的軟體。\n"
 "此項許可證可以在此網站查看：https：//www.gnu.org/licenses/old-licenses/"
 "gpl-2.0.html"
 
@@ -69,24 +69,24 @@ msgid "&Settings..."
 msgstr "設定(&S)..."
 
 #: addon\globalPlugins\Access8Math\__init__.py:284
-msgid "Speech &unicode dictionary..."
-msgstr "語音 &unicode 字典..."
+msgid "Symbol Speech Dictionary..."
+msgstr "符號語音字典..."
 
 #: addon\globalPlugins\Access8Math\__init__.py:290
-msgid "Speech &math rule..."
-msgstr "語音數學規則(&m)..."
+msgid "Math Rules Speech Output..."
+msgstr "數學規則語音輸出..."
 
 #: addon\globalPlugins\Access8Math\__init__.py:296
-msgid "Braille &unicode dictionary..."
-msgstr "點字 &unicode 字典..."
+msgid "Symbol Braille Dictionary..."
+msgstr "符號點字字典..."
 
 #: addon\globalPlugins\Access8Math\__init__.py:302
-msgid "Braille &math rule..."
-msgstr "點字數學規則(&m)..."
+msgid "Math Rules Braille Output..."
+msgstr "數學規則點字輸出..."
 
 #: addon\globalPlugins\Access8Math\__init__.py:308
-msgid "&New language adding..."
-msgstr "加入新語言(&N)"
+msgid "Add New Language..."
+msgstr "加入新語言..."
 
 #: addon\globalPlugins\Access8Math\__init__.py:314
 msgid "&Localization"
@@ -191,7 +191,7 @@ msgstr "閱讀"
 
 #. Translators: The label of a setting in the Add new language dialog
 #: addon\globalPlugins\Access8Math\dialogs.py:130
-#: addon\globalPlugins\Access8Math\dialogs.py:1091
+#: addon\globalPlugins\Access8Math\dialogs.py:1103
 msgid "&Language:"
 msgstr "語言(&L)"
 
@@ -336,7 +336,7 @@ msgstr "HTML 背景顏色："
 #. Translators: Title of a setting dialog.
 #. Translators: The label for a math rule list column header in the math rules dialog.
 #: addon\globalPlugins\Access8Math\dialogs.py:322
-#: addon\globalPlugins\Access8Math\dialogs.py:920
+#: addon\globalPlugins\Access8Math\dialogs.py:932
 msgid "Rule"
 msgstr "規則"
 
@@ -440,217 +440,227 @@ msgstr "加入符號"
 msgid "&Symbol:"
 msgstr "符號(&S):"
 
-#. Translators: This is the label for the unicode dictionary dialog.
+#: addon\globalPlugins\Access8Math\dialogs.py:488
+msgid "Symbol Speech Dictionary"
+msgstr "符號語音字典"
+
 #: addon\globalPlugins\Access8Math\dialogs.py:490
+msgid "Symbol Braille Dictionary"
+msgstr "符號點字字典"
+
+#: addon\globalPlugins\Access8Math\dialogs.py:492
+#: addon\globalPlugins\Access8Math\dialogs.py:914
 #, python-brace-format
-msgid "{category} unicode dictionary ({language})"
-msgstr "{category} Unicode 字典 ({language})"
+msgid "{title} ({language})"
+msgstr "{title} ({language})"
 
 #. Translators: The label of a text field to search for symbols in the speech symbols dialog.
-#: addon\globalPlugins\Access8Math\dialogs.py:505
+#: addon\globalPlugins\Access8Math\dialogs.py:510
 msgctxt "speechSymbols"
 msgid "&Filter by:"
 msgstr "篩選(&F):"
 
 #. Translators: The label for symbols list in symbol pronunciation dialog.
-#: addon\globalPlugins\Access8Math\dialogs.py:514
+#: addon\globalPlugins\Access8Math\dialogs.py:519
 msgid "&Symbols"
 msgstr "符號(&S)"
 
 #. Translators: The label for a column in symbols list used to identify a symbol.
-#: addon\globalPlugins\Access8Math\dialogs.py:524
+#: addon\globalPlugins\Access8Math\dialogs.py:529
 msgid "Symbol"
 msgstr "符號"
 
 #. Translators: The label for a column in symbols list used to identify a replacement.
-#: addon\globalPlugins\Access8Math\dialogs.py:526
+#: addon\globalPlugins\Access8Math\dialogs.py:531
 msgid "Replacement"
 msgstr "替代文字"
 
 #. Translators: The label for the group of controls in symbol pronunciation dialog to change the pronunciation of a symbol.
-#: addon\globalPlugins\Access8Math\dialogs.py:530
+#: addon\globalPlugins\Access8Math\dialogs.py:535
 msgid "Change selected symbol"
 msgstr "修改選擇符號"
 
 #. Translators: The label for the edit field in symbol pronunciation dialog to change the replacement text of a symbol.
-#: addon\globalPlugins\Access8Math\dialogs.py:547
+#: addon\globalPlugins\Access8Math\dialogs.py:552
 msgid "&Replacement"
 msgstr "替代文字(&R)"
 
 #. Translators: The label for a button in the Symbol Pronunciation dialog to add a new symbol.
-#: addon\globalPlugins\Access8Math\dialogs.py:557
+#: addon\globalPlugins\Access8Math\dialogs.py:562
 msgid "&Add"
 msgstr "加入(&A)"
 
 #. Translators: The label for a button in the Symbol Pronunciation dialog to remove a symbol.
-#: addon\globalPlugins\Access8Math\dialogs.py:560
+#: addon\globalPlugins\Access8Math\dialogs.py:565
 msgid "Re&move"
 msgstr "移除(&M)"
 
 #. Translators: The label for a button to restore default value.
-#: addon\globalPlugins\Access8Math\dialogs.py:564
-#: addon\globalPlugins\Access8Math\dialogs.py:951
+#: addon\globalPlugins\Access8Math\dialogs.py:569
+#: addon\globalPlugins\Access8Math\dialogs.py:963
 msgid "&Restore default"
 msgstr "還原預設值(&R)"
 
 #. Translators: The label for a button to import unicode.dic.
 #. Translators: The label for a button to import math.rule.
-#: addon\globalPlugins\Access8Math\dialogs.py:567
-#: addon\globalPlugins\Access8Math\dialogs.py:954
+#: addon\globalPlugins\Access8Math\dialogs.py:572
+#: addon\globalPlugins\Access8Math\dialogs.py:966
 msgid "&Import"
 msgstr "匯入(&I)"
 
 #. Translators: The label for a button to export unicode.dic.
 #. Translators: The label for a button to export math.rule.
-#: addon\globalPlugins\Access8Math\dialogs.py:570
-#: addon\globalPlugins\Access8Math\dialogs.py:957
+#: addon\globalPlugins\Access8Math\dialogs.py:575
+#: addon\globalPlugins\Access8Math\dialogs.py:969
 msgid "Exp&ort"
 msgstr "匯出(&o)"
 
 #. Translators: An error reported in the Symbol Pronunciation dialog when adding a symbol that is already present.
-#: addon\globalPlugins\Access8Math\dialogs.py:666
+#: addon\globalPlugins\Access8Math\dialogs.py:671
 #, python-format
 msgid "Symbol \"%s\" is already present."
 msgstr "符號 \"%s\" 已存在。"
 
 #. Translators: The title of the error message window showing up when adding a symbol that is already present in the Symbol Pronunciation dialog .
-#: addon\globalPlugins\Access8Math\dialogs.py:668
+#: addon\globalPlugins\Access8Math\dialogs.py:673
 msgid "Error"
 msgstr "錯誤"
 
 #. Translators: The title of the import file dialog accessible from the Symbol Pronunciation dialog.
 #. Translators: The title of the file selection dialog to import rules
-#: addon\globalPlugins\Access8Math\dialogs.py:770
-#: addon\globalPlugins\Access8Math\dialogs.py:1033
+#: addon\globalPlugins\Access8Math\dialogs.py:775
+#: addon\globalPlugins\Access8Math\dialogs.py:1045
 msgid "Import file..."
 msgstr "匯入檔案..."
 
 #. Translators: The title of the file selection dialog to export rules
 #. Translators: The title of the Editor's Export file window
-#: addon\globalPlugins\Access8Math\dialogs.py:781
-#: addon\globalPlugins\Access8Math\dialogs.py:1046
-#: addon\globalPlugins\Access8Math\editor.py:344
+#: addon\globalPlugins\Access8Math\dialogs.py:786
+#: addon\globalPlugins\Access8Math\dialogs.py:1058
+#: addon\globalPlugins\Access8Math\editor.py:352
 msgid "Export file..."
 msgstr "匯出檔案..."
 
-#: addon\globalPlugins\Access8Math\dialogs.py:797
+#: addon\globalPlugins\Access8Math\dialogs.py:802
 msgid "Edit Math Rule Entry"
 msgstr "編輯數學規則條目"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:805
 #: addon\globalPlugins\Access8Math\dialogs.py:810
+#: addon\globalPlugins\Access8Math\dialogs.py:815
 msgid "&Description"
 msgstr "描述(&D)"
 
 #. Translators: The label for a math rule list column header in the math rules dialog.
-#: addon\globalPlugins\Access8Math\dialogs.py:807
-#: addon\globalPlugins\Access8Math\dialogs.py:922
+#: addon\globalPlugins\Access8Math\dialogs.py:812
+#: addon\globalPlugins\Access8Math\dialogs.py:934
 msgid "Description"
 msgstr "描述"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:816
+#: addon\globalPlugins\Access8Math\dialogs.py:821
 msgid "Serialized ordering"
 msgstr "序列化順序"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:819
+#: addon\globalPlugins\Access8Math\dialogs.py:824
 #, python-format
 msgid "Ordering %d"
 msgstr "順序 %d"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:822
+#: addon\globalPlugins\Access8Math\dialogs.py:827
 msgid "Child"
 msgstr "子節點"
 
 #. before item
-#: addon\globalPlugins\Access8Math\dialogs.py:828
+#: addon\globalPlugins\Access8Math\dialogs.py:833
 #, python-format
 msgid "Before item text &%d"
 msgstr "項目前文字 &%d"
 
 #. after item
-#: addon\globalPlugins\Access8Math\dialogs.py:833
+#: addon\globalPlugins\Access8Math\dialogs.py:838
 #, python-format
 msgid "After item text &%d"
 msgstr "項目後文字 &%d"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:839
+#: addon\globalPlugins\Access8Math\dialogs.py:844
 #, python-format
 msgid "Start text &%d"
 msgstr "開始文字 &%d"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:841
+#: addon\globalPlugins\Access8Math\dialogs.py:846
 #, python-format
 msgid "End text &%d"
 msgstr "結束文字 &%d"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:843
+#: addon\globalPlugins\Access8Math\dialogs.py:848
 #, python-format
 msgid "&Interval text &%d"
 msgstr "項目間文字 &%d"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:851
+#: addon\globalPlugins\Access8Math\dialogs.py:856
 msgid "Child role"
 msgstr "子節點角色"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:854
+#: addon\globalPlugins\Access8Math\dialogs.py:859
 #, python-format
 msgid "&Child %d meaning"
 msgstr "子節點 %d 意義(&C)"
 
 #. Translators: This is an error message to let the user know that the dictionary entry is not valid.
-#: addon\globalPlugins\Access8Math\dialogs.py:893
+#: addon\globalPlugins\Access8Math\dialogs.py:898
 #, python-format
 msgid "Regular Expression error: \"%s\"."
 msgstr "正規表達式錯誤： \"%s\"。"
 
-#: addon\globalPlugins\Access8Math\dialogs.py:893
+#: addon\globalPlugins\Access8Math\dialogs.py:898
 msgid "Dictionary Entry Error"
 msgstr "字典條目錯誤"
 
-#. Translators: This is the title of the math rule dialog.
-#: addon\globalPlugins\Access8Math\dialogs.py:905
-#, python-brace-format
-msgid "{category} math rule ({language})"
-msgstr "{category} 數學規則 ({language})"
+#: addon\globalPlugins\Access8Math\dialogs.py:910
+msgid "Math Rules Speech Output"
+msgstr "數學規則語音輸出"
+
+#: addon\globalPlugins\Access8Math\dialogs.py:912
+msgid "Math Rules Braille Output"
+msgstr "數學規則點字輸出"
 
 #. Translators: The label for math rule list in math rules dialog.
-#: addon\globalPlugins\Access8Math\dialogs.py:915
+#: addon\globalPlugins\Access8Math\dialogs.py:927
 msgid "&Mathrules"
 msgstr "數學規則(&M)"
 
 #. Translators: The label for a button to edit math rule.
-#: addon\globalPlugins\Access8Math\dialogs.py:943
+#: addon\globalPlugins\Access8Math\dialogs.py:955
 msgid "&Edit"
 msgstr "編輯(&E)"
 
 #. Translators: The label for a button to example math rule.
-#: addon\globalPlugins\Access8Math\dialogs.py:947
+#: addon\globalPlugins\Access8Math\dialogs.py:959
 msgid "E&xample"
 msgstr "範例"
 
 #. Translators: The title of the Add new language dialog
-#: addon\globalPlugins\Access8Math\dialogs.py:1082
+#: addon\globalPlugins\Access8Math\dialogs.py:1094
 msgid "New language adding"
 msgstr "新語言加入"
 
 #. Translators: The label of a button in the Add new language dialog
-#: addon\globalPlugins\Access8Math\dialogs.py:1100
+#: addon\globalPlugins\Access8Math\dialogs.py:1112
 msgid "&Select"
 msgstr "選擇(&S)"
 
 #. Translators: The label of a button in the Add new language dialog
-#: addon\globalPlugins\Access8Math\dialogs.py:1105
+#: addon\globalPlugins\Access8Math\dialogs.py:1117
 msgid "&Unselect"
 msgstr "取消選擇(&U)"
 
 #. Add button
 #. Translators: The label of a button in the Add new language dialog
-#: addon\globalPlugins\Access8Math\dialogs.py:1114
+#: addon\globalPlugins\Access8Math\dialogs.py:1126
 msgid "OK"
 msgstr "確定"
 
 #. Translators: The message displayed
-#: addon\globalPlugins\Access8Math\dialogs.py:1183
+#: addon\globalPlugins\Access8Math\dialogs.py:1195
 msgid ""
 "For the new language to be added, NVDA must be restarted. Press enter to "
 "restart NVDA, or cancel to exit at a later time."
@@ -659,153 +669,164 @@ msgstr ""
 "再重啟。"
 
 #. Translators: The title of the dialog
-#: addon\globalPlugins\Access8Math\dialogs.py:1185
+#: addon\globalPlugins\Access8Math\dialogs.py:1197
 msgid "Add new language"
 msgstr "加入新語言"
 
 #. Translators: The title of the Editor window
-#: addon\globalPlugins\Access8Math\editor.py:65
+#: addon\globalPlugins\Access8Math\editor.py:66
 #, python-format
 msgid "%s - Access8Math Editor"
 msgstr "%s - Access8Math 編輯器"
 
 #. Translators: A menu item in the Editor window
-#: addon\globalPlugins\Access8Math\editor.py:89
+#: addon\globalPlugins\Access8Math\editor.py:90
 msgid "&New editor"
 msgstr "新編輯器(&N)"
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
-#: addon\globalPlugins\Access8Math\editor.py:91
+#: addon\globalPlugins\Access8Math\editor.py:92
 msgid "Open a new editor."
 msgstr "開啟一個新編輯器。"
 
 #. Translators: A menu item in the Editor window
-#: addon\globalPlugins\Access8Math\editor.py:97
+#: addon\globalPlugins\Access8Math\editor.py:98
 msgid "&Open file..."
 msgstr "開啟檔案(&O)"
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
-#: addon\globalPlugins\Access8Math\editor.py:99
+#: addon\globalPlugins\Access8Math\editor.py:100
 msgid "Open a new file."
 msgstr "開啟一份新檔案。"
 
 #. Translators: A menu item in the Editor window
-#: addon\globalPlugins\Access8Math\editor.py:105
+#: addon\globalPlugins\Access8Math\editor.py:106
 msgid "&Save file..."
 msgstr "儲存檔案(&S)..."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
-#: addon\globalPlugins\Access8Math\editor.py:107
+#: addon\globalPlugins\Access8Math\editor.py:108
 msgid "Save the current file."
 msgstr "儲存當前檔案。"
 
 #. Translators: A menu item in the Editor window
-#: addon\globalPlugins\Access8Math\editor.py:113
+#: addon\globalPlugins\Access8Math\editor.py:114
 msgid "Change &workspace folder..."
 msgstr "變更工作區資料夾(&w)"
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
-#: addon\globalPlugins\Access8Math\editor.py:115
+#: addon\globalPlugins\Access8Math\editor.py:116
 msgid "Change workspace folder to a different folder."
 msgstr "變更工作區資料夾為不同資料夾。"
 
 #. Translators: A menu item in the Editor window
-#: addon\globalPlugins\Access8Math\editor.py:121
+#: addon\globalPlugins\Access8Math\editor.py:122
+msgid "Set &Title..."
+msgstr "設定標題(&T)"
+
+#. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+#: addon\globalPlugins\Access8Math\editor.py:124
+msgid "Set title"
+msgstr "設定標題"
+
+#. Translators: A menu item in the Editor window
+#: addon\globalPlugins\Access8Math\editor.py:130
 msgid "E&xit"
 msgstr "結束(&X)"
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
-#: addon\globalPlugins\Access8Math\editor.py:123
+#: addon\globalPlugins\Access8Math\editor.py:132
 msgid "Terminate the program."
 msgstr "終止程式。"
 
 #. Add the fileMenu to the menuBar.
 #. Translators: A menu item in the Editor window
-#: addon\globalPlugins\Access8Math\editor.py:137
+#: addon\globalPlugins\Access8Math\editor.py:146
 msgid "&File"
 msgstr "檔案(&F)"
 
 #. Translators: A menu item in the Editor window
 #. Translators: The title of the dialog
-#: addon\globalPlugins\Access8Math\editor.py:145
-#: addon\globalPlugins\Access8Math\editor.py:294
+#: addon\globalPlugins\Access8Math\editor.py:154
+#: addon\globalPlugins\Access8Math\editor.py:316
 msgid "Preview"
 msgstr "預覽"
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
-#: addon\globalPlugins\Access8Math\editor.py:147
+#: addon\globalPlugins\Access8Math\editor.py:156
 msgid "Preview HTML file"
 msgstr "預覽 HTML 檔案"
 
 #. Translators: A menu item in the Editor window
-#: addon\globalPlugins\Access8Math\editor.py:153
+#: addon\globalPlugins\Access8Math\editor.py:162
 msgid "Export..."
 msgstr "匯出..."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
-#: addon\globalPlugins\Access8Math\editor.py:155
+#: addon\globalPlugins\Access8Math\editor.py:164
 msgid "Export archive file"
 msgstr "匯出 封裝的檔案"
 
 #. Add the fileMenu to the menuBar.
 #. Translators: A menu item in the Editor window
-#: addon\globalPlugins\Access8Math\editor.py:169
+#: addon\globalPlugins\Access8Math\editor.py:178
 msgid "&View"
 msgstr "檢視(&V)"
 
 #. Translators: A menu item in the Editor window
-#: addon\globalPlugins\Access8Math\editor.py:177
+#: addon\globalPlugins\Access8Math\editor.py:186
 msgid "Font"
 msgstr "字型"
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
-#: addon\globalPlugins\Access8Math\editor.py:179
+#: addon\globalPlugins\Access8Math\editor.py:188
 msgid "Adjust font format"
 msgstr "調整字型格式"
 
 #. Translators: A menu item in the Editor window
-#: addon\globalPlugins\Access8Math\editor.py:185
+#: addon\globalPlugins\Access8Math\editor.py:194
 msgid "Find"
 msgstr "尋找"
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
-#: addon\globalPlugins\Access8Math\editor.py:187
+#: addon\globalPlugins\Access8Math\editor.py:196
 msgid "Find and replace"
 msgstr "尋找與取代"
 
 #. Add the fileMenu to the menuBar.
 #. Translators: A menu item in the Editor window
-#: addon\globalPlugins\Access8Math\editor.py:201
+#: addon\globalPlugins\Access8Math\editor.py:210
 msgid "&Other"
 msgstr "其他(&O)"
 
-#: addon\globalPlugins\Access8Math\editor.py:223
+#: addon\globalPlugins\Access8Math\editor.py:232
 msgid "Select workspace folder"
 msgstr "選擇工作區資料夾"
 
 #. Translators: The title of the Editor's Open file window
-#: addon\globalPlugins\Access8Math\editor.py:234
-#: addon\globalPlugins\Access8Math\editor.py:406
+#: addon\globalPlugins\Access8Math\editor.py:243
+#: addon\globalPlugins\Access8Math\editor.py:414
 msgid "Open file"
 msgstr "開啟檔案"
 
-#: addon\globalPlugins\Access8Math\editor.py:251
+#: addon\globalPlugins\Access8Math\editor.py:260
 msgid "Save file"
 msgstr "儲存檔案"
 
 #. Translators: The message displayed
-#: addon\globalPlugins\Access8Math\editor.py:273
-#, python-brace-format
-msgid "Save file{path}?"
-msgstr "你要儲存{path} 嗎？"
+#: addon\globalPlugins\Access8Math\editor.py:283
+msgid ""
+"The content in the editor has been modified since the last save, do you want "
+"to save and exit it?"
+msgstr "編輯器中的內容在上次儲存後已修改，你想儲存再匯出嗎？"
 
 #. Translators: The title of the dialog
-#: addon\globalPlugins\Access8Math\editor.py:275
-msgid "Save"
-msgstr "儲存"
+#: addon\globalPlugins\Access8Math\editor.py:285
+msgid "Exit"
+msgstr "結束"
 
 #. Translators: The message displayed
-#: addon\globalPlugins\Access8Math\editor.py:292
+#: addon\globalPlugins\Access8Math\editor.py:314
 msgid ""
 "Preview will only include the saved content. The content in the editor has "
 "been modified since the last save, do you want to save and preview it?"
@@ -814,7 +835,7 @@ msgstr ""
 "嗎？"
 
 #. Translators: The message displayed
-#: addon\globalPlugins\Access8Math\editor.py:324
+#: addon\globalPlugins\Access8Math\editor.py:335
 msgid ""
 "Export will only include the saved content. The content in the editor has "
 "been modified since the last save, do you want to save and export it?"
@@ -823,9 +844,13 @@ msgstr ""
 "嗎？"
 
 #. Translators: The title of the dialog
-#: addon\globalPlugins\Access8Math\editor.py:326
+#: addon\globalPlugins\Access8Math\editor.py:337
 msgid "Export"
 msgstr "匯出"
+
+#: addon\globalPlugins\Access8Math\editor.py:502
+msgid "enter document title"
+msgstr "輸入文件標題"
 
 #. Translators: A mmenu item in the Interaction window
 #: addon\globalPlugins\Access8Math\interaction.py:268
@@ -1853,6 +1878,30 @@ msgid ""
 "LaTeX"
 msgstr "允許閱讀 MathML 編寫的數學內容；允許通過 LaTeX 書寫數學內容"
 
+#, python-brace-format
+#~ msgid "Symbol {category} Dictionary ({language})"
+#~ msgstr "符號 {category} 字典 ({language})"
+
+#, python-brace-format
+#~ msgid "Math Rules {category} Output ({language})"
+#~ msgstr "數學規則 {category} 輸出 ({language})"
+
+#~ msgid "Speech &math rule..."
+#~ msgstr "語音數學規則(&m)..."
+
+#~ msgid "Braille &math rule..."
+#~ msgstr "點字數學規則(&m)..."
+
+#~ msgid "&New language adding..."
+#~ msgstr "加入新語言(&N)"
+
+#, python-brace-format
+#~ msgid "Save file{path}?"
+#~ msgstr "你要儲存{path} 嗎？"
+
+#~ msgid "Save"
+#~ msgstr "儲存"
+
 #~ msgid "Show interaction window when entering interaction navigation mode"
 #~ msgstr "當進入互動導航模式時，顯示互動視窗"
 
@@ -1925,9 +1974,6 @@ msgstr "允許閱讀 MathML 編寫的數學內容；允許通過 LaTeX 書寫數
 
 #~ msgid "Rule Settings"
 #~ msgstr "規則設定"
-
-#~ msgid "New document"
-#~ msgstr "新文件"
 
 #~ msgid "Re&load from disk"
 #~ msgstr "重新載入(&L)"
