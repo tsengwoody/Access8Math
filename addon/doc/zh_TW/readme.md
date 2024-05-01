@@ -1,144 +1,407 @@
-# Access8Math 功能
+# Access8Math 簡介
 
-此 NVDA addon 增强了数学内容的阅读和書寫体验。
+Access8Math 是一個 NVDA add-on，可以提升使用者在閱讀和書寫數學內容時的體驗。
 
-阅读功能特色包括可客製的語音/點字輸出，透過互動导航可将长数学内容分割成较小部分以利閱讀。
+在閱讀方面，Access8Math 附加元件能夠完整存取以 MathML 格式撰寫的數學內容。MathML 是 Web 中表示數學內容的標準語言，透過瀏覽器能夠完整顯示視覺可讀的數學內容。
 
-書寫功能特色包括用于更易於输入 LaTeX/AsciiMath/Nemeth 的指令選單，以及将純文字文件轉換為視覺可读的 HTML 文件，以便更好的與他人协作。
+在書寫方面，Access8Math 能夠協助撰寫 LaTeX 並轉換為 MathML。LaTeX 是一種易於撰寫和學習的標記系統，常用於表示數學內容。
 
-## 閱讀功能特色
+透過 Access8Math 的閱讀、書寫與轉換功能，讓視障者在輸入與輸出數學內容更加便利。基於 MathML 與 LaTeX 這兩個通用的數學標記並搭配 Access8Math 的使用，可以顯著降低視障者與明眼者之間雙向溝通的難度。
 
-* 文字內容與數學內容整行閱讀
-* 互動導航中，移動、放大或縮小數學片段以利閱讀
-* 互動導航中，使用 NVDA 檢閱游標閱讀文字
-* 可選擇簡化朗讀規則
-* 項目與項目間停頓
+## 閱讀功能概覽
 
-## 書寫功能特色
+* 讀取瀏覽器中 MathML 的內容。
+* 讀取 Microsoft Word 中 MathType 的內容。
+* 完整讀出段落中的文字內容與數學內容。
+* 客製化朗讀規則提升閱讀體驗（簡化朗讀規則、項目與項目間停頓等）。
+* 可自訂數學符號如何語音報讀與點字輸出。
 
-* 可使用 LaTeX/AsciiMath/Nemeth 書寫數學內容
-* 用來輸入 LaTeX 語法的指令選單
-* 用來输入 LaTeX 的快捷手势
-* 在编辑時協助更有效地移动游標
-* 在编辑時即時閱讀含 LaTeX/AsciiMath/Nemeth 的內容
-* 将純文字文件转换为 HTML 文件的功能並进行预览和匯出
+## 互動功能概覽
+
+* 移動、放大或縮小數學片段以利閱讀。
+* 使用 NVDA 檢閱游標閱讀文字。
+* 移動時提示該元素的數學意義。
+
+## 書寫功能概覽
+
+* 可將 LaTeX/Nemeth 轉為 MathML。
+* 提供用以輔助輸入 LaTeX 的指令選單
+* 提供用以輔助輸入 LaTeX 的快捷手勢。
+* 在編輯時協助更有效地移動編輯游標。
+* 在編輯時即時閱讀含有 LaTeX/Nemeth 的內容。
+* 將純文字文件轉換為可訪問的 HTML 文件並進行預覽和匯出。
 
 # Access8Math 說明
 
-此 NVDA 附加元件提供數學內容的閱讀，原先NVDA亦有此功能，但因是調用MathPlayer的功能，部份功能尚顯不足，例如未提供或不完整的特定語言翻譯、未提供特定語言的互動導航等等。
+Access8Math 附加元件提供了全面的數學內容閱讀與書寫功能。
 
-互動導航可將一個數學內容分段成較小的部份片段進行報讀，並透過一系列的鍵盤按鍵操作來選擇讀取的片段和方式，此功能可更好的理解長數學內容結構與項與項之間的層級關系。
+在閱讀方面，Access8Math 提供了可自訂的語音朗讀和點字輸出，並透過互動模式功能，讓使用者可存取與理解數學內容。互動模式可將數學內容切分成較小的片段進行閱讀，使用者可透過鍵盤操作自主選擇閱讀的片段大小，從而更順暢地理解長篇數學內容的結構和層級關係。
 
-此 NVDA 附加元件提供數學內容的書寫，透過指令選單，使得在輸入 LaTeX/ AsciiMath 語法時無需記憶即可完成輸入任務，在完成撰寫內容後，可透過檢視指令將文件製作成可視讀之 HTML 文件，透過 HTML 文件可便利的與其他人進行互動討論。
+在書寫方面，Access8Math 提供了可快速操作的指令選單，使得輸入 LaTeX 更加容易。在輸入時，使用者無需記憶複雜的 LaTeX 語言，只需透過指令選單輕鬆點選即可完成輸入任務。
 
-## 閱讀功能
+此外，在輸入的過程中，使用者能即時檢視其輸入的 LaTeX 語法是否正確，協助使用者發現並修正語法上的錯誤。
 
-Access8Math 可以讀取瀏覽器（如 Mozilla Firefox、Google Chrome 和 Microsoft Edge）中的 MathML 內容，以及 Microsoft Word 中的 MathType 內容。
+最後，Access8Math 能將文字與以 LaTeX 方式撰寫的數學內容轉換為視覺可讀的 HTML 文件。由於文字和數學內容均能以視覺方式完整顯示，這使得視障者與明眼者進行數學交流和討論變得非常即時和流暢。
 
-在 MathML 數學物件上按 space 鍵或 enter 鍵，可以進入導航模式並通過移動、放大或縮小閱讀片段來與內容互動。
+## MathML 範例
 
-分析內容整體的數學意義：將數學內容進行語意分析，符合特定規則時，以該規則進行朗讀。
+維基百科上的數學內容即是以 MathML 寫成：
 
-分析內容項目的數學意義：在互動導航時會提示該項內容在其上層內容下的意義，例如分數項有兩項，在其間移動會報讀該項目為分母或分子。
+* 一元二次方程式：https://zh.wikipedia.org/wiki/一元二次方程
+* 矩陣乘法：https://zh.wikipedia.org/zh-tw/%E7%9F%A9%E9%99%A3%E4%B9%98%E6%B3%95
+* 三次方程式：https://zh.wikipedia.org/zh-tw/%E4%B8%89%E6%AC%A1%E6%96%B9%E7%A8%8B
 
-項目與項目間停頓：數學內容中各項次間語音可停頓，讓閱讀者能更快掌握整體數學內容。
+# Access8Math 操作說明
 
-### 互動導航
+## 閱讀功能操作
 
-* 閱讀設定中「當進入互動導航模式時，顯示互動視窗」勾選會開啟「Access8Math 互動視窗」，當系統焦點移至互動按鈕時會自動進入互動導航
+### 語言設定
 
-    * 互動：進入互動導航
-    * 複製：複製數學物件之 MathML 碼
+在「設定」 > 「閱讀」選單中可選擇 Access8Math 中數學內容轉換的語言。如果發現系統未支援你的語言，請參閱文件「本地化」章節中，「加入新語言」段落。
 
-* 閱讀設定中「當進入互動模式時，顯示 Access8Math 互動視窗」無勾選則會直接進入互動導航功能
+### 閱讀體驗設定
 
-在導航互動模式下可用的指令按鍵：
+#### 數學結構分析
 
-* 向下鍵：縮小閱讀片段含概的範圍
-* 向上鍵：放大閱讀片段含概的範圍
-* 向左鍵：向前一項數學內容
-* 向右鍵：向後一項數學內容
-* Ctrl+c: 複製物件的 MathML 碼
-* home鍵：閱讀片段的範圍為整個數學內容
-* 數字鍵盤1-9：使用NVDA 檢閱模式閱讀數學內容（請參見 NVDA 用戶指南的檢閱模式章節）
-* esc鍵：退出互動導航模式
-* ctrl+alt+方向鍵：可在數學表格中以行與列方式移動
+此類規則是為了提高常用數學結構的閱讀體驗而設計，系統會依據 MathML 結構與數學規則將內容進行處理，讓語音朗讀與點字顯示更符合數學意義。例如：「x^2」將報讀為「x 的平方」而非「x 上標 2」。
 
-### 數學規則
+你可以在「設定」 >「 閱讀」中的「分析內容的數學意義」的核取方塊勾選是否啟用。反之，如想查看原始的 MathML 結構時，則需將此選項取消勾選。
 
-數學結構分析規則：此類規則是為了提高常用數學結構的閱讀體驗而設計，例如：「x^2」將報讀為「x 的平方」而非「x 上標 2」
+此選項同時也會改變互動模式下移動時提示內容在上下脈絡中數學意義的資訊。
 
-簡化朗讀規則：簡化朗讀規則是各種規則的簡化版，當其內容僅為單一項目時，便可省略前後標記朗讀，以達到更好的理解與閱讀，而亦不致造成混淆，例如：「\frac{1}{2}」將報讀為「2 分之 1」而非「分數 2 分之 1 結束分數」
+#### 簡化朗讀
 
-## 書寫功能
+當系統解析數學規則時，會將規則簡化朗讀，若數學內容僅為單一項目時，便可省略朗讀前後標記，以達到更快速的理解與閱讀效率，而亦不致造成混淆。例如：「\(\frac{1}{2}\)」將朗讀為「2 分之 1」而不是「分數 2 分之 1 結束分數」。
+若要調整相關簡化規則是否啟用，你可以在「設定」 > 「規則」中的核取方塊列表中選擇某項簡化規則是否啟用。
 
-綜合內容：含有文字內容與數學內容
+#### 項目間隔時間
 
-在 windows 11 必需使用 Access8Math 編輯器；而在 windows 10 或更早版本可使用 Access8Math 編輯器或記事本。建議使用Access8Math 編輯器編寫綜合內容。
+Access8Math 報讀數學內容時，會在項目與項目之間停頓，讓數學內容更容易理解。
 
-以分隔標記框出數學標記區，用以區分文字內容與數學內容，亦即在數學標記區內的資料為指定語法的數學內容，在數學標記區外的為文字內容。
+若要調整數學內容項目與項目間報讀停頓的時間，你可以在「設定」 >「閱讀」中設定從 1 到 100 的數值，數值愈小表示停頓時間愈短，相反數值愈大表示停頓時間愈長。
+
+### 數學閱讀器設定
+
+在「設定」>「數學閱讀器」中可選擇數學閱讀器的來源。
+
+* 語音來源：選擇使用 Access8Math 或 MathCAT 或 Math Player 進行語音朗讀。
+* 點字來源：選擇使用 Access8Math 或 MathCAT 或 Math Player 進行點字顯示。
+* 互動來源：選擇使用 Access8Math 或 MathCAT 或 Math Player 進行互動模式。
+
+### 自訂數學符號語音報讀與點字輸出
+
+在「本地化」選單中，可以編輯數學符號表與數學規則表，詳細說明請參閱文件「本地化」章節。
+
+## 互動功能操作
+
+### 如何進入 NVDA 互動模式
+
+對於以語音為主的使用者，通常希望在較小的片段中聽取算式，而非一次聽完整個算式。如果你正在瀏覽模式下，只需將游標移到數學內容上，然後按下空格鍵或 Enter 鍵即可。
+
+如果你不在瀏覽模式下：
+1. 將檢閱游標移到數學內容的位置。預設情況下，檢閱游標會跟隨系統游標移動，因此你可以透過移動系統游標到數學內容上。
+1. 執行以下快速鍵：NVDA + Alt + M，即可進入互動模式與數學內容互動。
+
+進入互動模式後，你可以使用方向鍵等指令來探索算式。例如，你可以使用左右方向鍵在算式內移動，並使用向下鍵進入分式以探索算式中的某一部分。
+
+完成閱讀後，只需按下 Esc 鍵即可返回文件。有關在數學內容中讀取和導覽的更多資訊，請參考下個章節。
+
+### Access8Math 可用於互動模式的鍵盤指令
+
+* 向下鍵：縮小閱讀片段含概的範圍。
+* 向上鍵：放大閱讀片段含概的範圍。
+* 向左鍵：向前一項數學內容。
+* 向右鍵：向後一項數學內容。
+* Ctrl + C：複製物件的 MathML。
+* Home 鍵：閱讀片段的範圍為整個數學內容。
+* 數字鍵盤 1-9：使用 NVDA 檢閱模式閱讀數學內容（請參見 NVDA 用戶指南的檢閱模式章節）。
+* Esc 鍵：退出互動模式。
+* 表格導航：在數學表格中，可使用 Ctrl + Alt + 方向鍵，往上或下一列，往左或右一行移動，與 NVDA 的表格導航相同。
+            * Ctrl + Alt + 向左鍵：移到左一欄。
+	* Ctrl + Alt + 向右鍵：移到右一欄。
+	* Ctrl + Alt + 向上鍵：移到上一列。
+	* Ctrl + Alt + 向下鍵：移到下一列。
+
+### 調整互動模式的朗讀與提示方式
+
+* 在互動模式讀出自動產生的意義：在互動模式下，當數學規則的子節點角色欄位無法完整定義時，系統會讀出項數的資訊。這項功能適用於某些 MathML 的標籤可能具有不定數量節點的情況，例如表格、矩陣、方程式，在移動時，系統會讀出類似「第一欄」、「第二項」等提示。如果使用者不希望聽到這些提示，可將此項設定取消勾選。
+* 在互動模式下使⽤⾳效來提⽰無法移動：勾選時，當互動模式下無法移動到新項目上時發出嗶嗶聲；未勾選時則將以語音「無移動」提示。
+
+## 書寫功能操作
+
+### Access8Math 編輯器與 Access8Math Document
+
+自 Windows 11 起，記事本的編輯區為豐富文本區域而非傳統編輯區，故在 Windows 11 系統中必須在此編輯器才能使用書寫功能的手勢。此編輯器亦提供開啟舊檔、儲存檔案、預覽等功能。而在 Windows 10 或更早版本可使用 Access8Math 編輯器或 Windows 記事本。
+
+使用 Access8Math 編輯器可書寫 Markdown 文件，且當有額外資源（如圖片、連結等）時可將資源置於編輯器工作空間內並進行引用。當點選編輯器的匯出功能，會將文件內有引用到的資源一併打包放入壓縮檔內，此壓縮檔即為 Access8Math Document 檔。詳細的匯入會操作請參閱本文件「匯入與匯出」章節。
+
+### 分隔符
+
+在書寫時，一些特殊的字元會被作為分隔符，以區分文字內容與數學內容，換句話說，在分隔符內的資料為以特定數學標記撰寫的數學內容，在分隔符外的則為一般文字內容。
 
 | 類別 | 開始標記 | 結束標記 |
 | --- | --- | --- |
 | LaTeX(括號) | \( | \) |
 | LaTeX(錢號) | $ | $ |
-| AsciiMath | ` | ` |
 | Nemeth(UEB) | _% | _: |
 | Nemeth(at) | @ | @ |
 
-您可以在書寫設定中選擇 LaTeX/Nemeth 使用的分隔符。
+備註：你可以在「設定」 > 「文件」中選擇 LaTeX/Nemeth 使用的分隔符號。
 
-### 指令手勢（開關：NVDA+alt+c）
 
-alt+m：彈出標記指令視窗，選擇 LaTeX/AsciiMath/Nemeth 按下 enter 鍵即會在當前所選文字前後（無選擇文字時為當前游標處）加入 LaTeX/AsciiMath/Nemeth 標記並會自動將游標移入其內，以快速輸入內容。
+### 綜合內容範例
 
-alt+l：彈出 LaTeX 指令視窗，選擇要加入的 LaTeX 指令項目按下 enter 鍵即會在當前游標處加入對應的 LaTeX 語法並會自動將游標移入適當輸入點，以快速輸入內容（如游標未在 LaTeX 區內會自動加上開始與結束標記）。
+* LaTeX（括號）：一元二次方程式 \(ax^2+bx+c=0\) 的解為 \(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\) 。
+* LaTeX（錢號）：一元二次方程式 $ax^2+bx+c=0$ 的解為 $x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$ 。
+* Nemeth(UEB)：一元二次方程式 _%⠁⠭⠘⠆⠐⠬⠃⠭⠬⠉⠀⠨⠅⠀⠴_: 的解為 _%⠭⠀⠨⠅⠀⠹⠤⠃⠬⠤⠜⠃⠘⠆⠐⠤⠲⠁⠉⠻⠌⠆⠁⠼_: 。
+* Nemeth(at)：一元二次方程式 @⠁⠭⠘⠆⠐⠬⠃⠭⠬⠉⠀⠨⠅⠀⠴@ 的解為 @⠭⠀⠨⠅⠀⠹⠤⠃⠬⠤⠜⠃⠘⠆⠐⠤⠲⠁⠉⠻⠌⠆⠁⠼@ 。
+* MathML：一元二次方程式 <math display="inline"><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi><mo>=</mo><mn>0</mn></math> 的解為 <math display="inline"><mfrac><mrow><mo>−</mo><mi>b</mi><mi>±</mi><msqrt><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></math> 。
 
-LaTeX 指令視窗
+### 指令手勢（開關：NVDA + Alt + C）
 
-* 選到任意 LaTeX 指令項目按下英文字母(a~z)或 f1~f12 設定快捷
-* 選到任意 LaTeX 指令項目按下 delete/back space 移除已設定的快捷
-* 選到任意 LaTeX 指令項目按下 enter 在當前游標處加入對應的 LaTeX 語法
+* Alt + M：顯示標記指令選單，選擇 LaTeX/Nemeth 按下 Enter 鍵，即會在當前所選文字前後（無選擇文字時為當前編輯游標處）加入 LaTeX/Nemeth 標記，並會自動將編輯游標移入其內，以快速輸入內容。
+* Alt + L：顯示 LaTeX 指令選單（虛擬選單），選擇要加入的 LaTeX 指令項目按下 Enter 鍵，即會在當前編輯游標處加入對應的 LaTeX 語法，並會自動將編輯游標移入適當輸入點，以快速輸入內容（若編輯游標未在 LaTeX 區內會自動加上開始與結束標記）。
+* LaTeX 指令視窗操作
+    * 在此指令選單中可透過上下鍵選擇列表項目，並透過左右鍵在不同層級列表中移動。LaTeX 指令選單包含類別與 LaTeX 標記兩個層級，使用者可透過上下鍵先於類別列表中選擇分類後再使用向右鍵進入 LaTeX 標記層選擇想插入的 LaTeX 。
+    * 選到任意 LaTeX 指令項目按下英文字母 A ~ Z 或 F1 ~ F12 設定快捷手勢。
+    * 選到任意 LaTeX 指令項目按下 Delete/Backspace 移除已設定的快捷手勢。
+    * 選到任意 LaTeX 指令項目按下 Enter 在當前編輯游標處加入對應的 LaTeX 語法。
+* Alt + I：編輯游標停在數學區塊上時，可與該數學區塊進行互動。
+* Alt + H：顯示檢視指令視窗（虛擬選單），使用者可以選擇預覽或匯出。詳細請參考匯入與匯出章節。
 
-alt+i：游標停在數學區塊上時，可與該數學區塊進行互動導航
+備註：在「設定」>「書寫」中內可選擇啟動時是否啟用指令手勢，編輯區中按 NVDA + Alt + C 可啟用或停用指令手勢，並可於 NVDA 的輸入手勢中變更。
 
-alt+h：可轉換出文字區塊與數學區塊的 HTML 文件並可進行預覽或匯出。其中數學區塊之內容匯轉成 MathML 並與文字並列呈現，以利視覺閱讀。
+### 快捷手勢（開關：NVDA + Alt + S）
 
-* 在書寫設定中的 HTML 文件顯示，可選擇匯出後的 HTML 文件以 Markdown 或純文字解析轉換。
-* 在書寫設定中的 HTML 數學顯示，可選擇匯出後的 HTML 文件中數學物件是否為一區塊。效果為在瀏覽模式上下方向鍵移動報讀整行內容時，數學物件是否獨立一行呈現。
-* 預覽：透過系統設定的預設開啟 .HTML 副檔名應用程式打開轉換後的 HTML 文件。
-* 匯出：將轉換後的 HTML 文件與原始文字檔打包儲存為一壓縮檔，壓縮檔內包含 HTML (可視讀、聽讀、摸讀格式)與 txt (原始可編輯檔案)
+當編輯游標在 LaTeX 區塊時，按下英文字母 A ~ Z 或 F1 ~ F12 可快速插入綁定的 LaTeX。按 Shift + 字母、Shift + F1 ~ F12 可讀出該快捷手勢當下綁定的 LaTeX。（需先於 LaTeX 指令選單中設定快捷手勢）
 
-alt+t：可將游標所在的數學區塊在 LaTeX 與 AsciiMath 間轉換（游標需在數學區塊內）
+備註：在「設定」>「書寫」中可選擇啟動時是否啟用快捷手勢，編輯區中按 NVDA + Alt + S 可啟用或停用快捷手勢，可於輸入手勢中變更。
 
-alt+b:可將整份文件進行批次轉換，包括 LaTeX 分隔符括號與錢號互轉、LaTeX 與 AsciiMath 互轉。
+### 希臘字母手勢（開關：NVDA + Alt + G）
 
-在書寫設定內可選擇啟動時是否啟用指令手勢，編輯區中按 NVDA+alt+c 可啟用或停用指令手勢，可於輸入手勢中變更。
+當編輯游標在 LaTeX 區塊時，按字母可快速插入對應的希臘字母 LaTeX 。字母與希臘字母對照表請參閱本文件之「附錄」。
 
-### 書寫區塊導航手勢（開關：NVDA+alt+n）
+### 區塊編輯與導航
 
-* alt+向左鍵：移動到上一個資料區塊的開始點
-* alt+向下鍵：不移動僅讀出當前資料區塊的內容
-* alt+向右鍵：移動到下一個資料區塊的開始點
-* alt+home：移動到當前資料區塊的開始點
-* alt+end：移動到當前資料區塊的結束點
-* alt+shift+向左鍵：移動到上一個資料區塊並選取
-* alt+shift+向下鍵：不移動僅選取當前資料區塊的內容
-* alt+shift+向右鍵：移動到下一個資料區塊並選取
+在 Access8Math 編輯器中，透過分隔符隔開的內容會被視為不同的區塊，常見的區塊分別為文字區塊與數學內容區塊。你可以透過區塊導航快速地在不同類型的區塊之間移動編輯游標。
 
-在書寫設定內可選擇啟動時是否啟用區塊導航手勢，編輯區中按 NVDA+alt+n 可啟用或停用區塊導航手勢，可於輸入手勢中變更。
+以「一元二次方程式 \(ax^2+bx+c=0\) 的解為 \(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)」此內容為例，有兩個主要的數學內容區塊以及兩個文字區塊，我們可以將它們標示為 A 區塊、B 區塊、C 區塊與 D 區塊：
 
-### 快捷手勢（開關：NVDA+alt+s）
+* A 區塊：「一元二次方程式」這七個字為文字區塊。
+* B 區塊：從  \(ax^2+bx+c=0\) 的起始括號 \( 開始，結束於 0 後面的結束括號 \)。
+* C 區塊：「的解為」這三個字為文字區塊。
+* D 區塊：從  \(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\) 的起始括號 \( 開始，結束於整個表示式的結束括號  \)。
 
-當游標在 LaTeX 區塊時，按字母、 f1~f12 可快速插入綁定之 LaTeX 語法。按 shift+字母、shift+f1~f12 可讀出該快捷當下綁定之 LaTeX 語法。（需先於指令選單中設定快捷鍵）
+#### 區塊導航手勢（開關：NVDA + Alt + N）
 
-在書寫設定內可選擇啟動時是否啟用快捷手勢，編輯區中按 NVDA+alt+s 可啟用或停用快捷手勢，可於輸入手勢中變更。
+* Alt + 向左鍵：移動到上一個資料區塊的開始點。
+* Alt + 向下鍵：不移動僅讀出當前資料區塊的內容。
+* Alt + 向右鍵：移動到下一個資料區塊的開始點。
+* Alt + Home：移動到當前資料區塊的開始點。
+* Alt + End：移動到當前資料區塊的結束點。
+* Alt + Shift + 向左鍵：移動到上一個資料區塊並選取。
+* Alt + Shift + 向下鍵：不移動僅選取當前資料區塊的內容。
+* Alt + Shift + 向右鍵：移動到下一個資料區塊並選取。
 
-### 希臘字母手勢（開關：NVDA+alt+g）
+備註：在「設定」>「書寫」內可選擇啟動時是否啟用區塊導航手勢，編輯區中按 NVDA + Alt + N 可啟用或停用區塊導航手勢，可於輸入手勢中變更。
 
-當游標在 LaTeX 區塊時，按字母可快速插入對應的希臘字母 LaTeX 語法。
+#### 區塊瀏覽模式（開關：NVDA + Space）
 
-對照表：
+當區塊瀏覽模式開啟時，編輯游標移動到數學區塊的語音/點字輸出會是數學文字化內容而非原始的數學標記。例如："\(\frac{1}{2}\) 的小數表示為 0.5" 會輸出為 "2 分之 1 的小數表示為 0.5" 而非 "\(\frac{1}{2}\) 的小數表示為 0.5"。
+
+可用以下按鍵手勢移動編輯游標與進入互動模式：
+
+* 向左鍵：移動到上一個資料區塊的開始點並讀出。
+* 向右鍵：移動到下一個資料區塊的開始點並讀出。
+* 向上鍵：移動到上一行並讀出該行所有區塊的內容。
+* 向下鍵：移動到下一行並讀出該行所有區塊的內容。
+* Page Up：往上移動十行並讀出該行所有區塊的內容。
+* Page Down：往下移動十行並讀出該行所有區塊的內容。
+* Home：移動到編輯游標所在行的第一個區塊。
+* End：移動到編輯游標所在行的最後一個區塊。
+
+以上編輯游標移動按鍵加上 Shift 鍵則會一併選取文字。
+
+* Space/Enter：編輯游標停在數學區塊上時按下 Space/Enter可進入互動模式。
+
+下列的按鍵，若僅按該單一鍵，編輯游標會跳至其對應的後一個類型的區塊，若同時按 Shift + 該單一按鍵，編輯游標會跳至前一個類型的區塊：
+
+* L：移到下一個 LaTeX 區塊並讀出。
+* N：移到下一個 Nemeth 區塊並讀出。
+* M：移到下一個 MathML 區塊並讀出。
+* T：移到下一個文字區塊並讀出。
+* Tab：移動到下一個可互動區塊（數學區塊）並讀出。
+
+可用以下按鍵手勢編輯文件：
+
+* Ctrl + X：剪下當前編輯游標區塊。
+* Ctrl + C：複製當前編輯游標區塊。
+* Ctrl + V：於當前編輯游標區塊後貼上內容。
+* Delete/Backspace：刪除當前編輯游標區塊。
+
+### 匯入與匯出
+
+#### 匯出文件
+
+你可以透過 Access8Math 編輯器內的檢視選單或指令手勢 Alt + H 顯示檢視指令選單內的匯出選項，將編輯完成的文件轉換為 HTML ，並與原始文字文件一同打包成 Access8Math Document。這兩種方式同樣能夠產生 Access8Math 的 Document 檔，兩者的唯一區別為 Access8Math 編輯器中的匯出會將引用到的資源一併打包加入壓縮檔內。
+
+Access8Math Document 是一個壓縮檔，其中內含的 HTML 中的數學內容會以 MathML 表示，使用者可以用不同的方式閱讀（視覺閱讀、語音聽讀、點字摸讀）。
+
+#### 匯入文件
+
+在檔案總管內可按下 NVDA + 快顯鍵，當選擇的檔案為 Access8Math Document 時，會顯示虛擬快顯選單，使用者可快速地開啟檢視或編輯檔案。
+
+備註：在「設定」>「文件」中的「HTML 數學顯示」，可選擇匯出後的 Access8Math Document 內的 HTML 中數學物件是否為獨立區塊。效果為在瀏覽模式上下方向鍵移動報讀整行內容時，數學物件是否獨立讀出或與一般文字混合讀出。
+
+## 虛擬選單
+
+虛擬選單將僅以語音朗讀和點字顯示選單項目的方式呈現，而不會以視覺化方式呈現。使用者需透過向上鍵/向下鍵在列表中選擇項目，如果選單項目有子選單，可使用向右鍵進入子選單；使用向左鍵退出子選單。
+ 
+## 本地化
+
+### 加入新語言
+
+可加入原先系統未提供的語言，加入後於「設定」 > 「閱讀」 > 「語言」選單內會多出剛新增的語系，但新增的語系僅是英文語系的副本，你必需透過「符號字典」與「數學規則」定義語音朗讀與點字輸出來達成多國語言客製。
+
+### 自訂數學符號語音報讀與輸出方式
+
+在「工具」 > 「Access8Math」> 「本地化」選單中可自定義語音朗讀與點字顯示，語音朗讀與點字顯示內皆分為「符號字典」與「數學規則」兩部份。
+
+* 符號讀音字典：可客製化各項符號文字的語音朗讀。
+* 數學規則讀音：可客製化各數學類型的語音朗讀。
+* 符號點字字典：可客製化各項符號文字的點字顯示。
+* 數學規則點字：可客製化各數學類型的點字顯示。
+
+### 符號字典編輯
+
+Access8Math 透過字典檔定義符號對應替代文字／點字碼，以解決罕見符號語音合成器無法朗讀或符號在數學情境中與一般文字中有明顯差異的問題。例如，「!」在數學內容中意義為「階乘」，而在一般文字中則表示情感。透過字典檔的編輯與新增，可以將原始符號對應到新的替代文字/點字碼，以修正錯誤的語音朗讀與點字顯示。
+
+* 新增：增加一筆符號字典紀錄，按下加入按鈕後在加入符號對話框中可輸入要新增的符號並按確認，此時在符號字典對話框中的紀錄列表上就能看到新增的符號。
+* 修改：選擇一筆符號字典紀錄並在替代文字輸入值後，Access8Math 遇到此符號即會以對應的替代文字語音朗讀與點字顯示該符號。
+* 移除：選擇一筆符號字典紀錄後按下移除按鈕可刪除選定的符號字典紀錄。
+* 還原預設值：將字典檔列表還原到預設 Access8Math 定義的符號字典紀錄。
+* 匯入：將符號字典檔案匯入，可用於載入匯出的符號字典檔案。
+* 匯出：將符號字典檔案儲存於指定路徑，以利分享或保存符號字典檔案。
+
+### 數學規則編輯
+
+Access8Math 將常用數學內容的 MathML 結構，建立對應的數學規則，當遇到符合規則的 MathML 結構時，系統會依據數學規則所定義的內容來語音朗讀與點字顯示，依據各地區的習慣不同，使用者可自訂語音朗讀與點字輸出，方法如下：
+
+* 編輯：進入「數學規則」後，對話框內有數學規則列表，選擇任一規則可選擇「編輯按鈕」進入編輯條目。規則的「編輯條目」可分為兩大區塊，分別是「序列化順序」與「節點數學意義」。
+
+  * 序列化順序：依據數學規則劃分數個區段，在此區域可變更規則區段的輸出順序及開始、項目間與結束的文字提示。以分數規則 mfrac 為例，此規則分為五個輸出區段，順序 0、2 和 4 分別代表起始提示、項目區隔提示與結束提示，可在各欄位中輸入變更自己習慣的輸出，而順序 1 與 3 則可透過下拉式選單調整區段輸出的先後次序。
+  * 節點數學意義：可編輯該數學規則特定區段的數學意義。以分數規則 mfrac 為例，此項規則就包含分子與分母兩項，而在節點欄位中，可以變更此節點在其脈絡中的數學意義。
+
+* 範例：可先行查閱確認編輯修改後對此類型的數學規則讀法。點擊後會出現一個預設好符合該對應數學規則的數學內容，供確認對此類型的數學規則讀法是否符合預期。
+* 還原預設值：將數學規則列表還原到初始預設值。
+* 匯入：將數學規則檔案匯入，可用於載入匯出的數學規則檔案。
+* 匯出：將數學規則檔案儲存於指定路徑，以利分享或保存數學規則檔案。
+
+如果你有興趣進行符號字典、數學規則的本地化工作，你可以透過這兩個對話框編輯符號字典與數學規則，並透過匯出功能取得編輯完成的檔案。接著，你可以透過 Access8Math GitHub Pull Requests 或 Email 將此檔案提供給開發團隊，我們很樂意將其加入 Access8Math 中。
+
+## 附錄
+
+### LaTeX 選單
+
+| id | latex | category | order | label |
+| --- | --- | --- | --- | --- |
+| matrix2X2 | \left [ \begin{matrix} {} &{} \\ {} &{} \end{matrix} \right ] | 2-dimension | 0 | matrix (2X2) |
+| matrix3X3 | \left [ \begin{matrix} {} &{} &{} \\ {} &{} &{} \\ {} &{} &{} \end{matrix} \right ] | 2-dimension | 1 | matrix (3X3) |
+| determinant2X2 | \left  |  \begin{array} {cc} {} &{} \\ {} &{} \end{array} \right  |  | 2-dimension | 2 | determinant (2X2) |
+| determinant3X3 | \left  |  \begin{array} {ccc} {} &{} &{} \\ {} &{} &{} \\ {} &{} &{} \end{array} \right  |  | 2-dimension | 3 | determinant (3X3) |
+| leftarrow | \leftarrow | arrow | 0 | left arrow |
+| rightarrow | \rightarrow | arrow | 1 | right arrow |
+| leftrightarrow | \leftrightarrow | arrow | 2 | left right arrow |
+| uparrow | \uparrow | arrow | 3 | up arrow |
+| downarrow | \downarrow | arrow | 4 | down arrow |
+| updownarrow | \updownarrow | arrow | 5 | up down arrow |
+| dotproduct | \cdot | calculus | 5 | dot product |
+| integral | \int_{}^{}{} \mathrm d | calculus | 1 | integral |
+| nabla | \nabla | calculus | 2 | nabla |
+| partial | \partial | calculus | 4 | partial derivative |
+| prime | \prime | calculus | 3 | derivative |
+| differential | \mathrm{d} | calculus | 0 | differential |
+| combination | C_{}^{} | combinatorics | 0 | combination |
+| permutation | P_{}^{} | combinatorics | 1 | permutation |
+| combination-with-repetition | H_{}^{} | combinatorics | 2 | combination with repetition |
+| unordered-selection | U_{}^{} | combinatorics | 3 | unordered selection |
+| frac | \frac{}{} | common | 0 | fractions |
+| sqrt | \sqrt{} | common | 1 | square root |
+| root | \sqrt[]{} | common | 2 | root |
+| sumupdown | \sum_{}^{} | common | 3 | summation |
+| vector | \vec{} | common | 4 | vector |
+| limit | \lim_{{} \to {}} | common | 5 | limit |
+| logarithm | \log_{} | common | 6 | logarithm |
+| arc | \overset{\frown}{} | geometry | 0 | arc |
+| triangle | \triangle{} | geometry | 1 | triangle |
+| angle | \angle{} | geometry | 2 | angle |
+| degree | ^{\circ} | geometry | 3 | degree |
+| circ | \circ | geometry | 4 | circle |
+| parallel | \parallel | geometry | 5 | parallel |
+| perp | \perp | geometry | 6 | perpendicular |
+| square | \square{} | geometry | 7 | square |
+| small-diamond | \diamond{} | geometry | 8 | small diamond |
+| large-diamond | \Diamond{} | geometry | 9 | large diamond |
+| because | \because | logic | 0 | because |
+| therefore | \therefore | logic | 1 | therefore |
+| iff | \iff | logic | 2 | if and only if |
+| implies | \implies | logic | 3 | implies |
+| impliedby | \impliedby | logic | 4 | implied by |
+| times | \times | operator | 0 | times |
+| div | \div | operator | 1 | divide |
+| pm | \pm | operator | 2 | plus-minus sign |
+| modulus | \bmod | operator | 3 | modulus |
+| overline | \overline{} | other | 0 | line segment |
+| overleftrightarrow | \overleftrightarrow{} | other | 1 | line |
+| overrightarrow | \overrightarrow{} | other | 2 | ray |
+| binom | \binom{}{} | other | 3 | binomial coefficient |
+| simultaneous-equations | \begin{cases} {} &{} \\ {} &{} \end{cases} | other | 4 | simultaneous equations |
+| infty | \infty | other | 5 | infty |
+| repeating-decimal | 0.\overline{} | other | 6 | repeating decimal |
+| ge | \ge | relation | 0 | greater than or equal to |
+| le | \le | relation | 1 | less than or equal to |
+| ne | \ne | relation | 2 | not equal to |
+| approx | \approx | relation | 3 | approximate |
+| cong | \cong | relation | 5 | full equal |
+| sim | \sim | relation | 6 | similar |
+| doteqdot | \doteqdot | relation | 4 | approximately equal to |
+| propto | \propto | relation | 7 | proportional to |
+| in | \in | set | 0 | belong to |
+| notin | \not\in | set | 1 | not belong to |
+| ni | \ni | set | 2 | include element |
+| notni | \not\ni | set | 3 | not include element |
+| subset | \subset | set | 4 | lie in |
+| subsetneqq | \subsetneqq | set | 5 | properly lie in |
+| not-subset | \not\subset | set | 6 | not lie in |
+| supset | \supset | set | 7 | include |
+| supsetneqq | \supsetneqq | set | 8 | properly include |
+| not-supset | \not\supset | set | 9 | not include |
+| cap | \cap | set | 10 | intersection set |
+| cup | \cup | set | 11 | union set |
+| setminus | \setminus | set | 12 | difference set |
+| complement | \complement_{} | set | 13 | complement |
+| emptyset | \emptyset | set | 14 | empty set |
+| natural-number | \mathbb{N} | set | 15 | natural number |
+| real-number | \mathbb{R} | set | 16 | real number |
+| forall | \forall | set | 17 | for all |
+| exists | \exists | set | 18 | exists |
+| sine | \sin{} | trigonometric | 0 | sine |
+| cosine | \cos{} | trigonometric | 1 | cosine |
+| tangent | \tan{} | trigonometric | 2 | tangent |
+| cotangent | \cot{} | trigonometric | 3 | cotangent |
+| secant | \sec{} | trigonometric | 4 | secant |
+| cosecant | \csc{} | trigonometric | 5 | cosecant |
+| arcsine | \arcsin{} | trigonometric | 6 | arcsine |
+| arccosine | \arccos{} | trigonometric | 7 | arccosine |
+| arctangent | \arctan{} | trigonometric | 8 | arctangent |
+| hyperbolic-sine | \sinh{} | trigonometric | 9 | hyperbolic sine |
+| hyperbolic-cosine | \cosh{} | trigonometric | 10 | hyperbolic cosine |
+| hyperbolic-tangent | \tanh{} | trigonometric | 11 | hyperbolic tangent |
+| hyperbolic-cotangent | \coth{} | trigonometric | 12 | hyperbolic cotangent |
+| floor | \lfloor  \rfloor | other | 7 | floor |
+| ceil | \lceil  \rceil | other | 8 | ceil |
+
+### 英文字母到希臘字母對照表
 
 | 英文字母 | 希臘字母 | LaTeX |
 | --- | --- | --- |
@@ -166,202 +429,6 @@ alt+b:可將整份文件進行批次轉換，包括 LaTeX 分隔符括號與錢�
 | x | χ | \chi |
 | y | ξ | \xi |
 | z | ζ | \zeta |
-
-### 瀏覽導航模式（開關：NVDA+space）
-
-當瀏覽導航模式開啟時，游標移動報讀出的數學區塊會讀出數學文字化內容而非原始語法
-
-可用以下按鍵手勢移動編輯游標與互動導航
-
-* 向左鍵：移動到上一個資料區塊的開始點並讀出
-* 向右鍵：移動到下一個資料區塊的開始點並讀出
-* 向上鍵：移動到上一行並讀出該行所有資料區塊的內容
-* 向下鍵：移動到下一行並讀出該行所有資料區塊的內容
-* pageUp：往上移動十行並讀出該行所有資料區塊的內容
-* pageDown：往下移動十行並讀出該行所有資料區塊的內容
-* home：移動到游標所在行的第一個區塊
-* end：移動到游標所在行的最後一個區塊
-
-以上游標移動按鍵加上 shift 鍵則會一併選取文字
-
-space/enter：游標停在數學區塊上時可與該資料區塊數學內容互動導航
-
-下列的按鍵，若僅按該單一鍵，編輯游標會跳至其對應的後一個資料區塊位置，若同時按 shift + 該單一按鍵，編輯游標會跳至前一個資料區塊位置：
-
-* l: 移到下一個 LaTeX 資料區塊並讀出
-* a: 移到下一個 AsciiMath 資料區塊並讀出
-* n: 移到下一個 Nemeth 資料區塊並讀出
-* m: 移到下一個 MathML 資料區塊並讀出
-* t: 移到下一個文字區塊並讀出
-* tab: 移動到下一個可互動區塊（數學區塊）並讀出
-
-可用以下按鍵手勢編修文件
-
-* ctrl+x：剪下當前游標區塊
-* ctrl+c：複製當前游標區塊
-* ctrl+v：於當前游標區塊後貼上內容
-* delete/back space：刪除當前游標區塊
-
-### Access8Math 編輯器與 Access8Math Document
-
-windows 11 起記事本的編輯區為豐富文本區域非傳統編輯區，故在 windows 11 必需使用此編輯器方能使用書寫功能。此編輯器亦提供開啟舊檔、儲存檔案、預覽等功能。
-
-使用 Access8Math 編輯器可書寫 markdown 文件且當有資源時可將資源至於編輯器工作空間內並進行引用。當點選編輯器的匯出功能，會將文件內有引用到的資源一併打包成壓縮檔
-
-檢視功能表下的預覽、匯出功能與指令手勢下的檢視功能（alt+h）相同可產生 Access8Math Document 檔，兩者唯一區別為 Access8Math 編輯器會將被引用的資源一併打包加入壓縮檔內
-
-為了讓 Access8Math 編輯器匯出的檔案可匯入再編輯，Access8Math 編輯器匯出時會寫入一個 Access8Math.json ，其為 meta 資料。我們稱含有此 meta 的壓縮檔/資料夾為 Access8Math Document
-
-在檔案總管內可按下 NVDA+快顯鍵，當選擇的路徑為 txt/Access8Math Document 時，會彈出虛擬路徑位置功能表，可快速開啟檢視或編輯該檔案
-
-### 綜合內容範例：
-
-* LaTeX（括號）：一元二次方程式 \(ax^2+bx+c=0\) 的解為 \(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\) 。
-* LaTeX（錢號）：一元二次方程式 $ax^2+bx+c=0$ 的解為 $x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$ 。
-* AxciiMath：一元二次方程式 `ax^2+bx+c=0` 的解為 `x=(-b+- \sqrt(b^2-4ac))/(2a)` 。
-* Nemeth(UEB)：一元二次方程式 _%⠁⠭⠘⠆⠐⠬⠃⠭⠬⠉⠀⠨⠅⠀⠴_: 的解為 _%⠭⠀⠨⠅⠀⠹⠤⠃⠬⠤⠜⠃⠘⠆⠐⠤⠲⠁⠉⠻⠌⠆⠁⠼_: 。
-* Nemeth(at)：一元二次方程式 @⠁⠭⠘⠆⠐⠬⠃⠭⠬⠉⠀⠨⠅⠀⠴@ 的解為 @⠭⠀⠨⠅⠀⠹⠤⠃⠬⠤⠜⠃⠘⠆⠐⠤⠲⠁⠉⠻⠌⠆⠁⠼@ 。
-* MathML：一元二次方程式 <math display="inline"><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi><mo>=</mo><mn>0</mn></math> 的解為 <math display="inline"><mfrac><mrow><mo>−</mo><mi>b</mi><mi>±</mi><msqrt><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></math> 。
-
-## 設定
-
-所有 Access8Math 的設定集中於工具->Access8Math->設定選單中
-
-### 閱讀設定
-
-* 語言：Access8Math 朗讀數學內容的語言
-* 語音來源：選擇使用 Access8Math 或 Math Player 的語音朗讀方式
-* 點字來源：選擇使用 Access8Math 或 Math Player 的點字顯示方式
-* 互動來源：選擇使用 Access8Math 或 Math Player 的互動導航方式
-* 分析內容的數學意義：將數學內容進行語意分析，符合特定規則時，套用該規則的語音朗讀與點字顯示
-* 當進入互動模式時，顯⽰互動視窗：在數學物件上啟動事件進入互動導航模式前是否顯示「Access8Math 互動視窗」。
-* 在互動導航模式下讀出字典預先定義的意義：在互動導航模式下，當字典檔有定義時，使用字典檔讀出提示該項子內容在其上層子內容的意義
-* 在互動導航模式下讀出⾃動產⽣的意義：在互動導航模式下，當字典檔無定義或不完整時，使用自動產生功能讀出提示該項子內容在其上層子內容的意義或項次
-* 在互動導航下使⽤⾳效來提⽰無法移動：在互動模式下導航時，當無法在移動時發出提示音，如未勾選將以語音「無移動」提示
-* 項目間隔時間：設定數學內容項目與項目間報讀停頓的時間，數值從1到100，數值愈小表示停頓時間愈短，反之數值愈大表示停頓時間愈長。
-
-### 書寫設定
-
-* 啟動時啟⽤指令⼿勢
-* 啟動時啟⽤區塊導航⼿勢
-* 啟動時啟⽤快捷⼿勢
-* 以⾳效提⽰書寫導航模式的切換
-* HTML 顯⽰
-* LaTeX 分隔符
-
-### 規則設定：選擇特定規則是否啟用的設定。
-
-## 本地化
-
-工具->Access8Math->本地化選單中可自定議語音朗讀與點字顯示，語音朗讀與點字顯示內皆分為「unicode 字點」與「數學規則」兩部份
-
-* 語音 unicode 字典：可客製設定各項符號文字的語音朗讀
-* 語音數學規則：可客製設定各數學類型的語音朗讀
-* 點字 unicode 字典：可客製設定各項符號文字的點字顯示
-* 點字數學規則：可客製設定各數學類型的點字顯示
-* 「加入新語言」可加入原先於內建未提供的語言，加入後於一般設定內會多出剛新增的語系並可再透過「unicode 字典」與「數學規則」定義讀法達到多國語言客製化設定
-
-### unicode 字典編輯
-
-Access8Math 透過字典檔方式將特定符號對應到特定文字／點字，以解決部份罕見符號語音合成器不支援、複合多個符號為一個數學符號（sin 為正弦）、或因部份符號通用性問題在數學上與一般使用上有所不同（! 為階層）等問題
-
-新增：增加一組對應字典檔紀錄，按下後可輸入欲新增的符號，按確認後即可在字典檔紀錄列表上看到新增的符號
-
-修改選擇符號：選擇一筆字典檔紀錄並在替代文字輸入值後，未來 Access8Math 看到此符號後即會對應以替代文字朗讀此符號
-
-移除：選擇一筆字典檔紀錄後按下移除按鈕可刪除選定的字典檔紀錄
-
-還原預設值：將字典檔列表還原到初始預設值。
-
-匯入：將字典檔檔案匯入，可用於載入字典檔檔案。
-
-匯出：將字典檔檔案儲存於指定路徑，以利分享或保存字典檔檔案。
-
-### 數學規則編輯
-
-Access8Math將常用數學式依據類型與邏輯，建立46項數學規則，程式依據這套規則判別數學式的唸法與唸讀順序，依據各地習慣不同，可以變更數學唸讀順序與唸法，方法如下：
-
-編輯: 進入"數學規則"後，視窗內有數學規則列表，選則任一規則可選擇"編輯按鈕"進入編輯條目。
-
-規則的"編輯條目"可分為兩大區塊，分別是序列化順序與子節點角色。
-	* 序列化順序：將數學規則依據唸讀順序劃分多個區塊，在此區域可變更規則子項目的唸讀順序及開始、項目間與結束的分隔文字，以分數規則mfrac為例，此規則分為五個唸讀順序，順序0、2和4分別代表起始提示、項目區隔提示與結束提示，可在各欄位中輸入變更自己習慣的唸法，而順序1與3則可調整子節點唸讀的先後，可於下拉式選單中變更順序。
-	* 子節點角色：為該數學規則的下一階層子項目，以分數規則mfrac為例，此項規則就包含分子與分母兩項，而在子節點欄位中，可以變更該項子內容在其上層子內容的意義文字，。
-
-範例：可先行查閱確認編輯修改後對此類型的數學規則讀法。點擊後會出現一個預設好符合該對應數學規則的數學內容，供確認對此類型的數學規則讀法是否符合預期。
-
-還原預設值：將數學規則列表還原到初始預設值。
-
-匯入：將數學規則檔案匯入，可用於載入數學規則檔案。
-
-匯出：將數學規則檔案儲存於指定路徑，以利分享或保存數學規則檔案。
-
-| category | example |
-| - | - |
-| math | <math><mn>1</mn><mo>+</mo><mn>2</mn><mo>+</mo><mn>3</mn></math> |
-| mfrac | <math><mrow><mfrac><mn>3</mn><mrow><mn>1</mn><mo>+</mo><mi>x</mi></mrow></mfrac></mrow></math> |
-| single_fraction | <math><mfrac><mi>3</mi><mi>4</mi></mfrac></math> |
-| AddIntegerFractionType | <math><mn>17</mn><mfrac><mn>2</mn><mn>5</mn></mfrac></math> |
-| mfenced | <math><mfenced><mrow><mn>5</mn><mo>+</mo><mn>6</mn></mrow></mfenced></math> |
-| set | <math><mfenced open="{" close="}"><mrow><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>4</mn></mrow></mfenced></math> |
-| absolute_value | <math><mfenced open="|" close="|"><mrow><mo>-</mo><mn>	2</mn></mrow></mfenced></math> |
-| determinant | <math><mfenced open="|" close="|"><mtable><mtr><mtd><mn>2</mn></mtd><mtd><mn>3</mn></mtd></mtr><mtr><mtd><mn>5</mn></mtd><mtd><mi>x</mi></mtd></mtr></mtable></mfenced></math> |
-| matrix | <math><mfenced open="[" close="]"><mtable><mtr><mtd><mn>2</mn></mtd><mtd><mn>3</mn></mtd></mtr><mtr><mtd><mn>5</mn></mtd><mtd><mi>x</mi></mtd></mtr></mtable></mfenced></math> |
-| msqrt | <math><msqrt><mi>4</mi><mo>+</mo><mi>9</mi></msqrt></math> |
-| mroot | <math><mroot><mi>9</mi><mi>3</mi></mroot></math> |
-| single_square_root | <math><msqrt><mi>4</mi></msqrt></math> |
-| msubsup | <math><msubsup><mi>a</mi><mn>n</mn><mn>2</mn></msubsup><mo>+</mo><msubsup><mi>a</mi><mn>n+1</mn><mn>2</mn></msubsup></math> |
-| msup | <math><mrow><msup><mi>x</mi><mrow><mi>a</mi><mo>+</mo><mi>b</mi></mrow></msup></mrow></math> |
-| msub | <math><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></math> |
-| munderover | <math><munderover><mi mathvariant="normal">&#x3C0;</mi><mrow><mi>x</mi><mo>=</mo><mn>0</mn></mrow><mi>N</mi></munderover></math> |
-| munder | <math><mrow><munder><mrow><mi>lim</mi></mrow><mrow><mi>x</mi><mo>&#x2192;</mo><mi>&#x221E;</mi></mrow></munder></mrow></math> |
-| mover | <math><mover><mrow><mi>A</mi><mo>+</mo><mi>B</mi></mrow><mo>&#xAF;</mo></mover></math> |
-| SingleMsubsup | <math><msubsup><mi>a</mi><mn>0</mn><mn>2</mn></msubsup><mo>+</mo><msubsup><mi>a</mi><mn>1</mn><mn>2</mn></msubsup></math> |
-| SingleMsub | <math><mrow><msub><mrow><mi>log</mi></mrow><mn>2</mn></msub><mn>10</mn></mrow></math> |
-| SingleMsup | <math><msup><mi>f</mi><mo>'</mo></msup></math> |
-| SingleMunderover | <math><munderover><mi>&#x391;</mi><mi>m</mi><mi>n</mi></munderover></math> |
-| SingleMunder | <math><munder><mi>lim</mi><mi>a</mi></munder></math> |
-| SingleMover | <math><mover><mi>A</mi><mo>&#xAF;</mo></mover></math> |
-| power | <math><msup><mn>3</mn><mn>5</mn></msup></math> |
-| SquarePowerType | <math><msup><mn>3</mn><mn>2</mn></msup></math> |
-| CubePowerType | <math><msup><mn>2</mn><mn>3</mn></msup></math> |
-| from_to | <math><msubsup><mo>&#x222B;</mo><mn>0</mn><mn>1</mn></msubsup><msqrt><mi>x</mi></msqrt></math> |
-| from | <math><munder><mo>&#x2211;</mo><mi>N</mi></munder></math> |
-| to | <math><mover><mo>&#x2211;</mo><mi>N</mi></mover></math> |
-| mtable | <math><mtable><mtr><mtd><mi>x</mi><mo>+</mo><mi>y</mi></mtd><mtd><mo>=</mo></mtd><mtd><mn>1</mn></mtd></mtr><mtr><mtd><mi>x</mi><mo>+</mo><mn>2</mn><mi>y</mi></mtd><mtd><mo>=</mo></mtd><mtd><mn>4</mn></mtd></mtr></mtable></math> |
-| mtr | <math><mtable><mtr><mtd><mi>x</mi><mo>+</mo><mi>y</mi></mtd><mtd><mo>=</mo></mtd><mtd><mn>1</mn></mtd></mtr><mtr><mtd><mi>x</mi><mo>+</mo><mn>2</mn><mi>y</mi></mtd><mtd><mo>=</mo></mtd><mtd><mn>4</mn></mtd></mtr></mtable></math> |
-| mtd | <math><mtable><mtr><mtd><mi>x</mi><mo>+</mo><mi>y</mi></mtd><mtd><mo>=</mo></mtd><mtd><mn>1</mn></mtd></mtr><mtr><mtd><mi>x</mi><mo>+</mo><mn>2</mn><mi>y</mi></mtd><mtd><mo>=</mo></mtd><mtd><mn>4</mn></mtd></mtr></mtable></math> |
-| LineType | <math><mrow><mover accent='true'><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy='true'>&#x2194;</mo></mover></mrow></math> |
-| RayType | <math><mrow><mover accent='true'><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy='true'>&#x2192;</mo></mover></mrow></math> |
-| LineSegmentType | <math><mover><mrow><mi>A</mi><mi>B</mi></mrow><mo>&#xAF;</mo></mover></math> |
-| VectorSingleType | <math><mrow data-mjx-texclass="ORD"><mover><mi>A</mi><mo stretchy="false">→</mo></mover></mrow></math> |
-| VectorDoubleType | <math><mrow data-mjx-texclass="ORD"><mover><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy="false">→</mo></mover></mrow></math> |
-| ArrowOverSingleSymbolType | <math><mrow><mover accent='true'><mrow><mi>a</mi></mrow><mo stretchy='true'>&#x2192;</mo></mover></mrow></math> |
-| FrownType | <math><mrow><mover accent='true'><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy='true'>&#x2322;</mo></mover></mrow></math> |
-| DegreeType | <math ><msup ><mn>15</mn><mo>∘</mo></msup><mo>+</mo><msup ><mn>10</mn><mo>∘</mo></msup><mo>=</mo><msup ><mn>25</mn><mo>∘</mo></msup></math> |
-| LogType | <math><msub><mi>log</mi><mn>10</mn></msub></math> |
-| BinomialType | <math><mo>(</mo><mfrac linethickness = "0"><mi>n</mi><mi>k</mi></mfrac><mo>)</mo></math> |
-| NegativeSignType | <math><mo>-</mo><mn>2</mn></math> |
-| PositiveSignType | <math><mo>+</mo><mn>2</mn></math> |
-| mmultiscripts | <math><mmultiscripts><mi>T</mi><mprescripts/><mi>n</mi><mi>m</mi></mmultiscripts></math> |
-| mprescripts | <math><mmultiscripts><mi>T</mi><mprescripts/><mi>n</mi><mi>m</mi></mmultiscripts></math> |
-
-## 範例
-
-維基百科上的數學內容皆以MathML寫成
-
-* 一元二次方程式：https://zh.wikipedia.org/wiki/一元二次方程
-* 矩陣乘法：https://zh.wikipedia.org/zh-tw/%E7%9F%A9%E9%99%A3%E4%B9%98%E6%B3%95
-* 三次方程式：https://zh.wikipedia.org/zh-tw/%E4%B8%89%E6%AC%A1%E6%96%B9%E7%A8%8B
-
-一元二次方程解：
-
-* LaTeX: \(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)
-* AsciiMath: `x=(-b+- \sqrt(b^2-4ac))/(2a)`
-* MathML: <math xmlns="http://www.w3.org/1998/Math/MathML"><mfrac><mrow><mo>-</mo><mi>b</mi><mo>&#xB1;</mo><msqrt><msup><mi>b</mi><mn>2</mn></msup><mo>-</mo><mn>4</mn><mi>a</mi><mi>c</mi></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></math>
-
-github： https://github.com/tsengwoody/Access8Math
-
-歡迎提出見意與bug回報，謝謝！
 
 # Access8Math 日誌
 

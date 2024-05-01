@@ -1,125 +1,414 @@
-# Access8Math feature
+# Access8Math Introduction
 
-This NVDA addon enhances the mathematical content reading and writing experience.
+Access8Math is an NVDA add-on that enhances the user experience when reading and writing mathematical content.
 
-The reading feature includes improved language translation in the ability to segment long math content into smaller parts using interactive navigation.
+Access8Math offers text-to-speech/Braille functionality for MathML content. MathML is the standard language for describing math structure and content on the web, which enables visually readable math content through a web browser.
 
-The writing feature includes a command menu for easier LaTeX/AsciiMath/Nemeth input and the ability to export to a visually readable HTML document for better collaboration.
+Access8Math can also assist in writing and converting LaTeX to MathML. LaTex is a typesetting system which is easy to write and learn. It’s commonly used for representing math formulas.
 
-## reading feature
+With Access8Math's reading, writing, and conversion features, visually impaired users can read and write math content with ease. Based on MathML and LaTeX, two common math markups, Access8Math significantly reduces the difficulty of two-way communication between visually impaired and sighted users.
 
-* Reads entire lines including text and mathematical content
-* Provides interactive navigation to move, read, and zoom in or out on mathematical content snippets
-* Allows for reviewing text while interactive navigation
-* Uses simplified speech rules
-* Breaks speech between items in mathematical content
+## Reading Features Overview
 
-## writing feature
+* Read MathML content in a web browser.
+* Read MathType content in Microsoft Word.
+* Read a full paragraph that contains text and math content.
+* Provide customized speech output rules, including simplified outputs and pauses between math segments.
+* Allow customization of math symbol speech output and Braille output.
 
-* Allows writing of mathematical content using LaTeX/AsciiMath/Nemeth
-* Provides a command menu for inputting LaTeX
-* Offers shortcut gestures for inputting LaTeX
-* Allows for more efficient cursor movement during editing
-* Allows reads documents containing LaTeX/AsciiMath/Nemeth data in real-time while editing the document
-* Provides  converting text files into HTML files for preview and export.
+##  Interaction Features Overview
 
-# Access8Math ReadMe
+* Allow navigating between, zooming in, or zooming out of math segments.
+* Use NVDA review cursor to read text.
+* Provide mathematical meaning of items when interacting.
 
-This NVDA add-on enhances speech and braille output for mathematical content. Although the NVDA already integrating MathPlayer, certain aspects require improvement, such as the lack or incompleteness of language-specific translation, language-specific interactive navigation.
+## Writing Features Overview
 
-Interactive navigation dissects mathematical content into smaller portions for speech or braille output, allowing for the selection of the desired fragment and mode of delivery through keyboard commands. This enhances one's understanding of the structure and elements of lengthy mathematical content, and the hierarchical relationships between items.
+* Convert LaTeX/Nemeth to MathML.
+* Provide a command menu to facilitate LaTeX input.
+* Provide shortcut gestures to facilitate LaTeX input.
+* Help moving the editing cursor more efficiently while editing.
+* Preview content that includes LaTeX/Nemeth while editing.
+* Convert plain text files into accessible HTML files for preview and export.
 
-Additionally, this NVDA add-on enables the writing of mathematical content. Using the command menu, input can be executed without having to memorize LaTeX codes. Upon completion, the document can be transformed into a visually comprehensible HTML document via the view and export function, thereby enabling seamless collaboration and discourse with others.
+# Access8Math Description
 
-## Reading feature
+The Access8Math add-on provides comprehensive math content reading and writing capabilities.
 
-Access8Math is able to read MathML content in web browsers such as Mozilla Firefox, Google Chrome, and Microsoft Edge, as well as MathType content in Microsoft Word.
+Access8Math offers customizable speech and braille output, and an Interactive Mode to access and understand math content. In Interactive Mode, users can read math content in smaller segments, as well as choosing the size of the segments through keyboard shortcuts. In this way, they can understand the structure and hierarchical relationships of long math content more easily.
 
-By pressing the space bar or enter key on a MathML math object, you can enter navigation mode and interact with the content by moving, and zooming in or out on reading snippets.
+Access8Math also provides a command menu to make writing LaTeX easier. Instead of memorizing complex LaTeX syntaxes, users can navigate through the command menu to input math markups..
 
-* Analyze the overall mathematical meaning of the content: analyze the structure of MathML, and when it meets a specific rule, read it aloud in the mathematical meaning of the rule
-* Analyze the mathematical meaning of the content item: When navigating and browsing, it will prompt the meaning of the content under its upper content. For example, there are two score items, and moving between them will enroll the item as the denominator or numerator
+In addition, users can preview their inputs while editing, which helps users to find and fix syntax errors as soon as possible.
 
-### navigation interactive mode command：
+Finally, Access8Math converts text and math content written in LaTeX into visually readable HTML files. Since both text and math content can be displayed together visually, it makes math discussion between visually impaired and sighted people more fluid.
 
-The following commands are available in navigation interactive mode:
+## MathML Examples
 
-* "Down Arrow": shrink the reading snippet(zoom in)
-* "Up Arrow": enlarge the reading snippet(zoom out)
-* "Left Arrow": Moves to the previous math content.
-* "Right Arrow": Moves to the next math content.
-* "home": Moves back to the top of the entire math content.
-* "ctrl+C": Copies the MathML source code of the object.
-* "numpad 1~9": Reads the math content as serialized text using NVDA Reviewing Text.
-* "ESC": Exits the navigation mode.
+Math contents on Wikipedia are written in MathML:
 
-## Writing feature
+* Quadratic equation: https://en.wikipedia.org/wiki/Quadratic_equation
+* Matrix multiplication: https://en.wikipedia.org/wiki/Matrix_multiplication
+* Cubic equation: https://en.wikipedia.org/wiki/Cubic_equation
 
-Comprehensive content: Incorporating Both Text and Mathematical Content
+# Access8Math User Guide
 
-For Windows 11, the Access8Math editor must be used, while for Windows 10 or earlier versions, either Access8Math editor or Notepad can be used. It is recommended to use the built-in Access8Math editor for writing comprehensive content.
+## Reading Features
 
-To distinguish between text content and mathematical content, you can use delimiters to enclose the mathematical notation area. This means that any data within the mathematical notation area will be considered mathematical content according to the specified delimiter, while data outside of the mathematical notation area will be treated as text content.
+### Language Setting
 
-| category | start delimiter | end delimiter |
+Select the language in which the math content in Access8Math will be converted in Settings > Reading. If your language is not supported by the system, see the "Adding a new language" paragraph in the "Localization" section of this document.
+
+### Reading Experience Settings
+
+#### Mathematical Structure Analysis
+
+These rules are designed to enhance the reading experience of commonly used mathematical structures. The system analyzes the content according to the MathML structure and mathematical rules, so that the speech outputs and Braille outputs are more consistent with the mathematical meaning. For example, "x^2" will be read as "square of x" instead of "x super 2". 
+
+Enable or disable this functionality by checking the "Analyze mathematical meaning of contents" checkbox in Settings > Reading. Uncheck this option to view the original MathML structure.
+
+This option also changes the given additional information of the mathematical meaning when navigating between math segments in Interactive Mode.
+
+#### Simplified Speech Outputs
+
+When the system analyzes mathematical rules, it will read them out in a simplified way. If there is only one single item in the math content, it can omit the markups before and after while reading, so that it can be understood more efficiently. For example, "\(\frac{1}{2}\)" will be read as "1 over 2" instead of "fraction with numerator 1 and denominator 2 end fraction". 
+
+Enable or disable a simplified rule from the list of checkboxes in Settings > Rules.
+
+#### Pauses Between Segments
+
+Access8Math reads math content with a pause between items to make the math content easier to understand. 
+
+To adjust the pause time between items, set a value from 1 to 100 in Settings > Reading. A smaller value means a shorter pause time and a larger value means a longer pause time.
+
+### Math Reader Settings
+
+Select the source of the math reader in Settings > Math Reader.
+
+* Speech Source: Use Access8Math/MathCAT/Math Player for speech outputs.
+* Braille Source: Use Access8Math/MathCAT/Math Player for Braille outputs.
+* Interaction Source: Use Access8Math/MathCAT/Math Player for Interactive Mode.
+
+### Customize Math Symbol Speech Outputs and Braille Outputs
+
+In the "Localization" menu, it’s possible to edit the table of math symbols and the table of mathematical rules. For more details, please refer to the "Localization" section of this document.
+
+## Interaction Features
+
+### How to Activate NVDA Interactive Mode?
+
+For speech-oriented users, it is often preferable to listen to a math equation in smaller segments rather than hearing the whole equation at once. If currently in Browse mode, move the cursor over the math content and press the Space or Enter key.
+
+If not in Browse mode:
+1. Move the review cursor to the location of the math content. By default, the review cursor follows the system caret so the system cursor can be moved to the math content.
+2. Execute the following shortcut: NVDA + Alt + M to interact with the math content.
+
+Once in Interactive Mode, use commands such as the arrow keys to explore an equation. For example, use the left and right arrow to move within an equation, and use the down arrow to explore a segment of the equation.
+
+When finished reading, simply press Esc to return to the document. For more information about reading and navigating in Math Content, see the next section.
+
+### Available Keyboard Controls in Access8Math Interactive Mode
+
+* Down arrow: Reduces the scope of the reading segment.
+* Up arrow: Enlarges the scope of the reading segment.
+* Left arrow: Go to the previous math segment.
+* Right arrow: Go to the next math segment.
+* Ctrl + C: Copy the MathML of the object.
+* Home key: Reads the entire math content.
+* Numeric Keypad 1-9: Use NVDA Review Mode to read the math content (see the Review Mode section of the NVDA User Guide).
+* Esc key: Quit Interactive Mode.
+* Table navigation: In a math table, use Ctrl + Alt + arrow keys to move up or down a column, left or right a row. The navigation is the same as NVDA table navigation.
+* Ctrl + Alt + Left arrow: Move to the left column.
+* Ctrl + Alt + Right arrow: Move to the right column.
+* Ctrl + Alt + Up arrow: Move to the previous row.
+* Ctrl + Alt + Down arrow: Move to the next row.
+
+### Adjust Additional Information for Outputs in Interactive Mode
+
+* Provide auto-generated additional information: In Interactive Mode, the system provides additional information about the number of items when meanings of sub-nodes are not fully defined in a math rule. This feature applies to situations where some MathML markups may have a variable number of sub-nodes, such as tables, matrices, or equations. The system provides additional information like "first column", "second item", and so on, while navigating. If not willing to hear the additional information, uncheck this setting.
+
+* Use an audio effect to indicate that no movement is possible: When checked, a beep sound appears when it’s not possible to move to a new item; when unchecked, the sound will be replaced by the text "no movement".
+
+## Writing Features
+
+### Access8Math Editor and Access8Math Document
+
+Since Windows 11, the editor of Notepad is a Rich Text Editor (RTE) instead of a traditional editor, so it’s necessary to use Access8Math Editor to be able to use the writing gestures in Windows 11. The editor also offers the ability to open old files, save files, preview, and more. On the other hand, in Windows 10 or earlier, either Access8Math editor or Windows Notepad can be used.
+
+With Access8Math editor, it’s possible to write Markdown documents and add resources such as images and links in the editor. When clicking the Export button in the editor, the referenced resources in the document will be compressed into a zip file, which is an Access8Math Document file. Please refer to the "Importing and Exporting'' section of this document for more details.
+
+### Separators
+
+When writing, special characters are used to separate text content from math content. In other words, the content inside the separators is math content written in a specific math markup, while the content outside is general text content.
+
+| Category | Staring Separator | Ending Separator |
 | --- | --- | --- |
-| LaTeX(bracket) | \( | \) |
-| LaTeX(money) | $ | $ |
-| AsciiMath | ` | ` |
-| Nemeth(UEB) | _% | _: |
-| Nemeth(at) | @ | @ |
+| LaTeX (Parentheses) | \( | \) |
+| LaTeX (Dollar sign) | $ | $ |
+| Nemeth (UEB) | _% | _: |
+| Nemeth (at) | @ | @ |
 
-You can choose what delimiter use for LaTeX/Nemeth in the writing setting.
+Note: It’s possible to change the separators used in LaTeX/Nemeth in the Settings > Document.
 
-### Command gesture (toggle: NVDA+alt+c)
+### Mixed Content Examples
 
-alt+m: The mark command window pops up, select LaTeX/AsciiMath/Nemeth and press enter to add LaTeX/AsciiMath marks before and after the currently selected text (the current cursor when no text is selected) and automatically move the cursor into it. Enter content quickly.
+* LaTeX (Parentheses): The solution to the quadratic equation \(ax^2+bx+c=0\) is \(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\).
+* LaTeX (Dollar sign): The solution to the quadratic equation $ax^2+bx+c=0$ is $x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$.
+* Nemeth(UEB): The solution to the quadratic equation _%⠁⠭⠘⠆⠐⠬⠃⠭⠬⠉⠀⠨⠅⠀⠴_: is _%⠭⠀⠨⠅⠀⠹⠤⠃⠬⠤⠜⠃⠘⠆⠐⠤⠲⠁⠉⠻⠌⠆⠁⠼_:.
+* Nemeth(at): The solution to the quadratic equation @⠁⠭⠘⠆⠐⠬⠃⠭⠬⠉⠀⠨⠅⠀⠴@ is @⠭⠀⠨⠅⠀⠹⠤⠃⠬⠤⠜⠃⠘⠆⠐⠤⠲⠁⠉⠻⠌⠆⠁⠼@.
+* MathML: The solution to the quadratic equation <math display="inline"><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi><mo>=</mo><mn>0</mn></math> is <math display="inline"><mfrac><mrow><mo>−</mo><mi>b</mi><mi>±</mi><msqrt><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></math>.
 
-alt+l: Pop up the LaTeX command window, select the LaTeX command item to be added and press the enter key to add the corresponding LaTeX syntax at the current cursor and automatically move the cursor to the appropriate input point for quick input.
+### Command Gestures (Toggle: NVDA + Alt + C)
 
-LaTeX command window
+* Alt + M: Display the markup command menu. In the window, select LaTeX/Nemeth, and press Enter. It will add the LaTeX/Nemeth markups before and after the currently selected text (or at the current editing cursor if no text is selected), and automatically move the editing cursor into the markups.
+* Alt + L: Display the LaTeX command menu (virtual menu). In the window, select a LaTeX command item, and press Enter. The corresponding LaTeX syntax will be added to the current editing cursor, and the editing cursor will be moved to the appropriate input point automatically. If the editing cursor is not in the LaTeX area, the starting and ending separators will be added automatically.
+* LaTeX Command Menu
+    * In this command menu, use the up and down arrow to select items in the list, and use the right and left arrow to enter or quit a sub-menu. The LaTeX command menu contains two levels: categories and LaTeX markups. For example, use the up and down arrow to select a category in the category list, then use the right arrow to enter the LaTeX markup sub-menu to select the LaTeX markup to be inserted.
+    * Select any LaTeX command item and press A ~ Z or F1 ~ F12 to set the shortcut gesture.
+    * Select any LaTeX command item and press Delete/Backspace to remove the set shortcut gesture.
+    * Select any LaTeX command item and press Enter to add the corresponding LaTeX syntax to the current editing cursor.
+* Alt + I: Interact with the math block when the editing cursor is over it.
+* Alt + H: Show the view command menu (virtual menu) for preview or export. Please refer to the “Import and Export” section for more details.
 
-* Move to any LaTeX command item and press English letters (a~z) or f1~f12 to set shortcuts
-* Move any LaTeX command item and press delete/back space to remove the shortcut that has been set
-* Move to any LaTeX command item and press enter to add the corresponding LaTeX syntax at the current cursor
+Note: Enable or disable command gestures at startup in Settings > Writing. Press NVDA + Alt + C in the editing area to enable or disable the command gesture. The shortcut can be changed in the NVDA input gestures.
 
-alt+i: When the cursor stops on the math block, you can interact with the math block for navigation
+### Shortcut Gestures (Toggle: NVDA + Alt + S)
 
-alt+h: HTML documents that can convert text data and mathematical data can be viewed or exported. The content of the math block is converted into MathML and presented side by side with the text to facilitate visual reading.
+When the editing cursor is in the LaTeX block, press A ~ Z or F1 ~ F12 to quickly insert the bound LaTeX, and press Shift + Alphabets, Shift + F1 ~ F12 to read out the bound LaTeX of the shortcut gesture (it’s necessary to set up the shortcut gesture in the LaTeX Command Menu first).
 
-* View: Open the converted HTML document through the default .HTML extension application set by the system.
-* Export: Pack the converted HTML file and the original text file into a compressed file.
+Note: Enable or disable shortcut gestures at startup in Settings > Writing. Press NVDA + Alt + S in the editor to enable or disable shortcut gestures. The shortcut can be changed in the NVDA input gestures.
 
-alt+t: The data of the block where the cursor is located can be converted between LaTeX and AsciiMath (the cursor needs to be in the LaTeX or AsciiMath block)
+### Greek Alphabets Gestures (Toggle: NVDA + Alt + G)
 
-In the writing settings, you can choose whether to enable command gestures at startup. Press NVDA+alt+c in the editing area to enable or disable command gestures, which can be changed in input gestures.
+When the editing cursor is in the LaTeX block, press a letter key to quickly insert the LaTeX markup of the corresponding Greek letter. See the "Appendix" of this document for Alphabet to Greek Alphabet Table.
 
-### Writing block navigation gestures (toggle: NVDA+alt+n)
+### Editing and Navigating Between Blocks 
 
-* alt+Left arrow key: move to the start point of the previous data block
-* alt+Down arrow key: Only read the content of the current data block without moving
-* alt+right arrow: move to the start point of the next data block
-* alt+home: move to the starting point of the current data block
-* alt+end: move to the end point of the current data block
-* alt+shift+left arrow: move to the previous data block and select
-* alt+shift+down key: do not move, only select the content of the current data block
-* alt+shift+right arrow: move to the next data block and select
+In Access8Math editor, content separated by separators is treated as different blocks, such as text blocks and math content blocks. The editing cursor can be quickly moved between different blocks using the block navigation.
 
-In the writing settings, you can choose whether to enable the block navigation gestures when starting. Press NVDA+alt+n in the editing area to enable or disable the block navigation gestures, which can be changed in the input gestures.
+Take the content "The solution of the quadratic equation \(ax^2+bx+c=0\) is \(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)" as an example, there are two main math content blocks and two text blocks, which can be labeled as Block A, Block B, Block C and Block D:
 
-### Shortcut gestures (toggle: NVDA+alt+s)
+* Block A: The six words "The solution of the quadratic equation" is one text block.
+* Block B: The math block \(ax^2+bx+c=0\) starts with a starting separator and ends with the ending separator after 0.
+* Block C: The word "is" is another text block.
+* Block D: The second math block \(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\) starts with the starting separator and ends with the closing separator after the whole expression.
 
-When the cursor is in the LaTeX block, press the letter, f1~f12 to quickly insert the bound LaTeX. Press shift+letter, shift+f1~f12 to read out the LaTeX currently bound to the shortcut. (Need to set the shortcut key in the command menu first)
+#### Block Navigation Gestures (Toggle: NVDA + Alt + N)
 
-In the writing settings, you can choose whether to enable the quick navigation gestures at startup. Press NVDA+alt+s in the editing area to enable or disable the quick navigation gestures, which can be changed in the input gestures.
+* Alt + Left arrow: Move to the beginning of the previous block.
+* Alt + Down arrow: Read out the content of the current block without moving.
+* Alt + Right arrow: Move to the beginning of the next block.
+* Alt + Home: Move to the beginning of the current block.
+* Alt + End: Move to the end of the current block.
+* Alt + Shift + Left arrow: Move to the previous block and select it.
+* Alt + Shift + Down arrow: Select the content of the current data block without moving.
+* Alt + Shift + Right arrow: Move to the next block and select it.
 
-### Greek letter gestures (toggle: NVDA+alt+g)
+Note: Enable or disable block navigation gestures at startup in Settings > Writing. Press NVDA + Alt + N in the editor to enable or disable block navigation gestures. The shortcut can be changed in the NVDA input gestures.
 
-When the cursor is in the LaTeX block, press the letter to quickly insert the corresponding Greek letter LaTeX.
+#### Block Browse Mode (Toggle: NVDA + Space)
 
-Mapping table
+When using the Block Browsing mode, the system will output the mathematical meaning of the content instead of the original math markup of the current block. For example, “\(\frac{1}{2}\) as a decimal is 0.5” will output as "1 over 2 as a decimal is 0.5" instead of “\(\frac{1}{2}\) as a decimal is 0.5”.
 
-| English letter | Greek letter | LaTeX |
+Use the following gestures to move the editing cursor and enter the Interactive Mode:
+
+* Left arrow: Move to the beginning of the previous block and read it.
+* Right arrow: Move to the beginning of the next block and read it.
+* Up arrow: Move to the previous line and read all the blocks in that line.
+* Down arrow: Move to the next line and read all the blocks in that line.
+* Page Up: Move up ten lines and read all the blocks in this area.
+* Page Down: Move down ten lines and read all the blocks in this area.
+* Home: Move to the first block of the line where the editing cursor is located.
+* End: Move to the last block of the line where the editing cursor is located.
+
+Press Shift with the above keys to select the text.
+
+* Space/Enter: Press Space/Enter when the editing cursor is on a math block to enter the Interactive Mode.
+
+If pressing the following keys only, the editing cursor will jump to the next block of that type. If pressing Shift + the key at the same time, the editing cursor will jump to the previous block of that type:
+
+* L: Move to the next LaTeX block and read it.
+* N: Move to the next Nemeth block and read it.
+* M: Move to the next MathML block and read it.
+* T: Move to the next text block and read it.
+* Tab: Move to the next interactive block (Math block) and read it.
+
+Use the following gestures to edit the document:
+
+* Ctrl + X: Cut the contents of the current editing block.
+* Ctrl + C: Copy the content of the current editing block.
+* Ctrl + V: Paste the content behind the current editing block.
+* Delete/Backspace: Delete the content of the current block.
+
+### Import and Export
+
+#### Export a Document
+
+Using the View menu in the Access8Math editor or the command gesture Alt + H can display the Export option in the View command menu. By exporting, the system converts the edited document to an HTML file and compresses it with the original text file into an Access8Math Document, which is a zip file.
+
+Both methods create an Access8Math document. The only difference is that using the Export option in the Access8Math editor also compresses the referenced resources into the zip file.
+
+An Access8Math Document contains an HTML file with math content in MathML. Users can read the math content in various ways (text reading, speech listening, braille reading).
+
+#### Import a Document
+
+In the File Explorer, press the NVDA + application key. When the selected file is an Access8Math Document, a virtual context menu will be displayed, allowing users to quickly open the file for viewing or editing.
+
+Note: Configure whether or not the math objects in the exported HTML are independant blocks with the “HTML Math Display'' setting in Settings > File. This setting will affect whether the math objects are read independently or mixed with normal text when navigating with arrow keys to read the whole line in the Browse Mode.
+
+## Virtual Menus
+
+Virtual menus will be presented only as speech and braille outputs. There is no actual visual menu. Select an item in the list by using the up/down arrow. If the menu item has a sub-menu, use the right key to enter the sub-menu; use the left key to exit the sub-menu.
+
+## Localisation
+
+### Adding a New Language
+
+By clicking this option in the “Localisation” menu, languages that are not originally supported by the system can be added. Once added, the newly added language will appear in the "Settings" > "Reading" > "Language" menu. However, the added language is only a copy of the English language template. The speech and Braille outputs need to be defined through "Symbol Dictionary" and "Math Rules" to achieve customized localization.
+
+### Customizing Speech and Braille Outputs for Math Symbols
+
+In the "Tools" > "Access8Math" > "Localization" menu, speech and Braille outputs can be customized. Both speech and Braille outputs are divided into two parts: "Symbol Dictionary" and "Math Rules."
+
+* Symbol Speech Dictionary: Customize how different math symbols are read.
+* Math Rules Speech Output: Customize how different math rules are read.
+* Symbol Braille Dictionary: Customize how different math symbols are displayed in Braille outputs.
+* Math Rules Braille Output: Customize how different math rules are displayed in Braille outputs.
+
+### Editing Symbol Dictionary
+
+Access8Math maps specific symbols to corresponding text/ braille outputs through a dictionary file to solve issues where rare symbols cannot be read by speech synthesizers or where symbols have different meanings between mathematical contexts and general text.
+
+For example, "!" means "factorial" in mathematical content, while in general text it represents emotion. By editing the dictionary file, symbols can be mapped to new alternative texts or Braille outputs to update incorrect outputs..
+
+* Add: Introduce a new symbol entry to the dictionary. After selecting the add button, enter the desired symbol in the dialog box and confirm. Then, the added symbol will appear in the entry list in the Symbol Dictionary dialog.
+* Modify: Choose a symbol and edit its alternative text. The system will then read out and display Braille outputs based on the alternative text.
+* Remove: Select a symbol and press the remove button to eliminate the chosen entry.
+* Restore Default Values: Reset the dictionary to the default entries defined by the system.
+* Import: Bring in a symbol dictionary file, which can load exported symbol dictionary files.
+* Export: Save the symbol dictionary file to a specified path for sharing or saving.
+
+### Editing Math Rules
+
+Access8Math establishes corresponding mathematical rules for the MathML structure of commonly used math content. When encountering MathML structures that match the rules, the system will read out and display them according to the content defined in the mathematical rules. The speech outputs and Braille outputs can be customized according to the habits of different regions.
+
+* Edit: In the Math Rules dialog, there is a list of mathematical rules. Select any rule and click the "Edit" button to enter the editing dialog. The editable fields of the rule can be divided into two parts, "Serialization Order" and "Mathematical Meaning of Specific Nodes."
+
+  * Serialization Order: In Access8Math, each math rule is divided into several segments, and these segments are output in a specific order. In this section, the output order of specific segments, as well as the text at the beginning, between segments, and at the end can be adjusted. For example, in the fraction rule "mfrac", this rule is divided into five segments. Orders 0, 2, and 4 represent the starting text, the separating text between segments 1 and 3, and the ending text. Each text can be adjusted according to preference. Orders 1 and 3 allow adjustments to the output order of specific segments by the drop-down menu.
+  * Mathematical Meaning of Specific Nodes: The mathematical meaning of specific segments of the math rule can be adjusted in this section. Taking the fraction rule "mfrac" as an example, this rule contains two specific segments: the numerator and the denominator. You can change the meaning of each specific segment according to the math rule.
+
+* Example: Verify if a rule is read in the correct way after editing. Clicking the “Example” button will bring up default mathematical content that matches the corresponding mathematical rule. Users can interact with the content to see whether a rule is read in the correct way.
+* Restore Default Values: Reset the list of mathematical rules to the initial default values.
+* Import: Import a mathematical rules file, which can be used to load exported mathematical rules files.
+* Export: Save the mathematical rules file to the specified path for sharing or saving.
+
+If you are interested in localizing symbol dictionaries and mathematical rules, edit them through these two windows, and use the export function to obtain edited files. Then, you can provide these files to the development team through Access8Math GitHub Pull requests or Email (tsengwoody.tw@gmail.com). We would be happy to include your translation in Access8Math.
+
+## Appendix
+
+### LaTeX Menu
+
+| id | latex | category | order | label |
+| --- | --- | --- | --- | --- |
+| matrix2X2 | \left [ \begin{matrix} {} &{} \\ {} &{} \end{matrix} \right ] | 2-dimension | 0 | matrix (2X2) |
+| matrix3X3 | \left [ \begin{matrix} {} &{} &{} \\ {} &{} &{} \\ {} &{} &{} \end{matrix} \right ] | 2-dimension | 1 | matrix (3X3) |
+| determinant2X2 | \left  |  \begin{array} {cc} {} &{} \\ {} &{} \end{array} \right  |  | 2-dimension | 2 | determinant (2X2) |
+| determinant3X3 | \left  |  \begin{array} {ccc} {} &{} &{} \\ {} &{} &{} \\ {} &{} &{} \end{array} \right  |  | 2-dimension | 3 | determinant (3X3) |
+| leftarrow | \leftarrow | arrow | 0 | left arrow |
+| rightarrow | \rightarrow | arrow | 1 | right arrow |
+| leftrightarrow | \leftrightarrow | arrow | 2 | left right arrow |
+| uparrow | \uparrow | arrow | 3 | up arrow |
+| downarrow | \downarrow | arrow | 4 | down arrow |
+| updownarrow | \updownarrow | arrow | 5 | up down arrow |
+| dotproduct | \cdot | calculus | 5 | dot product |
+| integral | \int_{}^{}{} \mathrm d | calculus | 1 | integral |
+| nabla | \nabla | calculus | 2 | nabla |
+| partial | \partial | calculus | 4 | partial derivative |
+| prime | \prime | calculus | 3 | derivative |
+| differential | \mathrm{d} | calculus | 0 | differential |
+| combination | C_{}^{} | combinatorics | 0 | combination |
+| permutation | P_{}^{} | combinatorics | 1 | permutation |
+| combination-with-repetition | H_{}^{} | combinatorics | 2 | combination with repetition |
+| unordered-selection | U_{}^{} | combinatorics | 3 | unordered selection |
+| frac | \frac{}{} | common | 0 | fractions |
+| sqrt | \sqrt{} | common | 1 | square root |
+| root | \sqrt[]{} | common | 2 | root |
+| sumupdown | \sum_{}^{} | common | 3 | summation |
+| vector | \vec{} | common | 4 | vector |
+| limit | \lim_{{} \to {}} | common | 5 | limit |
+| logarithm | \log_{} | common | 6 | logarithm |
+| arc | \overset{\frown}{} | geometry | 0 | arc |
+| triangle | \triangle{} | geometry | 1 | triangle |
+| angle | \angle{} | geometry | 2 | angle |
+| degree | ^{\circ} | geometry | 3 | degree |
+| circ | \circ | geometry | 4 | circle |
+| parallel | \parallel | geometry | 5 | parallel |
+| perp | \perp | geometry | 6 | perpendicular |
+| square | \square{} | geometry | 7 | square |
+| small-diamond | \diamond{} | geometry | 8 | small diamond |
+| large-diamond | \Diamond{} | geometry | 9 | large diamond |
+| because | \because | logic | 0 | because |
+| therefore | \therefore | logic | 1 | therefore |
+| iff | \iff | logic | 2 | if and only if |
+| implies | \implies | logic | 3 | implies |
+| impliedby | \impliedby | logic | 4 | implied by |
+| times | \times | operator | 0 | times |
+| div | \div | operator | 1 | divide |
+| pm | \pm | operator | 2 | plus-minus sign |
+| modulus | \bmod | operator | 3 | modulus |
+| overline | \overline{} | other | 0 | line segment |
+| overleftrightarrow | \overleftrightarrow{} | other | 1 | line |
+| overrightarrow | \overrightarrow{} | other | 2 | ray |
+| binom | \binom{}{} | other | 3 | binomial coefficient |
+| simultaneous-equations | \begin{cases} {} &{} \\ {} &{} \end{cases} | other | 4 | simultaneous equations |
+| infty | \infty | other | 5 | infty |
+| repeating-decimal | 0.\overline{} | other | 6 | repeating decimal |
+| ge | \ge | relation | 0 | greater than or equal to |
+| le | \le | relation | 1 | less than or equal to |
+| ne | \ne | relation | 2 | not equal to |
+| approx | \approx | relation | 3 | approximate |
+| cong | \cong | relation | 5 | full equal |
+| sim | \sim | relation | 6 | similar |
+| doteqdot | \doteqdot | relation | 4 | approximately equal to |
+| propto | \propto | relation | 7 | proportional to |
+| in | \in | set | 0 | belong to |
+| notin | \not\in | set | 1 | not belong to |
+| ni | \ni | set | 2 | include element |
+| notni | \not\ni | set | 3 | not include element |
+| subset | \subset | set | 4 | lie in |
+| subsetneqq | \subsetneqq | set | 5 | properly lie in |
+| not-subset | \not\subset | set | 6 | not lie in |
+| supset | \supset | set | 7 | include |
+| supsetneqq | \supsetneqq | set | 8 | properly include |
+| not-supset | \not\supset | set | 9 | not include |
+| cap | \cap | set | 10 | intersection set |
+| cup | \cup | set | 11 | union set |
+| setminus | \setminus | set | 12 | difference set |
+| complement | \complement_{} | set | 13 | complement |
+| emptyset | \emptyset | set | 14 | empty set |
+| natural-number | \mathbb{N} | set | 15 | natural number |
+| real-number | \mathbb{R} | set | 16 | real number |
+| forall | \forall | set | 17 | for all |
+| exists | \exists | set | 18 | exists |
+| sine | \sin{} | trigonometric | 0 | sine |
+| cosine | \cos{} | trigonometric | 1 | cosine |
+| tangent | \tan{} | trigonometric | 2 | tangent |
+| cotangent | \cot{} | trigonometric | 3 | cotangent |
+| secant | \sec{} | trigonometric | 4 | secant |
+| cosecant | \csc{} | trigonometric | 5 | cosecant |
+| arcsine | \arcsin{} | trigonometric | 6 | arcsine |
+| arccosine | \arccos{} | trigonometric | 7 | arccosine |
+| arctangent | \arctan{} | trigonometric | 8 | arctangent |
+| hyperbolic-sine | \sinh{} | trigonometric | 9 | hyperbolic sine |
+| hyperbolic-cosine | \cosh{} | trigonometric | 10 | hyperbolic cosine |
+| hyperbolic-tangent | \tanh{} | trigonometric | 11 | hyperbolic tangent |
+| hyperbolic-cotangent | \coth{} | trigonometric | 12 | hyperbolic cotangent |
+| floor | \lfloor  \rfloor | other | 7 | floor |
+| ceil | \lceil  \rceil | other | 8 | ceil |
+
+### English Alphabets to Greek Alphabets Table
+
+| English Alphabet | Greek Alphabet | LaTeX |
 | --- | --- | --- |
 | a | α | \alpha |
 | b | β | \beta |
@@ -145,189 +434,6 @@ Mapping table
 | x | χ | \chi |
 | y | ξ | \xi |
 | z | ζ | \zeta |
-
-
-### Browse navigation mode (toggle: NVDA+space)
-
-When the navigation mode is turned on, the mathematical data block read by the cursor mobile report will read the mathematical text content instead of the original grammatical data
-
-You can use the following key gestures to move the editing cursor and interactive navigation
-
-* Left key: move to the starting point of the previous data block and read it out
-* Right arrow: move to the start point of the next data block and read it out
-* Up key: move to the previous line and read out the contents of all data blocks in this line
-* Down key: move to the next line and read out the contents of all data blocks in this line
-* pageUp: move up ten lines and read out the content of all data blocks in that line
-* pageDown: move down ten lines and read out the content of all data blocks in that line
-* home: move to the first block of the line where the cursor is located
-* end: move to the last block of the line where the cursor is located
-
-Use the cursor to move the key plus the shift key to select the text together
-
-space/enter: When the cursor stops on a math block, it can interact with the math content of the data block to navigate
-
-For the following keys, if you only press the single key, the editing cursor will jump to the next data block position, if you press shift + the single key at the same time, the editing cursor will jump to the previous data block position:
-
-* l: Move to the next LaTeX data block and read it out
-* a: Move to the next AsciiMath data block and read it out
-* n: Move to the next Nemeth data block and read it out
-* m: move to the next MathML data block and read
-* t: move to the next text block and read it
-* tab: move to the next interactive block (math block) and read it out
-
-The following key gestures can be used to edit contents
-
-* ctrl+x: cut the current cursor block
-* ctrl+c: copy the current cursor block
-* ctrl+v: Paste content after the current cursor block
-* delete/back space: delete the current cursor block
-
-### Access8Math editor and Access8Math Document
-
-The edit area of Notepad in Windows 11 is rich editing area not traditional editing area, so Access8Math editor must be used in Windows 11 to use the writing feature. This editor provides such as opening old files, saving files, and view feature.
-
-Use the Access8Math editor to write markdown documents, and when document have some resource, the resources can put into workspace of editor and be referenced. When using export feature of the editor, the referenced resources in the document will be packaged into a Archive file by Access8Math editor.
-
-The preview and export feature under the view menu are the same as the command gesture view feature (alt+h), which can generate an Access8Math Document. The only difference between the two is that the Access8Math editor will package referenced resources into a archive file
-
-In order to allow the document exported by the Access8Math editor to be imported again and edited, the Access8Math editor will write a Access8Math.json when exporting, which is the meta data. We call the archive file/folder containing this meta is Access8Math Document
-
-In File Explorer, you can press the NVDA+application, if the selected path is txt/Access8Math Document, a virtual context menu will open, which can quickly open this file to view or edit it.
-
-### content example:
-
-* LaTeX(bracket): The solution of the quadratic equation in one variable \(ax^2+bx+c=0\) is \(\frac{-b\pm\sqrt{b^2-4ac}}{2a}\) .
-* LaTeX(dollar): The solution of the quadratic equation in one variable $ax^2+bx+c=0$ is $\frac{-b\pm\sqrt{b^2-4ac}}{2a}$ .
-* AsciiMath: The solution of the quadratic equation in one variable `ax^2+bx+c=0` is `x=(-b+- \sqrt(b^2-4ac))/(2a)` .
-* Nemeth(UEB): The solution of the quadratic equation in one variable _%⠁⠭⠘⠆⠐⠬⠃⠭⠬⠉⠀⠨⠅⠀⠴_: is _%⠭⠀⠨⠅⠀⠹⠤⠃⠬⠤⠜⠃⠘⠆⠐⠤⠲⠁⠉⠻⠌⠆⠁⠼_: .
-* Nemeth(at): The solution of the quadratic equation in one variable @⠁⠭⠘⠆⠐⠬⠃⠭⠬⠉⠀⠨⠅⠀⠴@ is @⠭⠀⠨⠅⠀⠹⠤⠃⠬⠤⠜⠃⠘⠆⠐⠤⠲⠁⠉⠻⠌⠆⠁⠼@ .
-* MathML: The solution of the quadratic equation in one variable <math display="inline"><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi><mo>=</mo><mn>0</mn></math> is <math display="inline"><mfrac><mrow><mo>−</mo><mi>b</mi><mi>±</mi><msqrt><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></math> .
-
-## settings
-
-All Access8Math settings are centralized in tools -> Access8Math->Settings
-
-### Reading Settings
-
-* Language: Access8Math read language
-* Analyze mathematical meaning of content: perform semantic analysis on the mathematical content, and when it meets a specific rule, using that rule to speak.
-* show interaction window when entering interaction navigation mode: Whether to show "Access8Math interaction window" when active event entering interaction navigation mode on math object
-* Reading pre-defined meaning in dictionary in interaction navigation mode: When the pattern is definied in the dictionary, use dictionary to read the meaning of subpart in the upper layer part.
-* Reading of auto-generated meaning in interaction navigation mode: When the pattern is not difined or incomplete in dictionary, use automatic generation function to read the meaning of subpart in the upper layer part.
-* use tone indicate to no move in interaction navigation mode
-* Item interval time: Setting break time between items. Values from 1 to 100, the smaller the value, the shorter the break time, and the greater the value, the longer the break time.
-
-### Writing Settings
-
-* Activate command gesture at startup
-* Activate block navigate gesture at startup
-* Activate shortcut gesture at startup
-* Use audio indicate to switching of browse navigation mode
-* HTML document display:
-* HTML math display:
-* LaTeX delimiter:
-
-### Rule setting: Setting whether rules are actived
-
-### Math reader
-
-* Speech source:
-* Braille source:
-* Interact source:
-
-## localization
-
-If you want Access8Math to have speech/braille output for MathML in different languages, you need to create a Unicode dictionary (unicode.dic) and mathematical rules (math.rule). This can be done using the GUI in Access8Math -> Localization, or by referring to the globalPlugins/Access8Math/locale in the plugin folder.
-
-The "Unicode Dictionary" enables you to customize speech or braille output for symbols and characters. The "Mathematics Rules" allow you to customize speech or braille output for different types of mathematics.
-
-"New language" dialog can adding language not included in Access8Math built-in. Upon Adding language option will appear in the Reading Settings language selection, Allowing for the Definition of speech/braille  via the Unicode Dictionary and Mathematics Rules, Resulting in Localization.
-
-### Math Rules
-
-Access8Math establishes mathematical rules according to the mathematical type and logic to decide the reading math method and order. According to different local math reading logic, the math reading text and order can be changed. The method is as follows:
-
-Edit: After entering the "math rule", the window lists 46 math rules. Choose any math rule and select the "Edit" to enter the editing entry.
-
-The "editing entry" can be divided into two major blocks, the "Serialized ordering" and the "Child role".
-
-* Serialized ordering: Math rule is divided into multiple blocks according to the reading order. In this area, the reading order of child node and the delimitation text of start, inter- and the end can be changed. Taking the fractional rule mfrac as an example, this rule is divided into five reading blocks. The order 0, 2, and 4 represent the initial prompt, the project segmentation prompt, and the end prompt, respectively, and the meanings text can be changed in each field. Order 1 and 3 adjust the reading sequence of child node which can be changed in the drop-down menu.
-* Child role:  The next-level sub-item of the mathematical rule. Taking the fractional rule mfrac as an example, the rule contains the numerator and the denominator. The sub-content in the upper sub-content meaning can be changed in the child-node role field.
-
-Example: You can check the reading method of this math rule after editing. After clicking, a math content is preset the corresponding math rules for confirming whether the reading method is as expected.
-
-Recover default: Restores the list of math rules to their initial presets.
-
-Import: Import math rules files, which can be used to load math rules files.
-
-Export: Save the math rules file to the specified path to share or keep.
-
-| category | example |
-| - | - |
-| math | <math><mn>1</mn><mo>+</mo><mn>2</mn><mo>+</mo><mn>3</mn></math> |
-| mfrac | <math><mrow><mfrac><mn>3</mn><mrow><mn>1</mn><mo>+</mo><mi>x</mi></mrow></mfrac></mrow></math> |
-| single_fraction | <math><mfrac><mi>3</mi><mi>4</mi></mfrac></math> |
-| AddIntegerFractionType | <math><mn>17</mn><mfrac><mn>2</mn><mn>5</mn></mfrac></math> |
-| mfenced | <math><mfenced><mrow><mn>5</mn><mo>+</mo><mn>6</mn></mrow></mfenced></math> |
-| set | <math><mfenced open="{" close="}"><mrow><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>4</mn></mrow></mfenced></math> |
-| determinant | <math><mrowdata-mjx-texclass="INNER"><modata-mjx-texclass="OPEN">|</mo><mtablecolumnalign="centercenter"columnspacing="1em"rowspacing="4pt"><mtr><mtd><mrowdata-mjx-texclass="ORD"><mn>1</mn></mrow></mtd><mtd><mrowdata-mjx-texclass="ORD"><mn>2</mn></mrow></mtd></mtr><mtr><mtd><mrowdata-mjx-texclass="ORD"><mn>3</mn></mrow></mtd><mtd><mrowdata-mjx-texclass="ORD"><mn>4</mn></mrow></mtd></mtr></mtable><modata-mjx-texclass="CLOSE">|</mo></mrow></math> |
-| matrix | <math><mrow data-mjx-texclass="INNER"><mo data-mjx-texclass="OPEN">[</mo><mtable columnspacing="1em" rowspacing="4pt"><mtr><mtd><mrow data-mjx-texclass="ORD"><mi>a</mi></mrow></mtd><mtd><mrow data-mjx-texclass="ORD"><mi>b</mi></mrow></mtd></mtr><mtr><mtd><mrow data-mjx-texclass="ORD"><mi>c</mi></mrow></mtd><mtd><mrow data-mjx-texclass="ORD"><mi>d</mi></mrow></mtd></mtr></mtable><mo data-mjx-texclass="CLOSE">]</mo></mrow></math> |
-| msqrt | <math><msqrt><mi>4</mi><mo>+</mo><mi>9</mi></msqrt></math> |
-| mroot | <math><mroot><mi>9</mi><mi>3</mi></mroot></math> |
-| single_square_root | <math><msqrt><mi>4</mi></msqrt></math> |
-| msubsup | <math><msubsup><mi>a</mi><mn>n</mn><mn>2</mn></msubsup><mo>+</mo><msubsup><mi>a</mi><mn>n+1</mn><mn>2</mn></msubsup></math> |
-| msup | <math><mrow><msup><mi>x</mi><mrow><mi>a</mi><mo>+</mo><mi>b</mi></mrow></msup></mrow></math> |
-| msub | <math><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></math> |
-| munderover | <math><munderover><mi mathvariant="normal">&#x3C0;</mi><mrow><mi>x</mi><mo>=</mo><mn>0</mn></mrow><mi>N</mi></munderover></math> |
-| munder | <math><mrow><munder><mrow><mi>lim</mi></mrow><mrow><mi>x</mi><mo>&#x2192;</mo><mi>&#x221E;</mi></mrow></munder></mrow></math> |
-| mover | <math><mover><mrow><mi>A</mi><mo>+</mo><mi>B</mi></mrow><mo>&#xAF;</mo></mover></math> |
-| SingleMsubsup | <math><msubsup><mi>a</mi><mn>0</mn><mn>2</mn></msubsup><mo>+</mo><msubsup><mi>a</mi><mn>1</mn><mn>2</mn></msubsup></math> |
-| SingleMsub | <math><mrow><msub><mrow><mi>log</mi></mrow><mn>2</mn></msub><mn>10</mn></mrow></math> |
-| SingleMsup | <math><msup><mi>f</mi><mo>'</mo></msup></math> |
-| SingleMunderover | <math><munderover><mi>&#x391;</mi><mi>m</mi><mi>n</mi></munderover></math> |
-| SingleMunder | <math><munder><mi>lim</mi><mi>a</mi></munder></math> |
-| SingleMover | <math><mover><mi>A</mi><mo>&#xAF;</mo></mover></math> |
-| power | <math><msup><mn>3</mn><mn>5</mn></msup></math> |
-| SquarePowerType | <math><msup><mn>3</mn><mn>2</mn></msup></math> |
-| CubePowerType | <math><msup><mn>2</mn><mn>3</mn></msup></math> |
-| from_to | <math><msubsup><mo>&#x222B;</mo><mn>0</mn><mn>1</mn></msubsup><msqrt><mi>x</mi></msqrt></math> |
-| from | <math><munder><mo>&#x2211;</mo><mi>N</mi></munder></math> |
-| to | <math><mover><mo>&#x2211;</mo><mi>N</mi></mover></math> |
-| mtable | <math><mtable><mtr><mtd><mi>x</mi><mo>+</mo><mi>y</mi></mtd><mtd><mo>=</mo></mtd><mtd><mn>1</mn></mtd></mtr><mtr><mtd><mi>x</mi><mo>+</mo><mn>2</mn><mi>y</mi></mtd><mtd><mo>=</mo></mtd><mtd><mn>4</mn></mtd></mtr></mtable></math> |
-| mtr | <math><mtable><mtr><mtd><mi>x</mi><mo>+</mo><mi>y</mi></mtd><mtd><mo>=</mo></mtd><mtd><mn>1</mn></mtd></mtr><mtr><mtd><mi>x</mi><mo>+</mo><mn>2</mn><mi>y</mi></mtd><mtd><mo>=</mo></mtd><mtd><mn>4</mn></mtd></mtr></mtable></math> |
-| mtd | <math><mtable><mtr><mtd><mi>x</mi><mo>+</mo><mi>y</mi></mtd><mtd><mo>=</mo></mtd><mtd><mn>1</mn></mtd></mtr><mtr><mtd><mi>x</mi><mo>+</mo><mn>2</mn><mi>y</mi></mtd><mtd><mo>=</mo></mtd><mtd><mn>4</mn></mtd></mtr></mtable></math> |
-| LineType | <math><mrow><mover accent='true'><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy='true'>&#x2194;</mo></mover></mrow></math> |
-| RayType | <math><mrow><mover accent='true'><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy='true'>&#x2192;</mo></mover></mrow></math> |
-| LineSegmentType | <math><mover><mrow><mi>A</mi><mi>B</mi></mrow><mo>&#xAF;</mo></mover></math> |
-| VectorSingleType | <math><mrow data-mjx-texclass="ORD"><mover><mi>A</mi><mo stretchy="false">→</mo></mover></mrow></math> |
-| VectorDoubleType | <math><mrow data-mjx-texclass="ORD"><mover><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy="false">→</mo></mover></mrow></math> |
-| ArrowOverSingleSymbolType | <math><mrow><mover accent='true'><mrow><mi>a</mi></mrow><mo stretchy='true'>&#x2192;</mo></mover></mrow></math> |
-| FrownType | <math><mrow><mover accent='true'><mrow><mi>A</mi><mi>B</mi></mrow><mo stretchy='true'>&#x2322;</mo></mover></mrow></math> |
-| DegreeType | <math ><msup ><mn>15</mn><mo>∘</mo></msup><mo>+</mo><msup ><mn>10</mn><mo>∘</mo></msup><mo>=</mo><msup ><mn>25</mn><mo>∘</mo></msup></math> |
-| LogType | <math><msub><mi>log</mi><mn>10</mn></msub></math> |
-| BinomialType | <math><mo>(</mo><mfrac linethickness = "0"><mi>n</mi><mi>k</mi></mfrac><mo>)</mo></math> |
-| NegativeSignType | <math><mo>-</mo><mn>2</mn></math> |
-| PositiveSignType | <math><mo>+</mo><mn>2</mn></math> |
-| mmultiscripts | <math><mmultiscripts><mi>T</mi><mprescripts/><mi>n</mi><mi>m</mi></mmultiscripts></math> |
-| mprescripts | <math><mmultiscripts><mi>T</mi><mprescripts/><mi>n</mi><mi>m</mi></mmultiscripts></math> |
-
-## example
-
-Math contents in Wiki are all written by MathML.
-
-* Quadratic equation: https://en.wikipedia.org/wiki/Quadratic_equation
-* Matrix multiplication: https://en.wikipedia.org/wiki/Matrix_multiplication
-* Cubic function: https://en.wikipedia.org/wiki/Cubic_function
-
-Quadratic equation
-
-* LaTeX: \(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)
-* AsciiMath: `x=(-b+- \sqrt(b^2-4ac))/(2a)`
-* MathML: <math xmlns="http://www.w3.org/1998/Math/MathML"><mfrac><mrow><mo>-</mo><mi>b</mi><mo>&#xB1;</mo><msqrt><msup><mi>b</mi><mn>2</mn></msup><mo>-</mo><mn>4</mn><mi>a</mi><mi>c</mi></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></math>
-
-github: https://github.com/tsengwoody/Access8Math
-
-Please report any bugs or comments, thank you!
 
 # Access8Math update log
 
