@@ -168,7 +168,7 @@ class Access8MathDocument:
 				except BaseException:
 					name = ''
 					extend = ''
-				if os.path.isfile(item) and (extend in ['txt'] or os.path.basename(item) == self.raw_entry):
+				if os.path.isfile(item) and (extend in ['txt', 'md'] or os.path.basename(item) == self.raw_entry):
 					if os.path.basename(item) == self.raw_entry:
 						text2template(src=item, dst=os.path.join(os.path.dirname(item), "content-config.js"))
 					else:
