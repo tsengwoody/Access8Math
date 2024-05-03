@@ -69,20 +69,23 @@ msgstr "&Editor..."
 msgid "&Settings..."
 msgstr "&Opcións..."
 
-msgid "Speech &unicode dictionary..."
+#, fuzzy
+msgid "Symbol Speech Dictionary..."
 msgstr "Diccionario da fala &Unicode..."
 
-msgid "Speech &math rule..."
-msgstr "Regra de &fala matemática..."
+msgid "Math Rules Speech Output..."
+msgstr ""
 
-msgid "Braille &unicode dictionary..."
+#, fuzzy
+msgid "Symbol Braille Dictionary..."
 msgstr "Diccionario Braille &unicode..."
 
-msgid "Braille &math rule..."
-msgstr "Regra &matemática Braille..."
+msgid "Math Rules Braille Output..."
+msgstr ""
 
-msgid "&New language adding..."
-msgstr "Engadir &nova lingua..."
+#, fuzzy
+msgid "Add New Language..."
+msgstr "Engadir nova lingua"
 
 msgid "&Localization"
 msgstr "&Tradución"
@@ -363,10 +366,17 @@ msgstr "Engadir Símbolo"
 msgid "&Symbol:"
 msgstr "&Símbolo:"
 
-#. Translators: This is the label for the unicode dictionary dialog.
-#, python-brace-format
-msgid "{category} unicode dictionary ({language})"
-msgstr "Dicionario Unicode {category} ({language})"
+#, fuzzy
+msgid "Symbol Speech Dictionary"
+msgstr "Diccionario da fala &Unicode..."
+
+#, fuzzy
+msgid "Symbol Braille Dictionary"
+msgstr "Diccionario Braille &unicode..."
+
+#, fuzzy, python-brace-format
+msgid "{title} ({language})"
+msgstr "regra matemática {category} ({language})"
 
 #. Translators: The label of a text field to search for symbols in the speech symbols dialog.
 msgctxt "speechSymbols"
@@ -492,10 +502,11 @@ msgstr "Erro de expresión regular: \"%s\"."
 msgid "Dictionary Entry Error"
 msgstr "Erro de entrada de dicionario"
 
-#. Translators: This is the title of the math rule dialog.
-#, python-brace-format
-msgid "{category} math rule ({language})"
-msgstr "regra matemática {category} ({language})"
+msgid "Math Rules Speech Output"
+msgstr ""
+
+msgid "Math Rules Braille Output"
+msgstr ""
 
 #. Translators: The label for math rule list in math rules dialog.
 msgid "&Mathrules"
@@ -581,6 +592,15 @@ msgid "Change workspace folder to a different folder."
 msgstr "Gardar o ficheiro con outro nome."
 
 #. Translators: A menu item in the Editor window
+#, fuzzy
+msgid "Set &Title..."
+msgstr "Gardar ficheiro..."
+
+#. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+msgid "Set title"
+msgstr ""
+
+#. Translators: A menu item in the Editor window
 msgid "E&xit"
 msgstr "&Saír"
 
@@ -647,13 +667,18 @@ msgid "Save file"
 msgstr "Gardar ficheiro"
 
 #. Translators: The message displayed
-#, python-brace-format
-msgid "Save file{path}?"
-msgstr "¿Gardar ficheiro {path}?"
+#, fuzzy
+msgid ""
+"The content in the editor has been modified since the last save, do you want "
+"to save and exit it?"
+msgstr ""
+"A exportación só incluirá o contido gardado. O contido do editor camiou "
+"dende a última vez que o gardaches, ¿gostaríache gardalo e exportalo?"
 
 #. Translators: The title of the dialog
-msgid "Save"
-msgstr "Gardar"
+#, fuzzy
+msgid "Exit"
+msgstr "&Saír"
 
 #. Translators: The message displayed
 msgid ""
@@ -675,6 +700,10 @@ msgstr ""
 #. Translators: The title of the dialog
 msgid "Export"
 msgstr "Exportar"
+
+#, fuzzy
+msgid "enter document title"
+msgstr "Gardar o ficheiro actual."
 
 #. Translators: A mmenu item in the Interaction window
 msgid "&Menu"
@@ -1501,6 +1530,26 @@ msgid ""
 msgstr ""
 "Permite acesar a contido matemático escrebido en MathML; permite escrebir "
 "contido matemático en LaTeX"
+
+#~ msgid "Speech &math rule..."
+#~ msgstr "Regra de &fala matemática..."
+
+#~ msgid "Braille &math rule..."
+#~ msgstr "Regra &matemática Braille..."
+
+#~ msgid "&New language adding..."
+#~ msgstr "Engadir &nova lingua..."
+
+#, python-brace-format
+#~ msgid "{category} unicode dictionary ({language})"
+#~ msgstr "Dicionario Unicode {category} ({language})"
+
+#, python-brace-format
+#~ msgid "Save file{path}?"
+#~ msgstr "¿Gardar ficheiro {path}?"
+
+#~ msgid "Save"
+#~ msgstr "Gardar"
 
 #~ msgid "Show interaction window when entering interaction navigation mode"
 #~ msgstr ""

@@ -64,20 +64,23 @@ msgstr "编辑器(&E)..."
 msgid "&Settings..."
 msgstr "设置(&S)..."
 
-msgid "Speech &unicode dictionary..."
+#, fuzzy
+msgid "Symbol Speech Dictionary..."
 msgstr "语音 Unicode 字典(&U)"
 
-msgid "Speech &math rule..."
-msgstr "语音腧穴规则(&M)"
+msgid "Math Rules Speech Output..."
+msgstr ""
 
-msgid "Braille &unicode dictionary..."
+#, fuzzy
+msgid "Symbol Braille Dictionary..."
 msgstr "盲文 Unicode 字典(&U)"
 
-msgid "Braille &math rule..."
-msgstr "盲文数学规则(&M)"
+msgid "Math Rules Braille Output..."
+msgstr ""
 
-msgid "&New language adding..."
-msgstr "添加新语言(&N)"
+#, fuzzy
+msgid "Add New Language..."
+msgstr "添加新语言"
 
 msgid "&Localization"
 msgstr "本地化(&L)"
@@ -352,10 +355,17 @@ msgstr "添加符号"
 msgid "&Symbol:"
 msgstr "符号(&S):"
 
-#. Translators: This is the label for the unicode dictionary dialog.
-#, python-brace-format
-msgid "{category} unicode dictionary ({language})"
-msgstr "{category} Unicode 字典 ({language}))"
+#, fuzzy
+msgid "Symbol Speech Dictionary"
+msgstr "语音 Unicode 字典(&U)"
+
+#, fuzzy
+msgid "Symbol Braille Dictionary"
+msgstr "盲文 Unicode 字典(&U)"
+
+#, fuzzy, python-brace-format
+msgid "{title} ({language})"
+msgstr "{category} 数学规则 ({language})"
 
 #. Translators: The label of a text field to search for symbols in the speech symbols dialog.
 msgctxt "speechSymbols"
@@ -480,10 +490,11 @@ msgstr "正则表达式错误： \"%s\"。"
 msgid "Dictionary Entry Error"
 msgstr "字典条目错误"
 
-#. Translators: This is the title of the math rule dialog.
-#, python-brace-format
-msgid "{category} math rule ({language})"
-msgstr "{category} 数学规则 ({language})"
+msgid "Math Rules Speech Output"
+msgstr ""
+
+msgid "Math Rules Braille Output"
+msgstr ""
 
 #. Translators: The label for math rule list in math rules dialog.
 msgid "&Mathrules"
@@ -569,6 +580,15 @@ msgid "Change workspace folder to a different folder."
 msgstr "以不同的名称保存文件。"
 
 #. Translators: A menu item in the Editor window
+#, fuzzy
+msgid "Set &Title..."
+msgstr "保存文件..."
+
+#. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+msgid "Set title"
+msgstr ""
+
+#. Translators: A menu item in the Editor window
 msgid "E&xit"
 msgstr "退出(&E)"
 
@@ -635,13 +655,17 @@ msgid "Save file"
 msgstr "保存文件"
 
 #. Translators: The message displayed
-#, python-brace-format
-msgid "Save file{path}?"
-msgstr "保存文件到 {path}？"
+#, fuzzy
+msgid ""
+"The content in the editor has been modified since the last save, do you want "
+"to save and exit it?"
+msgstr ""
+"导出仅包括已保存的内容。编辑器中的内容自上次保存后已修改，您要保存并导出吗？"
 
 #. Translators: The title of the dialog
-msgid "Save"
-msgstr "保存"
+#, fuzzy
+msgid "Exit"
+msgstr "退出(&E)"
 
 #. Translators: The message displayed
 msgid ""
@@ -660,6 +684,10 @@ msgstr ""
 #. Translators: The title of the dialog
 msgid "Export"
 msgstr "导出"
+
+#, fuzzy
+msgid "enter document title"
+msgstr "保存当前文件。"
 
 #. Translators: A mmenu item in the Interaction window
 msgid "&Menu"
@@ -1471,6 +1499,26 @@ msgid ""
 "Allows access math content written by MathML ; Allows write math content by "
 "LaTeX"
 msgstr "可以閱讀 MathML 編寫的數學內容；可以使用 LaTeX 書寫數學內容"
+
+#~ msgid "Speech &math rule..."
+#~ msgstr "语音腧穴规则(&M)"
+
+#~ msgid "Braille &math rule..."
+#~ msgstr "盲文数学规则(&M)"
+
+#~ msgid "&New language adding..."
+#~ msgstr "添加新语言(&N)"
+
+#, python-brace-format
+#~ msgid "{category} unicode dictionary ({language})"
+#~ msgstr "{category} Unicode 字典 ({language}))"
+
+#, python-brace-format
+#~ msgid "Save file{path}?"
+#~ msgstr "保存文件到 {path}？"
+
+#~ msgid "Save"
+#~ msgstr "保存"
 
 #~ msgid "Show interaction window when entering interaction navigation mode"
 #~ msgstr "进入交互模式时显示交互窗口"
