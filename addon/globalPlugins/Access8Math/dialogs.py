@@ -763,7 +763,7 @@ class UnicodeDicDialog(SettingsDialog):
 		self.onSymbolEdited()
 		self.editingItem = None
 
-		path = os.path.join(A8M_PM.LOCALE_DIR, self.category, self.language)
+		path = os.path.join(A8M_PM.LOCALE_DIR, self.language, self.category)
 
 		self.load(os.path.join(path, "unicode.dic"))
 
@@ -1035,7 +1035,7 @@ class MathRuleDialog(SettingsDialog):
 		vw.setFocus()
 
 	def OnRestoreDefaultClick(self, evt):
-		path = os.path.join(A8M_PM.LOCALE_DIR, self.category, self.language)
+		path = os.path.join(A8M_PM.LOCALE_DIR, self.language, self.category)
 		self.clear()
 		self.load(os.path.join(path, "math.rule"))
 

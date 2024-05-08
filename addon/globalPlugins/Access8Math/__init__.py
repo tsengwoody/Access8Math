@@ -309,6 +309,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onNewLanguageAdding, self.newLanguageAdding)
 
+		self.exportLocalizationFiles = l10nMenu.Append(
+			wx.ID_ANY,
+			_("&Export Localization Files...")
+		)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onExportLocalizationFiles, self.exportLocalizationFiles)
+
 		self.menu.AppendSubMenu(
 			l10nMenu,
 			_("&Localization"),
@@ -410,6 +416,19 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def onEditor(self, editor_content):
 		self.edit(content='')
+
+	def onExportLocalizationFiles(self, evt):
+		with wx.FileDialog(
+			# Translators: The title of the Export localization file window
+			gui.mainFrame, message=_("Export localization files..."),
+			defaultDir="", wildcard="zip files (*.zip)|*.zip"
+		) as entryDialog:
+			if entryDialog.ShowModal() != wx.ID_OK:
+				return
+			dst = entryDialog.GetPath()
+		if dst.endswith(".zip"):
+			dst = dst[:-4]
+		A8M_PM.export_language(config.conf["Access8Math"]["settings"]["language"], dst)
 
 	def onCleanWorkspace(self, evt):
 		for item in [

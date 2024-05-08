@@ -437,6 +437,12 @@ If you are interested in localizing symbol dictionaries and mathematical rules, 
 
 # Access8Math update log
 
+## Access8Math v4.1 Update
+
+* Indicate a capital letter using NVDA voice configuration when the node consists of only one uppercase letter.
+* Resolved Opening the virtual context menu in the file explorer in Access8Math conflicts with toggling native selection mode in NVDA Browsing mode, as they both use the same gesture (NVDA+Shift+F10).
+* Remove outdated setting options.
+
 ## Access8Math v4.0 Update
 
 * Compatibility with NVDA 2024.1

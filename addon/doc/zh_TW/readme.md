@@ -51,7 +51,7 @@ Access8Math 附加元件提供了全面的數學內容閱讀與書寫功能。
 * 矩陣乘法：https://zh.wikipedia.org/zh-tw/%E7%9F%A9%E9%99%A3%E4%B9%98%E6%B3%95
 * 三次方程式：https://zh.wikipedia.org/zh-tw/%E4%B8%89%E6%AC%A1%E6%96%B9%E7%A8%8B
 
-# Access8Math 操作說明
+# Access8Math 使用者手冊
 
 ## 閱讀功能操作
 
@@ -147,7 +147,6 @@ Access8Math 報讀數學內容時，會在項目與項目之間停頓，讓數�
 | Nemeth(at) | @ | @ |
 
 備註：你可以在「設定」 > 「文件」中選擇 LaTeX/Nemeth 使用的分隔符號。
-
 
 ### 綜合內容範例
 
@@ -431,6 +430,12 @@ Access8Math 將常用數學內容的 MathML 結構，建立對應的數學規則
 | z | ζ | \zeta |
 
 # Access8Math 日誌
+
+## Access8Math v4.1 更新日誌
+
+* 當節點僅包含一個大寫字母時，使用 NVDA 語音配置指示大寫字母。
+* 解決了 Access8Math 在檔案總管中開啟虛擬上下文功能表與 NVDA 在瀏覽模式下切換本機選擇模式衝突的問題，因為它們都使用相同的手勢 (NVDA+Shift+F10)。
+* 刪除過時的設定選項。
 
 ## Access8Math v4.0 更新日誌
 

@@ -1606,7 +1606,7 @@ LOCALE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'locale')
 
 
 def exist_language(language):
-	return os.path.exists(os.path.join(LOCALE_DIR, 'speech', language)) and os.path.exists(os.path.join(LOCALE_DIR, 'braille', language))
+	return os.path.exists(os.path.join(LOCALE_DIR, language))
 
 
 def add_language(language):
@@ -1615,19 +1615,10 @@ def add_language(language):
 	except IndexError:
 		src_language = "en"
 
-	src = os.path.join(LOCALE_DIR, 'speech', src_language)
+	src = os.path.join(LOCALE_DIR, src_language)
 	if not os.path.exists(src):
-		src = os.path.join(LOCALE_DIR, 'speech', 'en')
-	dst = os.path.join(LOCALE_DIR, 'speech', language)
-	try:
-		shutil.copytree(src, dst, ignore=shutil.ignore_patterns('*_user.*'))
-	except FileExistsError:
-		pass
-
-	src = os.path.join(LOCALE_DIR, 'braille', src_language)
-	if not os.path.exists(src):
-		src = os.path.join(LOCALE_DIR, 'braille', 'en')
-	dst = os.path.join(LOCALE_DIR, 'braille', language)
+		src = os.path.join(LOCALE_DIR, 'en')
+	dst = os.path.join(LOCALE_DIR, language)
 	try:
 		shutil.copytree(src, dst, ignore=shutil.ignore_patterns('*_user.*'))
 	except FileExistsError:
@@ -1636,17 +1627,45 @@ def add_language(language):
 
 def remove_language(language):
 	try:
-		dst = os.path.join(LOCALE_DIR, 'speech', language)
-		shutil.rmtree(dst)
-		dst = os.path.join(LOCALE_DIR, 'braille', language)
+		dst = os.path.join(LOCALE_DIR, language)
 		shutil.rmtree(dst)
 	except BaseException:
 		return False
 	return True
 
 
-def available_languages(category='speech'):
-	path = os.path.join(LOCALE_DIR, category)
+def export_language(language, dst):
+	def ignore_patterns(patterns, filenames):
+		return [filename for filename in filenames for pattern in patterns if pattern in filename]
+
+	patterns = ["math.rule", "unicode.dic"]
+	src = os.path.join(LOCALE_DIR, language)
+	temp = os.path.join(LOCALE_DIR, "export")
+
+	try:
+		shutil.rmtree(temp)
+	except BaseException:
+		pass
+
+	shutil.copytree(src, temp, ignore=lambda directory, contents: ignore_patterns(patterns, contents))
+	for dirPath, dirNames, fileNames in os.walk(temp):
+		for item in fileNames:
+			item = os.path.join(dirPath, item)
+			if "_user." in item:
+				os.rename(item, item.replace("_user.", "."))
+
+	try:
+		shutil.make_archive(dst, 'zip', temp)
+	except BaseException:
+		return False
+	finally:
+		shutil.rmtree(temp)
+
+	return True
+
+
+def available_languages():
+	path = os.path.join(LOCALE_DIR)
 	languages = [item for item in os.listdir(path) if os.path.isdir(os.path.join(path, item))]
 	return languages
 
@@ -1666,9 +1685,10 @@ def load_unicode_dic(path=None, language='', category='speech', NVDASymbol=False
 	symbol = {}
 
 	if not path and language:
-		path = os.path.join(LOCALE_DIR, category, language)
+		path = os.path.join(LOCALE_DIR, language, category)
 		if not os.path.exists(path):
-			add_language(language)
+			raise OSError(f"{language} i18n file is not found")
+
 		if category == 'speech' and NVDASymbol:
 			try:
 				builtin, user = NVDASymbolsFetch(language)
@@ -1699,9 +1719,9 @@ def load_math_rule(path=None, language='', category='speech'):
 	meta_path = os.path.join(LOCALE_DIR, 'rule.csv')
 
 	if not path and language:
-		path = os.path.join(LOCALE_DIR, category, language)
+		path = os.path.join(LOCALE_DIR, language, category)
 		if not os.path.exists(path):
-			add_language(language)
+			raise OSError(f"{language} i18n file is not found")
 
 		frp = os.path.join(path, 'math.rule')
 		frp_user = os.path.join(path, 'math_user.rule')
@@ -1758,7 +1778,7 @@ def load_math_rule(path=None, language='', category='speech'):
 
 def save_unicode_dic(symbol, path=None, language='', category='speech'):
 	if not path and language:
-		path = os.path.join(LOCALE_DIR, category, language)
+		path = os.path.join(LOCALE_DIR, language, category)
 		path = os.path.join(path, 'unicode_user.dic')
 
 	with open(path, 'w', encoding='utf-8', newline="") as file:
@@ -1773,7 +1793,7 @@ def save_unicode_dic(symbol, path=None, language='', category='speech'):
 
 def save_math_rule(mathrule, path=None, language='', category='speech'):
 	if not path and language:
-		path = os.path.join(LOCALE_DIR, category, language)
+		path = os.path.join(LOCALE_DIR, language, category)
 		path = os.path.join(path, 'math_user.rule')
 
 	mathrule_unicode = {}
@@ -1801,8 +1821,9 @@ def save_math_rule(mathrule, path=None, language='', category='speech'):
 
 def initialize(Access8MathConfig):
 	if Access8MathConfig:
-		if not exist_language(Access8MathConfig["settings"]["language"]):
-			add_language(Access8MathConfig["settings"]["language"])
+		language = Access8MathConfig["settings"]["language"]
+		if not exist_language(language):
+			add_language(language)
 
 	global nodetypes_check
 	nodetypes_check = []
