@@ -30,8 +30,6 @@ import ui
 import wx
 
 insert_path_count = 0
-# BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-# sys.path.insert(0, BASE_DIR)
 
 PATH = os.path.dirname(__file__)
 
@@ -46,9 +44,8 @@ insert_path_count += 1
 sys.path.insert(0, PATH)
 insert_path_count += 1
 
-# python xml import
-import python.xml as xml
-sys.modules['xml'] = xml
+import xml
+xml.__path__.append(os.path.join(PYTHON_PATH, "xml"))
 
 config.conf.spec["Access8Math"] = {
 	"settings": {
@@ -101,6 +98,7 @@ from .interaction import A8MProvider, A8MInteraction
 from .lib.storage import explorer
 from .writer import TextMathEditField
 
+xml.__path__.pop()
 for i in range(insert_path_count):
 	del sys.path[0]
 
