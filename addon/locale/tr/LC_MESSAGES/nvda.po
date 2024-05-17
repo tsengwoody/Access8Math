@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Access8Math\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2023-06-06 14:09+0300\n"
-"PO-Revision-Date: 2024-04-26 14:13+0300\n"
+"PO-Revision-Date: 2024-05-03 12:47+0300\n"
 "Last-Translator: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language-Team: cagrid@hotmail.com\n"
 "Language: tr_TR\n"
@@ -63,23 +63,20 @@ msgstr "Düz&enleyici..."
 msgid "&Settings..."
 msgstr "&Ayarlar..."
 
-#, fuzzy
 msgid "Symbol Speech Dictionary..."
-msgstr "Unicode konuşma sözlüğü."
+msgstr "Sembol Konuşma Sözlüğü..."
 
 msgid "Math Rules Speech Output..."
-msgstr ""
+msgstr "Matematik Kuralları Konuşma Çıkışı..."
 
-#, fuzzy
 msgid "Symbol Braille Dictionary..."
-msgstr "&Unicode Braille sözlüğü."
+msgstr "Sembol Braille Sözlüğü..."
 
 msgid "Math Rules Braille Output..."
-msgstr ""
+msgstr "Matematik Kuralları Braille Çıkışı..."
 
-#, fuzzy
 msgid "Add New Language..."
-msgstr "Yeni dil ekle"
+msgstr "Yeni Dil Ekle..."
 
 msgid "&Localization"
 msgstr "&Yerelleştirme"
@@ -354,17 +351,15 @@ msgstr "Sembol Ekle"
 msgid "&Symbol:"
 msgstr "&Sembol:"
 
-#, fuzzy
 msgid "Symbol Speech Dictionary"
-msgstr "Unicode konuşma sözlüğü."
+msgstr "Sembol Konuşma Sözlüğü"
 
-#, fuzzy
 msgid "Symbol Braille Dictionary"
-msgstr "&Unicode Braille sözlüğü."
+msgstr "Sembol Braille Sözlüğü"
 
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "{title} ({language})"
-msgstr "{category} matematik kuralı ({language})"
+msgstr "{title} ({language})"
 
 #. Translators: The label of a text field to search for symbols in the speech symbols dialog.
 msgctxt "speechSymbols"
@@ -490,10 +485,10 @@ msgid "Dictionary Entry Error"
 msgstr "Sözlük Giriş Hatası"
 
 msgid "Math Rules Speech Output"
-msgstr ""
+msgstr "Matematik Kuralları Konuşma Çıkışı"
 
 msgid "Math Rules Braille Output"
-msgstr ""
+msgstr "Matematik Kuralları Braille Çıkışı"
 
 #. Translators: The label for math rule list in math rules dialog.
 msgid "&Mathrules"
@@ -575,13 +570,12 @@ msgid "Change workspace folder to a different folder."
 msgstr "Çalışma alanı klasörünü farklı bir klasörle değiştir."
 
 #. Translators: A menu item in the Editor window
-#, fuzzy
 msgid "Set &Title..."
-msgstr "Dosyayı kaydet..."
+msgstr "&Başlığı Ayarla..."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Set title"
-msgstr ""
+msgstr "Başlığı ayarla"
 
 #. Translators: A menu item in the Editor window
 msgid "E&xit"
@@ -650,19 +644,16 @@ msgid "Save file"
 msgstr "Dosyayı kaydet"
 
 #. Translators: The message displayed
-#, fuzzy
 msgid ""
 "The content in the editor has been modified since the last save, do you want "
 "to save and exit it?"
 msgstr ""
-"Dışa aktarma yalnızca kaydedilen içeriği içerecektir. Düzenleyicideki "
-"içerik, son kaydetmeden bu yana değiştirildi, kaydedip dışa aktarmak istiyor "
-"musunuz?"
+"Düzenleyicideki içerik son kaydetmeden bu yana değiştirildi, kaydedip çıkmak "
+"istiyor musunuz?"
 
 #. Translators: The title of the dialog
-#, fuzzy
 msgid "Exit"
-msgstr "Çı&kış"
+msgstr "Çık"
 
 #. Translators: The message displayed
 msgid ""
@@ -685,9 +676,8 @@ msgstr ""
 msgid "Export"
 msgstr "Dışa aktar"
 
-#, fuzzy
 msgid "enter document title"
-msgstr "Yeni belge"
+msgstr "belge başlığını girin"
 
 #. Translators: A mmenu item in the Interaction window
 msgid "&Menu"

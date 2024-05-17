@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 'Access8Math' '3.1'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2021-09-08 06:33+0800\n"
-"PO-Revision-Date: 2024-04-26 10:24+0200\n"
+"PO-Revision-Date: 2024-05-03 09:54+0200\n"
 "Last-Translator: José Manuel Delicado <jm.delicado@nvda.es>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -64,23 +64,20 @@ msgstr "&Editor..."
 msgid "&Settings..."
 msgstr "&Opciones..."
 
-#, fuzzy
 msgid "Symbol Speech Dictionary..."
-msgstr "Diccionario del habla &Unicode..."
+msgstr "Diccionario del habla de símbolos..."
 
 msgid "Math Rules Speech Output..."
-msgstr ""
+msgstr "Salida por voz de reglas matemáticas..."
 
-#, fuzzy
 msgid "Symbol Braille Dictionary..."
-msgstr "Diccionario Braille &unicode..."
+msgstr "Diccionario Braille de símbolos..."
 
 msgid "Math Rules Braille Output..."
-msgstr ""
+msgstr "Salida braille de reglas matemáticas..."
 
-#, fuzzy
 msgid "Add New Language..."
-msgstr "Añadir nuevo idioma"
+msgstr "Añadir nuevo idioma..."
 
 msgid "&Localization"
 msgstr "&Traducción"
@@ -362,17 +359,15 @@ msgstr "Añadir símbolo"
 msgid "&Symbol:"
 msgstr "&Símbolo:"
 
-#, fuzzy
 msgid "Symbol Speech Dictionary"
-msgstr "Diccionario del habla &Unicode..."
+msgstr "Diccionario del habla de símbolos"
 
-#, fuzzy
 msgid "Symbol Braille Dictionary"
-msgstr "Diccionario Braille &unicode..."
+msgstr "Diccionario Braille de símbolos"
 
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "{title} ({language})"
-msgstr "regla matemática {category} ({language})"
+msgstr "{title} ({language})"
 
 #. Translators: The label of a text field to search for symbols in the speech symbols dialog.
 msgctxt "speechSymbols"
@@ -498,10 +493,10 @@ msgid "Dictionary Entry Error"
 msgstr "Error de entrada de diccionario"
 
 msgid "Math Rules Speech Output"
-msgstr ""
+msgstr "Salida por voz de reglas matemáticas"
 
 msgid "Math Rules Braille Output"
-msgstr ""
+msgstr "Salida braille de reglas matemáticas"
 
 #. Translators: The label for math rule list in math rules dialog.
 msgid "&Mathrules"
@@ -582,13 +577,12 @@ msgid "Change workspace folder to a different folder."
 msgstr "Cambiar la carpeta del espacio de trabajo a una carpeta diferente."
 
 #. Translators: A menu item in the Editor window
-#, fuzzy
 msgid "Set &Title..."
-msgstr "Guardar archivo..."
+msgstr "Establecer &título..."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Set title"
-msgstr ""
+msgstr "Establecer título"
 
 #. Translators: A menu item in the Editor window
 msgid "E&xit"
@@ -657,19 +651,16 @@ msgid "Save file"
 msgstr "Guardar archivo"
 
 #. Translators: The message displayed
-#, fuzzy
 msgid ""
 "The content in the editor has been modified since the last save, do you want "
 "to save and exit it?"
 msgstr ""
-"La exportación sólo incluirá el contenido guardado. El contenido del editor "
-"ha cambiado desde la última vez que lo guardaste, ¿te gustaría guardarlo y "
-"exportarlo?"
+"El contenido del editor ha cambiado desde que guardaste por última vez. "
+"¿Quieres guardar y salir?"
 
 #. Translators: The title of the dialog
-#, fuzzy
 msgid "Exit"
-msgstr "&Salir"
+msgstr "Salir"
 
 #. Translators: The message displayed
 msgid ""
@@ -693,9 +684,8 @@ msgstr ""
 msgid "Export"
 msgstr "Exportar"
 
-#, fuzzy
 msgid "enter document title"
-msgstr "Guardar el archivo actual."
+msgstr "introduce el título del documento"
 
 #. Translators: A mmenu item in the Interaction window
 msgid "&Menu"
@@ -1515,23 +1505,3 @@ msgid ""
 msgstr ""
 "Permite acceder a contenido matemático escrito en MathML; permite escribir "
 "contenido matemático en LaTeX"
-
-#~ msgid "Speech &math rule..."
-#~ msgstr "Regla de &habla matemática..."
-
-#~ msgid "Braille &math rule..."
-#~ msgstr "Regla &matemática Braille..."
-
-#~ msgid "&New language adding..."
-#~ msgstr "Agregar &nuevo idioma..."
-
-#, python-brace-format
-#~ msgid "{category} unicode dictionary ({language})"
-#~ msgstr "Diccionario Unicode {category} ({language})"
-
-#, python-brace-format
-#~ msgid "Save file{path}?"
-#~ msgstr "¿Guardar archivo {path}?"
-
-#~ msgid "Save"
-#~ msgstr "Guardar"
