@@ -5,17 +5,22 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 'Access8Math' '4.0'\n"
+"Project-Id-Version: Access8Math\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2021-09-08 06:33+0800\n"
-"PO-Revision-Date: 2024-03-22 10:37+0300\n"
+"POT-Creation-Date: 2023-06-06 14:09+0300\n"
+"PO-Revision-Date: 2024-05-03 19:29+0500\n"
 "Last-Translator: Danil Kostenkov <danilkostenkov38@gmail.com>\n"
 "Language-Team: \n"
-"Language: ru\n"
+"Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: Poedit 3.4.2\n"
+"X-Poedit-Basepath: ../../..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
 
 #, python-brace-format
 msgid ""
@@ -30,18 +35,19 @@ msgid ""
 "anyone who wants it. This applies to both original and modified copies of "
 "this software, plus any derivative works.\n"
 "It can be viewed online at: https://www.gnu.org/licenses/old-licenses/"
-"gpl-2.0.html\n"
-"Access8Math has been sponsored by \"Taiwan Visually Impaired People "
-"Association\"(accessibility@twvip.org) in 2018~2019, hereby express our "
-"sincere appreciation.\n"
-"If you feel this add-on is helpful, please don't hesitate to give support to "
-"\"Taiwan Visually Impaired People Association\" and authors."
+"gpl-2.0.html"
 msgstr ""
 "Access8Math\n"
 "Версия: {addonVersion}\n"
 "Сайт: https://addons.nvda-project.org/addons/access8math.en.html\n"
 "Copyright (C) {copyrightFirstYear}-{copyrightLastYear} команда разработчиков "
 "Access8Math\n"
+"Access8Math спонсировался тайваньской ассоциацией людей с нарушениями зрения "
+"((accessibility@twvip.org)) в 2018~2019 годах, выражаем нашу искреннюю "
+"признательность.\n"
+"Если вы считаете, что это дополнение полезно, пожалуйста, не стесняйтесь "
+"поддержать тайваньскую ассоциацию людей с нарушениями зрения и "
+"разработчиков.\n"
 "Access8Math распространяется под универсальной общественной лицензией GNU "
 "(the GNU General Public License) (Версия 2). Вы можете свободно "
 "распространять и изменять данный продукт любым способом при условии, что он "
@@ -49,12 +55,16 @@ msgstr ""
 "Это относится как к оригинальным, так и к изменённым копиям этого продукта, "
 "а также к любым производным продуктам.\n"
 "Лицензия доступна в Интернете по адресу: https://www.gnu.org/licenses/old-"
-"licenses/gpl-2.0.html\n"
-"Access8Math спонсировался тайваньской ассоциацией людей с нарушениями зрения "
-"((accessibility@twvip.org)) в 2018~2019 годах, выражаем нашу искреннюю "
-"признательность.\n"
-"Если вы считаете, что это дополнение полезно, пожалуйста, не стесняйтесь "
-"поддержать тайваньскую ассоциацию людей с нарушениями зрения и разработчиков."
+"licenses/gpl-2.0.html"
+
+msgid "Open virtual context menu"
+msgstr "Открывает контекстное меню редактора Access8Math"
+
+msgid "get path failed"
+msgstr "ошибка при получении пути"
+
+msgid "Pop up the editor"
+msgstr "Открывает редактор Access8Math"
 
 #. Translators: The title of the interaction window
 msgid "Access8Math interaction window"
@@ -66,20 +76,20 @@ msgstr "&Редактор..."
 msgid "&Settings..."
 msgstr "&Настройки..."
 
-msgid "Speech &unicode dictionary..."
-msgstr "Речевой словарь символов &Unicode..."
+msgid "Symbol Speech Dictionary..."
+msgstr "Речевой словарь символов..."
 
-msgid "Speech &math rule..."
-msgstr "Речевые &математические правила..."
+msgid "Math Rules Speech Output..."
+msgstr "Математические правила вывода речи..."
 
-msgid "Braille &unicode dictionary..."
-msgstr "Брайлевский словарь символов &Unicode..."
+msgid "Symbol Braille Dictionary..."
+msgstr "Словарь символов Брайля..."
 
-msgid "Braille &math rule..."
-msgstr "Брайлевские &математические правила..."
+msgid "Math Rules Braille Output..."
+msgstr "Математические правила вывода Брайля..."
 
-msgid "&New language adding..."
-msgstr "&Добавление нового языка..."
+msgid "Add New Language..."
+msgstr "Добавить новый язык..."
 
 msgid "&Localization"
 msgstr "&Локализация"
@@ -119,18 +129,6 @@ msgstr "Изменяет обработчик взаимодействия с м
 msgid "Math interact reader switch to %s"
 msgstr "Обработчик взаимодействия с математическими выражениями изменён на %s"
 
-msgid "Pop up the editor"
-msgstr "Открывает редактор Access8Math"
-
-msgid "Open virtual context menu"
-msgstr "Открывает контекстное меню редактора Access8Math"
-
-msgid "open path failed"
-msgstr "ошибка при открытии файла"
-
-msgid "get path failed"
-msgstr "ошибка при получении пути"
-
 msgid "Workspace has already been cleaned"
 msgstr "Рабочая область уже очищена"
 
@@ -139,15 +137,6 @@ msgstr "Очистить рабочую область"
 
 msgid "About Access8Math"
 msgstr "О дополнении Access8Math"
-
-#. Translators: Message indicating no context sensitive help is available for the control or dialog.
-msgid "No help available here."
-msgstr "Справка в этом месте недоступна."
-
-#. Translators: Message shown when trying to display context sensitive help,
-#. indicating that	the user guide could not be found.
-msgid "No user guide found."
-msgstr "Инструкция не найдена."
 
 #. Translators: A choice of a combobox in the writing settings dialog (not used)
 msgid "MathCAT"
@@ -186,27 +175,17 @@ msgid "Analyze mathematical meaning of content"
 msgstr "Анализировать значение математического содержимого"
 
 #. Translators: The label of an option in the reading settings dialog
-msgid "Show interaction window when entering interaction navigation mode"
-msgstr "Показывать диалог взаимодействия Access8Math при клике на формулу"
-
-#. Translators: The label of an option in the reading settings dialog
-msgid ""
-"Reading pre-defined meaning in dictionary in interaction navigation mode"
-msgstr ""
-"Читать определённые в словаре описания элементов при навигации по формуле"
-
-#. Translators: The label of an option in the reading settings dialog
 msgid "Reading of auto-generated meaning in interaction navigation mode"
 msgstr ""
 "Читать автоматически созданные описания элементов при навигации по формуле"
 
 #. Translators: The label of an option in the reading settings dialog
 msgid "Use tone indicate to no move in interaction navigation mode"
-msgstr "Использовать звуковой сигнал для обозначения крайнего элемента"
+msgstr "Использовать звуковую индекацию для обозначения крайнего элемента"
 
 #. Translators: The label of an option in the reading settings dialog
 msgid "&Item interval time:"
-msgstr "&Время паузы между элементами:"
+msgstr "&Длительность паузы между элементами:"
 
 #. Translators: Title of a setting dialog.
 msgid "Writing"
@@ -334,7 +313,7 @@ msgstr "Упрощённый индекс строго сверху"
 
 #. Translators: The label of an option in the Rule settings dialog
 msgid "Simplified fraction"
-msgstr "Упрощённая (обыкновенная) дробь"
+msgstr "Упрощённая обыкновенная дробь"
 
 #. Translators: The label of an option in the Rule settings dialog
 msgid "Simplified square root"
@@ -388,10 +367,15 @@ msgstr "Добавить символ"
 msgid "&Symbol:"
 msgstr "&Символ:"
 
-#. Translators: This is the label for the unicode dictionary dialog.
+msgid "Symbol Speech Dictionary"
+msgstr "Речевой словарь символов"
+
+msgid "Symbol Braille Dictionary"
+msgstr "Словарь символов Брайля"
+
 #, python-brace-format
-msgid "{category} unicode dictionary ({language})"
-msgstr "{category} словарь символов Unicode ({language})"
+msgid "{title} ({language})"
+msgstr "{title} ({language})"
 
 #. Translators: The label of a text field to search for symbols in the speech symbols dialog.
 msgctxt "speechSymbols"
@@ -470,11 +454,11 @@ msgid "Description"
 msgstr "Описание"
 
 msgid "Serialized ordering"
-msgstr "Метод и порядок чтения"
+msgstr "Последовательная сортировка"
 
 #, python-format
 msgid "Ordering %d"
-msgstr "Элемент %d"
+msgstr "Сортировка %d"
 
 msgid "Child"
 msgstr "Дочерний элемент"
@@ -516,10 +500,11 @@ msgstr "Ошибка регулярного выражения: \"%s\"."
 msgid "Dictionary Entry Error"
 msgstr "Ошибка словаря"
 
-#. Translators: This is the title of the math rule dialog.
-#, python-brace-format
-msgid "{category} math rule ({language})"
-msgstr "{category} математические правила ({language})"
+msgid "Math Rules Speech Output"
+msgstr "Математические правила вывода речи"
+
+msgid "Math Rules Braille Output"
+msgstr "Математические правила вывода Брайля"
 
 #. Translators: The label for math rule list in math rules dialog.
 msgid "&Mathrules"
@@ -569,36 +554,44 @@ msgid "%s - Access8Math Editor"
 msgstr "%s - Редактор Access8Math"
 
 #. Translators: A menu item in the Editor window
-msgid "&New"
-msgstr "&Новый"
+msgid "&New editor"
+msgstr "&Новое окно"
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Open a new editor."
 msgstr "Открыть новое окно редактора."
 
 #. Translators: A menu item in the Editor window
-msgid "&Open..."
-msgstr "&Открыть..."
+msgid "&Open file..."
+msgstr "&Открыть файл..."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Open a new file."
 msgstr "Открыть новый файл."
 
 #. Translators: A menu item in the Editor window
-msgid "&Save"
-msgstr "&Сохранить"
+msgid "&Save file..."
+msgstr "&Сохранить файл..."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Save the current file."
 msgstr "Сохранить текущий файл."
 
 #. Translators: A menu item in the Editor window
-msgid "Save &as..."
-msgstr "Сохранить &как..."
+msgid "Change &workspace folder..."
+msgstr "Изменить папку &рабочей области..."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
-msgid "Save the file under a different name."
-msgstr "Сохранить файл под другим именем."
+msgid "Change workspace folder to a different folder."
+msgstr "Изменить папку рабочей области на другую папку."
+
+#. Translators: A menu item in the Editor window
+msgid "Set &Title..."
+msgstr "Установить &заголовок..."
+
+#. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+msgid "Set title"
+msgstr "Установить заголовок"
 
 #. Translators: A menu item in the Editor window
 msgid "E&xit"
@@ -656,23 +649,27 @@ msgstr "Найти и заменить"
 msgid "&Other"
 msgstr "&Другое"
 
+msgid "Select workspace folder"
+msgstr "Выберите папку рабочей области"
+
 #. Translators: The title of the Editor's Open file window
 msgid "Open file"
 msgstr "Открыть файл"
 
-#. Translators: The title of the Editor's Save file window
-#. Translators: The title of the Editor's Save as file window
 msgid "Save file"
 msgstr "Сохранить файл"
 
 #. Translators: The message displayed
-#, python-brace-format
-msgid "Save file{path}?"
-msgstr "Сохранить файл {path}?"
+msgid ""
+"The content in the editor has been modified since the last save, do you want "
+"to save and exit it?"
+msgstr ""
+"Содержимое файла было изменено с момента последнего сохранения, вы хотите "
+"сохранить его и закрыть редактор?"
 
 #. Translators: The title of the dialog
-msgid "Save"
-msgstr "Сохранить"
+msgid "Exit"
+msgstr "Выход"
 
 #. Translators: The message displayed
 msgid ""
@@ -695,6 +692,9 @@ msgstr ""
 #. Translators: The title of the dialog
 msgid "Export"
 msgstr "Экспорт"
+
+msgid "enter document title"
+msgstr "введите заголовок документа"
 
 #. Translators: A mmenu item in the Interaction window
 msgid "&Menu"
@@ -793,7 +793,7 @@ msgid "Greek alphabet gestures activated"
 msgstr "Горячие клавиши для вставки греческих букв включены"
 
 msgid "Greek alphabet gestures deactivated"
-msgstr "Горячие клавиши для вставки греческих букв выключены"
+msgstr "Горячие клавиши для вставки греческих букв включены"
 
 #. Translators: The description of a command in input help mode and in the Input gesture dialog
 msgid "Toggle browse navigation mode"
@@ -869,7 +869,7 @@ msgstr "Код Немета в LaTeX"
 
 #. Translators: batch menu
 msgid "LaTeX delimiter"
-msgstr "Отделитель LaTeXDelimitador LaTeX"
+msgstr "Отделитель LaTeX"
 
 #. Translators: batch menu
 msgid "bracket to dollar"
@@ -891,6 +891,9 @@ msgstr "редактировать"
 
 msgid "virtual context menu"
 msgstr "контекстное меню Access8Math"
+
+msgid "open path failed"
+msgstr "ошибка при открытии файла"
 
 #. Translators: LaTeX command category - shortcut
 msgid "shortcut"
@@ -1208,7 +1211,7 @@ msgstr "знак плюс-минус"
 
 #. Translators: LaTeX command - modulus
 msgid "modulus"
-msgstr "коэффициент"
+msgstr "модуль"
 
 #. Translators: LaTeX command - line segment
 msgid "line segment"
@@ -1236,7 +1239,7 @@ msgstr "бесконечность"
 
 #. Translators: LaTeX command - repeating decimal
 msgid "repeating decimal"
-msgstr "десятичная точка"
+msgstr "периодическая десятичная дробь"
 
 #. Translators: LaTeX command - greater than or equal to
 msgid "greater than or equal to"
@@ -1510,3 +1513,149 @@ msgid ""
 msgstr ""
 "Предоставляет доступ к математическим выражениям, написанным на MathML; "
 "позволяет писать математические выражения в LaTeX"
+
+#~ msgid "Speech &math rule..."
+#~ msgstr "Konuşma &matematik kuralı..."
+
+#~ msgid "Braille &math rule..."
+#~ msgstr "Braille &matematik kuralı..."
+
+#~ msgid "&New language adding..."
+#~ msgstr "&Yeni dil ekleme..."
+
+#, python-brace-format
+#~ msgid "{category} unicode dictionary ({language})"
+#~ msgstr "{category} unicode sözlüğü ({language})"
+
+#, python-brace-format
+#~ msgid "Save file{path}?"
+#~ msgstr "{path} dosyası kaydedilsin mi?"
+
+#~ msgid "Save"
+#~ msgstr "Kaydet"
+
+#~ msgid "Show interaction window when entering interaction navigation mode"
+#~ msgstr "Etkileşim gezinme moduna girerken etkileşim penceresini göster"
+
+#~ msgid ""
+#~ "Reading pre-defined meaning in dictionary in interaction navigation mode"
+#~ msgstr "Etkileşim gezinme modunda sözlükte önceden tanımlanmış anlamı oku"
+
+#~ msgid "&New"
+#~ msgstr "Ye&ni"
+
+#~ msgid "&Open..."
+#~ msgstr "&Aç..."
+
+#~ msgid "&Save"
+#~ msgstr "&Kaydet"
+
+#~ msgid "Save &as..."
+#~ msgstr "F&arklı kaydet..."
+
+#~ msgid "No help available here."
+#~ msgstr "Burada yardım yok."
+
+#~ msgid "No user guide found."
+#~ msgstr "Kullanıcı kılavuzu bulunamadı."
+
+#~ msgid "Write AsciiMath Content"
+#~ msgstr "AsciiMath İçeriği Yaz"
+
+#~ msgid "Write LaTeX Content"
+#~ msgstr "Latex Girişi Yaz"
+
+#~ msgid "Unicode dictionary"
+#~ msgstr "Unicode sözlüğü"
+
+#~ msgid "Math rule"
+#~ msgstr "Matematik kuralı"
+
+#~ msgid "{name} Update"
+#~ msgstr "{name} Güncelleme"
+
+#~ msgid "is available"
+#~ msgstr "geçerli"
+
+#~ msgid "Do you want to download and install it?"
+#~ msgstr "İndirip kurmak istiyor musunuz?"
+
+#~ msgid "LaTeX and AsciiMath reverse translate"
+#~ msgstr "LaTeX ve AsciiMath ters çevir"
+
+#~ msgid "Settings"
+#~ msgstr "Ayarlar"
+
+#~ msgid "&General settings..."
+#~ msgstr "&Genel Ayarlar..."
+
+#~ msgid "&latex..."
+#~ msgstr "&latex..."
+
+#~ msgid "&Write..."
+#~ msgstr "&Yazım..."
+
+#~ msgid "speech source switch"
+#~ msgstr "konuşma kaynağını değiştir"
+
+#~ msgid "braille source switch"
+#~ msgstr "braille kaynağını değiştir"
+
+#~ msgid "interact source switch"
+#~ msgstr "Etkileşim kaynağını değiştir"
+
+#~ msgid "General Settings"
+#~ msgstr "Genel Ayarlar"
+
+#~ msgid "Using a beep to alert no move"
+#~ msgstr "Hareket yok uyarısı için bir bip sesi kullan"
+
+#~ msgid "Activate write gesture by default"
+#~ msgstr "Yazım hareketini varsayılan olarak etkinleştir"
+
+#~ msgid "&description"
+#~ msgstr "&açıklama"
+
+#~ msgid "description"
+#~ msgstr "açıklama"
+
+#~ msgid "math rule (%s)"
+#~ msgstr "matematik kuralı (%s)"
+
+#~ msgid "copy"
+#~ msgstr "kopyala"
+
+#~ msgid "User default"
+#~ msgstr "Kullanıcı varsayılanı"
+
+#~ msgid "write gesture toggle"
+#~ msgstr "Yazım hareketini aç kapa"
+
+#~ msgid "activate write gesture"
+#~ msgstr "yazım hareketini etkinleştir"
+
+#~ msgid "deactivate write gesture"
+#~ msgstr "yazım hareketini devre dışı bırak"
+
+#~ msgid "deactivate block navigate gesture"
+#~ msgstr "Blok navigasyon hareketini devre dışı bırak"
+
+#~ msgid "deactivate shortcut gesture"
+#~ msgstr "Kısayol hareketini devre dışı bırak"
+
+#~ msgid "single letter navigate mode toggle"
+#~ msgstr "tek harfle navigasyon aç kapa"
+
+#~ msgid "Not in math section. Please insert LaTeX mark first and try again."
+#~ msgstr ""
+#~ "matematik bölümünde değil. Lütfen önce LaTeX işaretini girin ve tekrar "
+#~ "deneyin."
+
+#~ msgid "menu can not set shortcut"
+#~ msgstr "menü kısayolu ayarlayamıyor"
+
+#~ msgid "sub menu no shortcut"
+#~ msgstr "alt menü kısayol yok"
+
+#~ msgid "Access8Math HTML"
+#~ msgstr "Access8Math HTML"

@@ -74,20 +74,23 @@ msgstr "&Editor..."
 msgid "&Settings..."
 msgstr "&Configurações"
 
-msgid "Speech &unicode dictionary..."
+#, fuzzy
+msgid "Symbol Speech Dictionary..."
 msgstr "Dicionário de fala &unicode..."
 
-msgid "Speech &math rule..."
-msgstr "Regra de fala &matemática..."
+msgid "Math Rules Speech Output..."
+msgstr ""
 
-msgid "Braille &unicode dictionary..."
+#, fuzzy
+msgid "Symbol Braille Dictionary..."
 msgstr "Dicionário braille &unicode..."
 
-msgid "Braille &math rule..."
-msgstr "Regra de braille &matemático..."
+msgid "Math Rules Braille Output..."
+msgstr ""
 
-msgid "&New language adding..."
-msgstr "Adição de &novo idioma..."
+#, fuzzy
+msgid "Add New Language..."
+msgstr "Adicionar novo idioma"
 
 msgid "&Localization"
 msgstr "&Localização"
@@ -372,10 +375,17 @@ msgstr "Adicionar Símbolo"
 msgid "&Symbol:"
 msgstr "&Símbolo:"
 
-#. Translators: This is the label for the unicode dictionary dialog.
-#, python-brace-format
-msgid "{category} unicode dictionary ({language})"
-msgstr "dicionário de {category} Unicode ({language})"
+#, fuzzy
+msgid "Symbol Speech Dictionary"
+msgstr "Dicionário de fala &unicode..."
+
+#, fuzzy
+msgid "Symbol Braille Dictionary"
+msgstr "Dicionário braille &unicode..."
+
+#, fuzzy, python-brace-format
+msgid "{title} ({language})"
+msgstr "regra matemática {category} ({language})"
 
 #. Translators: The label of a text field to search for symbols in the speech symbols dialog.
 msgctxt "speechSymbols"
@@ -501,10 +511,11 @@ msgstr "Erro de Expressão Regular: \"%s\"."
 msgid "Dictionary Entry Error"
 msgstr "Erro de Entrada de Dicionário"
 
-#. Translators: This is the title of the math rule dialog.
-#, python-brace-format
-msgid "{category} math rule ({language})"
-msgstr "regra matemática {category} ({language})"
+msgid "Math Rules Speech Output"
+msgstr ""
+
+msgid "Math Rules Braille Output"
+msgstr ""
 
 #. Translators: The label for math rule list in math rules dialog.
 msgid "&Mathrules"
@@ -590,6 +601,15 @@ msgid "Change workspace folder to a different folder."
 msgstr "Salvar o arquivo com um nome diferente."
 
 #. Translators: A menu item in the Editor window
+#, fuzzy
+msgid "Set &Title..."
+msgstr "Salvar arquivo..."
+
+#. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+msgid "Set title"
+msgstr ""
+
+#. Translators: A menu item in the Editor window
 msgid "E&xit"
 msgstr "&Sair"
 
@@ -658,13 +678,18 @@ msgid "Save file"
 msgstr "Salvar arquivo"
 
 #. Translators: The message displayed
-#, python-brace-format
-msgid "Save file{path}?"
-msgstr "Salvar o arquivo {path}?"
+#, fuzzy
+msgid ""
+"The content in the editor has been modified since the last save, do you want "
+"to save and exit it?"
+msgstr ""
+"A exportação incluirá apenas o conteúdo salvo. O conteúdo do editor foi "
+"modificado desde o último salvamento, deseja salvá-lo e exportá-lo?"
 
 #. Translators: The title of the dialog
-msgid "Save"
-msgstr "Salvar"
+#, fuzzy
+msgid "Exit"
+msgstr "&Sair"
 
 #. Translators: The message displayed
 msgid ""
@@ -685,6 +710,10 @@ msgstr ""
 #. Translators: The title of the dialog
 msgid "Export"
 msgstr "Exportar"
+
+#, fuzzy
+msgid "enter document title"
+msgstr "Salvar o arquivo atual."
 
 #. Translators: A mmenu item in the Interaction window
 msgid "&Menu"
@@ -1518,6 +1547,26 @@ msgid ""
 msgstr ""
 "Permite acessar conteúdo matemático escrito com MathML; Permite escrever "
 "conteúdo matemático através de LaTeX"
+
+#~ msgid "Speech &math rule..."
+#~ msgstr "Regra de fala &matemática..."
+
+#~ msgid "Braille &math rule..."
+#~ msgstr "Regra de braille &matemático..."
+
+#~ msgid "&New language adding..."
+#~ msgstr "Adição de &novo idioma..."
+
+#, python-brace-format
+#~ msgid "{category} unicode dictionary ({language})"
+#~ msgstr "dicionário de {category} Unicode ({language})"
+
+#, python-brace-format
+#~ msgid "Save file{path}?"
+#~ msgstr "Salvar o arquivo {path}?"
+
+#~ msgid "Save"
+#~ msgstr "Salvar"
 
 #~ msgid "Show interaction window when entering interaction navigation mode"
 #~ msgstr ""
