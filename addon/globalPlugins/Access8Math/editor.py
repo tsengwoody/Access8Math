@@ -62,7 +62,7 @@ class EditorFrame(wx.Frame):
 
 	def SetTitle(self):
 		# Translators: The title of the Editor window
-		super(EditorFrame, self).SetTitle(_("%s - Access8Math Editor") % self.title)
+		super(EditorFrame, self).SetTitle(f"{self.title} - " + _("Access8Math Editor"))
 
 	def CreateInteriorWindowComponents(self):
 		self.control = wx.TextCtrl(self, -1, value="", style=wx.TE_MULTILINE)

@@ -250,8 +250,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		if obj.windowClassName == "wxWindowNR" and obj.role == ROLE_WINDOW and obj.name == _("Access8Math interaction window"):
 			clsList.insert(0, AppWindowRoot)
-		elif obj.windowClassName == "Edit" and obj.role == ROLE_EDITABLETEXT:
+		elif obj.windowClassName == "Edit" and obj.role == ROLE_EDITABLETEXT and _("Access8Math Editor") in obj.parent.parent.name:
 			clsList.insert(0, TextMathEditField)
+
 		try:
 			if isinstance(obj.appModule, appModules.explorer.AppModule):
 				clsList.insert(0, VirtualContextMenu)
