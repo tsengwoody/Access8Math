@@ -133,7 +133,7 @@ When finished reading, simply press Esc to return to the document. For more info
 
 ### Access8Math Editor and Access8Math Document
 
-Users must be in the Access8Math Editor to use the writing gestures. This editor also provides functionalities such as opening old files, saving files, previewing, and more.
+Since Windows 11, the editor of Notepad is a Rich Text Editor (RTE) instead of a traditional editor, so it’s necessary to use Access8Math Editor to be able to use the writing gestures in Windows 11. The editor also offers the ability to open old files, save files, preview, and more. On the other hand, in Windows 10 or earlier, either Access8Math editor or Windows Notepad can be used.
 
 With Access8Math editor, it’s possible to write Markdown documents and add resources such as images and links in the editor. When clicking the Export button in the editor, the referenced resources in the document will be compressed into a zip file, which is an Access8Math Document file. Please refer to the "Importing and Exporting'' section of this document for more details.
 
@@ -442,7 +442,7 @@ If you are interested in localizing symbol dictionaries and mathematical rules, 
 * Indicate a capital letter using NVDA voice configuration when the node consists of only one uppercase letter.
 * Resolved Opening the virtual context menu in the file explorer in Access8Math conflicts with toggling native selection mode in NVDA Browsing mode, as they both use the same gesture (NVDA+Shift+F10).
 * Remove outdated setting options.
-* Limit the write feature to within the Access8Math editor only.
+* Limit the write feature to within the Access8Math editor, notepad only.
 * Rewrite readme.
 
 ## Access8Math v4.0 Update
