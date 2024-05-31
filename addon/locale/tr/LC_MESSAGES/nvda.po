@@ -57,6 +57,11 @@ msgstr "Düzenleyiciyi aç"
 msgid "Access8Math interaction window"
 msgstr "Access8Math etkileşim penceresi"
 
+#. Translators: The title of the Editor window
+#, fuzzy
+msgid "Access8Math Editor"
+msgstr "%s - Access8Math Düzenleyicisi"
+
 msgid "&Editor..."
 msgstr "Düz&enleyici..."
 
@@ -77,6 +82,10 @@ msgstr "Matematik Kuralları Braille Çıkışı..."
 
 msgid "Add New Language..."
 msgstr "Yeni Dil Ekle..."
+
+#, fuzzy
+msgid "&Export Localization Files..."
+msgstr "&Yerelleştirme"
 
 msgid "&Localization"
 msgstr "&Yerelleştirme"
@@ -115,6 +124,11 @@ msgstr "Matematik etkileşimli okuyucuyu değiştir"
 #, python-format
 msgid "Math interact reader switch to %s"
 msgstr "Matematik etkileşimli okuyucu geçişi %s"
+
+#. Translators: The title of the Export localization file window
+#, fuzzy
+msgid "Export localization files..."
+msgstr "Dosyayı dışa aktar..."
 
 msgid "Workspace has already been cleaned"
 msgstr "Çalışma alanı temizlendi"
@@ -531,11 +545,6 @@ msgstr ""
 #. Translators: The title of the dialog
 msgid "Add new language"
 msgstr "Yeni dil ekle"
-
-#. Translators: The title of the Editor window
-#, python-format
-msgid "%s - Access8Math Editor"
-msgstr "%s - Access8Math Düzenleyicisi"
 
 #. Translators: A menu item in the Editor window
 msgid "&New editor"

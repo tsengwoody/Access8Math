@@ -65,6 +65,11 @@ msgstr "Afișează editorul"
 msgid "Access8Math interaction window"
 msgstr "Fereastra de interacțiune Access8Math"
 
+#. Translators: The title of the Editor window
+#, fuzzy
+msgid "Access8Math Editor"
+msgstr "Editor %s - Access8Math"
+
 msgid "&Editor..."
 msgstr "&Editor..."
 
@@ -88,6 +93,10 @@ msgstr ""
 #, fuzzy
 msgid "Add New Language..."
 msgstr "Adăugare limbaj nou"
+
+#, fuzzy
+msgid "&Export Localization Files..."
+msgstr "&Localizare"
 
 msgid "&Localization"
 msgstr "&Localizare"
@@ -126,6 +135,11 @@ msgstr "Comutare cititor de interacțiune matematică"
 #, python-format
 msgid "Math interact reader switch to %s"
 msgstr "Cititor de interacțiune matematică comutăt la %s"
+
+#. Translators: The title of the Export localization file window
+#, fuzzy
+msgid "Export localization files..."
+msgstr "Exportare fișier..."
 
 msgid "Workspace has already been cleaned"
 msgstr "Spațiul de lucru a fost deja curățat"
@@ -549,11 +563,6 @@ msgstr ""
 #. Translators: The title of the dialog
 msgid "Add new language"
 msgstr "Adăugare limbaj nou"
-
-#. Translators: The title of the Editor window
-#, python-format
-msgid "%s - Access8Math Editor"
-msgstr "Editor %s - Access8Math"
 
 #. Translators: A menu item in the Editor window
 #, fuzzy

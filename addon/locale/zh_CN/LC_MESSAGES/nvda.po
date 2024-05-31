@@ -58,6 +58,11 @@ msgstr "显示编辑器"
 msgid "Access8Math interaction window"
 msgstr "Access8Math 交互窗口"
 
+#. Translators: The title of the Editor window
+#, fuzzy
+msgid "Access8Math Editor"
+msgstr "%s Access8Math 编辑器"
+
 msgid "&Editor..."
 msgstr "编辑器(&E)..."
 
@@ -81,6 +86,10 @@ msgstr ""
 #, fuzzy
 msgid "Add New Language..."
 msgstr "添加新语言"
+
+#, fuzzy
+msgid "&Export Localization Files..."
+msgstr "本地化(&L)"
 
 msgid "&Localization"
 msgstr "本地化(&L)"
@@ -119,6 +128,11 @@ msgstr "切换数学交互阅读器"
 #, python-format
 msgid "Math interact reader switch to %s"
 msgstr "数学交互阅读器切换为 %s"
+
+#. Translators: The title of the Export localization file window
+#, fuzzy
+msgid "Export localization files..."
+msgstr "导出文件..."
 
 msgid "Workspace has already been cleaned"
 msgstr "工作区已清理"
@@ -536,11 +550,6 @@ msgstr ""
 #. Translators: The title of the dialog
 msgid "Add new language"
 msgstr "添加新语言"
-
-#. Translators: The title of the Editor window
-#, python-format
-msgid "%s - Access8Math Editor"
-msgstr "%s Access8Math 编辑器"
 
 #. Translators: A menu item in the Editor window
 #, fuzzy
