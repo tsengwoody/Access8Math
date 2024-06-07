@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: 'Access8Math' '3.1'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2021-09-08 06:33+0800\n"
-"PO-Revision-Date: 2024-05-03 09:54+0200\n"
+"PO-Revision-Date: 2024-05-31 09:48+0200\n"
 "Last-Translator: José Manuel Delicado <jm.delicado@nvda.es>\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #, python-brace-format
 msgid ""
@@ -59,9 +59,8 @@ msgid "Access8Math interaction window"
 msgstr "Ventana de interacción de Access8Math"
 
 #. Translators: The title of the Editor window
-#, fuzzy
 msgid "Access8Math Editor"
-msgstr "%s - Editor de Access8Math"
+msgstr "Editor de Access8Math"
 
 msgid "&Editor..."
 msgstr "&Editor..."
@@ -84,9 +83,8 @@ msgstr "Salida braille de reglas matemáticas..."
 msgid "Add New Language..."
 msgstr "Añadir nuevo idioma..."
 
-#, fuzzy
 msgid "&Export Localization Files..."
-msgstr "&Traducción"
+msgstr "&Exportar archivos de traducción..."
 
 msgid "&Localization"
 msgstr "&Traducción"
@@ -127,9 +125,8 @@ msgid "Math interact reader switch to %s"
 msgstr "Lector matemático interactivo alternado a %s"
 
 #. Translators: The title of the Export localization file window
-#, fuzzy
 msgid "Export localization files..."
-msgstr "Exportar archivo..."
+msgstr "Exportar archivos de traducción..."
 
 msgid "Workspace has already been cleaned"
 msgstr "Ya se ha limpiado el área de trabajo"
