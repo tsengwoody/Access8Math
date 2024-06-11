@@ -1,5 +1,5 @@
 # NVDA add-on template  SCONSTRUCT file
-# Copyright (C) 2012-2023 Rui Batista, Noelia Martinez, Joseph Lee
+# Copyright (C) 2012-2024 Rui Batista, Noelia Martinez, Joseph Lee
 # This file is covered by the GNU General Public License.
 # See the file COPYING.txt for more details.
 
@@ -14,8 +14,11 @@ import sys
 # Linters aren't aware about them.
 # To avoid Flake8 F821 warnings about them they are imported explicitly.
 # When using other  Scons functions please add them to the line below.
-from SCons.Script import BoolVariable, Builder, Copy, Environment, Variables
+from SCons.Script import BoolVariable, Builder, Copy, Environment, Variables, EnsurePythonVersion  # NOQA: E501, F401
 
+# Add-on localization exchange facility and the template requires Python 3.10.
+# For best practice, use Python 3.11 or later to align with NVDA development.
+EnsurePythonVersion(3, 10)
 sys.dont_write_bytecode = True
 
 # Bytecode should not be written for build vars module to keep the repository root folder clean.
@@ -48,12 +51,12 @@ def md2html(source, dest):
 	# Optimization: build resulting HTML text in one go instead of writing parts separately.
 	docText = "\n".join([
 		"<!DOCTYPE html>",
-		"<html lang=\"%s\">" % lang,
+		f"<html lang=\"{lang}\">",
 		"<head>",
 		"<meta charset=\"UTF-8\">"
 		"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
 		"<link rel=\"stylesheet\" type=\"text/css\" href=\"../style.css\" media=\"screen\">",
-		"<title>%s</title>" % title,
+		f"<title>{title}</title>",
 		"</head>\n<body>",
 		htmlText,
 		"</body>\n</html>"
@@ -65,7 +68,7 @@ def md2html(source, dest):
 def mdTool(env):
 	mdAction = env.Action(
 		lambda target, source, env: md2html(source[0].path, target[0].path),
-		lambda target, source, env: 'Generating % s' % target[0],
+		lambda target, source, env: f"Generating {target[0]}",
 	)
 	mdBuilder = env.Builder(
 		action=mdAction,
@@ -77,7 +80,7 @@ def mdTool(env):
 
 def validateVersionNumber(key, val, env):
 	# Used to make sure version major.minor.patch are integers to comply with NV Access add-on store.
-	# Ignore all this if version number is not specified, in which case json generator will validate this info.
+	# Ignore all this if version number is not specified.
 	if val == "0.0.0":
 		return
 	versionNumber = val.split(".")
@@ -118,7 +121,7 @@ addonFile = env.File("${addon_name}-${addon_version}.nvda-addon")
 def addonGenerator(target, source, env, for_signature):
 	action = env.Action(
 		lambda target, source, env: createAddonBundleFromPath(source[0].abspath, target[0].abspath) and None,
-		lambda target, source, env: "Generating Addon %s" % target[0]
+		lambda target, source, env: f"Generating Addon {target[0]}"
 	)
 	return action
 
@@ -126,7 +129,7 @@ def addonGenerator(target, source, env, for_signature):
 def manifestGenerator(target, source, env, for_signature):
 	action = env.Action(
 		lambda target, source, env: generateManifest(source[0].abspath, target[0].abspath) and None,
-		lambda target, source, env: "Generating manifest %s" % target[0]
+		lambda target, source, env: f"Generating manifest {target[0]}"
 	)
 	return action
 
@@ -136,7 +139,7 @@ def translatedManifestGenerator(target, source, env, for_signature):
 	lang = os.path.basename(dir)
 	action = env.Action(
 		lambda target, source, env: generateTranslatedManifest(source[1].abspath, lang, target[0].abspath) and None,
-		lambda target, source, env: "Generating translated manifest %s" % target[0]
+		lambda target, source, env: f"Generating translated manifest {target[0]}"
 	)
 	return action
 
@@ -170,90 +173,24 @@ def createAddonBundleFromPath(path, dest):
 				absPath = os.path.join(dir, filename)
 				if pathInBundle not in buildVars.excludedFiles:
 					z.write(absPath, pathInBundle)
-	createAddonStoreJson(dest)
 	return dest
 
 
-def createAddonStoreJson(bundle):
-	"""Creates add-on store JSON file from an add-on package and manifest data."""
-	import json
-	import hashlib
-	# Set different json file names and version number properties based on version number parsing results.
-	if env["versionNumber"] == "0.0.0":
-		env["versionNumber"] = buildVars.addon_info["addon_version"]
-	versionNumberParsed = env["versionNumber"].split(".")
-	if all([part.isnumeric() for part in versionNumberParsed]):
-		if len(versionNumberParsed) == 1:
-			versionNumberParsed += ["0", "0"]
-		elif len(versionNumberParsed) == 2:
-			versionNumberParsed.append("0")
-	else:
-		versionNumberParsed = []
-	if len(versionNumberParsed):
-		major, minor, patch = [int(part) for part in versionNumberParsed]
-		jsonFilename = f'{major}.{minor}.{patch}.json'
-	else:
-		jsonFilename = f'{buildVars.addon_info["addon_version"]}.json'
-		major, minor, patch = 0, 0, 0
-	print('Generating % s' % jsonFilename)
-	sha256 = hashlib.sha256()
-	with open(bundle, "rb") as f:
-		for byte_block in iter(lambda: f.read(65536), b""):
-			sha256.update(byte_block)
-	hashValue = sha256.hexdigest()
-	try:
-		minimumNVDAVersion = buildVars.addon_info["addon_minimumNVDAVersion"].split(".")
-	except AttributeError:
-		minimumNVDAVersion = [0, 0, 0]
-	minMajor, minMinor = minimumNVDAVersion[:2]
-	minPatch = minimumNVDAVersion[-1] if len(minimumNVDAVersion) == 3 else "0"
-	try:
-		lastTestedNVDAVersion = buildVars.addon_info["addon_lastTestedNVDAVersion"].split(".")
-	except AttributeError:
-		lastTestedNVDAVersion = [0, 0, 0]
-	lastTestedMajor, lastTestedMinor = lastTestedNVDAVersion[:2]
-	lastTestedPatch = lastTestedNVDAVersion[-1] if len(lastTestedNVDAVersion) == 3 else "0"
-	channel = buildVars.addon_info["addon_updateChannel"]
-	if channel is None:
-		channel = "stable"
-	addonStoreEntry = {
-		"addonId": buildVars.addon_info["addon_name"],
-		"displayName": buildVars.addon_info["addon_summary"],
-		"URL": "",
-		"description": buildVars.addon_info["addon_description"],
-		"sha256": hashValue,
-		"homepage": buildVars.addon_info["addon_url"],
-		"addonVersionName": buildVars.addon_info["addon_version"],
-		"addonVersionNumber": {
-			"major": major,
-			"minor": minor,
-			"patch": patch
-		},
-		"minNVDAVersion": {
-			"major": int(minMajor),
-			"minor": int(minMinor),
-			"patch": int(minPatch)
-		},
-		"lastTestedVersion": {
-			"major": int(lastTestedMajor),
-			"minor": int(lastTestedMinor),
-			"patch": int(lastTestedPatch)
-		},
-		"channel": channel,
-		"publisher": "",
-		"sourceURL": buildVars.addon_info["addon_sourceURL"],
-		"license": buildVars.addon_info["addon_license"],
-		"licenseURL": buildVars.addon_info["addon_licenseURL"],
-	}
-	with open(jsonFilename, "w") as addonStoreJson:
-		json.dump(addonStoreEntry, addonStoreJson, indent="\t")
-
-
 def generateManifest(source, dest):
+	# Prepare the root manifest section
 	addon_info = buildVars.addon_info
 	with codecs.open(source, "r", "utf-8") as f:
 		manifest_template = f.read()
 	manifest = manifest_template.format(**addon_info)
+	# Add additional manifest sections such as custom braile tables
+	# Custom braille translation tables
+	if getattr(buildVars, "brailleTables", {}):
+		manifest_brailleTables = ["\n[brailleTables]"]
+		for table in buildVars.brailleTables.keys():
+			manifest_brailleTables.append(f"[[{table}]]")
+			for key, val in buildVars.brailleTables[table].items():
+				manifest_brailleTables.append(f"{key} = {val}")
+		manifest += "\n".join(manifest_brailleTables) + "\n"
 	with codecs.open(dest, "w", "utf-8") as f:
 		f.write(manifest)
 
@@ -266,6 +203,15 @@ def generateTranslatedManifest(source, language, out):
 	with codecs.open(source, "r", "utf-8") as f:
 		manifest_template = f.read()
 	result = manifest_template.format(**vars)
+	# Add additional manifest sections such as custom braile tables
+	# Custom braille translation tables
+	if getattr(buildVars, "brailleTables", {}):
+		result_brailleTables = ["\n[brailleTables]"]
+		for table in buildVars.brailleTables.keys():
+			result_brailleTables.append(f"[[{table}]]")
+			# Fetch display name only.
+			result_brailleTables.append(f"displayName = {buildVars.brailleTables[table]['displayName']}")
+		result += "\n".join(result_brailleTables) + "\n"
 	with codecs.open(out, "w", "utf-8") as f:
 		f.write(result)
 
