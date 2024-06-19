@@ -61,7 +61,7 @@ class Access8MathDocument:
 		elif os.path.isfile(path):
 			file = os.path.basename(path)
 			ext = file.split('.')[-1]
-			if ext == 'zip':
+			if ext == 'zip' or ext == 'a8m':
 				self._raw_folder = os.path.join(PATH, 'web', 'workspace', str(uuid.uuid4()))
 				self.temp = True
 				if not os.path.exists(self.raw_folder):
