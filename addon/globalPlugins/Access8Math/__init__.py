@@ -44,8 +44,13 @@ insert_path_count += 1
 sys.path.insert(0, PATH)
 insert_path_count += 1
 
-import xml
-xml.__path__.append(os.path.join(PYTHON_PATH, "xml"))
+module_names = ["xml", "xml.etree"]
+for module_name in module_names:
+	if module_name in sys.modules:
+		del sys.modules[module_name]
+
+# import xml
+# xml.__path__.append(os.path.join(PYTHON_PATH, "xml"))
 
 config.conf.spec["Access8Math"] = {
 	"settings": {
@@ -98,7 +103,7 @@ from .interaction import A8MProvider, A8MInteraction
 from .lib.storage import explorer
 from .writer import TextMathEditField
 
-xml.__path__.pop()
+# xml.__path__.pop()
 for i in range(insert_path_count):
 	del sys.path[0]
 

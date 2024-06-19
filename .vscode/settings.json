@@ -1,16 +1,13 @@
 {
     "editor.accessibilitySupport": "on",
-    "python.linting.enabled": true,
-    "python.linting.maxNumberOfProblems": 10000,
-    "python.linting.flake8Args": [
+    "flake8.args": [
         "--config=flake8.ini"
     ],
-    "python.linting.flake8Enabled": true,
-    "python.linting.pylintEnabled": false,
+    "flake8.importStrategy": "fromEnvironment",
     "python.autoComplete.extraPaths": [
         "../nvda/source",
         "../nvda/miscDeps/python"
-        ],	
+    ],
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
     "editor.insertSpaces": false,
@@ -19,5 +16,5 @@
         "../nvda/source",
         "../nvda/miscDeps/python"
     ],
-    "python.defaultInterpreterPath": "../nvda/.venv/scripts/python.exe"
+    "python.defaultInterpreterPath": "${workspaceFolder}/../nvda/.venv/scripts/python.exe"
 }
