@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Access8Math\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2023-06-06 14:09+0300\n"
-"PO-Revision-Date: 2024-05-03 12:47+0300\n"
+"PO-Revision-Date: 2024-05-31 12:14+0300\n"
 "Last-Translator: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language-Team: cagrid@hotmail.com\n"
 "Language: tr_TR\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 "X-Poedit-Basepath: ../../..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -57,6 +57,10 @@ msgstr "Düzenleyiciyi aç"
 msgid "Access8Math interaction window"
 msgstr "Access8Math etkileşim penceresi"
 
+#. Translators: The title of the Editor window
+msgid "Access8Math Editor"
+msgstr "Access8Math Düzenleyici"
+
 msgid "&Editor..."
 msgstr "Düz&enleyici..."
 
@@ -77,6 +81,9 @@ msgstr "Matematik Kuralları Braille Çıkışı..."
 
 msgid "Add New Language..."
 msgstr "Yeni Dil Ekle..."
+
+msgid "&Export Localization Files..."
+msgstr "&Yerelleştirme Dosyalarını Dışa Aktar..."
 
 msgid "&Localization"
 msgstr "&Yerelleştirme"
@@ -115,6 +122,10 @@ msgstr "Matematik etkileşimli okuyucuyu değiştir"
 #, python-format
 msgid "Math interact reader switch to %s"
 msgstr "Matematik etkileşimli okuyucu geçişi %s"
+
+#. Translators: The title of the Export localization file window
+msgid "Export localization files..."
+msgstr "Yerelleştirme dosyalarını dışa aktar..."
 
 msgid "Workspace has already been cleaned"
 msgstr "Çalışma alanı temizlendi"
@@ -531,11 +542,6 @@ msgstr ""
 #. Translators: The title of the dialog
 msgid "Add new language"
 msgstr "Yeni dil ekle"
-
-#. Translators: The title of the Editor window
-#, python-format
-msgid "%s - Access8Math Editor"
-msgstr "%s - Access8Math Düzenleyicisi"
 
 #. Translators: A menu item in the Editor window
 msgid "&New editor"
