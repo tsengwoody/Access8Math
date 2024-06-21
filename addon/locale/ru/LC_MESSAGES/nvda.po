@@ -70,6 +70,11 @@ msgstr "Открывает редактор Access8Math"
 msgid "Access8Math interaction window"
 msgstr "Окно взаимодействия с формулой"
 
+#. Translators: The title of the Editor window
+#, fuzzy
+msgid "Access8Math Editor"
+msgstr "%s - Редактор Access8Math"
+
 msgid "&Editor..."
 msgstr "&Редактор..."
 
@@ -90,6 +95,10 @@ msgstr "Математические правила вывода Брайля...
 
 msgid "Add New Language..."
 msgstr "Добавить новый язык..."
+
+#, fuzzy
+msgid "&Export Localization Files..."
+msgstr "&Локализация"
 
 msgid "&Localization"
 msgstr "&Локализация"
@@ -128,6 +137,11 @@ msgstr "Изменяет обработчик взаимодействия с м
 #, python-format
 msgid "Math interact reader switch to %s"
 msgstr "Обработчик взаимодействия с математическими выражениями изменён на %s"
+
+#. Translators: The title of the Export localization file window
+#, fuzzy
+msgid "Export localization files..."
+msgstr "Экспортировать файл..."
 
 msgid "Workspace has already been cleaned"
 msgstr "Рабочая область уже очищена"
@@ -547,11 +561,6 @@ msgstr ""
 #. Translators: The title of the dialog
 msgid "Add new language"
 msgstr "Добавить новый язык"
-
-#. Translators: The title of the Editor window
-#, python-format
-msgid "%s - Access8Math Editor"
-msgstr "%s - Редактор Access8Math"
 
 #. Translators: A menu item in the Editor window
 msgid "&New editor"
