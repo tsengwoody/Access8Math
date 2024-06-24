@@ -253,13 +253,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(MathReaderSettingsPanel)
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
-		if obj.windowClassName == "wxWindowNR" and obj.role == ROLE_WINDOW and obj.name == _("Access8Math interaction window"):
+		if getattr(obj, 'windowClassName', None) == "wxWindowNR" and obj.role == ROLE_WINDOW and obj.name == _("Access8Math interaction window"):
 			clsList.insert(0, AppWindowRoot)
-		elif obj.windowClassName == "Edit" and obj.role == ROLE_EDITABLETEXT:
+		elif getattr(obj, 'windowClassName', None) == "Edit" and obj.role == ROLE_EDITABLETEXT:
 			try:
 				if _("Access8Math Editor") in obj.parent.parent.name or obj.appModule.appName.startswith("notepad"):
 					clsList.insert(0, TextMathEditField)
-			except AttributeError:
+			except (AttributeError, TypeError):
 				pass
 
 		try:
