@@ -1,9 +1,10 @@
 """# Access8Math: Allows access math content written by MathML and write math as MathML
-# Copyright (C) 2017-2022 Tseng Woody <tsengwoody.tw@gmail.com>
+# Copyright (C) 2017-2024 Tseng Woody <tsengwoody.tw@gmail.com>
 # This file is covered by the GNU General Public License.
 # See the file COPYING.txt for more details."""
 # coding: utf-8
 
+import importlib
 import os
 import sys
 import shutil
@@ -48,9 +49,7 @@ module_names = ["xml", "xml.etree"]
 for module_name in module_names:
 	if module_name in sys.modules:
 		del sys.modules[module_name]
-
-# import xml
-# xml.__path__.append(os.path.join(PYTHON_PATH, "xml"))
+		sys.modules[module_name] = importlib.import_module(module_name)
 
 config.conf.spec["Access8Math"] = {
 	"settings": {
