@@ -256,16 +256,16 @@ class EditorFrame(wx.Frame):
 			return True
 
 	def OnSaveAs(self, event):
-			path = self.AskUserForFolder(message=_("Save file"), style=wx.FD_SAVE, **self.DefaultFileDialogOptions())
-			if path:
-				self.ad.raw_folder = path
-				with open(os.path.join(self.ad.raw_folder, self.ad.raw_entry), 'w', encoding='utf-8') as file:
-					file.write(self.control.GetValue())
-				self.path = os.path.join(self.ad.raw_folder, self.ad.raw_entry)
-				self.modify = False
-				return True
-			else:
-				return False
+		path = self.AskUserForFolder(message=_("Save file"), style=wx.FD_SAVE, **self.DefaultFileDialogOptions())
+		if path:
+			self.ad.raw_folder = path
+			with open(os.path.join(self.ad.raw_folder, self.ad.raw_entry), 'w', encoding='utf-8') as file:
+				file.write(self.control.GetValue())
+			self.path = os.path.join(self.ad.raw_folder, self.ad.raw_entry)
+			self.modify = False
+			return True
+		else:
+			return False
 
 	def OnSetTitle(self, event):
 		with SetTitleDialog(parent=self, value=self.title) as dialog:
@@ -500,4 +500,4 @@ class Hotkey(object):
 
 class SetTitleDialog(wx.TextEntryDialog):
 	def __init__(self, parent, message=_("enter document title"), value=""):
-		super().__init__(parent=parent,message=message, value=value)
+		super().__init__(parent=parent, message=message, value=value)
