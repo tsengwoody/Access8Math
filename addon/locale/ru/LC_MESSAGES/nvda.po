@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Access8Math\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2023-06-06 14:09+0300\n"
-"PO-Revision-Date: 2024-06-06 09:47+0300\n"
+"PO-Revision-Date: 2024-06-21 10:11+0300\n"
 "Last-Translator: Danil Kostenkov <danilkostenkov38@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -71,9 +71,8 @@ msgid "Access8Math interaction window"
 msgstr "Окно взаимодействия с формулой"
 
 #. Translators: The title of the Editor window
-#, fuzzy
 msgid "Access8Math Editor"
-msgstr "%s - Редактор Access8Math"
+msgstr "Редактор Access8Math"
 
 msgid "&Editor..."
 msgstr "&Редактор..."
@@ -96,9 +95,8 @@ msgstr "Математические правила вывода Брайля...
 msgid "Add New Language..."
 msgstr "Добавить новый язык..."
 
-#, fuzzy
 msgid "&Export Localization Files..."
-msgstr "&Локализация"
+msgstr "&Экспортировать файлы локализации..."
 
 msgid "&Localization"
 msgstr "&Локализация"
@@ -139,9 +137,8 @@ msgid "Math interact reader switch to %s"
 msgstr "Обработчик взаимодействия с математическими выражениями изменён на %s"
 
 #. Translators: The title of the Export localization file window
-#, fuzzy
 msgid "Export localization files..."
-msgstr "Экспортировать файл..."
+msgstr "Экспортировать файлы локализации..."
 
 msgid "Workspace has already been cleaned"
 msgstr "Рабочая область уже очищена"
