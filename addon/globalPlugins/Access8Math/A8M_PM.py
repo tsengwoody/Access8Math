@@ -464,7 +464,6 @@ class Node(object):
 				for c in self.child:
 					if c:
 						serialized.append(c.serialized())
-						serialized.append(['<break time="10ms" />'])
 			elif isinstance(r, str):
 				serialized.append([r])
 			else:
@@ -664,7 +663,7 @@ class TerminalNode(Node):
 		try:
 			super().set_rule()
 		except BaseException:
-			self.rule = ['<break time="10ms" />', str(self.mathcontent.symbol_translate(self.data)), '<break time="10ms" />']
+			self.rule = [str(self.mathcontent.symbol_translate(self.data))]
 
 	def set_braillerule(self):
 		try:
@@ -742,16 +741,32 @@ class Mfenced(AlterNode):
 		rule = self.rule
 		if not self.type:
 			if 'open' in self.attrib:
-				rule = [str(self.attrib['open'])] + rule
+				start_text = [self.mathcontent.symbol_translate(self.attrib['open']), rule[0]]
+			else:
+				start_text = [self.mathcontent.symbol_translate("("), rule[0]]
 			if 'close' in self.attrib:
-				rule = rule[0:-1] + [str(self.attrib['close'])] + rule[-1:]
-			if ('open' not in self.attrib) and ('close' not in self.attrib):
-				rule = ['('] + rule[0:-1] + [')'] + rule[-1:]
+				end_text = [self.mathcontent.symbol_translate(self.attrib['close']), rule[-1]]
+			else:
+				end_text = [self.mathcontent.symbol_translate(")"), rule[-1]]
+			rule = start_text + rule[1:-1] + end_text
 
 		self.rule = rule
 
 	def set_braillerule(self):
-		pass
+		super().set_braillerule()
+		braillerule = self.braillerule
+		if not self.type:
+			if 'open' in self.attrib:
+				start_text = [self.mathcontent.braillesymbol_translate(self.attrib['open']), braillerule[0]]
+			else:
+				start_text = [self.mathcontent.braillesymbol_translate("("), braillerule[0]]
+			if 'close' in self.attrib:
+				end_text = [self.mathcontent.braillesymbol_translate(self.attrib['close']), braillerule[-1]]
+			else:
+				end_text = [self.mathcontent.braillesymbol_translate(")"), braillerule[-1]]
+			braillerule = start_text + braillerule[1:-1] + end_text
+
+		self.braillerule = braillerule
 
 
 class Menclose(AlterNode):
@@ -1771,7 +1786,6 @@ def load_math_rule(path=None, language='', category='speech'):
 			except BaseException:
 				pass
 
-	print(len(mathrule))
 	mathrule = collections.OrderedDict({k: v for k, v in mathrule.items() if v})
 	return mathrule
 
@@ -1820,11 +1834,6 @@ def save_math_rule(mathrule, path=None, language='', category='speech'):
 
 
 def initialize(Access8MathConfig):
-	if Access8MathConfig:
-		language = Access8MathConfig["settings"]["language"]
-		if not exist_language(language):
-			add_language(language)
-
 	global nodetypes_check
 	nodetypes_check = []
 	if Access8MathConfig and Access8MathConfig["settings"]["analyze_math_meaning"]:

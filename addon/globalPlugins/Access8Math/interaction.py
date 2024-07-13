@@ -265,11 +265,14 @@ class A8MInteraction(Window):
 
 	def getBrailleRegions(self, review=False):
 		yield braille.NVDAObjectRegion(self, appendText=" ")
-		region = braille.Region()
+		region = braille.NVDAObjectRegion(self, appendText="")
 		region.focusToHardLeft = True
 		cells = ""
 		if config.conf["Access8Math"]["settings"]["braille_source"] == "Access8Math":
 			cells = translate_Braille(self.mathcontent.root.brailleserialized())
+		elif config.conf["Access8Math"]["settings"]["braille_source"] == "MathCAT":
+			if mathCAT:
+				cells = mathCAT.getBrailleForMathMl(self.mathcontent.raw_mathMl)
 		else:
 			if mathPlayer:
 				cells = mathPlayer.getBrailleForMathMl(self.mathcontent.raw_mathMl)

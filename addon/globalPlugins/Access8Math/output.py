@@ -12,6 +12,17 @@ from speech.speech import _getSpellingCharAddCapNotification
 from synthDriverHandler import getSynth
 
 BRAILLE_UNICODE_PATTERNS_START = 0x2800
+BREAK_PATTERN = re.compile(r'^<break time="(?P<time>[\d]*)ms" />$')
+
+
+def clean(serializes: list):
+	result = [item for item in serializes if item != ""]
+	if result:
+		if BREAK_PATTERN.match(result[0]):
+			result.pop(0)
+		if BREAK_PATTERN.match(result[-1]):
+			result.pop()
+	return result
 
 
 def flatten(lines):
@@ -27,6 +38,22 @@ def flatten(lines):
 				yield sub
 		else:
 			yield line
+
+
+def interleave_lists(a1, a2):
+	output = []
+	min_length = min(len(a1), len(a2))
+
+	# Interleave elements from both lists
+	for i in range(min_length):
+		output.append(a1[i])
+		output.append(a2[i])
+
+	# Append remaining elements from the longer list
+	output.extend(a1[min_length:])
+	output.extend(a2[min_length:])
+
+	return output
 
 
 class A8MSsmlParser(SsmlParser):
@@ -50,7 +77,8 @@ def translate_SpeechCommand(serializes):
 	@type list
 	@rtype SpeechCommand
 	"""
-	item = flatten(serializes)
+	item = clean(flatten(serializes))
+	item = interleave_lists(item, ['<break time="{ms}ms" />'.format(ms=10 * config.conf["Access8Math"]["settings"]["item_interval_time"])] * (len(item) - 1))
 	ssml = "<speak>" + "".join(item) + "</speak>"
 	parser = A8MSsmlParser()
 	speechSequence = parser.convertFromXml(ssml)
