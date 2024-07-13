@@ -1141,7 +1141,7 @@ o,003BF,ο,⠨⠕,self,1,True
 ,025AE,▮,,,0,True
 ,025AF,▯,,,0,True
 ,025B0,▰,,,0,True
-,025B1,▱,,,0,True
+,025B1,▱,⠫⠛,self,0,True
 \blacktriangleup,025B4,▴,,,0,True
 \smalltriangleup,025B5,▵,,,0,True
 \RHD,025B6,▶,,,0,True
@@ -1207,7 +1207,7 @@ o,003BF,ο,⠨⠕,self,1,True
 ,025F8,◸,,,0,True
 ,025F9,◹,,,0,True
 ,025FA,◺,,,0,True
-\square,025FB,◻,,,0,True
+\square,025FB,◻,⠫⠟,self,0,True
 \blacksquare,025FC,◼,,,0,True
 ,025FD,◽,,,0,True
 ,025FE,◾,,,0,True
