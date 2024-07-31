@@ -13,6 +13,7 @@ addonHandler.initTranslation()
 PATH = os.path.dirname(__file__)
 
 wildcard = \
+"Access8Math editor files (*.a8m)|*.a8m|"\
 "archive (*.zip)|*.zip|"\
 "All (*.*)|*.*"
 
