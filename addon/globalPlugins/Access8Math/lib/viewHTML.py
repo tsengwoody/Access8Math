@@ -75,6 +75,7 @@ class Access8MathDocument:
 				self._raw_folder = os.path.dirname(path)
 				self.raw_entry = os.path.basename(path)
 
+		self.a8m_folder = os.path.join(PATH, 'web', 'workspace', 'a8m')
 		self.review_folder = os.path.join(PATH, 'web', 'workspace', 'review')
 
 	def __del__(self):
@@ -139,6 +140,37 @@ class Access8MathDocument:
 			raise OSError("src path is not file")
 		if src == self.raw_entry:
 			self.raw_entry = dst
+			# update metadata value
+			path = self.raw_folder
+			raw_entry = self.raw_entry
+			metadata_file = os.path.join(path, 'Access8Math.json')
+			metadata = json.load(open(metadata_file))
+			metadata.update({
+				"entry": raw_entry,
+			})
+			with open(metadata_file, 'w', encoding='utf8') as f:
+				json.dump(metadata, f)
+
+	def raw2a8m(self):
+		try:
+			shutil.rmtree(self.a8m_folder)
+		except BaseException:
+			pass
+
+		shutil.copytree(self.raw_folder, self.a8m_folder)
+
+		# update metadata value
+		metadata_file = os.path.join(self.a8m_folder, 'Access8Math.json')
+		metadata = json.load(open(metadata_file))
+		metadata.update({
+			"title": "Access8Math",
+			"entry": self.raw_entry,
+			"documentDisplay": config.conf["Access8Math"]["settings"]["HTML_document_display"],
+			"display": config.conf["Access8Math"]["settings"]["HTML_math_display"],
+			"latexDelimiter": config.conf["Access8Math"]["settings"]["LaTeX_delimiter"],
+		})
+		with open(metadata_file, 'w', encoding='utf8') as f:
+			json.dump(metadata, f)
 
 	def raw2review(self):
 		try:
@@ -171,18 +203,13 @@ class Access8MathDocument:
 				if os.path.isfile(item) and (extend in ['txt', 'md'] or os.path.basename(item) == self.raw_entry):
 					if os.path.basename(item) == self.raw_entry:
 						text2template(src=item, dst=os.path.join(os.path.dirname(item), "content-config.js"))
+						os.remove(item)
 					else:
-						text2template(src=item, dst=os.path.join(os.path.dirname(item), '{}.html'.format(name)))
+						text2template(src=item, dst=os.path.join(os.path.dirname(item), f'{name}.js'))
+						os.remove(item)
 
 		with ZipFile(os.path.join(template_folder, "Access8MathTemplate.zip"), "r") as zip_file:
 			zip_file.extractall(self.review_folder)
-
-		metadata = {
-			"entry": self.raw_entry,
-		}
-		dst = os.path.join(self.review_folder, 'Access8Math.json')
-		with open(dst, 'w', encoding='utf8') as f:
-			json.dump(metadata, f)
 
 
 def rawIntoReview(raw_folder, review_folder, resources):

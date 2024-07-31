@@ -256,16 +256,16 @@ class EditorFrame(wx.Frame):
 			return True
 
 	def OnSaveAs(self, event):
-		path = self.AskUserForFolder(message=_("Save file"), style=wx.FD_SAVE, **self.DefaultFileDialogOptions())
-		if path:
-			self.ad.raw_folder = path
-			with open(os.path.join(self.ad.raw_folder, self.ad.raw_entry), 'w', encoding='utf-8') as file:
-				file.write(self.control.GetValue())
-			self.path = os.path.join(self.ad.raw_folder, self.ad.raw_entry)
-			self.modify = False
-			return True
-		else:
-			return False
+			path = self.AskUserForFolder(message=_("Save file"), style=wx.FD_SAVE, **self.DefaultFileDialogOptions())
+			if path:
+				self.ad.raw_folder = path
+				with open(os.path.join(self.ad.raw_folder, self.ad.raw_entry), 'w', encoding='utf-8') as file:
+					file.write(self.control.GetValue())
+				self.path = os.path.join(self.ad.raw_folder, self.ad.raw_entry)
+				self.modify = False
+				return True
+			else:
+				return False
 
 	def OnSetTitle(self, event):
 		with SetTitleDialog(parent=self, value=self.title) as dialog:
@@ -345,18 +345,28 @@ class EditorFrame(wx.Frame):
 			elif val == wx.CANCEL:
 				return
 
+		self.ad.raw2a8m()
+		with wx.FileDialog(
+			# Translators: The title of the Editor's Export file window
+			self, message=_("Export Access8Math editor file..."),
+			defaultDir=self.dirname, wildcard="Access8Math editor files (*.a8m)|*.a8m"
+		) as entryDialog:
+			if entryDialog.ShowModal() == wx.ID_OK:
+				dst = entryDialog.GetPath()
+				shutil.make_archive(dst, 'zip', self.ad.a8m_folder)
+				os.rename(dst + ".zip", dst)
+
 		self.ad.raw2review()
 		with wx.FileDialog(
 			# Translators: The title of the Editor's Export file window
-			self, message=_("Export file..."),
-			defaultDir="", wildcard="zip files (*.zip)|*.zip"
+			self, message=_("Export HTML document file..."),
+			defaultDir=os.path.dirname(dst),
+			wildcard="zip files (*.zip)|*.zip"
 		) as entryDialog:
-			if entryDialog.ShowModal() != wx.ID_OK:
-				return
-			dst = entryDialog.GetPath()
-		if dst.endswith(".zip"):
-			dst = dst[:-4]
-		shutil.make_archive(dst, 'zip', self.ad.review_folder)
+			if entryDialog.ShowModal() == wx.ID_OK:
+				dst = entryDialog.GetPath()
+				shutil.make_archive(dst, 'zip', self.ad.review_folder)
+				os.rename(dst + ".zip", dst)
 
 	def OnFont(self, event):
 		data = wx.FontData()
@@ -500,4 +510,4 @@ class Hotkey(object):
 
 class SetTitleDialog(wx.TextEntryDialog):
 	def __init__(self, parent, message=_("enter document title"), value=""):
-		super().__init__(parent=parent, message=message, value=value)
+		super().__init__(parent=parent,message=message, value=value)
