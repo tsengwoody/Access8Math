@@ -127,15 +127,17 @@ When finished reading, simply press Esc to return to the document. For more info
 
 * Provide auto-generated additional information: In Interactive Mode, the system provides additional information about the number of items when meanings of sub-nodes are not fully defined in a math rule. This feature applies to situations where some MathML markups may have a variable number of sub-nodes, such as tables, matrices, or equations. The system provides additional information like "first column", "second item", and so on, while navigating. If not willing to hear the additional information, uncheck this setting.
 
-* Use an audio effect to indicate that no movement is possible: When checked, a beep sound appears when it’s not possible to move to a new item; when unchecked, the sound will be replaced by the text "no movement".
+* Use an sound effect to indicate that no movement is possible: When checked, a beep sound appears when it’s not possible to move to a new item; when unchecked, the sound will be replaced by the text "no movement".
 
 ## Writing Features
 
-### Access8Math Editor and Access8Math Document
+### Access8Math Editor
 
-Since Windows 11, the editor of Notepad is a Rich Text Editor (RTE) instead of a traditional editor, so it’s necessary to use Access8Math Editor to be able to use the writing gestures in Windows 11. The editor also offers the ability to open old files, save files, preview, and more. On the other hand, in Windows 10 or earlier, either Access8Math editor or Windows Notepad can be used.
+Access8Math editor allows users to write Markdown documents and add resources (such as images, links, etc.) to the editor’s workspace for referencing them in a document.
 
-With Access8Math editor, it’s possible to write Markdown documents and add resources such as images and links in the editor. When clicking the Export button in the editor, the referenced resources in the document will be compressed into a zip file, which is an Access8Math Document file. Please refer to the "Importing and Exporting'' section of this document for more details.
+When exporting documents, Access8Math editor converts Markdown files into HTML files which displays both the text and the math content. The resources in the document will be archived into the output zip file. This allows the exported HTML file to display various types of contents (such as text, math, images, videos, and audios).
+
+For more information on how to use the import and export features, please refer to the "Import and Export'' section of this document.
 
 ### Separators
 
@@ -244,15 +246,21 @@ Use the following gestures to edit the document:
 
 #### Export a Document
 
-Using the View menu in the Access8Math editor or the command gesture Alt + H can display the Export option in the View command menu. By exporting, the system converts the edited document to an HTML file and compresses it with the original text file into an Access8Math Document, which is a zip file.
+For the “preview” feature  in the Access8Math editor's View menu, it allows users to convert the Markdown document to an HTML document for previewing.
 
-Both methods create an Access8Math document. The only difference is that using the Export option in the Access8Math editor also compresses the referenced resources into the zip file.
+The math content in the Markdown document will be converted to MathML, which allows different users to view it easily (visually or through speech or Braille). As for resources (such as images, videos or audios), they will be converted into appropriate HTML elements and reference the correct resource files. Therefore, the output HTML document can display various types of contents.
 
-An Access8Math Document contains an HTML file with math content in MathML. Users can read the math content in various ways (text reading, speech listening, braille reading).
+For the “export” feature  in the Access8Math editor's View menu, it allows users to save and share the document. Two types of documents will be exported:
+
+* Access8Math Document file (*.a8m): Access8Math Document file can be imported into the editor again for modification.
+* Archive file (*.zip): The HTML file in the archive file is the same as the HTML file converted for the preview feature. All users can read this HTML document without install Access8Math.
 
 #### Import a Document
 
-In the File Explorer, press the NVDA + application key. When the selected file is an Access8Math Document, a virtual context menu will be displayed, allowing users to quickly open the file for viewing or editing.
+There are two ways to open an Access8Math Document:
+
+* File Explorer: In the File Explorer, select an Access8Math Document and press NVDA + application key or NVDA + Shift + F10 to open a virtual menu. Select “view” or “edit" option to open the document.
+* Access8Math Editor: Open any .a8m file by selecting the "Open” option in the “File” menu inside the editor. 
 
 Note: Configure whether or not the math objects in the exported HTML are independant blocks with the “HTML Math Display'' setting in Settings > File. This setting will affect whether the math objects are read independently or mixed with normal text when navigating with arrow keys to read the whole line in the Browse Mode.
 
