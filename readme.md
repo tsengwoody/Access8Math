@@ -260,7 +260,7 @@ For the “export” feature  in the Access8Math editor's View menu, it allows u
 There are two ways to open an Access8Math Document:
 
 * File Explorer: In the File Explorer, select an Access8Math Document and press NVDA + application key or NVDA + Shift + F10 to open a virtual menu. Select “view” or “edit" option to open the document.
-* Access8Math Editor: Open any .a8m file by selecting the "Open” option in the “File” menu inside the editor. 
+* Access8Math Editor: Open any .a8m file by selecting the "Open” option in the “File” menu in the editor.
 
 Note: Configure whether or not the math objects in the exported HTML are independant blocks with the “HTML Math Display'' setting in Settings > File. This setting will affect whether the math objects are read independently or mixed with normal text when navigating with arrow keys to read the whole line in the Browse Mode.
 

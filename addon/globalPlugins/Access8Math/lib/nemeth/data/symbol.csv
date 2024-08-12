@@ -26,7 +26,7 @@ latex,code,symbol,nemeth,source,priority,ingore-braille-space
 9,00039,9,⠔,self,1,True
 :,0003A,:,⠐⠂,self2,1,True
 ;,0003B,;,⠸⠆,self2,1,True
-<,0003C,<,⠐⠅,self,1,True
+<,0003C,<,⠀⠐⠅⠀,self,1,True
 =,0003D,=,⠀⠨⠅⠀,self,1,True
 >,0003E,>,⠀⠨⠂⠀,self2,1,False
 ?,0003F,?,⠸⠦,self2,1,True
@@ -319,8 +319,8 @@ o,003BF,ο,⠨⠕,self,1,True
 \equiv,02261,≡,⠸⠇,self,1,True
 \nequiv,02262,≢,⠌⠸⠇,ctb,1,True
 ,02263,≣,⠨⠅⠨⠅,ctb,1,True
-\leq,02264,≤,⠐⠅⠱,self,1,True
-\geq,02265,≥,⠨⠂⠱,self,1,True
+\leq,02264,≤,⠀⠐⠅⠱⠀,self,1,True
+\geq,02265,≥,⠀⠨⠂⠱⠀,self,1,True
 \leqq,02266,≦,⠐⠅⠨⠅,ctb,1,True
 \geqq,02267,≧,⠨⠂⠨⠅,ctb,1,True
 \lneqq,02268,≨,⠐⠅⠌⠨⠅,ctb,1,True

@@ -1369,7 +1369,7 @@ class MoDegreeType(TerminalNodeType):
 
 class DegreeType(NonTerminalNodeType):
 	tag = Msup
-	child = [MnOperandType, MoDegreeType, ]
+	child = [NodeType, MoDegreeType, ]
 	name = 'DegreeType'
 
 

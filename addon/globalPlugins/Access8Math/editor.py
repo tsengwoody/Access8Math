@@ -13,7 +13,7 @@ addonHandler.initTranslation()
 PATH = os.path.dirname(__file__)
 
 wildcard = \
-"Access8Math editor files (*.a8m)|*.a8m|"\
+"Access8Math documents (*.a8m)|*.a8m|"\
 "archive (*.zip)|*.zip|"\
 "All (*.*)|*.*"
 
@@ -349,8 +349,8 @@ class EditorFrame(wx.Frame):
 		self.ad.raw2a8m()
 		with wx.FileDialog(
 			# Translators: The title of the Editor's Export file window
-			self, message=_("Export Access8Math editor file..."),
-			defaultDir=self.dirname, wildcard="Access8Math editor files (*.a8m)|*.a8m"
+			self, message=_("Export Access8Math document..."),
+			defaultDir=self.dirname, wildcard="Access8Math document (*.a8m)|*.a8m"
 		) as entryDialog:
 			if entryDialog.ShowModal() == wx.ID_OK:
 				dst = entryDialog.GetPath()
