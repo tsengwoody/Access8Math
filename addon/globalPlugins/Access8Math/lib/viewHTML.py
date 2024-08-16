@@ -99,6 +99,12 @@ class Access8MathDocument:
 			os.path.join(self.raw_folder, self.raw_entry),
 			os.path.join(path, self.raw_entry),
 		)
+		shutil.copyfile(
+			os.path.join(self.raw_folder, 'Access8Math.json'),
+			os.path.join(path, 'Access8Math.json'),
+		)
+
+		shutil.rmtree(self._raw_folder)
 
 		self._raw_folder = path
 		self.temp = False

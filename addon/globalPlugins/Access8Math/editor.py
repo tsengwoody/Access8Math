@@ -14,8 +14,7 @@ PATH = os.path.dirname(__file__)
 
 wildcard = \
 "Access8Math documents (*.a8m)|*.a8m|"\
-"archive (*.zip)|*.zip|"\
-"All (*.*)|*.*"
+"text (*.txt)|*.txt|"\
 
 
 class EditorFrame(wx.Frame):
@@ -111,10 +110,18 @@ class EditorFrame(wx.Frame):
 			(
 				wx.ID_SAVEAS,
 				# Translators: A menu item in the Editor window
-				_("Change &workspace folder..."),
+				_("&Change workspace folder..."),
 				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 				_("Change workspace folder to a different folder."),
-				self.OnSaveAs
+				self.OnChangeWorkspace
+			),
+			(
+				-1,
+				# Translators: A menu item in the Editor window
+				_("Open &workspace folder..."),
+				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+				_("Open workspace folder."),
+				self.OnOpenWorkspace
 			),
 			(
 				-1,
@@ -248,25 +255,23 @@ class EditorFrame(wx.Frame):
 			self.modify = False
 
 	def OnSave(self, event):
-		if self.ad.temp:
-			self.OnSaveAs(event)
-		else:
-			with open(os.path.join(self.dirname, self.filename), 'w', encoding='utf-8') as file:
-				file.write(self.control.GetValue())
-			self.modify = False
-			return True
+		with open(os.path.join(self.ad.raw_folder, self.ad.raw_entry), 'w', encoding='utf-8') as file:
+			file.write(self.control.GetValue())
+		self.modify = False
+		return True
 
-	def OnSaveAs(self, event):
+	def OnChangeWorkspace(self, event):
 			path = self.AskUserForFolder(message=_("Save file"), style=wx.FD_SAVE, **self.DefaultFileDialogOptions())
 			if path:
 				self.ad.raw_folder = path
-				with open(os.path.join(self.ad.raw_folder, self.ad.raw_entry), 'w', encoding='utf-8') as file:
-					file.write(self.control.GetValue())
+				self.OnSave(event)
 				self.path = os.path.join(self.ad.raw_folder, self.ad.raw_entry)
-				self.modify = False
 				return True
 			else:
 				return False
+
+	def OnOpenWorkspace(self, event):
+		os.startfile(self.ad.raw_folder)
 
 	def OnSetTitle(self, event):
 		with SetTitleDialog(parent=self, value=self.title) as dialog:
@@ -277,7 +282,27 @@ class EditorFrame(wx.Frame):
 				self.SetTitle()
 
 	def OnExit(self, event):
-		if self.modify:
+		if self.ad.temp:
+			val = gui.messageBox(
+				# Translators: The message displayed
+				_("The workspace folder is currently set to default. Exiting the editor will delete this folder. Do you want to move it?"),
+				# Translators: The title of the dialog
+				_("Exit"),
+				wx.YES_NO | wx.YES_DEFAULT | wx.CANCEL | wx.ICON_QUESTION, self
+			)
+			if val == wx.YES:
+				result = self.OnChangeWorkspace(event)
+				if result:
+					self.Destroy()
+					return
+				else:
+					return
+			elif val == wx.NO:
+				self.Destroy()
+				return
+			elif val == wx.CANCEL:
+				return
+		elif self.modify:
 			val = gui.messageBox(
 				# Translators: The message displayed
 				_("The content in the editor has been modified since the last save, do you want to save and exit it?"),
@@ -289,15 +314,8 @@ class EditorFrame(wx.Frame):
 				with open(os.path.join(self.dirname, self.filename), 'w', encoding='utf-8') as file:
 					file.write(self.control.GetValue())
 				self.modify = False
-				if self.ad.temp:
-					result = self.OnSave(event)
-					if result:
-						self.Destroy()
-						return
-					else:
-						return
-				else:
-					self.Destroy()
+				self.Destroy()
+				return
 			elif val == wx.NO:
 				self.Destroy()
 				return
@@ -478,8 +496,8 @@ class Hotkey(object):
 	def OnSave(self, event):
 		self.obj.OnSave(event)
 
-	def OnSaveAs(self, event):
-		self.obj.OnSaveAs(event)
+	def OnChangeWorkspace(self, event):
+		self.obj.OnChangeWorkspace(event)
 
 	def OnReload(self, event):
 		self.obj.OnReload(event)
