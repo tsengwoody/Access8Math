@@ -1574,7 +1574,8 @@ class SignPreviousMoType(TerminalNodeType):
 
 
 class MinusType(TerminalNodeType):
-	data = re.compile(r"^[-−－]$")
+	tag = Mo
+	data = re.compile(r"^[-−]$")
 
 
 class NegativeSignType(SiblingNodeType):
@@ -1590,7 +1591,8 @@ class FirstNegativeSignType(SiblingNodeType):
 
 
 class PlusType(TerminalNodeType):
-	data = re.compile(r"^[+∔＋]$")
+	tag = Mo
+	data = re.compile(r"^[+∔]$")
 
 
 class PositiveSignType(SiblingNodeType):
