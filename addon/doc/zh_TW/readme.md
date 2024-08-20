@@ -442,6 +442,11 @@ Access8Math 將常用數學內容的 MathML 結構，建立對應的數學規則
 
 # Access8Math 日誌
 
+## Access8Math v4.2 更新日誌
+
+* 加入匯出/匯入 a8m 檔功能。
+* 修正一些問題。
+
 ## Access8Math v4.1 更新日誌
 
 * 當節點僅包含一個大寫字母時，使用 NVDA 語音配置指示大寫字母。

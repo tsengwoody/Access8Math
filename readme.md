@@ -445,6 +445,11 @@ If you are interested in localizing symbol dictionaries and mathematical rules, 
 
 # Access8Math update log
 
+## Access8Math v4.2 Update
+
+* Added import/export feature for .a8m files.
+* Fixed some issues.
+
 ## Access8Math v4.1 Update
 
 * Indicate a capital letter using NVDA voice configuration when the node consists of only one uppercase letter.
