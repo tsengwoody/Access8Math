@@ -72,6 +72,13 @@ class Access8MathDocument:
 				metadata = json.load(open(metadata_file))
 				self.raw_entry = metadata["entry"]
 			else:
+				metadata_file = os.path.join(path, 'Access8Math.json')
+				metadata = {
+					"entry": os.path.basename(path),
+				}
+				dst = os.path.join(os.path.dirname(path), 'Access8Math.json')
+				with open(dst, 'w', encoding='utf8') as f:
+					json.dump(metadata, f)
 				self._raw_folder = os.path.dirname(path)
 				self.raw_entry = os.path.basename(path)
 
