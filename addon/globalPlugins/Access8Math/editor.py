@@ -376,6 +376,12 @@ class EditorFrame(wx.Frame):
 		) as entryDialog:
 			if entryDialog.ShowModal() == wx.ID_OK:
 				dst = entryDialog.GetPath()
+
+				if os.path.exists(dst + ".a8m"):
+					os.remove(dst + ".a8m")
+				if os.path.exists(dst + ".zip"):
+					os.remove(dst + ".zip")
+
 				shutil.make_archive(dst, 'zip', self.ad.a8m_folder)
 				os.rename(dst + ".zip", dst + ".a8m")
 				shutil.make_archive(dst, 'zip', self.ad.review_folder)
