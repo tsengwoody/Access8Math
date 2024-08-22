@@ -365,27 +365,20 @@ class EditorFrame(wx.Frame):
 				return
 
 		self.ad.raw2a8m()
+		self.ad.raw2review()
+
 		with wx.FileDialog(
 			# Translators: The title of the Editor's Export file window
-			self, message=_("Export Access8Math document..."),
-			defaultDir=self.dirname, wildcard="Access8Math document (*.a8m)|*.a8m"
+			self,
+			message=_("Export Access8Math document..."),
+			defaultDir=self.dirname,
+			style=wx.FD_SAVE,
 		) as entryDialog:
 			if entryDialog.ShowModal() == wx.ID_OK:
 				dst = entryDialog.GetPath()
 				shutil.make_archive(dst, 'zip', self.ad.a8m_folder)
-				os.rename(dst + ".zip", dst)
-
-		self.ad.raw2review()
-		with wx.FileDialog(
-			# Translators: The title of the Editor's Export file window
-			self, message=_("Export HTML document file..."),
-			defaultDir=os.path.dirname(dst),
-			wildcard="zip files (*.zip)|*.zip"
-		) as entryDialog:
-			if entryDialog.ShowModal() == wx.ID_OK:
-				dst = entryDialog.GetPath()
+				os.rename(dst + ".zip", dst + ".a8m")
 				shutil.make_archive(dst, 'zip', self.ad.review_folder)
-				os.rename(dst + ".zip", dst)
 
 	def OnFont(self, event):
 		data = wx.FontData()
