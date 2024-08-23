@@ -450,7 +450,6 @@ msgid "Import file..."
 msgstr "Импортировать файл..."
 
 #. Translators: The title of the file selection dialog to export rules
-#. Translators: The title of the Editor's Export file window
 msgid "Export file..."
 msgstr "Экспортировать файл..."
 
@@ -584,12 +583,23 @@ msgid "Save the current file."
 msgstr "Сохранить текущий файл."
 
 #. Translators: A menu item in the Editor window
-msgid "Change &workspace folder..."
+#, fuzzy
+msgid "&Change workspace folder..."
 msgstr "Изменить папку &рабочей области..."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Change workspace folder to a different folder."
 msgstr "Изменить папку рабочей области на другую папку."
+
+#. Translators: A menu item in the Editor window
+#, fuzzy
+msgid "Open &workspace folder..."
+msgstr "Изменить папку &рабочей области..."
+
+#. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+#, fuzzy
+msgid "Open workspace folder."
+msgstr "Выберите папку рабочей области"
 
 #. Translators: A menu item in the Editor window
 msgid "Set &Title..."
@@ -667,15 +677,21 @@ msgstr "Сохранить файл"
 
 #. Translators: The message displayed
 msgid ""
+"The workspace folder is currently set to default. Exiting the editor will "
+"delete this folder. Do you want to move it?"
+msgstr ""
+
+#. Translators: The title of the dialog
+msgid "Exit"
+msgstr "Выход"
+
+#. Translators: The message displayed
+msgid ""
 "The content in the editor has been modified since the last save, do you want "
 "to save and exit it?"
 msgstr ""
 "Содержимое файла было изменено с момента последнего сохранения, вы хотите "
 "сохранить его и закрыть редактор?"
-
-#. Translators: The title of the dialog
-msgid "Exit"
-msgstr "Выход"
 
 #. Translators: The message displayed
 msgid ""
@@ -698,6 +714,15 @@ msgstr ""
 #. Translators: The title of the dialog
 msgid "Export"
 msgstr "Экспорт"
+
+#. Translators: The title of the Editor's Export file window
+msgid "Export Access8Math document..."
+msgstr ""
+
+#. Translators: The title of the Editor's Export file window
+#, fuzzy
+msgid "Export HTML document file..."
+msgstr "Экспортировать файл..."
 
 msgid "enter document title"
 msgstr "введите заголовок документа"

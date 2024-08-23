@@ -464,7 +464,6 @@ msgid "Import file..."
 msgstr "Importar arquivo..."
 
 #. Translators: The title of the file selection dialog to export rules
-#. Translators: The title of the Editor's Export file window
 msgid "Export file..."
 msgstr "Exportar arquivo..."
 
@@ -601,13 +600,23 @@ msgstr "Salvar o arquivo atual."
 
 #. Translators: A menu item in the Editor window
 #, fuzzy
-msgid "Change &workspace folder..."
+msgid "&Change workspace folder..."
 msgstr "Espaço de &Trabalho Limpo..."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 #, fuzzy
 msgid "Change workspace folder to a different folder."
 msgstr "Salvar o arquivo com um nome diferente."
+
+#. Translators: A menu item in the Editor window
+#, fuzzy
+msgid "Open &workspace folder..."
+msgstr "Espaço de &Trabalho Limpo..."
+
+#. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+#, fuzzy
+msgid "Open workspace folder."
+msgstr "Espaço de &Trabalho Limpo..."
 
 #. Translators: A menu item in the Editor window
 #, fuzzy
@@ -687,6 +696,17 @@ msgid "Save file"
 msgstr "Salvar arquivo"
 
 #. Translators: The message displayed
+msgid ""
+"The workspace folder is currently set to default. Exiting the editor will "
+"delete this folder. Do you want to move it?"
+msgstr ""
+
+#. Translators: The title of the dialog
+#, fuzzy
+msgid "Exit"
+msgstr "&Sair"
+
+#. Translators: The message displayed
 #, fuzzy
 msgid ""
 "The content in the editor has been modified since the last save, do you want "
@@ -694,11 +714,6 @@ msgid ""
 msgstr ""
 "A exportação incluirá apenas o conteúdo salvo. O conteúdo do editor foi "
 "modificado desde o último salvamento, deseja salvá-lo e exportá-lo?"
-
-#. Translators: The title of the dialog
-#, fuzzy
-msgid "Exit"
-msgstr "&Sair"
 
 #. Translators: The message displayed
 msgid ""
@@ -719,6 +734,15 @@ msgstr ""
 #. Translators: The title of the dialog
 msgid "Export"
 msgstr "Exportar"
+
+#. Translators: The title of the Editor's Export file window
+msgid "Export Access8Math document..."
+msgstr ""
+
+#. Translators: The title of the Editor's Export file window
+#, fuzzy
+msgid "Export HTML document file..."
+msgstr "Exportar arquivo..."
 
 #, fuzzy
 msgid "enter document title"
