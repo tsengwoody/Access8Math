@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Access8Math\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2023-06-06 14:09+0300\n"
-"PO-Revision-Date: 2024-05-31 12:14+0300\n"
+"PO-Revision-Date: 2024-08-31 23:06+0300\n"
 "Last-Translator: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language-Team: cagrid@hotmail.com\n"
 "Language: tr_TR\n"
@@ -567,7 +567,6 @@ msgid "Save the current file."
 msgstr "Geçerli dosyayı kaydedin."
 
 #. Translators: A menu item in the Editor window
-#, fuzzy
 msgid "&Change workspace folder..."
 msgstr "&Çalışma alanı klasörünü değiştir..."
 
@@ -576,14 +575,12 @@ msgid "Change workspace folder to a different folder."
 msgstr "Çalışma alanı klasörünü farklı bir klasörle değiştir."
 
 #. Translators: A menu item in the Editor window
-#, fuzzy
 msgid "Open &workspace folder..."
-msgstr "&Çalışma alanı klasörünü değiştir..."
+msgstr "Çalışma alanı klas&örünü aç..."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
-#, fuzzy
 msgid "Open workspace folder."
-msgstr "Çalışma alanı klasörünü seç"
+msgstr "Çalışma alanı klasörünü aç."
 
 #. Translators: A menu item in the Editor window
 msgid "Set &Title..."
@@ -664,6 +661,8 @@ msgid ""
 "The workspace folder is currently set to default. Exiting the editor will "
 "delete this folder. Do you want to move it?"
 msgstr ""
+"Çalışma alanı klasörü şu anda varsayılan olarak ayarlanmıştır. "
+"Düzenleyiciden çıkmak bu klasörü silecektir. Taşımak istiyor musunuz?"
 
 #. Translators: The title of the dialog
 msgid "Exit"
@@ -700,12 +699,11 @@ msgstr "Dışa aktar"
 
 #. Translators: The title of the Editor's Export file window
 msgid "Export Access8Math document..."
-msgstr ""
+msgstr "Access8Math belgesini dışa aktar..."
 
 #. Translators: The title of the Editor's Export file window
-#, fuzzy
 msgid "Export HTML document file..."
-msgstr "Dosyayı dışa aktar..."
+msgstr "HTML belge dosyasını dışa aktar..."
 
 msgid "enter document title"
 msgstr "belge başlığını girin"
