@@ -1,15 +1,16 @@
 # Brazilian Portuguese translation of Access8Math.
-# Copyright (C) 2022 Access8Math Contributors.
+# Copyright (C) 2022-2024 Access8Math Contributors.
 # This file is distributed under the same license as the NVDA package.
-# Tiago Melo Casal <tcasal@intervox.nce.ufrj.br>, 2022.
+# Tiago Melo Casal <tcasal@intervox.nce.ufrj.br>, 2022, 2024.
+# Josevan Fernandes <josevanfernandes@yahoo.com.br>, 2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Access8Math\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2021-09-20 15:26+0800\n"
-"PO-Revision-Date: 2024-12-14 18:49-0300\n"
-"Last-Translator: Josevan Fernandes <josevanfernandes@yahoo.com.br>\n"
+"PO-Revision-Date: 2024-12-21 17:20-0300\n"
+"Last-Translator: Tiago Melo Casal <tcasal@intervox.nce.ufrj.br>\n"
 "Language-Team: NVDA Brazilian Portuguese translation team (Equipe de "
 "tradução do NVDA para Português Brasileiro) <clever97@gmail.com>\n"
 "Language: pt_BR\n"
@@ -34,17 +35,18 @@ msgid ""
 "gpl-2.0.html"
 msgstr ""
 "Access8Math\n"
-"Version: {addonVersion}\n"
-"URL: https://addons.nvda-project.org/addons/access8math.en.html\n"
+"Versão: {addonVersion}\n"
+"URL: https://addons.nvda-project.org/addons/access8math.pt_BR.html\n"
 "Copyright (C) {copyrightFirstYear}-{copyrightLastYear} Access8Math "
-"Contributors\n"
-"Access8Math is covered by the GNU General Public License (Version 2). You "
-"are free to share or change this software in any way you like as long as it "
-"is accompanied by the license and you make all source code available to "
-"anyone who wants it. This applies to both original and modified copies of "
-"this software, plus any derivative works.\n"
-"It can be viewed online at: https://www.gnu.org/licenses/old-licenses/"
-"gpl-2.0.html"
+"Contributors (Contribuidores do Access8Math)\n"
+"O Access8Math está coberto pela GNU General Public License — Licença Pública "
+"Geral GNU — (Versão 2). Você é livre para compartilhar ou alterar este "
+"software da maneira que quiser, desde que esteja acompanhado da licença e "
+"disponibilize todo o código-fonte para quem o desejar. Isso se aplica a "
+"cópias originais e modificadas deste software, além de quaisquer trabalhos "
+"derivados.\n"
+"Pode ser visto on-line em: https://www.gnu.org/licenses/old-licenses/gpl-2.0."
+"html"
 
 msgid "Open virtual context menu"
 msgstr "Abrir o menu de contexto virtual"
@@ -61,7 +63,7 @@ msgstr "Janela de interação Access8Math"
 
 #. Translators: The title of the Editor window
 msgid "Access8Math Editor"
-msgstr "Access8Math Editor"
+msgstr "Editor Access8Math"
 
 msgid "&Editor..."
 msgstr "&Editor..."
@@ -73,13 +75,13 @@ msgid "Symbol Speech Dictionary..."
 msgstr "Dicionário de fala de símbolos..."
 
 msgid "Math Rules Speech Output..."
-msgstr "Regras matemáticas Saída de fala..."
+msgstr "Saída de Fala de Regras Matemáticas..."
 
 msgid "Symbol Braille Dictionary..."
-msgstr "Dicionário braille &unicode..."
+msgstr "Dicionário de Símbolos Braille..."
 
 msgid "Math Rules Braille Output..."
-msgstr "Regras matemáticas Saída em braile..."
+msgstr "Saída Braille de Regras Matemáticas..."
 
 msgid "Add New Language..."
 msgstr "Adicionar novo idioma..."
@@ -109,14 +111,14 @@ msgstr "Mudar o leitor de fala matemática"
 
 #, python-format
 msgid "Math speech reader switch to %s"
-msgstr "Mudança do leitor de voz Math para %s"
+msgstr "Mudança do leitor de fala matemática para %s"
 
 msgid "Switch math Braille reader"
-msgstr "Mudar o leitor de matemática para Braille"
+msgstr "Mudar o leitor braille matemático"
 
 #, python-format
 msgid "Math braille reader switch to %s"
-msgstr "Mudança do leitor braile Math para %s"
+msgstr "Mudança do leitor braile Matemático para %s"
 
 msgid "Switch math interact reader"
 msgstr "Mudar o leitor de interação matemática"
@@ -164,7 +166,7 @@ msgstr "Origem da inter&ação:"
 
 #. Translators: Title of a setting dialog.
 msgid "Reading"
-msgstr "Configuração de leitura"
+msgstr "Leitura"
 
 #. Translators: The label of a setting in the Add new language dialog
 msgid "&Language:"
@@ -189,7 +191,7 @@ msgstr "Tempo de intervalo de &item:"
 
 #. Translators: Title of a setting dialog.
 msgid "Writing"
-msgstr "Configurações de Escrita"
+msgstr "Escrita"
 
 #. Translators: The label of an option in the writing settings dialog
 msgid "Activate command gesture at startup"
@@ -232,7 +234,7 @@ msgstr "cifrão"
 
 #. Translators: The label of an option in the writing settings dialog
 msgid "&Nemeth delimiter:"
-msgstr "Delimitador &LaTeX:"
+msgstr "Delimitador &Nemeth:"
 
 #. Translators: A choice of a combobox in the writing settings dialog
 msgid "at"
@@ -500,10 +502,10 @@ msgid "Dictionary Entry Error"
 msgstr "Erro de Entrada de Dicionário"
 
 msgid "Math Rules Speech Output"
-msgstr "Regras matemáticas Saída de fala"
+msgstr "Saída de Fala de Regras Matemáticas"
 
 msgid "Math Rules Braille Output"
-msgstr "Regras de matemática Saída em braile"
+msgstr "Saída Braille de Regras Matemáticas"
 
 #. Translators: The label for math rule list in math rules dialog.
 msgid "&Mathrules"
@@ -580,7 +582,7 @@ msgstr "Alterar a pasta do espaço de trabalho para uma pasta diferente."
 
 #. Translators: A menu item in the Editor window
 msgid "Open &workspace folder..."
-msgstr "Abra a pasta &espaço de trabalho."
+msgstr "Abra a pasta do &espaço de trabalho..."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Open workspace folder."
@@ -588,11 +590,11 @@ msgstr "Abra a pasta do espaço de trabalho."
 
 #. Translators: A menu item in the Editor window
 msgid "Set &Title..."
-msgstr "Definir &título."
+msgstr "Definir &Título..."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 msgid "Set title"
-msgstr "Título do conjunto"
+msgstr "Define título"
 
 #. Translators: A menu item in the Editor window
 msgid "E&xit"
@@ -648,7 +650,7 @@ msgstr "Localizar e substituir"
 #. Add the fileMenu to the menuBar.
 #. Translators: A menu item in the Editor window
 msgid "&Other"
-msgstr "&outro"
+msgstr "&Outro"
 
 msgid "Select workspace folder"
 msgstr "Selecione a pasta do espaço de trabalho"
@@ -736,7 +738,7 @@ msgstr "Copiado"
 
 #. Translators: A message reported to the user when the interaction window takes the focus
 msgid "Entering interaction mode"
-msgstr "Entrar no modo de interação"
+msgstr "Entrando no modo de interação"
 
 #. Translators: A message reported to the user when navigating in the math expression of the interaction window
 msgid "No move"
@@ -744,7 +746,7 @@ msgstr "Nenhuma movimentação"
 
 #. Translators: A message reported to the user when copying data from the Interaction window
 msgid "Copied raw MathML"
-msgstr "Copiado bruto MathML"
+msgstr "Copiado MathML bruto"
 
 #. Translators: A message reported to the user when copying data from the Interaction window
 msgid "Copied MathML"
@@ -842,7 +844,7 @@ msgid "This block cannot be interacted"
 msgstr "Este bloco não pode ser interagido"
 
 msgid "No autocomplete found"
-msgstr "Altocompletar não achado"
+msgstr "Autocompletar não encontrado"
 
 msgid "This block cannot be translated"
 msgstr "Este bloco não pode ser traduzido"
@@ -881,7 +883,7 @@ msgstr "AsciiMath para LaTeX"
 
 #. Translators: batch menu
 msgid "Nemeth to LaTeX"
-msgstr "AsciiMath para LaTeX"
+msgstr "Nemeth para LaTeX"
 
 #. Translators: batch menu
 msgid "LaTeX delimiter"
@@ -1103,7 +1105,7 @@ msgstr "derivada parcial"
 
 #. Translators: LaTeX command - derivative
 msgid "derivative"
-msgstr "derivado"
+msgstr "derivada"
 
 #. Translators: LaTeX command - differential
 msgid "differential"
@@ -1187,11 +1189,11 @@ msgstr "raíz quadrada"
 
 #. Translators: LaTeX command - small diamond
 msgid "small diamond"
-msgstr "diamante pequeno"
+msgstr "losango pequeno"
 
 #. Translators: LaTeX command - large diamond
 msgid "large diamond"
-msgstr "diamante grande"
+msgstr "losango grande"
 
 #. Translators: LaTeX command - because
 msgid "because"
@@ -1367,7 +1369,7 @@ msgstr "existe"
 
 #. Translators: LaTeX command - sine
 msgid "sine"
-msgstr "senoidal"
+msgstr "seno"
 
 #. Translators: LaTeX command - cosine
 msgid "cosine"
@@ -1379,7 +1381,7 @@ msgstr "tangente"
 
 #. Translators: LaTeX command - cotangent
 msgid "cotangent"
-msgstr "cotangent"
+msgstr "cotangente"
 
 #. Translators: LaTeX command - secant
 msgid "secant"
@@ -1387,19 +1389,19 @@ msgstr "secante"
 
 #. Translators: LaTeX command - cosecant
 msgid "cosecant"
-msgstr "cosecant"
+msgstr "cossecante"
 
 #. Translators: LaTeX command - arcsine
 msgid "arcsine"
-msgstr "arcsine"
+msgstr "inversa de seno"
 
 #. Translators: LaTeX command - arccosine
 msgid "arccosine"
-msgstr "arccosine"
+msgstr "inversa de cosseno"
 
 #. Translators: LaTeX command - arctangent
 msgid "arctangent"
-msgstr "arctangent"
+msgstr "inversa de tangente"
 
 #. Translators: LaTeX command - hyperbolic sine
 msgid "hyperbolic sine"
