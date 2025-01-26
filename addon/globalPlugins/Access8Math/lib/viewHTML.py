@@ -83,6 +83,7 @@ class Access8MathDocument:
 
 		self.metadata = metadata
 		self.raw_entry = metadata["entry"]
+		self._title = metadata["title"]
 
 		self.a8m_folder = os.path.join(PATH, 'web', 'workspace', 'a8m')
 		self.review_folder = os.path.join(PATH, 'web', 'workspace', 'review')
@@ -146,6 +147,23 @@ class Access8MathDocument:
 
 		return resources
 
+	@property
+	def title(self):
+		return self._title
+
+	@title.setter
+	def title(self, value):
+		self._title = value
+		# update metadata value
+		path = self.raw_folder
+		metadata_file = os.path.join(path, 'Access8Math.json')
+		metadata = json.load(open(metadata_file, encoding="utf8"))
+		metadata.update({
+			"title": value,
+		})
+		with open(metadata_file, 'w', encoding='utf8') as f:
+			json.dump(metadata, f)
+
 	def rename(self, src, dst):
 		_src = os.path.join(self.raw_folder, src)
 		_dst = os.path.join(self.raw_folder, dst)
@@ -178,7 +196,7 @@ class Access8MathDocument:
 		metadata_file = os.path.join(self.a8m_folder, 'Access8Math.json')
 		metadata = json.load(open(metadata_file, encoding="utf8"))
 		metadata.update({
-			"title": "Access8Math",
+			"title": self.title,
 			"entry": self.raw_entry,
 			"documentDisplay": config.conf["Access8Math"]["settings"]["HTML_document_display"],
 			"display": config.conf["Access8Math"]["settings"]["HTML_math_display"],
@@ -217,7 +235,7 @@ class Access8MathDocument:
 					extend = ''
 				if os.path.isfile(item) and (extend in ['txt', 'md'] or os.path.basename(item) == self.raw_entry):
 					if os.path.basename(item) == self.raw_entry:
-						text2template(src=item, dst=os.path.join(os.path.dirname(item), "content-config.js"), title=self.metadata["title"])
+						text2template(src=item, dst=os.path.join(os.path.dirname(item), "content-config.js"), title=self.title)
 						os.remove(item)
 					else:
 						text2template(src=item, dst=os.path.join(os.path.dirname(item), f'{name}.js'))

@@ -52,7 +52,7 @@ class EditorFrame(wx.Frame):
 
 		self.filename = self.ad.raw_entry
 		self.dirname = self.ad.raw_folder
-		self.title = self.ad.raw_entry
+		self.title = self.ad.title
 		self.SetTitle()
 		with open(os.path.join(self.dirname, self.filename), 'r', encoding='utf-8') as file:
 			self.control.SetValue(file.read())
@@ -276,9 +276,8 @@ class EditorFrame(wx.Frame):
 	def OnSetTitle(self, event):
 		with SetTitleDialog(parent=self, value=self.title) as dialog:
 			if dialog.ShowModal() == wx.ID_OK:
-				src = self.title
-				dst = self.title = dialog.GetValue()
-				self.ad.rename(src, dst)
+				self.title = dialog.GetValue()
+				self.ad.title = self.title
 				self.SetTitle()
 
 	def OnExit(self, event):
