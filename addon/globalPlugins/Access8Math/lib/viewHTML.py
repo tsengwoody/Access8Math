@@ -48,6 +48,7 @@ class Access8MathDocument:
 			metadata_file = os.path.join(path, 'Access8Math.json')
 			metadata = {
 				"entry": os.path.basename(raw_entry),
+				"title": "Access8Math",
 			}
 			dst = os.path.join(path, 'Access8Math.json')
 			with open(dst, 'w', encoding='utf8') as f:
@@ -56,8 +57,7 @@ class Access8MathDocument:
 		if os.path.isdir(path):
 			self._raw_folder = path
 			metadata_file = os.path.join(path, 'Access8Math.json')
-			metadata = json.load(open(metadata_file))
-			self.raw_entry = metadata["entry"]
+			metadata = json.load(open(metadata_file, encoding="utf8"))
 		elif os.path.isfile(path):
 			file = os.path.basename(path)
 			ext = file.split('.')[-1]
@@ -69,18 +69,20 @@ class Access8MathDocument:
 				with ZipFile(path, 'r') as file:
 					file.extractall(self.raw_folder)
 				metadata_file = os.path.join(self.raw_folder, 'Access8Math.json')
-				metadata = json.load(open(metadata_file))
-				self.raw_entry = metadata["entry"]
+				metadata = json.load(open(metadata_file, encoding="utf8"))
 			else:
 				metadata_file = os.path.join(path, 'Access8Math.json')
 				metadata = {
 					"entry": os.path.basename(path),
+					"title": "Access8Math",
 				}
 				dst = os.path.join(os.path.dirname(path), 'Access8Math.json')
 				with open(dst, 'w', encoding='utf8') as f:
 					json.dump(metadata, f)
 				self._raw_folder = os.path.dirname(path)
-				self.raw_entry = os.path.basename(path)
+
+		self.metadata = metadata
+		self.raw_entry = metadata["entry"]
 
 		self.a8m_folder = os.path.join(PATH, 'web', 'workspace', 'a8m')
 		self.review_folder = os.path.join(PATH, 'web', 'workspace', 'review')
@@ -157,7 +159,7 @@ class Access8MathDocument:
 			path = self.raw_folder
 			raw_entry = self.raw_entry
 			metadata_file = os.path.join(path, 'Access8Math.json')
-			metadata = json.load(open(metadata_file))
+			metadata = json.load(open(metadata_file, encoding="utf8"))
 			metadata.update({
 				"entry": raw_entry,
 			})
@@ -174,7 +176,7 @@ class Access8MathDocument:
 
 		# update metadata value
 		metadata_file = os.path.join(self.a8m_folder, 'Access8Math.json')
-		metadata = json.load(open(metadata_file))
+		metadata = json.load(open(metadata_file, encoding="utf8"))
 		metadata.update({
 			"title": "Access8Math",
 			"entry": self.raw_entry,
@@ -215,7 +217,7 @@ class Access8MathDocument:
 					extend = ''
 				if os.path.isfile(item) and (extend in ['txt', 'md'] or os.path.basename(item) == self.raw_entry):
 					if os.path.basename(item) == self.raw_entry:
-						text2template(src=item, dst=os.path.join(os.path.dirname(item), "content-config.js"))
+						text2template(src=item, dst=os.path.join(os.path.dirname(item), "content-config.js"), title=self.metadata["title"])
 						os.remove(item)
 					else:
 						text2template(src=item, dst=os.path.join(os.path.dirname(item), f'{name}.js'))
@@ -239,7 +241,7 @@ def rawIntoReview(raw_folder, review_folder, resources):
 			pass
 
 
-def text2template(src, dst):
+def text2template(src, dst, title=None):
 	with open(src, "r", encoding="utf8") as f:
 		value = f.read()
 		value = batch("nemeth2latex")(value)
@@ -253,13 +255,14 @@ def text2template(src, dst):
 	hexadecimal_pattern = re.compile(r"&#x([\dABCDEFabcdef]+);")
 	value = hexadecimal_pattern.sub(lambda m: chr(int(m.group(1), 16)), value)
 
-	try:
-		name = os.path.basename(src).split('.')
-		if len(name) > 1:
-			name = name[:-1]
-		title = '.'.join(name)
-	except BaseException:
-		title = 'Access8Math'
+	if not title:
+		try:
+			name = os.path.basename(src).split('.')
+			if len(name) > 1:
+				name = name[:-1]
+			title = '.'.join(name)
+		except BaseException:
+			title = 'Access8Math'
 
 	data = value.replace(r'`', r'\`')
 	# data = data.replace(r'\vec{', r'\overset{⇀}{')
