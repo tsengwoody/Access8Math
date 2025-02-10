@@ -336,7 +336,7 @@ class A8MInteraction(Window):
 		ui.message(_("Copied raw MathML"))
 
 	@script(
-		gesture="kb:control+m",
+		gesture="kb:control+c",
 	)
 	def script_MathMLToClip(self, gesture):
 		api.copyToClip(self.mathcontent.mathML)
