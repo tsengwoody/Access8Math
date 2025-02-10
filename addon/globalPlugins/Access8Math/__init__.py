@@ -224,12 +224,12 @@ def disableInSecureMode(decoratedCls):
 @disableInSecureMode
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self, *args, **kwargs):
-		if config.conf["Access8Math"]["settings"]["language"] == "Windows":
+		language = config.conf["Access8Math"]["settings"]["language"]
+		if not A8M_PM.exist_language(language):
 			language = getWindowsLanguage()
-			if A8M_PM.exist_language(language):
-				config.conf["Access8Math"]["settings"]["language"] = language
-			else:
-				config.conf["Access8Math"]["settings"]["language"] = "en"
+		if not A8M_PM.exist_language(language):
+			language = "en"
+		config.conf["Access8Math"]["settings"]["language"] = language
 
 		from lib.latex import latexData
 		latexData.initialize()
