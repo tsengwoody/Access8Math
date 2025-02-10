@@ -456,7 +456,6 @@ msgid "Import file..."
 msgstr "Importare fișier..."
 
 #. Translators: The title of the file selection dialog to export rules
-#. Translators: The title of the Editor's Export file window
 msgid "Export file..."
 msgstr "Exportare fișier..."
 
@@ -593,13 +592,23 @@ msgstr "Salvați fișierul curent."
 
 #. Translators: A menu item in the Editor window
 #, fuzzy
-msgid "Change &workspace folder..."
+msgid "&Change workspace folder..."
 msgstr "&Curățare spațiu de lucru..."
 
 #. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
 #, fuzzy
 msgid "Change workspace folder to a different folder."
 msgstr "Salvați fișierul sub alt nume."
+
+#. Translators: A menu item in the Editor window
+#, fuzzy
+msgid "Open &workspace folder..."
+msgstr "&Curățare spațiu de lucru..."
+
+#. Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
+#, fuzzy
+msgid "Open workspace folder."
+msgstr "&Curățare spațiu de lucru..."
 
 #. Translators: A menu item in the Editor window
 #, fuzzy
@@ -677,6 +686,17 @@ msgid "Save file"
 msgstr "Salvare fișier"
 
 #. Translators: The message displayed
+msgid ""
+"The workspace folder is currently set to default. Exiting the editor will "
+"delete this folder. Do you want to move it?"
+msgstr ""
+
+#. Translators: The title of the dialog
+#, fuzzy
+msgid "Exit"
+msgstr "&Ieșire"
+
+#. Translators: The message displayed
 #, fuzzy
 msgid ""
 "The content in the editor has been modified since the last save, do you want "
@@ -684,11 +704,6 @@ msgid ""
 msgstr ""
 "Exportarea va include numai conținutul salvat. Conținutul din editor a fost "
 "modificat de la ultima salvare, doriți să îl salvați și să îl exportați?"
-
-#. Translators: The title of the dialog
-#, fuzzy
-msgid "Exit"
-msgstr "&Ieșire"
 
 #. Translators: The message displayed
 msgid ""
@@ -710,6 +725,15 @@ msgstr ""
 #. Translators: The title of the dialog
 msgid "Export"
 msgstr "Exportare"
+
+#. Translators: The title of the Editor's Export file window
+msgid "Export Access8Math document..."
+msgstr ""
+
+#. Translators: The title of the Editor's Export file window
+#, fuzzy
+msgid "Export HTML document file..."
+msgstr "Exportare fișier..."
 
 #, fuzzy
 msgid "enter document title"
