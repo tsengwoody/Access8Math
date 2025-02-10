@@ -1,6 +1,7 @@
 from collections.abc import Iterable
 import re
 import os
+from xml.sax.saxutils import escape
 
 import brailleTables
 import config
@@ -14,7 +15,6 @@ from synthDriverHandler import getSynth
 BRAILLE_UNICODE_PATTERNS_START = 0x2800
 BREAK_PATTERN = re.compile(r'^<break time="(?P<time>[\d]*)ms" />$')
 
-
 def clean(serializes: list):
 	result = [item for item in serializes if item != ""]
 	if result:
@@ -22,6 +22,8 @@ def clean(serializes: list):
 			result.pop(0)
 		if BREAK_PATTERN.match(result[-1]):
 			result.pop()
+	result = [escape
+(item) if isinstance(item, str) else item for item in result]
 	return result
 
 
@@ -81,6 +83,7 @@ def translate_SpeechCommand(serializes):
 	item = interleave_lists(item, ['<break time="{ms}ms" />'.format(ms=10 * config.conf["Access8Math"]["settings"]["item_interval_time"])] * (len(item) - 1))
 	ssml = "<speak>" + "".join(item) + "</speak>"
 	parser = A8MSsmlParser()
+	print(ssml)
 	speechSequence = parser.convertFromXml(ssml)
 	return speechSequence
 
