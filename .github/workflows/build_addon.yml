@@ -17,12 +17,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - run: echo -e "pre-commit\nscons\nmarkdown">requirements.txt
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: 3.11
         cache: 'pip'
@@ -38,27 +38,38 @@ jobs:
       run: export SKIP=no-commit-to-branch; pre-commit run --all
 
     - name: building addon
-      run: scons
+      run: scons && scons pot
 
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         name: packaged_addon
-        path: ./*.nvda-addon
+        path: |
+          ./*.nvda-addon
+          ./*.pot
 
   upload_release:
     runs-on: ubuntu-latest
     if: ${{ startsWith(github.ref, 'refs/tags/') }}
     needs: ["build"]
+    permissions:
+      contents: write
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: download releases files
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
     - name: Display structure of downloaded files
       run: ls -R
+    - name: Calculate sha256
+      run: |
+        echo -e "\nSHA256: " >> changelog.md
+        sha256sum packaged_addon/*.nvda-addon >> changelog.md
 
     - name: Release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
-        files: packaged_addon/*.nvda-addon
+        files: |
+          packaged_addon/*.nvda-addon
+          packaged_addon/*.pot
+        body_path: changelog.md
         fail_on_unmatched_files: true
         prerelease: ${{ contains(github.ref, '-') }}

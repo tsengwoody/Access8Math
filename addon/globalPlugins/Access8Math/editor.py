@@ -14,7 +14,7 @@ PATH = os.path.dirname(__file__)
 
 wildcard = \
 "Access8Math documents (*.a8m)|*.a8m|"\
-"text (*.txt)|*.txt|"\
+"text (*.txt)|*.txt|"
 
 
 class EditorFrame(wx.Frame):
@@ -261,14 +261,14 @@ class EditorFrame(wx.Frame):
 		return True
 
 	def OnChangeWorkspace(self, event):
-			path = self.AskUserForFolder(message=_("Save file"), style=wx.FD_SAVE, **self.DefaultFileDialogOptions())
-			if path:
-				self.ad.raw_folder = path
-				self.OnSave(event)
-				self.path = os.path.join(self.ad.raw_folder, self.ad.raw_entry)
-				return True
-			else:
-				return False
+		path = self.AskUserForFolder(message=_("Save file"), style=wx.FD_SAVE, **self.DefaultFileDialogOptions())
+		if path:
+			self.ad.raw_folder = path
+			self.OnSave(event)
+			self.path = os.path.join(self.ad.raw_folder, self.ad.raw_entry)
+			return True
+		else:
+			return False
 
 	def OnOpenWorkspace(self, event):
 		os.startfile(self.ad.raw_folder)
@@ -527,4 +527,4 @@ class Hotkey(object):
 
 class SetTitleDialog(wx.TextEntryDialog):
 	def __init__(self, parent, message=_("enter document title"), value=""):
-		super().__init__(parent=parent,message=message, value=value)
+		super().__init__(parent=parent, message=message, value=value)

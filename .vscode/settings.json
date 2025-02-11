@@ -1,9 +1,5 @@
 {
     "editor.accessibilitySupport": "on",
-    "flake8.args": [
-        "--config=flake8.ini"
-    ],
-    "flake8.importStrategy": "fromEnvironment",
     "python.autoComplete.extraPaths": [
         "../nvda/source",
         "../nvda/miscDeps/python"

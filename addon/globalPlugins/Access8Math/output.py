@@ -15,6 +15,7 @@ from synthDriverHandler import getSynth
 BRAILLE_UNICODE_PATTERNS_START = 0x2800
 BREAK_PATTERN = re.compile(r'^<break time="(?P<time>[\d]*)ms" />$')
 
+
 def clean(serializes: list):
 	result = [item for item in serializes if item != ""]
 	if result:
@@ -22,8 +23,7 @@ def clean(serializes: list):
 			result.pop(0)
 		if BREAK_PATTERN.match(result[-1]):
 			result.pop()
-	result = [escape
-(item) if isinstance(item, str) else item for item in result]
+	result = [escape(item) if isinstance(item, str) else item for item in result]
 	return result
 
 
