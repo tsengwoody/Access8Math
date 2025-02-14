@@ -726,14 +726,8 @@ msgstr ""
 msgid "Export"
 msgstr "Exportare"
 
-#. Translators: The title of the Editor's Export file window
 msgid "Export Access8Math document..."
 msgstr ""
-
-#. Translators: The title of the Editor's Export file window
-#, fuzzy
-msgid "Export HTML document file..."
-msgstr "Exportare fișier..."
 
 #, fuzzy
 msgid "enter document title"
@@ -1563,6 +1557,10 @@ msgid ""
 msgstr ""
 "Permite accesul la conținut matematic scris de MathML; Permite scrierea "
 "conținutului matematic prin LaTeX"
+
+#, fuzzy
+#~ msgid "Export HTML document file..."
+#~ msgstr "Exportare fișier..."
 
 #~ msgid "Speech &math rule..."
 #~ msgstr "Vorbire reguli &matematice..."
