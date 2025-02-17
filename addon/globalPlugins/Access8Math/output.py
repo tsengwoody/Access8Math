@@ -83,7 +83,6 @@ def translate_SpeechCommand(serializes):
 	item = interleave_lists(item, ['<break time="{ms}ms" />'.format(ms=10 * config.conf["Access8Math"]["settings"]["item_interval_time"])] * (len(item) - 1))
 	ssml = "<speak>" + "".join(item) + "</speak>"
 	parser = A8MSsmlParser()
-	print(ssml)
 	speechSequence = parser.convertFromXml(ssml)
 	return speechSequence
 
