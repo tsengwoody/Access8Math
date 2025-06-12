@@ -156,8 +156,13 @@ def translate_Braille(serializes):
 	@rtype str
 	"""
 	temp = ''
+	confBrailleTable = config.conf["braille"]["translationTable"]
+	if confBrailleTable == "auto":
+		brailleTableFile = brailleTables.getDefaultTableForCurLang(brailleTables.TableType.OUTPUT)
+	else:
+		brailleTableFile = confBrailleTable
 	for string in flatten(serializes):
-		brailleCells, brailleToRawPos, rawToBraillePos, brailleCursorPos = louisHelper.translate([os.path.join(brailleTables.TABLES_DIR, config.conf["braille"]["translationTable"]), "braille-patterns.cti"], string, mode=4)
+		brailleCells, brailleToRawPos, rawToBraillePos, brailleCursorPos = louisHelper.translate([os.path.join(brailleTables.TABLES_DIR, brailleTableFile), "braille-patterns.cti"], string, mode=4)
 		temp += "".join([chr(BRAILLE_UNICODE_PATTERNS_START + cell) for cell in brailleCells])
 	return "".join(temp)
 
