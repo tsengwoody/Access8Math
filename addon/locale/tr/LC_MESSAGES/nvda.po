@@ -3,15 +3,16 @@ msgstr ""
 "Project-Id-Version: Access8Math\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2023-06-06 14:09+0300\n"
-"PO-Revision-Date: 2024-08-31 23:06+0300\n"
+"PO-Revision-Date: 2025-07-08 19:38+0300\n"
 "Last-Translator: Umut KORKMAZ <umutkork@gmail.com>\n"
-"Language-Team: cagrid@hotmail.com\n"
+"Language-Team: Çağrı Doğan <cagrid@hotmail.com> Umut KORKMAZ "
+"<umutkork@gmail.com>\n"
 "Language: tr_TR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.6\n"
 "X-Poedit-Basepath: ../../..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -178,7 +179,7 @@ msgstr "Etkileşim gezinme modunda otomatik oluşturulan anlamı oku"
 
 #. Translators: The label of an option in the reading settings dialog
 msgid "Use tone indicate to no move in interaction navigation mode"
-msgstr "Etkileşim gezinme modunda hareket etmemek için tonlu işaret kullan"
+msgstr "Etkileşim gezinme modunda hareket edilemediğinde Ses kullan"
 
 #. Translators: The label of an option in the reading settings dialog
 msgid "&Item interval time:"
@@ -202,7 +203,7 @@ msgstr "Başlangıçta kısayol hareketini etkinleştir"
 
 #. Translators: The label of an option in the writing settings dialog
 msgid "Use audio indicate to switching of browse navigation mode"
-msgstr "Gezinme gözatma modunu değiştirmek için sesli göstergeyi kullanın"
+msgstr "Gezinme gözatma modunu değiştirmek için ses kullan"
 
 #. Translators: The label of an option in the writing settings dialog
 msgid ""
@@ -445,7 +446,7 @@ msgstr "&Tanım"
 
 #. Translators: The label for a math rule list column header in the math rules dialog.
 msgid "Description"
-msgstr "Tarif"
+msgstr "Tanım"
 
 msgid "Serialized ordering"
 msgstr "Seri sıralama"
@@ -518,7 +519,7 @@ msgstr "Yeni dil ekleme"
 
 #. Translators: The label of a button in the Add new language dialog
 msgid "&Select"
-msgstr "&Seeç"
+msgstr "&Seç"
 
 #. Translators: The label of a button in the Add new language dialog
 msgid "&Unselect"
@@ -527,7 +528,7 @@ msgstr "Seçimi kaldı&r"
 #. Add button
 #. Translators: The label of a button in the Add new language dialog
 msgid "OK"
-msgstr "OK"
+msgstr "TAMAM"
 
 #. Translators: The message displayed
 msgid ""
@@ -757,7 +758,7 @@ msgstr "LaTeX kopyalandı"
 
 #. Translators: A message reported to the user when taking a snapshot of math data in the Interaction window
 msgid "snapshot"
-msgstr "snapshot"
+msgstr "anlık"
 
 #. Translators: The description of a command in input help mode and in the Input gesture dialog
 msgid "Toggle command gestures"
@@ -810,7 +811,7 @@ msgid "Toggle browse navigation mode"
 msgstr "Gezinme gözatma modunu aç/kapat"
 
 msgid "Browse navigation mode on"
-msgstr "Navigasyon modu açık"
+msgstr "Gezinme modu açık"
 
 msgid "Browse navigation mode off"
 msgstr "Gezinme modu kapalı"
