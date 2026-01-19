@@ -64,6 +64,8 @@ def mathml2etree(mathml):
 
 	try:
 		tree = ET.fromstring(mathml.encode('utf-8'), parser=parser)
+	except ET.ParseError as error:
+		raise error # Handled by outer function
 	except BaseException as error:
 		raise SystemError(error)
 	return tree
