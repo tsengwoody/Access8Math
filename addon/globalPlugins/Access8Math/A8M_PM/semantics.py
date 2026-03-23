@@ -1,7 +1,5 @@
-import copy
 import re
 
-from . import _core_impl as _core
 from .metadata import mathrule_info
 from . import nodes as _nodes
 from .rules import MathRule
@@ -80,92 +78,7 @@ _TYPE_CREATION_ORDER = [
 	"FirstPositiveSignType",
 ]
 
-_TYPE_PARENT_NAMES = {
-	"NodeType": None,
-	"TerminalNodeType": "NodeType",
-	"NonTerminalNodeType": "NodeType",
-	"SiblingNodeType": "NodeType",
-	"CompoundNodeType": "NodeType",
-	"FractionType": "NonTerminalNodeType",
-	"MiOperandType": "TerminalNodeType",
-	"MnOperandType": "TerminalNodeType",
-	"OperandType": "CompoundNodeType",
-	"OperatorType": "TerminalNodeType",
-	"FromToOperatorType": "TerminalNodeType",
-	"LogOperatorType": "TerminalNodeType",
-	"MiType": "TerminalNodeType",
-	"MnType": "TerminalNodeType",
-	"MoType": "TerminalNodeType",
-	"MtableType": "NonTerminalNodeType",
-	"TwoMnType": "TerminalNodeType",
-	"ThreeMnType": "TerminalNodeType",
-	"TwoMiOperandItemType": "NonTerminalNodeType",
-	"MoLineType": "TerminalNodeType",
-	"LineType": "NonTerminalNodeType",
-	"MoLineSegmentType": "TerminalNodeType",
-	"LineSegmentType": "NonTerminalNodeType",
-	"MoVectorType": "TerminalNodeType",
-	"VectorSingleType": "NonTerminalNodeType",
-	"VectorDoubleType": "NonTerminalNodeType",
-	"MoRayType": "TerminalNodeType",
-	"RayType": "NonTerminalNodeType",
-	"ArrowOverSingleSymbolType": "NonTerminalNodeType",
-	"MoFrownType": "TerminalNodeType",
-	"FrownType": "NonTerminalNodeType",
-	"MoDegreeType": "TerminalNodeType",
-	"DegreeType": "NonTerminalNodeType",
-	"SingleType": "CompoundNodeType",
-	"SingleMsubsupType": "NonTerminalNodeType",
-	"SingleMsubType": "NonTerminalNodeType",
-	"SingleMsupType": "NonTerminalNodeType",
-	"SingleMunderoverType": "NonTerminalNodeType",
-	"SingleMunderType": "NonTerminalNodeType",
-	"SingleMoverType": "NonTerminalNodeType",
-	"SingleFractionType": "FractionType",
-	"SingleSqrtType": "NonTerminalNodeType",
-	"PowerType": "SingleMsupType",
-	"SquarePowerType": "PowerType",
-	"CubePowerType": "PowerType",
-	"MsubsupFromToType": "SingleMsubsupType",
-	"MunderoverFromToType": "SingleMunderoverType",
-	"MsubFromType": "SingleMsubType",
-	"MunderFromType": "SingleMunderType",
-	"MsupToType": "SingleMsupType",
-	"MoverToType": "SingleMoverType",
-	"MsubLogType": "SingleMsubType",
-	"VerticalBarType": "TerminalNodeType",
-	"AbsoluteType": "SiblingNodeType",
-	"OpenMatrixType": "TerminalNodeType",
-	"CloseMatrixType": "TerminalNodeType",
-	"MatrixType": "SiblingNodeType",
-	"OpenSimultaneousEquationsType": "TerminalNodeType",
-	"SimultaneousEquationsType": "SiblingNodeType",
-	"DeterminantType": "SiblingNodeType",
-	"BinomialType": "FractionType",
-	"SingleNumberFractionType": "SingleFractionType",
-	"AddIntegerFractionType": "SiblingNodeType",
-	"SignPreviousMoType": "TerminalNodeType",
-	"MinusType": "TerminalNodeType",
-	"NegativeSignType": "SiblingNodeType",
-	"FirstNegativeSignType": "SiblingNodeType",
-	"PlusType": "TerminalNodeType",
-	"PositiveSignType": "SiblingNodeType",
-	"FirstPositiveSignType": "SiblingNodeType",
-}
-
 _REGISTERED_NODETYPE_NAMES = list(_TYPE_CREATION_ORDER)
-_NODETYPE_CLASS_ATTRS = (
-	"tag",
-	"child",
-	"attrib",
-	"data",
-	"name",
-	"priority",
-	"previous_siblings",
-	"next_siblings",
-	"self_",
-	"compound",
-)
 
 
 class NodeType(object):
@@ -523,90 +436,6 @@ class AddIntegerFractionType(SiblingNodeType):
 	self_ = SingleNumberFractionType
 	name = "AddIntegerFractionType"
 	priority = 1
-
-
-for _name in _TYPE_CREATION_ORDER:
-	if _name in {
-		"NodeType",
-		"TerminalNodeType",
-		"NonTerminalNodeType",
-		"SiblingNodeType",
-		"CompoundNodeType",
-		"MtableType",
-		"TwoMiOperandItemType",
-		"MoLineType",
-		"LineType",
-		"MoLineSegmentType",
-		"LineSegmentType",
-		"MoVectorType",
-		"VectorSingleType",
-		"VectorDoubleType",
-		"MoRayType",
-		"RayType",
-		"MoDegreeType",
-		"DegreeType",
-		"MsubsupFromToType",
-		"MunderoverFromToType",
-		"MsubFromType",
-		"MunderFromType",
-		"MsupToType",
-		"MoverToType",
-		"SignPreviousMoType",
-		"MinusType",
-		"NegativeSignType",
-		"FirstNegativeSignType",
-		"PlusType",
-		"PositiveSignType",
-		"FirstPositiveSignType",
-		"OpenMatrixType",
-		"CloseMatrixType",
-		"MatrixType",
-		"VerticalBarType",
-		"OpenSimultaneousEquationsType",
-		"SimultaneousEquationsType",
-		"DeterminantType",
-		"FractionType",
-		"MiOperandType",
-		"MnOperandType",
-		"OperandType",
-		"OperatorType",
-		"FromToOperatorType",
-		"LogOperatorType",
-		"MiType",
-		"MnType",
-		"MoType",
-		"TwoMnType",
-		"ThreeMnType",
-		"ArrowOverSingleSymbolType",
-		"MoFrownType",
-		"FrownType",
-		"SingleType",
-		"SingleMsubsupType",
-		"SingleMsubType",
-		"SingleMsupType",
-		"SingleMunderoverType",
-		"SingleMunderType",
-		"SingleMoverType",
-		"SingleFractionType",
-		"SingleSqrtType",
-		"PowerType",
-		"SquarePowerType",
-		"CubePowerType",
-		"MsubLogType",
-		"AbsoluteType",
-		"BinomialType",
-		"SingleNumberFractionType",
-		"AddIntegerFractionType",
-	}:
-		continue
-	legacy_class = getattr(_core, _name)
-	parent_name = _TYPE_PARENT_NAMES[_name]
-	bases = (globals()[parent_name], legacy_class)
-	attrs = {}
-	for attr_name in _NODETYPE_CLASS_ATTRS:
-		if attr_name in legacy_class.__dict__:
-			attrs[attr_name] = copy.deepcopy(legacy_class.__dict__[attr_name])
-	globals()[_name] = type(_name, bases, attrs)
 
 
 class MsubsupFromToType(SingleMsubsupType):

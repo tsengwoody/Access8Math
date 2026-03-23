@@ -1,4 +1,5 @@
 import importlib
+import importlib.util
 import os
 import sys
 import unittest
@@ -31,6 +32,13 @@ class TestA8MPMPackageCompatibility(unittest.TestCase):
 		importlib.import_module("A8M_PM")
 		self.assertNotIn("A8M_PM._legacy_impl", sys.modules)
 
+	def test_package_import_does_not_load_core_impl_module(self):
+		importlib.import_module("A8M_PM")
+		self.assertNotIn("A8M_PM._core_impl", sys.modules)
+
+	def test_core_impl_module_is_not_importable(self):
+		self.assertIsNone(importlib.util.find_spec("A8M_PM._core_impl"))
+
 	def test_facade_exports_boundary_owned_symbols(self):
 		module = importlib.import_module("A8M_PM")
 		expected_modules = {
@@ -44,200 +52,6 @@ class TestA8MPMPackageCompatibility(unittest.TestCase):
 			with self.subTest(name=name):
 				self.assertEqual(getattr(module, name).__module__, expected_module)
 		self.assertEqual(module.LOCALE_DIR, importlib.import_module("A8M_PM.rules").LOCALE_DIR)
-
-	def test_tree_and_rules_boundaries_do_not_patch_core_impl_functions(self):
-		importlib.import_module("A8M_PM")
-		core = importlib.import_module("A8M_PM._core_impl")
-		for name in ["mathml2etree", "create_node", "load_math_rule", "load_unicode_dic"]:
-			with self.subTest(name=name):
-				self.assertFalse(hasattr(core, name))
-
-	def test_nodes_and_semantics_boundaries_do_not_patch_core_impl_types(self):
-		module = importlib.import_module("A8M_PM")
-		core = importlib.import_module("A8M_PM._core_impl")
-		self.assertIsNot(module.Node, core.Node)
-		self.assertIsNot(module.NodeType, core.NodeType)
-		self.assertEqual(core.Node.__module__, "A8M_PM._core_impl")
-		self.assertEqual(core.NodeType.__module__, "A8M_PM._core_impl")
-
-	def test_base_nodetype_runtime_ownership_is_not_inherited_from_core_impl(self):
-		module = importlib.import_module("A8M_PM")
-		core = importlib.import_module("A8M_PM._core_impl")
-		self.assertNotIn(core.NodeType, module.NodeType.__mro__[1:])
-		self.assertNotIn(core.NodeType, module.TerminalNodeType.__mro__[1:])
-		self.assertNotIn(core.NodeType, module.NonTerminalNodeType.__mro__[1:])
-		self.assertNotIn(core.NodeType, module.SiblingNodeType.__mro__[1:])
-		self.assertNotIn(core.NodeType, module.CompoundNodeType.__mro__[1:])
-		self.assertNotIn(core.TerminalNodeType, module.TerminalNodeType.__mro__[1:])
-		self.assertNotIn(core.NonTerminalNodeType, module.NonTerminalNodeType.__mro__[1:])
-		self.assertNotIn(core.SiblingNodeType, module.SiblingNodeType.__mro__[1:])
-		self.assertNotIn(core.CompoundNodeType, module.CompoundNodeType.__mro__[1:])
-
-	def test_base_node_runtime_ownership_is_not_inherited_from_core_impl(self):
-		module = importlib.import_module("A8M_PM")
-		core = importlib.import_module("A8M_PM._core_impl")
-		self.assertNotIn(core.Node, module.Node.__mro__[1:])
-		self.assertNotIn(core.Node, module.NonTerminalNode.__mro__[1:])
-		self.assertNotIn(core.Node, module.TerminalNode.__mro__[1:])
-		self.assertNotIn(core.NonTerminalNode, module.NonTerminalNode.__mro__[1:])
-		self.assertNotIn(core.TerminalNode, module.TerminalNode.__mro__[1:])
-
-	def test_behavior_heavy_nodes_do_not_inherit_runtime_implementation_from_core_impl(self):
-		module = importlib.import_module("A8M_PM")
-		core = importlib.import_module("A8M_PM._core_impl")
-		for name in ["Mphantom", "Mfenced", "Menclose", "Mtable", "Mtr", "Math", "Mmultiscripts", "Nones"]:
-			with self.subTest(name=name):
-				self.assertNotIn(getattr(core, name), getattr(module, name).__mro__[1:])
-
-	def test_remaining_concrete_nodes_do_not_inherit_runtime_implementation_from_core_impl(self):
-		module = importlib.import_module("A8M_PM")
-		core = importlib.import_module("A8M_PM._core_impl")
-		for name in [
-			"Mrow",
-			"Mfrac",
-			"Msqrt",
-			"Mroot",
-			"Mstyle",
-			"Merror",
-			"Mpadded",
-			"Msub",
-			"Msup",
-			"Msubsup",
-			"Munder",
-			"Mover",
-			"Munderover",
-			"Mlabeledtr",
-			"Mtd",
-			"Mstack",
-			"Mlongdiv",
-			"Msgroup",
-			"Msrow",
-			"Mscarries",
-			"Mscarry",
-			"Maction",
-			"Mi",
-			"Mn",
-			"Mo",
-			"Mtext",
-			"Mspace",
-			"Ms",
-			"Mprescripts",
-		]:
-			with self.subTest(name=name):
-				self.assertNotIn(getattr(core, name), getattr(module, name).__mro__[1:])
-
-	def test_core_impl_node_family_is_placeholder_only(self):
-		importlib.import_module("A8M_PM")
-		core = importlib.import_module("A8M_PM._core_impl")
-		self.assertNotIn("set_mathrule", core.Node.__dict__)
-		self.assertNotIn("get_mathml", core.Node.__dict__)
-		self.assertNotIn("set_rule", core.TerminalNode.__dict__)
-		self.assertNotIn("set_rule", core.Mfenced.__dict__)
-		self.assertNotIn("set_rule", core.Mspace.__dict__)
-		self.assertNotIn("get_mathml", core.Math.__dict__)
-		self.assertNotIn("mprescripts_index_in_child", core.Mmultiscripts.__dict__)
-
-	def test_core_impl_nodetype_family_is_placeholder_only(self):
-		importlib.import_module("A8M_PM")
-		core = importlib.import_module("A8M_PM._core_impl")
-		self.assertNotIn("check", core.NodeType.__dict__)
-		self.assertNotIn("set_mathrule", core.NodeType.__dict__)
-		self.assertNotIn("set_rule", core.NodeType.__dict__)
-		self.assertNotIn("check", core.TerminalNodeType.__dict__)
-		self.assertNotIn("check", core.NonTerminalNodeType.__dict__)
-		self.assertNotIn("check", core.SiblingNodeType.__dict__)
-		self.assertNotIn("check", core.CompoundNodeType.__dict__)
-		self.assertNotIn("tag", core.FractionType.__dict__)
-		self.assertNotIn("compound", core.OperandType.__dict__)
-		self.assertNotIn("child", core.PowerType.__dict__)
-		self.assertNotIn("previous_siblings", core.AbsoluteType.__dict__)
-		self.assertNotIn("next_siblings", core.MatrixType.__dict__)
-		self.assertNotIn("set_rule", core.SimultaneousEquationsType.__dict__)
-
-	def test_matrix_line_vector_ray_degree_nodetypes_do_not_inherit_runtime_implementation_from_core_impl(self):
-		module = importlib.import_module("A8M_PM")
-		core = importlib.import_module("A8M_PM._core_impl")
-		for name in [
-			"MatrixType",
-			"LineType",
-			"LineSegmentType",
-			"VectorSingleType",
-			"VectorDoubleType",
-			"RayType",
-			"DegreeType",
-		]:
-			with self.subTest(name=name):
-				self.assertNotIn(getattr(core, name), getattr(module, name).__mro__[1:])
-
-	def test_determinant_and_simultaneous_equation_nodetypes_do_not_inherit_runtime_implementation_from_core_impl(self):
-		module = importlib.import_module("A8M_PM")
-		core = importlib.import_module("A8M_PM._core_impl")
-		for name in [
-			"VerticalBarType",
-			"OpenSimultaneousEquationsType",
-			"SimultaneousEquationsType",
-			"DeterminantType",
-		]:
-			with self.subTest(name=name):
-				self.assertNotIn(getattr(core, name), getattr(module, name).__mro__[1:])
-
-	def test_sign_and_from_to_nodetypes_do_not_inherit_runtime_implementation_from_core_impl(self):
-		module = importlib.import_module("A8M_PM")
-		core = importlib.import_module("A8M_PM._core_impl")
-		for name in [
-			"NegativeSignType",
-			"FirstNegativeSignType",
-			"PositiveSignType",
-			"FirstPositiveSignType",
-			"MsubsupFromToType",
-			"MunderoverFromToType",
-			"MsubFromType",
-			"MunderFromType",
-			"MsupToType",
-			"MoverToType",
-		]:
-			with self.subTest(name=name):
-				self.assertNotIn(getattr(core, name), getattr(module, name).__mro__[1:])
-
-	def test_remaining_concrete_nodetypes_do_not_inherit_runtime_implementation_from_core_impl(self):
-		module = importlib.import_module("A8M_PM")
-		core = importlib.import_module("A8M_PM._core_impl")
-		for name in [
-			"FractionType",
-			"MiOperandType",
-			"MnOperandType",
-			"OperandType",
-			"OperatorType",
-			"FromToOperatorType",
-			"LogOperatorType",
-			"MiType",
-			"MnType",
-			"MoType",
-			"TwoMnType",
-			"ThreeMnType",
-			"ArrowOverSingleSymbolType",
-			"MoFrownType",
-			"FrownType",
-			"SingleType",
-			"SingleMsubsupType",
-			"SingleMsubType",
-			"SingleMsupType",
-			"SingleMunderoverType",
-			"SingleMunderType",
-			"SingleMoverType",
-			"SingleFractionType",
-			"SingleSqrtType",
-			"PowerType",
-			"SquarePowerType",
-			"CubePowerType",
-			"MsubLogType",
-			"AbsoluteType",
-			"BinomialType",
-			"SingleNumberFractionType",
-			"AddIntegerFractionType",
-		]:
-			with self.subTest(name=name):
-				self.assertNotIn(getattr(core, name), getattr(module, name).__mro__[1:])
 
 	def test_internal_boundaries_are_importable(self):
 		for name in ["tree", "nodes", "semantics", "rules", "session"]:
@@ -388,60 +202,15 @@ class TestA8MPMPackageCompatibility(unittest.TestCase):
 		self.assertEqual(module.DIC_GENERATE, 1)
 		self.assertTrue(module.LOCALE_DIR.endswith(os.path.join("Access8Math", "locale")))
 
-	def test_lightweight_metadata_is_not_sourced_from_core_impl(self):
+	def test_lightweight_metadata_is_package_owned(self):
 		importlib.import_module("A8M_PM")
-		core = importlib.import_module("A8M_PM._core_impl")
 		nodes = importlib.import_module("A8M_PM.nodes")
 		rules = importlib.import_module("A8M_PM.rules")
 		semantics = importlib.import_module("A8M_PM.semantics")
 		self.assertEqual(nodes.AUTO_GENERATE, 0)
 		self.assertEqual(nodes.DIC_GENERATE, 1)
 		self.assertEqual(rules.NVDASymbolsFetch.__module__, "A8M_PM.rules")
-		self.assertFalse(hasattr(core, "NVDASymbolsFetch"))
-		self.assertFalse(hasattr(core, "mathrule_info"))
 		self.assertEqual(semantics.mathrule_info["generics"]["node"], [3, 1, "*"])
-
-	def test_core_impl_drops_dead_tree_rule_and_registry_symbols(self):
-		importlib.import_module("A8M_PM")
-		core = importlib.import_module("A8M_PM._core_impl")
-		dead_symbols = [
-			"includes_unicode_range",
-			"mathml2etree",
-			"create_node",
-			"clean_allnode",
-			"set_mathcontent_allnode",
-			"set_mathrule_allnode",
-			"set_braillemathrule_allnode",
-			"clear_type_allnode",
-			"check_type_allnode",
-			"check_in_allnode",
-			"MathContent",
-			"LOCALE_DIR",
-			"exist_language",
-			"add_language",
-			"remove_language",
-			"export_language",
-			"available_languages",
-			"clean_user_data",
-			"load_unicode_dic",
-			"load_math_rule",
-			"save_unicode_dic",
-			"save_math_rule",
-			"initialize",
-			"ComplementMethod",
-			"nodes",
-			"nodetypes",
-			"nodetypes_dict",
-			"SNT",
-			"notnodetypes",
-			"notnodetypes_dict",
-			"all_nodetypes",
-			"all_nodetypes_dict",
-			"mathrule_validate",
-		]
-		for name in dead_symbols:
-			with self.subTest(name=name):
-				self.assertFalse(hasattr(core, name))
 
 
 if __name__ == "__main__":
