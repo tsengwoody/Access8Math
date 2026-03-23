@@ -1,5 +1,9 @@
+.claude
+.codex
+.gemini
 addon/doc/*.css
 addon/doc/en/
+openspec
 *_docHandler.py
 *.html
 manifest.ini
