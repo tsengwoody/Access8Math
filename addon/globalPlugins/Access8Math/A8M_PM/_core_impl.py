@@ -177,546 +177,280 @@ class Nones(TerminalNode):
 
 
 class NodeType(object):
-	tag = object
-	child = ['object', '*']
-	attrib = {}
-	data = re.compile(r".*")
-	name = 'nodetype'
-	priority = 0
-
-	def __init__(self):
-		self.mathrule = {}
-		self.rule = []
-		self.role = []
-		self.braillerule = []
-		self.braillerole = []
-
-	@classmethod
-	def check(cls, obj):
-		if not issubclass(obj.__class__, cls.tag):
-			return False
-
-		return True
-
-	def set_mathrule(self, mathrule):
-		self.mathrule = mathrule
-		self.set_rule()
-
-	def set_rule(self):
-		try:
-			self.rule = self.mathrule[self.name].serialized_order
-		except BaseException:
-			self.rule = None
-
-	def set_braillemathrule(self, braillemathrule):
-		self.braillemathrule = braillemathrule
-		self.set_braillerule()
-
-	def set_braillerule(self):
-		try:
-			self.braillerule = self.braillemathrule[self.name].serialized_order
-		except BaseException:
-			self.braillerule = None
+	pass
 
 
 class TerminalNodeType(NodeType):
-	@classmethod
-	def check(cls, obj):
-		if not issubclass(obj.__class__, cls.tag):
-			return False
-
-		# check attrib
-		for key, value in cls.attrib.items():
-			if key not in obj.attrib:
-				return False
-			elif not value.search(obj.attrib[key]) is not None:
-				return False
-
-		# check data
-		if not obj.data == '':
-			try:
-				if not cls.data.search(obj.data) is not None:
-					return False
-			except BaseException:
-				return False
-		return True
+	pass
 
 
 class NonTerminalNodeType(NodeType):
-	@classmethod
-	def check(cls, obj):
-		if not issubclass(obj.__class__, cls.tag):
-			return False
-
-		# check attrib
-		for key, value in cls.attrib.items():
-			if key not in obj.attrib:
-				return False
-			elif not value.search(obj.attrib[key]) is not None:
-				return False
-
-		# check child
-		if cls.child[-1] == '*' and len(cls.child) > 1:
-			d = len(obj.child) - (len(cls.child) - 1)
-			type_list = cls.child[:-1] + [cls.child[-2]] * d
-		else:
-			type_list = cls.child
-		if not len(type_list) == len(obj.child):
-			return False
-
-		# change type
-		type_list_str = [t if isinstance(t, str) else t.__name__ for t in type_list]
-		type_list = [all_nodetypes_dict[t] for t in type_list_str]
-
-		# check child type
-		for mt, o in zip(type_list, obj.child):
-			if not mt == object and not mt.check(o):
-				return False
-
-		return True
+	pass
 
 
 class SiblingNodeType(NodeType):
-	previous_siblings = []
-	next_siblings = []
-	self_ = NodeType
-
-	@classmethod
-	def check(cls, obj):
-		self_index = obj.index_in_parent()
-		if self_index is None:
-			return False
-
-		cls_previous_siblings = cls.previous_siblings
-		cls_next_siblings = cls.next_siblings
-
-		cpsl = len(cls_previous_siblings)
-		cnsl = len(cls_next_siblings)
-
-		start_index = self_index - cpsl
-		end_index = self_index + cnsl
-
-		if cpsl > 0 and cls_previous_siblings[0] is None:
-			cls_previous_siblings = cls_previous_siblings[1:]
-			cpsl = len(cls_previous_siblings)
-			start_index = self_index - cpsl
-			if not start_index == 0:
-				return False
-		elif start_index < 0:
-			return False
-
-		if cnsl > 0 and cls_next_siblings[-1] is None:
-			cls_next_siblings = cls_next_siblings[:-1]
-			cnsl = len(cls_next_siblings)
-			end_index = self_index + cnsl
-			if not end_index == len(obj.parent.child) - 1:
-				return False
-		elif end_index >= len(obj.parent.child):
-			return False
-
-		# change type
-		type_list = cls_previous_siblings + [cls.self_] + cls_next_siblings
-		type_list_str = [t if isinstance(t, str) else t.__name__ for t in type_list]
-		type_list = [all_nodetypes_dict[t] for t in type_list_str]
-		objs = obj.parent.child[start_index:end_index + 1]
-		for mt, o in zip(type_list, objs):
-			if not mt == object and not mt.check(o):
-				return False
-
-		return True
+	pass
 
 
 class CompoundNodeType(NodeType):
-	compound = []
-
-	@classmethod
-	def check(cls, obj):
-		for mt in cls.compound:
-			if mt.check(obj):
-				return True
-		return False
+	pass
 
 
 class FractionType(NonTerminalNodeType):
-	tag = Mfrac
+	pass
 
 
 class MiOperandType(TerminalNodeType):
-	tag = Mi
-	data = re.compile(r"^[\d\w]+$")
+	pass
 
 
 class MnOperandType(TerminalNodeType):
-	tag = Mn
-	data = re.compile(r"^[\d\w]+$")
+	pass
 
 
 class OperandType(CompoundNodeType):
-	compound = [MiOperandType, MnOperandType, FractionType, ]
+	pass
 
 
 class OperatorType(TerminalNodeType):
-	tag = Mo
-	data = re.compile(r"^[u'\u2200'-u'\u22FF']$")
+	pass
 
 
 class FromToOperatorType(TerminalNodeType):
-	tag = Mo
-	data = re.compile(r"^[∑∫]$")
+	pass
 
 
 class LogOperatorType(TerminalNodeType):
-	tag = Mi
-	data = re.compile(r"^log$")
+	pass
 
 
 class MiType(TerminalNodeType):
-	tag = Mi
+	pass
 
 
 class MnType(TerminalNodeType):
-	tag = Mn
+	pass
 
 
 class MoType(TerminalNodeType):
-	tag = Mo
+	pass
 
 
 class MtableType(NonTerminalNodeType):
-	tag = Mtable
+	pass
 
 
 class TwoMnType(TerminalNodeType):
-	tag = Mn
-	data = re.compile(r"^[2]$")
+	pass
 
 
 class ThreeMnType(TerminalNodeType):
-	tag = Mn
-	data = re.compile(r"^[3]$")
+	pass
 
 
 class TwoMiOperandItemType(NonTerminalNodeType):
-	tag = Mrow
-	child = [MiOperandType, MiOperandType]
+	pass
 
 
 class MoLineType(TerminalNodeType):
-	tag = Mo
-	data = re.compile(r"^[↔]$")
+	pass
 
 
 class LineType(NonTerminalNodeType):
-	tag = Mover
-	child = [TwoMiOperandItemType, MoLineType]
-	name = 'LineType'
+	pass
 
 
 class MoLineSegmentType(TerminalNodeType):
-	tag = Mo
-	data = re.compile(r"^[¯―]$")
+	pass
 
 
 class LineSegmentType(NonTerminalNodeType):
-	tag = Mover
-	child = [TwoMiOperandItemType, MoLineSegmentType]
-	name = 'LineSegmentType'
+	pass
 
 
 class MoVectorType(TerminalNodeType):
-	tag = Mo
-	data = re.compile(r"^[→]$")
-	attrib = {
-		'stretchy': re.compile(r"^false$"),
-	}
+	pass
 
 
 class VectorSingleType(NonTerminalNodeType):
-	tag = Mover
-	child = [MiOperandType, MoVectorType]
-	name = 'VectorSingleType'
+	pass
 
 
 class VectorDoubleType(NonTerminalNodeType):
-	tag = Mover
-	child = [TwoMiOperandItemType, MoVectorType]
-	name = 'VectorDoubleType'
+	pass
 
 
-# Arrow above 2 symbols denotes Ray in English notation and vector in French notation
-# (equivalent of VectorDoubleType).
-# Arrow above 1 symbol denotes also vector in French notation.
 class MoRayType(TerminalNodeType):
-	tag = Mo
-	data = re.compile(r"^[→]$")
+	pass
 
 
-# Arrow above 2 symbols denotes Ray in English notation and vector in French notation
-# (equivalent of VectorDoubleType).
 class RayType(NonTerminalNodeType):
-	tag = Mover
-	child = [TwoMiOperandItemType, MoRayType]
-	name = 'RayType'
+	pass
 
 
-# Arrow above single symbol denotes vector in French notation.
 class ArrowOverSingleSymbolType(NonTerminalNodeType):
-	tag = Mover
-	child = [MiOperandType, MoRayType]
-	name = 'ArrowOverSingleSymbolType'
+	pass
 
 
 class MoFrownType(TerminalNodeType):
-	tag = Mo
-	data = re.compile(r"^[⌢]$")
+	pass
 
 
 class FrownType(NonTerminalNodeType):
-	tag = Mover
-	child = [TwoMiOperandItemType, MoFrownType]
-	name = 'FrownType'
+	pass
 
 
 class MoDegreeType(TerminalNodeType):
-	tag = Mo
-	data = re.compile(r"^[°∘]$")
+	pass
 
 
 class DegreeType(NonTerminalNodeType):
-	tag = Msup
-	child = [NodeType, MoDegreeType, ]
-	name = 'DegreeType'
+	pass
 
 
 class SingleType(CompoundNodeType):
-	compound = [MiType, MnType, MoType]
+	pass
 
 
 class SingleMsubsupType(NonTerminalNodeType):
-	tag = Msubsup
-	child = [SingleType, SingleType, SingleType]
-	name = 'SingleMsubsup'
+	pass
 
 
 class SingleMsubType(NonTerminalNodeType):
-	tag = Msub
-	child = [SingleType, SingleType]
-	name = 'SingleMsub'
+	pass
 
 
 class SingleMsupType(NonTerminalNodeType):
-	tag = Msup
-	child = [SingleType, SingleType]
-	name = 'SingleMsup'
+	pass
 
 
 class SingleMunderoverType(NonTerminalNodeType):
-	tag = Munderover
-	child = [SingleType, SingleType, SingleType]
-	name = 'SingleMunderover'
+	pass
 
 
 class SingleMunderType(NonTerminalNodeType):
-	tag = Munder
-	child = [SingleType, SingleType]
-	name = 'SingleMunder'
+	pass
 
 
 class SingleMoverType(NonTerminalNodeType):
-	tag = Mover
-	child = [SingleType, SingleType]
-	name = 'SingleMover'
+	pass
 
 
 class SingleFractionType(FractionType):
-	tag = Mfrac
-	child = [OperandType, OperandType, ]
-	name = 'single_fraction'
+	pass
 
 
 class SingleSqrtType(NonTerminalNodeType):
-	tag = Msqrt
-	child = [OperandType]
-	name = 'single_square_root'
+	pass
 
 
 class PowerType(SingleMsupType):
-	tag = Msup
-	child = [OperandType, OperandType, ]
-	name = 'power'
+	pass
 
 
 class SquarePowerType(PowerType):
-	tag = Msup
-	child = [OperandType, TwoMnType, ]
-	name = 'SquarePowerType'
+	pass
 
 
 class CubePowerType(PowerType):
-	tag = Msup
-	child = [OperandType, ThreeMnType]
-	name = 'CubePowerType'
+	pass
 
 
 class MsubsupFromToType(SingleMsubsupType):
-	tag = Msubsup
-	child = [FromToOperatorType, NodeType, NodeType]
-	name = 'from_to'
+	pass
 
 
 class MunderoverFromToType(SingleMunderoverType):
-	tag = Munderover
-	child = [FromToOperatorType, NodeType, NodeType]
-	name = 'from_to'
+	pass
 
 
 class MsubFromType(SingleMsubType):
-	tag = Msub
-	child = [FromToOperatorType, NodeType]
-	name = 'from'
+	pass
 
 
 class MunderFromType(SingleMunderType):
-	tag = Munder
-	child = [FromToOperatorType, NodeType]
-	name = 'from'
+	pass
 
 
 class MsupToType(SingleMsupType):
-	tag = Msup
-	child = [FromToOperatorType, NodeType]
-	name = 'to'
+	pass
 
 
 class MoverToType(SingleMoverType):
-	tag = Mover
-	child = [FromToOperatorType, NodeType]
-	name = 'to'
+	pass
 
 
 class MsubLogType(SingleMsubType):
-	tag = Msub
-	child = [LogOperatorType, OperandType]
-	name = 'LogType'
+	pass
 
 
 class VerticalBarType(TerminalNodeType):
-	tag = Mo
-	data = re.compile(r"^\|$")
+	pass
 
 
 class AbsoluteType(SiblingNodeType):
-	previous_siblings = [VerticalBarType]
-	self_ = MnOperandType
-	next_siblings = [VerticalBarType]
-	name = 'absolute'
+	pass
 
 
 class OpenMatrixType(TerminalNodeType):
-	tag = Mo
-	data = re.compile(r"^\[$")
+	pass
 
 
 class CloseMatrixType(TerminalNodeType):
-	tag = Mo
-	data = re.compile(r"^\]$")
+	pass
 
 
 class MatrixType(SiblingNodeType):
-	previous_siblings = [OpenMatrixType]
-	self_ = MtableType
-	next_siblings = [CloseMatrixType]
-	name = 'matrix'
+	pass
 
 
 class OpenSimultaneousEquationsType(TerminalNodeType):
-	tag = Mo
-	data = re.compile(r"^\{$")
+	pass
 
 
 class SimultaneousEquationsType(SiblingNodeType):
-	previous_siblings = [OpenSimultaneousEquationsType]
-	self_ = MtableType
-	name = 'SimultaneousEquations'
-	priority = 0
-
-	def set_rule(self):
-		super().set_rule()
-		rule = self.rule
-
-		row_count = len(self.child)
-
-		table_head = [rule[0] + f'{self.mathcontent.symbol_translate("has")} {row_count} {self.mathcontent.symbol_translate("row")}']
-		cell = rule[1:-1]
-		table_tail = rule[-1:]
-		self.rule = table_head + cell + table_tail
+	pass
 
 
 class DeterminantType(SiblingNodeType):
-	tag = Mtable
-	previous_siblings = [VerticalBarType]
-	self_ = MtableType
-	next_siblings = [VerticalBarType]
-	name = 'determinant'
-	priority = 1
+	pass
 
 
 class BinomialType(FractionType):
-	tag = Mfrac
-	attrib = {
-		'linethickness': re.compile(r"^[0]$"),
-	}
-	name = 'BinomialType'
-	priority = 1
+	pass
 
 
-# SiblingNodeType
 class SingleNumberFractionType(SingleFractionType):
-	child = [MnOperandType, MnOperandType]
-	name = ''
+	pass
 
 
 class AddIntegerFractionType(SiblingNodeType):
-	previous_siblings = [MnOperandType]
-	self_ = SingleNumberFractionType
-	name = 'AddIntegerFractionType'
-	priority = 1
+	pass
 
 
 class SignPreviousMoType(TerminalNodeType):
-	tag = Mo
-	data = re.compile(r"^[(*+-\./:<=>±·×÷−∔]$")
+	pass
 
 
 class MinusType(TerminalNodeType):
-	tag = Mo
-	data = re.compile(r"^[-−]$")
+	pass
 
 
 class NegativeSignType(SiblingNodeType):
-	previous_siblings = [SignPreviousMoType]
-	self_ = MinusType
-	name = 'NegativeSignType'
+	pass
 
 
 class FirstNegativeSignType(SiblingNodeType):
-	previous_siblings = [None]
-	self_ = MinusType
-	name = 'NegativeSignType'
+	pass
 
 
 class PlusType(TerminalNodeType):
-	tag = Mo
-	data = re.compile(r"^[+∔]$")
+	pass
 
 
 class PositiveSignType(SiblingNodeType):
-	previous_siblings = [SignPreviousMoType]
-	self_ = PlusType
-	name = 'PositiveSignType'
+	pass
 
 
 class FirstPositiveSignType(SiblingNodeType):
-	previous_siblings = [None]
-	self_ = PlusType
-	name = 'PositiveSignType'
+	pass

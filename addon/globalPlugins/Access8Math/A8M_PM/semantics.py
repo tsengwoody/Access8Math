@@ -1,4 +1,5 @@
 import copy
+import re
 
 from . import _core_impl as _core
 from .metadata import mathrule_info
@@ -167,18 +168,520 @@ _NODETYPE_CLASS_ATTRS = (
 )
 
 
+class NodeType(object):
+	tag = object
+	child = ["object", "*"]
+	attrib = {}
+	data = re.compile(r".*")
+	name = "nodetype"
+	priority = 0
+
+	def __init__(self):
+		self.mathrule = {}
+		self.rule = []
+		self.role = []
+		self.braillerule = []
+		self.braillerole = []
+
+	def set_mathrule(self, mathrule):
+		self.mathrule = mathrule
+		self.set_rule()
+
+	def set_rule(self):
+		try:
+			self.rule = self.mathrule[self.name].serialized_order
+		except BaseException:
+			self.rule = None
+
+	def set_braillemathrule(self, braillemathrule):
+		self.braillemathrule = braillemathrule
+		self.set_braillerule()
+
+	def set_braillerule(self):
+		try:
+			self.braillerule = self.braillemathrule[self.name].serialized_order
+		except BaseException:
+			self.braillerule = None
+
+
+class TerminalNodeType(NodeType):
+	pass
+
+
+class NonTerminalNodeType(NodeType):
+	pass
+
+
+class SiblingNodeType(NodeType):
+	previous_siblings = []
+	next_siblings = []
+	self_ = NodeType
+
+
+class CompoundNodeType(NodeType):
+	compound = []
+
+
+class MtableType(NonTerminalNodeType):
+	tag = _nodes.Mtable
+
+
+class TwoMiOperandItemType(NonTerminalNodeType):
+	tag = _nodes.Mrow
+	child = ["MiOperandType", "MiOperandType"]
+
+
+class MoLineType(TerminalNodeType):
+	tag = _nodes.Mo
+	data = re.compile(r"^[↔]$")
+
+
+class LineType(NonTerminalNodeType):
+	tag = _nodes.Mover
+	child = [TwoMiOperandItemType, MoLineType]
+	name = "LineType"
+
+
+class MoLineSegmentType(TerminalNodeType):
+	tag = _nodes.Mo
+	data = re.compile(r"^[¯―]$")
+
+
+class LineSegmentType(NonTerminalNodeType):
+	tag = _nodes.Mover
+	child = [TwoMiOperandItemType, MoLineSegmentType]
+	name = "LineSegmentType"
+
+
+class MoVectorType(TerminalNodeType):
+	tag = _nodes.Mo
+	data = re.compile(r"^[→]$")
+	attrib = {
+		"stretchy": re.compile(r"^false$"),
+	}
+
+
+class VectorSingleType(NonTerminalNodeType):
+	tag = _nodes.Mover
+	child = ["MiOperandType", MoVectorType]
+	name = "VectorSingleType"
+
+
+class VectorDoubleType(NonTerminalNodeType):
+	tag = _nodes.Mover
+	child = [TwoMiOperandItemType, MoVectorType]
+	name = "VectorDoubleType"
+
+
+class MoRayType(TerminalNodeType):
+	tag = _nodes.Mo
+	data = re.compile(r"^[→]$")
+
+
+class RayType(NonTerminalNodeType):
+	tag = _nodes.Mover
+	child = [TwoMiOperandItemType, MoRayType]
+	name = "RayType"
+
+
+class MoDegreeType(TerminalNodeType):
+	tag = _nodes.Mo
+	data = re.compile(r"^[°∘]$")
+
+
+class DegreeType(NonTerminalNodeType):
+	tag = _nodes.Msup
+	child = [NodeType, MoDegreeType]
+	name = "DegreeType"
+
+
+class OpenMatrixType(TerminalNodeType):
+	tag = _nodes.Mo
+	data = re.compile(r"^\[$")
+
+
+class CloseMatrixType(TerminalNodeType):
+	tag = _nodes.Mo
+	data = re.compile(r"^\]$")
+
+
+class MatrixType(SiblingNodeType):
+	previous_siblings = [OpenMatrixType]
+	self_ = MtableType
+	next_siblings = [CloseMatrixType]
+	name = "matrix"
+
+
+class VerticalBarType(TerminalNodeType):
+	tag = _nodes.Mo
+	data = re.compile(r"^\|$")
+
+
+class OpenSimultaneousEquationsType(TerminalNodeType):
+	tag = _nodes.Mo
+	data = re.compile(r"^\{$")
+
+
+class SimultaneousEquationsType(SiblingNodeType):
+	previous_siblings = [OpenSimultaneousEquationsType]
+	self_ = MtableType
+	name = "SimultaneousEquations"
+	priority = 0
+
+	def set_rule(self):
+		super().set_rule()
+		rule = self.rule
+
+		row_count = len(self.child)
+
+		table_head = [rule[0] + f'{self.mathcontent.symbol_translate("has")} {row_count} {self.mathcontent.symbol_translate("row")}']
+		cell = rule[1:-1]
+		table_tail = rule[-1:]
+		self.rule = table_head + cell + table_tail
+
+
+class DeterminantType(SiblingNodeType):
+	tag = _nodes.Mtable
+	previous_siblings = [VerticalBarType]
+	self_ = MtableType
+	next_siblings = [VerticalBarType]
+	name = "determinant"
+	priority = 1
+
+
+class FractionType(NonTerminalNodeType):
+	tag = _nodes.Mfrac
+
+
+class MiOperandType(TerminalNodeType):
+	tag = _nodes.Mi
+	data = re.compile(r"^[\d\w]+$")
+
+
+class MnOperandType(TerminalNodeType):
+	tag = _nodes.Mn
+	data = re.compile(r"^[\d\w]+$")
+
+
+class OperandType(CompoundNodeType):
+	compound = [MiOperandType, MnOperandType, FractionType]
+
+
+class OperatorType(TerminalNodeType):
+	tag = _nodes.Mo
+	data = re.compile(r"^[u'\u2200'-u'\u22FF']$")
+
+
+class FromToOperatorType(TerminalNodeType):
+	tag = _nodes.Mo
+	data = re.compile(r"^[∑∫]$")
+
+
+class LogOperatorType(TerminalNodeType):
+	tag = _nodes.Mi
+	data = re.compile(r"^log$")
+
+
+class MiType(TerminalNodeType):
+	tag = _nodes.Mi
+
+
+class MnType(TerminalNodeType):
+	tag = _nodes.Mn
+
+
+class MoType(TerminalNodeType):
+	tag = _nodes.Mo
+
+
+class TwoMnType(TerminalNodeType):
+	tag = _nodes.Mn
+	data = re.compile(r"^[2]$")
+
+
+class ThreeMnType(TerminalNodeType):
+	tag = _nodes.Mn
+	data = re.compile(r"^[3]$")
+
+
+class ArrowOverSingleSymbolType(NonTerminalNodeType):
+	tag = _nodes.Mover
+	child = [MiOperandType, MoRayType]
+	name = "ArrowOverSingleSymbolType"
+
+
+class MoFrownType(TerminalNodeType):
+	tag = _nodes.Mo
+	data = re.compile(r"^[⌢]$")
+
+
+class FrownType(NonTerminalNodeType):
+	tag = _nodes.Mover
+	child = [TwoMiOperandItemType, MoFrownType]
+	name = "FrownType"
+
+
+class SingleType(CompoundNodeType):
+	compound = [MiType, MnType, MoType]
+
+
+class SingleMsubsupType(NonTerminalNodeType):
+	tag = _nodes.Msubsup
+	child = [SingleType, SingleType, SingleType]
+	name = "SingleMsubsup"
+
+
+class SingleMsubType(NonTerminalNodeType):
+	tag = _nodes.Msub
+	child = [SingleType, SingleType]
+	name = "SingleMsub"
+
+
+class SingleMsupType(NonTerminalNodeType):
+	tag = _nodes.Msup
+	child = [SingleType, SingleType]
+	name = "SingleMsup"
+
+
+class SingleMunderoverType(NonTerminalNodeType):
+	tag = _nodes.Munderover
+	child = [SingleType, SingleType, SingleType]
+	name = "SingleMunderover"
+
+
+class SingleMunderType(NonTerminalNodeType):
+	tag = _nodes.Munder
+	child = [SingleType, SingleType]
+	name = "SingleMunder"
+
+
+class SingleMoverType(NonTerminalNodeType):
+	tag = _nodes.Mover
+	child = [SingleType, SingleType]
+	name = "SingleMover"
+
+
+class SingleFractionType(FractionType):
+	tag = _nodes.Mfrac
+	child = [OperandType, OperandType]
+	name = "single_fraction"
+
+
+class SingleSqrtType(NonTerminalNodeType):
+	tag = _nodes.Msqrt
+	child = [OperandType]
+	name = "single_square_root"
+
+
+class PowerType(SingleMsupType):
+	tag = _nodes.Msup
+	child = [OperandType, OperandType]
+	name = "power"
+
+
+class SquarePowerType(PowerType):
+	tag = _nodes.Msup
+	child = [OperandType, TwoMnType]
+	name = "SquarePowerType"
+
+
+class CubePowerType(PowerType):
+	tag = _nodes.Msup
+	child = [OperandType, ThreeMnType]
+	name = "CubePowerType"
+
+
+class MsubLogType(SingleMsubType):
+	tag = _nodes.Msub
+	child = [LogOperatorType, OperandType]
+	name = "LogType"
+
+
+class AbsoluteType(SiblingNodeType):
+	previous_siblings = [VerticalBarType]
+	self_ = MnOperandType
+	next_siblings = [VerticalBarType]
+	name = "absolute"
+
+
+class BinomialType(FractionType):
+	tag = _nodes.Mfrac
+	attrib = {
+		"linethickness": re.compile(r"^[0]$"),
+	}
+	name = "BinomialType"
+	priority = 1
+
+
+class SingleNumberFractionType(SingleFractionType):
+	child = [MnOperandType, MnOperandType]
+	name = ""
+
+
+class AddIntegerFractionType(SiblingNodeType):
+	previous_siblings = [MnOperandType]
+	self_ = SingleNumberFractionType
+	name = "AddIntegerFractionType"
+	priority = 1
+
+
 for _name in _TYPE_CREATION_ORDER:
+	if _name in {
+		"NodeType",
+		"TerminalNodeType",
+		"NonTerminalNodeType",
+		"SiblingNodeType",
+		"CompoundNodeType",
+		"MtableType",
+		"TwoMiOperandItemType",
+		"MoLineType",
+		"LineType",
+		"MoLineSegmentType",
+		"LineSegmentType",
+		"MoVectorType",
+		"VectorSingleType",
+		"VectorDoubleType",
+		"MoRayType",
+		"RayType",
+		"MoDegreeType",
+		"DegreeType",
+		"MsubsupFromToType",
+		"MunderoverFromToType",
+		"MsubFromType",
+		"MunderFromType",
+		"MsupToType",
+		"MoverToType",
+		"SignPreviousMoType",
+		"MinusType",
+		"NegativeSignType",
+		"FirstNegativeSignType",
+		"PlusType",
+		"PositiveSignType",
+		"FirstPositiveSignType",
+		"OpenMatrixType",
+		"CloseMatrixType",
+		"MatrixType",
+		"VerticalBarType",
+		"OpenSimultaneousEquationsType",
+		"SimultaneousEquationsType",
+		"DeterminantType",
+		"FractionType",
+		"MiOperandType",
+		"MnOperandType",
+		"OperandType",
+		"OperatorType",
+		"FromToOperatorType",
+		"LogOperatorType",
+		"MiType",
+		"MnType",
+		"MoType",
+		"TwoMnType",
+		"ThreeMnType",
+		"ArrowOverSingleSymbolType",
+		"MoFrownType",
+		"FrownType",
+		"SingleType",
+		"SingleMsubsupType",
+		"SingleMsubType",
+		"SingleMsupType",
+		"SingleMunderoverType",
+		"SingleMunderType",
+		"SingleMoverType",
+		"SingleFractionType",
+		"SingleSqrtType",
+		"PowerType",
+		"SquarePowerType",
+		"CubePowerType",
+		"MsubLogType",
+		"AbsoluteType",
+		"BinomialType",
+		"SingleNumberFractionType",
+		"AddIntegerFractionType",
+	}:
+		continue
 	legacy_class = getattr(_core, _name)
 	parent_name = _TYPE_PARENT_NAMES[_name]
-	if parent_name is None:
-		bases = (legacy_class,)
-	else:
-		bases = (globals()[parent_name], legacy_class)
+	bases = (globals()[parent_name], legacy_class)
 	attrs = {}
 	for attr_name in _NODETYPE_CLASS_ATTRS:
 		if attr_name in legacy_class.__dict__:
 			attrs[attr_name] = copy.deepcopy(legacy_class.__dict__[attr_name])
 	globals()[_name] = type(_name, bases, attrs)
+
+
+class MsubsupFromToType(SingleMsubsupType):
+	tag = _nodes.Msubsup
+	child = ["FromToOperatorType", NodeType, NodeType]
+	name = "from_to"
+
+
+class MunderoverFromToType(SingleMunderoverType):
+	tag = _nodes.Munderover
+	child = ["FromToOperatorType", NodeType, NodeType]
+	name = "from_to"
+
+
+class MsubFromType(SingleMsubType):
+	tag = _nodes.Msub
+	child = ["FromToOperatorType", NodeType]
+	name = "from"
+
+
+class MunderFromType(SingleMunderType):
+	tag = _nodes.Munder
+	child = ["FromToOperatorType", NodeType]
+	name = "from"
+
+
+class MsupToType(SingleMsupType):
+	tag = _nodes.Msup
+	child = ["FromToOperatorType", NodeType]
+	name = "to"
+
+
+class MoverToType(SingleMoverType):
+	tag = _nodes.Mover
+	child = ["FromToOperatorType", NodeType]
+	name = "to"
+
+
+class SignPreviousMoType(TerminalNodeType):
+	tag = _nodes.Mo
+	data = re.compile(r"^[(*+-\./:<=>±·×÷−∔]$")
+
+
+class MinusType(TerminalNodeType):
+	tag = _nodes.Mo
+	data = re.compile(r"^[-−]$")
+
+
+class NegativeSignType(SiblingNodeType):
+	previous_siblings = [SignPreviousMoType]
+	self_ = MinusType
+	name = "NegativeSignType"
+
+
+class FirstNegativeSignType(SiblingNodeType):
+	previous_siblings = [None]
+	self_ = MinusType
+	name = "NegativeSignType"
+
+
+class PlusType(TerminalNodeType):
+	tag = _nodes.Mo
+	data = re.compile(r"^[+∔]$")
+
+
+class PositiveSignType(SiblingNodeType):
+	previous_siblings = [SignPreviousMoType]
+	self_ = PlusType
+	name = "PositiveSignType"
+
+
+class FirstPositiveSignType(SiblingNodeType):
+	previous_siblings = [None]
+	self_ = PlusType
+	name = "PositiveSignType"
 
 
 def ComplementMethod(method):

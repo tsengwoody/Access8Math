@@ -60,6 +60,19 @@ class TestA8MPMPackageCompatibility(unittest.TestCase):
 		self.assertEqual(core.Node.__module__, "A8M_PM._core_impl")
 		self.assertEqual(core.NodeType.__module__, "A8M_PM._core_impl")
 
+	def test_base_nodetype_runtime_ownership_is_not_inherited_from_core_impl(self):
+		module = importlib.import_module("A8M_PM")
+		core = importlib.import_module("A8M_PM._core_impl")
+		self.assertNotIn(core.NodeType, module.NodeType.__mro__[1:])
+		self.assertNotIn(core.NodeType, module.TerminalNodeType.__mro__[1:])
+		self.assertNotIn(core.NodeType, module.NonTerminalNodeType.__mro__[1:])
+		self.assertNotIn(core.NodeType, module.SiblingNodeType.__mro__[1:])
+		self.assertNotIn(core.NodeType, module.CompoundNodeType.__mro__[1:])
+		self.assertNotIn(core.TerminalNodeType, module.TerminalNodeType.__mro__[1:])
+		self.assertNotIn(core.NonTerminalNodeType, module.NonTerminalNodeType.__mro__[1:])
+		self.assertNotIn(core.SiblingNodeType, module.SiblingNodeType.__mro__[1:])
+		self.assertNotIn(core.CompoundNodeType, module.CompoundNodeType.__mro__[1:])
+
 	def test_base_node_runtime_ownership_is_not_inherited_from_core_impl(self):
 		module = importlib.import_module("A8M_PM")
 		core = importlib.import_module("A8M_PM._core_impl")
@@ -123,6 +136,108 @@ class TestA8MPMPackageCompatibility(unittest.TestCase):
 		self.assertNotIn("set_rule", core.Mspace.__dict__)
 		self.assertNotIn("get_mathml", core.Math.__dict__)
 		self.assertNotIn("mprescripts_index_in_child", core.Mmultiscripts.__dict__)
+
+	def test_core_impl_nodetype_family_is_placeholder_only(self):
+		importlib.import_module("A8M_PM")
+		core = importlib.import_module("A8M_PM._core_impl")
+		self.assertNotIn("check", core.NodeType.__dict__)
+		self.assertNotIn("set_mathrule", core.NodeType.__dict__)
+		self.assertNotIn("set_rule", core.NodeType.__dict__)
+		self.assertNotIn("check", core.TerminalNodeType.__dict__)
+		self.assertNotIn("check", core.NonTerminalNodeType.__dict__)
+		self.assertNotIn("check", core.SiblingNodeType.__dict__)
+		self.assertNotIn("check", core.CompoundNodeType.__dict__)
+		self.assertNotIn("tag", core.FractionType.__dict__)
+		self.assertNotIn("compound", core.OperandType.__dict__)
+		self.assertNotIn("child", core.PowerType.__dict__)
+		self.assertNotIn("previous_siblings", core.AbsoluteType.__dict__)
+		self.assertNotIn("next_siblings", core.MatrixType.__dict__)
+		self.assertNotIn("set_rule", core.SimultaneousEquationsType.__dict__)
+
+	def test_matrix_line_vector_ray_degree_nodetypes_do_not_inherit_runtime_implementation_from_core_impl(self):
+		module = importlib.import_module("A8M_PM")
+		core = importlib.import_module("A8M_PM._core_impl")
+		for name in [
+			"MatrixType",
+			"LineType",
+			"LineSegmentType",
+			"VectorSingleType",
+			"VectorDoubleType",
+			"RayType",
+			"DegreeType",
+		]:
+			with self.subTest(name=name):
+				self.assertNotIn(getattr(core, name), getattr(module, name).__mro__[1:])
+
+	def test_determinant_and_simultaneous_equation_nodetypes_do_not_inherit_runtime_implementation_from_core_impl(self):
+		module = importlib.import_module("A8M_PM")
+		core = importlib.import_module("A8M_PM._core_impl")
+		for name in [
+			"VerticalBarType",
+			"OpenSimultaneousEquationsType",
+			"SimultaneousEquationsType",
+			"DeterminantType",
+		]:
+			with self.subTest(name=name):
+				self.assertNotIn(getattr(core, name), getattr(module, name).__mro__[1:])
+
+	def test_sign_and_from_to_nodetypes_do_not_inherit_runtime_implementation_from_core_impl(self):
+		module = importlib.import_module("A8M_PM")
+		core = importlib.import_module("A8M_PM._core_impl")
+		for name in [
+			"NegativeSignType",
+			"FirstNegativeSignType",
+			"PositiveSignType",
+			"FirstPositiveSignType",
+			"MsubsupFromToType",
+			"MunderoverFromToType",
+			"MsubFromType",
+			"MunderFromType",
+			"MsupToType",
+			"MoverToType",
+		]:
+			with self.subTest(name=name):
+				self.assertNotIn(getattr(core, name), getattr(module, name).__mro__[1:])
+
+	def test_remaining_concrete_nodetypes_do_not_inherit_runtime_implementation_from_core_impl(self):
+		module = importlib.import_module("A8M_PM")
+		core = importlib.import_module("A8M_PM._core_impl")
+		for name in [
+			"FractionType",
+			"MiOperandType",
+			"MnOperandType",
+			"OperandType",
+			"OperatorType",
+			"FromToOperatorType",
+			"LogOperatorType",
+			"MiType",
+			"MnType",
+			"MoType",
+			"TwoMnType",
+			"ThreeMnType",
+			"ArrowOverSingleSymbolType",
+			"MoFrownType",
+			"FrownType",
+			"SingleType",
+			"SingleMsubsupType",
+			"SingleMsubType",
+			"SingleMsupType",
+			"SingleMunderoverType",
+			"SingleMunderType",
+			"SingleMoverType",
+			"SingleFractionType",
+			"SingleSqrtType",
+			"PowerType",
+			"SquarePowerType",
+			"CubePowerType",
+			"MsubLogType",
+			"AbsoluteType",
+			"BinomialType",
+			"SingleNumberFractionType",
+			"AddIntegerFractionType",
+		]:
+			with self.subTest(name=name):
+				self.assertNotIn(getattr(core, name), getattr(module, name).__mro__[1:])
 
 	def test_internal_boundaries_are_importable(self):
 		for name in ["tree", "nodes", "semantics", "rules", "session"]:
