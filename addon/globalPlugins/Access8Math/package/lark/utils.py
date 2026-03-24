@@ -7,6 +7,8 @@ from typing import Callable, Iterator, List, Optional, Tuple, Type, TypeVar, Uni
 ###{standalone
 import sys, re
 import logging
+from dataclasses import dataclass
+from typing import Generic, AnyStr
 
 logger: logging.Logger = logging.getLogger("lark")
 logger.addHandler(logging.StreamHandler())
@@ -68,7 +70,7 @@ class Serialize:
         res = {f: _serialize(getattr(self, f), memo) for f in fields}
         res['__type__'] = type(self).__name__
         if hasattr(self, '_serialize'):
-            self._serialize(res, memo)  # type: ignore[attr-defined]
+            self._serialize(res, memo)
         return res
 
     @classmethod
@@ -89,7 +91,7 @@ class Serialize:
                 raise KeyError("Cannot find key for class", cls, e)
 
         if hasattr(inst, '_deserialize'):
-            inst._deserialize()  # type: ignore[attr-defined]
+            inst._deserialize()
 
         return inst
 
@@ -141,7 +143,7 @@ def get_regexp_width(expr: str) -> Union[Tuple[int, int], List[int]]:
         regexp_final = expr
     try:
         # Fixed in next version (past 0.960) of typeshed
-        return [int(x) for x in sre_parse.parse(regexp_final).getwidth()]   # type: ignore[attr-defined]
+        return [int(x) for x in sre_parse.parse(regexp_final).getwidth()]
     except sre_constants.error:
         if not _has_regex:
             raise ValueError(expr)
@@ -157,6 +159,74 @@ def get_regexp_width(expr: str) -> Union[Tuple[int, int], List[int]]:
                 return 1, int(MAXWIDTH)
             else:
                 return 0, int(MAXWIDTH)
+
+
+@dataclass(frozen=True)
+class TextSlice(Generic[AnyStr]):
+    """A view of a string or bytes object, between the start and end indices.
+
+    Never creates a copy.
+
+    Lark accepts instances of TextSlice as input (instead of a string),
+    when the lexer is 'basic' or 'contextual'.
+
+    Args:
+        text (str or bytes): The text to slice.
+        start (int): The start index. Negative indices are supported.
+        end (int): The end index. Negative indices are supported.
+
+    Raises:
+        TypeError: If `text` is not a `str` or `bytes`.
+        AssertionError: If `start` or `end` are out of bounds.
+
+    Examples:
+        >>> TextSlice("Hello, World!", 7, -1)
+        TextSlice(text='Hello, World!', start=7, end=12)
+
+        >>> TextSlice("Hello, World!", 7, None).count("o")
+        1
+
+    """
+    text: AnyStr
+    start: int
+    end: int
+
+    def __post_init__(self):
+        if not isinstance(self.text, (str, bytes)):
+            raise TypeError("text must be str or bytes")
+
+        if self.start < 0:
+            object.__setattr__(self, 'start', self.start + len(self.text))
+            assert self.start >=0
+
+        if self.end is None:
+            object.__setattr__(self, 'end', len(self.text))
+        elif self.end < 0:
+            object.__setattr__(self, 'end', self.end + len(self.text))
+            assert self.end <= len(self.text)
+
+    @classmethod
+    def cast_from(cls, text: 'TextOrSlice') -> 'TextSlice[AnyStr]':
+        if isinstance(text, TextSlice):
+            return text
+
+        return cls(text, 0, len(text))
+
+    def is_complete_text(self):
+        return self.start == 0 and self.end == len(self.text)
+
+    def __len__(self):
+        return self.end - self.start
+
+    def count(self, substr: AnyStr):
+        return self.text.count(substr, self.start, self.end)
+
+    def rindex(self, substr: AnyStr):
+        return self.text.rindex(substr, self.start, self.end)
+
+
+TextOrSlice = Union[AnyStr, 'TextSlice[AnyStr]']
+LarkInput = Union[AnyStr, TextSlice[AnyStr], Any]
 
 ###}
 
@@ -184,15 +254,11 @@ def is_id_start(s: str) -> bool:
     return _test_unicode_category(s, _ID_START)
 
 
-def dedup_list(l: Sequence[T]) -> List[T]:
+def dedup_list(l: Iterable[T]) -> List[T]:
     """Given a list (l) will removing duplicates from the list,
        preserving the original order of the list. Assumes that
        the list entries are hashable."""
-    dedup = set()
-    # This returns None, but that's expected
-    return [x for x in l if not (x in dedup or dedup.add(x))]  # type: ignore[func-returns-value]
-    # 2x faster (ordered in PyPy and CPython 3.6+, guaranteed to be ordered in Python 3.7+)
-    # return list(dict.fromkeys(l))
+    return list(dict.fromkeys(l))
 
 
 class Enumerator(Serialize):
@@ -234,8 +300,7 @@ def combine_alternatives(lists):
     return list(product(*lists))
 
 try:
-    # atomicwrites doesn't have type bindings
-    import atomicwrites     # type: ignore[import]
+    import atomicwrites
     _has_atomicwrites = True
 except ImportError:
     _has_atomicwrites = False
@@ -249,19 +314,6 @@ class FS:
             return atomicwrites.atomic_write(name, mode=mode, overwrite=True, **kwargs)
         else:
             return open(name, mode, **kwargs)
-
-
-
-def isascii(s: str) -> bool:
-    """ str.isascii only exists in python3.7+ """
-    if sys.version_info >= (3, 7):
-        return s.isascii()
-    else:
-        try:
-            s.encode('ascii')
-            return True
-        except (UnicodeDecodeError, UnicodeEncodeError):
-            return False
 
 
 class fzset(frozenset):
@@ -359,3 +411,6 @@ class OrderedSet(AbstractSet[T]):
 
     def __len__(self) -> int:
         return len(self.d)
+
+    def __repr__(self):
+        return f"{type(self).__name__}({', '.join(map(repr,self))})"

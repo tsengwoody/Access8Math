@@ -1,9 +1,11 @@
 .claude
 .codex
 .gemini
+.worktrees/
 addon/doc/*.css
 addon/doc/en/
 openspec
+source_package
 *_docHandler.py
 *.html
 manifest.ini

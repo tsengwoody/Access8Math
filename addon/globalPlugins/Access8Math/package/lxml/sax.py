@@ -1,5 +1,3 @@
-# cython: language_level=2
-
 """
 SAX-based adapter to copy trees from/to the Python standard library.
 
@@ -18,6 +16,13 @@ from lxml import etree
 from lxml.etree import ElementTree, SubElement
 from lxml.etree import Comment, ProcessingInstruction
 
+try:
+    from types import GenericAlias as _GenericAlias
+except ImportError:
+    # Python 3.8 - we only need this as return value from "__class_getitem__"
+    def _GenericAlias(cls, item):
+        return f"{cls.__name__}[{item.__name__}]"
+
 
 class SaxError(etree.LxmlError):
     """General SAX error.
@@ -25,7 +30,7 @@ class SaxError(etree.LxmlError):
 
 
 def _getNsTag(tag):
-    if tag[0] == '{':
+    if tag[0] == '{' and '}' in tag:
         return tuple(tag[1:].split('}', 1))
     else:
         return None, tag
@@ -145,12 +150,17 @@ class ElementTreeContentHandler(ContentHandler):
         try:
             # if there already is a child element, we must append to its tail
             last_element = last_element[-1]
-            last_element.tail = (last_element.tail or '') + data
         except IndexError:
             # otherwise: append to the text
             last_element.text = (last_element.text or '') + data
+        else:
+            last_element.tail = (last_element.tail or '') + data
 
     ignorableWhitespace = characters
+
+    # Allow subscripting sax.ElementTreeContentHandler in type annotions (PEP 560)
+    def __class_getitem__(cls, item):
+        return _GenericAlias(cls, item)
 
 
 class ElementTreeProducer:

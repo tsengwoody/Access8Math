@@ -2,7 +2,7 @@ import copy
 import enum
 import re
 from collections import OrderedDict
-from typing import Dict, Iterable, Iterator, List, Optional, Tuple
+from typing import Iterable, Iterator, Optional
 from xml.etree.cElementTree import Element, SubElement, tostring
 from xml.sax.saxutils import unescape
 
@@ -31,8 +31,11 @@ OPERATORS = (
     r">",
     r"<",
     r".",
+    r"\ast",
     r"\bigotimes",
+    r"\cdot",
     r"\centerdot",
+    r"\div",
     r"\dots",
     r"\dotsc",
     r"\dotso",
@@ -51,6 +54,7 @@ OPERATORS = (
     r"\smallint",
     r"\smallsmile",
     r"\surd",
+    r"\times",
     r"\varsubsetneqq",
     r"\varsupsetneqq",
 )
@@ -82,7 +86,7 @@ def convert_to_element(
     attrib = {"xmlns": xmlns, "display": display}
     math = Element(tag, attrib) if parent is None else SubElement(parent, tag, attrib)
     row = SubElement(math, "mrow")
-    _convert_group(iter(walk(latex)), row)
+    _convert_group(iter(walk(latex, display)), row)
     return math
 
 
@@ -102,7 +106,7 @@ def _convert_matrix(nodes: Iterator[Node], parent: Element, command: str, alignm
     row_index = 0
     row_lines = []
 
-    hfil_indexes: List[bool] = []
+    hfil_indexes: list[bool] = []
 
     for node in nodes:
         if row is None:
@@ -159,7 +163,7 @@ def _convert_matrix(nodes: Iterator[Node], parent: Element, command: str, alignm
         parent.set("columnspacing", " ".join(spacing * multiplier))
 
 
-def _set_cell_alignment(cell: Element, hfil_indexes: List[bool]) -> None:
+def _set_cell_alignment(cell: Element, hfil_indexes: list[bool]) -> None:
     if cell is not None and any(hfil_indexes) and len(hfil_indexes) > 1:
         if hfil_indexes[0] and not hfil_indexes[-1]:
             cell.attrib["columnalign"] = "right"
@@ -169,7 +173,7 @@ def _set_cell_alignment(cell: Element, hfil_indexes: List[bool]) -> None:
 
 def _get_column_alignment(
     alignment: Optional[str], column_alignment: Optional[str], column_index: int
-) -> Tuple[Optional[str], int]:
+) -> tuple[Optional[str], int]:
     if alignment:
         try:
             column_alignment = COLUMN_ALIGNMENT_MAP.get(alignment[column_index])
@@ -185,7 +189,7 @@ def _make_matrix_cell(row: Element, column_alignment: Optional[str]) -> Element:
     return SubElement(row, "mtd")
 
 
-def _convert_group(nodes: Iterable[Node], parent: Element, font: Optional[Dict[str, Optional[str]]] = None) -> None:
+def _convert_group(nodes: Iterable[Node], parent: Element, font: Optional[dict[str, Optional[str]]] = None) -> None:
     _font = font
     for node in nodes:
         token = node.token
@@ -208,7 +212,7 @@ def _convert_group(nodes: Iterable[Node], parent: Element, font: Optional[Dict[s
             _convert_group(iter(node.children), _row, _font)
 
 
-def _get_alignment_and_column_lines(alignment: Optional[str] = None) -> Tuple[Optional[str], Optional[str]]:
+def _get_alignment_and_column_lines(alignment: Optional[str] = None) -> tuple[Optional[str], Optional[str]]:
     if alignment is None:
         return None, None
     if "|" not in alignment:
@@ -225,7 +229,7 @@ def _get_alignment_and_column_lines(alignment: Optional[str] = None) -> Tuple[Op
     return _alignment, " ".join(column_lines)
 
 
-def separate_by_mode(text: str) -> Iterator[Tuple[str, Mode]]:
+def separate_by_mode(text: str) -> Iterator[tuple[str, Mode]]:
     string = ""
     is_math_mode = False
     for match in MATH_MODE_PATTERN.findall(text):
@@ -240,7 +244,7 @@ def separate_by_mode(text: str) -> Iterator[Tuple[str, Mode]]:
     # TODO: if stays in math mode, means not terminated properly, raise error
 
 
-def _convert_command(node: Node, parent: Element, font: Optional[Dict[str, Optional[str]]] = None) -> None:
+def _convert_command(node: Node, parent: Element, font: Optional[dict[str, Optional[str]]] = None) -> None:
     command = node.token
     modifier = node.modifier
 
@@ -345,11 +349,13 @@ def _convert_command(node: Node, parent: Element, font: Optional[Dict[str, Optio
                 p = SubElement(_parent, "mstyle", displaystyle="false", scriptlevel="0")
                 _convert_group(iter([child]), p, font)
         elif command == commands.SIDESET:
-            Node(
-                r"\style",
-                children=(Node(r"\mspace", attributes={"width": "-0.167em"}),),
-                attributes={"scriptlevel": "0"},
-            ),
+            (
+                Node(
+                    r"\style",
+                    children=(Node(r"\mspace", attributes={"width": "-0.167em"}),),
+                    attributes={"scriptlevel": "0"},
+                ),
+            )
             left, right = node.children
             _convert_group(iter([left]), _parent, font)
             fill = SubElement(_parent, "mstyle", scriptlevel="0")
@@ -393,7 +399,7 @@ def _add_diacritic(command: str, parent: Element) -> None:
         element.text = text
 
 
-def _convert_and_append_command(command: str, parent: Element, attributes: Optional[Dict[str, str]] = None) -> None:
+def _convert_and_append_command(command: str, parent: Element, attributes: Optional[dict[str, str]] = None) -> None:
     code_point = convert_symbol(command)
     mo = SubElement(parent, "mo", attributes if attributes is not None else {})
     mo.text = "&#x{};".format(code_point) if code_point else command
@@ -443,7 +449,7 @@ def _append_postfix_element(node: Node, parent: Element) -> None:
         SubElement(parent, "mspace", width="-" + node.attributes["width"])
 
 
-def _convert_symbol(node: Node, parent: Element, font: Optional[Dict[str, Optional[str]]] = None) -> None:
+def _convert_symbol(node: Node, parent: Element, font: Optional[dict[str, Optional[str]]] = None) -> None:
     token = node.token
     attributes = node.attributes or {}
     symbol = convert_symbol(token)
@@ -552,7 +558,7 @@ def _convert_symbol(node: Node, parent: Element, font: Optional[Dict[str, Option
         _set_font(element, element.tag, font)
 
 
-def _set_font(element: Element, key: str, font: Optional[Dict[str, Optional[str]]]) -> None:
+def _set_font(element: Element, key: str, font: Optional[dict[str, Optional[str]]]) -> None:
     if font is None:
         return
     _font = font[key]

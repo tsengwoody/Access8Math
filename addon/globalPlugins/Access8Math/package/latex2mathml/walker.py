@@ -1,4 +1,4 @@
-from typing import Any, Dict, Iterator, List, NamedTuple, Optional, Tuple
+from typing import Any, Iterator, NamedTuple, Optional
 
 from latex2mathml import commands
 from latex2mathml.exceptions import (
@@ -21,21 +21,22 @@ from latex2mathml.tokenizer import tokenize
 
 class Node(NamedTuple):
     token: str
-    children: Optional[Tuple[Any, ...]] = None
+    children: Optional[tuple[Any, ...]] = None
     delimiter: Optional[str] = None
     alignment: Optional[str] = None
     text: Optional[str] = None
-    attributes: Optional[Dict[str, str]] = None
+    attributes: Optional[dict[str, str]] = None
     modifier: Optional[str] = None
 
 
-def walk(data: str) -> List[Node]:
+def walk(data: str, display: str = "inline") -> list[Node]:
     tokens = tokenize(data)
-    return _walk(tokens)
+    block = display == "block"
+    return _walk(tokens, block=block)
 
 
-def _walk(tokens: Iterator[str], terminator: Optional[str] = None, limit: int = 0) -> List[Node]:
-    group: List[Node] = []
+def _walk(tokens: Iterator[str], terminator: Optional[str] = None, limit: int = 0, block: bool = False) -> list[Node]:
+    group: list[Node] = []
     token: str
     has_available_tokens = False
     for token in tokens:
@@ -83,6 +84,9 @@ def _walk(tokens: Iterator[str], terminator: Optional[str] = None, limit: int = 
                         raise LimitsMustFollowMathOperatorError
                 except IndexError:
                     raise LimitsMustFollowMathOperatorError
+            elif block and previous.token in (commands.SUMMATION, commands.PRODUCT):
+                # block summation and product should result in limited sub/sup
+                modifier = commands.LIMITS
 
             if token == commands.SUBSCRIPT and previous.token == commands.SUPERSCRIPT and previous.children is not None:
                 children = tuple(_walk(tokens, terminator=terminator, limit=1))
@@ -378,7 +382,7 @@ def _walk(tokens: Iterator[str], terminator: Optional[str] = None, limit: int = 
     return group
 
 
-def _make_subsup(node: Node) -> Tuple[str, Tuple[Node, ...]]:
+def _make_subsup(node: Node) -> tuple[str, tuple[Node, ...]]:
     # TODO: raise error instead of assertion
     assert node.token == commands.BRACES
     try:

@@ -149,7 +149,18 @@ static PyObject* PyBytes_FromFormat(const char* format, ...) {
 #  define HTML_PARSE_NODEFDTD 4
 #endif
 #if LIBXML_VERSION < 20900
-#  define XML_PARSE_BIG_LINES 4194304
+#  define XML_PARSE_BIG_LINES 0x400000
+#endif
+#if LIBXML_VERSION < 21300
+#  define XML_PARSE_NO_XXE 0x800000
+#endif
+#if LIBXML_VERSION < 21400
+#  define XML_PARSE_UNZIP 0x1000000
+#  define XML_PARSE_NO_SYS_CATALOG 0x2000000
+#  define XML_PARSE_CATALOG_PI 0x4000000
+#endif
+#if LIBXML_VERSION < 21500
+#  define XML_PARSE_SKIP_IDS 0x8000000
 #endif
 
 #include "libxml/tree.h"
@@ -157,6 +168,10 @@ static PyObject* PyBytes_FromFormat(const char* format, ...) {
    typedef xmlBuffer xmlBuf;
 #  define xmlBufContent(buf) xmlBufferContent(buf)
 #  define xmlBufUse(buf) xmlBufferLength(buf)
+#endif
+
+#if LIBXML_VERSION < 21500
+#  define xmlCtxtIsStopped(p_ctxt)  ((p_ctxt)->disableSAX != 0)
 #endif
 
 /* libexslt 1.1.25+ support EXSLT functions in XPath */
@@ -177,7 +192,7 @@ long _ftol2( double dblSource ) { return _ftol( dblSource ); }
 
 #ifdef __GNUC__
 /* Test for GCC > 2.95 */
-#if __GNUC__ > 2 || (__GNUC__ == 2 && (__GNUC_MINOR__ > 95)) 
+#if __GNUC__ > 2 || (__GNUC__ == 2 && (__GNUC_MINOR__ > 95))
 #define unlikely_condition(x) __builtin_expect((x), 0)
 #else /* __GNUC__ > 2 ... */
 #define unlikely_condition(x) (x)
@@ -189,10 +204,6 @@ long _ftol2( double dblSource ) { return _ftol( dblSource ); }
 #ifndef Py_TYPE
   #define Py_TYPE(ob)   (((PyObject*)(ob))->ob_type)
 #endif
-
-#define PY_NEW(T) \
-     (((PyTypeObject*)(T))->tp_new( \
-             (PyTypeObject*)(T), __pyx_empty_tuple, NULL))
 
 #define _fqtypename(o)  ((Py_TYPE(o))->tp_name)
 
@@ -268,7 +279,7 @@ static void* lxml_unpack_xmldoc_capsule(PyObject* capsule, int* is_owned) {
  * 'inclusive' is 1).  The _ELEMENT_ variants will only stop on nodes
  * that match _isElement(), the normal variant will stop on every node
  * except text nodes.
- * 
+ *
  * To traverse the node and all of its children and siblings in Pyrex, call
  *    cdef xmlNode* some_node
  *    BEGIN_FOR_EACH_ELEMENT_FROM(some_node.parent, some_node, 1)

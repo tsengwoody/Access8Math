@@ -15,7 +15,7 @@ from collections import deque
 from ..lexer import Token
 from ..tree import Tree
 from ..exceptions import UnexpectedEOF, UnexpectedToken
-from ..utils import logger, OrderedSet
+from ..utils import logger, OrderedSet, dedup_list
 from .grammar_analysis import GrammarAnalyzer
 from ..grammar import NonTerminal
 from .earley_common import Item
@@ -75,7 +75,7 @@ class Parser:
         self.term_matcher = term_matcher
 
 
-    def predict_and_complete(self, i, to_scan, columns, transitives):
+    def predict_and_complete(self, i, to_scan, columns, transitives, node_cache):
         """The core Earley Predictor and Completer.
 
         At each stage of the input, we handling any completed items (things
@@ -84,7 +84,6 @@ class Parser:
         non-terminals are recursively processed until we reach a set of,
         which can be added to the scan list for the next scanner cycle."""
         # Held Completions (H in E.Scotts paper).
-        node_cache = {}
         held_completions = {}
 
         column = columns[i]
@@ -169,6 +168,7 @@ class Parser:
                         items.append(new_item)
 
     def _parse(self, lexer, columns, to_scan, start_symbol=None):
+
         def is_quasi_complete(item):
             if item.is_complete:
                 return True
@@ -202,7 +202,7 @@ class Parser:
             for item in self.Set(to_scan):
                 if match(item.expect, token):
                     new_item = item.advance()
-                    label = (new_item.s, new_item.start, i)
+                    label = (new_item.s, new_item.start, i + 1)
                     # 'terminals' may not contain token.type when using %declare
                     # Additionally, token is not always a Token
                     # For example, it can be a Tree when using TreeMatcher
@@ -226,7 +226,7 @@ class Parser:
                 expect = {i.expect.name for i in to_scan}
                 raise UnexpectedToken(token, expect, considered_rules=set(to_scan), state=frozenset(i.s for i in to_scan))
 
-            return next_to_scan
+            return next_to_scan, node_cache
 
 
         # Define parser functions
@@ -244,16 +244,17 @@ class Parser:
         # step.
         expects = {i.expect for i in to_scan}
         i = 0
+        node_cache = {}
         for token in lexer.lex(expects):
-            self.predict_and_complete(i, to_scan, columns, transitives)
+            self.predict_and_complete(i, to_scan, columns, transitives, node_cache)
 
-            to_scan = scan(i, token, to_scan)
+            to_scan, node_cache = scan(i, token, to_scan)
             i += 1
 
             expects.clear()
             expects |= {i.expect for i in to_scan}
 
-        self.predict_and_complete(i, to_scan, columns, transitives)
+        self.predict_and_complete(i, to_scan, columns, transitives, node_cache)
 
         ## Column is now the final column in the parse.
         assert i == len(columns)-1
@@ -281,10 +282,13 @@ class Parser:
         # If the parse was successful, the start
         # symbol should have been completed in the last step of the Earley cycle, and will be in
         # this column. Find the item for the start_symbol, which is the root of the SPPF tree.
-        solutions = [n.node for n in columns[-1] if n.is_complete and n.node is not None and n.s == start_symbol and n.start == 0]
+        solutions = dedup_list(n.node for n in columns[-1] if n.is_complete and n.node is not None and n.s == start_symbol and n.start == 0)
         if not solutions:
             expected_terminals = [t.expect.name for t in to_scan]
             raise UnexpectedEOF(expected_terminals, state=frozenset(i.s for i in to_scan))
+        if len(solutions) > 1:
+            raise RuntimeError('Earley should not generate multiple start symbol items! Please report this bug.')
+        solution ,= solutions
 
         if self.debug:
             from .earley_forest import ForestToPyDotVisitor
@@ -293,16 +297,16 @@ class Parser:
             except ImportError:
                 logger.warning("Cannot find dependency 'pydot', will not generate sppf debug image")
             else:
-                debug_walker.visit(solutions[0], "sppf.png")
+                debug_walker.visit(solution, "sppf.png")
 
-
-        if len(solutions) > 1:
-            assert False, 'Earley should not generate multiple start symbol items!'
 
         if self.Tree is not None:
             # Perform our SPPF -> AST conversion
-            transformer = ForestToParseTree(self.Tree, self.callbacks, self.forest_sum_visitor and self.forest_sum_visitor(), self.resolve_ambiguity)
-            return transformer.transform(solutions[0])
+            # Disable the ForestToParseTree cache when ambiguity='resolve'
+            # to prevent a tree construction bug. See issue #1283
+            use_cache = not self.resolve_ambiguity
+            transformer = ForestToParseTree(self.Tree, self.callbacks, self.forest_sum_visitor and self.forest_sum_visitor(), self.resolve_ambiguity, use_cache)
+            return transformer.transform(solution)
 
         # return the root of the SPPF
-        return solutions[0]
+        return solution

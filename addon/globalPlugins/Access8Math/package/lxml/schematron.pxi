@@ -69,9 +69,6 @@ cdef class Schematron(_Validator):
     """
     cdef schematron.xmlSchematron* _c_schema
     cdef xmlDoc* _c_schema_doc
-    def __cinit__(self):
-        self._c_schema = NULL
-        self._c_schema_doc = NULL
 
     def __init__(self, etree=None, *, file=None):
         cdef _Document doc
@@ -83,6 +80,14 @@ cdef class Schematron(_Validator):
         if not config.ENABLE_SCHEMATRON:
             raise SchematronError, \
                 "lxml.etree was compiled without Schematron support."
+
+        import warnings
+        warnings.warn(
+            "The (non-ISO) Schematron feature is deprecated and will be removed from libxml2 and lxml. "
+            "Use 'lxml.isoschematron' instead.",
+            DeprecationWarning,
+        )
+
         if etree is not None:
             doc = _documentOrRaise(etree)
             root_node = _rootNodeOrRaise(etree)
