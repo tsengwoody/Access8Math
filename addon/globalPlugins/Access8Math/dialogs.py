@@ -273,46 +273,6 @@ class DocumentSettingsPanel(A8MSettingsPanel):
 				"ueb": _("UEB"),
 			}
 		},
-		"HTML_document_display": {
-			# Translators: The label of an option in the writing settings dialog
-			"label": _("HTML &document display:"),
-			"options": {
-				# Translators: A choice of a combobox in the writing settings dialog
-				"markdown": _("Markdown"),
-				# Translators: A choice of a combobox in the writing settings dialog
-				"text": _("text"),
-			}
-		},
-		"HTML_math_display": {
-			# Translators: The label of an option in the writing settings dialog
-			"label": _("HTML &math display:"),
-			"options": {
-				# Translators: A choice of a combobox in the writing settings dialog
-				"block": _("block"),
-				# Translators: A choice of a combobox in the writing settings dialog
-				"inline": _("inline"),
-			}
-		},
-		"color": {
-			# Translators: The label of an option in the writing settings dialog
-			"label": _("HTML font color:"),
-			"options": {
-				# Translators: A choice of a combobox in the writing settings dialog
-				"#ffffff": _("white"),
-				# Translators: A choice of a combobox in the writing settings dialog
-				"#000000": _("black"),
-			}
-		},
-		"bg_color": {
-			# Translators: The label of an option in the writing settings dialog
-			"label": _("HTML background color:"),
-			"options": {
-				# Translators: A choice of a combobox in the writing settings dialog
-				"#ffffff": _("white"),
-				# Translators: A choice of a combobox in the writing settings dialog
-				"#000000": _("black"),
-			}
-		},
 	})
 	field = "settings"
 

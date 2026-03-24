@@ -198,8 +198,6 @@ class Access8MathDocument:
 		metadata.update({
 			"title": self.title,
 			"entry": self.raw_entry,
-			"documentDisplay": config.conf["Access8Math"]["settings"]["HTML_document_display"],
-			"display": config.conf["Access8Math"]["settings"]["HTML_math_display"],
 			"latexDelimiter": config.conf["Access8Math"]["settings"]["LaTeX_delimiter"],
 		})
 		with open(metadata_file, 'w', encoding='utf8') as f:
@@ -291,10 +289,6 @@ def text2template(src, dst, title=None):
 		'data': data,
 		'raw': raw,
 		'LaTeX_delimiter': config.conf["Access8Math"]["settings"]["LaTeX_delimiter"],
-		'document_display': config.conf["Access8Math"]["settings"]["HTML_document_display"],
-		'display': config.conf["Access8Math"]["settings"]["HTML_math_display"],
-		'color': config.conf["Access8Math"]["settings"]["color"],
-		'bg_color': config.conf["Access8Math"]["settings"]["bg_color"],
 	})
 	with open(dst, "w", encoding="utf8", newline="") as f:
 		f.write(content)
