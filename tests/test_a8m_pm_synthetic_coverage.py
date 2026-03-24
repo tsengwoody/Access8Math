@@ -198,9 +198,9 @@ class TestA8MPMSyntheticCoverage(unittest.TestCase):
 		if PLUGIN_ROOT not in sys.path:
 			sys.path.insert(0, PLUGIN_ROOT)
 		for name in list(sys.modules):
-			if name == "A8M_PM" or name.startswith("A8M_PM."):
+			if name in {"A8M_PM", "reader"} or name.startswith("A8M_PM.") or name.startswith("reader."):
 				sys.modules.pop(name, None)
-		self.module = importlib.import_module("A8M_PM")
+		self.module = importlib.import_module("reader")
 		config = {
 			"settings": {"analyze_math_meaning": True},
 			"rules": {nodetype.__name__: True for nodetype in self.module.nodetypes},

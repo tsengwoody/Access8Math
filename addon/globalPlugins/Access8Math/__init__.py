@@ -94,7 +94,7 @@ config.conf.spec["Access8Math"] = {
 	}
 }
 
-import A8M_PM
+import reader as math_reader
 from .command.context import A8MFEVContextMenuView
 from .dialogs import NewLanguageAddingDialog, UnicodeDicDialog, MathRuleDialog, MathReaderSettingsPanel, Access8MathSettingsDialog
 from .editor import EditorFrame
@@ -225,9 +225,9 @@ def disableInSecureMode(decoratedCls):
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self, *args, **kwargs):
 		language = config.conf["Access8Math"]["settings"]["language"]
-		if not A8M_PM.exist_language(language):
+		if not math_reader.exist_language(language):
 			language = getWindowsLanguage()
-		if not A8M_PM.exist_language(language):
+		if not math_reader.exist_language(language):
 			language = "en"
 		config.conf["Access8Math"]["settings"]["language"] = language
 
@@ -235,7 +235,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		latexData.initialize()
 		super().__init__(*args, **kwargs)
 
-		A8M_PM.initialize(config.conf["Access8Math"])
+		math_reader.initialize(config.conf["Access8Math"])
 
 		self.language = config.conf["Access8Math"]["settings"]["language"]
 		self.create_menu()
@@ -435,7 +435,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			dst = entryDialog.GetPath()
 		if dst.endswith(".zip"):
 			dst = dst[:-4]
-		A8M_PM.export_language(config.conf["Access8Math"]["settings"]["language"], dst)
+		math_reader.export_language(config.conf["Access8Math"]["settings"]["language"], dst)
 
 	def onCleanWorkspace(self, evt):
 		for item in [
@@ -447,7 +447,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			except BaseException:
 				pass
 
-		A8M_PM.clean_user_data()
+		math_reader.clean_user_data()
 
 		gui.messageBox(_("Workspace has already been cleaned"), _("Clean Workspace"), wx.OK)
 

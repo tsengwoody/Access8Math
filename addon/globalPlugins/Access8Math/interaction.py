@@ -17,8 +17,8 @@ import textInfos
 import tones
 import ui
 
-import A8M_PM
-from A8M_PM import MathContent
+import reader
+from reader import MathContent
 from lib.braille import display_braille
 from lib.mathProcess import mathml2latex
 from output import translate_Braille, translate_SpeechCommand_CapNotification, translate_Unicode
@@ -313,9 +313,9 @@ class A8MInteraction(Window):
 
 		speech.speak(self.mathcontent.hint)
 		if self.mathcontent.pointer.parent:
-			if config.conf["Access8Math"]["settings"]["auto_generate"] and self.mathcontent.pointer.parent.role_level == A8M_PM.AUTO_GENERATE:
+			if config.conf["Access8Math"]["settings"]["auto_generate"] and self.mathcontent.pointer.parent.role_level == reader.AUTO_GENERATE:
 				speech.speak([self.mathcontent.pointer.des])
-			elif self.mathcontent.pointer.parent.role_level == A8M_PM.DIC_GENERATE:
+			elif self.mathcontent.pointer.parent.role_level == reader.DIC_GENERATE:
 				speech.speak([self.mathcontent.pointer.des])
 		else:
 			speech.speak([self.mathcontent.pointer.des])

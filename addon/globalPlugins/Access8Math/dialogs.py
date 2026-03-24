@@ -18,8 +18,8 @@ from mathPres.mathPlayer import MathPlayer
 import queueHandler
 import tones
 
-import A8M_PM
-from A8M_PM import MathContent
+import reader
+from reader import MathContent
 
 addonHandler.initTranslation()
 
@@ -86,7 +86,7 @@ class A8MSettingsPanel(SettingsPanel):
 					config.conf["Access8Math"][self.field][k] = True
 			tones.beep(100, 100)
 
-		A8M_PM.initialize(config.conf["Access8Math"])
+		reader.initialize(config.conf["Access8Math"])
 
 
 class MathReaderSettingsPanel(A8MSettingsPanel):
@@ -147,7 +147,7 @@ class ReadingSettingsPanel(A8MSettingsPanel):
 
 	def makeSettings(self, settingsSizer):
 		try:
-			available_languages = A8M_PM.available_languages()
+			available_languages = reader.available_languages()
 		except BaseException:
 			available_languages = []
 		map = dict(languageHandler.getAvailableLanguages())
@@ -218,7 +218,7 @@ class ReadingSettingsPanel(A8MSettingsPanel):
 					config.conf["Access8Math"][self.field][k] = True
 			tones.beep(100, 100)
 
-		A8M_PM.initialize(config.conf["Access8Math"])
+		reader.initialize(config.conf["Access8Math"])
 
 
 class WritingSettingsPanel(A8MSettingsPanel):
@@ -494,7 +494,7 @@ class UnicodeDicDialog(SettingsDialog):
 			title=title,
 		)
 
-		self.A8M_symbol = A8M_PM.load_unicode_dic(language=self.language, category=self.category)
+		self.A8M_symbol = reader.load_unicode_dic(language=self.language, category=self.category)
 
 		super().__init__(
 			parent,
@@ -729,11 +729,11 @@ class UnicodeDicDialog(SettingsDialog):
 			self.A8M_symbol[symbol.displayName] = symbol.replacement
 
 		try:
-			A8M_PM.save_unicode_dic(self.A8M_symbol, language=self.language, category=self.category)
+			reader.save_unicode_dic(self.A8M_symbol, language=self.language, category=self.category)
 		except IOError as e:
 			log.error("Error saving user unicode dictionary: %s" % e)
 
-		A8M_PM.initialize(self.Access8MathConfig)
+		reader.initialize(self.Access8MathConfig)
 
 		super().onOk(evt)
 
@@ -748,7 +748,7 @@ class UnicodeDicDialog(SettingsDialog):
 		evt.Skip()
 
 	def load(self, path):
-		data = A8M_PM.load_unicode_dic(path=path)
+		data = reader.load_unicode_dic(path=path)
 		if len(data) == 0:
 			return
 		self.A8M_symbol = data
@@ -757,13 +757,13 @@ class UnicodeDicDialog(SettingsDialog):
 		self.filter()
 
 	def save(self, path, symbol):
-		A8M_PM.save_unicode_dic(symbol, path=path)
+		reader.save_unicode_dic(symbol, path=path)
 
 	def OnRestoreDefaultClick(self, evt):
 		self.onSymbolEdited()
 		self.editingItem = None
 
-		path = os.path.join(A8M_PM.LOCALE_DIR, self.language, self.category)
+		path = os.path.join(reader.LOCALE_DIR, self.language, self.category)
 
 		self.load(os.path.join(path, "unicode.dic"))
 
@@ -916,7 +916,7 @@ class MathRuleDialog(SettingsDialog):
 			title=title,
 		)
 
-		self.A8M_mathrule = A8M_PM.load_math_rule(language=self.language, category=self.category)
+		self.A8M_mathrule = reader.load_math_rule(language=self.language, category=self.category)
 		self.mathrules = [(k, v) for k, v in self.A8M_mathrule.items() if k not in ['node', 'none']]
 
 		super().__init__(parent)
@@ -978,7 +978,7 @@ class MathRuleDialog(SettingsDialog):
 		self.mathrulesList.SetFocus()
 
 	def load(self, path):
-		self.A8M_mathrule = A8M_PM.load_math_rule(path)
+		self.A8M_mathrule = reader.load_math_rule(path)
 
 		self.mathrules = [(k, v) for k, v in self.A8M_mathrule.items() if k not in ['node', 'none']]
 		self.refresh()
@@ -986,7 +986,7 @@ class MathRuleDialog(SettingsDialog):
 		return True
 
 	def save(self, path, mathrule):
-		A8M_PM.save_math_rule(mathrule, path=path)
+		reader.save_math_rule(mathrule, path=path)
 		return True
 
 	def clear(self):
@@ -1035,7 +1035,7 @@ class MathRuleDialog(SettingsDialog):
 		vw.setFocus()
 
 	def OnRestoreDefaultClick(self, evt):
-		path = os.path.join(A8M_PM.LOCALE_DIR, self.language, self.category)
+		path = os.path.join(reader.LOCALE_DIR, self.language, self.category)
 		self.clear()
 		self.load(os.path.join(path, "math.rule"))
 
@@ -1070,7 +1070,7 @@ class MathRuleDialog(SettingsDialog):
 		temp['none'] = self.A8M_mathrule['none']
 
 		try:
-			A8M_PM.save_math_rule(temp, path=pathname)
+			reader.save_math_rule(temp, path=pathname)
 		except IOError as e:
 			log.error("Error saving user unicode dictionary: %s" % e)
 
@@ -1079,11 +1079,11 @@ class MathRuleDialog(SettingsDialog):
 			self.A8M_mathrule[key] = mathrule
 
 		try:
-			A8M_PM.save_math_rule(self.A8M_mathrule, language=self.language, category=self.category)
+			reader.save_math_rule(self.A8M_mathrule, language=self.language, category=self.category)
 		except IOError as e:
 			log.error("Error saving user unicode dictionary: %s" % e)
 
-		A8M_PM.initialize(self.Access8MathConfig)
+		reader.initialize(self.Access8MathConfig)
 
 		super().onOk(evt)
 
@@ -1095,7 +1095,7 @@ class NewLanguageAddingDialog(wx.Dialog):
 		self.mainSizer = wx.BoxSizer(wx.VERTICAL)
 		self.sHelper = guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 
-		exist_languages = A8M_PM.available_languages()
+		exist_languages = reader.available_languages()
 		self.languageNames = languageHandler.getAvailableLanguages()
 		self.languageNames = [x for x in self.languageNames if not x[0] in exist_languages and x[0] != "Windows"]
 		languageChoices = [x[1] for x in self.languageNames]
@@ -1143,7 +1143,7 @@ class NewLanguageAddingDialog(wx.Dialog):
 		self.languageIndex = self.languageList.Selection
 		self.certainLanguage = self.languageNames[self.languageIndex][0]
 
-		A8M_PM.add_language(self.certainLanguage)
+		reader.add_language(self.certainLanguage)
 
 		self.languageList.Clear()
 		self.languageList.Append(self.languageNames[self.languageIndex][1])
@@ -1160,7 +1160,7 @@ class NewLanguageAddingDialog(wx.Dialog):
 		self.SetSizer(self.mainSizer)
 
 	def OnUncertainClick(self, evt):
-		A8M_PM.remove_language(self.certainLanguage)
+		reader.remove_language(self.certainLanguage)
 
 		self.certainLanguage = None
 
