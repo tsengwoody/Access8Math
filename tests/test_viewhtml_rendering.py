@@ -68,6 +68,22 @@ class TestViewHTMLRendering(unittest.TestCase):
 		payload = rendered[len(prefix):].strip()
 		return json.loads(payload)
 
+	def _document_resources(self, source_text, title="Spec Title"):
+		from lib.viewHTML import Access8MathDocument
+
+		with tempfile.TemporaryDirectory() as temp_dir:
+			src = os.path.join(temp_dir, "input.txt")
+			metadata = os.path.join(temp_dir, "Access8Math.json")
+			with open(src, "w", encoding="utf8") as file:
+				file.write(source_text)
+			with open(metadata, "w", encoding="utf8") as file:
+				json.dump({
+					"entry": "input.txt",
+					"title": title,
+				}, file)
+			document = Access8MathDocument(path=temp_dir)
+			return document.resources
+
 	def test_text2template_preserves_multiline_source_text(self):
 		rendered = self._render("line1\nline2\nline3")
 		config = self._extract_config(rendered)
@@ -91,6 +107,30 @@ class TestViewHTMLRendering(unittest.TestCase):
 		self.assertIn("latexDelimiter", config)
 		self.assertEqual(config["latexDelimiter"], "bracket")
 		self.assertNotIn("LaTeX_delimiter", config)
+
+	def test_resources_collects_link_targets_from_markdown(self):
+		resources = self._document_resources("[docs](assets/guide/file.txt)")
+		self.assertIn(r"assets\guide\file.txt", resources)
+
+	def test_resources_collects_image_targets_from_markdown(self):
+		resources = self._document_resources("![chart](images/plots/chart.png)")
+		self.assertIn(r"images\plots\chart.png", resources)
+
+	def test_resources_preserves_current_path_normalization(self):
+		resources = self._document_resources(
+			"[docs](assets/guide/file.txt)\n![chart](images/plots/chart.png)"
+		)
+		self.assertEqual(
+			resources,
+			[
+				r"assets\guide\file.txt",
+				r"images\plots\chart.png",
+			],
+		)
+
+	def test_viewhtml_does_not_import_html5lib_for_resource_discovery(self):
+		self._document_resources("[docs](assets/guide/file.txt)")
+		self.assertNotIn("html5lib", sys.modules)
 
 
 if __name__ == "__main__":

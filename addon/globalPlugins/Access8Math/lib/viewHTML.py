@@ -4,6 +4,7 @@ import os
 import re
 import shutil
 import uuid
+from html.parser import HTMLParser
 from zipfile import ZipFile
 
 import addonHandler
@@ -15,11 +16,27 @@ PATH = os.path.dirname(os.path.dirname(__file__))
 TEMPLATES_PATH = os.path.join(PATH, 'web', 'templates')
 CONTENT_CONFIG_PLACEHOLDER = "__CONTEXT__"
 
-import html5lib
 import markdown2
-import xml.etree.ElementTree as etree
 
 from command.action import batch
+
+
+class _ResourceHTMLParser(HTMLParser):
+	def __init__(self):
+		super().__init__()
+		self.resources = []
+
+	def handle_starttag(self, tag, attrs):
+		attrs = dict(attrs)
+		if tag == "a" and "href" in attrs:
+			self.resources.append('\\'.join(attrs["href"].split('/')))
+		elif tag == "img" and "src" in attrs:
+			self.resources.append('\\'.join(attrs["src"].split('/')))
+
+
+def _load_json(path):
+	with open(path, encoding="utf8") as f:
+		return json.load(f)
 
 
 class Access8MathDocument:
@@ -51,7 +68,7 @@ class Access8MathDocument:
 		if os.path.isdir(path):
 			self._raw_folder = path
 			metadata_file = os.path.join(path, 'Access8Math.json')
-			metadata = json.load(open(metadata_file, encoding="utf8"))
+			metadata = _load_json(metadata_file)
 		elif os.path.isfile(path):
 			file = os.path.basename(path)
 			ext = file.split('.')[-1]
@@ -63,7 +80,7 @@ class Access8MathDocument:
 				with ZipFile(path, 'r') as file:
 					file.extractall(self.raw_folder)
 				metadata_file = os.path.join(self.raw_folder, 'Access8Math.json')
-				metadata = json.load(open(metadata_file, encoding="utf8"))
+				metadata = _load_json(metadata_file)
 			else:
 				metadata_file = os.path.join(path, 'Access8Math.json')
 				metadata = {
@@ -122,24 +139,13 @@ class Access8MathDocument:
 		with io.open(os.path.join(self.raw_folder, self.raw_entry), 'r', encoding='utf8') as f:
 			content = f.read()
 		contentmd = markdown2.markdown(content)
-
-		tb = html5lib.getTreeBuilder("etree", implementation=etree)
-		p = html5lib.HTMLParser(tb)
+		parser = _ResourceHTMLParser()
 		try:
-			contentxml = p.parse(contentmd)
+			parser.feed(contentmd)
+			parser.close()
 		except BaseException:
-			contentxml = None
-
-		resources = []
-		if contentxml:
-			for item in contentxml.iter('{http://www.w3.org/1999/xhtml}a'):
-				resource = '\\'.join(item.attrib['href'].split('/'))
-				resources.append(resource)
-			for item in contentxml.iter('{http://www.w3.org/1999/xhtml}img'):
-				resource = '\\'.join(item.attrib['src'].split('/'))
-				resources.append(resource)
-
-		return resources
+			return []
+		return parser.resources
 
 	@property
 	def title(self):
@@ -151,7 +157,7 @@ class Access8MathDocument:
 		# update metadata value
 		path = self.raw_folder
 		metadata_file = os.path.join(path, 'Access8Math.json')
-		metadata = json.load(open(metadata_file, encoding="utf8"))
+		metadata = _load_json(metadata_file)
 		metadata.update({
 			"title": value,
 		})
@@ -171,7 +177,7 @@ class Access8MathDocument:
 			path = self.raw_folder
 			raw_entry = self.raw_entry
 			metadata_file = os.path.join(path, 'Access8Math.json')
-			metadata = json.load(open(metadata_file, encoding="utf8"))
+			metadata = _load_json(metadata_file)
 			metadata.update({
 				"entry": raw_entry,
 			})
@@ -188,7 +194,7 @@ class Access8MathDocument:
 
 		# update metadata value
 		metadata_file = os.path.join(self.a8m_folder, 'Access8Math.json')
-		metadata = json.load(open(metadata_file, encoding="utf8"))
+		metadata = _load_json(metadata_file)
 		metadata.update({
 			"title": self.title,
 			"entry": self.raw_entry,
