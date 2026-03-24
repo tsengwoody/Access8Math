@@ -1,1 +1,1 @@
-window.contentConfig = {"title":"{|{ title }|}","latexDelimiter":"{|{ LaTeX_delimiter }|}","sourceText":`{|{ data }|}`}
+window.contentConfig = __CONTEXT__

@@ -11,15 +11,9 @@ import config
 
 addonHandler.initTranslation()
 
-from jinja2 import Environment, FileSystemLoader
-
 PATH = os.path.dirname(os.path.dirname(__file__))
 TEMPLATES_PATH = os.path.join(PATH, 'web', 'templates')
-env = Environment(
-	loader=FileSystemLoader(TEMPLATES_PATH),
-	variable_start_string='{|{',
-	variable_end_string='}|}'
-)
+CONTENT_CONFIG_PLACEHOLDER = "__CONTEXT__"
 
 import html5lib
 import markdown2
@@ -262,9 +256,6 @@ def text2template(src, dst, title=None):
 		value = f.read()
 		value = batch("nemeth2latex")(value)
 
-	backslash_pattern = re.compile(r"\\")
-	value = backslash_pattern.sub(lambda m: m.group(0).replace('\\', '\\\\'), value)
-
 	decimal_pattern = re.compile(r"&#([\d]+);")
 	value = decimal_pattern.sub(lambda m: chr(int(m.group(1))), value)
 
@@ -280,16 +271,17 @@ def text2template(src, dst, title=None):
 		except BaseException:
 			title = 'Access8Math'
 
-	data = value.replace(r'`', r'\`')
-	# data = data.replace(r'\vec{', r'\overset{⇀}{')
-	raw = data
-	template = env.get_template("index.template")
-	content = template.render({
+	content_config = {
 		'title': title,
-		'data': data,
-		'raw': raw,
-		'LaTeX_delimiter': config.conf["Access8Math"]["settings"]["LaTeX_delimiter"],
-	})
+		'sourceText': value,
+		'latexDelimiter': config.conf["Access8Math"]["settings"]["LaTeX_delimiter"],
+	}
+	with open(os.path.join(TEMPLATES_PATH, "index.template"), "r", encoding="utf8") as f:
+		template = f.read()
+	content = template.replace(
+		CONTENT_CONFIG_PLACEHOLDER,
+		json.dumps(content_config, ensure_ascii=False),
+	)
 	with open(dst, "w", encoding="utf8", newline="") as f:
 		f.write(content)
 	return dst
