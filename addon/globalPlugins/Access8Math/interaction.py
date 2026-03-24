@@ -1,3 +1,4 @@
+from xml.etree.ElementTree import ParseError
 import wx
 
 import addonHandler
@@ -173,8 +174,15 @@ class A8MProvider(mathPres.MathPresentationProvider):
 		"""
 		speechSequence = []
 		if config.conf["Access8Math"]["settings"]["speech_source"] == "Access8Math":
-			mathcontent = MathContent(config.conf["Access8Math"]["settings"]["language"], mathMl)
-			speechSequence = translate_SpeechCommand_CapNotification(mathcontent.pointer.serialized())
+			try:
+				mathcontent = MathContent(config.conf["Access8Math"]["settings"]["language"], mathMl)
+				speechSequence = translate_SpeechCommand_CapNotification(mathcontent.pointer.serialized())
+			except ParseError as error:
+				speechSequence = [_("Illegal MathML")]
+				log.error(f"ParseError in getSpeechForMathMl: {error}\nCaused by MathML:\n{mathMl}")
+			except BaseException as error:
+				speechSequence = [_("Error processing MathML")]
+				log.error(f"Error in getSpeechForMathMl:\n{error}\nCaused by MathML:\n{mathMl}")
 		elif config.conf["Access8Math"]["settings"]["speech_source"] == "MathCAT":
 			if mathCAT:
 				speechSequence = mathCAT.getSpeechForMathMl(mathMl)
@@ -192,8 +200,17 @@ class A8MProvider(mathPres.MathPresentationProvider):
 		"""
 		cells = ""
 		if config.conf["Access8Math"]["settings"]["braille_source"] == "Access8Math":
-			mathcontent = MathContent(config.conf["Access8Math"]["settings"]["language"], mathMl)
-			cells = translate_Braille(mathcontent.root.brailleserialized())
+			try:
+				mathcontent = MathContent(config.conf["Access8Math"]["settings"]["language"], mathMl)
+				cells = translate_Braille(mathcontent.root.brailleserialized())
+			except ParseError as error:
+				cells = chr(BRAILLE_UNICODE_PATTERNS_START)  # Blank braille cell
+				speech.speak([_("Illegal MathML")])
+				log.error(f"ParseError in getBrailleForMathMl: {error}\nCaused by MathML:\n{mathMl}")
+			except BaseException as error:
+				cells = chr(BRAILLE_UNICODE_PATTERNS_START)  # Blank braille cell
+				speech.speak([_("Error processing MathML")])
+				log.error(f"Error in getBrailleForMathMl:\n{error}\nCaused by MathML:\n{mathMl}")
 		elif config.conf["Access8Math"]["settings"]["braille_source"] == "MathCAT":
 			if mathCAT:
 				cells = mathCAT.getBrailleForMathMl(mathMl)
@@ -212,10 +229,17 @@ class A8MProvider(mathPres.MathPresentationProvider):
 		@param mathMl: The MathML markup.
 		"""
 		if config.conf["Access8Math"]["settings"]["interact_source"] == "Access8Math":
-			mathcontent = MathContent(config.conf["Access8Math"]["settings"]["language"], mathMl)
-			vw = A8MInteraction(parent=api.getFocusObject())
-			vw.set(data=mathcontent, name="")
-			vw.setFocus()
+			try:
+				mathcontent = MathContent(config.conf["Access8Math"]["settings"]["language"], mathMl)
+				vw = A8MInteraction(parent=api.getFocusObject())
+				vw.set(data=mathcontent, name="")
+				vw.setFocus()
+			except ParseError as error:
+				speech.speak([_("Illegal MathML")])
+				log.error(f"ParseError in interactWithMathMl: {error}\nCaused by MathML:\n{mathMl}")
+			except BaseException as error:
+				speech.speak([_("Error processing MathML")])
+				log.error(f"Error in interactWithMathMl:\n{error}\nCaused by MathML:\n{mathMl}")
 		elif config.conf["Access8Math"]["settings"]["interact_source"] == "MathCAT":
 			if mathCAT:
 				mathCAT.interactWithMathMl(mathMl)

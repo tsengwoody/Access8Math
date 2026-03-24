@@ -3,6 +3,7 @@ import importlib.util
 import os
 import sys
 import unittest
+from xml.etree import ElementTree as ET
 
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -111,6 +112,11 @@ class TestA8MPMPackageCompatibility(unittest.TestCase):
 		self.assertEqual(root.down.next_sibling.tag, "mo")
 		self.assertEqual(root.down.next_sibling.next_sibling.tag, "mi")
 		self.assertIn("<mi>x</mi>", root.get_mathml())
+
+	def test_invalid_mathml_preserves_parseerror(self):
+		module = importlib.import_module("reader")
+		with self.assertRaises(ET.ParseError):
+			module.mathml2etree("<math><mrow><mi>x</mi>")
 
 	def test_semantics_api_and_registry_are_provided_by_semantics_boundary(self):
 		module = importlib.import_module("reader")

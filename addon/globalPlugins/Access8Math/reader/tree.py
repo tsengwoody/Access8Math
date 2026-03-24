@@ -39,6 +39,8 @@ def mathml2etree(mathml):
 
 	try:
 		return ET.fromstring(mathml.encode("utf-8"), parser=parser)
+	except ET.ParseError as error:
+		raise error
 	except BaseException as error:
 		raise SystemError(error)
 
