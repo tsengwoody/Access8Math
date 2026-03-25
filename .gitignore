@@ -6,6 +6,7 @@ addon/doc/*.css
 addon/doc/en/
 openspec
 source_package
+superpowers
 *_docHandler.py
 *.html
 manifest.ini

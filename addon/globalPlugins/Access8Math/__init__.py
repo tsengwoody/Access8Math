@@ -96,7 +96,7 @@ from .command.context import A8MFEVContextMenuView
 from .dialogs import NewLanguageAddingDialog, UnicodeDicDialog, MathRuleDialog, MathReaderSettingsPanel, Access8MathSettingsDialog
 from .editor import EditorFrame
 from .interaction import A8MProvider, A8MInteraction
-from .lib.storage import explorer
+from .lib import explorer
 from .writer import TextMathEditField
 
 # xml.__path__.pop()
