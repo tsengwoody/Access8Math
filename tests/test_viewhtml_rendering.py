@@ -26,6 +26,7 @@ class TestViewHTMLRendering(unittest.TestCase):
 			"Access8Math": {
 				"settings": {
 					"LaTeX_delimiter": "bracket",
+					"HTML_color_scheme": "light",
 				},
 			},
 		}
@@ -50,7 +51,7 @@ class TestViewHTMLRendering(unittest.TestCase):
 		for patch in reversed(self.module_patches):
 			patch.stop()
 
-	def _render(self, source_text, title="Spec Title"):
+	def _render(self, source_text, title="Spec Title", document_color="light"):
 		from lib.viewHTML import text2template
 
 		with tempfile.TemporaryDirectory() as temp_dir:
@@ -58,7 +59,7 @@ class TestViewHTMLRendering(unittest.TestCase):
 			dst = os.path.join(temp_dir, "content-config.js")
 			with open(src, "w", encoding="utf8") as file:
 				file.write(source_text)
-			text2template(src=src, dst=dst, title=title)
+			text2template(src=src, dst=dst, title=title, document_color=document_color)
 			with open(dst, "r", encoding="utf8") as file:
 				return file.read()
 
@@ -108,6 +109,11 @@ class TestViewHTMLRendering(unittest.TestCase):
 		self.assertEqual(config["latexDelimiter"], "bracket")
 		self.assertNotIn("LaTeX_delimiter", config)
 
+	def test_text2template_uses_passed_document_color(self):
+		rendered = self._render("plain text", document_color="dark")
+		config = self._extract_config(rendered)
+		self.assertEqual(config["documentColor"], "dark")
+
 	def test_resources_collects_link_targets_from_markdown(self):
 		resources = self._document_resources("[docs](assets/guide/file.txt)")
 		self.assertIn(r"assets\guide\file.txt", resources)
@@ -131,6 +137,23 @@ class TestViewHTMLRendering(unittest.TestCase):
 	def test_viewhtml_does_not_import_html5lib_for_resource_discovery(self):
 		self._document_resources("[docs](assets/guide/file.txt)")
 		self.assertNotIn("html5lib", sys.modules)
+
+	def test_document_color_prefers_metadata_over_global_setting(self):
+		from lib.viewHTML import Access8MathDocument
+
+		with tempfile.TemporaryDirectory() as temp_dir:
+			src = os.path.join(temp_dir, "input.txt")
+			metadata = os.path.join(temp_dir, "Access8Math.json")
+			with open(src, "w", encoding="utf8") as file:
+				file.write("plain text")
+			with open(metadata, "w", encoding="utf8") as file:
+				json.dump({
+					"entry": "input.txt",
+					"title": "Spec Title",
+					"documentColor": "dark",
+				}, file)
+			document = Access8MathDocument(path=temp_dir)
+			self.assertEqual(document.document_color, "dark")
 
 
 if __name__ == "__main__":

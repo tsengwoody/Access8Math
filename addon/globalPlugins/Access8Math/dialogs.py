@@ -273,6 +273,16 @@ class DocumentSettingsPanel(A8MSettingsPanel):
 				"ueb": _("UEB"),
 			}
 		},
+		"HTML_color_scheme": {
+			# Translators: The label of an option in the writing settings dialog
+			"label": _("&HTML color scheme:"),
+			"options": {
+				# Translators: A choice of a combobox in the writing settings dialog
+				"light": _("light"),
+				# Translators: A choice of a combobox in the writing settings dialog
+				"dark": _("dark"),
+			}
+		},
 	})
 	field = "settings"
 

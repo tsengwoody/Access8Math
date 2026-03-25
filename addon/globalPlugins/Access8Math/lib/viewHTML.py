@@ -164,6 +164,13 @@ class Access8MathDocument:
 		with open(metadata_file, 'w', encoding='utf8') as f:
 			json.dump(metadata, f)
 
+	@property
+	def document_color(self):
+		return self.metadata.get(
+			"documentColor",
+			config.conf["Access8Math"]["settings"].get("HTML_color_scheme", "light"),
+		)
+
 	def rename(self, src, dst):
 		_src = os.path.join(self.raw_folder, src)
 		_dst = os.path.join(self.raw_folder, dst)
@@ -199,6 +206,7 @@ class Access8MathDocument:
 			"title": self.title,
 			"entry": self.raw_entry,
 			"latexDelimiter": config.conf["Access8Math"]["settings"]["LaTeX_delimiter"],
+			"documentColor": self.document_color,
 		})
 		with open(metadata_file, 'w', encoding='utf8') as f:
 			json.dump(metadata, f)
@@ -233,10 +241,19 @@ class Access8MathDocument:
 					extend = ''
 				if os.path.isfile(item) and (extend in ['txt', 'md'] or os.path.basename(item) == self.raw_entry):
 					if os.path.basename(item) == self.raw_entry:
-						text2template(src=item, dst=os.path.join(os.path.dirname(item), "content-config.js"), title=self.title)
+						text2template(
+							src=item,
+							dst=os.path.join(os.path.dirname(item), "content-config.js"),
+							title=self.title,
+							document_color=self.document_color,
+						)
 						os.remove(item)
 					else:
-						text2template(src=item, dst=os.path.join(os.path.dirname(item), f'{name}.js'))
+						text2template(
+							src=item,
+							dst=os.path.join(os.path.dirname(item), f'{name}.js'),
+							document_color=self.document_color,
+						)
 						os.remove(item)
 
 		with ZipFile(os.path.join(template_folder, "Access8MathTemplate.zip"), "r") as zip_file:
@@ -257,7 +274,7 @@ def rawIntoReview(raw_folder, review_folder, resources):
 			pass
 
 
-def text2template(src, dst, title=None):
+def text2template(src, dst, title=None, document_color="light"):
 	with open(src, "r", encoding="utf8") as f:
 		value = f.read()
 		value = batch("nemeth2latex")(value)
@@ -278,9 +295,10 @@ def text2template(src, dst, title=None):
 			title = 'Access8Math'
 
 	content_config = {
-		'title': title,
-		'sourceText': value,
-		'latexDelimiter': config.conf["Access8Math"]["settings"]["LaTeX_delimiter"],
+		"title": title,
+		"sourceText": value,
+		"latexDelimiter": config.conf["Access8Math"]["settings"]["LaTeX_delimiter"],
+		"documentColor": document_color,
 	}
 	with open(os.path.join(TEMPLATES_PATH, "index.template"), "r", encoding="utf8") as f:
 		template = f.read()

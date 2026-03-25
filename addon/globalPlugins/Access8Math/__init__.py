@@ -66,6 +66,7 @@ config.conf.spec["Access8Math"] = {
 		"writeNavAcrossLine": "boolean(default=true)",
 		"LaTeX_delimiter": "string(default=bracket)",
 		"Nemeth_delimiter": "string(default=at)",
+		"HTML_color_scheme": "string(default=light)",
 		"speech_source": "string(default=Access8Math)",
 		"braille_source": "string(default=Access8Math)",
 		"interact_source": "string(default=Access8Math)",
