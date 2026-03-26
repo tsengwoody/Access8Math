@@ -7,37 +7,21 @@ import braille
 import config
 import eventHandler
 import globalVars
-from logHandler import log
 
 from NVDAObjects.window import Window
-import mathPres
-from mathPres.mathPlayer import MathPlayer
 from scriptHandler import script
 import speech
 import textInfos
 import tones
 import ui
 
-import reader
-from reader import MathContent
+from . import reader
+from .reader import MathContent
 from lib.braille import display_braille
-from lib.mathProcess import mathml2latex
-from output import translate_Braille, translate_SpeechCommand_CapNotification, translate_Unicode
+from .provider import get_provider_runtime
+from .output import translate_Braille, translate_SpeechCommand_CapNotification, translate_Unicode
 
 addonHandler.initTranslation()
-
-mathPlayer = None
-try:
-	mathPlayer = MathPlayer()
-except BaseException:
-	log.warning("MathPlayer 4 not available")
-
-mathCAT = None
-try:
-	from globalPlugins.MathCAT import MathCAT
-	mathCAT = MathCAT()
-except BaseException:
-	log.warning("MathCAT not available")
 
 BRAILLE_UNICODE_PATTERNS_START = 0x2800
 
@@ -164,90 +148,6 @@ class A8MInteractionFrame(GenericFrame):
 		ui.message(_("Copied"))
 
 
-class A8MProvider(mathPres.MathPresentationProvider):
-	def getSpeechForMathMl(self, mathMl):
-		"""Get speech output for specified MathML markup.
-		@param mathMl: The MathML markup.
-		@type mathMl: str
-		@return: A speech sequence.
-		@rtype: List[str, SpeechCommand]
-		"""
-		speechSequence = []
-		if config.conf["Access8Math"]["settings"]["speech_source"] == "Access8Math":
-			try:
-				mathcontent = MathContent(config.conf["Access8Math"]["settings"]["language"], mathMl)
-				speechSequence = translate_SpeechCommand_CapNotification(mathcontent.pointer.serialized())
-			except ParseError as error:
-				speechSequence = [_("Illegal MathML")]
-				log.error(f"ParseError in getSpeechForMathMl: {error}\nCaused by MathML:\n{mathMl}")
-			except BaseException as error:
-				speechSequence = [_("Error processing MathML")]
-				log.error(f"Error in getSpeechForMathMl:\n{error}\nCaused by MathML:\n{mathMl}")
-		elif config.conf["Access8Math"]["settings"]["speech_source"] == "MathCAT":
-			if mathCAT:
-				speechSequence = mathCAT.getSpeechForMathMl(mathMl)
-		else:
-			if mathPlayer:
-				speechSequence = mathPlayer.getSpeechForMathMl(mathMl)
-		return speechSequence
-
-	def getBrailleForMathMl(self, mathMl):
-		"""Get braille output for specified MathML markup.
-		@param mathMl: The MathML markup.
-		@type mathMl: str
-		@return: A string of Unicode braille.
-		@rtype: unicode
-		"""
-		cells = ""
-		if config.conf["Access8Math"]["settings"]["braille_source"] == "Access8Math":
-			try:
-				mathcontent = MathContent(config.conf["Access8Math"]["settings"]["language"], mathMl)
-				cells = translate_Braille(mathcontent.root.brailleserialized())
-			except ParseError as error:
-				cells = chr(BRAILLE_UNICODE_PATTERNS_START)  # Blank braille cell
-				speech.speak([_("Illegal MathML")])
-				log.error(f"ParseError in getBrailleForMathMl: {error}\nCaused by MathML:\n{mathMl}")
-			except BaseException as error:
-				cells = chr(BRAILLE_UNICODE_PATTERNS_START)  # Blank braille cell
-				speech.speak([_("Error processing MathML")])
-				log.error(f"Error in getBrailleForMathMl:\n{error}\nCaused by MathML:\n{mathMl}")
-		elif config.conf["Access8Math"]["settings"]["braille_source"] == "MathCAT":
-			if mathCAT:
-				cells = mathCAT.getBrailleForMathMl(mathMl)
-		else:
-			if mathPlayer:
-				cells = mathPlayer.getBrailleForMathMl(mathMl)
-
-		def inrange(cell):
-			return ord(cell) >= BRAILLE_UNICODE_PATTERNS_START and ord(cell) < BRAILLE_UNICODE_PATTERNS_START + 256
-
-		cells = [cell if inrange(cell) else chr(BRAILLE_UNICODE_PATTERNS_START) for cell in cells]
-		return "".join(cells)
-
-	def interactWithMathMl(self, mathMl):
-		"""Begin interaction with specified MathML markup.
-		@param mathMl: The MathML markup.
-		"""
-		if config.conf["Access8Math"]["settings"]["interact_source"] == "Access8Math":
-			try:
-				mathcontent = MathContent(config.conf["Access8Math"]["settings"]["language"], mathMl)
-				vw = A8MInteraction(parent=api.getFocusObject())
-				vw.set(data=mathcontent, name="")
-				vw.setFocus()
-			except ParseError as error:
-				speech.speak([_("Illegal MathML")])
-				log.error(f"ParseError in interactWithMathMl: {error}\nCaused by MathML:\n{mathMl}")
-			except BaseException as error:
-				speech.speak([_("Error processing MathML")])
-				log.error(f"Error in interactWithMathMl:\n{error}\nCaused by MathML:\n{mathMl}")
-		elif config.conf["Access8Math"]["settings"]["interact_source"] == "MathCAT":
-			if mathCAT:
-				mathCAT.interactWithMathMl(mathMl)
-		else:
-			if mathPlayer:
-				mathPlayer.interactWithMathMl(mathMl)
-
-
 class A8MInteraction(Window):
 	# role = controlTypes.Role.MATH
 	# Override the window name.
@@ -292,14 +192,15 @@ class A8MInteraction(Window):
 		region = braille.NVDAObjectRegion(self, appendText="")
 		region.focusToHardLeft = True
 		cells = ""
+		runtime = get_provider_runtime()
 		if config.conf["Access8Math"]["settings"]["braille_source"] == "Access8Math":
 			cells = translate_Braille(self.mathcontent.root.brailleserialized())
 		elif config.conf["Access8Math"]["settings"]["braille_source"] == "MathCAT":
-			if mathCAT:
-				cells = mathCAT.getBrailleForMathMl(self.mathcontent.raw_mathMl)
+			if runtime.mathcat:
+				cells = runtime.mathcat.getBrailleForMathMl(self.mathcontent.raw_mathMl)
 		else:
-			if mathPlayer:
-				cells = mathPlayer.getBrailleForMathMl(self.mathcontent.raw_mathMl)
+			if runtime.mathplayer:
+				cells = runtime.mathplayer.getBrailleForMathMl(self.mathcontent.raw_mathMl)
 
 		def inrange(cell):
 			return ord(cell) >= BRAILLE_UNICODE_PATTERNS_START and ord(cell) < BRAILLE_UNICODE_PATTERNS_START + 256

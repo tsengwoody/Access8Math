@@ -13,29 +13,16 @@ from gui import guiHelper, nvdaControls
 from gui.contextHelp import ContextHelpMixin
 from gui.settingsDialogs import MultiCategorySettingsDialog, SettingsDialog, SettingsPanel
 import languageHandler
-from logHandler import log
-from mathPres.mathPlayer import MathPlayer
 import queueHandler
 import tones
 
-import reader
-from reader import MathContent
+from .provider import get_provider_runtime
+from . import reader
+from .reader import MathContent
 
 addonHandler.initTranslation()
 
 base_path = os.path.dirname(os.path.abspath(__file__))
-mathPlayer = None
-try:
-	mathPlayer = MathPlayer()
-except BaseException:
-	log.warning("MathPlayer 4 not available")
-
-mathCAT = None
-try:
-	from globalPlugins.MathCAT import MathCAT
-	mathCAT = MathCAT()
-except BaseException:
-	log.warning("MathCAT not available")
 
 
 class A8MSettingsPanel(SettingsPanel):
@@ -49,14 +36,10 @@ class A8MSettingsPanel(SettingsPanel):
 		for k, v in self.settings.items():
 			if "options" in v:
 				attr = k + "Selection"
-				options = v["options"]
-				if mathCAT and "Access8Math" in v["options"]:
-					# Translators: A choice of a combobox in the writing settings dialog (not used)
-					v["options"]["MathCAT"] = _("MathCAT")
-				if mathPlayer and "Access8Math" in v["options"]:
-					# Translators: A choice of a combobox in the writing settings dialog (not used)
-					v["options"]["MathPlayer"] = _("Math Player")
-				widget = sHelper.addLabeledControl(v["label"], wx.Choice, choices=list(options.values()))
+				if k.endswith("_source"):
+					options = get_provider_runtime().available_providers
+					v["options"].update(options)
+				widget = sHelper.addLabeledControl(v["label"], wx.Choice, choices=list(v["options"].values()))
 				setattr(self, attr, widget)
 				try:
 					index = list(v["options"].keys()).index(str(config.conf["Access8Math"][self.field][k]))
@@ -96,10 +79,7 @@ class MathReaderSettingsPanel(A8MSettingsPanel):
 		"speech_source": {
 			# Translators: The label of an option in the reading settings dialog
 			"label": _("&Speech source:"),
-			"options": {
-				# Translators: A choice of a combobox in the reading settings dialog
-				"Access8Math": _("Access8Math"),
-			}
+			"options": {}
 		},
 		"braille_source": {
 			# Translators: The label of an option in the reading settings dialog
@@ -165,14 +145,10 @@ class ReadingSettingsPanel(A8MSettingsPanel):
 		for k, v in self.settings.items():
 			if "options" in v:
 				attr = k + "Selection"
-				options = v["options"]
-				if mathCAT and "Access8Math" in v["options"]:
-					# Translators: A choice of a combobox in the writing settings dialog (not used)
-					v["options"]["MathCAT"] = _("MathCAT")
-				if mathPlayer and "Access8Math" in v["options"]:
-					# Translators: A choice of a combobox in the writing settings dialog (not used)
-					v["options"]["MathPlayer"] = _("Math Player")
-				widget = sHelper.addLabeledControl(v["label"], wx.Choice, choices=list(options.values()))
+				if k.endswith("_source"):
+					options = get_provider_runtime().available_providers
+					v["options"].update(options)
+				widget = sHelper.addLabeledControl(v["label"], wx.Choice, choices=list(v["options"].values()))
 				setattr(self, attr, widget)
 				try:
 					index = list(v["options"].keys()).index(str(config.conf["Access8Math"][self.field][k]))

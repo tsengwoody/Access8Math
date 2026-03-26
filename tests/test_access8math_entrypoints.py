@@ -30,6 +30,7 @@ class EntryPointImportHarness:
 		self.editor_paths = []
 		self.editor_frames = []
 		self.explorer_calls = []
+		self.math_pres_register = mock.Mock()
 		self._patcher = None
 		self._translation_patcher = None
 		self.module = None
@@ -109,7 +110,7 @@ class EntryPointImportHarness:
 		event_handler.executeEvent = lambda *args, **kwargs: None
 
 		math_pres = types.ModuleType("mathPres")
-		math_pres.registerProvider = lambda *args, **kwargs: None
+		math_pres.registerProvider = self.math_pres_register
 		math_pres.interactionProvider = types.SimpleNamespace()
 		math_pres.speechProvider = types.SimpleNamespace()
 
@@ -173,6 +174,9 @@ class EntryPointImportHarness:
 		reader_module = types.ModuleType("reader")
 		reader_module.exist_language = lambda language: True
 		reader_module.initialize = lambda settings: None
+		access8math_reader_module = types.ModuleType("Access8Math.reader")
+		access8math_reader_module.exist_language = reader_module.exist_language
+		access8math_reader_module.initialize = reader_module.initialize
 
 		command_pkg = package("Access8Math.command")
 		command_context = types.ModuleType("Access8Math.command.context")
@@ -222,8 +226,20 @@ class EntryPointImportHarness:
 		editor_module.EditorFrame = FakeEditorFrame
 
 		interaction_module = types.ModuleType("Access8Math.interaction")
-		interaction_module.A8MProvider = type("A8MProvider", (), {})
 		interaction_module.A8MInteraction = type("A8MInteraction", (), {})
+
+		provider_module = types.ModuleType("Access8Math.provider")
+		provider_module.access8math_instance = object()
+		provider_module.runtime = types.SimpleNamespace(
+			access8math=provider_module.access8math_instance,
+			available_providers=["Access8Math", "MathCAT"],
+			mathcat=object(),
+			mathplayer=None,
+			extend_reader_options=lambda options: dict(options),
+		)
+		provider_module.build_provider_runtime = mock.Mock(return_value=provider_module.runtime)
+		provider_module.get_provider_runtime = mock.Mock(return_value=provider_module.runtime)
+		self.provider_module = provider_module
 
 		writer_module = types.ModuleType("Access8Math.writer")
 		writer_module.TextMathEditField = type("TextMathEditField", (), {})
@@ -259,11 +275,13 @@ class EntryPointImportHarness:
 			"ui": ui_module,
 			"wx": wx_module,
 			"reader": reader_module,
+			"Access8Math.reader": access8math_reader_module,
 			"Access8Math.command": command_pkg,
 			"Access8Math.command.context": command_context,
 			"Access8Math.dialogs": dialogs_module,
 			"Access8Math.editor": editor_module,
 			"Access8Math.interaction": interaction_module,
+			"Access8Math.provider": provider_module,
 			"Access8Math.writer": writer_module,
 			"Access8Math.lib": lib_pkg,
 			"Access8Math.lib.explorer": explorer_module,
@@ -301,6 +319,16 @@ class EntryPointImportHarness:
 
 
 class TestAccess8MathEntrypoints(unittest.TestCase):
+	def test_init_registers_provider_from_provider_module(self):
+		with EntryPointImportHarness() as harness:
+			harness.provider_module.build_provider_runtime.assert_called_once_with()
+			harness.math_pres_register.assert_called_once_with(
+				harness.provider_module.runtime,
+				speech=True,
+				braille=True,
+				interaction=True,
+			)
+
 	def test_virtual_context_menu_passes_selected_file_path_to_context_menu_view(self):
 		with EntryPointImportHarness() as harness:
 			context_menu = harness.module.VirtualContextMenu()

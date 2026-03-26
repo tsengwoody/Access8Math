@@ -20,7 +20,6 @@ import gui
 from languageHandler import getWindowsLanguage
 from logHandler import log
 import mathPres
-from mathPres.mathPlayer import MathPlayer
 from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import IAccessible
 from scriptHandler import script
@@ -91,12 +90,13 @@ config.conf.spec["Access8Math"] = {
 	}
 }
 
-import reader as math_reader
+from . import reader as math_reader
 from .command.context import A8MFEVContextMenuView
 from .dialogs import NewLanguageAddingDialog, UnicodeDicDialog, MathRuleDialog, MathReaderSettingsPanel, Access8MathSettingsDialog
 from .editor import EditorFrame
-from .interaction import A8MProvider, A8MInteraction
+from .interaction import A8MInteraction
 from .lib import explorer
+from .provider import build_provider_runtime
 from .writer import TextMathEditField
 
 # xml.__path__.pop()
@@ -122,32 +122,8 @@ It can be viewed online at: https://www.gnu.org/licenses/old-licenses/gpl-2.0.ht
 ROLE_WINDOW = controlTypes.Role.WINDOW
 ROLE_EDITABLETEXT = controlTypes.Role.EDITABLETEXT
 
-available_readers = []
-available_readers.append("Access8Math")
-
-mathCAT = None
-try:
-	from globalPlugins.MathCAT import MathCAT
-	mathCAT = MathCAT()
-	available_readers.append("MathCAT")
-except BaseException:
-	log.warning("MathCAT not available")
-	for item in ["speech_source", "braille_source", "interact_source"]:
-		if config.conf["Access8Math"]["settings"][item] == "MathCAT" and not mathCAT:
-			config.conf["Access8Math"]["settings"][item] = "Access8Math"
-
-mathPlayer = None
-try:
-	mathPlayer = MathPlayer()
-	available_readers.append("MathPlayer")
-except BaseException:
-	log.warning("MathPlayer 4 not available")
-	for item in ["speech_source", "braille_source", "interact_source"]:
-		if config.conf["Access8Math"]["settings"][item] == "MathPlayer" and not mathPlayer:
-			config.conf["Access8Math"]["settings"][item] = "Access8Math"
-
-reader = A8MProvider()
-mathPres.registerProvider(reader, speech=True, braille=True, interaction=True)
+provider_runtime = build_provider_runtime()
+mathPres.registerProvider(provider_runtime, speech=True, braille=True, interaction=True)
 
 
 class AppWindowRoot(IAccessible):
@@ -345,11 +321,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def script_speech_source_switch(self, gesture):
 		key = "speech_source"
 		try:
-			index = available_readers.index(str(config.conf["Access8Math"]["settings"][key]))
+			index = provider_runtime.available_provider_ids.index(str(config.conf["Access8Math"]["settings"][key]))
 		except BaseException:
 			index = 0
-		index = (index + 1) % len(available_readers)
-		config.conf["Access8Math"]["settings"][key] = available_readers[index]
+		index = (index + 1) % len(provider_runtime.available_provider_ids)
+		config.conf["Access8Math"]["settings"][key] = provider_runtime.available_provider_ids[index]
 		ui.message(_("Math speech reader switch to %s") % config.conf["Access8Math"]["settings"][key])
 
 	@script(
@@ -359,11 +335,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def script_braille_source_switch(self, gesture):
 		key = "braille_source"
 		try:
-			index = available_readers.index(str(config.conf["Access8Math"]["settings"][key]))
+			index = provider_runtime.available_provider_ids.index(str(config.conf["Access8Math"]["settings"][key]))
 		except BaseException:
 			index = 0
-		index = (index + 1) % len(available_readers)
-		config.conf["Access8Math"]["settings"][key] = available_readers[index]
+		index = (index + 1) % len(provider_runtime.available_provider_ids)
+		config.conf["Access8Math"]["settings"][key] = provider_runtime.available_provider_ids[index]
 		ui.message(_("Math braille reader switch to %s") % config.conf["Access8Math"]["settings"][key])
 
 	@script(
@@ -373,11 +349,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def script_interact_source_switch(self, gesture):
 		key = "interact_source"
 		try:
-			index = available_readers.index(str(config.conf["Access8Math"]["settings"][key]))
+			index = provider_runtime.available_provider_ids.index(str(config.conf["Access8Math"]["settings"][key]))
 		except BaseException:
 			index = 0
-		index = (index + 1) % len(available_readers)
-		config.conf["Access8Math"]["settings"][key] = available_readers[index]
+		index = (index + 1) % len(provider_runtime.available_provider_ids)
+		config.conf["Access8Math"]["settings"][key] = provider_runtime.available_provider_ids[index]
 		ui.message(_("Math interact reader switch to %s") % config.conf["Access8Math"]["settings"][key])
 
 	def edit(self, content=None, path=None):
