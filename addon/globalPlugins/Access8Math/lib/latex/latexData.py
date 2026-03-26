@@ -1,9 +1,9 @@
 import addonHandler
 
-from lib.dataProcess import joinObjectArray, groupByField
+from ..dataProcess import joinObjectArray, groupByField
 
 import os
-from python.csv import DictReader, DictWriter
+from csv import DictReader, DictWriter
 
 addonHandler.initTranslation()
 

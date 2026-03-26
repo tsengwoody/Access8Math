@@ -2,9 +2,9 @@ import config
 
 import re
 
-from delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter, Nemeth as Nemeth_delimiter
-from lib.mathProcess import latex2asciimath, asciimath2latex, nemeth2latex
-from regularExpression import delimiterRegularExpression
+from ..delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter, Nemeth as Nemeth_delimiter
+from ..lib.mathProcess import latex2asciimath, asciimath2latex, nemeth2latex
+from ..regularExpression import delimiterRegularExpression
 
 delimiter_dict = {**AsciiMath_delimiter, **LaTeX_delimiter, **Nemeth_delimiter}
 

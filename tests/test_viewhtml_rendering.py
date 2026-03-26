@@ -14,10 +14,11 @@ PACKAGE_ROOT = os.path.join(PLUGIN_ROOT, "package")
 
 class TestViewHTMLRendering(unittest.TestCase):
 	def setUp(self):
+		access8math_pkg = types.ModuleType("Access8Math")
+		access8math_pkg.__path__ = [PLUGIN_ROOT]
+
 		if PLUGIN_ROOT not in sys.path:
 			sys.path.insert(0, PLUGIN_ROOT)
-		if PACKAGE_ROOT not in sys.path:
-			sys.path.insert(0, PACKAGE_ROOT)
 
 		addon_stub = types.ModuleType("addonHandler")
 		addon_stub.initTranslation = lambda: None
@@ -30,21 +31,32 @@ class TestViewHTMLRendering(unittest.TestCase):
 				},
 			},
 		}
-		command_action_stub = types.ModuleType("command.action")
+		command_action_stub = types.ModuleType("Access8Math.command.action")
 		command_action_stub.batch = lambda _name: (lambda value: value)
+
+		markdown2_stub = types.ModuleType("markdown2")
+
+		def fake_markdown(text):
+			text = text.replace("![chart](images/plots/chart.png)", '<img src="images/plots/chart.png">')
+			text = text.replace("[docs](assets/guide/file.txt)", '<a href="assets/guide/file.txt">docs</a>')
+			return text
+
+		markdown2_stub.markdown = fake_markdown
 
 		self.module_patches = [
 			mock.patch.dict(sys.modules, {
+				"Access8Math": access8math_pkg,
 				"addonHandler": addon_stub,
 				"config": config_stub,
-				"command.action": command_action_stub,
+				"Access8Math.command.action": command_action_stub,
+				"markdown2": markdown2_stub,
 			}),
 		]
 		for patch in self.module_patches:
 			patch.start()
 
 		for name in list(sys.modules):
-			if name == "lib.viewHTML" or name.startswith("lib.viewHTML."):
+			if name == "Access8Math.lib.viewHTML" or name.startswith("Access8Math.lib.viewHTML."):
 				sys.modules.pop(name, None)
 
 	def tearDown(self):
@@ -52,7 +64,7 @@ class TestViewHTMLRendering(unittest.TestCase):
 			patch.stop()
 
 	def _render(self, source_text, title="Spec Title", document_color="light"):
-		from lib.viewHTML import text2template
+		from Access8Math.lib.viewHTML import text2template
 
 		with tempfile.TemporaryDirectory() as temp_dir:
 			src = os.path.join(temp_dir, "input.txt")
@@ -70,7 +82,7 @@ class TestViewHTMLRendering(unittest.TestCase):
 		return json.loads(payload)
 
 	def _document_resources(self, source_text, title="Spec Title"):
-		from lib.viewHTML import Access8MathDocument
+		from Access8Math.lib.viewHTML import Access8MathDocument
 
 		with tempfile.TemporaryDirectory() as temp_dir:
 			src = os.path.join(temp_dir, "input.txt")
@@ -139,7 +151,7 @@ class TestViewHTMLRendering(unittest.TestCase):
 		self.assertNotIn("html5lib", sys.modules)
 
 	def test_document_color_prefers_metadata_over_global_setting(self):
-		from lib.viewHTML import Access8MathDocument
+		from Access8Math.lib.viewHTML import Access8MathDocument
 
 		with tempfile.TemporaryDirectory() as temp_dir:
 			src = os.path.join(temp_dir, "input.txt")

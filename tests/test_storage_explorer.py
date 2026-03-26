@@ -31,6 +31,9 @@ class ExplorerImportHarness:
 		self._old_userprofile = None
 
 	def __enter__(self):
+		access8math_pkg = types.ModuleType("Access8Math")
+		access8math_pkg.__path__ = [PLUGIN_ROOT]
+
 		api_module = types.ModuleType("api")
 		api_module.getForegroundObject = lambda: self.foreground
 		api_module.getDesktopObject = lambda: types.SimpleNamespace(
@@ -73,6 +76,7 @@ class ExplorerImportHarness:
 		subprocess_module.Popen = lambda *args, **kwargs: FakeProcess(self.ps_stdout or "")
 
 		modules = {
+			"Access8Math": access8math_pkg,
 			"api": api_module,
 			"ui": ui_module,
 			"comtypes": comtypes_module,
@@ -89,16 +93,16 @@ class ExplorerImportHarness:
 		if PLUGIN_ROOT not in sys.path:
 			sys.path.insert(0, PLUGIN_ROOT)
 		for name in list(sys.modules):
-			if name == "lib.explorer" or name.startswith("lib.explorer."):
+			if name == "Access8Math.lib.explorer" or name.startswith("Access8Math.lib.explorer."):
 				sys.modules.pop(name, None)
 
-		self.explorer = importlib.import_module("lib.explorer")
+		self.explorer = importlib.import_module("Access8Math.lib.explorer")
 		self.explorer._shell = None
 		return self
 
 	def __exit__(self, exc_type, exc_val, exc_tb):
 		for name in list(sys.modules):
-			if name == "lib.explorer" or name.startswith("lib.explorer."):
+			if name == "Access8Math.lib.explorer" or name.startswith("Access8Math.lib.explorer."):
 				sys.modules.pop(name, None)
 		if self._patcher:
 			self._patcher.stop()

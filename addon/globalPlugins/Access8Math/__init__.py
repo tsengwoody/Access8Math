@@ -29,26 +29,10 @@ import ui
 
 import wx
 
-insert_path_count = 0
-
 PATH = os.path.dirname(__file__)
 
 PYTHON_PATH = os.path.join(PATH, 'python')
-sys.path.insert(0, PYTHON_PATH)
-insert_path_count += 1
-
 PACKAGE_PATH = os.path.join(PATH, 'package')
-sys.path.insert(0, PACKAGE_PATH)
-insert_path_count += 1
-
-sys.path.insert(0, PATH)
-insert_path_count += 1
-
-module_names = ["xml", "xml.etree"]
-for module_name in module_names:
-	if module_name in sys.modules:
-		del sys.modules[module_name]
-		sys.modules[module_name] = importlib.import_module(module_name)
 
 config.conf.spec["Access8Math"] = {
 	"settings": {
@@ -90,18 +74,35 @@ config.conf.spec["Access8Math"] = {
 	}
 }
 
-from . import reader as math_reader
-from .command.context import A8MFEVContextMenuView
-from .dialogs import NewLanguageAddingDialog, UnicodeDicDialog, MathRuleDialog, MathReaderSettingsPanel, Access8MathSettingsDialog
-from .editor import EditorFrame
-from .interaction import A8MInteraction
-from .lib import explorer
-from .provider import build_provider_runtime
-from .writer import TextMathEditField
+inserted_paths = []
 
-# xml.__path__.pop()
-for i in range(insert_path_count):
-	del sys.path[0]
+try:
+	sys.path.insert(0, PYTHON_PATH)
+	inserted_paths.append(PYTHON_PATH)
+
+	sys.path.insert(0, PACKAGE_PATH)
+	inserted_paths.append(PACKAGE_PATH)
+
+	module_names = ["xml", "xml.etree"]
+	for module_name in module_names:
+		if module_name in sys.modules:
+			del sys.modules[module_name]
+			sys.modules[module_name] = importlib.import_module(module_name)
+
+	from . import reader as math_reader
+	from .command.context import A8MFEVContextMenuView
+	from .dialogs import NewLanguageAddingDialog, UnicodeDicDialog, MathRuleDialog, MathReaderSettingsPanel, Access8MathSettingsDialog
+	from .editor import EditorFrame
+	from .interaction import A8MInteraction
+	from .lib import explorer
+	from .provider import build_provider_runtime
+	from .writer import TextMathEditField
+finally:
+	for inserted_path in reversed(inserted_paths):
+		try:
+			sys.path.remove(inserted_path)
+		except ValueError:
+			pass
 
 addonHandler.initTranslation()
 ADDON_SUMMARY = addonHandler.getCodeAddon().manifest["summary"]
@@ -204,7 +205,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			language = "en"
 		config.conf["Access8Math"]["settings"]["language"] = language
 
-		from lib.latex import latexData
+		from .lib.latex import latexData
 		latexData.initialize()
 		super().__init__(*args, **kwargs)
 
@@ -215,7 +216,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(MathReaderSettingsPanel)
 
 	def terminate(self):
-		from lib.latex import latexData
+		from .lib.latex import latexData
 		latexData.terminate()
 		try:
 			self.toolsMenu.Remove(self.Access8Math_item)

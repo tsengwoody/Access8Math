@@ -10,10 +10,10 @@ import speech
 import textInfos
 import ui
 
-from command.review import A8MHTMLCommandView
-from lib.braille import display_braille
-from lib.mathProcess import latex2mathml, asciimath2mathml, nemeth2latex
-from lib.viewHTML import Access8MathDocument
+from ..command.review import A8MHTMLCommandView
+from ..lib.braille import display_braille
+from ..lib.mathProcess import latex2mathml, asciimath2mathml, nemeth2latex
+from ..lib.viewHTML import Access8MathDocument
 
 
 PATH = os.path.dirname(os.path.dirname(__file__))

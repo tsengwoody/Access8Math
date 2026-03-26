@@ -1,6 +1,7 @@
 import importlib
 import os
 import sys
+import types
 import unittest
 
 
@@ -202,17 +203,33 @@ DEMO_CASES = {
 
 class TestA8MPMDemoCorpus(unittest.TestCase):
 	def setUp(self):
-		if PLUGIN_ROOT not in sys.path:
+		self._old_access8math = sys.modules.get("Access8Math")
+		self._path_added = PLUGIN_ROOT not in sys.path
+		access8math_pkg = types.ModuleType("Access8Math")
+		access8math_pkg.__path__ = [PLUGIN_ROOT]
+		sys.modules["Access8Math"] = access8math_pkg
+		if self._path_added:
 			sys.path.insert(0, PLUGIN_ROOT)
 		for name in list(sys.modules):
-			if name in {"A8M_PM", "reader"} or name.startswith("A8M_PM.") or name.startswith("reader."):
+			if name in {"A8M_PM", "Access8Math.reader"} or name.startswith("A8M_PM.") or name.startswith("Access8Math.reader."):
 				sys.modules.pop(name, None)
-		self.module = importlib.import_module("reader")
+		self.module = importlib.import_module("Access8Math.reader")
 		config = {
 			"settings": {"analyze_math_meaning": True},
 			"rules": {nodetype.__name__: True for nodetype in self.module.nodetypes},
 		}
 		self.module.initialize(config)
+
+	def tearDown(self):
+		for name in list(sys.modules):
+			if name in {"A8M_PM", "Access8Math.reader"} or name.startswith("A8M_PM.") or name.startswith("Access8Math.reader."):
+				sys.modules.pop(name, None)
+		if self._old_access8math is None:
+			sys.modules.pop("Access8Math", None)
+		else:
+			sys.modules["Access8Math"] = self._old_access8math
+		if self._path_added and PLUGIN_ROOT in sys.path:
+			sys.path.remove(PLUGIN_ROOT)
 
 	def _snapshot(self, mathml):
 		content = self.module.MathContent("en", mathml)

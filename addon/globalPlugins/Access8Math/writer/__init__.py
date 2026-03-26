@@ -10,11 +10,11 @@ import nvwave
 from scriptHandler import script
 import ui
 
-from command.latex import A8MLaTeXCommandView
-from command.mark import A8MMarkCommandView
-from command.translate import A8MTranslateCommandView
-from command.batch import A8MBatchCommandView
-from command.autocomplete import A8MAutocompleteCommandView
+from ..command.latex import A8MLaTeXCommandView
+from ..command.mark import A8MMarkCommandView
+from ..command.translate import A8MTranslateCommandView
+from ..command.batch import A8MBatchCommandView
+from ..command.autocomplete import A8MAutocompleteCommandView
 from .actions import WriterActionsMixin
 from .gestures import WriterGestureMixin
 from .routing import WriterRoutingMixin

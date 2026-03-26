@@ -18,7 +18,7 @@ CONTENT_CONFIG_PLACEHOLDER = "__CONTEXT__"
 
 import markdown2
 
-from command.action import batch
+from ..command.action import batch
 
 
 class _ResourceHTMLParser(HTMLParser):

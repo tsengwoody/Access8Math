@@ -8,10 +8,10 @@ import tones
 import ui
 import wx
 
-from delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter
+from ..delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter
 delimiter_dict = {**AsciiMath_delimiter, **LaTeX_delimiter}
 
-from lib.dataProcess import groupByField
+from ..lib.dataProcess import groupByField
 
 from .clipboard import clearClipboard
 from .models import MenuModel
@@ -19,7 +19,7 @@ from .views import MenuView, MenuViewTextInfo
 
 addonHandler.initTranslation()
 
-from lib.latex import latexData
+from ..lib.latex import latexData
 
 
 def command(text, offset):

@@ -17,7 +17,8 @@ import ui
 
 from . import reader
 from .reader import MathContent
-from lib.braille import display_braille
+from .lib.braille import display_braille
+from .lib.mathProcess import mathml2latex
 from .provider import get_provider_runtime
 from .output import translate_Braille, translate_SpeechCommand_CapNotification, translate_Unicode
 

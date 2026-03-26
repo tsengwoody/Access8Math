@@ -6,7 +6,7 @@ import os
 import re
 import shutil
 
-from lib.dataProcess import joinObjectArray
+from ..lib.dataProcess import joinObjectArray
 LOCALE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "locale")
 
 

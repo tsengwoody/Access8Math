@@ -9,7 +9,6 @@ from unittest import mock
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 PLUGIN_PARENT = os.path.join(PROJECT_ROOT, "addon", "globalPlugins")
-PLUGIN_ROOT = os.path.join(PLUGIN_PARENT, "Access8Math")
 
 
 class ConfigStub(dict):
@@ -33,6 +32,7 @@ class EntryPointImportHarness:
 		self.math_pres_register = mock.Mock()
 		self._patcher = None
 		self._translation_patcher = None
+		self._added_plugin_parent = False
 		self.module = None
 
 	def __enter__(self):
@@ -178,6 +178,10 @@ class EntryPointImportHarness:
 		access8math_reader_module.exist_language = reader_module.exist_language
 		access8math_reader_module.initialize = reader_module.initialize
 
+		output_module = types.ModuleType("Access8Math.output")
+		output_module.translate_Braille = lambda value: value
+		output_module.translate_SpeechCommand_CapNotification = lambda value: value
+
 		command_pkg = package("Access8Math.command")
 		command_context = types.ModuleType("Access8Math.command.context")
 
@@ -274,8 +278,8 @@ class EntryPointImportHarness:
 			"tones": tones_module,
 			"ui": ui_module,
 			"wx": wx_module,
-			"reader": reader_module,
 			"Access8Math.reader": access8math_reader_module,
+			"Access8Math.output": output_module,
 			"Access8Math.command": command_pkg,
 			"Access8Math.command.context": command_context,
 			"Access8Math.dialogs": dialogs_module,
@@ -293,9 +297,9 @@ class EntryPointImportHarness:
 		self._translation_patcher = mock.patch.object(builtins, "_", lambda text: text, create=True)
 		self._translation_patcher.start()
 
-		for path in (PLUGIN_PARENT, PLUGIN_ROOT):
-			if path not in sys.path:
-				sys.path.insert(0, path)
+		if PLUGIN_PARENT not in sys.path:
+			sys.path.insert(0, PLUGIN_PARENT)
+			self._added_plugin_parent = True
 
 		# Access8Math.__init__ eagerly imports sibling modules, so the harness
 		# has to re-register the stubs after clearing cached package modules.
@@ -305,13 +309,34 @@ class EntryPointImportHarness:
 
 		sys.modules.update(self._modules)
 
-		self.module = importlib.import_module("Access8Math")
-		return self
+		try:
+			self.module = importlib.import_module("Access8Math")
+			return self
+		except BaseException:
+			if self._added_plugin_parent:
+				try:
+					sys.path.remove(PLUGIN_PARENT)
+				except ValueError:
+					pass
+				self._added_plugin_parent = False
+			if self._translation_patcher:
+				self._translation_patcher.stop()
+				self._translation_patcher = None
+			if self._patcher:
+				self._patcher.stop()
+				self._patcher = None
+			raise
 
 	def __exit__(self, exc_type, exc_val, exc_tb):
 		for name in list(sys.modules):
 			if name == "Access8Math" or name.startswith("Access8Math."):
 				sys.modules.pop(name, None)
+		if self._added_plugin_parent:
+			try:
+				sys.path.remove(PLUGIN_PARENT)
+			except ValueError:
+				pass
+			self._added_plugin_parent = False
 		if self._translation_patcher:
 			self._translation_patcher.stop()
 		if self._patcher:

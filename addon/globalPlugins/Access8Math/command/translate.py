@@ -7,10 +7,10 @@ from scriptHandler import script
 import ui
 import wx
 
-from delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter
+from ..delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter
 delimiter_dict = {**AsciiMath_delimiter, **LaTeX_delimiter}
 
-from lib.mathProcess import latex2asciimath, asciimath2latex, nemeth2latex
+from ..lib.mathProcess import latex2asciimath, asciimath2latex, nemeth2latex
 
 from .clipboard import clearClipboard
 from .models import MenuModel

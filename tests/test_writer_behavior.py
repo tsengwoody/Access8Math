@@ -9,6 +9,7 @@ from unittest import mock
 
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+PLUGIN_PARENT = os.path.join(PROJECT_ROOT, "addon", "globalPlugins")
 PLUGIN_ROOT = os.path.join(PROJECT_ROOT, "addon", "globalPlugins", "Access8Math")
 
 
@@ -80,6 +81,9 @@ class WriterImportHarness:
 		self._tempdir = None
 
 	def __enter__(self):
+		access8math_pkg = types.ModuleType("Access8Math")
+		access8math_pkg.__path__ = [PLUGIN_ROOT]
+
 		addon_handler = types.ModuleType("addonHandler")
 		addon_handler.initTranslation = lambda: None
 		addon_handler.getCodeAddon = lambda: types.SimpleNamespace(manifest={"summary": "Access8Math"})
@@ -185,18 +189,18 @@ class WriterImportHarness:
 
 		command_modules = {}
 		for module_name, class_name in {
-			"command.latex": "A8MLaTeXCommandView",
-			"command.mark": "A8MMarkCommandView",
-			"command.review": "A8MHTMLCommandView",
-			"command.translate": "A8MTranslateCommandView",
-			"command.batch": "A8MBatchCommandView",
-			"command.autocomplete": "A8MAutocompleteCommandView",
+			"Access8Math.command.latex": "A8MLaTeXCommandView",
+			"Access8Math.command.mark": "A8MMarkCommandView",
+			"Access8Math.command.review": "A8MHTMLCommandView",
+			"Access8Math.command.translate": "A8MTranslateCommandView",
+			"Access8Math.command.batch": "A8MBatchCommandView",
+			"Access8Math.command.autocomplete": "A8MAutocompleteCommandView",
 		}.items():
 			module = types.ModuleType(module_name)
 			module.__dict__[class_name] = self._build_command_view(class_name)
 			command_modules[module_name] = module
 
-		delimiter_module = types.ModuleType("delimiter")
+		delimiter_module = types.ModuleType("Access8Math.delimiter")
 		delimiter_module.LaTeX = {
 			"bracket": {"start": r"\(", "end": r"\)", "type": "latex"},
 		}
@@ -207,19 +211,20 @@ class WriterImportHarness:
 			"at": {"start": "@", "end": "@", "type": "nemeth"},
 		}
 
-		lib_braille = types.ModuleType("lib.braille")
+		lib_braille = types.ModuleType("Access8Math.lib.braille")
 		lib_braille.display_braille = lambda region: self.braille_output.append(region)
 
-		lib_math_process = types.ModuleType("lib.mathProcess")
+		lib_math_process = types.ModuleType("Access8Math.lib.mathProcess")
 		lib_math_process.textmath2laObjFactory = self._textmath2la_obj_factory
 		lib_math_process.latex2mathml = self._latex_to_mathml
 		lib_math_process.asciimath2mathml = self._asciimath_to_mathml
 		lib_math_process.nemeth2latex = self._nemeth_to_latex
 
-		lib_viewhtml = types.ModuleType("lib.viewHTML")
+		lib_viewhtml = types.ModuleType("Access8Math.lib.viewHTML")
 		lib_viewhtml.Access8MathDocument = self._access8math_document
 
 		modules = {
+			"Access8Math": access8math_pkg,
 			"addonHandler": addon_handler,
 			"api": api_module,
 			"braille": braille_module,
@@ -234,10 +239,10 @@ class WriterImportHarness:
 			"tones": tones_module,
 			"ui": ui_module,
 			"inputCore": input_core,
-			"delimiter": delimiter_module,
-			"lib.braille": lib_braille,
-			"lib.mathProcess": lib_math_process,
-			"lib.viewHTML": lib_viewhtml,
+			"Access8Math.delimiter": delimiter_module,
+			"Access8Math.lib.braille": lib_braille,
+			"Access8Math.lib.mathProcess": lib_math_process,
+			"Access8Math.lib.viewHTML": lib_viewhtml,
 		}
 		modules.update(command_modules)
 
@@ -246,23 +251,23 @@ class WriterImportHarness:
 		self._translation_patcher = mock.patch.object(builtins, "_", lambda text: text, create=True)
 		self._translation_patcher.start()
 
-		if PLUGIN_ROOT not in sys.path:
-			sys.path.insert(0, PLUGIN_ROOT)
+		if PLUGIN_PARENT not in sys.path:
+			sys.path.insert(0, PLUGIN_PARENT)
 		for name in list(sys.modules):
-			if name == "writer" or name.startswith("writer."):
+			if name == "Access8Math.writer" or name.startswith("Access8Math.writer."):
 				sys.modules.pop(name, None)
 
-		self.writer = importlib.import_module("writer")
+		self.writer = importlib.import_module("Access8Math.writer")
 		self.writer._ = lambda text: text
 		self.writer.WindowsError = OSError
 		self._tempdir = tempfile.TemporaryDirectory()
-		if "writer.actions" in sys.modules:
-			sys.modules["writer.actions"].PATH = self._tempdir.name
+		if "Access8Math.writer.actions" in sys.modules:
+			sys.modules["Access8Math.writer.actions"].PATH = self._tempdir.name
 		return self
 
 	def __exit__(self, exc_type, exc_val, exc_tb):
 		for name in list(sys.modules):
-			if name == "writer" or name.startswith("writer."):
+			if name == "Access8Math.writer" or name.startswith("Access8Math.writer."):
 				sys.modules.pop(name, None)
 		if self._patcher:
 			self._patcher.stop()
@@ -341,19 +346,19 @@ class WriterImportHarness:
 class TestWriterSectionManager(unittest.TestCase):
 	def test_writer_is_package_backed_and_re_exports_section_manager(self):
 		with WriterImportHarness() as harness:
-			writer_session = importlib.import_module("writer.session")
+			writer_session = importlib.import_module("Access8Math.writer.session")
 			self.assertTrue(harness.writer.__file__.endswith(os.path.join("writer", "__init__.py")))
 			self.assertIs(harness.writer.SectionManager, writer_session.SectionManager)
-			self.assertEqual(writer_session.SectionManager.__module__, "writer.session")
+			self.assertEqual(writer_session.SectionManager.__module__, "Access8Math.writer.session")
 
 	def test_writer_navigation_module_owns_section_manager_navigation_methods(self):
 		with WriterImportHarness() as harness:
-			importlib.import_module("writer.navigation")
+			importlib.import_module("Access8Math.writer.navigation")
 			for method_name in ["move", "moveLine", "start", "end", "startMargin", "endMargin"]:
 				with self.subTest(method=method_name):
 					self.assertEqual(
 						getattr(harness.writer.SectionManager, method_name).__module__,
-						"writer.navigation",
+						"Access8Math.writer.navigation",
 					)
 
 	def test_section_manager_supports_command_selection_predicates_and_margin_moves(self):
@@ -465,17 +470,17 @@ class TestWriterSectionManager(unittest.TestCase):
 class TestWriterActions(unittest.TestCase):
 	def test_writer_actions_module_owns_writer_action_methods(self):
 		with WriterImportHarness() as harness:
-			importlib.import_module("writer.actions")
+			importlib.import_module("Access8Math.writer.actions")
 			for method_name in ["script_view_math", "script_interact", "displayBlocks"]:
 				with self.subTest(method=method_name):
 					self.assertEqual(
 						getattr(harness.writer.TextMathEditField, method_name).__module__,
-						"writer.actions",
+						"Access8Math.writer.actions",
 					)
 
 	def test_writer_routing_module_owns_routing_methods(self):
 		with WriterImportHarness() as harness:
-			importlib.import_module("writer.routing")
+			importlib.import_module("Access8Math.writer.routing")
 			for method_name in [
 				"script_writeNav",
 				"script_navigate",
@@ -488,12 +493,12 @@ class TestWriterActions(unittest.TestCase):
 				with self.subTest(method=method_name):
 					self.assertEqual(
 						getattr(harness.writer.TextMathEditField, method_name).__module__,
-						"writer.routing",
+						"Access8Math.writer.routing",
 					)
 
 	def test_writer_gestures_module_owns_gesture_binding_helpers(self):
 		with WriterImportHarness() as harness:
-			importlib.import_module("writer.gestures")
+			importlib.import_module("Access8Math.writer.gestures")
 			for method_name in [
 				"bindCommandGestures",
 				"unbindCommandGestures",
@@ -510,7 +515,7 @@ class TestWriterActions(unittest.TestCase):
 				with self.subTest(method=method_name):
 					self.assertEqual(
 						getattr(harness.writer.TextMathEditField, method_name).__module__,
-						"writer.gestures",
+						"Access8Math.writer.gestures",
 					)
 
 	def test_script_mark_latex_command_translate_autocomplete_and_batch_entrypoints(self):

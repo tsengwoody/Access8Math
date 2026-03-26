@@ -6,7 +6,7 @@ import wx
 import addonHandler
 import gui
 
-from lib.viewHTML import Access8MathDocument
+from .lib.viewHTML import Access8MathDocument
 
 addonHandler.initTranslation()
 

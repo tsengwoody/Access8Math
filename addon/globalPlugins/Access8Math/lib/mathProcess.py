@@ -1,7 +1,7 @@
 ﻿import html
 import re
 
-from regularExpression import delimiterRegularExpression
+from ..regularExpression import delimiterRegularExpression
 
 from latex2mathml import converter
 from py_asciimath.translator.translator import (

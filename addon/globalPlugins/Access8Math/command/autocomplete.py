@@ -11,7 +11,7 @@ from .views import MenuView, MenuViewTextInfo
 
 addonHandler.initTranslation()
 
-from lib.latex import latexData
+from ..lib.latex import latexData
 
 
 def command(text, offset):

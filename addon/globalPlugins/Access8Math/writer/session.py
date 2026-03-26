@@ -6,8 +6,8 @@ import api
 import config
 import textInfos
 
-from delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter, Nemeth as Nemeth_delimiter
-from lib.mathProcess import textmath2laObjFactory
+from ..delimiter import LaTeX as LaTeX_delimiter, AsciiMath as AsciiMath_delimiter, Nemeth as Nemeth_delimiter
+from ..lib.mathProcess import textmath2laObjFactory
 from .navigation import WriterNavigationMixin
 
 
