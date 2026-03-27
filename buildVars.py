@@ -26,7 +26,9 @@ addon_info = AddonInfo(
 	addon_version="4.5",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("Changelog for the add-on version."),
+	addon_changelog=_("""Added an HTML color scheme setting for preview and export output.
+Refactored the math provider and writer layers to improve package structure and maintainability.
+Simplified bundled dependencies by removing unused web/template shims and cleaning up import paths."""),
 	# Author(s)
 	addon_author="Tseng Woody <tsengwoody.tw@gmail.com>",
 	# URL for the add-on documentation support
