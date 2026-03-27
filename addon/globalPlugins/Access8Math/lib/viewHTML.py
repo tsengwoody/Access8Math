@@ -4,7 +4,6 @@ import os
 import re
 import shutil
 import uuid
-from html.parser import HTMLParser
 from zipfile import ZipFile
 
 import addonHandler
@@ -17,21 +16,17 @@ TEMPLATES_PATH = os.path.join(PATH, 'web', 'templates')
 CONTENT_CONFIG_PLACEHOLDER = "__CONTEXT__"
 
 import markdown2
+from lxml import html as lxml_html
 
 from ..command.action import batch
 
 
-class _ResourceHTMLParser(HTMLParser):
-	def __init__(self):
-		super().__init__()
-		self.resources = []
+RESOURCE_PATHS_XPATH = "//a[@href]/@href | //img[@src]/@src"
 
-	def handle_starttag(self, tag, attrs):
-		attrs = dict(attrs)
-		if tag == "a" and "href" in attrs:
-			self.resources.append('\\'.join(attrs["href"].split('/')))
-		elif tag == "img" and "src" in attrs:
-			self.resources.append('\\'.join(attrs["src"].split('/')))
+
+def _collect_resource_paths(content):
+	document = lxml_html.fromstring(content)
+	return ['\\'.join(path.split('/')) for path in document.xpath(RESOURCE_PATHS_XPATH)]
 
 
 def _load_json(path):
@@ -139,13 +134,10 @@ class Access8MathDocument:
 		with io.open(os.path.join(self.raw_folder, self.raw_entry), 'r', encoding='utf8') as f:
 			content = f.read()
 		contentmd = markdown2.markdown(content)
-		parser = _ResourceHTMLParser()
 		try:
-			parser.feed(contentmd)
-			parser.close()
+			return _collect_resource_paths(contentmd)
 		except BaseException:
 			return []
-		return parser.resources
 
 	@property
 	def title(self):

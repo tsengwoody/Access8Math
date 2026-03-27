@@ -35,6 +35,8 @@ class TestViewHTMLRendering(unittest.TestCase):
 		command_action_stub.batch = lambda _name: (lambda value: value)
 
 		markdown2_stub = types.ModuleType("markdown2")
+		lxml_stub = types.ModuleType("lxml")
+		lxml_html_stub = types.ModuleType("lxml.html")
 
 		def fake_markdown(text):
 			text = text.replace("![chart](images/plots/chart.png)", '<img src="images/plots/chart.png">')
@@ -42,6 +44,28 @@ class TestViewHTMLRendering(unittest.TestCase):
 			return text
 
 		markdown2_stub.markdown = fake_markdown
+		self.lxml_fromstring_calls = []
+
+		class FakeDocument:
+			def __init__(self, content):
+				self.content = content
+
+			def xpath(self, expression):
+				if expression != "//a[@href]/@href | //img[@src]/@src":
+					raise AssertionError(f"Unexpected XPath expression: {expression}")
+				results = []
+				if '<a href="assets/guide/file.txt">' in self.content:
+					results.append("assets/guide/file.txt")
+				if '<img src="images/plots/chart.png">' in self.content:
+					results.append("images/plots/chart.png")
+				return results
+
+		def fake_fromstring(content):
+			self.lxml_fromstring_calls.append(content)
+			return FakeDocument(content)
+
+		lxml_html_stub.fromstring = fake_fromstring
+		lxml_stub.html = lxml_html_stub
 
 		self.module_patches = [
 			mock.patch.dict(sys.modules, {
@@ -50,6 +74,8 @@ class TestViewHTMLRendering(unittest.TestCase):
 				"config": config_stub,
 				"Access8Math.command.action": command_action_stub,
 				"markdown2": markdown2_stub,
+				"lxml": lxml_stub,
+				"lxml.html": lxml_html_stub,
 			}),
 		]
 		for patch in self.module_patches:
@@ -149,6 +175,31 @@ class TestViewHTMLRendering(unittest.TestCase):
 	def test_viewhtml_does_not_import_html5lib_for_resource_discovery(self):
 		self._document_resources("[docs](assets/guide/file.txt)")
 		self.assertNotIn("html5lib", sys.modules)
+
+	def test_resources_use_lxml_html_xpath_for_resource_discovery(self):
+		resources = self._document_resources("[docs](assets/guide/file.txt)\n![chart](images/plots/chart.png)")
+		self.assertEqual(len(self.lxml_fromstring_calls), 1)
+		self.assertEqual(
+			resources,
+			[
+				r"assets\guide\file.txt",
+				r"images\plots\chart.png",
+			],
+		)
+
+	def test_resources_do_not_require_stdlib_html_parser(self):
+		real_import = __import__
+
+		def blocking_import(name, globals=None, locals=None, fromlist=(), level=0):
+			if name == "html.parser":
+				raise ModuleNotFoundError("No module named 'html.parser'")
+			return real_import(name, globals, locals, fromlist, level)
+
+		sys.modules.pop("html.parser", None)
+		with mock.patch("builtins.__import__", side_effect=blocking_import):
+			resources = self._document_resources("[docs](assets/guide/file.txt)")
+
+		self.assertIn(r"assets\guide\file.txt", resources)
 
 	def test_document_color_prefers_metadata_over_global_setting(self):
 		from Access8Math.lib.viewHTML import Access8MathDocument
