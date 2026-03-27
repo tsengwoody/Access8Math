@@ -37,7 +37,7 @@ PACKAGE_PATH = os.path.join(PATH, 'package')
 config.conf.spec["Access8Math"] = {
 	"settings": {
 		"language": "string(default=Windows)",
-		"item_interval_time": "integer(default=50,min=0,max=100)",
+		"item_interval_time": "integer(default=10,min=0,max=100)",
 		"analyze_math_meaning": "boolean(default=true)",
 		"auto_generate": "boolean(default=false)",
 		"dictionary_generate": "boolean(default=true)",
