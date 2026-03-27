@@ -34,22 +34,22 @@ msgstr "Access8Math"
 #. Translators: Title of a setting dialog.
 #: addon\globalPlugins\Access8Math\dialogs.py:77
 msgid "Math Providers"
-msgstr "Обработчик математических выражений"
+msgstr "Провайдеры математических выражений"
 
 #. Translators: The label of an option in the reading settings dialog
 #: addon\globalPlugins\Access8Math\dialogs.py:81
 msgid "&Speech provider:"
-msgstr "Обработчик &речи:"
+msgstr "Провайдер &речи:"
 
 #. Translators: The label of an option in the reading settings dialog
 #: addon\globalPlugins\Access8Math\dialogs.py:86
 msgid "&Braille provider:"
-msgstr "Обработчик &Брайля:"
+msgstr "Провайдер &Брайля:"
 
 #. Translators: The label of an option in the reading settings dialog
 #: addon\globalPlugins\Access8Math\dialogs.py:94
 msgid "Inter&action provider:"
-msgstr "Обработчик &взаимодействия:"
+msgstr "Провайдер &взаимодействия:"
 
 #. Translators: Title of a setting dialog.
 #: addon\globalPlugins\Access8Math\dialogs.py:106
@@ -830,30 +830,30 @@ msgstr "О дополн&ении..."
 
 #: addon\globalPlugins\Access8Math\__init__.py:316
 msgid "Switch math speech provider"
-msgstr "Изменяет обработчик речи для математических выражений"
+msgstr "Переключить провайдер речи для математических выражений"
 
 #: addon\globalPlugins\Access8Math\__init__.py:327
 #, python-format
 msgid "Math speech provider switched to %s"
-msgstr "Обработчик речи для математических выражений изменён на %s"
+msgstr "Провайдер речи для математических выражений переключён на %s"
 
 #: addon\globalPlugins\Access8Math\__init__.py:330
 msgid "Switch math braille provider"
-msgstr "Изменяет обработчик Брайля для математических выражений"
+msgstr "Переключить провайдер Брайля для математических выражений"
 
 #: addon\globalPlugins\Access8Math\__init__.py:341
 #, python-format
 msgid "Math braille provider switched to %s"
-msgstr "Обработчик Брайля для математических выражений изменён на %s"
+msgstr "Провайдер Брайля для математических выражений переключён на %s"
 
 #: addon\globalPlugins\Access8Math\__init__.py:344
 msgid "Switch math interaction provider"
-msgstr "Изменяет обработчик взаимодействия с математическими выражениями"
+msgstr "Переключить провайдер взаимодействия с математическими выражениями"
 
 #: addon\globalPlugins\Access8Math\__init__.py:355
 #, python-format
 msgid "Math interaction provider switched to %s"
-msgstr "Обработчик взаимодействия с математическими выражениями изменён на %s"
+msgstr "Провайдер взаимодействия с математическими выражениями переключён на %s"
 
 #. Translators: The title of the Export localization file window
 #: addon\globalPlugins\Access8Math\__init__.py:401

@@ -36,7 +36,7 @@ msgstr "Access8Math"
 #. Translators: Title of a setting dialog.
 #: addon\globalPlugins\Access8Math\dialogs.py:77
 msgid "Math Providers"
-msgstr "Math Player"
+msgstr "Provider matematici"
 
 #. Translators: The label of an option in the reading settings dialog
 #: addon\globalPlugins\Access8Math\dialogs.py:81

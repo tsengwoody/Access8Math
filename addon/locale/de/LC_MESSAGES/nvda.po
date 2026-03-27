@@ -35,22 +35,22 @@ msgstr "Access8Math"
 #. Translators: Title of a setting dialog.
 #: addon\globalPlugins\Access8Math\dialogs.py:77
 msgid "Math Providers"
-msgstr "Math Reader"
+msgstr "Mathematik-Anbieter"
 
 #. Translators: The label of an option in the reading settings dialog
 #: addon\globalPlugins\Access8Math\dialogs.py:81
 msgid "&Speech provider:"
-msgstr "&Sprachausgaben-Quelle:"
+msgstr "&Sprachanbieter:"
 
 #. Translators: The label of an option in the reading settings dialog
 #: addon\globalPlugins\Access8Math\dialogs.py:86
 msgid "&Braille provider:"
-msgstr "&Braille-Quelle:"
+msgstr "&Braille-Anbieter:"
 
 #. Translators: The label of an option in the reading settings dialog
 #: addon\globalPlugins\Access8Math\dialogs.py:94
 msgid "Inter&action provider:"
-msgstr "Inter&agiere mit Quelle:"
+msgstr "Inter&aktionsanbieter:"
 
 #. Translators: Title of a setting dialog.
 #: addon\globalPlugins\Access8Math\dialogs.py:106
@@ -831,30 +831,30 @@ msgstr "&Info..."
 
 #: addon\globalPlugins\Access8Math\__init__.py:316
 msgid "Switch math speech provider"
-msgstr "Math-Speech-Reader umschalten"
+msgstr "Mathematik-Sprachanbieter umschalten"
 
 #: addon\globalPlugins\Access8Math\__init__.py:327
 #, python-format
 msgid "Math speech provider switched to %s"
-msgstr "Math-Speech-Reader umgeschaltet zu %s"
+msgstr "Mathematik-Sprachanbieter wurde zu %s umgeschaltet"
 
 #: addon\globalPlugins\Access8Math\__init__.py:330
 msgid "Switch math braille provider"
-msgstr "Math-Braille-Reader umschalten"
+msgstr "Mathematik-Braille-Anbieter umschalten"
 
 #: addon\globalPlugins\Access8Math\__init__.py:341
 #, python-format
 msgid "Math braille provider switched to %s"
-msgstr "Math-Braille-Reader umgeschaltet zu %s"
+msgstr "Mathematik-Braille-Anbieter wurde zu %s umgeschaltet"
 
 #: addon\globalPlugins\Access8Math\__init__.py:344
 msgid "Switch math interaction provider"
-msgstr "Math-Interact-Reader umschalten"
+msgstr "Mathematik-Interaktionsanbieter umschalten"
 
 #: addon\globalPlugins\Access8Math\__init__.py:355
 #, python-format
 msgid "Math interaction provider switched to %s"
-msgstr "Math-Interact-Reader umgeschaltet zu %s"
+msgstr "Mathematik-Interaktionsanbieter wurde zu %s umgeschaltet"
 
 #. Translators: The title of the Export localization file window
 #: addon\globalPlugins\Access8Math\__init__.py:401
