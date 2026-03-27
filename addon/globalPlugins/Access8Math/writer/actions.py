@@ -3,6 +3,7 @@
 import os
 import shutil
 
+import addonHandler
 import api
 import braille
 import mathPres
@@ -15,6 +16,7 @@ from ..lib.braille import display_braille
 from ..lib.mathProcess import latex2mathml, asciimath2mathml, nemeth2latex
 from ..lib.viewHTML import Access8MathDocument
 
+addonHandler.initTranslation()
 
 PATH = os.path.dirname(os.path.dirname(__file__))
 

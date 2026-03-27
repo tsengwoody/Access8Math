@@ -61,6 +61,8 @@ pythonSources: list[str] = [
 	'addon/globalPlugins/Access8Math/*.py',
 	'addon/globalPlugins/Access8Math/command/*.py',
 	'addon/globalPlugins/Access8Math/lib/latex/*.py',
+	'addon/globalPlugins/Access8Math/reader/*.py',
+	'addon/globalPlugins/Access8Math/writer/*.py',
 ]
 
 # Files that contain strings for translation. Usually your python sources

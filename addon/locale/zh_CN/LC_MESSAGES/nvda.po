@@ -1677,6 +1677,122 @@ msgstr "psi"
 msgid "omega"
 msgstr "omega"
 
+
+#: addon\globalPlugins\Access8Math\writer\actions.py:70
+msgid "This block cannot be interacted"
+msgstr "此区块无法交互"
+
+#: addon\globalPlugins\Access8Math\writer\routing.py:146
+#, python-brace-format
+msgid "{data} copied to clipboard"
+msgstr "{data} 已复制到剪贴板"
+
+#: addon\globalPlugins\Access8Math\writer\routing.py:152
+#, python-brace-format
+msgid "{data} inserted to document"
+msgstr "{data} 已插入到文档"
+
+#: addon\globalPlugins\Access8Math\writer\routing.py:159
+#, python-brace-format
+msgid "{data} cut from document"
+msgstr "{data} 已从文档中剪切"
+
+#: addon\globalPlugins\Access8Math\writer\routing.py:166
+#, python-brace-format
+msgid "{data} deleted from document"
+msgstr "{data} 已从文档中删除"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:72
+msgid "Toggle command gestures"
+msgstr "切换命令手势"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:80
+msgid "Command gestures activated"
+msgstr "命令手势已启用"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:83
+msgid "Command gestures deactivated"
+msgstr "命令手势已禁用"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:87
+msgid "Toggle block navigation gestures"
+msgstr "切换区块导航手势"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:95
+msgid "Block navigation gestures activated"
+msgstr "区块导航手势已启用"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:98
+msgid "Block navigation gestures deactivated"
+msgstr "区块导航手势已禁用"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:102
+msgid "Toggle shortcut gestures"
+msgstr "切换快捷手势"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:107
+msgid "Cannot activate shortcut gesture in browse navigation mode"
+msgstr "无法在浏览导航模式下启用快捷手势"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:114
+msgid "Shortcut gestures activated"
+msgstr "快捷手势已启用"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:118
+msgid "Shortcut gestures deactivated"
+msgstr "快捷手势已禁用"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:122
+msgid "Toggle Greek alphabet gesture"
+msgstr "切换希腊字母手势"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:127
+msgid "Cannot activate Greek alphabet gestures in browse navigation mode"
+msgstr "无法在浏览导航模式下启用希腊字母手势"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:134
+msgid "Greek alphabet gestures activated"
+msgstr "希腊字母手势已启用"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:138
+msgid "Greek alphabet gestures deactivated"
+msgstr "希腊字母手势已禁用"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:142
+msgid "Toggle browse navigation mode"
+msgstr "切换浏览导航模式"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:154
+#: addon\globalPlugins\Access8Math\writer\__init__.py:175
+msgid "Browse navigation mode on"
+msgstr "浏览导航模式已开启"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:164
+msgid "Browse navigation mode off"
+msgstr "浏览导航模式已关闭"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:211
+#, python-brace-format
+msgid "Greek alphabet {GreekAlphabet} is not set"
+msgstr "希腊字母 {GreekAlphabet} 未设置"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:223
+msgid "In math section. Please leave math section first and try again."
+msgstr "位于数学区内。请先离开数学区后再试一次。"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:230
+msgid "Not in LaTeX block or text block. cannot use LaTeX command"
+msgstr "不在 LaTeX 区块或文本区块中，无法使用 LaTeX 命令"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:240
+#: addon\globalPlugins\Access8Math\writer\__init__.py:242
+msgid "No autocomplete found"
+msgstr "未找到自动完成项"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:249
+msgid "This block cannot be translated"
+msgstr "此区块无法翻译"
+
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-on store
 #: buildVars.py:24

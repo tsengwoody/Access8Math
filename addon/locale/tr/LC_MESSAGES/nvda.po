@@ -1701,6 +1701,122 @@ msgstr "psi"
 msgid "omega"
 msgstr "omega"
 
+
+#: addon\globalPlugins\Access8Math\writer\actions.py:70
+msgid "This block cannot be interacted"
+msgstr "Bu blokla etkileşim kurulamıyor"
+
+#: addon\globalPlugins\Access8Math\writer\routing.py:146
+#, python-brace-format
+msgid "{data} copied to clipboard"
+msgstr "{data} panoya kopyalandı"
+
+#: addon\globalPlugins\Access8Math\writer\routing.py:152
+#, python-brace-format
+msgid "{data} inserted to document"
+msgstr "{data} belgeye eklendi"
+
+#: addon\globalPlugins\Access8Math\writer\routing.py:159
+#, python-brace-format
+msgid "{data} cut from document"
+msgstr "{data} belgeden kesildi"
+
+#: addon\globalPlugins\Access8Math\writer\routing.py:166
+#, python-brace-format
+msgid "{data} deleted from document"
+msgstr "{data} belgeden silindi"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:72
+msgid "Toggle command gestures"
+msgstr "Komut hareketlerini aç/kapat"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:80
+msgid "Command gestures activated"
+msgstr "Komut hareketleri etkinleştirildi"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:83
+msgid "Command gestures deactivated"
+msgstr "Komut hareketleri devre dışı bırakıldı"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:87
+msgid "Toggle block navigation gestures"
+msgstr "Blok gezinti hareketlerini aç/kapat"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:95
+msgid "Block navigation gestures activated"
+msgstr "Blok gezinti hareketleri etkinleştirildi"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:98
+msgid "Block navigation gestures deactivated"
+msgstr "Blok gezinti hareketleri devre dışı bırakıldı"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:102
+msgid "Toggle shortcut gestures"
+msgstr "Kısayol hareketlerini aç/kapat"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:107
+msgid "Cannot activate shortcut gesture in browse navigation mode"
+msgstr "Gözatma gezinti modunda kısayol hareketleri etkinleştirilemez"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:114
+msgid "Shortcut gestures activated"
+msgstr "Kısayol hareketleri etkinleştirildi"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:118
+msgid "Shortcut gestures deactivated"
+msgstr "Kısayol hareketleri devre dışı bırakıldı"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:122
+msgid "Toggle Greek alphabet gesture"
+msgstr "Yunan alfabesi hareketini aç/kapat"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:127
+msgid "Cannot activate Greek alphabet gestures in browse navigation mode"
+msgstr "Gözatma gezinti modunda Yunan alfabesi hareketleri etkinleştirilemez"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:134
+msgid "Greek alphabet gestures activated"
+msgstr "Yunan alfabesi hareketleri etkinleştirildi"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:138
+msgid "Greek alphabet gestures deactivated"
+msgstr "Yunan alfabesi hareketleri devre dışı bırakıldı"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:142
+msgid "Toggle browse navigation mode"
+msgstr "Gözatma gezinti modunu aç/kapat"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:154
+#: addon\globalPlugins\Access8Math\writer\__init__.py:175
+msgid "Browse navigation mode on"
+msgstr "Gözatma gezinti modu açık"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:164
+msgid "Browse navigation mode off"
+msgstr "Gözatma gezinti modu kapalı"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:211
+#, python-brace-format
+msgid "Greek alphabet {GreekAlphabet} is not set"
+msgstr "Yunan alfabesi {GreekAlphabet} ayarlanmamış"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:223
+msgid "In math section. Please leave math section first and try again."
+msgstr "Matematik bölümündesiniz. Lütfen önce matematik bölümünden çıkın ve tekrar deneyin."
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:230
+msgid "Not in LaTeX block or text block. cannot use LaTeX command"
+msgstr "LaTeX bloğunda veya metin bloğunda değilsiniz. LaTeX komutu kullanılamaz"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:240
+#: addon\globalPlugins\Access8Math\writer\__init__.py:242
+msgid "No autocomplete found"
+msgstr "Otomatik tamamlama bulunamadı"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:249
+msgid "This block cannot be translated"
+msgstr "Bu blok çevrilemez"
+
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-on store
 #: buildVars.py:24

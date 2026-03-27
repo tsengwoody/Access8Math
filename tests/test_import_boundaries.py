@@ -39,6 +39,10 @@ BOOTSTRAP_TEST_FILES = [
 	PROJECT_ROOT / "tests/test_access8math_entrypoints.py",
 ]
 
+TRANSLATION_SOURCE_ROOT = PROJECT_ROOT / "addon/globalPlugins/Access8Math"
+TRANSLATION_EXCLUDED_PARTS = {"package", "python"}
+TRANSLATION_CALL_PATTERN = re.compile(r"_\(\s*[\"']")
+
 FORBIDDEN_SOURCE_PREFIXES = (
 	"from delimiter import",
 	"from command.",
@@ -171,6 +175,24 @@ class ImportBoundaryTests(unittest.TestCase):
 			violations,
 			[],
 			"Found forbidden top-level project imports in tests:\n" + "\n".join(violations),
+		)
+
+	def test_translation_sources_initialize_addonhandler(self):
+		violations = []
+		for path in sorted(TRANSLATION_SOURCE_ROOT.rglob("*.py")):
+			if TRANSLATION_EXCLUDED_PARTS.intersection(path.parts):
+				continue
+			text = path.read_text(encoding="utf-8")
+			if not TRANSLATION_CALL_PATTERN.search(text):
+				continue
+			if "import addonHandler" not in text or "addonHandler.initTranslation()" not in text:
+				violations.append(str(path))
+
+		self.assertEqual(
+			violations,
+			[],
+			"Files using translation strings must import addonHandler and call initTranslation():\n"
+			+ "\n".join(violations),
 		)
 
 

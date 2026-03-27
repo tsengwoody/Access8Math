@@ -1701,6 +1701,122 @@ msgstr "psi"
 msgid "omega"
 msgstr "omega"
 
+
+#: addon\globalPlugins\Access8Math\writer\actions.py:70
+msgid "This block cannot be interacted"
+msgstr "No se puede interactuar con este bloque"
+
+#: addon\globalPlugins\Access8Math\writer\routing.py:146
+#, python-brace-format
+msgid "{data} copied to clipboard"
+msgstr "{data} copiado al portapapeles"
+
+#: addon\globalPlugins\Access8Math\writer\routing.py:152
+#, python-brace-format
+msgid "{data} inserted to document"
+msgstr "{data} insertado en el documento"
+
+#: addon\globalPlugins\Access8Math\writer\routing.py:159
+#, python-brace-format
+msgid "{data} cut from document"
+msgstr "{data} cortado del documento"
+
+#: addon\globalPlugins\Access8Math\writer\routing.py:166
+#, python-brace-format
+msgid "{data} deleted from document"
+msgstr "{data} eliminado del documento"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:72
+msgid "Toggle command gestures"
+msgstr "Alternar gestos de comandos"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:80
+msgid "Command gestures activated"
+msgstr "Gestos de comandos activados"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:83
+msgid "Command gestures deactivated"
+msgstr "Gestos de comandos desactivados"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:87
+msgid "Toggle block navigation gestures"
+msgstr "Alternar gestos de navegación por bloques"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:95
+msgid "Block navigation gestures activated"
+msgstr "Gestos de navegación por bloques activados"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:98
+msgid "Block navigation gestures deactivated"
+msgstr "Gestos de navegación por bloques desactivados"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:102
+msgid "Toggle shortcut gestures"
+msgstr "Alternar gestos de atajos"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:107
+msgid "Cannot activate shortcut gesture in browse navigation mode"
+msgstr "No se pueden activar los gestos de atajos en el modo de navegación"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:114
+msgid "Shortcut gestures activated"
+msgstr "Gestos de atajos activados"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:118
+msgid "Shortcut gestures deactivated"
+msgstr "Gestos de atajos desactivados"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:122
+msgid "Toggle Greek alphabet gesture"
+msgstr "Alternar gesto del alfabeto griego"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:127
+msgid "Cannot activate Greek alphabet gestures in browse navigation mode"
+msgstr "No se pueden activar los gestos del alfabeto griego en el modo de navegación"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:134
+msgid "Greek alphabet gestures activated"
+msgstr "Gestos del alfabeto griego activados"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:138
+msgid "Greek alphabet gestures deactivated"
+msgstr "Gestos del alfabeto griego desactivados"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:142
+msgid "Toggle browse navigation mode"
+msgstr "Alternar modo de navegación"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:154
+#: addon\globalPlugins\Access8Math\writer\__init__.py:175
+msgid "Browse navigation mode on"
+msgstr "Modo de navegación activado"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:164
+msgid "Browse navigation mode off"
+msgstr "Modo de navegación desactivado"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:211
+#, python-brace-format
+msgid "Greek alphabet {GreekAlphabet} is not set"
+msgstr "El alfabeto griego {GreekAlphabet} no está configurado"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:223
+msgid "In math section. Please leave math section first and try again."
+msgstr "Está en una sección matemática. Salga primero de la sección matemática e inténtelo de nuevo."
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:230
+msgid "Not in LaTeX block or text block. cannot use LaTeX command"
+msgstr "No está en un bloque LaTeX ni en un bloque de texto. No se puede usar el comando LaTeX"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:240
+#: addon\globalPlugins\Access8Math\writer\__init__.py:242
+msgid "No autocomplete found"
+msgstr "No se encontró autocompletado"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:249
+msgid "This block cannot be translated"
+msgstr "Este bloque no se puede traducir"
+
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-on store
 #: buildVars.py:24

@@ -1,3 +1,4 @@
+import addonHandler
 import api
 import eventHandler
 from keyboardHandler import KeyboardInputGesture
@@ -7,6 +8,8 @@ import textInfos
 import textInfos.offsets
 import tones
 import ui
+
+addonHandler.initTranslation()
 
 
 class MenuView(Window):

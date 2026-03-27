@@ -282,7 +282,7 @@ msgstr "&Unicode-Wörterbuch für die Braille-Schrift..."
 #: addon\globalPlugins\Access8Math\dialogs.py:860
 #, python-brace-format
 msgid "{title} ({language})"
-msgstr "{category}-Mathematikregel ({language})"
+msgstr "{title}-Mathematikregel ({language})"
 
 #. Translators: The label of a text field to search for symbols in the speech symbols dialog.
 #: addon\globalPlugins\Access8Math\dialogs.py:456
@@ -1701,6 +1701,122 @@ msgstr "Psi"
 #: addon\globalPlugins\Access8Math\lib\latex\latexData.py:718
 msgid "omega"
 msgstr "Omega"
+
+
+#: addon\globalPlugins\Access8Math\writer\actions.py:70
+msgid "This block cannot be interacted"
+msgstr "Mit diesem Block kann nicht interagiert werden"
+
+#: addon\globalPlugins\Access8Math\writer\routing.py:146
+#, python-brace-format
+msgid "{data} copied to clipboard"
+msgstr "{data} in die Zwischenablage kopiert"
+
+#: addon\globalPlugins\Access8Math\writer\routing.py:152
+#, python-brace-format
+msgid "{data} inserted to document"
+msgstr "{data} in das Dokument eingefügt"
+
+#: addon\globalPlugins\Access8Math\writer\routing.py:159
+#, python-brace-format
+msgid "{data} cut from document"
+msgstr "{data} aus dem Dokument ausgeschnitten"
+
+#: addon\globalPlugins\Access8Math\writer\routing.py:166
+#, python-brace-format
+msgid "{data} deleted from document"
+msgstr "{data} aus dem Dokument gelöscht"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:72
+msgid "Toggle command gestures"
+msgstr "Befehlsgesten umschalten"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:80
+msgid "Command gestures activated"
+msgstr "Befehlsgesten aktiviert"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:83
+msgid "Command gestures deactivated"
+msgstr "Befehlsgesten deaktiviert"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:87
+msgid "Toggle block navigation gestures"
+msgstr "Gesten für Blocknavigation umschalten"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:95
+msgid "Block navigation gestures activated"
+msgstr "Gesten für Blocknavigation aktiviert"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:98
+msgid "Block navigation gestures deactivated"
+msgstr "Gesten für Blocknavigation deaktiviert"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:102
+msgid "Toggle shortcut gestures"
+msgstr "Kurzbefehlsgesten umschalten"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:107
+msgid "Cannot activate shortcut gesture in browse navigation mode"
+msgstr "Kurzbefehlsgesten können im Lesemodus nicht aktiviert werden"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:114
+msgid "Shortcut gestures activated"
+msgstr "Kurzbefehlsgesten aktiviert"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:118
+msgid "Shortcut gestures deactivated"
+msgstr "Kurzbefehlsgesten deaktiviert"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:122
+msgid "Toggle Greek alphabet gesture"
+msgstr "Geste für griechisches Alphabet umschalten"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:127
+msgid "Cannot activate Greek alphabet gestures in browse navigation mode"
+msgstr "Gesten für das griechische Alphabet können im Lesemodus nicht aktiviert werden"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:134
+msgid "Greek alphabet gestures activated"
+msgstr "Gesten für das griechische Alphabet aktiviert"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:138
+msgid "Greek alphabet gestures deactivated"
+msgstr "Gesten für das griechische Alphabet deaktiviert"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:142
+msgid "Toggle browse navigation mode"
+msgstr "Lesenavigationsmodus umschalten"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:154
+#: addon\globalPlugins\Access8Math\writer\__init__.py:175
+msgid "Browse navigation mode on"
+msgstr "Lesenavigationsmodus ein"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:164
+msgid "Browse navigation mode off"
+msgstr "Lesenavigationsmodus aus"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:211
+#, python-brace-format
+msgid "Greek alphabet {GreekAlphabet} is not set"
+msgstr "Das griechische Alphabet {GreekAlphabet} ist nicht festgelegt"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:223
+msgid "In math section. Please leave math section first and try again."
+msgstr "Sie befinden sich im Mathematikbereich. Bitte verlassen Sie zuerst den Mathematikbereich und versuchen Sie es erneut."
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:230
+msgid "Not in LaTeX block or text block. cannot use LaTeX command"
+msgstr "Nicht in einem LaTeX-Block oder Textblock. Der LaTeX-Befehl kann nicht verwendet werden"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:240
+#: addon\globalPlugins\Access8Math\writer\__init__.py:242
+msgid "No autocomplete found"
+msgstr "Keine Autovervollständigung gefunden"
+
+#: addon\globalPlugins\Access8Math\writer\__init__.py:249
+msgid "This block cannot be translated"
+msgstr "Dieser Block kann nicht übersetzt werden"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-on store

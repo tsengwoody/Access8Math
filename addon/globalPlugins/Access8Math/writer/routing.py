@@ -1,10 +1,13 @@
 # coding=utf-8
 
+import addonHandler
 import api
 import config
 from keyboardHandler import KeyboardInputGesture
 import tones
 import ui
+
+addonHandler.initTranslation()
 
 
 class WriterRoutingMixin:
