@@ -88,7 +88,7 @@ class EditorFrame(wx.Frame):
 				# Translators: A menu item in the Editor window
 				_("&New editor"),
 				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
-				_("Open a new editor."),
+				_("Open a new editor window."),
 				self.OnNew
 			),
 			(
@@ -96,7 +96,7 @@ class EditorFrame(wx.Frame):
 				# Translators: A menu item in the Editor window
 				_("&Open file..."),
 				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
-				_("Open a new file."),
+				_("Open a file."),
 				self.OnOpen
 			),
 			(
@@ -136,7 +136,7 @@ class EditorFrame(wx.Frame):
 				# Translators: A menu item in the Editor window
 				_("E&xit"),
 				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
-				_("Terminate the program."),
+				_("Close the editor."),
 				self.OnExit
 			)
 		]:
@@ -160,7 +160,7 @@ class EditorFrame(wx.Frame):
 				# Translators: A menu item in the Editor window
 				_("Preview"),
 				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
-				_("Preview HTML file"),
+				_("Preview the HTML output"),
 				self.OnPreview
 			),
 			(
@@ -168,7 +168,7 @@ class EditorFrame(wx.Frame):
 				# Translators: A menu item in the Editor window
 				_("Export..."),
 				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
-				_("Export archive file"),
+				_("Export the document as an archive"),
 				self.OnExport
 			),
 		]:
@@ -192,7 +192,7 @@ class EditorFrame(wx.Frame):
 				# Translators: A menu item in the Editor window
 				_("Font"),
 				# Translators: The help description text shown in the status bar in the Editor window when a menu item is selected
-				_("Adjust font format"),
+				_("Adjust font settings"),
 				self.OnFont
 			),
 			(

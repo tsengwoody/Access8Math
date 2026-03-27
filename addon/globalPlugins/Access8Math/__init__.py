@@ -1,5 +1,5 @@
 """# Access8Math: Allows access math content written by MathML and write math as MathML
-# Copyright (C) 2017-2024 Tseng Woody <tsengwoody.tw@gmail.com>
+# Copyright (C) 2017-2026 Tseng Woody <tsengwoody.tw@gmail.com>
 # This file is covered by the GNU General Public License.
 # See the file COPYING.txt for more details."""
 # coding: utf-8
@@ -116,7 +116,7 @@ Access8Math is covered by the GNU General Public License (Version 2). You are fr
 It can be viewed online at: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html""").format(
 	addonVersion=ADDON_VERSION,
 	copyrightFirstYear=2017,
-	copyrightLastYear=2024,
+	copyrightLastYear=2026,
 )
 
 
@@ -184,9 +184,6 @@ class VirtualContextMenu(NVDAObject):
 			frame = EditorFrame()
 			frame.control.SetValue(content)
 		frame.Show(True)
-
-
-editor_dialog = None
 
 
 def disableInSecureMode(decoratedCls):
@@ -268,7 +265,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 		self.speechMathRule = l10nMenu.Append(
 			wx.ID_ANY,
-			_("Math Rules Speech Output...")
+			_("Speech Math Rules...")
 		)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onSpeechMathRule, self.speechMathRule)
 
@@ -280,13 +277,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 		self.brailleMathRule = l10nMenu.Append(
 			wx.ID_ANY,
-			_("Math Rules Braille Output...")
+			_("Braille Math Rules...")
 		)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onBrailleMathRule, self.brailleMathRule)
 
 		self.newLanguageAdding = l10nMenu.Append(
 			wx.ID_ANY,
-			_("Add New Language...")
+			_("Add a New Language...")
 		)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onNewLanguageAdding, self.newLanguageAdding)
 
@@ -316,7 +313,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.Access8Math_item = self.toolsMenu.AppendSubMenu(self.menu, _("Access8Math"), _("Access8Math"))
 
 	@script(
-		description=_("Switch math speech reader"),
+		description=_("Switch math speech provider"),
 		category=ADDON_SUMMARY,
 	)
 	def script_speech_source_switch(self, gesture):
@@ -327,10 +324,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			index = 0
 		index = (index + 1) % len(provider_runtime.available_provider_ids)
 		config.conf["Access8Math"]["settings"][key] = provider_runtime.available_provider_ids[index]
-		ui.message(_("Math speech reader switch to %s") % config.conf["Access8Math"]["settings"][key])
+		ui.message(_("Math speech provider switched to %s") % config.conf["Access8Math"]["settings"][key])
 
 	@script(
-		description=_("Switch math Braille reader"),
+		description=_("Switch math braille provider"),
 		category=ADDON_SUMMARY,
 	)
 	def script_braille_source_switch(self, gesture):
@@ -341,10 +338,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			index = 0
 		index = (index + 1) % len(provider_runtime.available_provider_ids)
 		config.conf["Access8Math"]["settings"][key] = provider_runtime.available_provider_ids[index]
-		ui.message(_("Math braille reader switch to %s") % config.conf["Access8Math"]["settings"][key])
+		ui.message(_("Math braille provider switched to %s") % config.conf["Access8Math"]["settings"][key])
 
 	@script(
-		description=_("Switch math interact reader"),
+		description=_("Switch math interaction provider"),
 		category=ADDON_SUMMARY,
 	)
 	def script_interact_source_switch(self, gesture):
@@ -355,7 +352,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			index = 0
 		index = (index + 1) % len(provider_runtime.available_provider_ids)
 		config.conf["Access8Math"]["settings"][key] = provider_runtime.available_provider_ids[index]
-		ui.message(_("Math interact reader switch to %s") % config.conf["Access8Math"]["settings"][key])
+		ui.message(_("Math interaction provider switched to %s") % config.conf["Access8Math"]["settings"][key])
 
 	def edit(self, content=None, path=None):
 		if path:
@@ -423,7 +420,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 		math_reader.clean_user_data()
 
-		gui.messageBox(_("Workspace has already been cleaned"), _("Clean Workspace"), wx.OK)
+		gui.messageBox(_("Workspace has been cleaned"), _("Clean Workspace"), wx.OK)
 
 	def onAbout(self, evt):
 		gui.messageBox(aboutMessage, _("About Access8Math"), wx.OK)

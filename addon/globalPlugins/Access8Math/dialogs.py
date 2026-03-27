@@ -74,16 +74,16 @@ class A8MSettingsPanel(SettingsPanel):
 
 class MathReaderSettingsPanel(A8MSettingsPanel):
 	# Translators: Title of a setting dialog.
-	title = _("Math Reader")
+	title = _("Math Providers")
 	settings = OrderedDict({
 		"speech_source": {
 			# Translators: The label of an option in the reading settings dialog
-			"label": _("&Speech source:"),
+			"label": _("&Speech provider:"),
 			"options": {}
 		},
 		"braille_source": {
 			# Translators: The label of an option in the reading settings dialog
-			"label": _("&Braille source:"),
+			"label": _("&Braille provider:"),
 			"options": {
 				# Translators: A choice of a combobox in the reading settings dialog
 				"Access8Math": _("Access8Math"),
@@ -91,7 +91,7 @@ class MathReaderSettingsPanel(A8MSettingsPanel):
 		},
 		"interact_source": {
 			# Translators: The label of an option in the reading settings dialog
-			"label": _("Inter&act source:"),
+			"label": _("Inter&action provider:"),
 			"options": {
 				# Translators: A choice of a combobox in the reading settings dialog
 				"Access8Math": _("Access8Math"),
@@ -116,11 +116,11 @@ class ReadingSettingsPanel(A8MSettingsPanel):
 		},
 		"auto_generate": {
 			# Translators: The label of an option in the reading settings dialog
-			"label": _("Reading of auto-generated meaning in interaction navigation mode")
+			"label": _("Read auto-generated meanings in interaction mode")
 		},
 		"no_move_beep": {
 			# Translators: The label of an option in the reading settings dialog
-			"label": _("Use tone indicate to no move in interaction navigation mode")
+			"label": _("Use a tone to indicate no movement in interaction mode")
 		},
 	})
 	field = "settings"
@@ -207,7 +207,7 @@ class WritingSettingsPanel(A8MSettingsPanel):
 		},
 		"navigate_mode": {
 			# Translators: The label of an option in the writing settings dialog
-			"label": _("Activate block navigate gesture at startup")
+			"label": _("Activate block navigation gestures at startup")
 		},
 		"shortcut_mode": {
 			# Translators: The label of an option in the writing settings dialog
@@ -215,11 +215,11 @@ class WritingSettingsPanel(A8MSettingsPanel):
 		},
 		"writeNavAudioIndication": {
 			# Translators: The label of an option in the writing settings dialog
-			"label": _("Use audio indicate to switching of browse navigation mode")
+			"label": _("Use audio to indicate browse navigation mode changes")
 		},
 		"writeNavAcrossLine": {
 			# Translators: The label of an option in the writing settings dialog
-			"label": _("Left/Right arrow key allow of moving across line in browse navigation mode")
+			"label": _("Allow Left/Right arrow keys to move across lines in browse navigation mode")
 		},
 	})
 	field = "settings"

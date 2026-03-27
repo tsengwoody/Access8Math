@@ -146,7 +146,7 @@ class A8MInteractionFrame(GenericFrame):
 	def OnRawdataToClip(self, event):
 		api.copyToClip(self.mathcontent.root.get_mathml())
 		# Translators: A message reported to the user when copying data from the interaction window
-		ui.message(_("Copied"))
+		ui.message(_("Copied to clipboard"))
 
 
 class A8MInteraction(Window):
