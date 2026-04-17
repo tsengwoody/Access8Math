@@ -27,6 +27,13 @@ def probe_mathcat():
 	try:
 		from globalPlugins.MathCAT import MathCAT
 		return MathCAT()
+	except ModuleNotFoundError:
+		try:
+			from mathPres.MathCAT.MathCAT import MathCAT
+			return MathCAT()
+		except BaseException:
+			rollback_configured_sources(provider_name)
+			log.warning(f"{provider_name} not available")
 	except BaseException:
 		rollback_configured_sources(provider_name)
 		log.warning(f"{provider_name} not available")
@@ -38,6 +45,7 @@ def probe_mathplayer():
 	try:
 		from mathPres.mathPlayer import MathPlayer
 		return MathPlayer()
+
 	except BaseException:
 		rollback_configured_sources(provider_name)
 		log.warning(f"{provider_name} not available")

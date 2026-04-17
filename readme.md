@@ -1,12 +1,12 @@
-# Access8Math Introduction
+# Access8Math Overview
 
 Access8Math is an NVDA add-on that enhances the user experience when reading and writing mathematical content.
 
-Access8Math offers text-to-speech/Braille functionality for MathML content. MathML is the standard language for describing math structure and content on the web, which enables visually readable math content through a web browser.
+Access8Math offers text-to-speech and Braille support for MathML content. It also provides Interactive Mode, which allows users to explore math content in smaller segments and better understand its structure and hierarchical relationships.
 
-Access8Math can also assist in writing and converting LaTeX to MathML. LaTex is a typesetting system which is easy to write and learn. It’s commonly used for representing math formulas.
+Access8Math can also assist in writing and converting LaTeX to MathML. LaTeX is a typesetting system that is easy to write and learn, and is commonly used for representing math formulas. Access8Math also provides a command menu, preview support, and export features to make math editing and sharing more practical.
 
-With Access8Math's reading, writing, and conversion features, visually impaired users can read and write math content with ease. Based on MathML and LaTeX, two common math markups, Access8Math significantly reduces the difficulty of two-way communication between visually impaired and sighted users.
+With its support for both accessible math reading and efficient math writing, Access8Math makes communication about math easier for visually impaired and sighted users alike.
 
 ## Reading Features Overview
 
@@ -31,17 +31,14 @@ With Access8Math's reading, writing, and conversion features, visually impaired 
 * Preview content that includes LaTeX/Nemeth while editing.
 * Convert plain text files into accessible HTML files for preview and export.
 
-# Access8Math Description
+## Contents
 
-The Access8Math add-on provides comprehensive math content reading and writing capabilities.
-
-Access8Math offers customizable speech and braille output, and an Interactive Mode to access and understand math content. In Interactive Mode, users can read math content in smaller segments, as well as choosing the size of the segments through keyboard shortcuts. In this way, they can understand the structure and hierarchical relationships of long math content more easily.
-
-Access8Math also provides a command menu to make writing LaTeX easier. Instead of memorizing complex LaTeX syntaxes, users can navigate through the command menu to input math markups..
-
-In addition, users can preview their inputs while editing, which helps users to find and fix syntax errors as soon as possible.
-
-Finally, Access8Math converts text and math content written in LaTeX into visually readable HTML files. Since both text and math content can be displayed together visually, it makes math discussion between visually impaired and sighted people more fluid.
+* Reading Features
+* Interaction Features
+* Writing Features
+* Virtual Menus
+* Localization
+* Appendix
 
 ## MathML Examples
 
@@ -57,7 +54,7 @@ Math contents on Wikipedia are written in MathML:
 
 ### Language Setting
 
-Select the language in which the math content in Access8Math will be converted in Settings > Reading. If your language is not supported by the system, see the "Adding a new language" paragraph in the "Localization" section of this document.
+Select the language in which math content will be converted in the Access8Math reading settings. If your language is not supported by the system, see the "Adding a New Language" section in the "Localization" part of this document.
 
 ### Reading Experience Settings
 
@@ -65,7 +62,7 @@ Select the language in which the math content in Access8Math will be converted i
 
 These rules are designed to enhance the reading experience of commonly used mathematical structures. The system analyzes the content according to the MathML structure and mathematical rules, so that the speech outputs and Braille outputs are more consistent with the mathematical meaning. For example, "x^2" will be read as "square of x" instead of "x super 2". 
 
-Enable or disable this functionality by checking the "Analyze mathematical meaning of contents" checkbox in Settings > Reading. Uncheck this option to view the original MathML structure.
+Enable or disable this functionality with the "Analyze mathematical meaning of contents" option in the Access8Math reading settings. Uncheck this option to view the original MathML structure.
 
 This option also changes the given additional information of the mathematical meaning when navigating between math segments in Interactive Mode.
 
@@ -73,21 +70,17 @@ This option also changes the given additional information of the mathematical me
 
 When the system analyzes mathematical rules, it will read them out in a simplified way. If there is only one single item in the math content, it can omit the markups before and after while reading, so that it can be understood more efficiently. For example, "\(\frac{1}{2}\)" will be read as "1 over 2" instead of "fraction with numerator 1 and denominator 2 end fraction". 
 
-Enable or disable a simplified rule from the list of checkboxes in Settings > Rules.
+Enable or disable a simplified rule from the list of checkboxes in the Access8Math rules settings.
 
 #### Pauses Between Segments
 
 Access8Math reads math content with a pause between items to make the math content easier to understand. 
 
-To adjust the pause time between items, set a value from 1 to 100 in Settings > Reading. A smaller value means a shorter pause time and a larger value means a longer pause time.
+To adjust the pause time between items, set a value from 1 to 100 in the Access8Math reading settings. A smaller value means a shorter pause time and a larger value means a longer pause time.
 
-### Math Reader Settings
+### Math Provider Settings
 
-Select the source of the math reader in Settings > Math Reader.
-
-* Speech Source: Use Access8Math/MathCAT/Math Player for speech outputs.
-* Braille Source: Use Access8Math/MathCAT/Math Player for Braille outputs.
-* Interaction Source: Use Access8Math/MathCAT/Math Player for Interactive Mode.
+Select the speech, Braille, and interaction providers in the Access8Math math provider settings. Available providers include Access8Math, MathCAT, and Math Player.
 
 ### Customize Math Symbol Speech Outputs and Braille Outputs
 
@@ -127,7 +120,7 @@ When finished reading, simply press Esc to return to the document. For more info
 
 * Provide auto-generated additional information: In Interactive Mode, the system provides additional information about the number of items when meanings of sub-nodes are not fully defined in a math rule. This feature applies to situations where some MathML markups may have a variable number of sub-nodes, such as tables, matrices, or equations. The system provides additional information like "first column", "second item", and so on, while navigating. If not willing to hear the additional information, uncheck this setting.
 
-* Use an sound effect to indicate that no movement is possible: When checked, a beep sound appears when it’s not possible to move to a new item; when unchecked, the sound will be replaced by the text "no movement".
+* Use a sound effect to indicate that no movement is possible: When checked, a beep sound appears when it’s not possible to move to a new item; when unchecked, the sound will be replaced by the text "no movement".
 
 ## Writing Features
 
@@ -143,14 +136,14 @@ For more information on how to use the import and export features, please refer 
 
 When writing, special characters are used to separate text content from math content. In other words, the content inside the separators is math content written in a specific math markup, while the content outside is general text content.
 
-| Category | Staring Separator | Ending Separator |
+| Category | Starting Separator | Ending Separator |
 | --- | --- | --- |
 | LaTeX (Parentheses) | \( | \) |
 | LaTeX (Dollar sign) | $ | $ |
 | Nemeth (UEB) | _% | _: |
 | Nemeth (at) | @ | @ |
 
-Note: It’s possible to change the separators used in LaTeX/Nemeth in the Settings > Document.
+Note: It’s possible to change the separators used in LaTeX and Nemeth in the Access8Math document settings.
 
 ### Mixed Content Examples
 
@@ -172,13 +165,13 @@ Note: It’s possible to change the separators used in LaTeX/Nemeth in the Setti
 * Alt + I: Interact with the math block when the editing cursor is over it.
 * Alt + H: Show the view command menu (virtual menu) for preview or export. Please refer to the “Import and Export” section for more details.
 
-Note: Enable or disable command gestures at startup in Settings > Writing. Press NVDA + Alt + C in the editing area to enable or disable the command gesture. The shortcut can be changed in the NVDA input gestures.
+Note: Command gestures can be enabled or disabled at startup in the Access8Math writing settings. Press NVDA + Alt + C in the editing area to enable or disable the command gesture. The shortcut can be changed in the NVDA input gestures.
 
 ### Shortcut Gestures (Toggle: NVDA + Alt + S)
 
 When the editing cursor is in the LaTeX block, press A ~ Z or F1 ~ F12 to quickly insert the bound LaTeX, and press Shift + Alphabets, Shift + F1 ~ F12 to read out the bound LaTeX of the shortcut gesture (it’s necessary to set up the shortcut gesture in the LaTeX Command Menu first).
 
-Note: Enable or disable shortcut gestures at startup in Settings > Writing. Press NVDA + Alt + S in the editor to enable or disable shortcut gestures. The shortcut can be changed in the NVDA input gestures.
+Note: Shortcut gestures can be enabled or disabled at startup in the Access8Math writing settings. Press NVDA + Alt + S in the editor to enable or disable shortcut gestures. The shortcut can be changed in the NVDA input gestures.
 
 ### Greek Alphabets Gestures (Toggle: NVDA + Alt + G)
 
@@ -206,7 +199,7 @@ Take the content "The solution of the quadratic equation \(ax^2+bx+c=0\) is \(x=
 * Alt + Shift + Down arrow: Select the content of the current data block without moving.
 * Alt + Shift + Right arrow: Move to the next block and select it.
 
-Note: Enable or disable block navigation gestures at startup in Settings > Writing. Press NVDA + Alt + N in the editor to enable or disable block navigation gestures. The shortcut can be changed in the NVDA input gestures.
+Note: Block navigation gestures can be enabled or disabled at startup in the Access8Math writing settings. Press NVDA + Alt + N in the editor to enable or disable block navigation gestures. The shortcut can be changed in the NVDA input gestures.
 
 #### Block Browse Mode (Toggle: NVDA + Space)
 
@@ -253,7 +246,7 @@ The math content in the Markdown document will be converted to MathML, which all
 For the “export” feature  in the Access8Math editor's View menu, it allows users to save and share the document. Two types of documents will be exported:
 
 * Access8Math Document file (*.a8m): Access8Math Document file can be imported into the editor again for modification.
-* Archive file (*.zip): The HTML file in the archive file is the same as the HTML file converted for the preview feature. All users can read this HTML document without install Access8Math.
+* Archive file (*.zip): The HTML file in the archive file is the same as the HTML file converted for the preview feature. All users can read this HTML document without installing Access8Math.
 
 #### Import a Document
 
@@ -262,21 +255,21 @@ There are two ways to open an Access8Math Document:
 * File Explorer: In the File Explorer, select an Access8Math Document and press NVDA + application key or NVDA + Shift + F10 to open a virtual menu. Select “view” or “edit" option to open the document.
 * Access8Math Editor: Open any .a8m file by selecting the "Open” option in the “File” menu in the editor.
 
-Note: Configure whether or not the math objects in the exported HTML are independant blocks with the “HTML Math Display'' setting in Settings > File. This setting will affect whether the math objects are read independently or mixed with normal text when navigating with arrow keys to read the whole line in the Browse Mode.
+Note: Configure whether the math objects in the exported HTML are independent blocks with the "HTML Math Display" setting in the Access8Math file settings. This setting affects whether the math objects are read independently or mixed with normal text when navigating with arrow keys to read the whole line in Browse Mode.
 
 ## Virtual Menus
 
 Virtual menus will be presented only as speech and braille outputs. There is no actual visual menu. Select an item in the list by using the up/down arrow. If the menu item has a sub-menu, use the right key to enter the sub-menu; use the left key to exit the sub-menu.
 
-## Localisation
+## Localization
 
 ### Adding a New Language
 
-By clicking this option in the “Localisation” menu, languages that are not originally supported by the system can be added. Once added, the newly added language will appear in the "Settings" > "Reading" > "Language" menu. However, the added language is only a copy of the English language template. The speech and Braille outputs need to be defined through "Symbol Dictionary" and "Math Rules" to achieve customized localization.
+By clicking this option in the "Localization" menu, languages that are not originally supported by the system can be added. Once added, the new language will appear in the Access8Math reading language settings. However, the added language is only a copy of the English language template. The speech and Braille outputs need to be defined through "Symbol Dictionary" and "Math Rules" to achieve customized localization.
 
 ### Customizing Speech and Braille Outputs for Math Symbols
 
-In the "Tools" > "Access8Math" > "Localization" menu, speech and Braille outputs can be customized. Both speech and Braille outputs are divided into two parts: "Symbol Dictionary" and "Math Rules."
+In the Access8Math localization menu, speech and Braille outputs can be customized. Both speech and Braille outputs are divided into two parts: "Symbol Dictionary" and "Math Rules."
 
 * Symbol Speech Dictionary: Customize how different math symbols are read.
 * Math Rules Speech Output: Customize how different math rules are read.
@@ -287,7 +280,7 @@ In the "Tools" > "Access8Math" > "Localization" menu, speech and Braille outputs
 
 Access8Math maps specific symbols to corresponding text/ braille outputs through a dictionary file to solve issues where rare symbols cannot be read by speech synthesizers or where symbols have different meanings between mathematical contexts and general text.
 
-For example, "!" means "factorial" in mathematical content, while in general text it represents emotion. By editing the dictionary file, symbols can be mapped to new alternative texts or Braille outputs to update incorrect outputs..
+For example, "!" means "factorial" in mathematical content, while in general text it represents emotion. By editing the dictionary file, symbols can be mapped to new alternative texts or Braille outputs to update incorrect outputs.
 
 * Add: Introduce a new symbol entry to the dictionary. After selecting the add button, enter the desired symbol in the dialog box and confirm. Then, the added symbol will appear in the entry list in the Symbol Dictionary dialog.
 * Modify: Choose a symbol and edit its alternative text. The system will then read out and display Braille outputs based on the alternative text.

@@ -4,7 +4,6 @@
 # See the file COPYING.txt for more details."""
 # coding: utf-8
 
-import importlib
 import os
 import sys
 import shutil
@@ -29,10 +28,13 @@ import ui
 
 import wx
 
-PATH = os.path.dirname(__file__)
+from .runtime_loader import configure_runtime
 
-PYTHON_PATH = os.path.join(PATH, 'python')
-PACKAGE_PATH = os.path.join(PATH, 'package')
+PATH = os.path.dirname(__file__)
+RUNTIME_BUNDLE = configure_runtime()
+PYTHON_PATH = RUNTIME_BUNDLE.python_path
+PACKAGE_PATH = RUNTIME_BUNDLE.runtime_package_path
+COMMON_PACKAGE_PATH = RUNTIME_BUNDLE.common_package_path
 
 config.conf.spec["Access8Math"] = {
 	"settings": {
@@ -74,35 +76,14 @@ config.conf.spec["Access8Math"] = {
 	}
 }
 
-inserted_paths = []
-
-try:
-	sys.path.insert(0, PYTHON_PATH)
-	inserted_paths.append(PYTHON_PATH)
-
-	sys.path.insert(0, PACKAGE_PATH)
-	inserted_paths.append(PACKAGE_PATH)
-
-	module_names = ["xml", "xml.etree"]
-	for module_name in module_names:
-		if module_name in sys.modules:
-			del sys.modules[module_name]
-			sys.modules[module_name] = importlib.import_module(module_name)
-
-	from . import reader as math_reader
-	from .command.context import A8MFEVContextMenuView
-	from .dialogs import NewLanguageAddingDialog, UnicodeDicDialog, MathRuleDialog, MathReaderSettingsPanel, Access8MathSettingsDialog
-	from .editor import EditorFrame
-	from .interaction import A8MInteraction
-	from .lib import explorer
-	from .provider import build_provider_runtime
-	from .writer import TextMathEditField
-finally:
-	for inserted_path in reversed(inserted_paths):
-		try:
-			sys.path.remove(inserted_path)
-		except ValueError:
-			pass
+from . import reader as math_reader
+from .command.context import A8MFEVContextMenuView
+from .dialogs import NewLanguageAddingDialog, UnicodeDicDialog, MathRuleDialog, MathReaderSettingsPanel, Access8MathSettingsDialog
+from .editor import EditorFrame
+from .interaction import A8MInteraction
+from .lib import explorer
+from .provider import build_provider_runtime
+from .writer import TextMathEditField
 
 addonHandler.initTranslation()
 ADDON_SUMMARY = addonHandler.getCodeAddon().manifest["summary"]
