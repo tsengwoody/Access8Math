@@ -243,10 +243,12 @@ For the “preview” feature  in the Access8Math editor's View menu, it allows 
 
 The math content in the Markdown document will be converted to MathML, which allows different users to view it easily (visually or through speech or Braille). As for resources (such as images, videos or audios), they will be converted into appropriate HTML elements and reference the correct resource files. Therefore, the output HTML document can display various types of contents.
 
-For the “export” feature  in the Access8Math editor's View menu, it allows users to save and share the document. Two types of documents will be exported:
+For the “export” feature  in the Access8Math editor's View menu, it allows users to save and share the document. After users choose the export path and file name, two types of documents will be exported with the same file name:
 
 * Access8Math Document file (*.a8m): Access8Math Document file can be imported into the editor again for modification.
 * Archive file (*.zip): The HTML file in the archive file is the same as the HTML file converted for the preview feature. All users can read this HTML document without installing Access8Math.
+
+For example, if the export path is `D:\` and the file name is `test`, Access8Math will generate both `D:\test.a8m` and `D:\test.zip`. Users can unzip `test.zip` and open `index.html` to view the document. The math content will be displayed as MathML in the HTML document.
 
 #### Import a Document
 
