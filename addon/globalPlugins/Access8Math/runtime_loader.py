@@ -187,5 +187,6 @@ def configure_runtime(version_year=None, python_version=None, bits=None):
 	for path in (bundle.common_package_path, bundle.runtime_package_path, bundle.python_path):
 		_insert_sys_path(path)
 
+	_clear_module_family("lxml")
 	_preload_embedded_xml()
 	return bundle
