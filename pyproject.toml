@@ -1,3 +1,49 @@
+[build-system]
+requires = ["setuptools~=80.9", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Access8Math"
+dynamic = ["version"]
+description = "Read MathML with NVDA and write math in LaTeX"
+maintainers = [
+	{name = "Tseng Woody", email = "tsengwoody.tw@gmail.com"},
+]
+requires-python = ">=3.13,<3.14"
+classifiers = [
+	"Development Status :: 5 - Production/Stable",
+	"Intended Audience :: End Users/Desktop",
+	"License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
+	"Operating System :: Microsoft :: Windows",
+	"Programming Language :: Python :: 3",
+	"Topic :: Accessibility",
+]
+readme = "readme.md"
+license = {file = "COPYING.txt"}
+dependencies = [
+	# Build add-on
+	"scons==4.10.1",
+	"Markdown==3.10",
+	# Translations management
+	"requests==2.33.0",
+	"nh3==0.3.2",
+	"crowdin-api-client==1.24.1",
+	"lxml==6.1.0",
+	"mdx_truly_sane_lists==1.3",
+	"markdown-link-attr-modifier==0.2.1",
+	"mdx-gh-links==0.4",
+	# Lint
+	"uv==0.11.6",
+	"ruff==0.14.5",
+	"pre-commit==4.2.0",
+	"pyright[nodejs]==1.1.407",
+]
+[project.urls]
+Repository = "https://github.com/tsengwoody/Access8Math"
+
+[tool.setuptools]
+py-modules = []
+
 [tool.ruff]
 line-length = 110
 
@@ -20,10 +66,15 @@ include = [
 exclude = [
 	".git",
 	"__pycache__",
+	".venv",
+	"addon/globalPlugins/Access8Math/package",
+	"addon/runtime",
+	"buildVars.py",
 ]
 
 [tool.ruff.format]
 indent-style = "tab"
+line-ending = "lf"
 
 [tool.ruff.lint.mccabe]
 max-complexity = 15
@@ -33,13 +84,16 @@ ignore = [
 	# indentation contains tabs
 	"W191",
 ]
+logger-objects = ["logHandler.log"]
 
 [tool.ruff.lint.per-file-ignores]
-# sconstruct contains many inbuilt functions not recognised by the lint,
+# sconscripts contains many inbuilt functions not recognised by the lint,
 # so ignore F821.
 "sconstruct" = ["F821"]
 
 [tool.pyright]
+venvPath = ".venv"
+venv = "."
 pythonPlatform = "Windows"
 typeCheckingMode = "strict"
 
@@ -51,6 +105,8 @@ exclude = [
 	"sconstruct",
 	".git",
 	"__pycache__",
+	".venv",
+	"site_scons",
 	# When excluding concrete paths relative to a directory,
 	# not matching multiple folders by name e.g. `__pycache__`,
 	# paths are relative to the configuration file.
@@ -59,6 +115,7 @@ exclude = [
 # Tell pyright where to load python code from
 extraPaths = [
 	"./addon",
+	"../nvda/source",
 ]
 
 # General config
@@ -120,7 +177,6 @@ reportPropertyTypeMismatch = true
 reportRedeclaration = true
 reportReturnType = true
 reportSelfClsParameterName = true
-reportShadowedImports = true
 reportTypeCommentUsage = true
 reportTypedDictNotRequiredAccess = true
 reportUnboundVariable = true
