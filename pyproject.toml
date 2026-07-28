@@ -20,26 +20,41 @@ classifiers = [
 ]
 readme = "readme.md"
 license = {file = "COPYING.txt"}
-dependencies = [
-	# Build add-on
+# This package is not installed as a library; every dependency is tooling used to
+# build, translate, or lint the add-on. They are declared as PEP 735 dependency groups.
+dependencies = []
+[project.urls]
+Repository = "https://github.com/tsengwoody/Access8Math"
+
+# PEP 735 dependency groups. `uv sync` installs the `dev` group by default, which
+# pulls in every tool needed to build, translate, and lint the add-on.
+[dependency-groups]
+# Build add-on
+build = [
 	"scons==4.10.1",
 	"Markdown==3.10",
-	# Translations management
-	"requests==2.33.0",
+]
+# Translations management
+l10n = [
 	"nh3==0.3.2",
 	"crowdin-api-client==1.24.1",
 	"lxml==6.1.0",
 	"mdx_truly_sane_lists==1.3",
 	"markdown-link-attr-modifier==0.2.1",
 	"mdx-gh-links==0.4",
-	# Lint
-	"uv==0.11.6",
+]
+# Lint
+lint = [
+	"uv==0.11.15",
 	"ruff==0.14.5",
-	"pre-commit==4.2.0",
+	"prek==0.4.8",
 	"pyright[nodejs]==1.1.407",
 ]
-[project.urls]
-Repository = "https://github.com/tsengwoody/Access8Math"
+dev = [
+	{ include-group = "build" },
+	{ include-group = "l10n" },
+	{ include-group = "lint" },
+]
 
 [tool.setuptools]
 py-modules = []
@@ -107,6 +122,7 @@ exclude = [
 	"__pycache__",
 	".venv",
 	"site_scons",
+	".github/scripts",
 	# When excluding concrete paths relative to a directory,
 	# not matching multiple folders by name e.g. `__pycache__`,
 	# paths are relative to the configuration file.

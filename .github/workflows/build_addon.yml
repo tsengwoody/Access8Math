@@ -9,6 +9,7 @@ on:
     branches: [ main, master ]
 
   workflow_dispatch:
+  workflow_call:
 
 env:
   # Set this to "true" when source formatting should block pull requests,
@@ -25,7 +26,7 @@ jobs:
 
     steps:
     - name: Checkout repo
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
     - name: Install uv
       uses: astral-sh/setup-uv@v7
       with:
@@ -38,8 +39,8 @@ jobs:
 
     - name: Repository checks
       run: |
-        export SKIP=no-commit-to-branch,pyright,trailing-whitespace,end-of-file-fixer,fix-byte-order-marker,check-vcs-permalinks,add-trailing-comma,ruff,ruff-format
-        uv run pre-commit run --all-files
+        export PREK_SKIP=no-commit-to-branch,pyright,trailing-whitespace,end-of-file-fixer,fix-byte-order-marker,check-vcs-permalinks,add-trailing-comma,ruff,ruff-format
+        uv run prek run --all-files
 
     - name: Source formatting
       run: |
@@ -74,7 +75,7 @@ jobs:
     permissions:
       contents: write
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: download all artifacts
       uses: actions/download-artifact@v8
       with:
