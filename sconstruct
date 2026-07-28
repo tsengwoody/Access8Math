@@ -61,6 +61,7 @@ env.Append(
 	addon_info=buildVars.addon_info,
 	brailleTables=buildVars.brailleTables,
 	symbolDictionaries=buildVars.symbolDictionaries,
+	speechDictionaries=buildVars.speechDictionaries,
 )
 
 if env["dev"]:
